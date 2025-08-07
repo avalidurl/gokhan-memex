@@ -1,64 +1,17 @@
 name = "gokhan-memex"
 compatibility_date = "2024-01-15"
 
-pages_build_output_dir = "build"
+# Output directory for Pages
+pages_build_output_dir = ".svelte-kit/output/client"
 
 [env.production]
 name = "gokhan-memex"
 
+[env.production.vars]
+NODE_ENV = "production"
+
 [env.preview]
 name = "gokhan-memex-preview"
 
-# Build configuration
-[build]
-command = "npm run build"
-
-# Headers configuration for performance
-[[headers]]
-for = "/*"
-[headers.values]
-X-Frame-Options = "DENY"
-X-Content-Type-Options = "nosniff"
-Referrer-Policy = "strict-origin-when-cross-origin"
-Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
-
-[[headers]]
-for = "/build/*"
-[headers.values]
-Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-for = "*.css"
-[headers.values]
-Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-for = "*.js"
-[headers.values]
-Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-for = "*.woff2"
-[headers.values]
-Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-for = "/images/*"
-[headers.values]
-Cache-Control = "public, max-age=604800"
-
-# Redirects for SEO
-[[redirects]]
-from = "/rss"
-to = "/rss.xml"
-status = 301
-
-[[redirects]]
-from = "/feed"
-to = "/rss.xml"
-status = 301
-
-[[redirects]]
-from = "/sitemap"
-to = "/sitemap.xml"
-status = 301
+[env.preview.vars]
+NODE_ENV = "preview"

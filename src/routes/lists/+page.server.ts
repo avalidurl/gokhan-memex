@@ -1,5 +1,5 @@
 import { readdir, readFile } from 'fs/promises';
-import { parse } from 'js-yaml';
+import * as yaml from 'js-yaml';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
@@ -11,7 +11,7 @@ export const load: PageServerLoad = async () => {
 			yamlFiles.map(async (file) => {
 				try {
 					const content = await readFile(`src/content/lists/${file}`, 'utf-8');
-					const data = parse(content);
+					const data = yaml.parse(content);
 					return data;
 				} catch (error) {
 					console.error(`Error loading list ${file}:`, error);

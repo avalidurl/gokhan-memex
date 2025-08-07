@@ -3,7 +3,7 @@
 	import { goto } from '$app/navigation';
 	import type { PageData } from './$types';
 	import PostCard from '$lib/components/blog/PostCard.svelte';
-	import { Input } from '$lib/components/ui/input';
+	import Input from '$lib/components/ui/input.svelte';
 	import { Button } from '$lib/components/ui/button';
 	
 	export let data: PageData;
@@ -41,10 +41,10 @@
 					type="text"
 					placeholder="Search posts, links, and lists..."
 					bind:value={searchQuery}
-					on:keypress={handleKeyPress}
+					onkeypress={handleKeyPress}
 					class="flex-1"
 				/>
-				<Button on:click={handleSearch}>
+				<Button onclick={handleSearch}>
 					Search
 				</Button>
 			</div>
@@ -70,13 +70,13 @@
 						Try adjusting your search terms or browse all content.
 					</p>
 					<div class="space-x-4">
-						<Button variant="outline" on:click={() => goto('/blog')}>
+						<Button variant="outline" onclick={() => goto('/blog')}>
 							Browse Posts
 						</Button>
-						<Button variant="outline" on:click={() => goto('/links')}>
+						<Button variant="outline" onclick={() => goto('/links')}>
 							Browse Links
 						</Button>
-						<Button variant="outline" on:click={() => goto('/lists')}>
+						<Button variant="outline" onclick={() => goto('/lists')}>
 							Browse Lists
 						</Button>
 					</div>

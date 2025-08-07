@@ -4,7 +4,7 @@
 	import { generateMetaTags, generateStructuredData } from '$lib/utils/seo';
 	import PostCard from '$lib/components/blog/PostCard.svelte';
 	import Badge from '$lib/components/ui/badge.svelte';
-	import Button from '$lib/components/ui/button.svelte';
+	import { Button } from '$lib/components/ui/button';
 	import Separator from '$lib/components/ui/separator.svelte';
 	import { onMount } from 'svelte';
 	
@@ -154,7 +154,7 @@
 			<article class="prose prose-lg dark:prose-invert max-w-none">
 				<!-- Header -->
 				<header class="not-prose mb-8">
-					{/* Category badges */}
+					<!-- Category badges -->
 					{#if data.post.categories && data.post.categories.length > 0}
 						<div class="mb-4">
 							{#each data.post.categories as category}
@@ -168,7 +168,7 @@
 						</div>
 					{/if}
 
-					{/* Featured badge */}
+					<!-- Featured badge -->
 					{#if data.post.featured}
 						<div class="mb-4">
 							<Badge variant="default" class="bg-gradient-to-r from-violet-500 to-purple-600">
@@ -177,7 +177,7 @@
 						</div>
 					{/if}
 
-					{/* Series info */}
+					<!-- Series info -->
 					{#if data.post.series}
 						<div class="mb-4 p-4 bg-violet-50 dark:bg-violet-900/20 rounded-lg border border-violet-200 dark:border-violet-800">
 							<div class="flex items-center space-x-2 text-violet-700 dark:text-violet-300">
@@ -192,19 +192,19 @@
 						</div>
 					{/if}
 
-					{/* Title */}
+					<!-- Title -->
 					<h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
 						{data.post.title}
 					</h1>
 
-					{/* Meta information */}
+					<!-- Meta information -->
 					<div class="flex flex-wrap items-center gap-6 text-gray-600 dark:text-gray-400 mb-6">
 						<div class="flex items-center space-x-2">
 							<img 
 								src="/images/avatar.jpg" 
 								alt={data.post.author}
 								class="w-8 h-8 rounded-full"
-								onerror="this.src='/favicon.svg'"
+								onerror={(e) => e.target.src = '/favicon.svg'}
 							/>
 							<span class="font-medium">{data.post.author}</span>
 						</div>
@@ -218,7 +218,7 @@
 						<span>{data.post.wordCount.toLocaleString()} words</span>
 					</div>
 
-					{/* Hero image */}
+					<!-- Hero image -->
 					{#if data.post.image}
 						<div class="mb-8 rounded-xl overflow-hidden">
 							<img 
@@ -230,12 +230,12 @@
 						</div>
 					{/if}
 
-					{/* Description */}
+					<!-- Description -->
 					<div class="text-xl text-gray-700 dark:text-gray-300 leading-relaxed mb-8">
 						{data.post.description}
 					</div>
 
-					{/* Tags */}
+					<!-- Tags -->
 					{#if data.post.tags && data.post.tags.length > 0}
 						<div class="flex flex-wrap gap-2 mb-8">
 							{#each data.post.tags as tag}

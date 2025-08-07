@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { Badge } from '$lib/components/ui/badge';
+	import Badge from '$lib/components/ui/badge.svelte';
 	
 	export let data: PageData;
 	

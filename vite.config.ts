@@ -26,14 +26,7 @@ const config: UserConfig = defineConfig({
 		minify: 'esbuild',
 		sourcemap: false,
 		rollupOptions: {
-			output: {
-				manualChunks: {
-					vendor: ['svelte', '@sveltejs/kit'],
-					ui: ['lucide-svelte'],
-					search: ['fuse.js'],
-					utils: ['gray-matter', 'js-yaml']
-				}
-			}
+			// Let SvelteKit handle chunking automatically
 		}
 	},
 	

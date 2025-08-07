@@ -1,6 +1,6 @@
 import { ContentProcessor } from '$lib/utils/content';
 import { readFile, readdir } from 'fs/promises';
-import { parse } from 'js-yaml';
+import * as yaml from 'js-yaml';
 import Fuse from 'fuse.js';
 import type { PageServerLoad } from './$types';
 
@@ -24,7 +24,7 @@ export const load: PageServerLoad = async ({ url }) => {
 		let links = [];
 		try {
 			const linksContent = await readFile('src/content/links.yaml', 'utf-8');
-			const linksData = parse(linksContent) as { links: any[] };
+			const linksData = yaml.parse(linksContent) as { links: any[] };
 			links = linksData.links.map(link => ({ ...link, type: 'link' }));
 		} catch (error) {
 			console.error('Error loading links:', error);
@@ -39,7 +39,7 @@ export const load: PageServerLoad = async ({ url }) => {
 			const listPromises = yamlFiles.map(async (file) => {
 				try {
 					const content = await readFile(`src/content/lists/${file}`, 'utf-8');
-					const data = parse(content);
+					const data = yaml.parse(content);
 					return { ...data, type: 'list' };
 				} catch (error) {
 					return null;

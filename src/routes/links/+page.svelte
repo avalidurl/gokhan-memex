@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { Badge } from '$lib/components/ui/badge';
-	import { Card } from '$lib/components/ui/card';
+	import Badge from '$lib/components/ui/badge.svelte';
+	import Card from '$lib/components/ui/card.svelte';
 	import { ExternalLink, Star } from 'lucide-svelte';
 	
 	export let data: PageData;
@@ -44,7 +44,7 @@
 				<div class="flex items-center gap-2">
 					<button
 						class="px-4 py-2 rounded-lg border transition-colors {selectedCategory === 'all' ? 'bg-blue-600 text-white border-blue-600' : 'border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800'}"
-						on:click={() => selectedCategory = 'all'}
+						onclick={() => selectedCategory = 'all'}
 					>
 						All ({links.length})
 					</button>
@@ -53,7 +53,7 @@
 						<button
 							class="px-4 py-2 rounded-lg border transition-colors {selectedCategory === category.name ? 'text-white border-opacity-0' : 'border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800'}"
 							style={selectedCategory === category.name ? `background-color: ${category.color}` : ''}
-							on:click={() => selectedCategory = category.name}
+							onclick={() => selectedCategory = category.name}
 						>
 							{category.name} ({links.filter(l => l.category === category.name).length})
 						</button>
@@ -137,7 +137,7 @@
 					Try adjusting your filters or check back later for new additions.
 				</p>
 				<button
-					on:click={() => {selectedCategory = 'all'; showFeatured = false;}}
+					onclick={() => {selectedCategory = 'all'; showFeatured = false;}}
 					class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
 				>
 					Clear Filters

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import PostCard from '$lib/components/blog/PostCard.svelte';
-	import { Badge } from '$lib/components/ui/badge';
+	import Badge from '$lib/components/ui/badge.svelte';
 	
 	export let data: PageData;
 	

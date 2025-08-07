@@ -1,11 +1,11 @@
 import { readFile } from 'fs/promises';
-import { parse } from 'js-yaml';
+import * as yaml from 'js-yaml';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
 	try {
 		const linksContent = await readFile('src/content/links.yaml', 'utf-8');
-		const data = parse(linksContent) as {
+		const data = yaml.parse(linksContent) as {
 			links: Array<{
 				title: string;
 				url: string;
