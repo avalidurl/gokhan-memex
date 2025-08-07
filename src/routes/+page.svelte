@@ -24,31 +24,38 @@
 <div class="container mx-auto px-4 py-12">
 	<!-- Hero Section -->
 	<section class="text-center mb-16">
-		<h1 class="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 animate-fade-in">
-			Welcome to My <span class="text-violet-600 dark:text-violet-400">Digital Garden</span>
+		<h1 class="text-4xl md:text-6xl font-bold bg-gradient-to-br from-foreground to-muted-foreground bg-clip-text text-transparent mb-6 animate-fade-in">
+			Gökhan's <span class="text-primary">Digital Garden</span>
 		</h1>
-		<p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed animate-slide-up">
-			A curated collection of thoughts, insights, and explorations in finance, art, and technology. 
-			This is my memex - a place where ideas connect and grow.
-		</p>
-		<div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+		<div class="max-w-4xl mx-auto space-y-6 text-lg leading-relaxed animate-slide-up">
+			<p class="text-muted-foreground">
+				I am a T-shaped generalist solopreneur, researcher, and conceptual artist operating across fintech, deep tech, competitive governance, art markets, and investment strategies. My research focuses on stablecoins, RWAs, tokenization, cryptography, AGI timelines, and global systemic challenges.
+			</p>
+			<p class="text-muted-foreground">
+				My main areas of interest converge upon the junction of stablecoins, real assets, tokenization, information markets, sabermetrics, and the ever-emergent art of investment.
+			</p>
+			<p class="text-muted-foreground">
+				I enjoy heavy training, running, cooking, sound art, cars, and history. I believe in the deep tech causes that will unconditionally accelerate our species toward a Kardashev-scale immediate future.
+			</p>
+		</div>
+		<div class="flex flex-col sm:flex-row gap-4 justify-center mt-12">
 			<a 
 				href="/blog" 
-				class="btn-primary inline-flex items-center justify-center gap-2"
+				class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
 			>
-				Explore Articles
+				Read My Research
 				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
 				</svg>
 			</a>
 			<a 
-				href="/search" 
-				class="btn-secondary inline-flex items-center justify-center gap-2"
+				href="/links" 
+				class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-secondary text-secondary-foreground rounded-lg font-medium hover:bg-secondary/80 transition-colors"
 			>
 				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
 				</svg>
-				Search Content
+				Links & Resources
 			</a>
 		</div>
 	</section>

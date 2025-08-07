@@ -3,57 +3,72 @@ import { browser } from '$app/environment';
 
 type Theme = 'light' | 'dark';
 
+// Create a writable store for the theme
 function createThemeStore() {
+	// Default to 'light' theme
 	const { subscribe, set, update } = writable<Theme>('light');
 
 	return {
 		subscribe,
+		set,
+		update,
+		// Toggle between light and dark
+		toggle: () => update(theme => theme === 'light' ? 'dark' : 'light'),
+		// Initialize theme from localStorage or system preference
 		init: () => {
 			if (!browser) return;
 
-			// Get saved theme or detect system preference
-			const saved = localStorage.getItem('theme') as Theme | null;
+			// Check localStorage first
+			const stored = localStorage.getItem('theme') as Theme | null;
+			if (stored) {
+				set(stored);
+				applyTheme(stored);
+				return;
+			}
+
+			// Fall back to system preference
 			const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-			const theme = saved || (prefersDark ? 'dark' : 'light');
-
-			set(theme);
-			applyTheme(theme);
-
-			// Listen for system theme changes
-			window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-				if (!localStorage.getItem('theme')) {
-					const newTheme = e.matches ? 'dark' : 'light';
-					set(newTheme);
-					applyTheme(newTheme);
-				}
-			});
-		},
-		toggle: () => {
-			update(current => {
-				const newTheme = current === 'light' ? 'dark' : 'light';
-				applyTheme(newTheme);
-				return newTheme;
-			});
-		},
-		set: (theme: Theme) => {
-			set(theme);
-			applyTheme(theme);
+			const systemTheme: Theme = prefersDark ? 'dark' : 'light';
+			set(systemTheme);
+			applyTheme(systemTheme);
 		}
 	};
 }
 
-function applyTheme(theme: Theme) {
+export const theme = createThemeStore();
+
+// Apply theme to DOM and save to localStorage
+function applyTheme(newTheme: Theme) {
 	if (!browser) return;
 
-	document.documentElement.setAttribute('data-theme', theme);
-	document.documentElement.classList.toggle('dark', theme === 'dark');
-	localStorage.setItem('theme', theme);
-
-	// Update meta theme-color
+	const root = document.documentElement;
+	
+	// Remove existing theme classes
+	root.classList.remove('light', 'dark');
+	
+	// Add new theme class
+	root.classList.add(newTheme);
+	
+	// Update meta theme-color for mobile browsers
 	const metaThemeColor = document.querySelector('meta[name="theme-color"]');
 	if (metaThemeColor) {
-		metaThemeColor.setAttribute('content', theme === 'dark' ? '#0f172a' : '#ffffff');
+		metaThemeColor.setAttribute('content', newTheme === 'dark' ? '#0f172a' : '#ffffff');
 	}
+	
+	// Save to localStorage
+	localStorage.setItem('theme', newTheme);
 }
 
-export const theme = createThemeStore();
+// Subscribe to theme changes and apply them
+if (browser) {
+	theme.subscribe(applyTheme);
+	
+	// Listen for system theme changes
+	window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+		// Only update if user hasn't set a preference
+		const stored = localStorage.getItem('theme');
+		if (!stored) {
+			theme.set(e.matches ? 'dark' : 'light');
+		}
+	});
+}
