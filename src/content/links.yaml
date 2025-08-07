@@ -1,0 +1,91 @@
+---
+# Curated Links - Gökhan Memex
+links:
+  - title: "Vitalik's Blog"
+    url: "https://vitalik.eth.limo/"
+    description: "Ethereum co-founder's thoughts on blockchain, governance, and crypto philosophy"
+    category: "crypto"
+    tags: ["ethereum", "blockchain", "philosophy"]
+    dateAdded: "2024-01-15"
+    featured: true
+    
+  - title: "Marginal Revolution"
+    url: "https://marginalrevolution.com/"
+    description: "Tyler Cowen's economics blog covering culture, tech, and economic theory"
+    category: "economics"
+    tags: ["economics", "culture", "theory"]
+    dateAdded: "2024-01-10"
+    featured: true
+    
+  - title: "Delphi Digital"
+    url: "https://delphidigital.io/"
+    description: "Institutional-grade crypto research and market analysis"
+    category: "research"
+    tags: ["crypto", "research", "analysis"]
+    dateAdded: "2024-01-12"
+    featured: false
+    
+  - title: "The Block"
+    url: "https://www.theblock.co/"
+    description: "Crypto news and data platform for institutional investors"
+    category: "news"
+    tags: ["crypto", "news", "data"]
+    dateAdded: "2024-01-08"
+    featured: false
+    
+  - title: "Messari"
+    url: "https://messari.io/"
+    description: "Crypto data and research platform with deep protocol analysis"
+    category: "research"
+    tags: ["crypto", "data", "protocols"]
+    dateAdded: "2024-01-05"
+    featured: true
+    
+  - title: "NFT Evening"
+    url: "https://nftevening.com/"
+    description: "Daily NFT news, drops, and market analysis"
+    category: "nft"
+    tags: ["nft", "art", "culture"]
+    dateAdded: "2024-01-20"
+    featured: false
+    
+  - title: "Bankless"
+    url: "https://www.bankless.com/"
+    description: "Guide to crypto finance and decentralized money"
+    category: "defi"
+    tags: ["defi", "finance", "crypto"]
+    dateAdded: "2024-01-18"
+    featured: true
+    
+  - title: "CoinDesk"
+    url: "https://www.coindesk.com/"
+    description: "Leading cryptocurrency news and information platform"
+    category: "news"
+    tags: ["crypto", "news", "market"]
+    dateAdded: "2024-01-03"
+    featured: false
+
+categories:
+  - name: "crypto"
+    description: "Cryptocurrency and blockchain resources"
+    color: "#f59e0b"
+    
+  - name: "economics"
+    description: "Economic theory and analysis"
+    color: "#10b981"
+    
+  - name: "research"
+    description: "In-depth research and analysis"
+    color: "#3b82f6"
+    
+  - name: "news"
+    description: "Daily news and updates"
+    color: "#ef4444"
+    
+  - name: "nft"
+    description: "NFT and digital art resources"
+    color: "#8b5cf6"
+    
+  - name: "defi"
+    description: "Decentralized finance resources"
+    color: "#06b6d4"

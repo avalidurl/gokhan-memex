@@ -1,0 +1,74 @@
+---
+title: "Essential Crypto Reading List"
+slug: "crypto-reading-list"
+description: "Must-read books, papers, and articles for understanding cryptocurrency and blockchain technology"
+category: "crypto"
+tags: ["crypto", "blockchain", "defi", "reading"]
+dateCreated: "2024-01-15"
+dateUpdated: "2024-01-20"
+featured: true
+status: "active"
+items:
+  - title: "The Bitcoin Standard"
+    author: "Saifedean Ammous"
+    type: "book"
+    url: "https://saifedean.com/thebitcoinstandard/"
+    description: "Economic analysis of Bitcoin and sound money principles"
+    priority: "high"
+    completed: true
+    
+  - title: "Mastering Bitcoin"
+    author: "Andreas M. Antonopoulos"
+    type: "book"
+    url: "https://github.com/bitcoinbook/bitcoinbook"
+    description: "Technical deep-dive into Bitcoin's inner workings"
+    priority: "high"
+    completed: true
+    
+  - title: "Bitcoin: A Peer-to-Peer Electronic Cash System"
+    author: "Satoshi Nakamoto"
+    type: "paper"
+    url: "https://bitcoin.org/bitcoin.pdf"
+    description: "The original Bitcoin whitepaper"
+    priority: "essential"
+    completed: true
+    
+  - title: "Ethereum Whitepaper"
+    author: "Vitalik Buterin"
+    type: "paper"
+    url: "https://ethereum.org/en/whitepaper/"
+    description: "Introduction to Ethereum and smart contracts"
+    priority: "essential"
+    completed: true
+    
+  - title: "DeFi and the Future of Finance"
+    author: "Campbell Harvey, Ashwin Ramachandran, Joey Santoro"
+    type: "book"
+    url: "https://www.wiley.com/en-us/DeFi+and+the+Future+of+Finance-p-9781119836018"
+    description: "Comprehensive guide to decentralized finance"
+    priority: "high"
+    completed: false
+    
+  - title: "The Network State"
+    author: "Balaji Srinivasan"
+    type: "book"
+    url: "https://thenetworkstate.com/"
+    description: "Vision for crypto-enabled digital communities"
+    priority: "medium"
+    completed: false
+    
+  - title: "Uniswap v3 Core"
+    author: "Uniswap Labs"
+    type: "paper"
+    url: "https://uniswap.org/whitepaper-v3.pdf"
+    description: "Technical specification for concentrated liquidity AMM"
+    priority: "medium"
+    completed: false
+    
+  - title: "Flash Loans"
+    author: "Various"
+    type: "article"
+    url: "https://research.paradigm.xyz/flash-loans"
+    description: "Understanding uncollateralized lending in DeFi"
+    priority: "medium"
+    completed: false
