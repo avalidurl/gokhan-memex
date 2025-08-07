@@ -59,3 +59,9 @@ Thumbs.db
 # Temporary folders
 tmp/
 temp/
+
+# Internal documentation (keep local only)
+IMPLEMENTATION_TASKS.md
+PROJECT_STRUCTURE.md
+*_TASKS.md
+*_STRUCTURE.md
