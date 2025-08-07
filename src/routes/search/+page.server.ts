@@ -5,14 +5,7 @@ import Fuse from 'fuse.js';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ url }) => {
-	let query: string | undefined;
-	
-	try {
-		query = url.searchParams?.get('q')?.trim();
-	} catch (error) {
-		// During prerendering, query will be undefined
-		query = undefined;
-	}
+	const query = url.searchParams.get('q')?.trim();
 	
 	if (!query) {
 		return {

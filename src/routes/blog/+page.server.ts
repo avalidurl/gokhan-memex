@@ -2,23 +2,11 @@ import type { PageServerLoad } from './$types';
 import { contentProcessor } from '$lib/utils/content';
 
 export const load: PageServerLoad = async ({ url }) => {
-	// Handle prerendering where searchParams might not be available
-	let page = 1;
-	let tag: string | null = null;
-	let category: string | null = null;
-	let search: string | null = null;
-	let featured: boolean | undefined = undefined;
-
-	try {
-		page = parseInt(url.searchParams?.get('page') || '1');
-		tag = url.searchParams?.get('tag') || null;
-		category = url.searchParams?.get('category') || null;
-		search = url.searchParams?.get('search') || null;
-		featured = url.searchParams?.get('featured') === 'true' ? true : undefined;
-	} catch (error) {
-		// During prerendering, use defaults
-		console.log('Using default values during prerendering');
-	}
+	const page = parseInt(url.searchParams.get('page') || '1');
+	const tag = url.searchParams.get('tag');
+	const category = url.searchParams.get('category');
+	const search = url.searchParams.get('search');
+	const featured = url.searchParams.get('featured') === 'true' ? true : undefined;
 	
 	const postsPerPage = 10;
 	const offset = (page - 1) * postsPerPage;
