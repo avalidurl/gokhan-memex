@@ -1,11 +1,18 @@
 import { ContentProcessor } from '$lib/utils/content';
 import { readFile, readdir } from 'fs/promises';
-import * as yaml from 'js-yaml';
+import yaml from 'js-yaml';
 import Fuse from 'fuse.js';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ url }) => {
-	const query = url.searchParams.get('q')?.trim();
+	let query: string | undefined;
+	
+	try {
+		query = url.searchParams?.get('q')?.trim();
+	} catch (error) {
+		// During prerendering, query will be undefined
+		query = undefined;
+	}
 	
 	if (!query) {
 		return {

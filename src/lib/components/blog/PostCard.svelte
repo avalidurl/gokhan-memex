@@ -102,7 +102,7 @@
 		<div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
 			<div class="flex items-center space-x-4">
 				<!-- Date -->
-				<time datetime={post.publishedAt.toISOString()} class="flex items-center space-x-1">
+				<time datetime={post.publishedAt instanceof Date && !isNaN(post.publishedAt.getTime()) ? post.publishedAt.toISOString() : ''} class="flex items-center space-x-1">
 					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
 					</svg>

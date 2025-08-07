@@ -8,6 +8,11 @@ export function formatDate(date: Date | string, options?: {
 }): string {
 	const { format = 'medium', locale = 'en-US' } = options || {};
 	const dateObj = typeof date === 'string' ? new Date(date) : date;
+	
+	// Handle invalid dates
+	if (!dateObj || isNaN(dateObj.getTime())) {
+		return 'Invalid Date';
+	}
 
 	switch (format) {
 		case 'short':

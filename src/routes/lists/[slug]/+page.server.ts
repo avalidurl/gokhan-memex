@@ -1,5 +1,5 @@
 import { readFile } from 'fs/promises';
-import * as yaml from 'js-yaml';
+import yaml from 'js-yaml';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 

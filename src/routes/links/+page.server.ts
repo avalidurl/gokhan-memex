@@ -1,5 +1,5 @@
 import { readFile } from 'fs/promises';
-import * as yaml from 'js-yaml';
+import yaml from 'js-yaml';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
