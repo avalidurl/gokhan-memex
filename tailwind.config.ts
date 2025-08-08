@@ -1,8 +1,4 @@
 import type { Config } from 'tailwindcss';
-import forms from '@tailwindcss/forms';
-import typography from '@tailwindcss/typography';
-import aspectRatio from '@tailwindcss/aspect-ratio';
-import containerQueries from '@tailwindcss/container-queries';
 
 const config: Config = {
 	content: [
@@ -231,14 +227,12 @@ const config: Config = {
 	},
 
 	plugins: [
-		forms({
+		require('@tailwindcss/forms')({
 			strategy: 'class'
 		}),
-		typography({
-			className: 'prose'
-		}),
-		aspectRatio,
-		containerQueries
+		require('@tailwindcss/typography'),
+		require('@tailwindcss/aspect-ratio'),
+		require('@tailwindcss/container-queries')
 	]
 };
 
