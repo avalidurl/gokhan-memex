@@ -1,0 +1,41 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Card from '@/components/ui/Card.astro'
+import CardContent from '@/components/ui/CardContent.astro'
+import Button from '@/components/ui/Button.astro'
+---
+
+<BaseLayout
+  title="Page Not Found"
+  description="The page you're looking for doesn't exist."
+>
+  <div class="container max-w-2xl mx-auto px-4 py-16">
+    <div class="text-center">
+      <Card>
+        <CardContent class="p-12">
+          <div class="mb-8">
+            <h1 class="text-6xl font-bold text-muted-foreground mb-4">404</h1>
+            <h2 class="text-2xl md:text-3xl font-semibold mb-4">Page Not Found</h2>
+            <p class="text-muted-foreground text-lg mb-8">
+              The page you're looking for doesn't exist or has been moved.
+            </p>
+          </div>
+          
+          <div class="space-y-4">
+            <Button class="w-full sm:w-auto">
+              <a href="/" class="flex items-center space-x-2">
+                <span>← Back to Homepage</span>
+              </a>
+            </Button>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+              <a href="/journal" class="text-primary hover:underline">Browse Journal</a>
+              <a href="/archive" class="text-primary hover:underline">Explore Archive</a>
+              <a href="/lists" class="text-primary hover:underline">Check Lists</a>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  </div>
+</BaseLayout>

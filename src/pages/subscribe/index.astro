@@ -6,7 +6,7 @@ import CardContent from '@/components/ui/CardContent.astro'
 import Button from '@/components/ui/Button.astro'
 import { Rss, ExternalLink, Mail } from 'lucide-astro'
 
-const breadcrumbs = []
+const breadcrumbs: { label: string; href: string }[] = []
 ---
 
 <BaseLayout

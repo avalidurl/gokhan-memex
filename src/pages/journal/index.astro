@@ -18,7 +18,7 @@ const currentPage = 1
 const totalPages = Math.ceil(allPosts.length / postsPerPage)
 const posts = allPosts.slice(0, postsPerPage)
 
-const breadcrumbs = []
+const breadcrumbs: { label: string; href: string }[] = []
 ---
 
 <BaseLayout
