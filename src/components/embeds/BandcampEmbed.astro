@@ -1,0 +1,87 @@
+---
+interface Props {
+  url: string
+  width?: string | number
+  height?: string | number
+  trackId?: string
+  albumId?: string
+  size?: 'large' | 'small'
+  artwork?: 'small' | 'big'
+  transparent?: boolean
+}
+
+const { 
+  url, 
+  width = '100%', 
+  height = 'auto',
+  size = 'large',
+  artwork = 'small',
+  transparent = true
+} = Astro.props
+
+// Extract track or album ID from Bandcamp URL
+function extractBandcampId(url: string): { type: 'track' | 'album', id: string } | null {
+  try {
+    const urlObj = new URL(url)
+    const pathParts = urlObj.pathname.split('/')
+    
+    if (pathParts.includes('track') && pathParts[pathParts.indexOf('track') + 1]) {
+      return { type: 'track', id: pathParts[pathParts.indexOf('track') + 1] }
+    }
+    
+    if (pathParts.includes('album') && pathParts[pathParts.indexOf('album') + 1]) {
+      return { type: 'album', id: pathParts[pathParts.indexOf('album') + 1] }
+    }
+    
+    return null
+  } catch {
+    return null
+  }
+}
+
+const bandcampData = extractBandcampId(url)
+const embedHeight = size === 'large' ? '472' : '120'
+---
+
+<div class="my-6 not-prose">
+  <div class="rounded-lg overflow-hidden border bg-card">
+    {bandcampData ? (
+      <iframe 
+        style={`border: 0; width: ${width}; height: ${embedHeight}px;`}
+        src={`https://bandcamp.com/EmbeddedPlayer/${bandcampData.type}=${bandcampData.id}/size=${size}/bgcol=ffffff/linkcol=0687f5/artwork=${artwork}/transparent=${transparent}/`}
+        seamless
+        loading="lazy"
+        title="Bandcamp Player"
+      >
+        <a href={url} target="_blank" rel="noopener noreferrer">
+          Listen on Bandcamp
+        </a>
+      </iframe>
+    ) : (
+      <div class="p-6 text-center">
+        <p class="text-muted-foreground mb-4">
+          Unable to embed Bandcamp player
+        </p>
+        <a 
+          href={url} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
+        >
+          Listen on Bandcamp
+        </a>
+      </div>
+    )}
+  </div>
+  
+  <div class="mt-2 text-center">
+    <a 
+      href={url} 
+      target="_blank" 
+      rel="noopener noreferrer"
+      class="text-xs text-muted-foreground hover:text-foreground transition-colors"
+    >
+      Open in Bandcamp ↗
+    </a>
+  </div>
+</div>
