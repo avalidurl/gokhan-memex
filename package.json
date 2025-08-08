@@ -63,6 +63,7 @@
     "deploy:production": "npm run build && wrangler pages deploy build --project-name=gokhan-memex"
   },
   "dependencies": {
+    "@sveltejs/adapter-cloudflare": "^4.7.2",
     "@sveltejs/kit": "^2.27.1",
     "@sveltejs/vite-plugin-svelte": "^6.1.0",
     "class-variance-authority": "^0.7.0",
@@ -85,7 +86,6 @@
   "devDependencies": {
     "@lhci/cli": "^0.13.0",
     "@playwright/test": "^1.42.1",
-    "@sveltejs/adapter-cloudflare": "^4.7.2",
     "@sveltejs/adapter-static": "^3.0.9",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/container-queries": "^0.1.1",
