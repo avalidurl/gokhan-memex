@@ -1,0 +1,59 @@
+---
+import { ChevronRight, Home } from 'lucide-astro'
+
+export interface BreadcrumbItem {
+  label: string
+  href: string
+}
+
+interface Props {
+  items: BreadcrumbItem[]
+  currentPage: string
+}
+
+const { items, currentPage } = Astro.props
+---
+
+<nav aria-label="breadcrumb" class="mb-6">
+  <ol class="flex items-center space-x-2 text-sm text-muted-foreground">
+    <!-- Home -->
+    <li>
+      <a 
+        href="/" 
+        class="flex items-center hover:text-foreground transition-colors"
+        aria-label="Home"
+      >
+        <Home class="h-4 w-4" />
+      </a>
+    </li>
+    
+    <!-- Breadcrumb items -->
+    {items.map((item) => (
+      <>
+        <li>
+          <ChevronRight class="h-4 w-4" />
+        </li>
+        <li>
+          <a 
+            href={item.href}
+            class="hover:text-foreground transition-colors"
+          >
+            {item.label}
+          </a>
+        </li>
+      </>
+    ))}
+    
+    <!-- Current page -->
+    {currentPage && (
+      <>
+        <li>
+          <ChevronRight class="h-4 w-4" />
+        </li>
+        <li class="text-foreground font-medium">
+          {currentPage}
+        </li>
+      </>
+    )}
+  </ol>
+</nav>

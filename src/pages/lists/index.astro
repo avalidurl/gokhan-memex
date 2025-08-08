@@ -1,0 +1,225 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import Card from '@/components/ui/Card.astro'
+import CardContent from '@/components/ui/CardContent.astro'
+import Badge from '@/components/ui/Badge.astro'
+import { ExternalLink } from 'lucide-astro'
+
+const breadcrumbs = []
+
+// Sample curated lists - this will be expanded with real content
+const lists = [
+  {
+    title: "Essential Stablecoin Resources",
+    description: "Curated resources on stablecoins, RWAs, and tokenization research",
+    items: [
+      "Circle USDC Transparency Reports",
+      "Tether USDT Reserve Documentation", 
+      "MakerDAO DAI Mechanism Analysis",
+      "Frax Protocol Innovation Papers"
+    ],
+    category: "Finance",
+    updated: "2025-08-08"
+  },
+  {
+    title: "AGI Timeline Research",
+    description: "Essential reading on artificial general intelligence development timelines",
+    items: [
+      "Amodei & Hernandez Scaling Laws",
+      "OpenAI GPT Development Papers",
+      "Anthropic Constitutional AI Research",
+      "DeepMind Capability Assessment"
+    ],
+    category: "Technology",
+    updated: "2025-08-07"
+  },
+  {
+    title: "Investment Strategy Framework",
+    description: "Tools and frameworks for systematic investment analysis",
+    items: [
+      "Buffett Partnership Letters",
+      "Ray Dalio Principles",
+      "Howard Marks Memos",
+      "Modern Portfolio Theory Updates"
+    ],
+    category: "Investment",
+    updated: "2025-08-06"
+  },
+  {
+    title: "Deep Tech Ecosystem",
+    description: "Key players and innovations in deep technology sectors",
+    items: [
+      "Quantum Computing Startups",
+      "Biotech Innovation Leaders", 
+      "Space Technology Companies",
+      "Advanced Materials Research"
+    ],
+    category: "Technology",
+    updated: "2025-08-05"
+  }
+]
+
+const socialLinks = [
+  {
+    name: "X (Twitter)",
+    url: "https://x.com/0xgokhan",
+    description: "Daily thoughts and market observations"
+  },
+  {
+    name: "GitHub",
+    url: "https://github.com/avalidurl",
+    description: "Open source projects and research code"
+  },
+  {
+    name: "LinkedIn",
+    url: "https://linkedin.com/in/goekhanturhan",
+    description: "Professional updates and network"
+  },
+  {
+    name: "Substack",
+    url: "https://gokhan.substack.com",
+    description: "Long-form research and analysis"
+  }
+]
+---
+
+<BaseLayout
+  title="Lists"
+  description="Curated lists of resources, links, and tools across fintech, deep tech, investment strategies, and emerging technologies."
+>
+  <div class="container max-w-5xl mx-auto px-4 py-8">
+    <Breadcrumbs items={breadcrumbs} currentPage="Lists" />
+
+    <!-- Header -->
+    <div class="mb-12">
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Lists</h1>
+      <p class="text-lg text-muted-foreground max-w-2xl">
+        Curated resources, links, and tools I find valuable across my research areas. 
+        Updated regularly with new discoveries and insights.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Curated Lists -->
+      <div class="lg:col-span-2 space-y-6">
+        <div class="mb-8">
+          <h2 class="text-2xl font-semibold mb-6">Research Lists</h2>
+          <div class="grid gap-6">
+            {lists.map(list => (
+              <Card class="hover:shadow-lg transition-shadow">
+                <CardContent class="p-6">
+                  <div class="space-y-4">
+                    <!-- Header -->
+                    <div class="flex items-start justify-between">
+                      <div class="flex-1">
+                        <h3 class="text-xl font-semibold mb-2">{list.title}</h3>
+                        <p class="text-sm text-muted-foreground mb-3">
+                          {list.description}
+                        </p>
+                        <div class="flex items-center gap-2">
+                          <Badge variant="outline">{list.category}</Badge>
+                          <span class="text-xs text-muted-foreground">
+                            Updated {new Date(list.updated).toLocaleDateString()}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Items Preview -->
+                    <div class="space-y-2">
+                      {list.items.slice(0, 3).map(item => (
+                        <div class="flex items-center text-sm text-muted-foreground">
+                          <span class="w-2 h-2 bg-primary/60 rounded-full mr-3 flex-shrink-0"></span>
+                          {item}
+                        </div>
+                      ))}
+                      {list.items.length > 3 && (
+                        <div class="text-xs text-muted-foreground pl-5">
+                          +{list.items.length - 3} more items
+                        </div>
+                      )}
+                    </div>
+
+                    <!-- View Button -->
+                    <div class="pt-2">
+                      <button 
+                        class="text-sm text-primary hover:underline font-medium"
+                        onclick="alert('Individual list pages coming soon!')"
+                      >
+                        View Full List →
+                      </button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="space-y-6">
+        <!-- Social Links -->
+        <Card>
+          <CardContent class="p-6">
+            <h3 class="text-lg font-semibold mb-4">Connect</h3>
+            <div class="space-y-3">
+              {socialLinks.map(link => (
+                <div class="group">
+                  <a 
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="flex items-center justify-between p-3 rounded-lg hover:bg-accent transition-colors"
+                  >
+                    <div class="flex-1">
+                      <div class="font-medium text-sm">{link.name}</div>
+                      <div class="text-xs text-muted-foreground">{link.description}</div>
+                    </div>
+                    <ExternalLink class="h-4 w-4 text-muted-foreground group-hover:text-foreground transition-colors" />
+                  </a>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        <!-- Quick Stats -->
+        <Card>
+          <CardContent class="p-6">
+            <h3 class="text-lg font-semibold mb-4">Quick Stats</h3>
+            <div class="space-y-3">
+              <div class="flex justify-between text-sm">
+                <span class="text-muted-foreground">Research Lists</span>
+                <span class="font-medium">{lists.length}</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-muted-foreground">Total Resources</span>
+                <span class="font-medium">{lists.reduce((acc, list) => acc + list.items.length, 0)}</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-muted-foreground">Categories</span>
+                <span class="font-medium">{[...new Set(lists.map(l => l.category))].length}</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-muted-foreground">Last Updated</span>
+                <span class="font-medium">Today</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <!-- Note -->
+        <Card class="bg-accent/20 border-accent">
+          <CardContent class="p-4">
+            <p class="text-sm text-muted-foreground">
+              <strong>Note:</strong> These lists are continuously updated as I discover new resources. 
+              Follow me on X for real-time updates and insights.
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

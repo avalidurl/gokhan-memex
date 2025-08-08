@@ -1,0 +1,166 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import Card from '@/components/ui/Card.astro'
+import CardContent from '@/components/ui/CardContent.astro'
+import Button from '@/components/ui/Button.astro'
+import { Rss, ExternalLink, Mail } from 'lucide-astro'
+
+const breadcrumbs = []
+---
+
+<BaseLayout
+  title="Subscribe"
+  description="Stay updated with my latest research on stablecoins, AGI, investment strategies, and global systemic challenges."
+>
+  <div class="container max-w-4xl mx-auto px-4 py-8">
+    <Breadcrumbs items={breadcrumbs} currentPage="Subscribe" />
+
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Subscribe</h1>
+      <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+        Stay updated with my latest research and insights on stablecoins, tokenization, 
+        AGI timelines, investment strategies, and emerging technologies.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <!-- RSS Feed -->
+      <Card class="hover:shadow-lg transition-shadow">
+        <CardContent class="p-8 text-center">
+          <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+            <Rss class="w-8 h-8 text-primary" />
+          </div>
+          
+          <h2 class="text-2xl font-semibold mb-4">RSS Feed</h2>
+          <p class="text-muted-foreground mb-6 leading-relaxed">
+            Subscribe to my RSS feed to get updates directly in your preferred RSS reader. 
+            Perfect for staying updated without social media noise.
+          </p>
+          
+          <div class="space-y-4">
+            <Button class="w-full">
+              <a href="/rss.xml" class="flex items-center justify-center space-x-2">
+                <Rss class="w-4 h-4" />
+                <span>Subscribe to RSS</span>
+              </a>
+            </Button>
+            
+            <p class="text-xs text-muted-foreground">
+              Copy this URL: <code class="bg-accent px-2 py-1 rounded text-xs">https://gokhanturhan.com/rss.xml</code>
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
+      <!-- Newsletter -->
+      <Card class="hover:shadow-lg transition-shadow">
+        <CardContent class="p-8 text-center">
+          <div class="w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
+            <Mail class="w-8 h-8 text-blue-500" />
+          </div>
+          
+          <h2 class="text-2xl font-semibold mb-4">Newsletter</h2>
+          <p class="text-muted-foreground mb-6 leading-relaxed">
+            Get deeper analysis and exclusive insights delivered to your inbox. 
+            Long-form research on crypto, fintech, and emerging technologies.
+          </p>
+          
+          <div class="space-y-4">
+            <Button class="w-full bg-blue-500 hover:bg-blue-600">
+              <a 
+                href="https://gokhan.substack.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="flex items-center justify-center space-x-2"
+              >
+                <Mail class="w-4 h-4" />
+                <span>Subscribe on Substack</span>
+                <ExternalLink class="w-4 h-4" />
+              </a>
+            </Button>
+            
+            <p class="text-xs text-muted-foreground">
+              Free and paid tiers available
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+
+    <!-- Additional Options -->
+    <div class="mt-12">
+      <Card>
+        <CardContent class="p-8">
+          <h3 class="text-xl font-semibold mb-6 text-center">Other Ways to Follow</h3>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="text-center">
+              <div class="w-12 h-12 bg-black rounded-full flex items-center justify-center mx-auto mb-3">
+                <span class="text-white font-bold text-lg">𝕏</span>
+              </div>
+              <h4 class="font-medium mb-2">X (Twitter)</h4>
+              <p class="text-sm text-muted-foreground mb-3">
+                Daily thoughts and market observations
+              </p>
+              <a 
+                href="https://x.com/0xgokhan" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="text-sm text-primary hover:underline"
+              >
+                @0xgokhan
+              </a>
+            </div>
+
+            <div class="text-center">
+              <div class="w-12 h-12 bg-gray-900 rounded-full flex items-center justify-center mx-auto mb-3">
+                <span class="text-white font-mono text-sm">{'</>'}</span>
+              </div>
+              <h4 class="font-medium mb-2">GitHub</h4>
+              <p class="text-sm text-muted-foreground mb-3">
+                Open source projects and research code
+              </p>
+              <a 
+                href="https://github.com/avalidurl" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="text-sm text-primary hover:underline"
+              >
+                /avalidurl
+              </a>
+            </div>
+
+            <div class="text-center">
+              <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                <span class="text-white font-bold text-sm">in</span>
+              </div>
+              <h4 class="font-medium mb-2">LinkedIn</h4>
+              <p class="text-sm text-muted-foreground mb-3">
+                Professional updates and network
+              </p>
+              <a 
+                href="https://linkedin.com/in/goekhanturhan" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="text-sm text-primary hover:underline"
+              >
+                /in/goekhanturhan
+              </a>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+
+    <!-- Privacy Note -->
+    <div class="mt-8 text-center">
+      <p class="text-sm text-muted-foreground max-w-2xl mx-auto">
+        Your privacy matters. RSS feeds don't track you, and newsletter subscriptions 
+        are managed through Substack with their privacy policies. I don't share 
+        email addresses or use tracking beyond basic analytics.
+      </p>
+    </div>
+  </div>
+</BaseLayout>

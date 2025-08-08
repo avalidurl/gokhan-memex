@@ -1,0 +1,145 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import Badge from '@/components/ui/Badge.astro'
+import { formatDate } from '@/lib/utils'
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog')
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: post,
+  }))
+}
+
+type Props = CollectionEntry<'blog'>
+
+const post = Astro.props
+const { Content } = await post.render()
+
+const breadcrumbs = [
+  { label: 'Journal', href: '/journal' }
+]
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  type="article"
+  image={post.data.heroImage}
+>
+  <div class="container max-w-4xl mx-auto px-4 py-8">
+    <Breadcrumbs items={breadcrumbs} currentPage={post.data.title} />
+
+    <article class="prose prose-lg prose-blue dark:prose-invert max-w-none">
+      <!-- Article Header -->
+      <header class="not-prose mb-12">
+        {post.data.heroImage && (
+          <img
+            src={post.data.heroImage}
+            alt={post.data.heroImageAlt || post.data.title}
+            class="w-full rounded-lg shadow-lg mb-8"
+            loading="eager"
+          />
+        )}
+
+        <div class="space-y-4">
+          <!-- Meta Info -->
+          <div class="flex items-center gap-3 text-sm text-muted-foreground">
+            <time datetime={post.data.publishDate.toISOString()}>
+              {formatDate(post.data.publishDate)}
+            </time>
+            <span>•</span>
+            <Badge variant="secondary">{post.data.category}</Badge>
+          </div>
+
+          <!-- Title -->
+          <h1 class="text-3xl md:text-5xl font-bold tracking-tight text-foreground">
+            {post.data.title}
+          </h1>
+
+          <!-- Description -->
+          <p class="text-xl text-muted-foreground leading-relaxed">
+            {post.data.description}
+          </p>
+
+          <!-- Tags -->
+          {post.data.tags && post.data.tags.length > 0 && (
+            <div class="flex flex-wrap gap-2 pt-4">
+              {post.data.tags.map(tag => (
+                <Badge variant="outline" class="text-xs">
+                  <a href={`/archive/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}>
+                    {tag}
+                  </a>
+                </Badge>
+              ))}
+            </div>
+          )}
+        </div>
+      </header>
+
+      <!-- Article Content -->
+      <div class="prose-content">
+        <Content />
+      </div>
+
+      <!-- Article Footer -->
+      <footer class="not-prose mt-16 pt-8 border-t border-border">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div>
+            <p class="text-sm text-muted-foreground">
+              Published on {formatDate(post.data.publishDate)} by {post.data.author}
+            </p>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <a
+              href="/journal"
+              class="text-sm text-primary hover:underline font-medium"
+            >
+              ← Back to Journal
+            </a>
+            <a
+              href="/rss.xml"
+              class="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              RSS Feed
+            </a>
+          </div>
+        </div>
+      </footer>
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .prose-content :global(h1),
+  .prose-content :global(h2),
+  .prose-content :global(h3),
+  .prose-content :global(h4),
+  .prose-content :global(h5),
+  .prose-content :global(h6) {
+    @apply scroll-mt-24;
+  }
+
+  .prose-content :global(a) {
+    @apply text-primary hover:underline;
+  }
+
+  .prose-content :global(blockquote) {
+    @apply border-l-4 border-primary/30 bg-accent/20 rounded-r-lg;
+  }
+
+  .prose-content :global(code) {
+    @apply bg-accent/50 rounded px-1.5 py-0.5 text-sm font-mono;
+  }
+
+  .prose-content :global(pre) {
+    @apply bg-accent/30 rounded-lg p-4 overflow-x-auto;
+  }
+
+  .prose-content :global(pre code) {
+    @apply bg-transparent p-0;
+  }
+</style>

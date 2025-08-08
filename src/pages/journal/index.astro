@@ -1,0 +1,122 @@
+---
+import { getCollection } from 'astro:content'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import Card from '@/components/ui/Card.astro'
+import CardContent from '@/components/ui/CardContent.astro'
+import Badge from '@/components/ui/Badge.astro'
+import { formatDate } from '@/lib/utils'
+
+// Get all published blog posts, sorted by date (newest first)
+const allPosts = (await getCollection('blog'))
+  .filter(post => !post.data.draft)
+  .sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf())
+
+// Pagination setup (10 posts per page)
+const postsPerPage = 10
+const currentPage = 1
+const totalPages = Math.ceil(allPosts.length / postsPerPage)
+const posts = allPosts.slice(0, postsPerPage)
+
+const breadcrumbs = []
+---
+
+<BaseLayout
+  title="Journal"
+  description="Latest thoughts on stablecoins, tokenization, AGI, investment strategies, and global systemic challenges."
+>
+  <div class="container max-w-4xl mx-auto px-4 py-8">
+    <Breadcrumbs items={breadcrumbs} currentPage="Journal" />
+
+    <!-- Header -->
+    <div class="mb-8">
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Journal</h1>
+      <p class="text-lg text-muted-foreground">
+        Thoughts on stablecoins, tokenization, AGI, investment strategies, and global systemic challenges
+      </p>
+      <p class="text-sm text-muted-foreground mt-2">
+        {allPosts.length} posts • Page {currentPage} of {totalPages}
+      </p>
+    </div>
+
+    <!-- Posts Grid -->
+    <div class="space-y-6">
+      {posts.map(post => (
+        <Card class="hover:shadow-lg transition-shadow">
+          <CardContent class="p-6">
+            <div class="flex flex-col space-y-3">
+              <!-- Date and Category -->
+              <div class="flex items-center gap-3 text-sm text-muted-foreground">
+                <a 
+                  href={`/journal/${new Date(post.data.publishDate).getFullYear()}`}
+                  class="hover:text-foreground transition-colors"
+                >
+                  {formatDate(post.data.publishDate)}
+                </a>
+                <span>•</span>
+                <Badge variant="secondary">{post.data.category}</Badge>
+              </div>
+
+              <!-- Title -->
+              <h2 class="text-xl md:text-2xl font-semibold">
+                <a 
+                  href={`/journal/${post.slug}`}
+                  class="hover:text-primary transition-colors"
+                >
+                  {post.data.title}
+                </a>
+              </h2>
+
+              <!-- Description -->
+              <p class="text-muted-foreground leading-relaxed">
+                {post.data.description}
+              </p>
+
+              <!-- Tags -->
+              {post.data.tags && post.data.tags.length > 0 && (
+                <div class="flex flex-wrap gap-2 pt-2">
+                  {post.data.tags.map(tag => (
+                    <Badge variant="outline" class="text-xs">
+                      <a href={`/archive/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}>
+                        {tag}
+                      </a>
+                    </Badge>
+                  ))}
+                </div>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
+
+    <!-- Pagination -->
+    {totalPages > 1 && (
+      <div class="flex justify-center items-center space-x-4 mt-12">
+        <div class="flex items-center space-x-2">
+          <span class="text-sm text-muted-foreground">
+            Page {currentPage} of {totalPages}
+          </span>
+        </div>
+        {currentPage < totalPages && (
+          <a 
+            href="/journal/page/2"
+            class="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
+          >
+            Load More Posts
+          </a>
+        )}
+      </div>
+    )}
+
+    <!-- Empty State -->
+    {posts.length === 0 && (
+      <div class="text-center py-12">
+        <p class="text-lg text-muted-foreground mb-4">No posts found.</p>
+        <p class="text-sm text-muted-foreground">
+          Content is being migrated. Check back soon!
+        </p>
+      </div>
+    )}
+  </div>
+</BaseLayout>
