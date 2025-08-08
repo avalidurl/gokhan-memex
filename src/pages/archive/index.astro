@@ -38,16 +38,60 @@ allPosts.forEach(post => {
 const sortedCategories = Array.from(categoryMap.entries()).sort((a, b) => b[1] - a[1])
 const sortedTags = Array.from(tagMap.entries()).sort((a, b) => b[1] - a[1])
 
-// Group posts by year
+// Group posts by year and month
 const postsByYear = new Map()
+const postsByYearMonth = new Map()
+
 allPosts.forEach(post => {
-  const year = new Date(post.data.publishDate).getFullYear()
+  const date = new Date(post.data.publishDate)
+  const year = date.getFullYear()
+  const month = date.getMonth() + 1 // 1-based month
+  const yearMonthKey = `${year}-${month.toString().padStart(2, '0')}`
+  
+  // Group by year
   if (postsByYear.has(year)) {
     postsByYear.get(year).push(post)
   } else {
     postsByYear.set(year, [post])
   }
+  
+  // Group by year-month
+  if (postsByYearMonth.has(yearMonthKey)) {
+    postsByYearMonth.get(yearMonthKey).push(post)
+  } else {
+    postsByYearMonth.set(yearMonthKey, [post])
+  }
 })
+
+// Create month data for display
+const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
+                   'July', 'August', 'September', 'October', 'November', 'December']
+
+const yearMonthData = []
+Array.from(postsByYear.entries())
+  .sort((a, b) => b[0] - a[0])
+  .forEach(([year, yearPosts]) => {
+    const monthsInYear = new Set()
+    yearPosts.forEach(post => {
+      const month = new Date(post.data.publishDate).getMonth()
+      monthsInYear.add(month)
+    })
+    
+    Array.from(monthsInYear)
+      .sort((a, b) => b - a)
+      .forEach(month => {
+        const monthPosts = yearPosts.filter(post => 
+          new Date(post.data.publishDate).getMonth() === month
+        )
+        yearMonthData.push({
+          year,
+          month: month + 1,
+          monthName: monthNames[month],
+          postCount: monthPosts.length,
+          slug: `${year}/${(month + 1).toString().padStart(2, '0')}`
+        })
+      })
+  })
 
 const breadcrumbs: { label: string; href: string }[] = []
 ---
@@ -67,115 +111,101 @@ const breadcrumbs: { label: string; href: string }[] = []
       </p>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <!-- Categories -->
-      <div class="space-y-6">
-        <Card>
-          <CardContent class="p-6">
-            <h2 class="text-xl font-semibold mb-4">Categories</h2>
-            <div class="space-y-3">
-              {sortedCategories.map(([category, count]) => (
+    <!-- Categories Section -->
+    <div class="mb-12">
+      <h2 class="text-2xl font-semibold mb-6">Categories</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {sortedCategories.map(([category, count]) => (
+          <Card class="hover:shadow-lg transition-shadow">
+            <CardContent class="p-4">
+              <a
+                href={`/archive/categories/${category.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and')}`}
+                class="block"
+              >
+                <h3 class="font-medium mb-2 hover:text-primary transition-colors">
+                  {category}
+                </h3>
                 <div class="flex items-center justify-between">
-                  <a
-                    href={`/archive/categories/${category.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and')}`}
-                    class="text-sm font-medium hover:text-primary transition-colors flex-1"
-                  >
-                    {category}
-                  </a>
-                  <Badge variant="secondary" class="text-xs ml-2">
-                    {count}
+                  <Badge variant="secondary" class="text-xs">
+                    {count} post{count !== 1 ? 's' : ''}
                   </Badge>
                 </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+              </a>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
 
-        <!-- Years -->
-        <Card>
-          <CardContent class="p-6">
-            <h2 class="text-xl font-semibold mb-4">By Year</h2>
-            <div class="space-y-3">
-              {Array.from(postsByYear.entries())
-                .sort((a, b) => b[0] - a[0])
-                .map(([year, posts]) => (
-                  <div class="flex items-center justify-between">
-                    <a
-                      href={`/journal/${year}`}
-                      class="text-sm font-medium hover:text-primary transition-colors flex-1"
-                    >
+    <!-- Tags Section -->
+    <div class="mb-12">
+      <h2 class="text-2xl font-semibold mb-6">Tags</h2>
+      <div class="flex flex-wrap gap-2">
+        {sortedTags.map(([tag, count]) => (
+          <a href={`/archive/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}>
+            <Badge 
+              variant="outline" 
+              class="hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer"
+            >
+              {tag} ({count})
+            </Badge>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Year & Month Navigation -->
+    <div class="mb-12">
+      <h2 class="text-2xl font-semibold mb-6">Browse by Date</h2>
+      
+      <!-- Year Cards -->
+      <div class="mb-8">
+        <h3 class="text-lg font-medium mb-4">By Year</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          {Array.from(postsByYear.entries())
+            .sort((a, b) => b[0] - a[0])
+            .map(([year, posts]) => (
+              <Card class="hover:shadow-lg transition-shadow">
+                <CardContent class="p-4 text-center">
+                  <a
+                    href={`/journal/${year}`}
+                    class="block"
+                  >
+                    <h3 class="text-2xl font-bold mb-2 hover:text-primary transition-colors">
                       {year}
-                    </a>
-                    <Badge variant="secondary" class="text-xs ml-2">
-                      {posts.length}
+                    </h3>
+                    <Badge variant="secondary" class="text-xs">
+                      {posts.length} post{posts.length !== 1 ? 's' : ''}
                     </Badge>
-                  </div>
-                ))}
-            </div>
-          </CardContent>
-        </Card>
+                  </a>
+                </CardContent>
+              </Card>
+            ))}
+        </div>
       </div>
 
-      <!-- Tags -->
-      <div class="lg:col-span-2">
-        <Card>
-          <CardContent class="p-6">
-            <h2 class="text-xl font-semibold mb-6">Tags</h2>
-            <div class="flex flex-wrap gap-2">
-              {sortedTags.map(([tag, count]) => (
-                <a href={`/archive/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}>
-                  <Badge 
-                    variant="outline" 
-                    class="hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer"
-                  >
-                    {tag} ({count})
+      <!-- Recent Month Cards -->
+      <div>
+        <h3 class="text-lg font-medium mb-4">Recent Months</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {yearMonthData.slice(0, 12).map(monthData => (
+            <Card class="hover:shadow-lg transition-shadow">
+              <CardContent class="p-4">
+                <a
+                  href={`/journal/${monthData.slug}`}
+                  class="block"
+                >
+                  <h3 class="font-medium mb-1 hover:text-primary transition-colors">
+                    {monthData.monthName} {monthData.year}
+                  </h3>
+                  <Badge variant="secondary" class="text-xs">
+                    {monthData.postCount} post{monthData.postCount !== 1 ? 's' : ''}
                   </Badge>
                 </a>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        <!-- Recent Posts Preview -->
-        <Card class="mt-6">
-          <CardContent class="p-6">
-            <div class="flex items-center justify-between mb-6">
-              <h2 class="text-xl font-semibold">Recent Posts</h2>
-              <a 
-                href="/journal"
-                class="text-sm text-primary hover:underline font-medium"
-              >
-                View All →
-              </a>
-            </div>
-            <div class="space-y-4">
-              {allPosts.slice(0, 5).map(post => (
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                  <div class="flex-1">
-                    <h3 class="font-medium">
-                      <a 
-                        href={`/journal/${post.slug}`}
-                        class="hover:text-primary transition-colors"
-                      >
-                        {post.data.title}
-                      </a>
-                    </h3>
-                    <p class="text-sm text-muted-foreground mt-1">
-                      {post.data.category}
-                    </p>
-                  </div>
-                  <div class="text-sm text-muted-foreground whitespace-nowrap">
-                    {new Date(post.data.publishDate).toLocaleDateString('en-US', {
-                      month: 'short',
-                      day: 'numeric',
-                      year: 'numeric'
-                    })}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
     </div>
 

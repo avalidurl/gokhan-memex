@@ -1,0 +1,118 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import Card from '@/components/ui/Card.astro'
+import CardContent from '@/components/ui/CardContent.astro'
+
+const breadcrumbs: { label: string; href: string }[] = []
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description="Privacy policy for gokhanturhan.com - how we handle your data and protect your privacy."
+>
+  <div class="container max-w-4xl mx-auto px-4 py-8">
+    <Breadcrumbs items={breadcrumbs} currentPage="Privacy Policy" />
+
+    <div class="prose prose-lg prose-blue dark:prose-invert max-w-none">
+      <h1>Privacy Policy</h1>
+      <p class="text-muted-foreground text-lg">
+        Last updated: August 8, 2025
+      </p>
+
+      <Card class="not-prose mb-8">
+        <CardContent class="p-6">
+          <p class="text-sm text-muted-foreground">
+            <strong>TL;DR:</strong> This website respects your privacy. We don't track you, 
+            collect personal data, or use invasive analytics. RSS feeds are anonymous, 
+            and external newsletter subscriptions are managed by Substack.
+          </p>
+        </CardContent>
+      </Card>
+
+      <h2>Information We Collect</h2>
+      
+      <h3>What We Don't Collect</h3>
+      <ul>
+        <li>Personal information</li>
+        <li>Email addresses (except through external services)</li>
+        <li>Browsing behavior or tracking data</li>
+        <li>Cookies for tracking purposes</li>
+        <li>Analytics or user profiling data</li>
+      </ul>
+
+      <h3>What We May Collect</h3>
+      <ul>
+        <li><strong>Server logs:</strong> Standard web server logs may temporarily store IP addresses, user agents, and timestamps for security and performance purposes</li>
+        <li><strong>Theme preference:</strong> Your dark/light mode preference is stored locally in your browser only</li>
+      </ul>
+
+      <h2>Third-Party Services</h2>
+
+      <h3>Newsletter (Substack)</h3>
+      <p>
+        If you subscribe to our newsletter through Substack, your email address and 
+        subscription preferences are governed by <a href="https://substack.com/privacy" target="_blank" rel="noopener">Substack's Privacy Policy</a>.
+        We do not have access to your personal information beyond what Substack provides 
+        for newsletter distribution.
+      </p>
+
+      <h3>RSS Feeds</h3>
+      <p>
+        RSS feed subscriptions are anonymous. We cannot track or identify RSS subscribers.
+      </p>
+
+      <h3>External Links</h3>
+      <p>
+        This website contains links to external websites including social media platforms, 
+        academic resources, and other websites. These external sites have their own 
+        privacy policies and data collection practices.
+      </p>
+
+      <h2>Data Storage and Security</h2>
+      <ul>
+        <li>This website is hosted on Cloudflare Pages</li>
+        <li>No personal data is stored in databases</li>
+        <li>Theme preferences are stored locally in your browser using localStorage</li>
+        <li>We do not use cookies for tracking or analytics</li>
+      </ul>
+
+      <h2>Your Rights</h2>
+      <p>Since we don't collect personal data, there's nothing to delete, modify, or export. However, you have the right to:</p>
+      <ul>
+        <li>Browse this website without providing any personal information</li>
+        <li>Clear your browser's localStorage to reset theme preferences</li>
+        <li>Contact us with privacy concerns</li>
+      </ul>
+
+      <h2>Children's Privacy</h2>
+      <p>
+        This website does not knowingly collect any personal information from children 
+        under 13 years of age.
+      </p>
+
+      <h2>Changes to This Policy</h2>
+      <p>
+        We may update this Privacy Policy from time to time. Changes will be posted 
+        on this page with an updated "Last modified" date.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        If you have questions about this Privacy Policy, please contact:
+        <a href="mailto:avalidurl@pm.me">avalidurl@pm.me</a>
+      </p>
+
+      <Card class="not-prose mt-8">
+        <CardContent class="p-6">
+          <h3 class="text-lg font-semibold mb-3">Privacy by Design</h3>
+          <p class="text-sm text-muted-foreground">
+            This website is built with privacy in mind. We believe in minimal data 
+            collection, transparency, and giving you control over your browsing experience. 
+            No trackers, no analytics, no unnecessary data collection.
+          </p>
+        </CardContent>
+      </Card>
+    </div>
+  </div>
+</BaseLayout>
