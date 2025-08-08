@@ -1,14 +1,18 @@
 # Dependencies
 node_modules/
-/.pnp
-.pnp.js
 
-# Production
-/build
-/dist
+# Build output
+dist/
+.output/
+build/
+
+# Astro
+.astro/
+
+# SvelteKit (legacy files to ignore)
+.svelte-kit/
 
 # Generated files
-.svelte-kit/
 .vercel/
 .netlify/
 .cloudflare/
@@ -60,8 +64,18 @@ Thumbs.db
 tmp/
 temp/
 
-# Internal documentation (keep local only)
+# Claude and internal files
+.claude/
+*.claude.md
+.internal/
+tasks.md
+notes.md
 IMPLEMENTATION_TASKS.md
 PROJECT_STRUCTURE.md
 *_TASKS.md
 *_STRUCTURE.md
+
+# Secrets and configs
+secrets/
+config/local.json
+wrangler.toml

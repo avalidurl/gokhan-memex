@@ -1,0 +1,114 @@
+---
+import { Rss, Menu, X } from 'lucide-astro'
+import Button from './ui/Button.astro'
+
+const currentPath = Astro.url.pathname
+const navigation = [
+  { name: 'Journal', href: '/journal' },
+  { name: 'Archive', href: '/archive' },
+  { name: 'Lists', href: '/lists' },
+  { name: 'Subscribe', href: '/subscribe' }
+]
+---
+
+<header class="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+  <div class="container flex h-16 items-center">
+    <!-- Logo/Brand -->
+    <div class="mr-4 hidden md:flex">
+      <a class="mr-6 flex items-center space-x-2 font-bold text-xl" href="/">
+        Gökhan Turhan
+      </a>
+    </div>
+    
+    <!-- Mobile Logo -->
+    <div class="mr-4 flex md:hidden">
+      <a class="mr-6 flex items-center space-x-2 font-bold text-lg" href="/">
+        Gökhan Turhan
+      </a>
+    </div>
+
+    <!-- Desktop Navigation -->
+    <nav class="flex items-center space-x-6 text-sm font-medium hidden md:flex">
+      {navigation.map((item) => (
+        <a
+          href={item.href}
+          class={`transition-colors hover:text-foreground/80 ${
+            currentPath === item.href 
+              ? 'text-foreground' 
+              : 'text-foreground/60'
+          }`}
+        >
+          {item.name}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Right side actions -->
+    <div class="flex flex-1 items-center justify-between space-x-2 md:justify-end">
+      <!-- RSS Button -->
+      <div class="flex items-center">
+        <Button variant="ghost" size="sm" class="hidden md:inline-flex">
+          <a href="/rss.xml" class="flex items-center space-x-2">
+            <Rss class="h-4 w-4" />
+            <span class="hidden sm:inline-block">RSS</span>
+          </a>
+        </Button>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <Button variant="ghost" size="sm" class="md:hidden" id="mobile-menu-button">
+        <Menu class="h-4 w-4" id="menu-icon" />
+        <X class="h-4 w-4 hidden" id="close-icon" />
+        <span class="sr-only">Toggle menu</span>
+      </Button>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation -->
+  <div class="md:hidden hidden" id="mobile-menu">
+    <nav class="flex flex-col space-y-3 px-4 pb-4 pt-2">
+      {navigation.map((item) => (
+        <a
+          href={item.href}
+          class={`block px-3 py-2 text-base font-medium transition-colors hover:text-foreground/80 ${
+            currentPath === item.href 
+              ? 'text-foreground bg-accent rounded-md' 
+              : 'text-foreground/60'
+          }`}
+        >
+          {item.name}
+        </a>
+      ))}
+      <a 
+        href="/rss.xml" 
+        class="flex items-center space-x-2 px-3 py-2 text-base font-medium text-foreground/60 hover:text-foreground/80"
+      >
+        <Rss class="h-4 w-4" />
+        <span>RSS Feed</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const button = document.getElementById('mobile-menu-button')
+    const menu = document.getElementById('mobile-menu')
+    const menuIcon = document.getElementById('menu-icon')
+    const closeIcon = document.getElementById('close-icon')
+
+    button?.addEventListener('click', () => {
+      const isHidden = menu?.classList.contains('hidden')
+      
+      if (isHidden) {
+        menu?.classList.remove('hidden')
+        menuIcon?.classList.add('hidden')
+        closeIcon?.classList.remove('hidden')
+      } else {
+        menu?.classList.add('hidden')
+        menuIcon?.classList.remove('hidden')
+        closeIcon?.classList.add('hidden')
+      }
+    })
+  })
+</script>

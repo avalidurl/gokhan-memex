@@ -1,179 +1,29 @@
 {
   "name": "gokhan-memex",
-  "description": "Premium digital garden and memex for thoughtful content on finance, art, and technology. Built with SvelteKit and enhanced for mobile-first experience.",
-  "version": "1.0.0",
   "type": "module",
-  "author": "Gökhan Turhan <hello@gokhanturhan.com>",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/avalidurl/gokhan-memex.git"
-  },
-  "homepage": "https://gokhanturhan.com",
-  "bugs": {
-    "url": "https://github.com/avalidurl/gokhan-memex/issues"
-  },
-  "keywords": [
-    "svelte",
-    "sveltekit",
-    "shadcn-svelte",
-    "digital-garden",
-    "memex",
-    "blog",
-    "finance",
-    "art",
-    "technology",
-    "mobile-first",
-    "performance"
-  ],
+  "version": "0.0.1",
   "scripts": {
-    "dev": "vite dev --port 3000",
-    "build": "svelte-kit sync && vite build",
-    "preview": "vite preview --port 4173",
-    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-    "lint": "prettier --check . && eslint .",
-    "lint:fix": "prettier --write . && eslint . --fix",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "test": "vitest",
-    "test:unit": "vitest run",
-    "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui",
-    "migrate:content": "tsx scripts/migrate-content.ts",
-    "validate:content": "node scripts/validate-content.js",
-    "check:links": "node scripts/check-links.js",
-    "optimize:images": "node scripts/optimize-images.js",
-    "build:indices": "node scripts/build-search-indices.js",
-    "stats:weekly": "node scripts/weekly-stats.js",
-    "update:reading-lists": "node scripts/content-automation.js updateReadingLists",
-    "update:crypto-data": "node scripts/content-automation.js updateCryptoData",
-    "analyze:content": "node scripts/content-automation.js analyzeContent",
-    "update:link-previews": "node scripts/update-link-previews.js",
-    "update:analytics": "node scripts/update-analytics.js",
-    "build:sitemap": "node scripts/build-sitemap.js",
-    "spellcheck": "cspell 'src/content/**/*.{md,mdx}'",
-    "grammar-check": "node scripts/grammar-check.js",
-    "seo:analyze": "node scripts/seo-analyzer.js",
-    "calculate:reading-time": "node scripts/reading-time.js",
-    "suggest:improvements": "node scripts/content-suggestions.js",
-    "analyze:content-changes": "node scripts/analyze-content-changes.js",
-    "deployment:checklist": "tsx scripts/deployment-checklist.ts",
-    "deploy:preview": "npm run build && wrangler pages deploy build --project-name=gokhan-memex --branch=preview",
-    "deploy:production": "npm run build && wrangler pages deploy build --project-name=gokhan-memex"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "dependencies": {
-    "@sveltejs/adapter-cloudflare": "^4.9.0",
-    "@sveltejs/kit": "^2.27.1",
-    "@sveltejs/vite-plugin-svelte": "^6.1.0",
+    "astro": "^4.15.12",
+    "@astrojs/tailwind": "^5.1.1",
+    "@astrojs/mdx": "^3.1.7",
+    "@astrojs/sitemap": "^3.2.0",
+    "@astrojs/rss": "^4.0.7",
+    "tailwindcss": "^3.4.13",
+    "typescript": "^5.6.3",
     "class-variance-authority": "^0.7.0",
-    "clsx": "^2.0.0",
-    "fuse.js": "^7.0.0",
-    "gray-matter": "^4.0.3",
-    "js-yaml": "^4.1.0",
-    "lucide-svelte": "^0.460.0",
-    "mdsvex": "^0.12.6",
-    "recharts": "^2.8.0",
-    "rehype-autolink-headings": "^7.1.0",
-    "rehype-katex": "^7.0.0",
-    "rehype-slug": "^6.0.0",
-    "remark-gfm": "^4.0.0",
-    "remark-math": "^6.0.0",
-    "svelte": "^5.38.0",
-    "tailwind-merge": "^2.2.0",
-    "web-vitals": "^4.0.1"
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.5.4",
+    "lucide-astro": "^0.456.0",
+    "@tailwindcss/typography": "^0.5.15"
   },
   "devDependencies": {
-    "@lhci/cli": "^0.13.0",
-    "@playwright/test": "^1.42.1",
-    "@sveltejs/adapter-static": "^3.0.9",
-    "@tailwindcss/aspect-ratio": "^0.4.2",
-    "@tailwindcss/container-queries": "^0.1.1",
-    "@tailwindcss/forms": "^0.5.7",
-    "@tailwindcss/typography": "^0.5.10",
-    "@testing-library/svelte": "^4.1.0",
-    "@types/js-yaml": "^4.0.9",
-    "@types/node": "^20.11.19",
-    "@typescript-eslint/eslint-plugin": "^7.0.2",
-    "@typescript-eslint/parser": "^7.0.2",
-    "autoprefixer": "^10.4.17",
-    "cspell": "^8.6.0",
-    "eslint": "^8.56.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-svelte": "^2.35.1",
-    "jsdom": "^24.0.0",
-    "postcss": "^8.4.35",
-    "prettier": "^3.2.5",
-    "prettier-plugin-svelte": "^3.2.0",
-    "shiki": "^1.0.0",
-    "svelte-check": "^4.3.1",
-    "tailwindcss": "^3.4.13",
-    "tsx": "^4.7.1",
-    "typescript": "^5.9.2",
-    "vite": "^7.1.1",
-    "vitest": "^1.3.1",
-    "wrangler": "^3.114.13"
-  },
-  "engines": {
-    "node": ">=20.0.0",
-    "npm": ">=9.0.0"
-  },
-  "browserslist": [
-    "defaults",
-    "not IE 11"
-  ],
-  "prettier": {
-    "semi": true,
-    "singleQuote": true,
-    "tabWidth": 2,
-    "trailingComma": "none",
-    "printWidth": 100,
-    "plugins": [
-      "prettier-plugin-svelte"
-    ],
-    "overrides": [
-      {
-        "files": "*.svelte",
-        "options": {
-          "parser": "svelte"
-        }
-      }
-    ]
-  },
-  "eslintConfig": {
-    "root": true,
-    "extends": [
-      "eslint:recommended",
-      "@typescript-eslint/recommended",
-      "prettier"
-    ],
-    "parser": "@typescript-eslint/parser",
-    "plugins": [
-      "@typescript-eslint",
-      "svelte"
-    ],
-    "parserOptions": {
-      "sourceType": "module",
-      "ecmaVersion": 2020,
-      "extraFileExtensions": [
-        ".svelte"
-      ]
-    },
-    "env": {
-      "browser": true,
-      "es2017": true,
-      "node": true
-    },
-    "overrides": [
-      {
-        "files": [
-          "*.svelte"
-        ],
-        "parser": "svelte-eslint-parser",
-        "parserOptions": {
-          "parser": "@typescript-eslint/parser"
-        }
-      }
-    ]
+    "@types/node": "^22.8.6"
   }
 }

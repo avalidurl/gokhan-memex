@@ -1,0 +1,119 @@
+---
+import Navigation from '@/components/Navigation.astro'
+import '@/styles/globals.css'
+
+export interface Props {
+  title: string
+  description: string
+  image?: string
+  canonicalURL?: string
+  type?: 'website' | 'article'
+}
+
+const {
+  title,
+  description,
+  image = '/og-default.png',
+  canonicalURL = new URL(Astro.url.pathname, Astro.site),
+  type = 'website'
+} = Astro.props
+
+const siteName = 'Gökhan Turhan'
+const fullTitle = title === siteName ? title : `${title} | ${siteName}`
+---
+
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- SEO -->
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta property="og:site_name" content={siteName} />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={fullTitle} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(image, Astro.site)} />
+    <meta property="twitter:creator" content="@0xgokhan" />
+    
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title={siteName} href="/rss.xml" />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Structured Data - Person Schema -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Gökhan Turhan",
+      "alternateName": "0xgokhan",
+      "description": "T-shaped generalist solopreneur, researcher, and conceptual artist operating across fintech, deep tech, competitive governance, art markets, and investment strategies.",
+      "jobTitle": ["Solopreneur", "Researcher", "Conceptual Artist"],
+      "url": "https://gokhanturhan.com",
+      "sameAs": [
+        "https://twitter.com/0xgokhan",
+        "https://github.com/avalidurl",
+        "https://linkedin.com/in/goekhanturhan"
+      ],
+      "knowsAbout": [
+        "Stablecoins", "Real World Assets", "RWA", "Tokenization", "Cryptography", 
+        "Artificial General Intelligence", "AGI timelines", "Investment Strategy", 
+        "Fintech", "Deep Tech", "Art Markets", "Information Markets", "Sabermetrics",
+        "Competitive Governance", "Global Systemic Challenges"
+      ],
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "Independent Researcher",
+        "description": "Research on stablecoins, tokenization, investment strategies, and emerging technologies"
+      }
+    })} />
+  </head>
+
+  <body class="min-h-screen bg-background font-sans antialiased">
+    <div class="relative flex min-h-screen flex-col">
+      <Navigation />
+      
+      <main class="flex-1">
+        <slot />
+      </main>
+      
+      <!-- Footer -->
+      <footer class="border-t bg-background">
+        <div class="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
+          <div class="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
+            <p class="text-center text-sm leading-loose text-muted-foreground md:text-left">
+              Built by Gökhan Turhan. The source code is available on{" "}
+              <a
+                href="https://github.com/avalidurl"
+                target="_blank"
+                rel="noreferrer"
+                class="font-medium underline underline-offset-4"
+              >
+                GitHub
+              </a>
+              .
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

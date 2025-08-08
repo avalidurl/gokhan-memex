@@ -1,0 +1,192 @@
+---
+import { getCollection } from 'astro:content'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import Card from '@/components/ui/Card.astro'
+import CardContent from '@/components/ui/CardContent.astro'
+import Badge from '@/components/ui/Badge.astro'
+
+// Get all published blog posts
+const allPosts = (await getCollection('blog'))
+  .filter(post => !post.data.draft)
+  .sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf())
+
+// Extract categories and their counts
+const categoryMap = new Map()
+allPosts.forEach(post => {
+  const category = post.data.category
+  if (categoryMap.has(category)) {
+    categoryMap.set(category, categoryMap.get(category) + 1)
+  } else {
+    categoryMap.set(category, 1)
+  }
+})
+
+// Extract tags and their counts
+const tagMap = new Map()
+allPosts.forEach(post => {
+  post.data.tags?.forEach(tag => {
+    if (tagMap.has(tag)) {
+      tagMap.set(tag, tagMap.get(tag) + 1)
+    } else {
+      tagMap.set(tag, 1)
+    }
+  })
+})
+
+// Sort categories and tags by count (descending)
+const sortedCategories = Array.from(categoryMap.entries()).sort((a, b) => b[1] - a[1])
+const sortedTags = Array.from(tagMap.entries()).sort((a, b) => b[1] - a[1])
+
+// Group posts by year
+const postsByYear = new Map()
+allPosts.forEach(post => {
+  const year = new Date(post.data.publishDate).getFullYear()
+  if (postsByYear.has(year)) {
+    postsByYear.get(year).push(post)
+  } else {
+    postsByYear.set(year, [post])
+  }
+})
+
+const breadcrumbs = []
+---
+
+<BaseLayout
+  title="Archive"
+  description="Browse all content by categories, tags, and years. Explore topics across fintech, deep tech, art markets, and global challenges."
+>
+  <div class="container max-w-6xl mx-auto px-4 py-8">
+    <Breadcrumbs items={breadcrumbs} currentPage="Archive" />
+
+    <!-- Header -->
+    <div class="mb-12">
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Archive</h1>
+      <p class="text-lg text-muted-foreground">
+        Browse {allPosts.length} posts by categories, tags, and years
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Categories -->
+      <div class="space-y-6">
+        <Card>
+          <CardContent class="p-6">
+            <h2 class="text-xl font-semibold mb-4">Categories</h2>
+            <div class="space-y-3">
+              {sortedCategories.map(([category, count]) => (
+                <div class="flex items-center justify-between">
+                  <a
+                    href={`/archive/categories/${category.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and')}`}
+                    class="text-sm font-medium hover:text-primary transition-colors flex-1"
+                  >
+                    {category}
+                  </a>
+                  <Badge variant="secondary" class="text-xs ml-2">
+                    {count}
+                  </Badge>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        <!-- Years -->
+        <Card>
+          <CardContent class="p-6">
+            <h2 class="text-xl font-semibold mb-4">By Year</h2>
+            <div class="space-y-3">
+              {Array.from(postsByYear.entries())
+                .sort((a, b) => b[0] - a[0])
+                .map(([year, posts]) => (
+                  <div class="flex items-center justify-between">
+                    <a
+                      href={`/journal/${year}`}
+                      class="text-sm font-medium hover:text-primary transition-colors flex-1"
+                    >
+                      {year}
+                    </a>
+                    <Badge variant="secondary" class="text-xs ml-2">
+                      {posts.length}
+                    </Badge>
+                  </div>
+                ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <!-- Tags -->
+      <div class="lg:col-span-2">
+        <Card>
+          <CardContent class="p-6">
+            <h2 class="text-xl font-semibold mb-6">Tags</h2>
+            <div class="flex flex-wrap gap-2">
+              {sortedTags.map(([tag, count]) => (
+                <a href={`/archive/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}>
+                  <Badge 
+                    variant="outline" 
+                    class="hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer"
+                  >
+                    {tag} ({count})
+                  </Badge>
+                </a>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        <!-- Recent Posts Preview -->
+        <Card class="mt-6">
+          <CardContent class="p-6">
+            <div class="flex items-center justify-between mb-6">
+              <h2 class="text-xl font-semibold">Recent Posts</h2>
+              <a 
+                href="/journal"
+                class="text-sm text-primary hover:underline font-medium"
+              >
+                View All →
+              </a>
+            </div>
+            <div class="space-y-4">
+              {allPosts.slice(0, 5).map(post => (
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                  <div class="flex-1">
+                    <h3 class="font-medium">
+                      <a 
+                        href={`/journal/${post.slug}`}
+                        class="hover:text-primary transition-colors"
+                      >
+                        {post.data.title}
+                      </a>
+                    </h3>
+                    <p class="text-sm text-muted-foreground mt-1">
+                      {post.data.category}
+                    </p>
+                  </div>
+                  <div class="text-sm text-muted-foreground whitespace-nowrap">
+                    {new Date(post.data.publishDate).toLocaleDateString('en-US', {
+                      month: 'short',
+                      day: 'numeric',
+                      year: 'numeric'
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    {allPosts.length === 0 && (
+      <div class="text-center py-12">
+        <p class="text-lg text-muted-foreground mb-4">No posts found.</p>
+        <p class="text-sm text-muted-foreground">
+          Content is being migrated. Check back soon!
+        </p>
+      </div>
+    )}
+  </div>
+</BaseLayout>
