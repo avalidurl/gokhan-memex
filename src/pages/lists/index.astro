@@ -1,225 +1,215 @@
 ---
+import { getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Card from '@/components/ui/Card.astro'
 import CardContent from '@/components/ui/CardContent.astro'
+import Accordion from '@/components/ui/Accordion.astro'
+import AccordionItem from '@/components/ui/AccordionItem.astro'
+import AccordionTrigger from '@/components/ui/AccordionTrigger.astro'
+import AccordionContent from '@/components/ui/AccordionContent.astro'
 import Badge from '@/components/ui/Badge.astro'
-import { ExternalLink } from 'lucide-astro'
+import { formatDate } from '@/lib/utils'
 
 const breadcrumbs: { label: string; href: string }[] = []
 
-// Sample curated lists - this will be expanded with real content
-const lists = [
-  {
-    title: "Essential Stablecoin Resources",
-    description: "Curated resources on stablecoins, RWAs, and tokenization research",
-    items: [
-      "Circle USDC Transparency Reports",
-      "Tether USDT Reserve Documentation", 
-      "MakerDAO DAI Mechanism Analysis",
-      "Frax Protocol Innovation Papers"
-    ],
-    category: "Finance",
-    updated: "2025-08-08"
-  },
-  {
-    title: "AGI Timeline Research",
-    description: "Essential reading on artificial general intelligence development timelines",
-    items: [
-      "Amodei & Hernandez Scaling Laws",
-      "OpenAI GPT Development Papers",
-      "Anthropic Constitutional AI Research",
-      "DeepMind Capability Assessment"
-    ],
-    category: "Technology",
-    updated: "2025-08-07"
-  },
-  {
-    title: "Investment Strategy Framework",
-    description: "Tools and frameworks for systematic investment analysis",
-    items: [
-      "Buffett Partnership Letters",
-      "Ray Dalio Principles",
-      "Howard Marks Memos",
-      "Modern Portfolio Theory Updates"
-    ],
-    category: "Investment",
-    updated: "2025-08-06"
-  },
-  {
-    title: "Deep Tech Ecosystem",
-    description: "Key players and innovations in deep technology sectors",
-    items: [
-      "Quantum Computing Startups",
-      "Biotech Innovation Leaders", 
-      "Space Technology Companies",
-      "Advanced Materials Research"
-    ],
-    category: "Technology",
-    updated: "2025-08-05"
-  }
-]
+// Get all published blog posts for music category
+const allPosts = (await getCollection('blog'))
+  .filter(post => !post.data.draft)
+  .sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf())
 
-const socialLinks = [
-  {
-    name: "X (Twitter)",
-    url: "https://x.com/0xgokhan",
-    description: "Daily thoughts and market observations"
-  },
-  {
-    name: "GitHub",
-    url: "https://github.com/avalidurl",
-    description: "Open source projects and research code"
-  },
-  {
-    name: "LinkedIn",
-    url: "https://linkedin.com/in/goekhanturhan",
-    description: "Professional updates and network"
-  },
-  {
-    name: "Substack",
-    url: "https://gokhan.substack.com",
-    description: "Long-form research and analysis"
-  }
-]
+const musicPosts = allPosts.filter(post => post.data.category === 'Music')
+
+// Curated lists organized by category
+const lists = {
+  people: [
+    {
+      name: "Balaji Srinivasan",
+      description: "Entrepreneur, investor, and technologist focused on network states and crypto",
+      url: "https://twitter.com/balajis",
+      category: "Tech Leaders"
+    },
+    {
+      name: "Vitalik Buterin", 
+      description: "Founder of Ethereum, researcher in blockchain and cryptography",
+      url: "https://twitter.com/VitalikButerin",
+      category: "Crypto Pioneers"
+    },
+    {
+      name: "Naval Ravikant",
+      description: "Entrepreneur and philosopher on wealth creation and decision making",
+      url: "https://twitter.com/naval",
+      category: "Investors & Philosophers"
+    },
+    {
+      name: "Iannis Xenakis",
+      description: "Composer and architect who pioneered algorithmic composition",
+      url: "https://en.wikipedia.org/wiki/Iannis_Xenakis",
+      category: "Artists & Composers"
+    }
+  ],
+  books: [
+    {
+      title: "The Network State",
+      author: "Balaji Srinivasan",
+      description: "How to start a new country in the cloud",
+      url: "https://thenetworkstate.com",
+      category: "Technology & Society"
+    },
+    {
+      title: "Conversations with Iannis Xenakis",
+      author: "Bálint András Varga",
+      description: "Insights into algorithmic composition and mathematical music",
+      url: "https://www.amazon.com/Conversations-Iannis-Xenakis-Various-Varga/dp/0571179592",
+      category: "Music & Art"
+    },
+    {
+      title: "The Bitcoin Standard", 
+      author: "Saifedean Ammous",
+      description: "The decentralized alternative to central banking",
+      url: "https://saifedean.com/book/",
+      category: "Economics & Finance"
+    },
+    {
+      title: "Antifragile",
+      author: "Nassim Nicholas Taleb", 
+      description: "Things that gain from disorder",
+      url: "https://www.amazon.com/Antifragile-Things-That-Disorder-Incerto/dp/0812979680",
+      category: "Philosophy & Risk"
+    }
+  ]
+}
+
 ---
 
 <BaseLayout
   title="Lists"
-  description="Curated lists of resources, links, and tools across fintech, deep tech, investment strategies, and emerging technologies."
+  description="Curated lists of people, books, and music that inform my research across fintech, deep tech, and emerging technologies."
 >
-  <div class="container max-w-5xl mx-auto px-4 py-8">
+  <div class="container max-w-4xl mx-auto px-4 py-8">
     <Breadcrumbs items={breadcrumbs} currentPage="Lists" />
 
     <!-- Header -->
     <div class="mb-12">
       <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Lists</h1>
       <p class="text-lg text-muted-foreground max-w-2xl">
-        Curated resources, links, and tools I find valuable across my research areas. 
-        Updated regularly with new discoveries and insights.
+        Curated collections of people, books, and music that inform my research and thinking across fintech, deep tech, and emerging technologies.
       </p>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <!-- Curated Lists -->
-      <div class="lg:col-span-2 space-y-6">
-        <div class="mb-8">
-          <h2 class="text-2xl font-semibold mb-6">Research Lists</h2>
-          <div class="grid gap-6">
-            {lists.map(list => (
-              <Card class="hover:shadow-lg transition-shadow">
-                <CardContent class="p-6">
-                  <div class="space-y-4">
-                    <!-- Header -->
-                    <div class="flex items-start justify-between">
-                      <div class="flex-1">
-                        <h3 class="text-xl font-semibold mb-2">{list.title}</h3>
-                        <p class="text-sm text-muted-foreground mb-3">
-                          {list.description}
-                        </p>
-                        <div class="flex items-center gap-2">
-                          <Badge variant="outline">{list.category}</Badge>
-                          <span class="text-xs text-muted-foreground">
-                            Updated {new Date(list.updated).toLocaleDateString()}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <!-- Items Preview -->
-                    <div class="space-y-2">
-                      {list.items.slice(0, 3).map(item => (
-                        <div class="flex items-center text-sm text-muted-foreground">
-                          <span class="w-2 h-2 bg-primary/60 rounded-full mr-3 flex-shrink-0"></span>
-                          {item}
-                        </div>
-                      ))}
-                      {list.items.length > 3 && (
-                        <div class="text-xs text-muted-foreground pl-5">
-                          +{list.items.length - 3} more items
-                        </div>
-                      )}
-                    </div>
-
-                    <!-- View Button -->
-                    <div class="pt-2">
-                      <button 
-                        class="text-sm text-primary hover:underline font-medium"
-                        onclick="alert('Individual list pages coming soon!')"
-                      >
-                        View Full List →
-                      </button>
-                    </div>
+    <!-- Accordion Lists -->
+    <div class="space-y-6">
+      <Accordion class="w-full">
+        <!-- People List -->
+        <AccordionItem data-accordion-item class="border rounded-lg">
+          <AccordionTrigger class="text-left">
+            <div class="flex items-center justify-between w-full pr-4">
+              <h2 class="text-xl font-semibold">People</h2>
+              <Badge variant="secondary">{lists.people.length}</Badge>
+            </div>
+          </AccordionTrigger>
+          <AccordionContent>
+            <div class="grid gap-4">
+              {lists.people.map(person => (
+                <div class="flex items-start justify-between p-4 border rounded-lg hover:bg-accent/20 transition-colors">
+                  <div class="flex-1">
+                    <h3 class="font-semibold text-lg">
+                      <a href={person.url} target="_blank" rel="noopener" class="hover:text-primary transition-colors">
+                        {person.name}
+                      </a>
+                    </h3>
+                    <p class="text-sm text-muted-foreground mt-1">{person.description}</p>
+                    <Badge variant="outline" class="mt-2 text-xs">{person.category}</Badge>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <!-- Sidebar -->
-      <div class="space-y-6">
-        <!-- Social Links -->
-        <Card>
-          <CardContent class="p-6">
-            <h3 class="text-lg font-semibold mb-4">Connect</h3>
-            <div class="space-y-3">
-              {socialLinks.map(link => (
-                <div class="group">
-                  <a 
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="flex items-center justify-between p-3 rounded-lg hover:bg-accent transition-colors"
-                  >
-                    <div class="flex-1">
-                      <div class="font-medium text-sm">{link.name}</div>
-                      <div class="text-xs text-muted-foreground">{link.description}</div>
-                    </div>
-                    <ExternalLink class="h-4 w-4 text-muted-foreground group-hover:text-foreground transition-colors" />
-                  </a>
                 </div>
               ))}
             </div>
-          </CardContent>
-        </Card>
+          </AccordionContent>
+        </AccordionItem>
 
-        <!-- Quick Stats -->
-        <Card>
-          <CardContent class="p-6">
-            <h3 class="text-lg font-semibold mb-4">Quick Stats</h3>
-            <div class="space-y-3">
-              <div class="flex justify-between text-sm">
-                <span class="text-muted-foreground">Research Lists</span>
-                <span class="font-medium">{lists.length}</span>
-              </div>
-              <div class="flex justify-between text-sm">
-                <span class="text-muted-foreground">Total Resources</span>
-                <span class="font-medium">{lists.reduce((acc, list) => acc + list.items.length, 0)}</span>
-              </div>
-              <div class="flex justify-between text-sm">
-                <span class="text-muted-foreground">Categories</span>
-                <span class="font-medium">{[...new Set(lists.map(l => l.category))].length}</span>
-              </div>
-              <div class="flex justify-between text-sm">
-                <span class="text-muted-foreground">Last Updated</span>
-                <span class="font-medium">Today</span>
+        <!-- Books List -->
+        <AccordionItem data-accordion-item class="border rounded-lg">
+          <AccordionTrigger class="text-left">
+            <div class="flex items-center justify-between w-full pr-4">
+              <h2 class="text-xl font-semibold">Books</h2>
+              <Badge variant="secondary">{lists.books.length}</Badge>
+            </div>
+          </AccordionTrigger>
+          <AccordionContent>
+            <div class="grid gap-4">
+              {lists.books.map(book => (
+                <div class="flex items-start justify-between p-4 border rounded-lg hover:bg-accent/20 transition-colors">
+                  <div class="flex-1">
+                    <h3 class="font-semibold text-lg">
+                      <a href={book.url} target="_blank" rel="noopener" class="hover:text-primary transition-colors">
+                        {book.title}
+                      </a>
+                    </h3>
+                    <p class="text-sm text-muted-foreground mt-1">by {book.author}</p>
+                    <p class="text-sm text-muted-foreground mt-1">{book.description}</p>
+                    <Badge variant="outline" class="mt-2 text-xs">{book.category}</Badge>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+
+        <!-- Music List -->
+        <AccordionItem data-accordion-item class="border rounded-lg">
+          <AccordionTrigger class="text-left">
+            <div class="flex items-center justify-between w-full pr-4">
+              <h2 class="text-xl font-semibold">Music</h2>
+              <Badge variant="secondary">{musicPosts.length}</Badge>
+            </div>
+          </AccordionTrigger>
+          <AccordionContent>
+            <div class="space-y-4">
+              <p class="text-sm text-muted-foreground mb-4">
+                Music-related posts from my journal, exploring sound art, playlists, and musical concepts.
+              </p>
+              <div class="grid gap-3">
+                {musicPosts.map(post => (
+                  <div class="flex items-start justify-between p-3 border rounded-lg hover:bg-accent/20 transition-colors">
+                    <div class="flex-1">
+                      <h3 class="font-medium">
+                        <a href={`/journal/${post.slug}`} class="hover:text-primary transition-colors">
+                          {post.data.title}
+                        </a>
+                      </h3>
+                      <p class="text-xs text-muted-foreground mt-1">
+                        {formatDate(post.data.publishDate)}
+                      </p>
+                      {post.data.tags && (
+                        <div class="flex gap-1 mt-2">
+                          {post.data.tags.slice(0, 3).map(tag => (
+                            <Badge variant="outline" class="text-xs">{tag}</Badge>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+                
+                {musicPosts.length === 0 && (
+                  <p class="text-sm text-muted-foreground italic text-center py-4">
+                    Music posts will appear here after content migration.
+                  </p>
+                )}
               </div>
             </div>
-          </CardContent>
-        </Card>
-
-        <!-- Note -->
-        <Card class="bg-accent/20 border-accent">
-          <CardContent class="p-4">
-            <p class="text-sm text-muted-foreground">
-              <strong>Note:</strong> These lists are continuously updated as I discover new resources. 
-              Follow me on X for real-time updates and insights.
-            </p>
-          </CardContent>
-        </Card>
-      </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
     </div>
+
+    <!-- Note -->
+    <Card class="mt-8 bg-accent/20 border-accent">
+      <CardContent class="p-6">
+        <p class="text-sm text-muted-foreground">
+          <strong>Note:</strong> These lists are continuously curated and updated. The music section will populate after content migration from the existing blog.
+        </p>
+      </CardContent>
+    </Card>
   </div>
 </BaseLayout>
