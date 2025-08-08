@@ -21,7 +21,8 @@
     "clsx": "^2.1.1",
     "tailwind-merge": "^2.5.4",
     "lucide-astro": "^0.456.0",
-    "@tailwindcss/typography": "^0.5.15"
+    "@tailwindcss/typography": "^0.5.15",
+    "@astrojs/cloudflare": "^11.1.0"
   },
   "devDependencies": {
     "@types/node": "^22.8.6",
