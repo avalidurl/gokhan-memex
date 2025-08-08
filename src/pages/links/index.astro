@@ -1,0 +1,147 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import Card from '@/components/ui/Card.astro'
+import CardContent from '@/components/ui/CardContent.astro'
+import { ExternalLink } from 'lucide-astro'
+
+const breadcrumbs: { label: string; href: string }[] = []
+
+// Social and professional links
+const links = [
+  {
+    category: "Social & Professional",
+    items: [
+      {
+        name: "X (Twitter)",
+        url: "https://x.com/0xgokhan",
+        description: "Daily thoughts and market observations"
+      },
+      {
+        name: "LinkedIn",
+        url: "https://linkedin.com/in/goekhanturhan",
+        description: "Professional updates and network"
+      },
+      {
+        name: "GitHub",
+        url: "https://github.com/avalidurl",
+        description: "Open source projects and research code"
+      },
+      {
+        name: "Substack",
+        url: "https://gokhan.substack.com",
+        description: "Long-form research and analysis"
+      }
+    ]
+  },
+  {
+    category: "Work & Consulting",
+    items: [
+      {
+        name: "DevOps Consulting",
+        url: "mailto:avalidurl@pm.me?subject=DevOps Consulting Inquiry",
+        description: "Infrastructure, CI/CD, and cloud architecture"
+      },
+      {
+        name: "Developer Relations",
+        url: "mailto:avalidurl@pm.me?subject=DevRel Consulting Inquiry", 
+        description: "Community building and technical advocacy"
+      },
+      {
+        name: "Business Development",
+        url: "mailto:avalidurl@pm.me?subject=BD Consulting Inquiry",
+        description: "Strategic partnerships and growth initiatives"
+      }
+    ]
+  },
+  {
+    category: "Research & Resources",
+    items: [
+      {
+        name: "Research Archive",
+        url: "/archive",
+        description: "Browse all research by topic and date"
+      },
+      {
+        name: "Curated Lists", 
+        url: "/lists",
+        description: "People, books, and resources I recommend"
+      },
+      {
+        name: "RSS Feed",
+        url: "/rss.xml",
+        description: "Subscribe for updates"
+      }
+    ]
+  }
+]
+---
+
+<BaseLayout
+  title="Links"
+  description="Connect with me across platforms and explore my work in fintech, deep tech, and emerging technologies."
+>
+  <div class="container max-w-4xl mx-auto px-4 py-8">
+    <Breadcrumbs items={breadcrumbs} currentPage="Links" />
+
+    <!-- Header -->
+    <div class="mb-12">
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Links</h1>
+      <p class="text-lg text-muted-foreground">
+        Connect with me across platforms and explore my work in fintech, deep tech, and emerging technologies.
+      </p>
+    </div>
+
+    <!-- Links Grid -->
+    <div class="space-y-8">
+      {links.map(section => (
+        <div>
+          <h2 class="text-2xl font-semibold mb-6">{section.category}</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {section.items.map(link => (
+              <Card class="hover:shadow-lg transition-shadow">
+                <CardContent class="p-6">
+                  <div class="flex items-start justify-between mb-3">
+                    <h3 class="font-semibold text-lg">{link.name}</h3>
+                    <ExternalLink class="h-4 w-4 text-muted-foreground flex-shrink-0 ml-2" />
+                  </div>
+                  <p class="text-sm text-muted-foreground mb-4">
+                    {link.description}
+                  </p>
+                  <a
+                    href={link.url}
+                    target={link.url.startsWith('http') ? '_blank' : undefined}
+                    rel={link.url.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    class="inline-flex items-center text-sm font-medium text-primary hover:underline"
+                  >
+                    {link.url.startsWith('mailto:') ? 'Contact' : 
+                     link.url.startsWith('http') ? 'Visit' : 'View'}
+                    →
+                  </a>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Contact Section -->
+    <div class="mt-16 text-center">
+      <Card class="bg-accent/20 border-accent">
+        <CardContent class="p-8">
+          <h3 class="text-xl font-semibold mb-4">Get in Touch</h3>
+          <p class="text-muted-foreground mb-6">
+            Interested in collaboration, consulting, or just want to discuss fintech and emerging technologies?
+          </p>
+          <a 
+            href="mailto:avalidurl@pm.me"
+            class="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors font-medium"
+          >
+            Send me an email
+          </a>
+        </CardContent>
+      </Card>
+    </div>
+  </div>
+</BaseLayout>

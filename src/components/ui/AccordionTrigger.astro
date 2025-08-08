@@ -1,0 +1,54 @@
+---
+import { cn } from '@/lib/utils'
+import { ChevronDown } from 'lucide-astro'
+
+interface Props {
+  class?: string
+  id?: string
+}
+
+const { class: className, id, ...props } = Astro.props
+---
+
+<button
+  type="button"
+  class={cn(
+    "flex w-full items-center justify-between py-4 px-6 font-medium transition-all hover:underline text-left",
+    className
+  )}
+  data-accordion-trigger
+  aria-expanded="false"
+  id={id}
+  {...props}
+>
+  <slot />
+  <ChevronDown class="h-4 w-4 shrink-0 transition-transform duration-200" />
+</button>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const triggers = document.querySelectorAll('[data-accordion-trigger]');
+    
+    triggers.forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const item = trigger.closest('[data-accordion-item]');
+        const content = item?.querySelector('[data-accordion-content]');
+        const chevron = trigger.querySelector('svg');
+        
+        if (content && chevron) {
+          const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+          
+          if (isOpen) {
+            trigger.setAttribute('aria-expanded', 'false');
+            content.classList.add('hidden');
+            chevron.style.transform = 'rotate(0deg)';
+          } else {
+            trigger.setAttribute('aria-expanded', 'true');
+            content.classList.remove('hidden');
+            chevron.style.transform = 'rotate(180deg)';
+          }
+        }
+      });
+    });
+  });
+</script>

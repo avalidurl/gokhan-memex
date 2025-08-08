@@ -1,12 +1,14 @@
 ---
 import { Rss, Menu, X } from 'lucide-astro'
 import Button from './ui/Button.astro'
+import ThemeToggle from './ThemeToggle.astro'
 
 const currentPath = Astro.url.pathname
 const navigation = [
   { name: 'Journal', href: '/journal' },
   { name: 'Archive', href: '/archive' },
   { name: 'Lists', href: '/lists' },
+  { name: 'Links', href: '/links' },
   { name: 'Subscribe', href: '/subscribe' }
 ]
 ---
@@ -27,33 +29,36 @@ const navigation = [
       </a>
     </div>
 
-    <!-- Desktop Navigation -->
-    <nav class="flex items-center space-x-6 text-sm font-medium hidden md:flex">
-      {navigation.map((item) => (
-        <a
-          href={item.href}
-          class={`transition-colors hover:text-foreground/80 ${
-            currentPath === item.href 
-              ? 'text-foreground' 
-              : 'text-foreground/60'
-          }`}
-        >
-          {item.name}
-        </a>
-      ))}
-    </nav>
+    <!-- Desktop Navigation - Centered -->
+    <div class="flex-1 flex justify-center">
+      <nav class="flex items-center space-x-8 text-sm font-medium hidden md:flex">
+        {navigation.map((item) => (
+          <a
+            href={item.href}
+            class={`transition-colors hover:text-foreground/80 ${
+              currentPath === item.href 
+                ? 'text-foreground font-medium' 
+                : 'text-foreground/60'
+            }`}
+          >
+            {item.name}
+          </a>
+        ))}
+      </nav>
+    </div>
 
     <!-- Right side actions -->
-    <div class="flex flex-1 items-center justify-between space-x-2 md:justify-end">
+    <div class="flex items-center space-x-2">
+      <!-- Theme Toggle -->
+      <ThemeToggle />
+      
       <!-- RSS Button -->
-      <div class="flex items-center">
-        <Button variant="ghost" size="sm" class="hidden md:inline-flex">
-          <a href="/rss.xml" class="flex items-center space-x-2">
-            <Rss class="h-4 w-4" />
-            <span class="hidden sm:inline-block">RSS</span>
-          </a>
-        </Button>
-      </div>
+      <Button variant="ghost" size="sm" class="hidden md:inline-flex">
+        <a href="/rss.xml" class="flex items-center space-x-2">
+          <Rss class="h-4 w-4" />
+          <span class="hidden sm:inline-block">RSS</span>
+        </a>
+      </Button>
 
       <!-- Mobile Menu Button -->
       <Button variant="ghost" size="sm" class="md:hidden" id="mobile-menu-button">
