@@ -32,7 +32,8 @@ const buttonVariants = cva(
 )
 
 export interface Props extends VariantProps<typeof buttonVariants> {
-  class?: string;
+  class?: string
+  id?: string
 }
 
 const { variant, size, class: className, ...props } = Astro.props

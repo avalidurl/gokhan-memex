@@ -6,7 +6,7 @@ import CardContent from '@/components/ui/CardContent.astro'
 import Badge from '@/components/ui/Badge.astro'
 import { ExternalLink } from 'lucide-astro'
 
-const breadcrumbs = []
+const breadcrumbs: { label: string; href: string }[] = []
 
 // Sample curated lists - this will be expanded with real content
 const lists = [
