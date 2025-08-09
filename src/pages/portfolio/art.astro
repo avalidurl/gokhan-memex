@@ -1,0 +1,93 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Card from '@/components/ui/Card.astro'
+import CardContent from '@/components/ui/CardContent.astro'
+---
+
+<BaseLayout
+  title="Art - Portfolio"
+  description="Creative works, conceptual art, and artistic explorations by Gökhan Turhan."
+>
+  <div class="container max-w-3xl mx-auto px-4 py-12">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Art</h1>
+      <p class="text-xl text-muted-foreground">
+        Creative works and artistic explorations
+      </p>
+    </div>
+
+    <!-- Comic & Updating Message -->
+    <Card class="bg-accent/20 border-accent">
+      <CardContent class="p-8 text-center">
+        <div class="mb-8">
+          <pre class="text-sm text-muted-foreground font-mono leading-tight">
+{`    🎨 "ART STUDIO UNDER CONSTRUCTION" 🎨
+    
+    ┌─────────────────────────────────┐
+    │  👷‍♀️ ARTIST: "Where did I put my  │
+    │     conceptual paintbrush?"     │
+    │                                 │
+    │  🤖 AI: "Have you tried turning  │
+    │     creativity off and on       │
+    │     again?"                     │
+    │                                 │
+    │  💭 PHILOSOPHY: "But what IS     │
+    │     art, really?"               │
+    │                                 │
+    │  🎭 ART: *quietly existing in    │
+    │     the corner, unbothered*     │
+    └─────────────────────────────────┘
+    
+    Meanwhile, in the digital realm...
+    
+      📱    💻    🖥️
+       \\    |    /
+        \\   |   /
+         \\  |  /
+          \\ | /
+           \\|/
+            ⚡
+       [ART.EXE]
+      Loading...
+      ████████░░ 80%`}
+          </pre>
+        </div>
+        
+        <h2 class="text-2xl font-semibold mb-4">Gallery Coming Soon</h2>
+        <p class="text-muted-foreground mb-6 leading-relaxed">
+          The art gallery is being curated with conceptual works, digital pieces, and creative explorations. 
+          Each piece will showcase the intersection of technology, philosophy, and artistic expression.
+        </p>
+        
+        <div class="grid grid-cols-2 gap-4 text-sm text-muted-foreground mb-8">
+          <div class="text-left">
+            <p>🖼️ Portfolio pieces</p>
+            <p>🎭 Conceptual art projects</p>
+            <p>💫 Digital installations</p>
+          </div>
+          <div class="text-left">
+            <p>🎨 Interactive experiences</p>
+            <p>📸 Visual narratives</p>
+            <p>🌀 Experimental media</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4 justify-center">
+          <a 
+            href="/journal" 
+            class="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors font-medium"
+          >
+            Read Art-Related Posts →
+          </a>
+          <a 
+            href="/portfolio" 
+            class="inline-flex items-center px-4 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md transition-colors font-medium"
+          >
+            ← Back to Portfolio
+          </a>
+        </div>
+      </CardContent>
+    </Card>
+  </div>
+</BaseLayout>

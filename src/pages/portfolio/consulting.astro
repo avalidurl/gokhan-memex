@@ -1,0 +1,92 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Card from '@/components/ui/Card.astro'
+import CardContent from '@/components/ui/CardContent.astro'
+---
+
+<BaseLayout
+  title="Consulting - Portfolio"
+  description="Strategic innovation consulting services across fintech, deep tech, and emerging technologies."
+>
+  <div class="container max-w-3xl mx-auto px-4 py-12">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Consulting</h1>
+      <p class="text-xl text-muted-foreground">
+        Strategic innovation and technology advisory
+      </p>
+    </div>
+
+    <!-- Comic & Services Message -->
+    <Card class="bg-accent/20 border-accent">
+      <CardContent class="p-8 text-center">
+        <div class="mb-8">
+          <pre class="text-sm text-muted-foreground font-mono leading-tight">
+{`    📊 "CONSULTING COMMAND CENTER" 📊
+    
+    ┌─────────────────────────────────┐
+    │  👔 CLIENT: "We need to        │
+    │     'synergize our blockchain   │
+    │     AI metaverse strategy'"     │
+    │                                 │
+    │  🤔 CONSULTANT: "Let's start    │
+    │     with: what problem are      │
+    │     you actually solving?"      │
+    │                                 │
+    │  💡 EPIPHANY: *lightbulb        │
+    │     appears*                    │
+    │                                 │
+    │  🎯 STRATEGY: "Oh! We need a    │
+    │     better website."            │
+    └─────────────────────────────────┘
+    
+    Real consulting in action:
+    
+      Problem → Analysis → Solution
+         ↓         ↓         ↓
+      📋       🔍       ⚡
+      Chaos    Logic    Magic
+    
+      [STRATEGY.EXE] ✅
+      [BULLSH*T.EXE] ❌`}
+          </pre>
+        </div>
+        
+        <h2 class="text-2xl font-semibold mb-4">Services Under Development</h2>
+        <p class="text-muted-foreground mb-6 leading-relaxed">
+          Comprehensive consulting portfolio being finalized. Services will cover DevOps architecture, 
+          developer relations strategy, business development, and strategic technology advisory for 
+          emerging fintech and deep tech ventures.
+        </p>
+        
+        <div class="grid grid-cols-2 gap-4 text-sm text-muted-foreground mb-8">
+          <div class="text-left">
+            <p>🏗️ DevOps & Infrastructure</p>
+            <p>🤝 Developer Relations</p>
+            <p>📈 Business Development</p>
+          </div>
+          <div class="text-left">
+            <p>🎯 Strategic Technology Advisory</p>
+            <p>⚡ Innovation Architecture</p>
+            <p>🔄 System Optimization</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4 justify-center">
+          <a 
+            href="mailto:avalidurl@pm.me?subject=Consulting Inquiry" 
+            class="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors font-medium"
+          >
+            Get in Touch →
+          </a>
+          <a 
+            href="/portfolio" 
+            class="inline-flex items-center px-4 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md transition-colors font-medium"
+          >
+            ← Back to Portfolio
+          </a>
+        </div>
+      </CardContent>
+    </Card>
+  </div>
+</BaseLayout>
