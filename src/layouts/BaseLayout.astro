@@ -60,30 +60,48 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X3J88MHYTL"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-X3J88MHYTL');
+    </script>
+    
     <!-- Structured Data - Person Schema -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Gökhan Turhan",
       "alternateName": "0xgokhan",
-      "description": "T-shaped generalist solopreneur, researcher, and conceptual artist operating across fintech, deep tech, competitive governance, art markets, and investment strategies.",
-      "jobTitle": ["Solopreneur", "Researcher", "Conceptual Artist"],
+      "description": "T-shaped generalist founder, researcher, and Strategic Innovation Architect operating across fintech, deep tech, competitive governance, art markets, and investment strategies. His work sits at the junction of stablecoins, real-world assets, tokenization, cryptography, AGI timelines, and global systemic challenges—turning them into high-leverage opportunities through foresight, product growth strategy, and technology expertise.",
+      "jobTitle": ["Strategic Innovation Architect", "Founder", "Researcher", "Conceptual Artist"],
       "url": "https://gokhanturhan.com",
       "sameAs": [
-        "https://twitter.com/0xgokhan",
+        "https://x.com/0xgokhan",
         "https://github.com/avalidurl",
-        "https://linkedin.com/in/goekhanturhan"
+        "https://linkedin.com/in/goekhanturhan",
+        "https://warpcast.com/gokhan",
+        "https://lens.xyz/u/gokhan",
+        "https://bsky.app/profile/gokhan.bsky.social",
+        "https://gokhan.substack.com",
+        "https://gokhan.mirror.xyz",
+        "https://paragraph.xyz/@gokhan",
+        "https://0xgokhan.medium.com"
       ],
       "knowsAbout": [
         "Stablecoins", "Real World Assets", "RWA", "Tokenization", "Cryptography", 
         "Artificial General Intelligence", "AGI timelines", "Investment Strategy", 
         "Fintech", "Deep Tech", "Art Markets", "Information Markets", "Sabermetrics",
-        "Competitive Governance", "Global Systemic Challenges"
+        "Competitive Governance", "Global Systemic Challenges", "Strategic Innovation",
+        "Product Growth Strategy", "Technology Expertise", "Foresight"
       ],
       "hasOccupation": {
         "@type": "Occupation",
-        "name": "Independent Researcher",
-        "description": "Research on stablecoins, tokenization, investment strategies, and emerging technologies"
+        "name": "Strategic Innovation Architect",
+        "description": "Turning global systemic challenges into high-leverage opportunities through foresight, product growth strategy, and technology expertise across fintech and deep tech"
       }
     })} />
   </head>
