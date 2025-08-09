@@ -20,22 +20,30 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return categories.map((category: string) => ({
     params: { 
       category: category.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and')
-    },
-    props: { 
-      category: category,
-      posts: allPosts.filter((post: PostEntry) => post.data.category === category)
-        .sort((a: PostEntry, b: PostEntry) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf())
     }
   }))
 }
 
-interface Props {
-  category: string
-  posts: PostEntry[]
-}
-
-const { category, posts }: Props = Astro.props
+// Read from params and fetch data
 const { category: categorySlug } = Astro.params as { category: string }
+
+// Get all posts and find the original category name
+const allPosts = (await getCollection('blog'))
+  .filter((post: PostEntry) => !post.data.draft)
+
+// Find the actual category name from slug
+const categoryMap = new Map<string, string>()
+allPosts.forEach((post: PostEntry) => {
+  const slug = post.data.category.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and')
+  categoryMap.set(slug, post.data.category)
+})
+
+const category = categoryMap.get(categorySlug) || categorySlug
+
+// Filter posts for this category
+const posts: PostEntry[] = allPosts
+  .filter((post: PostEntry) => post.data.category === category)
+  .sort((a: PostEntry, b: PostEntry) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf())
 
 const breadcrumbs = [
   { label: 'Archive', href: '/archive' },
