@@ -3,6 +3,7 @@ import { type CollectionEntry, getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Badge from '@/components/ui/Badge.astro'
+import SocialShare from '@/components/SocialShare.astro'
 import { formatDate } from '@/lib/utils'
 
 export async function getStaticPaths() {
@@ -84,8 +85,17 @@ const breadcrumbs = [
         <Content />
       </div>
 
+      <!-- Social Share -->
+      <div class="not-prose mt-12 pt-8 border-t border-border">
+        <SocialShare 
+          title={post.data.title}
+          url={`${Astro.site?.origin || 'https://gokhanturhan.com'}${Astro.url.pathname}`}
+          description={post.data.description}
+        />
+      </div>
+
       <!-- Article Footer -->
-      <footer class="not-prose mt-16 pt-8 border-t border-border">
+      <footer class="not-prose mt-8 pt-8 border-t border-border">
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
             <p class="text-sm text-muted-foreground">
