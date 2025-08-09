@@ -34,12 +34,18 @@ const breadcrumbs: { label: string; href: string }[] = []
       <p class="text-sm text-muted-foreground mt-2">
         {allPosts.length} posts
       </p>
-      <div class="mt-4">
+      <div class="mt-4 flex items-center gap-4">
         <a 
           href="/archive" 
           class="inline-flex items-center text-primary hover:underline font-medium"
         >
           Browse Archive →
+        </a>
+        <a 
+          href="/subscribe" 
+          class="inline-flex items-center px-3 py-1 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors text-sm font-medium"
+        >
+          Subscribe
         </a>
       </div>
     </div>
