@@ -1,0 +1,95 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Card from '@/components/ui/Card.astro'
+import CardContent from '@/components/ui/CardContent.astro'
+---
+
+<BaseLayout
+  title="Writing - Portfolio"
+  description="Long-form essays, research papers, and written works on technology, philosophy, and emerging systems."
+>
+  <div class="container max-w-3xl mx-auto px-4 py-12">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Writing</h1>
+      <p class="text-xl text-muted-foreground">
+        Essays, research, and long-form analysis
+      </p>
+    </div>
+
+    <!-- Comic & Writing Message -->
+    <Card class="bg-accent/20 border-accent">
+      <CardContent class="p-8 text-center">
+        <div class="mb-8">
+          <pre class="text-sm text-muted-foreground font-mono leading-tight">
+{`    ✍️ "THE WRITING LABORATORY" ✍️
+    
+    ┌─────────────────────────────────┐
+    │  📝 WRITER: "I'll just write a  │
+    │     quick 500-word piece on     │
+    │     stablecoins..."             │
+    │                                 │
+    │  📚 RESEARCH: "But first, let's │
+    │     read these 47 papers on     │
+    │     monetary theory..."         │
+    │                                 │
+    │  ⏰ TIME: *3 months later*       │
+    │                                 │
+    │  📄 RESULT: "Here's my 15,000-  │
+    │     word philosophical treatise │
+    │     on the nature of value."    │
+    └─────────────────────────────────┘
+    
+    The Writing Process™:
+    
+    Idea → Research → Rabbit Hole
+      ↓       ↓          ↓
+     💡     📖         🕳️
+     
+    Eventually → Masterpiece
+        ↓           ↓
+       ⏳         📜
+    
+      [FOCUS.EXE] Loading...
+      [PERFECTIONISM.EXE] ⚠️ Warning!`}
+          </pre>
+        </div>
+        
+        <h2 class="text-2xl font-semibold mb-4">Manuscripts in Progress</h2>
+        <p class="text-muted-foreground mb-6 leading-relaxed">
+          Comprehensive writing portfolio being compiled. Will feature in-depth research papers, 
+          philosophical essays, and analytical pieces on stablecoins, tokenization, AGI timelines, 
+          and global systemic challenges.
+        </p>
+        
+        <div class="grid grid-cols-2 gap-4 text-sm text-muted-foreground mb-8">
+          <div class="text-left">
+            <p>📚 Research Papers</p>
+            <p>💭 Philosophical Essays</p>
+            <p>🔬 Technical Analysis</p>
+          </div>
+          <div class="text-left">
+            <p>🌍 Systems Thinking</p>
+            <p>💰 Economic Theory</p>
+            <p>🤖 Technology Futures</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4 justify-center">
+          <a 
+            href="/journal" 
+            class="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors font-medium"
+          >
+            Read Journal Posts →
+          </a>
+          <a 
+            href="/portfolio" 
+            class="inline-flex items-center px-4 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md transition-colors font-medium"
+          >
+            ← Back to Portfolio
+          </a>
+        </div>
+      </CardContent>
+    </Card>
+  </div>
+</BaseLayout>
