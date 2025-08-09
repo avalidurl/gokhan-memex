@@ -85,31 +85,6 @@ const links = [
     ]
   },
   {
-    category: "Audio & Visual",
-    items: [
-      {
-        name: "Vimeo",
-        url: "https://vimeo.com/0xgokhan",
-        description: "Video content and visual projects"
-      },
-      {
-        name: "SoundCloud: Giga Bvgatti",
-        url: "https://soundcloud.com/0xgokhan",
-        description: "Music and audio projects"
-      },
-      {
-        name: "SoundCloud: ada & arx",
-        url: "https://soundcloud.com/adaarx",
-        description: "Collaborative audio projects"
-      },
-      {
-        name: "SoundCloud: ada & arx main",
-        url: "https://soundcloud.com/adaarx2",
-        description: "Main collaborative audio channel"
-      }
-    ]
-  },
-  {
     category: "Blogs",
     items: [
       {
@@ -151,6 +126,31 @@ const links = [
         name: "X Articles",
         url: "https://x.com/0xgokhan/articles",
         description: "Long-form articles on X platform"
+      }
+    ]
+  },
+  {
+    category: "Audio & Visual",
+    items: [
+      {
+        name: "Vimeo",
+        url: "https://vimeo.com/0xgokhan",
+        description: "Video content and visual projects"
+      },
+      {
+        name: "SoundCloud: Giga Bvgatti",
+        url: "https://soundcloud.com/0xgokhan",
+        description: "Music and audio projects"
+      },
+      {
+        name: "SoundCloud: ada & arx",
+        url: "https://soundcloud.com/adaarx",
+        description: "Collaborative audio projects"
+      },
+      {
+        name: "SoundCloud: ada & arx main",
+        url: "https://soundcloud.com/adaarx2",
+        description: "Main collaborative audio channel"
       }
     ]
   },
@@ -306,27 +306,29 @@ const links = [
             <AccordionContent>
               <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {section.items.map(link => (
-                  <Card class="hover:shadow-lg transition-shadow">
-                    <CardContent class="p-6">
-                      <div class="flex items-start justify-between mb-3">
-                        <h3 class="font-semibold text-lg">{link.name}</h3>
-                        <ExternalLink class="h-4 w-4 text-muted-foreground flex-shrink-0 ml-2" />
-                      </div>
-                      <p class="text-sm text-muted-foreground mb-4">
-                        {link.description}
-                      </p>
-                      <a
-                        href={link.url}
-                        target={link.url.startsWith('http') ? '_blank' : undefined}
-                        rel={link.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-                        class="inline-flex items-center text-sm font-medium text-primary hover:underline"
-                      >
-                        {link.url.startsWith('mailto:') ? 'Contact' : 
-                         link.url.startsWith('http') ? 'Visit' : 'View'}
-                        →
-                      </a>
-                    </CardContent>
-                  </Card>
+                  <a
+                    href={link.url}
+                    target={link.url.startsWith('http') ? '_blank' : undefined}
+                    rel={link.url.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    class="block"
+                  >
+                    <Card class="hover:shadow-lg transition-shadow cursor-pointer h-full">
+                      <CardContent class="p-6">
+                        <div class="flex items-start justify-between mb-3">
+                          <h3 class="font-semibold text-lg">{link.name}</h3>
+                          <ExternalLink class="h-4 w-4 text-muted-foreground flex-shrink-0 ml-2" />
+                        </div>
+                        <p class="text-sm text-muted-foreground mb-4">
+                          {link.description}
+                        </p>
+                        <div class="inline-flex items-center text-sm font-medium text-primary">
+                          {link.url.startsWith('mailto:') ? 'Contact' : 
+                           link.url.startsWith('http') ? 'Visit' : 'View'}
+                          →
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </a>
                 ))}
               </div>
             </AccordionContent>
@@ -344,7 +346,7 @@ const links = [
             Interested in collaboration, consulting, or just want to discuss fintech and emerging technologies?
           </p>
           <a 
-            href="mailto:avalidurl@pm.me"
+            href="mailto:info@gokhanturhan.com"
             class="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors font-medium"
           >
             Send me an email
