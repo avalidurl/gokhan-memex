@@ -1,0 +1,212 @@
+---
+title: "Eleventy-Style Features Demo"
+description: "A comprehensive demonstration of all the new Eleventy-inspired design features including heading anchors, callout boxes, enhanced tables, and beautiful typography."
+publishDate: "2025-01-08"
+author: "Gökhan Turhan"
+tags: ["design", "eleventy", "features", "demo", "web development"]
+category: "Technology and Data" 
+featured: true
+readingTime: 5
+excerpt: "Showcasing the complete implementation of Eleventy-style features including heading anchors, HackMD-style callouts, enhanced tables, and beautiful typography system."
+---
+
+import BandcampEmbed from '../../components/embeds/BandcampEmbed.astro';
+import YouTubeEmbed from '../../components/embeds/YouTubeEmbed.astro';
+
+## Welcome to the Feature Showcase
+
+This blog post demonstrates all the new <span class="highlight-yellow">Eleventy-inspired design features</span> that have been implemented on this website. Each heading now includes clickable anchor links (see the # that appears when you hover), just like on the [official Eleventy website](https://www.11ty.dev/).
+
+### Heading Anchors in Action
+
+Notice how each heading has a `#` symbol that appears on hover? Click it to get a direct link to that section! This is the same system used by [GitHub](https://github.com), [Wikipedia](https://en.wikipedia.org), and the [Eleventy documentation](https://www.11ty.dev/docs/).
+
+## Callout Boxes for Important Information
+
+Here are examples of all the different callout box styles available:
+
+<div class="callout callout-info">
+**Information Callout**
+
+This is an info callout box perfect for sharing helpful tips, additional context, or supplementary information that enhances understanding.
+</div>
+
+<div class="callout callout-warning">
+**Warning Callout**
+
+Use warning callouts to alert readers about potential issues, deprecated features, or things that require careful attention.
+</div>
+
+<div class="callout callout-error">
+**Error Callout**
+
+Error callouts are ideal for highlighting critical issues, breaking changes, or things that definitely should be avoided.
+</div>
+
+<div class="callout callout-success">
+**Success Callout**
+
+Success callouts work great for highlighting achievements, completed tasks, or positive outcomes and best practices.
+</div>
+
+<div class="callout callout-note">
+**Note Callout**
+
+Note callouts are perfect for side notes, interesting facts, or additional commentary that doesn't fit in the main flow.
+</div>
+
+## Enhanced Typography and Links
+
+### External Link Favicons
+
+Links now automatically show relevant emojis based on the platform:
+
+- [GitHub Repository](https://github.com/11ty/eleventy) ⚡
+- [YouTube Video](https://www.youtube.com/watch?v=BKdQEXqfFA0) 📺  
+- [Twitter/X Profile](https://x.com/eleven_ty) 🐦
+- [Mastodon Account](https://fosstodon.org/@eleventy) 🐘
+- [Bluesky Profile](https://bsky.app/profile/11ty.dev) 🦋
+- [Wikipedia Article](https://en.wikipedia.org/wiki/Static_site_generator) 📖
+- [Louvre Museum](https://www.louvre.fr/en) 🏛️
+
+### Colored Underlines
+
+Notice how links have <span class="highlight-blue">colored underlines</span> that match their platform colors and get thicker on hover? This provides better visual hierarchy and user experience.
+
+## Data Tables with Professional Styling
+
+Here's an example of the enhanced table styling inspired by Eleventy's metrics tables:
+
+| Metric | 2023 | 2024 | Change |
+|--------|------|------|---------|
+| <span class="metric-number">Blog Posts</span> | <span class="metric-number">42</span> | <span class="metric-number">67</span> | <span class="change-up percentage">59.52%</span> |
+| <span class="metric-number">GitHub Stars</span> | <span class="metric-number">15,569</span> | <span class="metric-number">17,460</span> | <span class="change-up percentage">12.14%</span> |
+| <span class="metric-number">Monthly Visitors</span> | <span class="metric-number">8,532</span> | <span class="metric-number">12,847</span> | <span class="change-up percentage">50.53%</span> |
+| <span class="metric-number">Newsletter Subscribers</span> | <span class="metric-number">1,234</span> | <span class="metric-number">2,890</span> | <span class="change-up percentage">134.20%</span> |
+
+### Table Features
+
+The enhanced tables include:
+- **Professional headers** with Eleventy blue background
+- **Alternating row colors** for better readability  
+- **Hover effects** for interactive feel
+- **Monospace numbers** for proper alignment
+- **Change indicators** with arrows and colors
+- **Responsive design** that works on all devices
+
+## Text Highlighting Options
+
+You can now highlight important text with different colored backgrounds:
+
+- <span class="highlight">Default blue highlight</span> for standard emphasis
+- <span class="highlight-yellow">Yellow highlight</span> for warnings or important notes
+- <span class="highlight-green">Green highlight</span> for success states or positive information  
+- <span class="highlight-pink">Pink highlight</span> for special callouts or fun facts
+
+### Code and Technical Content
+
+Inline code like `npm install @11ty/eleventy` now has better styling with borders and proper contrast. Here's a code block example:
+
+```javascript
+// Eleventy configuration example
+module.exports = function(eleventyConfig) {
+  eleventyConfig.addPassthroughCopy("src/assets/");
+  eleventyConfig.setServerOptions({
+    port: 8080
+  });
+  
+  return {
+    dir: {
+      input: "src",
+      output: "dist"
+    }
+  };
+};
+```
+
+## List Styling Improvements
+
+### Unordered Lists
+
+The typography system now provides better spacing and hierarchy for lists:
+
+- **Primary benefit**: Clean, readable typography
+- **Secondary benefit**: Proper spacing and indentation
+  - Nested items work perfectly
+  - Multiple levels supported
+  - Consistent visual hierarchy
+- **Tertiary benefit**: Responsive design
+- **Additional benefit**: Dark theme compatibility
+
+### Ordered Lists
+
+1. **First major improvement**: Enhanced readability
+2. **Second major improvement**: Better spacing
+   1. Sub-item alignment is perfect
+   2. Numbers are properly formatted
+   3. Nested numbering works seamlessly
+3. **Third major improvement**: Consistent styling
+4. **Final improvement**: Responsive behavior
+
+## Real-World Integration
+
+<div class="callout callout-note">
+**Developer Note**
+
+All these features are built with vanilla CSS and work seamlessly with Astro's component system. No additional JavaScript frameworks are required, keeping the site fast and lightweight.
+</div>
+
+### Media Embeds Still Work Perfectly
+
+The new design system maintains full compatibility with all existing components:
+
+<YouTubeEmbed url="https://www.youtube.com/embed/BKdQEXqfFA0" />
+
+## Performance and Accessibility
+
+<div class="callout callout-success">
+**Performance Benefits**
+
+- Pure CSS implementation (no JavaScript required)
+- Leverages CSS custom properties for theming
+- Optimized for both light and dark themes
+- Maintains excellent Core Web Vitals scores
+</div>
+
+### Accessibility Features
+
+The implementation includes several accessibility improvements:
+
+- **Semantic markup** for all callout boxes
+- **Proper heading hierarchy** with anchor links
+- **Keyboard navigation** support for all interactive elements
+- **Screen reader compatibility** with appropriate ARIA labels
+- **High contrast ratios** for all color combinations
+- **Reduced motion** support for users who prefer less animation
+
+## Dark Theme Compatibility
+
+<div class="callout callout-info">
+**Theme Support**
+
+All features automatically adapt to dark theme preferences, including callout boxes, highlights, tables, and link colors. Try switching your system theme to see the difference!
+</div>
+
+## What's Next?
+
+This design system provides a solid foundation for creating beautiful, readable, and accessible content. Future enhancements could include:
+
+1. **Interactive components** for complex data visualization
+2. **Advanced markdown extensions** for even more content types  
+3. **Custom syntax highlighting** themes
+4. **Enhanced mobile optimizations**
+
+<div class="callout callout-success">
+**Implementation Complete**
+
+The entire Eleventy-style feature set is now live and ready to use in any blog post or page. Simply use the appropriate CSS classes and markdown syntax to take advantage of these enhanced styling options.
+</div>
+
+---
+
+*This demo post showcases the power of clean, semantic design systems inspired by the best practices from the Eleventy community. The implementation maintains performance while providing rich visual hierarchy and excellent user experience.*

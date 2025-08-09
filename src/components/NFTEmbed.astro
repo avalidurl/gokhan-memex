@@ -1,0 +1,79 @@
+---
+interface Props {
+  url: string
+  title?: string
+  showBuying?: boolean
+  showMeta?: boolean
+}
+
+const { url, title, showBuying = true, showMeta = true } = Astro.props
+
+// Extract platform and basic info from URL
+function parseNFTUrl(url: string) {
+  try {
+    if (url.includes('zora.co')) {
+      return { platform: 'Zora', displayUrl: url }
+    } else if (url.includes('foundation.app')) {
+      return { platform: 'Foundation', displayUrl: url }
+    } else if (url.includes('opensea.io')) {
+      return { platform: 'OpenSea', displayUrl: url }
+    } else if (url.startsWith('nft://')) {
+      return { platform: 'NFT Protocol', displayUrl: url }
+    } else if (url.startsWith('ethereum://')) {
+      return { platform: 'Ethereum', displayUrl: url }
+    } else {
+      return { platform: 'NFT', displayUrl: url }
+    }
+  } catch {
+    return { platform: 'NFT', displayUrl: url }
+  }
+}
+
+const nftInfo = parseNFTUrl(url)
+const displayTitle = title || `${nftInfo.platform} NFT`
+---
+
+<div class="my-6 not-prose">
+  <div class="rounded-lg border bg-card p-6">
+    <div class="space-y-4">
+      <!-- Header -->
+      <div class="flex items-center justify-between">
+        <h3 class="text-lg font-semibold">{displayTitle}</h3>
+        <div class="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
+          {nftInfo.platform}
+        </div>
+      </div>
+
+      <!-- Description -->
+      <p class="text-sm text-muted-foreground">
+        View this NFT on {nftInfo.platform}. Click below to see full details, metadata, and current availability.
+      </p>
+
+      <!-- Actions -->
+      <div class="flex gap-3">
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors text-sm font-medium"
+        >
+          View NFT →
+        </a>
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center px-4 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md transition-colors text-sm"
+        >
+          Open in {nftInfo.platform}
+        </a>
+      </div>
+
+      {showMeta && (
+        <div class="text-xs text-muted-foreground pt-2 border-t">
+          <p>NFT metadata and current ownership information available on the external platform.</p>
+        </div>
+      )}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,92 @@
+---
+interface Props {
+  url: string
+  width?: string | number
+  height?: string | number
+  autoplay?: boolean
+  controls?: boolean
+  start?: number
+}
+
+const { 
+  url, 
+  width = '100%', 
+  height = 'auto',
+  autoplay = false,
+  controls = true,
+  start = 0
+} = Astro.props
+
+// Extract YouTube video ID from various URL formats
+function extractYouTubeId(url: string): string | null {
+  try {
+    const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/
+    const match = url.match(regex)
+    return match ? match[1] : null
+  } catch {
+    return null
+  }
+}
+
+const videoId = extractYouTubeId(url)
+
+// Build embed URL parameters
+const params = new URLSearchParams()
+if (!autoplay) params.append('autoplay', '0')
+if (!controls) params.append('controls', '0')
+if (start > 0) params.append('start', start.toString())
+params.append('rel', '0') // Don't show related videos from other channels
+params.append('modestbranding', '1') // Minimal YouTube branding
+
+const embedUrl = videoId ? 
+  `https://www.youtube-nocookie.com/embed/${videoId}?${params.toString()}` : 
+  null
+
+// Calculate responsive height (16:9 aspect ratio)
+const aspectHeight = height === 'auto' ? 'aspect-video' : ''
+---
+
+<div class="my-6 not-prose">
+  <div class="rounded-lg overflow-hidden border bg-card">
+    {embedUrl ? (
+      <div class={`w-full ${aspectHeight}`} style={height !== 'auto' ? `height: ${height}px` : ''}>
+        <iframe 
+          class="w-full h-full"
+          src={embedUrl}
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+          loading="lazy"
+          title="YouTube video player"
+        >
+        </iframe>
+      </div>
+    ) : (
+      <div class="p-6 text-center">
+        <p class="text-muted-foreground mb-4">
+          Unable to embed YouTube video
+        </p>
+        <a 
+          href={url} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+        >
+          Watch on YouTube
+        </a>
+      </div>
+    )}
+  </div>
+  
+  <div class="mt-2 text-center">
+    <a 
+      href={url} 
+      target="_blank" 
+      rel="noopener noreferrer"
+      class="text-xs text-muted-foreground hover:text-foreground transition-colors"
+    >
+      Watch on YouTube ↗
+    </a>
+  </div>
+</div>
