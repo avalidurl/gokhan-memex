@@ -12,22 +12,22 @@ const allPosts = (await getCollection('blog'))
   .sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf())
 
 // Extract categories and their counts
-const categoryMap = new Map()
+const categoryMap = new Map<string, number>()
 allPosts.forEach(post => {
   const category = post.data.category
   if (categoryMap.has(category)) {
-    categoryMap.set(category, categoryMap.get(category) + 1)
+    categoryMap.set(category, (categoryMap.get(category) ?? 0) + 1)
   } else {
     categoryMap.set(category, 1)
   }
 })
 
 // Extract tags and their counts
-const tagMap = new Map()
+const tagMap = new Map<string, number>()
 allPosts.forEach(post => {
   post.data.tags?.forEach(tag => {
     if (tagMap.has(tag)) {
-      tagMap.set(tag, tagMap.get(tag) + 1)
+      tagMap.set(tag, (tagMap.get(tag) ?? 0) + 1)
     } else {
       tagMap.set(tag, 1)
     }
@@ -39,8 +39,9 @@ const sortedCategories = Array.from(categoryMap.entries()).sort((a, b) => b[1] -
 const sortedTags = Array.from(tagMap.entries()).sort((a, b) => b[1] - a[1])
 
 // Group posts by year and month
-const postsByYear = new Map()
-const postsByYearMonth = new Map()
+type Post = typeof allPosts[0]
+const postsByYear = new Map<number, Post[]>()
+const postsByYearMonth = new Map<string, Post[]>()
 
 allPosts.forEach(post => {
   const date = new Date(post.data.publishDate)
@@ -50,14 +51,14 @@ allPosts.forEach(post => {
   
   // Group by year
   if (postsByYear.has(year)) {
-    postsByYear.get(year).push(post)
+    postsByYear.get(year)?.push(post)
   } else {
     postsByYear.set(year, [post])
   }
   
   // Group by year-month
   if (postsByYearMonth.has(yearMonthKey)) {
-    postsByYearMonth.get(yearMonthKey).push(post)
+    postsByYearMonth.get(yearMonthKey)?.push(post)
   } else {
     postsByYearMonth.set(yearMonthKey, [post])
   }
@@ -67,11 +68,19 @@ allPosts.forEach(post => {
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
                    'July', 'August', 'September', 'October', 'November', 'December']
 
-const yearMonthData = []
+interface YearMonthData {
+  year: number
+  month: number
+  monthName: string
+  postCount: number
+  slug: string
+}
+
+const yearMonthData: YearMonthData[] = []
 Array.from(postsByYear.entries())
   .sort((a, b) => b[0] - a[0])
   .forEach(([year, yearPosts]) => {
-    const monthsInYear = new Set()
+    const monthsInYear = new Set<number>()
     yearPosts.forEach(post => {
       const month = new Date(post.data.publishDate).getMonth()
       monthsInYear.add(month)
@@ -86,7 +95,7 @@ Array.from(postsByYear.entries())
         yearMonthData.push({
           year,
           month: month + 1,
-          monthName: monthNames[month],
+          monthName: monthNames[month] || 'Unknown',
           postCount: monthPosts.length,
           slug: `${year}/${(month + 1).toString().padStart(2, '0')}`
         })

@@ -39,18 +39,19 @@ const yearPosts = posts.filter(post =>
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
                    'July', 'August', 'September', 'October', 'November', 'December']
 
-const postsByMonth = new Map()
+type PostType = CollectionEntry<'blog'>
+const postsByMonth = new Map<number, PostType[]>()
 yearPosts.forEach(post => {
   const month = new Date(post.data.publishDate).getMonth()
   if (postsByMonth.has(month)) {
-    postsByMonth.get(month).push(post)
+    postsByMonth.get(month)?.push(post)
   } else {
     postsByMonth.set(month, [post])
   }
 })
 
 // Sort months in descending order (most recent first)
-const sortedMonths = Array.from(postsByMonth.entries()).sort((a, b) => b[0] - a[0])
+const sortedMonths: [number, PostType[]][] = Array.from(postsByMonth.entries()).sort((a, b) => b[0] - a[0])
 
 const breadcrumbs = [
   { label: 'Journal', href: '/journal' },

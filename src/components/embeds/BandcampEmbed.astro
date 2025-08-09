@@ -49,14 +49,10 @@ const embedHeight = size === 'large' ? '472' : '120'
       <iframe 
         style={`border: 0; width: ${width}; height: ${embedHeight}px;`}
         src={`https://bandcamp.com/EmbeddedPlayer/${bandcampData.type}=${bandcampData.id}/size=${size}/bgcol=ffffff/linkcol=0687f5/artwork=${artwork}/transparent=${transparent}/`}
-        seamless
+        seamless={true}
         loading="lazy"
         title="Bandcamp Player"
-      >
-        <a href={url} target="_blank" rel="noopener noreferrer">
-          Listen on Bandcamp
-        </a>
-      </iframe>
+      />
     ) : (
       <div class="p-6 text-center">
         <p class="text-muted-foreground mb-4">
