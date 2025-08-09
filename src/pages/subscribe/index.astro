@@ -29,34 +29,6 @@ const breadcrumbs: { label: string; href: string }[] = []
     </div>
 
     <div class="grid grid-cols-1 gap-8 max-w-2xl mx-auto">
-      <!-- RSS Feed -->
-      <Card class="hover:shadow-lg transition-shadow">
-        <CardContent class="p-8 text-center">
-          <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-            <Rss class="w-8 h-8 text-primary" />
-          </div>
-          
-          <h2 class="text-2xl font-semibold mb-4">RSS Feed</h2>
-          <p class="text-muted-foreground mb-6 leading-relaxed">
-            Subscribe to my RSS feed to get updates directly in your preferred RSS reader. 
-            Perfect for staying updated without social media noise.
-          </p>
-          
-          <div class="space-y-4">
-            <Button class="w-full">
-              <a href="/rss.xml" class="flex items-center justify-center space-x-2">
-                <Rss class="w-4 h-4" />
-                <span>Subscribe to RSS</span>
-              </a>
-            </Button>
-            
-            <p class="text-xs text-muted-foreground">
-              Copy this URL: <code class="bg-accent px-2 py-1 rounded text-xs">https://gokhanturhan.com/rss.xml</code>
-            </p>
-          </div>
-        </CardContent>
-      </Card>
-
       <!-- Newsletter -->
       <Card class="hover:shadow-lg transition-shadow">
         <CardContent class="p-8 text-center">
@@ -83,6 +55,34 @@ const breadcrumbs: { label: string; href: string }[] = []
             
             <p class="text-xs text-muted-foreground text-center">
               Free and premium content available
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
+      <!-- RSS Feed -->
+      <Card class="hover:shadow-lg transition-shadow">
+        <CardContent class="p-8 text-center">
+          <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+            <Rss class="w-8 h-8 text-primary" />
+          </div>
+          
+          <h2 class="text-2xl font-semibold mb-4">RSS Feed</h2>
+          <p class="text-muted-foreground mb-6 leading-relaxed">
+            Subscribe to my RSS feed to get updates directly in your preferred RSS reader. 
+            Perfect for staying updated without social media noise.
+          </p>
+          
+          <div class="space-y-4">
+            <Button class="w-full">
+              <a href="/rss.xml" class="flex items-center justify-center space-x-2">
+                <Rss class="w-4 h-4" />
+                <span>Subscribe to RSS</span>
+              </a>
+            </Button>
+            
+            <p class="text-xs text-muted-foreground">
+              Copy this URL: <code class="bg-accent px-2 py-1 rounded text-xs">https://gokhanturhan.com/rss.xml</code>
             </p>
           </div>
         </CardContent>
