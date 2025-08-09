@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import { getCollection } from 'astro:content'
+import Card from '../../components/ui/Card.astro'
+import Badge from '../../components/ui/Badge.astro'
+import { ExternalLink, Github } from 'lucide-astro'
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+)
+
+const featuredProjects = projects.filter(project => project.data.featured)
+const otherProjects = projects.filter(project => !project.data.featured)
+---
+
+<BaseLayout 
+  title="Projects - Gökhan Turhan" 
+  description="A collection of my projects, dashboards, and digital tools focused on finance, data visualization, and web development."
+>
+  <div class="container mx-auto px-4 py-8">
+    <!-- Header -->
+    <div class="mb-12 text-center">
+      <h1 class="text-4xl font-bold mb-4">Projects</h1>
+      <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+        A collection of my projects, dashboards, and digital tools focused on finance, data visualization, and web development.
+      </p>
+    </div>
+
+    <!-- Featured Projects -->
+    {featuredProjects.length > 0 && (
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold mb-6">Featured Projects</h2>
+        <div class="grid gap-6 md:grid-cols-2">
+          {featuredProjects.map((project) => (
+            <Card class="overflow-hidden">
+              <div class="p-6">
+                <div class="flex items-start justify-between mb-4">
+                  <h3 class="text-xl font-semibold mb-2">{project.data.title}</h3>
+                  <Badge variant="secondary">Featured</Badge>
+                </div>
+                
+                <p class="text-muted-foreground mb-4">
+                  {project.data.description}
+                </p>
+
+                {project.data.tags.length > 0 && (
+                  <div class="flex flex-wrap gap-2 mb-4">
+                    {project.data.tags.map((tag) => (
+                      <Badge variant="outline" class="text-xs">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+
+                <div class="flex gap-3">
+                  {project.data.projectUrl && (
+                    <a href={project.data.projectUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-3 gap-2">
+                      <ExternalLink class="h-4 w-4" />
+                      View Project
+                    </a>
+                  )}
+                  
+                  {project.data.githubUrl && (
+                    <a href={project.data.githubUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 gap-2">
+                      <Github class="h-4 w-4" />
+                      Source
+                    </a>
+                  )}
+                  
+                  <a href={`/projects/${project.slug}/`} class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3">
+                    Learn More
+                  </a>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Other Projects -->
+    {otherProjects.length > 0 && (
+      <section>
+        <h2 class="text-2xl font-semibold mb-6">All Projects</h2>
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {otherProjects.map((project) => (
+            <Card class="overflow-hidden">
+              <div class="p-6">
+                <h3 class="text-lg font-semibold mb-2">{project.data.title}</h3>
+                
+                <p class="text-muted-foreground text-sm mb-4">
+                  {project.data.description}
+                </p>
+
+                {project.data.tags.length > 0 && (
+                  <div class="flex flex-wrap gap-1 mb-4">
+                    {project.data.tags.slice(0, 3).map((tag) => (
+                      <Badge variant="outline" class="text-xs">
+                        {tag}
+                      </Badge>
+                    ))}
+                    {project.data.tags.length > 3 && (
+                      <Badge variant="outline" class="text-xs">
+                        +{project.data.tags.length - 3}
+                      </Badge>
+                    )}
+                  </div>
+                )}
+
+                <div class="flex gap-2">
+                  {project.data.projectUrl && (
+                    <a href={project.data.projectUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-3 gap-1">
+                      <ExternalLink class="h-3 w-3" />
+                      View
+                    </a>
+                  )}
+                  
+                  <a href={`/projects/${project.slug}/`} class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3">
+                    Details
+                  </a>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {projects.length === 0 && (
+      <div class="text-center py-12">
+        <p class="text-muted-foreground">No projects available yet. Check back soon!</p>
+      </div>
+    )}
+  </div>
+</BaseLayout>

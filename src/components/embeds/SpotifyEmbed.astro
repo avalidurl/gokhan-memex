@@ -1,0 +1,76 @@
+---
+interface Props {
+  url: string
+  width?: string | number
+  height?: string | number
+  compact?: boolean
+}
+
+const { url, width = '100%', height, compact = false } = Astro.props
+
+// Extract Spotify ID and type from URL
+function extractSpotifyData(url: string): { type: string, id: string } | null {
+  try {
+    // Handle open.spotify.com URLs
+    const spotifyMatch = url.match(/open\.spotify\.com\/(track|album|playlist|artist|episode|show)\/([a-zA-Z0-9]+)/)
+    if (spotifyMatch) {
+      return { type: spotifyMatch[1], id: spotifyMatch[2] }
+    }
+    
+    // Handle spotify: URIs
+    const uriMatch = url.match(/spotify:(track|album|playlist|artist|episode|show):([a-zA-Z0-9]+)/)
+    if (uriMatch) {
+      return { type: uriMatch[1], id: uriMatch[2] }
+    }
+    
+    return null
+  } catch {
+    return null
+  }
+}
+
+const spotifyData = extractSpotifyData(url)
+const embedHeight = height || (compact ? '152' : '352')
+---
+
+<div class="my-6 not-prose">
+  <div class="rounded-lg overflow-hidden border bg-card">
+    {spotifyData ? (
+      <iframe 
+        style={`border-radius:12px; width: ${width}; height: ${embedHeight}px;`}
+        src={`https://open.spotify.com/embed/${spotifyData.type}/${spotifyData.id}?utm_source=generator&theme=0`}
+        frameborder="0" 
+        allowfullscreen="" 
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+        loading="lazy"
+        title="Spotify Player"
+      >
+      </iframe>
+    ) : (
+      <div class="p-6 text-center">
+        <p class="text-muted-foreground mb-4">
+          Unable to embed Spotify player
+        </p>
+        <a 
+          href={url} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
+        >
+          Open in Spotify
+        </a>
+      </div>
+    )}
+  </div>
+  
+  <div class="mt-2 text-center">
+    <a 
+      href={url} 
+      target="_blank" 
+      rel="noopener noreferrer"
+      class="text-xs text-muted-foreground hover:text-foreground transition-colors"
+    >
+      Open in Spotify ↗
+    </a>
+  </div>
+</div>

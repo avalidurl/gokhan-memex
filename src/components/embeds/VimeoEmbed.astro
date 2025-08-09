@@ -1,0 +1,105 @@
+---
+interface Props {
+  url: string
+  width?: string | number
+  height?: string | number
+  autoplay?: boolean
+  muted?: boolean
+  controls?: boolean
+  responsive?: boolean
+}
+
+const { 
+  url, 
+  width = '100%', 
+  height = 'auto',
+  autoplay = false,
+  muted = false,
+  controls = true,
+  responsive = true
+} = Astro.props
+
+// Extract Vimeo video ID from various URL formats
+function extractVimeoId(url: string): string | null {
+  try {
+    // Handle vimeo.com URLs
+    const vimeoMatch = url.match(/vimeo\.com\/(?:channels\/[^\/]+\/|groups\/[^\/]+\/videos\/|album\/[^\/]+\/video\/|video\/|)(\d+)/)
+    if (vimeoMatch) {
+      return vimeoMatch[1]
+    }
+    
+    // Handle player.vimeo.com URLs
+    const playerMatch = url.match(/player\.vimeo\.com\/video\/(\d+)/)
+    if (playerMatch) {
+      return playerMatch[1]
+    }
+    
+    return null
+  } catch {
+    return null
+  }
+}
+
+const videoId = extractVimeoId(url)
+
+// Build embed URL parameters
+const params = new URLSearchParams()
+params.append('color', '0687f5') // Blue accent color to match theme
+params.append('title', '0') // Hide title
+params.append('byline', '0') // Hide byline
+params.append('portrait', '0') // Hide portrait
+if (autoplay) params.append('autoplay', '1')
+if (muted) params.append('muted', '1')
+if (!controls) params.append('controls', '0')
+
+const embedUrl = videoId ? 
+  `https://player.vimeo.com/video/${videoId}?${params.toString()}` : 
+  null
+
+// Calculate responsive height (16:9 aspect ratio)
+const aspectClass = responsive && height === 'auto' ? 'aspect-video' : ''
+---
+
+<div class="my-6 not-prose">
+  <div class="rounded-lg overflow-hidden border bg-card">
+    {embedUrl ? (
+      <div class={`w-full ${aspectClass}`} style={height !== 'auto' ? `height: ${height}px` : ''}>
+        <iframe 
+          class="w-full h-full"
+          src={embedUrl}
+          frameborder="0" 
+          allow="autoplay; fullscreen; picture-in-picture" 
+          allowfullscreen
+          loading="lazy"
+          title="Vimeo video player"
+        >
+        </iframe>
+      </div>
+    ) : (
+      <div class="p-6 text-center">
+        <p class="text-muted-foreground mb-4">
+          Unable to embed Vimeo video
+        </p>
+        <a 
+          href={url} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+        >
+          Watch on Vimeo
+        </a>
+      </div>
+    )}
+  </div>
+  
+  <div class="mt-2 text-center">
+    <a 
+      href={url} 
+      target="_blank" 
+      rel="noopener noreferrer"
+      class="text-xs text-muted-foreground hover:text-foreground transition-colors"
+    >
+      Watch on Vimeo ↗
+    </a>
+  </div>
+</div>
