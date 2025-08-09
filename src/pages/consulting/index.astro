@@ -1,0 +1,69 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Card from '@/components/ui/Card.astro'
+import CardContent from '@/components/ui/CardContent.astro'
+---
+
+<BaseLayout
+  title="Consulting"
+  description="Strategic innovation consulting services across fintech, deep tech, and emerging technologies."
+>
+  <div class="container max-w-3xl mx-auto px-4 py-12">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Consulting</h1>
+      <p class="text-xl text-muted-foreground">
+        Strategic innovation and technology advisory
+      </p>
+    </div>
+
+    <!-- Updating Message -->
+    <Card class="bg-accent/20 border-accent">
+      <CardContent class="p-8 text-center">
+        <div class="mb-6">
+          <pre class="text-xs text-muted-foreground font-mono leading-tight">
+{`     📊
+    /   \\
+   /     \\
+  / STRAT \\
+ / CONSULT \\
+ \\   ING  /
+  \\       /
+   \\     /
+    \\___/
+      |
+   💼 | 💡
+   ___|___
+  (       )
+  (  📈   )
+  (_______)
+     ^^^`}
+          </pre>
+        </div>
+        
+        <h2 class="text-2xl font-semibold mb-4">Services Under Construction</h2>
+        <p class="text-muted-foreground mb-6 leading-relaxed">
+          Comprehensive consulting portfolio being finalized. Services will cover DevOps architecture, 
+          developer relations strategy, business development, and strategic technology advisory for 
+          emerging fintech and deep tech ventures.
+        </p>
+        
+        <div class="text-sm text-muted-foreground">
+          <p>🏗️ DevOps & Infrastructure</p>
+          <p>🤝 Developer Relations</p>
+          <p>📈 Business Development</p>
+          <p>🎯 Strategic Technology Advisory</p>
+        </div>
+
+        <div class="mt-8">
+          <a 
+            href="mailto:avalidurl@pm.me?subject=Consulting Inquiry" 
+            class="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors font-medium"
+          >
+            Get in Touch →
+          </a>
+        </div>
+      </CardContent>
+    </Card>
+  </div>
+</BaseLayout>
