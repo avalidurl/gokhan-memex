@@ -12,7 +12,7 @@ export async function getStaticPaths() {
   const publishedPosts = posts.filter(post => !post.data.draft)
   
   // Get unique year-month combinations
-  const yearMonthSet = new Set()
+  const yearMonthSet = new Set<string>()
   publishedPosts.forEach(post => {
     const date = new Date(post.data.publishDate)
     const year = date.getFullYear()
@@ -20,16 +20,16 @@ export async function getStaticPaths() {
     yearMonthSet.add(`${year}-${month}`)
   })
   
-  return Array.from(yearMonthSet).map(yearMonth => {
-    const [year, month] = yearMonth.split('-')
+  return Array.from(yearMonthSet).map((yearMonth: string) => {
+    const [year, month] = yearMonth.split('-') as [string, string]
     return {
       params: { 
         year: year,
         month: month
       },
       props: { 
-        year: parseInt(year),
-        month: parseInt(month),
+        year: parseInt(year, 10),
+        month: parseInt(month, 10),
         posts: publishedPosts
       }
     }
