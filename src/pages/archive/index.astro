@@ -124,7 +124,7 @@ const breadcrumbs: { label: string; href: string }[] = []
     </div>
 
     <!-- Categories Section -->
-    <div id="categories" class="mb-12">
+    <div id="categories" class="mb-12" style="scroll-margin-top: 5rem;">
       <h2 class="text-2xl font-semibold mb-6">Categories</h2>
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {sortedCategories.map(([category, count]) => (
@@ -150,7 +150,7 @@ const breadcrumbs: { label: string; href: string }[] = []
     </div>
 
     <!-- Tags Section -->
-    <div id="tags" class="mb-12">
+    <div id="tags" class="mb-12" style="scroll-margin-top: 5rem;">
       <h2 class="text-2xl font-semibold mb-6">Tags</h2>
       <div class="flex flex-wrap gap-2">
         {sortedTags.map(([tag, count]) => (
@@ -167,7 +167,7 @@ const breadcrumbs: { label: string; href: string }[] = []
     </div>
 
     <!-- Year & Month Navigation -->
-    <div id="dates" class="mb-12">
+    <div id="dates" class="mb-12" style="scroll-margin-top: 5rem;">
       <h2 class="text-2xl font-semibold mb-6">Browse by Date</h2>
       
       <!-- Year Cards -->
