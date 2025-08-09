@@ -20,9 +20,17 @@ const allPosts = (await getCollection('blog'))
 
 const musicPosts = allPosts.filter(post => post.data.category === 'Music')
 
+// Types for list items
+type Person = {
+  name: string
+  url: string
+  description: string
+  category: string
+}
+
 // Curated lists organized by category
 const lists = {
-  people: [],
+  people: [] as Person[],
   books: [
     {
       title: "The Network State",
