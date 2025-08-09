@@ -1,9 +1,9 @@
 ---
-// Redirect to Substack newsletter
+// Redirect to newsletter subscription page
 export const prerender = false
 
 if (Astro.request.method === 'GET') {
-  return Astro.redirect('https://gokhan.substack.com', 302)
+  return Astro.redirect('/subscribe', 302)
 }
 ---
 
@@ -12,15 +12,15 @@ if (Astro.request.method === 'GET') {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Newsletter - Redirecting to Substack</title>
-  <meta http-equiv="refresh" content="0; url=https://gokhan.substack.com">
-  <link rel="canonical" href="https://gokhan.substack.com">
+  <title>Newsletter - Redirecting to Subscribe</title>
+  <meta http-equiv="refresh" content="0; url=/subscribe">
+  <link rel="canonical" href="/subscribe">
 </head>
 <body>
   <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 100px auto; padding: 20px; text-align: center;">
     <h1>Redirecting to Newsletter...</h1>
-    <p>You're being redirected to my Substack newsletter.</p>
-    <p>If you're not redirected automatically, <a href="https://gokhan.substack.com">click here</a>.</p>
+    <p>You're being redirected to the newsletter subscription page.</p>
+    <p>If you're not redirected automatically, <a href="/subscribe">click here</a>.</p>
   </div>
 </body>
 </html>
