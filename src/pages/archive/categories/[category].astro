@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content'
+import { getCollection, type CollectionEntry } from 'astro:content'
 import type { GetStaticPaths } from 'astro'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
@@ -8,27 +8,34 @@ import CardContent from '@/components/ui/CardContent.astro'
 import Badge from '@/components/ui/Badge.astro'
 import { formatDate } from '@/lib/utils'
 
+type PostEntry = CollectionEntry<'blog'>
+
 export const getStaticPaths: GetStaticPaths = async () => {
   const allPosts = (await getCollection('blog'))
-    .filter(post => !post.data.draft)
+    .filter((post: PostEntry) => !post.data.draft)
 
   // Get unique categories
-  const categories = [...new Set(allPosts.map(post => post.data.category))]
+  const categories = [...new Set(allPosts.map((post: PostEntry) => post.data.category))]
   
-  return categories.map(category => ({
+  return categories.map((category: string) => ({
     params: { 
       category: category.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and')
     },
     props: { 
       category: category,
-      posts: allPosts.filter(post => post.data.category === category)
-        .sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf())
+      posts: allPosts.filter((post: PostEntry) => post.data.category === category)
+        .sort((a: PostEntry, b: PostEntry) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf())
     }
   }))
 }
 
-const { category, posts } = Astro.props
-const categorySlug = Astro.params.category
+interface Props {
+  category: string
+  posts: PostEntry[]
+}
+
+const { category, posts }: Props = Astro.props
+const { category: categorySlug } = Astro.params as { category: string }
 
 const breadcrumbs = [
   { label: 'Archive', href: '/archive' },
@@ -57,7 +64,7 @@ const breadcrumbs = [
     <!-- Posts -->
     {posts.length > 0 ? (
       <div class="space-y-6">
-        {posts.map(post => (
+        {posts.map((post: PostEntry) => (
           <Card class="hover:shadow-lg transition-shadow">
             <CardContent class="p-6">
               <div class="space-y-3">
@@ -88,7 +95,7 @@ const breadcrumbs = [
                 <!-- Tags -->
                 {post.data.tags && post.data.tags.length > 0 && (
                   <div class="flex flex-wrap gap-2 pt-2">
-                    {post.data.tags.map(tag => (
+                    {post.data.tags.map((tag: string) => (
                       <Badge variant="outline" class="text-xs">
                         <a href={`/archive/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}>
                           {tag}
