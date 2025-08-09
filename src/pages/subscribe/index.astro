@@ -31,32 +31,15 @@ const breadcrumbs: { label: string; href: string }[] = []
     <div class="grid grid-cols-1 gap-8 max-w-2xl mx-auto">
       <!-- Newsletter -->
       <Card class="hover:shadow-lg transition-shadow dark:bg-card dark:border-border">
-        <CardContent class="p-8 text-center">
-          <div class="w-16 h-16 bg-blue-500/10 dark:bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-            <Mail class="w-8 h-8 text-blue-500" />
-          </div>
-          
-          <h2 class="text-2xl font-semibold mb-4">Newsletter</h2>
-          <p class="text-muted-foreground mb-6 leading-relaxed">
-            Get deeper analysis and exclusive insights delivered to your inbox. 
-            Long-form research on crypto, fintech, and emerging technologies.
-          </p>
-          
-          <!-- Beehiiv Newsletter Form -->
-          <div class="space-y-4">
-            <iframe 
-              src="https://subscribe-forms.beehiiv.com/98caca82-70ad-4979-a19d-dd8294282fe5" 
-              class="beehiiv-embed" 
-              data-test-id="beehiiv-embed" 
-              frameborder="0" 
-              scrolling="no" 
-              style="width: 100%; height: 120px; margin: 0; border-radius: 0px; background-color: transparent; box-shadow: 0 0 #0000; max-width: 100%;"
-            ></iframe>
-            
-            <p class="text-xs text-muted-foreground text-center">
-              Free and premium content available
-            </p>
-          </div>
+        <CardContent class="p-8">
+          <iframe 
+            src="https://subscribe-forms.beehiiv.com/98caca82-70ad-4979-a19d-dd8294282fe5" 
+            class="beehiiv-embed" 
+            data-test-id="beehiiv-embed" 
+            frameborder="0" 
+            scrolling="no" 
+            style="width: 100%; height: 120px; margin: 0; border-radius: 0px; background-color: transparent; box-shadow: 0 0 #0000; max-width: 100%;"
+          ></iframe>
         </CardContent>
       </Card>
 
