@@ -44,14 +44,16 @@ const breadcrumbs: { label: string; href: string }[] = []
           
           <!-- Beehiiv Newsletter Form -->
           <div class="space-y-4">
-            <Button class="w-full">
-              <a href="https://gokhanturhan.beehiiv.com/subscribe" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center space-x-2">
-                <Mail class="w-4 h-4" />
-                <span>Subscribe to Newsletter</span>
-              </a>
-            </Button>
+            <iframe 
+              src="https://subscribe-forms.beehiiv.com/98caca82-70ad-4979-a19d-dd8294282fe5" 
+              class="beehiiv-embed" 
+              data-test-id="beehiiv-embed" 
+              frameborder="0" 
+              scrolling="no" 
+              style="width: 100%; height: 120px; margin: 0; border-radius: 0px; background-color: transparent; box-shadow: 0 0 #0000; max-width: 100%;"
+            ></iframe>
             
-            <p class="text-xs text-muted-foreground">
+            <p class="text-xs text-muted-foreground text-center">
               Free and premium content available
             </p>
           </div>
