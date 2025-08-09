@@ -21,8 +21,8 @@ export async function GET(context) {
     })),
     customData: `
       <language>en-us</language>
-      <managingEditor>avalidurl@pm.me (Gökhan Turhan)</managingEditor>
-      <webMaster>avalidurl@pm.me (Gökhan Turhan)</webMaster>
+      <managingEditor>info@gokhanturhan.com (Gökhan Turhan)</managingEditor>
+      <webMaster>info@gokhanturhan.com (Gökhan Turhan)</webMaster>
       <copyright>2025 Gökhan Turhan</copyright>
       <category>Technology</category>
       <category>Finance</category>
