@@ -3,6 +3,11 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Card from '@/components/ui/Card.astro'
 import CardContent from '@/components/ui/CardContent.astro'
+import Accordion from '@/components/ui/Accordion.astro'
+import AccordionItem from '@/components/ui/AccordionItem.astro'
+import AccordionTrigger from '@/components/ui/AccordionTrigger.astro'
+import AccordionContent from '@/components/ui/AccordionContent.astro'
+import Badge from '@/components/ui/Badge.astro'
 import { ExternalLink } from 'lucide-astro'
 
 const breadcrumbs: { label: string; href: string }[] = []
@@ -31,6 +36,21 @@ const links = [
         name: "Substack",
         url: "https://gokhan.substack.com",
         description: "Long-form research and analysis"
+      },
+      {
+        name: "Mirror",
+        url: "https://gokhan.mirror.xyz",
+        description: "Web3 publishing and crypto-native content"
+      },
+      {
+        name: "Paragraph",
+        url: "https://paragraph.xyz/@gokhan",
+        description: "Decentralized publishing platform"
+      },
+      {
+        name: "Farcaster",
+        url: "https://warpcast.com/gokhan",
+        description: "Decentralized social network"
       }
     ]
   },
@@ -92,38 +112,47 @@ const links = [
       </p>
     </div>
 
-    <!-- Links Grid -->
-    <div class="space-y-8">
-      {links.map(section => (
-        <div>
-          <h2 class="text-2xl font-semibold mb-6">{section.category}</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {section.items.map(link => (
-              <Card class="hover:shadow-lg transition-shadow">
-                <CardContent class="p-6">
-                  <div class="flex items-start justify-between mb-3">
-                    <h3 class="font-semibold text-lg">{link.name}</h3>
-                    <ExternalLink class="h-4 w-4 text-muted-foreground flex-shrink-0 ml-2" />
-                  </div>
-                  <p class="text-sm text-muted-foreground mb-4">
-                    {link.description}
-                  </p>
-                  <a
-                    href={link.url}
-                    target={link.url.startsWith('http') ? '_blank' : undefined}
-                    rel={link.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    class="inline-flex items-center text-sm font-medium text-primary hover:underline"
-                  >
-                    {link.url.startsWith('mailto:') ? 'Contact' : 
-                     link.url.startsWith('http') ? 'Visit' : 'View'}
-                    →
-                  </a>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      ))}
+    <!-- Links Accordion -->
+    <div class="space-y-6">
+      <Accordion class="w-full">
+        {links.map(section => (
+          <AccordionItem data-accordion-item class="border rounded-lg">
+            <AccordionTrigger class="text-left">
+              <div class="flex items-center justify-between w-full pr-4">
+                <h2 class="text-xl font-semibold">{section.category}</h2>
+                <Badge variant="secondary">{section.items.length}</Badge>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {section.items.map(link => (
+                  <Card class="hover:shadow-lg transition-shadow">
+                    <CardContent class="p-6">
+                      <div class="flex items-start justify-between mb-3">
+                        <h3 class="font-semibold text-lg">{link.name}</h3>
+                        <ExternalLink class="h-4 w-4 text-muted-foreground flex-shrink-0 ml-2" />
+                      </div>
+                      <p class="text-sm text-muted-foreground mb-4">
+                        {link.description}
+                      </p>
+                      <a
+                        href={link.url}
+                        target={link.url.startsWith('http') ? '_blank' : undefined}
+                        rel={link.url.startsWith('http') ? 'noopener noreferrer' : undefined}
+                        class="inline-flex items-center text-sm font-medium text-primary hover:underline"
+                      >
+                        {link.url.startsWith('mailto:') ? 'Contact' : 
+                         link.url.startsWith('http') ? 'Visit' : 'View'}
+                        →
+                      </a>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
     </div>
 
     <!-- Contact Section -->

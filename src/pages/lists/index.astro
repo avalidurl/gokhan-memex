@@ -22,32 +22,7 @@ const musicPosts = allPosts.filter(post => post.data.category === 'Music')
 
 // Curated lists organized by category
 const lists = {
-  people: [
-    {
-      name: "Balaji Srinivasan",
-      description: "Entrepreneur, investor, and technologist focused on network states and crypto",
-      url: "https://twitter.com/balajis",
-      category: "Tech Leaders"
-    },
-    {
-      name: "Vitalik Buterin", 
-      description: "Founder of Ethereum, researcher in blockchain and cryptography",
-      url: "https://twitter.com/VitalikButerin",
-      category: "Crypto Pioneers"
-    },
-    {
-      name: "Naval Ravikant",
-      description: "Entrepreneur and philosopher on wealth creation and decision making",
-      url: "https://twitter.com/naval",
-      category: "Investors & Philosophers"
-    },
-    {
-      name: "Iannis Xenakis",
-      description: "Composer and architect who pioneered algorithmic composition",
-      url: "https://en.wikipedia.org/wiki/Iannis_Xenakis",
-      category: "Artists & Composers"
-    }
-  ],
+  people: [],
   books: [
     {
       title: "The Network State",
@@ -110,6 +85,11 @@ const lists = {
           </AccordionTrigger>
           <AccordionContent>
             <div class="grid gap-4">
+              {lists.people.length === 0 && (
+                <p class="text-sm text-muted-foreground italic text-center py-4">
+                  People recommendations will be added here over time.
+                </p>
+              )}
               {lists.people.map(person => (
                 <div class="flex items-start justify-between p-4 border rounded-lg hover:bg-accent/20 transition-colors">
                   <div class="flex-1">

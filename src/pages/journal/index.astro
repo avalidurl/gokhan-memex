@@ -12,11 +12,8 @@ const allPosts = (await getCollection('blog'))
   .filter(post => !post.data.draft)
   .sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf())
 
-// Pagination setup (10 posts per page)
-const postsPerPage = 10
-const currentPage = 1
-const totalPages = Math.ceil(allPosts.length / postsPerPage)
-const posts = allPosts.slice(0, postsPerPage)
+// Show all posts (no pagination)
+const posts = allPosts
 
 const breadcrumbs: { label: string; href: string }[] = []
 ---
@@ -35,7 +32,7 @@ const breadcrumbs: { label: string; href: string }[] = []
         Thoughts on stablecoins, tokenization, AGI, investment strategies, and global systemic challenges
       </p>
       <p class="text-sm text-muted-foreground mt-2">
-        {allPosts.length} posts • Page {currentPage} of {totalPages}
+        {allPosts.length} posts
       </p>
     </div>
 
@@ -90,24 +87,7 @@ const breadcrumbs: { label: string; href: string }[] = []
       ))}
     </div>
 
-    <!-- Pagination -->
-    {totalPages > 1 && (
-      <div class="flex justify-center items-center space-x-4 mt-12">
-        <div class="flex items-center space-x-2">
-          <span class="text-sm text-muted-foreground">
-            Page {currentPage} of {totalPages}
-          </span>
-        </div>
-        {currentPage < totalPages && (
-          <a 
-            href="/journal/page/2"
-            class="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
-          >
-            Load More Posts
-          </a>
-        )}
-      </div>
-    )}
+
 
     <!-- Empty State -->
     {posts.length === 0 && (

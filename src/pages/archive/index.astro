@@ -116,12 +116,15 @@ const breadcrumbs: { label: string; href: string }[] = []
     <div class="mb-12">
       <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Archive</h1>
       <p class="text-lg text-muted-foreground">
-        Browse {allPosts.length} posts by categories, tags, and years
+        Browse {allPosts.length} posts by 
+        <a href="#categories" class="text-primary hover:underline cursor-pointer">categories</a>, 
+        <a href="#tags" class="text-primary hover:underline cursor-pointer">tags</a>, and 
+        <a href="#dates" class="text-primary hover:underline cursor-pointer">years</a>
       </p>
     </div>
 
     <!-- Categories Section -->
-    <div class="mb-12">
+    <div id="categories" class="mb-12">
       <h2 class="text-2xl font-semibold mb-6">Categories</h2>
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {sortedCategories.map(([category, count]) => (
@@ -147,7 +150,7 @@ const breadcrumbs: { label: string; href: string }[] = []
     </div>
 
     <!-- Tags Section -->
-    <div class="mb-12">
+    <div id="tags" class="mb-12">
       <h2 class="text-2xl font-semibold mb-6">Tags</h2>
       <div class="flex flex-wrap gap-2">
         {sortedTags.map(([tag, count]) => (
@@ -164,7 +167,7 @@ const breadcrumbs: { label: string; href: string }[] = []
     </div>
 
     <!-- Year & Month Navigation -->
-    <div class="mb-12">
+    <div id="dates" class="mb-12">
       <h2 class="text-2xl font-semibold mb-6">Browse by Date</h2>
       
       <!-- Year Cards -->
