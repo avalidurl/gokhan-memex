@@ -10,7 +10,15 @@ export default defineConfig({
       applyBaseStyles: false,
     }),
     mdx(),
-    sitemap()
+    sitemap({
+      changefreq: 'weekly',
+      priority: 0.7,
+      lastmod: new Date(),
+      customPages: [
+        'https://gokhanturhan.com/newsletter',
+        'https://gokhanturhan.com/thank-you'
+      ]
+    })
   ],
   markdown: {
     shikiConfig: {
