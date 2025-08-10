@@ -1,6 +1,7 @@
 ---
 import Navigation from '@/components/Navigation.astro'
 import ThemeProvider from '@/components/ThemeProvider.astro'
+import PrivacyNotice from '@/components/PrivacyNotice.astro'
 import '@/styles/globals.css'
 
 export interface Props {
@@ -153,5 +154,8 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`
         </div>
       </footer>
     </div>
+    
+    <!-- Privacy Notice -->
+    <PrivacyNotice />
   </body>
 </html>

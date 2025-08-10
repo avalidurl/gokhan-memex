@@ -1,0 +1,117 @@
+---
+import { X } from 'lucide-astro'
+import Button from './ui/Button.astro'
+---
+
+<div id="privacy-notice" class="fixed bottom-4 right-4 z-50 max-w-sm bg-background border border-border rounded-lg shadow-lg p-4 hidden">
+  <div class="flex items-start gap-3">
+    <div class="flex-1">
+      <p class="text-sm text-foreground mb-3">
+        This site uses cookies for analytics and to improve your experience. 
+        <a href="/privacy" class="text-primary hover:underline">Learn more</a>
+      </p>
+      <div class="flex gap-2">
+        <Button size="sm" id="accept-privacy" class="text-xs">
+          Accept
+        </Button>
+        <Button variant="outline" size="sm" id="decline-privacy" class="text-xs">
+          Decline
+        </Button>
+      </div>
+    </div>
+    <Button variant="ghost" size="sm" id="close-privacy" class="h-6 w-6 p-0 flex-shrink-0">
+      <X class="h-3 w-3" />
+      <span class="sr-only">Close</span>
+    </Button>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const notice = document.getElementById('privacy-notice')
+    const acceptBtn = document.getElementById('accept-privacy')
+    const declineBtn = document.getElementById('decline-privacy')
+    const closeBtn = document.getElementById('close-privacy')
+    
+    // Check if user has already made a choice
+    const privacyChoice = localStorage.getItem('privacy-choice')
+    
+    // Show popup only if no previous choice was made
+    if (!privacyChoice) {
+      // Show popup after a brief delay
+      setTimeout(() => {
+        notice?.classList.remove('hidden')
+        notice?.classList.add('animate-in', 'slide-in-from-bottom-2')
+      }, 2000) // 2 second delay
+    }
+    
+    // Handle accept
+    acceptBtn?.addEventListener('click', () => {
+      localStorage.setItem('privacy-choice', 'accepted')
+      hideNotice()
+      // Enable analytics if needed
+      if (typeof gtag !== 'undefined') {
+        gtag('consent', 'update', {
+          'analytics_storage': 'granted'
+        })
+      }
+    })
+    
+    // Handle decline
+    declineBtn?.addEventListener('click', () => {
+      localStorage.setItem('privacy-choice', 'declined')
+      hideNotice()
+      // Disable analytics if needed
+      if (typeof gtag !== 'undefined') {
+        gtag('consent', 'update', {
+          'analytics_storage': 'denied'
+        })
+      }
+    })
+    
+    // Handle close (same as decline)
+    closeBtn?.addEventListener('click', () => {
+      localStorage.setItem('privacy-choice', 'dismissed')
+      hideNotice()
+    })
+    
+    function hideNotice() {
+      notice?.classList.add('animate-out', 'slide-out-to-bottom-2')
+      setTimeout(() => {
+        notice?.classList.add('hidden')
+      }, 300)
+    }
+  })
+</script>
+
+<style>
+  @keyframes slide-in-from-bottom {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slide-out-to-bottom {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+  }
+  
+  .animate-in.slide-in-from-bottom-2 {
+    animation: slide-in-from-bottom 0.3s ease-out;
+  }
+  
+  .animate-out.slide-out-to-bottom-2 {
+    animation: slide-out-to-bottom 0.3s ease-in;
+  }
+</style>
