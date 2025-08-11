@@ -1,0 +1,89 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import Card from '@/components/ui/Card.astro'
+import CardContent from '@/components/ui/CardContent.astro'
+
+const breadcrumbs: { label: string; href: string }[] = []
+---
+
+<BaseLayout
+  title="Disclaimer"
+  description="Important disclaimers regarding financial advice, research purposes, and affiliate links on Gökhan Turhan's website."
+>
+  <div class="container max-w-4xl mx-auto px-4 py-8">
+    <Breadcrumbs items={breadcrumbs} currentPage="Disclaimer" />
+
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Disclaimer</h1>
+      <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+        Important information regarding the content, services, and products featured on this website.
+      </p>
+    </div>
+
+    <div class="max-w-3xl mx-auto">
+      <Card>
+        <CardContent class="p-8 md:p-12">
+          <div class="prose prose-lg prose-blue dark:prose-invert max-w-none">
+            
+            <h2>Financial and Investment Disclaimer</h2>
+            
+            <p class="text-lg leading-relaxed mb-8 bg-amber-50 dark:bg-amber-900/20 p-6 rounded-lg border-l-4 border-amber-400">
+              <strong>None of the services, products, or research published on this website constitutes financial advice.</strong> 
+              All content is provided solely for research and educational purposes. The information, analyses, and insights 
+              shared here are based on personal research, experimentation, and academic exploration across fintech, deep tech, 
+              stablecoins, tokenization, investment strategies, and emerging technologies. This content should not be 
+              considered as professional financial, investment, or legal advice. Always conduct your own research and 
+              consult with qualified financial advisors before making any investment decisions. Past performance does not 
+              guarantee future results, and all investments carry inherent risks including potential loss of capital.
+            </p>
+
+            <h2>Research and Educational Purpose</h2>
+            <p>
+              This website serves as a platform for sharing research findings, conceptual frameworks, and experimental 
+              insights related to stablecoins, real-world assets (RWA), tokenization, cryptography, artificial general 
+              intelligence (AGI), competitive governance, and global systemic challenges. The content is intended to 
+              contribute to academic discourse and innovation in these fields, not to provide actionable investment guidance.
+            </p>
+
+            <h2>Affiliate Links and Partnerships</h2>
+            <p>
+              This website may contain affiliate links to products, services, or platforms that I personally use or recommend. 
+              When affiliate links are present, they are clearly disclosed either within the content itself or in 
+              accompanying statements. I may receive compensation if you make purchases through these links, at no 
+              additional cost to you. All affiliate partnerships are chosen based on genuine use and recommendation of 
+              the products or services, maintaining editorial independence and honest assessment.
+            </p>
+
+            <h2>No Warranties</h2>
+            <p>
+              While I strive to provide accurate and up-to-date information, no warranties are made regarding the 
+              completeness, accuracy, or reliability of any content on this website. The rapidly evolving nature of 
+              technology, markets, and regulatory environments means that information may become outdated or require 
+              revision without notice.
+            </p>
+
+            <h2>Personal Opinions and Analysis</h2>
+            <p>
+              All content represents personal opinions, analysis, and research findings based on available information 
+              at the time of publication. Views expressed here do not necessarily reflect the positions of any 
+              organizations, institutions, or entities with which I may be affiliated.
+            </p>
+
+            <h2>Contact</h2>
+            <p>
+              If you have questions about this disclaimer or need clarification on any content, please reach out 
+              through the contact methods available on this website.
+            </p>
+
+            <p class="text-sm text-muted-foreground mt-8 pt-8 border-t">
+              Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </p>
+
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  </div>
+</BaseLayout>
