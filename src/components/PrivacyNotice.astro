@@ -26,7 +26,7 @@ import Button from './ui/Button.astro'
   </div>
 </div>
 
-<script>
+<script is:inline>
   document.addEventListener('DOMContentLoaded', () => {
     const notice = document.getElementById('privacy-notice')
     const acceptBtn = document.getElementById('accept-privacy')
@@ -50,8 +50,8 @@ import Button from './ui/Button.astro'
       localStorage.setItem('privacy-choice', 'accepted')
       hideNotice()
       // Enable analytics if needed
-      if (typeof gtag !== 'undefined') {
-        gtag('consent', 'update', {
+      if (typeof window.gtag !== 'undefined') {
+        window.gtag('consent', 'update', {
           'analytics_storage': 'granted'
         })
       }
@@ -62,8 +62,8 @@ import Button from './ui/Button.astro'
       localStorage.setItem('privacy-choice', 'declined')
       hideNotice()
       // Disable analytics if needed
-      if (typeof gtag !== 'undefined') {
-        gtag('consent', 'update', {
+      if (typeof window.gtag !== 'undefined') {
+        window.gtag('consent', 'update', {
           'analytics_storage': 'denied'
         })
       }
