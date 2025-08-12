@@ -19,36 +19,50 @@ const {
   transparent = true
 } = Astro.props
 
-// Extract track or album ID from Bandcamp URL
-function extractBandcampId(url: string): { type: 'track' | 'album', id: string } | null {
+// Check if URL is already a Bandcamp embed URL or extract info from regular URLs
+function processBandcampUrl(url: string): { embedUrl: string, isValid: boolean } {
   try {
+    // If URL is already a Bandcamp embed URL, use it directly
+    if (url.includes('bandcamp.com/EmbeddedPlayer/')) {
+      return { embedUrl: url, isValid: true }
+    }
+    
+    // If it's a regular Bandcamp URL, try to extract info
     const urlObj = new URL(url)
     const pathParts = urlObj.pathname.split('/')
     
+    let type: 'track' | 'album' | null = null
+    let id: string | null = null
+    
     if (pathParts.includes('track') && pathParts[pathParts.indexOf('track') + 1]) {
-      return { type: 'track', id: pathParts[pathParts.indexOf('track') + 1] }
+      type = 'track'
+      id = pathParts[pathParts.indexOf('track') + 1]
+    } else if (pathParts.includes('album') && pathParts[pathParts.indexOf('album') + 1]) {
+      type = 'album' 
+      id = pathParts[pathParts.indexOf('album') + 1]
     }
     
-    if (pathParts.includes('album') && pathParts[pathParts.indexOf('album') + 1]) {
-      return { type: 'album', id: pathParts[pathParts.indexOf('album') + 1] }
+    if (type && id) {
+      const embedUrl = `https://bandcamp.com/EmbeddedPlayer/${type}=${id}/size=${size}/bgcol=ffffff/linkcol=0687f5/artwork=${artwork}/transparent=${transparent}/`
+      return { embedUrl, isValid: true }
     }
     
-    return null
+    return { embedUrl: '', isValid: false }
   } catch {
-    return null
+    return { embedUrl: '', isValid: false }
   }
 }
 
-const bandcampData = extractBandcampId(url)
+const { embedUrl, isValid } = processBandcampUrl(url)
 const embedHeight = size === 'large' ? '472' : '120'
 ---
 
 <div class="my-6 not-prose">
   <div class="rounded-lg overflow-hidden border bg-card">
-    {bandcampData ? (
+    {isValid ? (
       <iframe 
         style={`border: 0; width: ${width}; height: ${embedHeight}px;`}
-        src={`https://bandcamp.com/EmbeddedPlayer/${bandcampData.type}=${bandcampData.id}/size=${size}/bgcol=ffffff/linkcol=0687f5/artwork=${artwork}/transparent=${transparent}/`}
+        src={embedUrl}
         seamless={true}
         loading="lazy"
         title="Bandcamp Player"
