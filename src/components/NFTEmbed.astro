@@ -2,78 +2,70 @@
 interface Props {
   url: string
   title?: string
-  showBuying?: boolean
-  showMeta?: boolean
+  creator?: string
+  description?: string
 }
 
-const { url, title, showBuying = true, showMeta = true } = Astro.props
+const { url, title, creator, description } = Astro.props
 
 // Extract platform and basic info from URL
 function parseNFTUrl(url: string) {
   try {
     if (url.includes('zora.co')) {
-      return { platform: 'Zora', displayUrl: url }
+      return { platform: 'Zora', displayUrl: url, action: 'Collect on Zora' }
     } else if (url.includes('foundation.app')) {
-      return { platform: 'Foundation', displayUrl: url }
+      return { platform: 'Foundation', displayUrl: url, action: 'Collect on Foundation' }
     } else if (url.includes('opensea.io')) {
-      return { platform: 'OpenSea', displayUrl: url }
+      return { platform: 'OpenSea', displayUrl: url, action: 'View on OpenSea' }
     } else if (url.startsWith('nft://')) {
-      return { platform: 'NFT Protocol', displayUrl: url }
+      return { platform: 'NFT Protocol', displayUrl: url, action: 'View on NFT Protocol' }
     } else if (url.startsWith('ethereum://')) {
-      return { platform: 'Ethereum', displayUrl: url }
+      return { platform: 'Ethereum', displayUrl: url, action: 'View on Etherscan' }
     } else {
-      return { platform: 'NFT', displayUrl: url }
+      return { platform: 'NFT', displayUrl: url, action: 'View NFT' }
     }
   } catch {
-    return { platform: 'NFT', displayUrl: url }
+    return { platform: 'NFT', displayUrl: url, action: 'View NFT' }
   }
 }
 
 const nftInfo = parseNFTUrl(url)
-const displayTitle = title || `${nftInfo.platform} NFT`
+const displayTitle = title || 'Untitled'
 ---
 
 <div class="my-6 not-prose">
-  <div class="rounded-lg border bg-card p-6">
-    <div class="space-y-4">
-      <!-- Header -->
-      <div class="flex items-center justify-between">
-        <h3 class="text-lg font-semibold">{displayTitle}</h3>
-        <div class="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
-          {nftInfo.platform}
-        </div>
-      </div>
-
-      <!-- Description -->
-      <p class="text-sm text-muted-foreground">
-        View this NFT on {nftInfo.platform}. Click below to see full details, metadata, and current availability.
-      </p>
-
-      <!-- Actions -->
-      <div class="flex gap-3">
-        <a
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors text-sm font-medium"
-        >
-          View NFT →
-        </a>
-        <a
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center px-4 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md transition-colors text-sm"
-        >
-          Open in {nftInfo.platform}
-        </a>
-      </div>
-
-      {showMeta && (
-        <div class="text-xs text-muted-foreground pt-2 border-t">
-          <p>NFT metadata and current ownership information available on the external platform.</p>
-        </div>
-      )}
+  <div class="space-y-4">
+    <!-- NFT Title -->
+    <h3 class="text-xl font-bold text-foreground">{displayTitle}</h3>
+    
+    <!-- Creator Attribution -->
+    {creator && (
+      <p class="text-sm text-muted-foreground">By {creator}</p>
+    )}
+    
+    <!-- Description -->
+    {description && (
+      <p class="text-sm text-foreground leading-relaxed">{description}</p>
+    )}
+    
+    <!-- Action Buttons -->
+    <div class="flex gap-3 pt-2">
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-sm font-medium"
+      >
+        {nftInfo.action}
+      </a>
+      <a
+        href={url.replace('zora.co', 'etherscan.io')}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center px-4 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md transition-colors text-sm"
+      >
+        View on Etherscan
+      </a>
     </div>
   </div>
 </div>
