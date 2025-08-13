@@ -1,0 +1,24 @@
+---
+import Badge from '@/components/ui/Badge.astro'
+
+export interface Props {
+  name: string
+  url: string
+  description: string
+  category: string
+}
+
+const { name, url, description, category } = Astro.props
+---
+
+<div class="flex items-start justify-between p-4 border rounded-lg hover:bg-accent/20 transition-colors">
+  <div class="flex-1">
+    <h3 class="font-semibold text-lg">
+      <a href={url} target="_blank" rel="noopener" class="hover:text-primary transition-colors">
+        {name}
+      </a>
+    </h3>
+    <p class="text-sm text-muted-foreground mt-1">{description}</p>
+    <Badge variant="outline" class="mt-2 text-xs">{category}</Badge>
+  </div>
+</div>

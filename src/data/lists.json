@@ -1,0 +1,58 @@
+{
+  "people": [
+    {
+      "name": "Hale Anbar",
+      "description": "Artist and researcher exploring intersections of technology and creative practice",
+      "url": "/haleanbar",
+      "category": "Artists"
+    },
+    {
+      "name": "Simon Willison",
+      "description": "Web developer and writer focused on technology, AI, and programming",
+      "url": "https://simonwillison.net/",
+      "category": "Tech Writers"
+    },
+    {
+      "name": "qntm",
+      "description": "Writer known for fiction like 'There Is No Antimemetics Division' and technical writing",
+      "url": "https://qntm.org/",
+      "category": "Writers & Fiction"
+    },
+    {
+      "name": "Paul Graham",
+      "description": "Y Combinator founder and essayist known for influential startup and entrepreneurship advice",
+      "url": "https://www.paulgraham.com/",
+      "category": "Startup Advisors"
+    },
+    {
+      "name": "Sam Altman",
+      "description": "OpenAI CEO and tech leader with insights on artificial intelligence and technology's future",
+      "url": "https://blog.samaltman.com/",
+      "category": "AI Leaders"
+    },
+    {
+      "name": "Gwern Branwen",
+      "description": "Researcher and writer on AI, psychology, and statistics with deep technical analysis",
+      "url": "https://gwern.net/",
+      "category": "Researchers"
+    },
+    {
+      "name": "David Chapman",
+      "description": "Author exploring better ways of thinking about meaning, self, and society",
+      "url": "https://meaningness.com/",
+      "category": "Philosophers"
+    },
+    {
+      "name": "Nat Friedman",
+      "description": "Former GitHub CEO and tech entrepreneur, co-founder of Ximian and Xamarin",
+      "url": "https://nat.org",
+      "category": "Tech Leaders"
+    },
+    {
+      "name": "Patrick Collison",
+      "description": "Stripe co-founder and entrepreneur focused on financial technology and progress studies",
+      "url": "https://patrickcollison.com/",
+      "category": "Fintech Founders"
+    }
+  ]
+}

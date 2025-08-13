@@ -31,22 +31,51 @@ function extractSpotifyData(url: string): { type: string, id: string } | null {
 
 const spotifyData = extractSpotifyData(url)
 const embedHeight = height || (compact ? '152' : '352')
+const uniqueId = `spotify-${Math.random().toString(36).substring(2, 11)}`
 ---
 
 <div class="my-6 not-prose">
-  <div class="rounded-lg overflow-hidden border bg-card">
-    {spotifyData ? (
-      <iframe 
-        style={`border-radius:12px; width: ${width}; height: ${embedHeight}px;`}
-        src={`https://open.spotify.com/embed/${spotifyData.type}/${spotifyData.id}?utm_source=generator&theme=0`}
-        frameborder="0" 
-        allowfullscreen="" 
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-        loading="lazy"
-        title="Spotify Player"
-      >
-      </iframe>
-    ) : (
+  {spotifyData ? (
+    <div 
+      class="spotify-lazy-container relative"
+      data-src={`https://open.spotify.com/embed/${spotifyData.type}/${spotifyData.id}?utm_source=generator&theme=0`}
+      data-id={uniqueId}
+      data-width={width}
+      data-height={embedHeight}
+    >
+      <!-- Loading Placeholder -->
+      <div class="spotify-placeholder bg-gray-100 dark:bg-gray-800 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 flex items-center justify-center transition-all duration-300" style={`height: ${embedHeight}px;`}>
+        <div class="text-center">
+          <div class="animate-pulse mb-3">
+            <!-- Spotify Play Button Icon -->
+            <div class="w-16 h-16 bg-green-500 rounded-full mx-auto mb-3 flex items-center justify-center">
+              <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </div>
+            <div class="h-4 bg-gray-300 dark:bg-gray-600 rounded w-32 mx-auto mb-2"></div>
+            <div class="h-3 bg-gray-300 dark:bg-gray-600 rounded w-24 mx-auto mb-1"></div>
+            <div class="h-2 bg-gray-300 dark:bg-gray-600 rounded w-20 mx-auto"></div>
+          </div>
+          <button 
+            class="mt-4 px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-sm rounded-full transition-colors font-medium"
+            onclick="this.parentElement.parentElement.parentElement.querySelector('.spotify-loader').click()"
+          >
+            Load Spotify Player
+          </button>
+        </div>
+      </div>
+      
+      <!-- Hidden load trigger -->
+      <button class="spotify-loader hidden" data-target={uniqueId}></button>
+      
+      <!-- Iframe container (initially hidden) -->
+      <div class="spotify-iframe-container hidden rounded-lg overflow-hidden border bg-card">
+        <!-- Iframe will be inserted here -->
+      </div>
+    </div>
+  ) : (
+    <div class="rounded-lg overflow-hidden border bg-card">
       <div class="p-6 text-center">
         <p class="text-muted-foreground mb-4">
           Unable to embed Spotify player
@@ -60,8 +89,8 @@ const embedHeight = height || (compact ? '152' : '352')
           Open in Spotify
         </a>
       </div>
-    )}
-  </div>
+    </div>
+  )}
   
   <div class="mt-2 text-center">
     <a 
@@ -74,3 +103,77 @@ const embedHeight = height || (compact ? '152' : '352')
     </a>
   </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Intersection Observer for lazy loading
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          loadSpotifyEmbed(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      rootMargin: '50px' // Start loading 50px before the element comes into view
+    });
+
+    // Observe all Spotify containers
+    document.querySelectorAll('.spotify-lazy-container').forEach(container => {
+      observer.observe(container);
+      
+      // Also set up manual loading for the button
+      const loader = container.querySelector('.spotify-loader');
+      if (loader) {
+        loader.addEventListener('click', () => {
+          loadSpotifyEmbed(container);
+          observer.unobserve(container);
+        });
+      }
+    });
+
+    function loadSpotifyEmbed(container: Element) {
+      const containerElement = container as HTMLElement;
+      const src = containerElement.dataset.src;
+      const width = containerElement.dataset.width || '100%';
+      const height = containerElement.dataset.height || '352';
+      const placeholder = container.querySelector('.spotify-placeholder');
+      const iframeContainer = container.querySelector('.spotify-iframe-container');
+      
+      if (!src || !placeholder || !iframeContainer) return;
+
+      // Create and insert iframe
+      const iframe = document.createElement('iframe');
+      iframe.style.cssText = `border-radius:12px; width: ${width}; height: ${height}px; border: 0;`;
+      iframe.src = src;
+      iframe.setAttribute('frameborder', '0');
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('allow', 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture');
+      iframe.title = 'Spotify Player';
+      iframe.loading = 'eager'; // Load immediately once triggered
+      
+      // Show loading state
+      placeholder.innerHTML = `
+        <div class="text-center">
+          <div class="animate-spin w-12 h-12 border-3 border-green-500 border-t-transparent rounded-full mx-auto mb-3"></div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">Loading Spotify player...</div>
+        </div>
+      `;
+      
+      // Insert iframe
+      iframeContainer.appendChild(iframe);
+      
+      // Handle iframe load
+      iframe.onload = () => {
+        placeholder.classList.add('hidden');
+        iframeContainer.classList.remove('hidden');
+      };
+      
+      // Fallback timeout
+      setTimeout(() => {
+        placeholder.classList.add('hidden');
+        iframeContainer.classList.remove('hidden');
+      }, 5000);
+    }
+  });
+</script>
