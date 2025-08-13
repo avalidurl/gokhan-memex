@@ -142,7 +142,7 @@ const uniqueId = `bandcamp-${Math.random().toString(36).substring(2, 11)}`
     });
 
     function loadBandcampEmbed(container: Element) {
-      const src = container.dataset.src;
+      const src = (container as HTMLElement).dataset.src;
       const placeholder = container.querySelector('.bandcamp-placeholder');
       const iframeContainer = container.querySelector('.bandcamp-iframe-container');
       
