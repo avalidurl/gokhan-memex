@@ -44,25 +44,49 @@ const embedUrl = videoId ?
 
 // Calculate responsive height (16:9 aspect ratio)
 const aspectHeight = height === 'auto' ? 'aspect-video' : ''
+const uniqueId = `youtube-${Math.random().toString(36).substring(2, 11)}`
 ---
 
 <div class="my-6 not-prose">
-  <div class="rounded-lg overflow-hidden border bg-card">
-    {embedUrl ? (
-      <div class={`w-full ${aspectHeight}`} style={height !== 'auto' ? `height: ${height}px` : ''}>
-        <iframe 
-          class="w-full h-full"
-          src={embedUrl}
-          frameborder="0" 
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen
-          loading="lazy"
-          title="YouTube video player"
-        >
-        </iframe>
+  {embedUrl ? (
+    <div 
+      class="youtube-lazy-container relative"
+      data-src={embedUrl}
+      data-id={uniqueId}
+      data-height={height !== 'auto' ? height : ''}
+      data-aspect={aspectHeight}
+    >
+      <!-- Loading Placeholder -->
+      <div class={`youtube-placeholder bg-gray-100 dark:bg-gray-800 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 flex items-center justify-center transition-all duration-300 ${aspectHeight}`} style={height !== 'auto' ? `height: ${height}px` : ''}>
+        <div class="text-center">
+          <div class="animate-pulse mb-3">
+            <!-- YouTube Play Button Icon -->
+            <div class="w-16 h-16 bg-red-600 rounded-full mx-auto mb-3 flex items-center justify-center relative">
+              <div class="w-0 h-0 border-l-6 border-r-0 border-t-4 border-b-4 border-l-white border-t-transparent border-b-transparent ml-1"></div>
+            </div>
+            <!-- Video Title Placeholder -->
+            <div class="h-4 bg-gray-300 dark:bg-gray-600 rounded w-48 mx-auto mb-2"></div>
+            <div class="h-3 bg-gray-300 dark:bg-gray-600 rounded w-32 mx-auto"></div>
+          </div>
+          <button 
+            class="mt-4 px-6 py-2 bg-red-600 hover:bg-red-700 text-white text-sm rounded-md transition-colors font-medium"
+            onclick="this.parentElement.parentElement.parentElement.querySelector('.youtube-loader').click()"
+          >
+            Load YouTube Player
+          </button>
+        </div>
       </div>
-    ) : (
+      
+      <!-- Hidden load trigger -->
+      <button class="youtube-loader hidden" data-target={uniqueId}></button>
+      
+      <!-- Iframe container (initially hidden) -->
+      <div class="youtube-iframe-container hidden rounded-lg overflow-hidden border bg-card">
+        <!-- Iframe will be inserted here -->
+      </div>
+    </div>
+  ) : (
+    <div class="rounded-lg overflow-hidden border bg-card">
       <div class="p-6 text-center">
         <p class="text-muted-foreground mb-4">
           Unable to embed YouTube video
@@ -76,8 +100,8 @@ const aspectHeight = height === 'auto' ? 'aspect-video' : ''
           Watch on YouTube
         </a>
       </div>
-    )}
-  </div>
+    </div>
+  )}
   
   <div class="mt-2 text-center">
     <a 
@@ -90,3 +114,89 @@ const aspectHeight = height === 'auto' ? 'aspect-video' : ''
     </a>
   </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Intersection Observer for lazy loading
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          loadYouTubeEmbed(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      rootMargin: '50px' // Start loading 50px before the element comes into view
+    });
+
+    // Observe all YouTube containers
+    document.querySelectorAll('.youtube-lazy-container').forEach(container => {
+      observer.observe(container);
+      
+      // Also set up manual loading for the button
+      const loader = container.querySelector('.youtube-loader');
+      if (loader) {
+        loader.addEventListener('click', () => {
+          loadYouTubeEmbed(container);
+          observer.unobserve(container);
+        });
+      }
+    });
+
+    function loadYouTubeEmbed(container: Element) {
+      const src = (container as HTMLElement).dataset.src;
+      const height = (container as HTMLElement).dataset.height;
+      const aspectHeight = (container as HTMLElement).dataset.aspect;
+      const placeholder = container.querySelector('.youtube-placeholder');
+      const iframeContainer = container.querySelector('.youtube-iframe-container');
+      
+      if (!src || !placeholder || !iframeContainer) return;
+
+      // Create iframe wrapper div
+      const iframeWrapper = document.createElement('div');
+      if (aspectHeight) {
+        iframeWrapper.className = `w-full ${aspectHeight}`;
+      } else if (height) {
+        iframeWrapper.style.height = `${height}px`;
+        iframeWrapper.className = 'w-full';
+      } else {
+        iframeWrapper.className = 'w-full aspect-video';
+      }
+
+      // Create and insert iframe
+      const iframe = document.createElement('iframe');
+      iframe.className = 'w-full h-full';
+      iframe.src = src;
+      iframe.setAttribute('frameborder', '0');
+      iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+      iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+      iframe.setAttribute('allowfullscreen', 'true');
+      iframe.title = 'YouTube video player';
+      iframe.loading = 'eager'; // Load immediately once triggered
+      
+      // Show loading state
+      placeholder.innerHTML = `
+        <div class="text-center">
+          <div class="animate-spin w-8 h-8 border-2 border-red-600 border-t-transparent rounded-full mx-auto mb-3"></div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">Loading YouTube player...</div>
+        </div>
+      `;
+      
+      // Insert iframe into wrapper and wrapper into container
+      iframeWrapper.appendChild(iframe);
+      iframeContainer.appendChild(iframeWrapper);
+      
+      // Handle iframe load
+      iframe.onload = () => {
+        placeholder.classList.add('hidden');
+        iframeContainer.classList.remove('hidden');
+      };
+      
+      // Fallback timeout
+      setTimeout(() => {
+        placeholder.classList.add('hidden');
+        iframeContainer.classList.remove('hidden');
+      }, 5000);
+    }
+  });
+</script>

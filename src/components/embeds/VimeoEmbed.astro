@@ -58,24 +58,50 @@ const embedUrl = videoId ?
 
 // Calculate responsive height (16:9 aspect ratio)
 const aspectClass = responsive && height === 'auto' ? 'aspect-video' : ''
+const uniqueId = `vimeo-${Math.random().toString(36).substring(2, 11)}`
 ---
 
 <div class="my-6 not-prose">
-  <div class="rounded-lg overflow-hidden border bg-card">
-    {embedUrl ? (
-      <div class={`w-full ${aspectClass}`} style={height !== 'auto' ? `height: ${height}px` : ''}>
-        <iframe 
-          class="w-full h-full"
-          src={embedUrl}
-          frameborder="0" 
-          allow="autoplay; fullscreen; picture-in-picture" 
-          allowfullscreen
-          loading="lazy"
-          title="Vimeo video player"
-        >
-        </iframe>
+  {embedUrl ? (
+    <div 
+      class="vimeo-lazy-container relative rounded-lg overflow-hidden border bg-card"
+      data-src={embedUrl}
+      data-id={uniqueId}
+      data-width={width}
+      data-height={height}
+      data-responsive={responsive}
+      data-aspect-class={aspectClass}
+    >
+      <!-- Loading Placeholder -->
+      <div class={`vimeo-placeholder bg-gray-100 dark:bg-gray-800 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 flex items-center justify-center transition-all duration-300 ${aspectClass}`} style={height !== 'auto' ? `height: ${height}px` : 'min-height: 200px'}>
+        <div class="text-center">
+          <div class="animate-pulse mb-4">
+            <!-- Vimeo-style play button -->
+            <div class="w-16 h-16 bg-blue-500 rounded-full mx-auto mb-3 flex items-center justify-center">
+              <div class="w-0 h-0 border-l-[12px] border-l-white border-y-[8px] border-y-transparent ml-1"></div>
+            </div>
+            <div class="h-4 bg-gray-300 dark:bg-gray-600 rounded w-32 mx-auto mb-2"></div>
+            <div class="h-3 bg-gray-300 dark:bg-gray-600 rounded w-24 mx-auto"></div>
+          </div>
+          <button 
+            class="mt-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded-md transition-colors"
+            onclick="this.parentElement.parentElement.parentElement.querySelector('.vimeo-loader').click()"
+          >
+            Load Vimeo Player
+          </button>
+        </div>
       </div>
-    ) : (
+      
+      <!-- Hidden load trigger -->
+      <button class="vimeo-loader hidden" data-target={uniqueId}></button>
+      
+      <!-- Iframe container (initially hidden) -->
+      <div class="vimeo-iframe-container hidden">
+        <!-- Iframe will be inserted here -->
+      </div>
+    </div>
+  ) : (
+    <div class="rounded-lg overflow-hidden border bg-card">
       <div class="p-6 text-center">
         <p class="text-muted-foreground mb-4">
           Unable to embed Vimeo video
@@ -89,8 +115,8 @@ const aspectClass = responsive && height === 'auto' ? 'aspect-video' : ''
           Watch on Vimeo
         </a>
       </div>
-    )}
-  </div>
+    </div>
+  )}
   
   <div class="mt-2 text-center">
     <a 
@@ -103,3 +129,93 @@ const aspectClass = responsive && height === 'auto' ? 'aspect-video' : ''
     </a>
   </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Intersection Observer for lazy loading
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          loadVimeoEmbed(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      rootMargin: '50px' // Start loading 50px before the element comes into view
+    });
+
+    // Observe all Vimeo containers
+    document.querySelectorAll('.vimeo-lazy-container').forEach(container => {
+      observer.observe(container);
+      
+      // Also set up manual loading for the button
+      const loader = container.querySelector('.vimeo-loader');
+      if (loader) {
+        loader.addEventListener('click', () => {
+          loadVimeoEmbed(container);
+          observer.unobserve(container);
+        });
+      }
+    });
+
+    function loadVimeoEmbed(container: Element) {
+      const containerEl = container as HTMLElement;
+      const src = containerEl.dataset.src;
+      const width = containerEl.dataset.width || '100%';
+      const height = containerEl.dataset.height || 'auto';
+      const responsive = containerEl.dataset.responsive === 'true';
+      const aspectClass = containerEl.dataset.aspectClass || '';
+      
+      const placeholder = container.querySelector('.vimeo-placeholder');
+      const iframeContainer = container.querySelector('.vimeo-iframe-container');
+      
+      if (!src || !placeholder || !iframeContainer) return;
+
+      // Show loading state
+      placeholder.innerHTML = `
+        <div class="text-center">
+          <div class="animate-spin w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full mx-auto mb-4"></div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">Loading Vimeo player...</div>
+        </div>
+      `;
+
+      // Create iframe wrapper div with proper styling
+      const iframeWrapper = document.createElement('div');
+      if (aspectClass) {
+        iframeWrapper.className = `w-full ${aspectClass}`;
+      } else if (height !== 'auto') {
+        iframeWrapper.style.height = `${height}px`;
+        iframeWrapper.className = 'w-full';
+      } else {
+        iframeWrapper.className = 'w-full';
+        iframeWrapper.style.height = '400px'; // Default height
+      }
+
+      // Create and insert iframe
+      const iframe = document.createElement('iframe');
+      iframe.className = 'w-full h-full';
+      iframe.src = src;
+      iframe.setAttribute('frameborder', '0');
+      iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture');
+      iframe.setAttribute('allowfullscreen', 'true');
+      iframe.title = 'Vimeo video player';
+      iframe.loading = 'eager'; // Load immediately once triggered
+      
+      // Insert iframe into wrapper
+      iframeWrapper.appendChild(iframe);
+      iframeContainer.appendChild(iframeWrapper);
+      
+      // Handle iframe load
+      iframe.onload = () => {
+        placeholder.classList.add('hidden');
+        iframeContainer.classList.remove('hidden');
+      };
+      
+      // Fallback timeout
+      setTimeout(() => {
+        placeholder.classList.add('hidden');
+        iframeContainer.classList.remove('hidden');
+      }, 5000);
+    }
+  });
+</script>

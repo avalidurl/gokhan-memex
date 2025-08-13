@@ -49,11 +49,9 @@ import Button from './ui/Button.astro'
     acceptBtn?.addEventListener('click', () => {
       localStorage.setItem('privacy-choice', 'accepted')
       hideNotice()
-      // Enable analytics if needed
-      if (typeof window.gtag !== 'undefined') {
-        window.gtag('consent', 'update', {
-          'analytics_storage': 'granted'
-        })
+      // Enable analytics using the global function
+      if (typeof window.enableGoogleAnalytics === 'function') {
+        window.enableGoogleAnalytics()
       }
     })
     
@@ -61,11 +59,9 @@ import Button from './ui/Button.astro'
     declineBtn?.addEventListener('click', () => {
       localStorage.setItem('privacy-choice', 'declined')
       hideNotice()
-      // Disable analytics if needed
-      if (typeof window.gtag !== 'undefined') {
-        window.gtag('consent', 'update', {
-          'analytics_storage': 'denied'
-        })
+      // Disable analytics using the global function
+      if (typeof window.disableGoogleAnalytics === 'function') {
+        window.disableGoogleAnalytics()
       }
     })
     

@@ -57,18 +57,107 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`
     <!-- RSS -->
     <link rel="alternate" type="application/rss+xml" title={siteName} href="/rss.xml" />
     
-    <!-- Fonts -->
+    <!-- Fonts - Optimized Loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TSMR6G8LLL"></script>
+    <!-- Preload critical fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- Fallback for users with JS disabled -->
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" />
+    </noscript>
+    
+    <!-- Font loading optimization script -->
     <script is:inline>
+      // Mark JavaScript as available
+      document.documentElement.classList.add('js');
+      
+      // Optimize font loading with swap fallback
+      (function() {
+        if ('fonts' in document) {
+          // Use CSS Font Loading API if available
+          document.fonts.load('400 1em Inter').then(() => {
+            document.documentElement.classList.add('fonts-loaded');
+          }).catch(() => {
+            // Fallback if font loading fails
+            document.documentElement.classList.add('fonts-loaded');
+          });
+        } else {
+          // Fallback: add class after short delay
+          setTimeout(() => {
+            document.documentElement.classList.add('fonts-loaded');
+          }, 100);
+        }
+      })();
+    </script>
+    
+    <!-- Google Analytics with Consent Mode -->
+    <script is:inline>
+      // Initialize dataLayer and gtag function
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
+      
+      // Set default consent mode
+      gtag('consent', 'default', {
+        'analytics_storage': 'denied',
+        'ad_storage': 'denied',
+        'functionality_storage': 'denied',
+        'personalization_storage': 'denied',
+        'security_storage': 'granted',
+        'wait_for_update': 2000
+      });
+      
+      // Initialize GA with timestamp
       gtag('js', new Date());
-
-      gtag('config', 'G-TSMR6G8LLL');
+      
+      // Check for existing consent and load analytics accordingly
+      document.addEventListener('DOMContentLoaded', () => {
+        const privacyChoice = localStorage.getItem('privacy-choice');
+        
+        if (privacyChoice === 'accepted') {
+          // Load GA script and update consent
+          loadGoogleAnalytics();
+          gtag('consent', 'update', {
+            'analytics_storage': 'granted'
+          });
+        }
+      });
+      
+      // Function to load Google Analytics script
+      function loadGoogleAnalytics() {
+        if (!document.querySelector('script[src*="googletagmanager.com/gtag"]')) {
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-TSMR6G8LLL';
+          document.head.appendChild(script);
+          
+          script.onload = () => {
+            gtag('config', 'G-TSMR6G8LLL', {
+              'anonymize_ip': true,
+              'allow_google_signals': false,
+              'allow_ad_personalization_signals': false
+            });
+          };
+        }
+      }
+      
+      // Expose function globally for privacy notice component
+      window.enableGoogleAnalytics = function() {
+        loadGoogleAnalytics();
+        gtag('consent', 'update', {
+          'analytics_storage': 'granted'
+        });
+      };
+      
+      window.disableGoogleAnalytics = function() {
+        gtag('consent', 'update', {
+          'analytics_storage': 'denied'
+        });
+      };
     </script>
     
     <!-- Structured Data - Person Schema -->
