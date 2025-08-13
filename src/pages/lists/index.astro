@@ -13,12 +13,16 @@ import { formatDate } from '@/lib/utils'
 
 const breadcrumbs: { label: string; href: string }[] = []
 
-// Get all published blog posts for music category
+// Get all published blog posts for music and books categories
 const allPosts = (await getCollection('blog'))
   .filter(post => !post.data.draft)
   .sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf())
 
 const musicPosts = allPosts.filter(post => post.data.category === 'Music')
+const bookPosts = allPosts.filter(post => 
+  post.data.category === 'Books' || 
+  (post.data.tags && post.data.tags.includes('books'))
+)
 
 // Types for list items
 type Person = {
@@ -86,15 +90,7 @@ const lists = {
       category: "Fintech Founders"
     }
   ] as Person[],
-  books: [
-    {
-      title: "Conversations with Iannis Xenakis",
-      author: "Bálint András Varga",
-      description: "Insights into algorithmic composition and mathematical music",
-      url: "https://www.amazon.com/Conversations-Iannis-Xenakis-Various-Varga/dp/0571179592",
-      category: "Music & Art"
-    }
-  ]
+  books: []
 }
 
 ---
@@ -154,25 +150,48 @@ const lists = {
           <AccordionTrigger class="text-left">
             <div class="flex items-center justify-between w-full pr-4">
               <h2 class="text-xl font-semibold">Books</h2>
-              <Badge variant="secondary">{lists.books.length}</Badge>
+              <Badge variant="secondary">{bookPosts.length}</Badge>
             </div>
           </AccordionTrigger>
           <AccordionContent>
-            <div class="grid gap-4">
-              {lists.books.map(book => (
-                <div class="flex items-start justify-between p-4 border rounded-lg hover:bg-accent/20 transition-colors">
-                  <div class="flex-1">
-                    <h3 class="font-semibold text-lg">
-                      <a href={book.url} target="_blank" rel="noopener" class="hover:text-primary transition-colors">
-                        {book.title}
-                      </a>
-                    </h3>
-                    <p class="text-sm text-muted-foreground mt-1">by {book.author}</p>
-                    <p class="text-sm text-muted-foreground mt-1">{book.description}</p>
-                    <Badge variant="outline" class="mt-2 text-xs">{book.category}</Badge>
+            <div class="space-y-4">
+              <p class="text-sm text-muted-foreground mb-4">
+                Book reviews and reading reflections from my journal.
+              </p>
+              <div class="grid gap-3">
+                {bookPosts.map(post => (
+                  <div class="flex items-start justify-between p-3 border rounded-lg hover:bg-accent/20 transition-colors">
+                    <div class="flex-1">
+                      <h3 class="font-medium">
+                        <a href={`/journal/${post.slug}`} class="hover:text-primary transition-colors">
+                          {post.data.title}
+                        </a>
+                      </h3>
+                      <p class="text-xs text-muted-foreground mt-1">
+                        {formatDate(post.data.publishDate)}
+                      </p>
+                      {post.data.excerpt && (
+                        <p class="text-sm text-muted-foreground mt-1 line-clamp-2">
+                          {post.data.excerpt}
+                        </p>
+                      )}
+                      {post.data.tags && (
+                        <div class="flex gap-1 mt-2">
+                          {post.data.tags.slice(0, 3).map(tag => (
+                            <Badge variant="outline" class="text-xs">{tag}</Badge>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+                
+                {bookPosts.length === 0 && (
+                  <p class="text-sm text-muted-foreground italic text-center py-4">
+                    Book reviews will appear here as content is published.
+                  </p>
+                )}
+              </div>
             </div>
           </AccordionContent>
         </AccordionItem>
