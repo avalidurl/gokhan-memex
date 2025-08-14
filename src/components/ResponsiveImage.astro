@@ -42,9 +42,7 @@ const srcset = [
   `${responsiveImages['1200w']} 1200w`
 ].join(', ');
 
-// For fallback, check if we have AVIF or WebP alternatives
-const webpSrc = src.replace(/\.(jpg|jpeg|png)$/i, '.webp');
-const avifSrc = src.replace(/\.(jpg|jpeg|png|webp)$/i, '.avif');
+// Generate format alternatives based on original extension
 
 // Generate AVIF srcset if original is not AVIF
 const avifSrcset = extension !== 'avif' ? [

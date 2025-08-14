@@ -35,10 +35,21 @@ function parseNFTUrl(url: string) {
 const nftInfo = parseNFTUrl(url)
 const displayTitle = title || 'Untitled'
 
-// Generate Etherscan URL from contract address and token ID
+// Generate URLs from contract address and token ID
 const etherscanUrl = contractAddress && tokenId 
   ? `https://etherscan.io/nft/${contractAddress}/${tokenId}`
   : url.replace('zora.co', 'etherscan.io')
+
+const openSeaUrl = contractAddress && tokenId
+  ? `https://opensea.io/assets/ethereum/${contractAddress}/${tokenId}`
+  : null
+
+const zoraUrl = contractAddress && tokenId
+  ? `https://zora.co/collections/${contractAddress}/${tokenId}`
+  : null
+
+// Use the most appropriate primary action URL
+const primaryUrl = url || zoraUrl || openSeaUrl || etherscanUrl
 ---
 
 <div class="my-6 not-prose">
@@ -68,23 +79,45 @@ const etherscanUrl = contractAddress && tokenId
       </div>
       
       <!-- Action Buttons -->
-      <div class="flex gap-3">
+      <div class="flex flex-col gap-2">
         <a
-          href={url}
+          href={primaryUrl}
           target="_blank"
           rel="noopener noreferrer"
-          class="flex-1 inline-flex items-center justify-center px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-sm font-medium"
+          class="w-full inline-flex items-center justify-center px-4 py-2.5 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-sm font-medium"
         >
           {nftInfo.action}
         </a>
-        <a
-          href={etherscanUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="flex-1 inline-flex items-center justify-center px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-md hover:bg-gray-50 transition-colors text-sm"
-        >
-          View on Etherscan
-        </a>
+        <div class="flex gap-2">
+          {zoraUrl && (
+            <a
+              href={zoraUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex-1 inline-flex items-center justify-center px-3 py-2 border border-gray-300 bg-white text-gray-700 rounded-md hover:bg-gray-50 transition-colors text-xs"
+            >
+              Zora
+            </a>
+          )}
+          {openSeaUrl && (
+            <a
+              href={openSeaUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex-1 inline-flex items-center justify-center px-3 py-2 border border-gray-300 bg-white text-gray-700 rounded-md hover:bg-gray-50 transition-colors text-xs"
+            >
+              OpenSea
+            </a>
+          )}
+          <a
+            href={etherscanUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex-1 inline-flex items-center justify-center px-3 py-2 border border-gray-300 bg-white text-gray-700 rounded-md hover:bg-gray-50 transition-colors text-xs"
+          >
+            Etherscan
+          </a>
+        </div>
       </div>
     </div>
   </div>
