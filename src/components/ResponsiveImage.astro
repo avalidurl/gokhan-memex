@@ -1,0 +1,101 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  loading?: 'lazy' | 'eager';
+  decoding?: 'async' | 'sync' | 'auto';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  sizes?: string;
+  class?: string;
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  loading = 'lazy',
+  decoding = 'async',
+  fetchpriority = 'auto',
+  sizes = '(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px',
+  class: className = '',
+} = Astro.props;
+
+// Extract base filename and extension from src
+const baseSrc = src.replace(/\.(webp|jpg|jpeg|png)$/i, '');
+const extension = src.match(/\.(webp|jpg|jpeg|png)$/i)?.[1] || 'webp';
+
+// Generate responsive image paths
+const responsiveImages = {
+  '400w': `${baseSrc}-400w.${extension}`,
+  '800w': `${baseSrc}-800w.${extension}`,
+  '1200w': `${baseSrc}-1200w.${extension}`,
+  original: src
+};
+
+// Generate srcset string
+const srcset = [
+  `${responsiveImages['400w']} 400w`,
+  `${responsiveImages['800w']} 800w`,
+  `${responsiveImages['1200w']} 1200w`
+].join(', ');
+
+// For fallback, check if we have AVIF or WebP alternatives
+const webpSrc = src.replace(/\.(jpg|jpeg|png)$/i, '.webp');
+const avifSrc = src.replace(/\.(jpg|jpeg|png|webp)$/i, '.avif');
+
+// Generate AVIF srcset if original is not AVIF
+const avifSrcset = extension !== 'avif' ? [
+  `${baseSrc}-400w.avif 400w`,
+  `${baseSrc}-800w.avif 800w`,
+  `${baseSrc}-1200w.avif 1200w`
+].join(', ') : '';
+
+// Generate WebP srcset if original is not WebP
+const webpSrcset = extension !== 'webp' && extension !== 'avif' ? [
+  `${baseSrc}-400w.webp 400w`,
+  `${baseSrc}-800w.webp 800w`,
+  `${baseSrc}-1200w.webp 1200w`
+].join(', ') : '';
+---
+
+<picture class={className}>
+  <!-- AVIF format for browsers that support it -->
+  {avifSrcset && (
+    <source
+      srcset={avifSrcset}
+      sizes={sizes}
+      type="image/avif"
+    />
+  )}
+  
+  <!-- WebP format for browsers that support it -->
+  {webpSrcset && (
+    <source
+      srcset={webpSrcset}
+      sizes={sizes}
+      type="image/webp"
+    />
+  )}
+  
+  <!-- Original format with responsive sizes -->
+  <source
+    srcset={srcset}
+    sizes={sizes}
+    type={`image/${extension}`}
+  />
+  
+  <!-- Fallback image -->
+  <img
+    src={responsiveImages.original}
+    alt={alt}
+    width={width}
+    height={height}
+    loading={loading}
+    decoding={decoding}
+    fetchpriority={fetchpriority}
+    class="max-w-full h-auto"
+  />
+</picture>
