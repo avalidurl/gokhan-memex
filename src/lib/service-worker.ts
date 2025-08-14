@@ -108,7 +108,7 @@ export class ServiceWorkerManager {
 
     } catch (error) {
       console.error('[SW Manager] Registration failed:', error);
-      this.trackEvent('sw_registration_failed', { error: error.message });
+      this.trackEvent('sw_registration_failed', { error: (error as Error).message });
       throw error;
     }
   }

@@ -105,8 +105,20 @@
 </div>
 
 <script>
+  // Type declarations
+  declare global {
+    interface Window {
+      offlineStatus: OfflineStatusManager;
+      serviceWorkerManager: any;
+    }
+  }
+
   // Offline Status Manager
   class OfflineStatusManager {
+    statusElement: HTMLElement | null;
+    isVisible: boolean;
+    hideTimeout: number | null;
+
     constructor() {
       this.statusElement = null;
       this.isVisible = false;
@@ -150,7 +162,7 @@
       this.showElement('offline-reading-btn');
     }
 
-    handleServiceWorkerMessage(message) {
+    handleServiceWorkerMessage(message: any) {
       switch (message.type) {
         case 'post-cached':
           this.showNotification('cache-notification', 3000);
@@ -166,7 +178,7 @@
       }
     }
 
-    showNotification(elementId, duration = 0) {
+    showNotification(elementId: string, duration = 0) {
       const notification = document.getElementById(elementId);
       if (!notification) return;
 
@@ -186,7 +198,7 @@
       }
     }
 
-    showElement(elementId) {
+    showElement(elementId: string) {
       const element = document.getElementById(elementId);
       if (!element) return;
 
@@ -195,7 +207,7 @@
       this.isVisible = true;
     }
 
-    hideElement(elementId) {
+    hideElement(elementId: string) {
       const element = document.getElementById(elementId);
       if (!element) return;
 
@@ -217,7 +229,7 @@
         clearTimeout(this.hideTimeout);
       }
 
-      this.hideTimeout = setTimeout(() => {
+      this.hideTimeout = window.setTimeout(() => {
         this.statusElement?.classList.add('hidden');
         this.isVisible = false;
       }, 1000);
