@@ -19,3 +19,10 @@ export function slugify(text: string): string {
     .replace(/ /g, '-')
     .replace(/[^\w-]+/g, '')
 }
+
+// Re-export performance monitoring utilities for easy access
+export { createPerformanceMonitor, measurePerformance, measureAsyncPerformance } from './performance'
+export { initializeAnalytics, getAnalytics, setupAutoTracking } from './analytics'
+export { initializePerformanceDashboard, performanceDebug } from './performance-dashboard'
+export { initializeRUM } from './rum'
+export { initializePerformanceAlerts } from './performance-alerts'
