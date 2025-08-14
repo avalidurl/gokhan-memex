@@ -188,6 +188,11 @@
     "category": "Aggregators",
     "items": [
       {
+        "name": "Notion Wiki",
+        "url": "https://gokhanturhan.notion.site/",
+        "description": "Personal knowledge base and wiki"
+      },
+      {
         "name": "Linktree",
         "url": "https://linktr.ee/0xgokhan",
         "description": "All links in one place"
