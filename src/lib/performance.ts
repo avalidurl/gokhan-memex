@@ -1,94 +1,69 @@
 /**
- * Performance Monitoring Utilities
- * Comprehensive performance tracking with Core Web Vitals, custom metrics, and RUM
+ * Performance Monitoring with Service Worker Integration
+ * Tracks Core Web Vitals, resource timing, and offline functionality metrics
  */
 
-// Core Web Vitals and Performance Types
 export interface WebVitalsMetrics {
   lcp: number | null; // Largest Contentful Paint
   fid: number | null; // First Input Delay
   cls: number | null; // Cumulative Layout Shift
   fcp: number | null; // First Contentful Paint
   ttfb: number | null; // Time to First Byte
-  inp: number | null; // Interaction to Next Paint
 }
 
-export interface CustomPerformanceMetrics {
-  domContentLoaded: number | null;
-  windowLoad: number | null;
-  fontLoadTime: number | null;
-  imageLoadTime: number | null;
-  lazyLoadTime: number | null;
-  navigationTiming: NavigationTimingMetrics | null;
-}
-
-export interface NavigationTimingMetrics {
-  dnsLookup: number;
-  tcpConnection: number;
-  tlsHandshake: number;
-  serverResponse: number;
-  domProcessing: number;
-  resourceLoading: number;
-}
-
-export interface PerformanceBudgets {
-  lcp: number; // 2500ms
-  fid: number; // 100ms
-  cls: number; // 0.1
-  fcp: number; // 1800ms
-  ttfb: number; // 800ms
-}
-
-export interface PerformanceReport {
-  url: string;
-  timestamp: number;
+export interface PerformanceMetrics {
   webVitals: WebVitalsMetrics;
-  customMetrics: CustomPerformanceMetrics;
-  budgetStatus: Record<keyof PerformanceBudgets, 'pass' | 'fail'>;
-  deviceInfo: {
-    userAgent: string;
-    connection: string | null;
-    memory: number | null;
-  };
+  navigation: PerformanceNavigationTiming | null;
+  resources: PerformanceResourceTiming[];
+  memory: any;
+  connection: any;
+  serviceWorker: ServiceWorkerMetrics;
+}
+
+export interface ServiceWorkerMetrics {
+  registered: boolean;
+  active: boolean;
+  cacheHitRate: number;
+  offlineUsage: number;
+  syncEvents: number;
+  lastUpdateCheck: number;
 }
 
 /**
- * Performance Monitoring Class
- * Handles Core Web Vitals tracking, custom metrics, and reporting
+ * Performance Monitor Class
  */
 export class PerformanceMonitor {
-  private webVitals: WebVitalsMetrics = {
-    lcp: null,
-    fid: null,
-    cls: null,
-    fcp: null,
-    ttfb: null,
-    inp: null
-  };
+  private debug: boolean;
+  private metrics: PerformanceMetrics;
+  private observers: Map<string, PerformanceObserver> = new Map();
+  private startTime: number;
 
-  private customMetrics: CustomPerformanceMetrics = {
-    domContentLoaded: null,
-    windowLoad: null,
-    fontLoadTime: null,
-    imageLoadTime: null,
-    lazyLoadTime: null,
-    navigationTiming: null
-  };
+  constructor(debug = false) {
+    this.debug = debug;
+    this.startTime = performance.now();
+    
+    this.metrics = {
+      webVitals: {
+        lcp: null,
+        fid: null,
+        cls: null,
+        fcp: null,
+        ttfb: null
+      },
+      navigation: null,
+      resources: [],
+      memory: null,
+      connection: null,
+      serviceWorker: {
+        registered: false,
+        active: false,
+        cacheHitRate: 0,
+        offlineUsage: 0,
+        syncEvents: 0,
+        lastUpdateCheck: 0
+      }
+    };
 
-  private budgets: PerformanceBudgets = {
-    lcp: 2500, // 2.5 seconds
-    fid: 100,  // 100 milliseconds
-    cls: 0.1,  // 0.1 cumulative layout shift
-    fcp: 1800, // 1.8 seconds
-    ttfb: 800  // 800 milliseconds
-  };
-
-  private observers: PerformanceObserver[] = [];
-  private isInitialized = false;
-  private debugMode = false;
-
-  constructor(debugMode = false) {
-    this.debugMode = debugMode;
     this.init();
   }
 
@@ -96,442 +71,282 @@ export class PerformanceMonitor {
    * Initialize performance monitoring
    */
   private init(): void {
-    if (this.isInitialized || typeof window === 'undefined') return;
+    this.observeWebVitals();
+    this.collectNavigationTiming();
+    this.collectResourceTiming();
+    this.collectMemoryInfo();
+    this.collectConnectionInfo();
+    this.collectServiceWorkerMetrics();
 
-    try {
-      this.setupWebVitalsTracking();
-      this.setupCustomMetricsTracking();
-      this.setupNavigationTiming();
-      this.isInitialized = true;
-      
-      if (this.debugMode) {
-        console.log('🚀 Performance monitoring initialized');
-      }
-    } catch (error) {
-      console.error('Failed to initialize performance monitoring:', error);
+    if (this.debug) {
+      console.log('[Performance] Monitor initialized');
     }
   }
 
   /**
-   * Set up Core Web Vitals tracking
+   * Observe Core Web Vitals
    */
-  private setupWebVitalsTracking(): void {
-    // Largest Contentful Paint (LCP)
-    this.observeMetric('largest-contentful-paint', (entries) => {
-      const lastEntry = entries[entries.length - 1] as PerformanceEventTiming;
-      this.webVitals.lcp = Math.round(lastEntry.startTime);
-      this.reportMetric('LCP', this.webVitals.lcp);
-    });
-
-    // First Input Delay (FID)
-    this.observeMetric('first-input', (entries) => {
-      const firstEntry = entries[0] as PerformanceEventTiming & { processingStart: number };
-      this.webVitals.fid = Math.round(firstEntry.processingStart - firstEntry.startTime);
-      this.reportMetric('FID', this.webVitals.fid);
-    });
-
-    // Cumulative Layout Shift (CLS)
-    let clsValue = 0;
-    this.observeMetric('layout-shift', (entries) => {
-      for (const entry of entries as PerformanceEntry[] & { value: number; hadRecentInput: boolean }[]) {
-        if (!entry.hadRecentInput) {
-          clsValue += entry.value;
-        }
-      }
-      this.webVitals.cls = Math.round(clsValue * 10000) / 10000; // Round to 4 decimal places
-      this.reportMetric('CLS', this.webVitals.cls);
-    });
-
-    // First Contentful Paint (FCP)
-    this.observeMetric('paint', (entries) => {
-      for (const entry of entries as PerformanceEntry[]) {
-        if (entry.name === 'first-contentful-paint') {
-          this.webVitals.fcp = Math.round(entry.startTime);
-          this.reportMetric('FCP', this.webVitals.fcp);
-        }
-      }
-    });
-
-    // Interaction to Next Paint (INP) - newer metric
-    if ('PerformanceEventTiming' in window) {
-      this.observeMetric('event', (entries) => {
-        let maxDelay = 0;
-        for (const entry of entries as PerformanceEventTiming[]) {
-          if (entry.processingStart && entry.processingEnd) {
-            const delay = entry.processingEnd - entry.startTime;
-            maxDelay = Math.max(maxDelay, delay);
-          }
-        }
-        if (maxDelay > 0) {
-          this.webVitals.inp = Math.round(maxDelay);
-          this.reportMetric('INP', this.webVitals.inp);
-        }
-      });
-    }
-
-    // Time to First Byte (TTFB)
-    if ('navigation' in performance) {
-      const navTiming = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
-      this.webVitals.ttfb = Math.round(navTiming.responseStart - navTiming.fetchStart);
-      this.reportMetric('TTFB', this.webVitals.ttfb);
-    }
-  }
-
-  /**
-   * Set up custom metrics tracking
-   */
-  private setupCustomMetricsTracking(): void {
-    // DOM Content Loaded
-    if (document.readyState === 'loading') {
-      const startTime = performance.now();
-      document.addEventListener('DOMContentLoaded', () => {
-        this.customMetrics.domContentLoaded = Math.round(performance.now() - startTime);
-        this.reportMetric('DOM Content Loaded', this.customMetrics.domContentLoaded);
-      });
-    }
-
-    // Window Load
-    if (document.readyState !== 'complete') {
-      const startTime = performance.now();
-      window.addEventListener('load', () => {
-        this.customMetrics.windowLoad = Math.round(performance.now() - startTime);
-        this.reportMetric('Window Load', this.customMetrics.windowLoad);
-        
-        // Measure font and image loading after window load
-        this.measureFontLoading();
-        this.measureImageLoading();
-      });
-    }
-
-    // Track lazy loading performance
-    this.setupLazyLoadTracking();
-  }
-
-  /**
-   * Set up navigation timing tracking
-   */
-  private setupNavigationTiming(): void {
-    if (!('navigation' in performance)) return;
-
-    const navTiming = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
-    
-    this.customMetrics.navigationTiming = {
-      dnsLookup: Math.round(navTiming.domainLookupEnd - navTiming.domainLookupStart),
-      tcpConnection: Math.round(navTiming.connectEnd - navTiming.connectStart),
-      tlsHandshake: navTiming.secureConnectionStart > 0 
-        ? Math.round(navTiming.connectEnd - navTiming.secureConnectionStart) 
-        : 0,
-      serverResponse: Math.round(navTiming.responseEnd - navTiming.requestStart),
-      domProcessing: Math.round(navTiming.domComplete - navTiming.responseEnd),
-      resourceLoading: Math.round(navTiming.loadEventEnd - navTiming.domComplete)
-    };
-
-    if (this.debugMode) {
-      console.table(this.customMetrics.navigationTiming);
-    }
-  }
-
-  /**
-   * Track lazy loading performance
-   */
-  private setupLazyLoadTracking(): void {
-    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
-    if (lazyImages.length === 0) return;
-
-    const startTime = performance.now();
-    let loadedCount = 0;
-
-    const imageObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const img = entry.target as HTMLImageElement;
-          const imageStartTime = performance.now();
-          
-          img.addEventListener('load', () => {
-            loadedCount++;
-            const loadTime = performance.now() - imageStartTime;
-            
-            if (loadedCount === lazyImages.length) {
-              this.customMetrics.lazyLoadTime = Math.round(performance.now() - startTime);
-              this.reportMetric('Lazy Load Time', this.customMetrics.lazyLoadTime);
-            }
-          });
-          
-          imageObserver.unobserve(img);
-        }
-      });
-    });
-
-    lazyImages.forEach((img) => imageObserver.observe(img));
-  }
-
-  /**
-   * Measure font loading performance
-   */
-  private measureFontLoading(): void {
-    if (!('fonts' in document)) return;
-
-    const startTime = performance.now();
-    document.fonts.ready.then(() => {
-      this.customMetrics.fontLoadTime = Math.round(performance.now() - startTime);
-      this.reportMetric('Font Load Time', this.customMetrics.fontLoadTime);
-    });
-  }
-
-  /**
-   * Measure image loading performance
-   */
-  private measureImageLoading(): void {
-    const images = document.querySelectorAll('img:not([loading="lazy"])');
-    if (images.length === 0) return;
-
-    const startTime = performance.now();
-    let loadedCount = 0;
-    let totalCount = images.length;
-
-    images.forEach((img: HTMLImageElement) => {
-      if (img.complete) {
-        loadedCount++;
-      } else {
-        img.addEventListener('load', () => {
-          loadedCount++;
-          if (loadedCount === totalCount) {
-            this.customMetrics.imageLoadTime = Math.round(performance.now() - startTime);
-            this.reportMetric('Image Load Time', this.customMetrics.imageLoadTime);
+  private observeWebVitals(): void {
+    // Observe LCP
+    if ('PerformanceObserver' in window) {
+      try {
+        const lcpObserver = new PerformanceObserver((entryList) => {
+          for (const entry of entryList.getEntries()) {
+            this.metrics.webVitals.lcp = entry.startTime;
           }
         });
+        lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
+        this.observers.set('lcp', lcpObserver);
+      } catch (error) {
+        if (this.debug) console.log('[Performance] LCP observer not supported');
+      }
+
+      // Observe FID
+      try {
+        const fidObserver = new PerformanceObserver((entryList) => {
+          for (const entry of entryList.getEntries()) {
+            this.metrics.webVitals.fid = entry.processingStart - entry.startTime;
+          }
+        });
+        fidObserver.observe({ entryTypes: ['first-input'] });
+        this.observers.set('fid', fidObserver);
+      } catch (error) {
+        if (this.debug) console.log('[Performance] FID observer not supported');
+      }
+
+      // Observe CLS
+      try {
+        const clsObserver = new PerformanceObserver((entryList) => {
+          let clsValue = 0;
+          for (const entry of entryList.getEntries()) {
+            if (!entry.hadRecentInput) {
+              clsValue += entry.value;
+            }
+          }
+          this.metrics.webVitals.cls = clsValue;
+        });
+        clsObserver.observe({ entryTypes: ['layout-shift'] });
+        this.observers.set('cls', clsObserver);
+      } catch (error) {
+        if (this.debug) console.log('[Performance] CLS observer not supported');
+      }
+
+      // Observe FCP
+      try {
+        const fcpObserver = new PerformanceObserver((entryList) => {
+          for (const entry of entryList.getEntries()) {
+            if (entry.name === 'first-contentful-paint') {
+              this.metrics.webVitals.fcp = entry.startTime;
+            }
+          }
+        });
+        fcpObserver.observe({ entryTypes: ['paint'] });
+        this.observers.set('fcp', fcpObserver);
+      } catch (error) {
+        if (this.debug) console.log('[Performance] FCP observer not supported');
+      }
+    }
+
+    // Calculate TTFB from navigation timing
+    window.addEventListener('load', () => {
+      const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
+      if (navigation) {
+        this.metrics.webVitals.ttfb = navigation.responseStart - navigation.requestStart;
       }
     });
-
-    if (loadedCount === totalCount) {
-      this.customMetrics.imageLoadTime = 0;
-      this.reportMetric('Image Load Time', this.customMetrics.imageLoadTime);
-    }
   }
 
   /**
-   * Generic performance observer setup
+   * Collect navigation timing
    */
-  private observeMetric(type: string, callback: (entries: PerformanceEntry[]) => void): void {
-    try {
-      const observer = new PerformanceObserver((list) => {
-        callback(list.getEntries());
-      });
-      
-      observer.observe({ type, buffered: true });
-      this.observers.push(observer);
-    } catch (error) {
-      if (this.debugMode) {
-        console.warn(`Failed to observe ${type}:`, error);
+  private collectNavigationTiming(): void {
+    window.addEventListener('load', () => {
+      const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
+      this.metrics.navigation = navigation;
+    });
+  }
+
+  /**
+   * Collect resource timing
+   */
+  private collectResourceTiming(): void {
+    // Collect initial resources
+    window.addEventListener('load', () => {
+      this.metrics.resources = performance.getEntriesByType('resource') as PerformanceResourceTiming[];
+    });
+
+    // Observe new resources
+    if ('PerformanceObserver' in window) {
+      try {
+        const resourceObserver = new PerformanceObserver((entryList) => {
+          const entries = entryList.getEntries() as PerformanceResourceTiming[];
+          this.metrics.resources.push(...entries);
+        });
+        resourceObserver.observe({ entryTypes: ['resource'] });
+        this.observers.set('resource', resourceObserver);
+      } catch (error) {
+        if (this.debug) console.log('[Performance] Resource observer not supported');
       }
     }
   }
 
   /**
-   * Report individual metric
+   * Collect memory information
    */
-  private reportMetric(name: string, value: number | null): void {
-    if (this.debugMode && value !== null) {
-      console.log(`📊 ${name}: ${value}ms`);
+  private collectMemoryInfo(): void {
+    if ('memory' in performance) {
+      this.metrics.memory = (performance as any).memory;
     }
+  }
 
-    // Send to analytics if available
-    if (typeof window !== 'undefined' && 'gtag' in window && value !== null) {
-      (window as any).gtag('event', 'performance_metric', {
-        event_category: 'Performance',
-        event_label: name,
-        value: Math.round(value),
-        custom_map: {
-          metric_name: name,
-          metric_value: value
-        }
+  /**
+   * Collect connection information
+   */
+  private collectConnectionInfo(): void {
+    if ('connection' in navigator) {
+      this.metrics.connection = (navigator as any).connection;
+    }
+  }
+
+  /**
+   * Collect service worker metrics
+   */
+  private collectServiceWorkerMetrics(): void {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.ready.then((registration) => {
+        this.metrics.serviceWorker.registered = true;
+        this.metrics.serviceWorker.active = !!registration.active;
       });
     }
+
+    // Listen for service worker events
+    window.addEventListener('message', (event) => {
+      if (event.data?.source === 'service-worker-manager') {
+        this.handleServiceWorkerMessage(event.data);
+      }
+    });
   }
 
   /**
-   * Check performance against budgets
+   * Handle service worker messages
    */
-  private checkBudgets(): Record<keyof PerformanceBudgets, 'pass' | 'fail'> {
-    const status: Record<keyof PerformanceBudgets, 'pass' | 'fail'> = {
-      lcp: 'pass',
-      fid: 'pass',
-      cls: 'pass',
-      fcp: 'pass',
-      ttfb: 'pass'
-    };
-
-    if (this.webVitals.lcp && this.webVitals.lcp > this.budgets.lcp) status.lcp = 'fail';
-    if (this.webVitals.fid && this.webVitals.fid > this.budgets.fid) status.fid = 'fail';
-    if (this.webVitals.cls && this.webVitals.cls > this.budgets.cls) status.cls = 'fail';
-    if (this.webVitals.fcp && this.webVitals.fcp > this.budgets.fcp) status.fcp = 'fail';
-    if (this.webVitals.ttfb && this.webVitals.ttfb > this.budgets.ttfb) status.ttfb = 'fail';
-
-    return status;
+  private handleServiceWorkerMessage(message: any): void {
+    switch (message.type) {
+      case 'cache-hit':
+        this.metrics.serviceWorker.cacheHitRate++;
+        break;
+      
+      case 'offline-usage':
+        this.metrics.serviceWorker.offlineUsage++;
+        break;
+        
+      case 'sync-event':
+        this.metrics.serviceWorker.syncEvents++;
+        break;
+        
+      case 'update-check':
+        this.metrics.serviceWorker.lastUpdateCheck = Date.now();
+        break;
+    }
   }
 
   /**
-   * Get device information
+   * Get current metrics
    */
-  private getDeviceInfo() {
-    return {
-      userAgent: navigator.userAgent,
-      connection: (navigator as any).connection?.effectiveType || null,
-      memory: (navigator as any).deviceMemory || null
-    };
+  public getMetrics(): PerformanceMetrics {
+    return { ...this.metrics };
   }
 
   /**
-   * Generate comprehensive performance report
+   * Get performance score (0-100)
    */
-  public generateReport(): PerformanceReport {
-    return {
-      url: window.location.href,
-      timestamp: Date.now(),
-      webVitals: { ...this.webVitals },
-      customMetrics: { ...this.customMetrics },
-      budgetStatus: this.checkBudgets(),
-      deviceInfo: this.getDeviceInfo()
-    };
+  public getScore(): number {
+    const vitals = this.metrics.webVitals;
+    let score = 100;
+
+    // LCP scoring (Good: <2.5s, Poor: >4s)
+    if (vitals.lcp !== null) {
+      if (vitals.lcp > 4000) score -= 30;
+      else if (vitals.lcp > 2500) score -= 15;
+    }
+
+    // FID scoring (Good: <100ms, Poor: >300ms)
+    if (vitals.fid !== null) {
+      if (vitals.fid > 300) score -= 25;
+      else if (vitals.fid > 100) score -= 10;
+    }
+
+    // CLS scoring (Good: <0.1, Poor: >0.25)
+    if (vitals.cls !== null) {
+      if (vitals.cls > 0.25) score -= 25;
+      else if (vitals.cls > 0.1) score -= 10;
+    }
+
+    // FCP scoring (Good: <1.8s, Poor: >3s)
+    if (vitals.fcp !== null) {
+      if (vitals.fcp > 3000) score -= 20;
+      else if (vitals.fcp > 1800) score -= 10;
+    }
+
+    return Math.max(0, Math.min(100, score));
   }
 
   /**
-   * Send performance report to analytics
+   * Send performance report
    */
   public sendReport(): void {
-    const report = this.generateReport();
-    
-    if (this.debugMode) {
-      console.log('📋 Performance Report:', report);
-    }
+    const report = {
+      timestamp: Date.now(),
+      sessionDuration: performance.now() - this.startTime,
+      metrics: this.getMetrics(),
+      score: this.getScore(),
+      url: window.location.href,
+      userAgent: navigator.userAgent,
+      viewport: {
+        width: window.innerWidth,
+        height: window.innerHeight
+      }
+    };
 
-    // Send to Google Analytics if available
-    if (typeof window !== 'undefined' && 'gtag' in window) {
-      (window as any).gtag('event', 'performance_report', {
-        event_category: 'Performance',
-        event_label: 'Full Report',
-        custom_map: {
-          lcp: report.webVitals.lcp,
-          fid: report.webVitals.fid,
-          cls: report.webVitals.cls,
-          fcp: report.webVitals.fcp,
-          ttfb: report.webVitals.ttfb,
-          budget_failures: Object.values(report.budgetStatus).filter(s => s === 'fail').length
+    // Send to analytics if available
+    const analytics = (window as any).analytics;
+    if (analytics) {
+      analytics.trackEvent({
+        action: 'performance_report',
+        category: 'Performance',
+        custom_parameters: {
+          score: report.score,
+          lcp: this.metrics.webVitals.lcp,
+          fid: this.metrics.webVitals.fid,
+          cls: this.metrics.webVitals.cls,
+          fcp: this.metrics.webVitals.fcp,
+          ttfb: this.metrics.webVitals.ttfb,
+          service_worker_active: this.metrics.serviceWorker.active,
+          cache_hit_rate: this.metrics.serviceWorker.cacheHitRate,
+          offline_usage: this.metrics.serviceWorker.offlineUsage
         }
       });
     }
 
-    // Check for budget failures
-    const failures = Object.entries(report.budgetStatus).filter(([, status]) => status === 'fail');
-    if (failures.length > 0) {
-      this.reportBudgetFailures(failures);
+    if (this.debug) {
+      console.log('[Performance] Report sent:', report);
     }
   }
 
   /**
-   * Report performance budget failures
-   */
-  private reportBudgetFailures(failures: [string, 'pass' | 'fail'][]): void {
-    const failureNames = failures.map(([name]) => name);
-    
-    if (this.debugMode) {
-      console.warn('⚠️ Performance budget failures:', failureNames);
-    }
-
-    // Send alert to analytics
-    if (typeof window !== 'undefined' && 'gtag' in window) {
-      (window as any).gtag('event', 'performance_budget_failure', {
-        event_category: 'Performance',
-        event_label: failureNames.join(', '),
-        value: failures.length
-      });
-    }
-  }
-
-  /**
-   * Cleanup observers
+   * Destroy monitor and clean up observers
    */
   public destroy(): void {
-    this.observers.forEach(observer => observer.disconnect());
-    this.observers = [];
-  }
-
-  /**
-   * Get current metrics (for debugging)
-   */
-  public getMetrics(): { webVitals: WebVitalsMetrics; customMetrics: CustomPerformanceMetrics } {
-    return {
-      webVitals: { ...this.webVitals },
-      customMetrics: { ...this.customMetrics }
-    };
+    this.observers.forEach((observer) => {
+      observer.disconnect();
+    });
+    this.observers.clear();
   }
 }
 
 /**
- * Utility Functions
+ * Create performance monitor instance
  */
-
-/**
- * Create and initialize performance monitor
- */
-export function createPerformanceMonitor(debugMode = false): PerformanceMonitor {
-  return new PerformanceMonitor(debugMode);
-}
-
-/**
- * Simple performance measurement utility
- */
-export function measurePerformance<T>(name: string, fn: () => T): T {
-  const start = performance.now();
-  const result = fn();
-  const end = performance.now();
-  
-  console.log(`⏱️ ${name}: ${Math.round(end - start)}ms`);
-  
-  return result;
-}
-
-/**
- * Async performance measurement utility
- */
-export async function measureAsyncPerformance<T>(name: string, fn: () => Promise<T>): Promise<T> {
-  const start = performance.now();
-  const result = await fn();
-  const end = performance.now();
-  
-  console.log(`⏱️ ${name}: ${Math.round(end - start)}ms`);
-  
-  return result;
-}
-
-/**
- * Check if performance monitoring is supported
- */
-export function isPerformanceSupported(): boolean {
-  return typeof window !== 'undefined' && 
-         'performance' in window && 
-         'PerformanceObserver' in window;
-}
-
-/**
- * Get Core Web Vitals ratings
- */
-export function getRating(metric: keyof WebVitalsMetrics, value: number | null): 'good' | 'needs-improvement' | 'poor' | 'unknown' {
-  if (value === null) return 'unknown';
-
-  const thresholds = {
-    lcp: { good: 2500, poor: 4000 },
-    fid: { good: 100, poor: 300 },
-    cls: { good: 0.1, poor: 0.25 },
-    fcp: { good: 1800, poor: 3000 },
-    ttfb: { good: 800, poor: 1800 },
-    inp: { good: 200, poor: 500 }
-  };
-
-  const threshold = thresholds[metric];
-  if (!threshold) return 'unknown';
-
-  if (value <= threshold.good) return 'good';
-  if (value <= threshold.poor) return 'needs-improvement';
-  return 'poor';
+export function createPerformanceMonitor(debug = false): PerformanceMonitor {
+  return new PerformanceMonitor(debug);
 }
