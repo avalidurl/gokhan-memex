@@ -16,8 +16,17 @@ heroImage: "/blog/images/playlist-7-header.png"
 import BandcampEmbed from '../../components/embeds/BandcampEmbed.astro';
 import AppleMusicEmbed from '../../components/embeds/AppleMusicEmbed.astro';
 import NFTEmbed from '../../components/NFTEmbed.astro';
+import ResponsiveImage from '../../components/ResponsiveImage.astro';
 
-![PLAYLIST #7: EOY '23](/blog/images/playlist-7-header.png)
+<ResponsiveImage
+  src="/blog/images/playlist-7-header.webp"
+  alt="PLAYLIST #7: EOY '23 header image featuring abstract music visualization"
+  width={1200}
+  height={675}
+  fetchpriority="high"
+  loading="eager"
+  class="w-full rounded-lg shadow-lg my-8"
+/>
 
 ## 0. Mumblecore
 
@@ -66,8 +75,8 @@ Railton's album reminds me of an idea I once had to no avail:
   tokenId="1"
   title="Corner Dance NFT"
   creator="Gökhan"
-  description="An NFT related to Lucy Railton's Corner Dancer album"
-  image="/blog/images/playlist-7-header.png"
+  description="An .svg of a .png from personal Figma design file - a conceptual piece about sonar strikes and sounds related to blockchain blocks, inspired by Iannis Xenakis"
+  image="https://storage.googleapis.com/nftimagebucket/tokens/0x2954a0bfe5389fc18ad2ba6d00f9afb0973f7c75/preview/1.png"
 />
 
 ## 2. Fred again… & Brian Eno - Secret Life

@@ -240,69 +240,160 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`
       })();
     </script>
     
-    <!-- Google Analytics with Consent Mode -->
+    <!-- Enhanced Analytics and Performance Monitoring -->
     <script is:inline>
-      // Initialize dataLayer and gtag function
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      // Performance monitoring configuration
+      const isDebugMode = window.location.hostname === 'localhost' || window.location.search.includes('debug=performance');
       
-      // Set default consent mode
-      gtag('consent', 'default', {
-        'analytics_storage': 'denied',
-        'ad_storage': 'denied',
-        'functionality_storage': 'denied',
-        'personalization_storage': 'denied',
-        'security_storage': 'granted',
-        'wait_for_update': 2000
+      // Initialize performance monitoring immediately
+      document.addEventListener('DOMContentLoaded', async () => {
+        try {
+          // Import performance monitoring modules
+          const { initializeAnalytics } = await import('/src/lib/analytics.js');
+          const { createPerformanceMonitor } = await import('/src/lib/performance.js');
+          const { initializePerformanceDashboard } = await import('/src/lib/performance-dashboard.js');
+          const { initializeRUM } = await import('/src/lib/rum.js');
+          const { initializePerformanceAlerts } = await import('/src/lib/performance-alerts.js');
+          const { setupAutoTracking } = await import('/src/lib/analytics.js');
+          
+          // Initialize performance monitor
+          const performanceMonitor = createPerformanceMonitor(isDebugMode);
+          window.performanceMonitor = performanceMonitor;
+          
+          // Initialize analytics with performance tracking
+          const analytics = initializeAnalytics({
+            trackingId: 'G-TSMR6G8LLL',
+            debug: isDebugMode,
+            performanceTracking: true,
+            consentMode: true
+          });
+          
+          // Initialize RUM monitoring
+          const rum = initializeRUM({
+            enabled: true,
+            sampleRate: isDebugMode ? 1.0 : 0.1, // 100% in debug, 10% in production
+            trackUserInteractions: true,
+            trackPageVisibility: true,
+            trackNetworkInfo: true,
+            trackMemoryUsage: true,
+            trackLongTasks: true,
+            trackResourceTiming: true
+          });
+          
+          // Initialize performance alerts and reporting
+          const performanceAlerts = initializePerformanceAlerts(performanceMonitor, {
+            enabled: true,
+            notifications: {
+              console: isDebugMode,
+              analytics: true
+            },
+            reporting: {
+              enabled: true,
+              interval: 300000, // 5 minutes
+              includeUserMetrics: true,
+              includeResourceTiming: true,
+              includeErrorLogs: true
+            }
+          }, rum);
+          
+          // Initialize performance dashboard in debug mode
+          if (isDebugMode) {
+            const dashboard = initializePerformanceDashboard(performanceMonitor, {
+              enabled: true,
+              position: 'bottom-right',
+              minimized: false,
+              autoUpdate: true,
+              showAlerts: true
+            });
+          }
+          
+          // Setup automatic tracking for common interactions
+          setupAutoTracking();
+          
+          // Send initial performance report after 5 seconds
+          setTimeout(() => {
+            if (performanceMonitor && analytics.getStatus().enabled) {
+              performanceMonitor.sendReport();
+            }
+          }, 5000);
+          
+          // Track Core Web Vitals after page is fully loaded
+          window.addEventListener('load', () => {
+            setTimeout(() => {
+              analytics.trackWebVitals();
+            }, 2000);
+          });
+          
+          console.log('🚀 Enhanced analytics and performance monitoring initialized');
+          
+        } catch (error) {
+          console.error('Failed to initialize performance monitoring:', error);
+          // Fallback to basic analytics
+          initBasicAnalytics();
+        }
       });
       
-      // Initialize GA with timestamp
-      gtag('js', new Date());
-      
-      // Check for existing consent and load analytics accordingly
-      document.addEventListener('DOMContentLoaded', () => {
+      // Basic analytics fallback function
+      function initBasicAnalytics() {
+        // Initialize dataLayer and gtag function
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        
+        // Set default consent mode
+        gtag('consent', 'default', {
+          'analytics_storage': 'denied',
+          'ad_storage': 'denied',
+          'functionality_storage': 'denied',
+          'personalization_storage': 'denied',
+          'security_storage': 'granted',
+          'wait_for_update': 2000
+        });
+        
+        // Initialize GA with timestamp
+        gtag('js', new Date());
+        
+        // Check for existing consent and load analytics accordingly
         const privacyChoice = localStorage.getItem('privacy-choice');
         
         if (privacyChoice === 'accepted') {
-          // Load GA script and update consent
           loadGoogleAnalytics();
           gtag('consent', 'update', {
             'analytics_storage': 'granted'
           });
         }
-      });
-      
-      // Function to load Google Analytics script
-      function loadGoogleAnalytics() {
-        if (!document.querySelector('script[src*="googletagmanager.com/gtag"]')) {
-          const script = document.createElement('script');
-          script.async = true;
-          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-TSMR6G8LLL';
-          document.head.appendChild(script);
-          
-          script.onload = () => {
-            gtag('config', 'G-TSMR6G8LLL', {
-              'anonymize_ip': true,
-              'allow_google_signals': false,
-              'allow_ad_personalization_signals': false
-            });
-          };
+        
+        // Function to load Google Analytics script
+        function loadGoogleAnalytics() {
+          if (!document.querySelector('script[src*="googletagmanager.com/gtag"]')) {
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-TSMR6G8LLL';
+            document.head.appendChild(script);
+            
+            script.onload = () => {
+              gtag('config', 'G-TSMR6G8LLL', {
+                'anonymize_ip': true,
+                'allow_google_signals': false,
+                'allow_ad_personalization_signals': false
+              });
+            };
+          }
         }
+        
+        // Expose functions globally for privacy notice component
+        window.enableGoogleAnalytics = function() {
+          loadGoogleAnalytics();
+          gtag('consent', 'update', {
+            'analytics_storage': 'granted'
+          });
+        };
+        
+        window.disableGoogleAnalytics = function() {
+          gtag('consent', 'update', {
+            'analytics_storage': 'denied'
+          });
+        };
       }
-      
-      // Expose function globally for privacy notice component
-      window.enableGoogleAnalytics = function() {
-        loadGoogleAnalytics();
-        gtag('consent', 'update', {
-          'analytics_storage': 'granted'
-        });
-      };
-      
-      window.disableGoogleAnalytics = function() {
-        gtag('consent', 'update', {
-          'analytics_storage': 'denied'
-        });
-      };
     </script>
     
     <!-- Structured Data - Person Schema -->
