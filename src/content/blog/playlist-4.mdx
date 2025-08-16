@@ -29,9 +29,16 @@ source: paragraph
 originalSlug: playlist-4
 ---
 
-:::warning
-There were 4 Zora origin NFTs here but since they nuked all of the frontends prior to their mobile app, it's now a pain in the ass to fetch those properly. Sorry for the inconvenience.
-:::
+import Alert from '../../components/ui/Alert.astro';
+import AlertDescription from '../../components/ui/AlertDescription.astro';
+import { TriangleAlert } from 'lucide-astro';
+
+<Alert variant="destructive">
+  <TriangleAlert size={16} />
+  <AlertDescription>
+    There were 4 Zora origin NFTs here but since they nuked all of the frontends prior to their mobile app, it's now a pain in the ass to fetch those properly. Sorry for the inconvenience.
+  </AlertDescription>
+</Alert>
 
 ## For those Who Sit in a Smart Contract
 
