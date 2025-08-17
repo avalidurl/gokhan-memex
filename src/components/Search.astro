@@ -41,6 +41,7 @@ import { Search as SearchIcon } from 'lucide-astro'
     input: HTMLInputElement | null
     results: HTMLElement | null
     posts: Array<{title: string, link: string, description: string, date: string}>
+    selectedIndex: number
     
     constructor() {
       this.modal = document.getElementById('search-modal')
@@ -48,6 +49,7 @@ import { Search as SearchIcon } from 'lucide-astro'
       this.input = document.getElementById('search-input') as HTMLInputElement
       this.results = document.getElementById('search-results')
       this.posts = []
+      this.selectedIndex = -1
       
       this.init()
     }
@@ -89,6 +91,27 @@ import { Search as SearchIcon } from 'lucide-astro'
         }
       })
       
+      // Handle keyboard navigation in search input
+      this.input?.addEventListener('keydown', (e: KeyboardEvent) => {
+        const resultItems = this.results?.querySelectorAll('a') || []
+        
+        if (e.key === 'ArrowDown') {
+          e.preventDefault()
+          this.selectedIndex = Math.min(this.selectedIndex + 1, resultItems.length - 1)
+          this.updateSelection(resultItems)
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault()
+          this.selectedIndex = Math.max(this.selectedIndex - 1, -1)
+          this.updateSelection(resultItems)
+        } else if (e.key === 'Enter' && this.selectedIndex >= 0) {
+          e.preventDefault()
+          const selectedItem = resultItems[this.selectedIndex] as HTMLAnchorElement
+          if (selectedItem) {
+            window.location.href = selectedItem.href
+          }
+        }
+      })
+      
       // Close on backdrop click
       this.backdrop?.addEventListener('click', () => this.close())
       
@@ -111,6 +134,7 @@ import { Search as SearchIcon } from 'lucide-astro'
     close() {
       this.modal?.classList.add('hidden')
       if (this.input) this.input.value = ''
+      this.selectedIndex = -1
       this.clearResults()
     }
     
@@ -125,6 +149,7 @@ import { Search as SearchIcon } from 'lucide-astro'
         post.description.toLowerCase().includes(query.toLowerCase())
       )
       
+      this.selectedIndex = -1
       this.renderResults(filtered, query)
     }
     
@@ -140,8 +165,8 @@ import { Search as SearchIcon } from 'lucide-astro'
         return
       }
       
-      this.results.innerHTML = posts.map(post => `
-        <a href="${post.link}" class="flex items-center gap-2 rounded-sm px-2 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground">
+      this.results.innerHTML = posts.map((post, index) => `
+        <a href="${post.link}" class="search-result flex items-center gap-2 rounded-sm px-2 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground" data-index="${index}">
           <div class="flex flex-col gap-1">
             <span class="font-medium">${this.highlight(post.title, query)}</span>
             <span class="text-xs text-muted-foreground line-clamp-2">${this.highlight(post.description.substring(0, 100) + '...', query)}</span>
@@ -158,11 +183,22 @@ import { Search as SearchIcon } from 'lucide-astro'
     
     clearResults() {
       if (!this.results) return
+      this.selectedIndex = -1
       this.results.innerHTML = `
         <div class="px-1 py-2">
           <p class="text-sm text-muted-foreground">Start typing to search posts...</p>
         </div>
       `
+    }
+    
+    updateSelection(resultItems: NodeListOf<Element>) {
+      resultItems.forEach((item, index) => {
+        if (index === this.selectedIndex) {
+          item.classList.add('bg-accent', 'text-accent-foreground')
+        } else {
+          item.classList.remove('bg-accent', 'text-accent-foreground')
+        }
+      })
     }
   }
   
