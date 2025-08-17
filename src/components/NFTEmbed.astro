@@ -53,14 +53,14 @@ const primaryUrl = url || zoraUrl || openSeaUrl || etherscanUrl
 ---
 
 <div class="my-6 not-prose">
-  <div class="bg-white rounded-lg border border-gray-200 p-4 max-w-md mx-auto">
+  <div class="bg-white rounded-lg border border-gray-200 p-4 mx-auto">
     <div class="flex flex-col gap-4">
       <!-- NFT Image -->
       {image && (
         <img 
           src={image} 
           alt={displayTitle}
-          class="w-full rounded-lg object-cover aspect-square"
+          class="w-full rounded-lg"
           loading="lazy"
         />
       )}
