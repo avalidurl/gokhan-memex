@@ -69,7 +69,8 @@ const platform = getPlatformInfo(url);
   href={url} 
   target="_blank" 
   rel="noopener noreferrer"
-  class={`inline-flex items-center gap-3 p-4 rounded-lg border-2 no-underline ${platform.color} ${className}`}
+  class={`inline-flex items-center gap-3 p-4 rounded-lg border-2 no-underline hover:no-underline ${platform.color} ${className}`}
+  style="text-decoration: none !important;"
 >
   <span class="text-2xl">{platform.icon}</span>
   <div class="flex-1">
