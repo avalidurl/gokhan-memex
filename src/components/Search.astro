@@ -1,0 +1,172 @@
+---
+import { Search, Command } from 'lucide-astro'
+---
+
+<!-- Search Modal -->
+<div id="search-modal" class="fixed inset-0 z-50 hidden">
+  <!-- Backdrop -->
+  <div class="fixed inset-0 bg-background/80 backdrop-blur-sm" id="search-backdrop"></div>
+  
+  <!-- Modal Content -->
+  <div class="fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 sm:rounded-lg">
+    <!-- Search Input -->
+    <div class="flex items-center border rounded-md px-3">
+      <Search class="mr-2 h-4 w-4 shrink-0 opacity-50" />
+      <input
+        id="search-input"
+        class="flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+        placeholder="Search posts..."
+        type="search"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <kbd class="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+        <span class="text-xs">ESC</span>
+      </kbd>
+    </div>
+    
+    <!-- Search Results -->
+    <div class="max-h-[300px] overflow-y-auto" id="search-results">
+      <div class="px-1 py-2">
+        <p class="text-sm text-muted-foreground">Start typing to search posts...</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  class SearchManager {
+    constructor() {
+      this.modal = document.getElementById('search-modal')
+      this.backdrop = document.getElementById('search-backdrop')
+      this.input = document.getElementById('search-input')
+      this.results = document.getElementById('search-results')
+      this.posts = []
+      
+      this.init()
+    }
+    
+    async init() {
+      await this.loadPosts()
+      this.bindEvents()
+    }
+    
+    async loadPosts() {
+      try {
+        // Fetch posts from your RSS feed or API
+        const response = await fetch('/rss.xml')
+        const text = await response.text()
+        const parser = new DOMParser()
+        const xml = parser.parseFromString(text, 'text/xml')
+        
+        this.posts = Array.from(xml.querySelectorAll('item')).map(item => ({
+          title: item.querySelector('title')?.textContent || '',
+          link: item.querySelector('link')?.textContent || '',
+          description: item.querySelector('description')?.textContent || '',
+          date: item.querySelector('pubDate')?.textContent || ''
+        }))
+      } catch (error) {
+        console.error('Failed to load posts:', error)
+        this.posts = []
+      }
+    }
+    
+    bindEvents() {
+      // Open search with Cmd+K / Ctrl+K
+      document.addEventListener('keydown', (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+          e.preventDefault()
+          this.open()
+        }
+        if (e.key === 'Escape') {
+          this.close()
+        }
+      })
+      
+      // Close on backdrop click
+      this.backdrop?.addEventListener('click', () => this.close())
+      
+      // Search input handler
+      this.input?.addEventListener('input', (e) => {
+        this.search(e.target.value)
+      })
+      
+      // Handle search button clicks
+      document.getElementById('search-button')?.addEventListener('click', () => this.open())
+      document.getElementById('mobile-search-button')?.addEventListener('click', () => this.open())
+    }
+    
+    open() {
+      this.modal?.classList.remove('hidden')
+      this.input?.focus()
+    }
+    
+    close() {
+      this.modal?.classList.add('hidden')
+      this.input.value = ''
+      this.clearResults()
+    }
+    
+    search(query) {
+      if (!query.trim()) {
+        this.clearResults()
+        return
+      }
+      
+      const filtered = this.posts.filter(post => 
+        post.title.toLowerCase().includes(query.toLowerCase()) ||
+        post.description.toLowerCase().includes(query.toLowerCase())
+      )
+      
+      this.renderResults(filtered, query)
+    }
+    
+    renderResults(posts, query) {
+      if (posts.length === 0) {
+        this.results.innerHTML = `
+          <div class="px-1 py-2">
+            <p class="text-sm text-muted-foreground">No results found for "${query}"</p>
+          </div>
+        `
+        return
+      }
+      
+      this.results.innerHTML = posts.map(post => `
+        <a href="${post.link}" class="flex items-center gap-2 rounded-sm px-2 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground">
+          <div class="flex flex-col gap-1">
+            <span class="font-medium">${this.highlight(post.title, query)}</span>
+            <span class="text-xs text-muted-foreground line-clamp-2">${this.highlight(post.description.substring(0, 100) + '...', query)}</span>
+          </div>
+        </a>
+      `).join('')
+    }
+    
+    highlight(text, query) {
+      if (!query) return text
+      const regex = new RegExp(`(${query})`, 'gi')
+      return text.replace(regex, '<mark class="bg-yellow-200 text-black">$1</mark>')
+    }
+    
+    clearResults() {
+      this.results.innerHTML = `
+        <div class="px-1 py-2">
+          <p class="text-sm text-muted-foreground">Start typing to search posts...</p>
+        </div>
+      `
+    }
+  }
+  
+  // Initialize search when DOM is ready
+  document.addEventListener('DOMContentLoaded', () => {
+    new SearchManager()
+  })
+</script>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
