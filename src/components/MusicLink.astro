@@ -84,7 +84,7 @@ const platform = getPlatformInfo(url);
       <div class="mt-1">
         {artist && <span class="font-semibold">{artist}</span>}
         {artist && title && <span class="mx-2">—</span>}
-        {title && <span class="italic">"{title}"</span>}
+        {title && <span>"{title}"</span>}
       </div>
     )}
     {!artist && !title && (
