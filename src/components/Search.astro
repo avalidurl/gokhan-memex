@@ -93,7 +93,8 @@ import { Search as SearchIcon } from 'lucide-astro'
       
       // Handle keyboard navigation in search input
       this.input?.addEventListener('keydown', (e: KeyboardEvent) => {
-        const resultItems = this.results?.querySelectorAll('a') || []
+        if (!this.results) return
+        const resultItems = this.results.querySelectorAll('a')
         
         if (e.key === 'ArrowDown') {
           e.preventDefault()
@@ -191,7 +192,7 @@ import { Search as SearchIcon } from 'lucide-astro'
       `
     }
     
-    updateSelection(resultItems: NodeListOf<Element>) {
+    updateSelection(resultItems: NodeListOf<HTMLAnchorElement>) {
       resultItems.forEach((item, index) => {
         if (index === this.selectedIndex) {
           item.classList.add('bg-accent', 'text-accent-foreground')
