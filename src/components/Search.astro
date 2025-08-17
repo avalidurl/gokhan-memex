@@ -1,5 +1,5 @@
 ---
-import { Search, Command } from 'lucide-astro'
+import { Search as SearchIcon } from 'lucide-astro'
 ---
 
 <!-- Search Modal -->
@@ -11,7 +11,7 @@ import { Search, Command } from 'lucide-astro'
   <div class="fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 sm:rounded-lg">
     <!-- Search Input -->
     <div class="flex items-center border rounded-md px-3">
-      <Search class="mr-2 h-4 w-4 shrink-0 opacity-50" />
+      <SearchIcon class="mr-2 h-4 w-4 shrink-0 opacity-50" />
       <input
         id="search-input"
         class="flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
@@ -36,10 +36,16 @@ import { Search, Command } from 'lucide-astro'
 
 <script>
   class SearchManager {
+    modal: HTMLElement | null
+    backdrop: HTMLElement | null
+    input: HTMLInputElement | null
+    results: HTMLElement | null
+    posts: Array<{title: string, link: string, description: string, date: string}>
+    
     constructor() {
       this.modal = document.getElementById('search-modal')
       this.backdrop = document.getElementById('search-backdrop')
-      this.input = document.getElementById('search-input')
+      this.input = document.getElementById('search-input') as HTMLInputElement
       this.results = document.getElementById('search-results')
       this.posts = []
       
@@ -87,8 +93,9 @@ import { Search, Command } from 'lucide-astro'
       this.backdrop?.addEventListener('click', () => this.close())
       
       // Search input handler
-      this.input?.addEventListener('input', (e) => {
-        this.search(e.target.value)
+      this.input?.addEventListener('input', (e: Event) => {
+        const target = e.target as HTMLInputElement
+        this.search(target.value)
       })
       
       // Handle search button clicks
@@ -103,11 +110,11 @@ import { Search, Command } from 'lucide-astro'
     
     close() {
       this.modal?.classList.add('hidden')
-      this.input.value = ''
+      if (this.input) this.input.value = ''
       this.clearResults()
     }
     
-    search(query) {
+    search(query: string) {
       if (!query.trim()) {
         this.clearResults()
         return
@@ -121,7 +128,9 @@ import { Search, Command } from 'lucide-astro'
       this.renderResults(filtered, query)
     }
     
-    renderResults(posts, query) {
+    renderResults(posts: Array<{title: string, link: string, description: string, date: string}>, query: string) {
+      if (!this.results) return
+      
       if (posts.length === 0) {
         this.results.innerHTML = `
           <div class="px-1 py-2">
@@ -141,13 +150,14 @@ import { Search, Command } from 'lucide-astro'
       `).join('')
     }
     
-    highlight(text, query) {
+    highlight(text: string, query: string) {
       if (!query) return text
       const regex = new RegExp(`(${query})`, 'gi')
       return text.replace(regex, '<mark class="bg-yellow-200 text-black">$1</mark>')
     }
     
     clearResults() {
+      if (!this.results) return
       this.results.innerHTML = `
         <div class="px-1 py-2">
           <p class="text-sm text-muted-foreground">Start typing to search posts...</p>
