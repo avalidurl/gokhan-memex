@@ -2,6 +2,21 @@
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import Card from '@/components/ui/Card.astro'
 import CardContent from '@/components/ui/CardContent.astro'
+import { getCollection } from 'astro:content'
+
+// Get featured interviews
+const allPosts = await getCollection('blog')
+const featuredInterviews = allPosts
+  .filter(post => post.data.category === 'Interviews' && post.data.featured)
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+  .slice(0, 2)
+
+// If no featured interviews, get the most recent interviews
+const interviews = featuredInterviews.length > 0 ? featuredInterviews : 
+  allPosts
+    .filter(post => post.data.category === 'Interviews')
+    .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+    .slice(0, 2)
 ---
 
 <BaseLayout 
@@ -128,5 +143,43 @@ import CardContent from '@/components/ui/CardContent.astro'
         </Card>
       </div>
     </div>
+
+    <!-- Featured Interviews -->
+    {interviews.length > 0 && (
+      <div class="mt-16 max-w-3xl mx-auto">
+        <h2 class="text-2xl font-semibold mb-6 text-center">Featured Interviews</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {interviews.map((interview) => (
+            <Card class="hover:shadow-lg transition-shadow">
+              <CardContent class="p-6">
+                <h3 class="text-xl font-semibold mb-3">{interview.data.title}</h3>
+                <p class="text-muted-foreground mb-4">
+                  {interview.data.description || 'Interview post'}
+                </p>
+                
+                {interview.data.tags && interview.data.tags.length > 0 && (
+                  <div class="flex flex-wrap gap-2 mb-4">
+                    {interview.data.tags.slice(0, 3).map((tag) => (
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                
+                <div class="flex gap-3">
+                  <a 
+                    href={`/journal/${interview.slug}/`}
+                    class="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors font-medium"
+                  >
+                    Read Interview →
+                  </a>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    )}
   </div>
 </BaseLayout>
