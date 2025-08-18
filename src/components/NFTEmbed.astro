@@ -23,11 +23,18 @@ async function fetchNFTMetadata(contractAddress: string, tokenId: string) {
     
     if (openSeaResponse.ok) {
       const data = await openSeaResponse.json();
+      // Try multiple image sources in priority order
+      const imageUrl = data.nft?.image_url || 
+                      data.nft?.animation_url || 
+                      data.nft?.image_original_url ||
+                      data.nft?.image_preview_url ||
+                      data.nft?.asset_contract?.image_url || '';
+      
       return {
         name: data.nft?.name || 'Untitled',
         description: data.nft?.description || '',
-        image_url: data.nft?.image_url || data.nft?.animation_url || '',
-        creator: data.nft?.creator || ''
+        image_url: imageUrl,
+        creator: data.nft?.creator?.user?.username || data.nft?.creator || ''
       };
     }
   } catch (error) {
