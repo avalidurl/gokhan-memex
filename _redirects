@@ -1,5 +1,8 @@
 # Redirect old blog URLs (if needed)
 /blog/* /journal/:splat 301
 
+# Newsletter redirect
+/newsletter /subscribe 302
+
 # Fallback for SPA-like behavior (not needed for static Astro but good to have)
 /* /404.html 404
