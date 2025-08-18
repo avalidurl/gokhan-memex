@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
 import { getCollection } from 'astro:content'
 import Card from '../../components/ui/Card.astro'
 import Badge from '../../components/ui/Badge.astro'
-import { ExternalLink, Github } from 'lucide-astro'
+import { ExternalLink } from 'lucide-astro'
 
 const projects = (await getCollection('projects')).sort(
   (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()

@@ -11,12 +11,10 @@ interface Props {
 
 const { 
   url, 
-  width = '100%', 
   height = 'auto',
   autoplay = false,
   muted = false,
-  controls = true,
-  responsive = true
+  controls = true
 } = Astro.props
 
 // Extract Vimeo video ID from various URL formats
@@ -57,7 +55,7 @@ const embedUrl = videoId ?
   null
 
 // Calculate responsive height (16:9 aspect ratio)
-const aspectClass = responsive && height === 'auto' ? 'aspect-video' : ''
+const aspectClass = height === 'auto' ? 'aspect-video' : ''
 const uniqueId = `vimeo-${Math.random().toString(36).substring(2, 11)}`
 ---
 
@@ -67,9 +65,7 @@ const uniqueId = `vimeo-${Math.random().toString(36).substring(2, 11)}`
       class="vimeo-lazy-container relative rounded-lg overflow-hidden border bg-card"
       data-src={embedUrl}
       data-id={uniqueId}
-      data-width={width}
       data-height={height}
-      data-responsive={responsive}
       data-aspect-class={aspectClass}
     >
       <!-- Loading Placeholder -->

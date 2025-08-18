@@ -6,7 +6,7 @@ interface Props {
   text?: string
 }
 
-const { url, tweetId, username, text } = Astro.props
+const { url, username, text } = Astro.props
 
 // Extract tweet ID from URL if not provided
 function extractTweetId(url: string) {
@@ -18,7 +18,7 @@ function extractTweetId(url: string) {
   }
 }
 
-const finalTweetId = tweetId || extractTweetId(url)
+// const finalTweetId = tweetId || extractTweetId(url)
 ---
 
 <div class="my-6 not-prose">
