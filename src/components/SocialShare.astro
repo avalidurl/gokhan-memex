@@ -5,10 +5,9 @@ interface Props {
   description?: string
 }
 
-const { title, url, description } = Astro.props
+const { title, url } = Astro.props
 const encodedTitle = encodeURIComponent(title)
 const encodedUrl = encodeURIComponent(url)
-const encodedDescription = encodeURIComponent(description || title)
 
 const shareUrls = {
   twitter: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`,

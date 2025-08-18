@@ -5,6 +5,7 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://gokhanturhan.com',
+  output: 'static',
   integrations: [
     tailwind({
       applyBaseStyles: false,

@@ -5,8 +5,7 @@ interface Props {
 }
 
 const { 
-  url, 
-  type = 'song'
+  url
 } = Astro.props
 
 // Extract Apple Music ID and type from URL
@@ -60,9 +59,8 @@ const embedHeight = appleMusicData ? getHeightForType(appleMusicData.type) : '17
   {embedUrl ? (
     <iframe 
       allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
-      frameborder="0" 
       height={embedHeight}
-      style="width: 100%; max-width: 660px; overflow: hidden; border-radius: 10px;"
+      style="width: 100%; max-width: 660px; overflow: hidden; border-radius: 10px; border: none;"
       sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
       src={embedUrl}
       loading="lazy"
