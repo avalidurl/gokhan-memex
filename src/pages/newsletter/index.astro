@@ -1,10 +1,6 @@
 ---
-// Redirect to newsletter subscription page
-export const prerender = false
-
-if (Astro.request.method === 'GET') {
-  return Astro.redirect('/subscribe', 302)
-}
+// Static redirect to newsletter subscription page
+// This will be handled by _redirects file instead
 ---
 
 <!DOCTYPE html>
