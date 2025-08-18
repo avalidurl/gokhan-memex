@@ -1,6 +1,6 @@
 ---
 interface Props {
-  url: string
+  url?: string
   title?: string
   creator?: string
   description?: string
@@ -10,6 +10,60 @@ interface Props {
 }
 
 const { url, title, creator, description, image, contractAddress, tokenId } = Astro.props
+
+// Fetch NFT metadata
+async function fetchNFTMetadata(contractAddress: string, tokenId: string) {
+  try {
+    // Try OpenSea API first
+    const openSeaResponse = await fetch(`https://api.opensea.io/api/v2/chain/ethereum/contract/${contractAddress}/nfts/${tokenId}`, {
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+    
+    if (openSeaResponse.ok) {
+      const data = await openSeaResponse.json();
+      return {
+        name: data.nft?.name || 'Untitled',
+        description: data.nft?.description || '',
+        image_url: data.nft?.image_url || data.nft?.animation_url || '',
+        creator: data.nft?.creator || ''
+      };
+    }
+  } catch (error) {
+    console.log('OpenSea API failed, trying alternative...');
+  }
+
+  try {
+    // Fallback to Alchemy API (if available)
+    const alchemyResponse = await fetch(`https://eth-mainnet.g.alchemy.com/v2/demo/getNFTMetadata?contractAddress=${contractAddress}&tokenId=${tokenId}`);
+    
+    if (alchemyResponse.ok) {
+      const data = await alchemyResponse.json();
+      return {
+        name: data.title || data.metadata?.name || 'Untitled',
+        description: data.description || data.metadata?.description || '',
+        image_url: data.metadata?.image || data.media?.[0]?.gateway || '',
+        creator: ''
+      };
+    }
+  } catch (error) {
+    console.log('Alchemy API failed');
+  }
+
+  return {
+    name: 'Untitled',
+    description: '',
+    image_url: '',
+    creator: ''
+  };
+}
+
+// Fetch metadata if we have contractAddress and tokenId but no title/image
+let nftMetadata = null;
+if (contractAddress && tokenId && (!title || !image)) {
+  nftMetadata = await fetchNFTMetadata(contractAddress, tokenId);
+}
 
 // Extract platform and basic info from URL
 function parseNFTUrl(url: string) {
@@ -32,13 +86,16 @@ function parseNFTUrl(url: string) {
   }
 }
 
-const nftInfo = parseNFTUrl(url)
-const displayTitle = title || 'Untitled'
+const nftInfo = url ? parseNFTUrl(url) : { platform: 'NFT', displayUrl: '', action: 'View NFT' }
+const displayTitle = title || nftMetadata?.name || 'Untitled'
+const displayDescription = description || nftMetadata?.description || ''
+const displayImage = image || nftMetadata?.image_url || ''
+const displayCreator = creator || nftMetadata?.creator || ''
 
 // Generate URLs from contract address and token ID
 const etherscanUrl = contractAddress && tokenId 
   ? `https://etherscan.io/nft/${contractAddress}/${tokenId}`
-  : url.replace('zora.co', 'etherscan.io')
+  : url ? url.replace('zora.co', 'etherscan.io') : ''
 
 const openSeaUrl = contractAddress && tokenId
   ? `https://opensea.io/assets/ethereum/${contractAddress}/${tokenId}`
@@ -56,9 +113,9 @@ const primaryUrl = url || zoraUrl || openSeaUrl || etherscanUrl
   <div class="bg-white rounded-lg border border-gray-200 p-4 mx-auto max-w-full overflow-hidden">
     <div class="flex flex-col gap-4">
       <!-- NFT Image -->
-      {image && (
+      {displayImage && (
         <img 
-          src={image} 
+          src={displayImage} 
           alt={displayTitle}
           class="w-full max-w-full rounded-lg"
           style="height: auto;"
@@ -70,12 +127,12 @@ const primaryUrl = url || zoraUrl || openSeaUrl || etherscanUrl
       <div class="space-y-2">
         <h4 class="text-lg font-semibold text-gray-900">{displayTitle}</h4>
         
-        {creator && (
-          <p class="text-sm text-gray-500">By {creator}</p>
+        {displayCreator && (
+          <p class="text-sm text-gray-500">By {displayCreator}</p>
         )}
         
-        {description && (
-          <p class="text-sm text-gray-600 leading-relaxed">{description}</p>
+        {displayDescription && (
+          <p class="text-sm text-gray-600 leading-relaxed">{displayDescription}</p>
         )}
       </div>
       
