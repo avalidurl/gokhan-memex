@@ -28,7 +28,7 @@ const breadcrumbs = [
   title={post.data.title}
   description={post.data.description}
   type="article"
-  image={post.data.heroImage}
+  image={post.data.heroImage || `/og/${post.slug}.png`}
 >
   <div class="container max-w-4xl mx-auto px-4 py-8">
     <Breadcrumbs items={breadcrumbs} currentPage={post.data.title} />
