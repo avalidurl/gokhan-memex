@@ -7,15 +7,15 @@ import Button from './ui/Button.astro'
   <div class="flex items-start gap-3">
     <div class="flex-1">
       <p class="text-sm text-foreground mb-3">
-        This site uses cookies for analytics and to improve your experience. 
+        This site uses Google Analytics to track usage and improve content. You can opt out anytime. 
         <a href="/privacy" class="text-primary hover:underline">Learn more</a>
       </p>
       <div class="flex gap-2">
-        <Button size="sm" id="accept-privacy" class="text-xs">
-          Accept
-        </Button>
         <Button variant="outline" size="sm" id="decline-privacy" class="text-xs">
-          Decline
+          Opt Out
+        </Button>
+        <Button size="sm" id="accept-privacy" class="text-xs">
+          Keep Analytics
         </Button>
       </div>
     </div>
@@ -65,9 +65,9 @@ import Button from './ui/Button.astro'
       }
     })
     
-    // Handle close (same as decline)
+    // Handle close (keep analytics enabled)
     closeBtn?.addEventListener('click', () => {
-      localStorage.setItem('privacy-choice', 'dismissed')
+      localStorage.setItem('privacy-choice', 'accepted')
       hideNotice()
     })
     
