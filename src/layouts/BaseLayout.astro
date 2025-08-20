@@ -264,64 +264,56 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`
       })();
     </script>
     
-    <!-- Basic Analytics -->
+    <!-- Google Analytics - Load by Default -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TSMR6G8LLL"></script>
     <script is:inline>
       // Initialize dataLayer and gtag function
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       
-      // Set default consent mode
-      gtag('consent', 'default', {
-        'analytics_storage': 'denied',
-        'ad_storage': 'denied',
-        'functionality_storage': 'denied',
-        'personalization_storage': 'denied',
-        'security_storage': 'granted',
-        'wait_for_update': 2000
-      });
-      
       // Initialize GA with timestamp
       gtag('js', new Date());
       
-      // Check for existing consent and load analytics accordingly
+      // Check if user has opted out
       const privacyChoice = localStorage.getItem('privacy-choice');
       
-      if (privacyChoice === 'accepted') {
-        loadGoogleAnalytics();
-        gtag('consent', 'update', {
-          'analytics_storage': 'granted'
+      if (privacyChoice === 'declined') {
+        // User has opted out - disable tracking
+        gtag('config', 'G-TSMR6G8LLL', {
+          'anonymize_ip': true,
+          'allow_google_signals': false,
+          'allow_ad_personalization_signals': false,
+          'send_page_view': false
         });
-      }
-      
-      // Function to load Google Analytics script
-      function loadGoogleAnalytics() {
-        if (!document.querySelector('script[src*="googletagmanager.com/gtag"]')) {
-          const script = document.createElement('script');
-          script.async = true;
-          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-TSMR6G8LLL';
-          document.head.appendChild(script);
-          
-          script.onload = () => {
-            gtag('config', 'G-TSMR6G8LLL', {
-              'anonymize_ip': true,
-              'allow_google_signals': false,
-              'allow_ad_personalization_signals': false
-            });
-          };
-        }
+      } else {
+        // Default behavior - track all users
+        gtag('config', 'G-TSMR6G8LLL', {
+          'anonymize_ip': true,
+          'allow_google_signals': false,
+          'allow_ad_personalization_signals': false
+        });
       }
       
       // Expose functions globally for privacy notice component
       window.enableGoogleAnalytics = function() {
-        loadGoogleAnalytics();
-        gtag('consent', 'update', {
-          'analytics_storage': 'granted'
+        gtag('config', 'G-TSMR6G8LLL', {
+          'anonymize_ip': true,
+          'allow_google_signals': false,
+          'allow_ad_personalization_signals': false
+        });
+        // Send current page view if it was disabled
+        gtag('event', 'page_view', {
+          page_title: document.title,
+          page_location: window.location.href
         });
       };
       
       window.disableGoogleAnalytics = function() {
-        gtag('consent', 'update', {
-          'analytics_storage': 'denied'
+        gtag('config', 'G-TSMR6G8LLL', {
+          'anonymize_ip': true,
+          'allow_google_signals': false,
+          'allow_ad_personalization_signals': false,
+          'send_page_view': false
         });
       };
     </script>
