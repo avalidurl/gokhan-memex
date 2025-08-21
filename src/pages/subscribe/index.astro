@@ -13,9 +13,6 @@ const breadcrumbs: { label: string; href: string }[] = []
   title="Subscribe"
   description="Stay updated with my latest research on stablecoins, AGI, investment strategies, and global systemic challenges."
 >
-  <!-- Beehiiv Scripts -->
-  <script type="text/javascript" async src="https://subscribe-forms.beehiiv.com/attribution.js"></script>
-  <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
   <div class="container max-w-4xl mx-auto px-4 py-8">
     <Breadcrumbs items={breadcrumbs} currentPage="Subscribe" />
 
@@ -35,25 +32,17 @@ const breadcrumbs: { label: string; href: string }[] = []
           <h3 class="text-2xl font-bold mb-2">Gökhan Turhan's Newsletter</h3>
           <p class="text-muted-foreground mb-6">Concepts that Solve Problems</p>
           
-          <form 
-            action="https://subscribe-forms.beehiiv.com/98caca82-70ad-4979-a19d-dd8294282fe5" 
-            method="post"
-            class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-          >
-            <input 
-              type="email" 
-              name="email" 
-              placeholder="Enter your email" 
-              required
-              class="flex-1 px-4 py-3 border border-border rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-            >
-            <button 
-              type="submit"
-              class="px-6 py-3 bg-foreground text-background rounded-md hover:bg-foreground/90 transition-colors font-medium"
-            >
-              Subscribe
-            </button>
-          </form>
+          <div class="flex justify-center">
+            <iframe 
+              src="https://gokhan.substack.com/embed" 
+              width="480" 
+              height="320" 
+              style="border:1px solid #EEE; background:white;" 
+              frameborder="0" 
+              scrolling="no"
+              class="rounded-md max-w-full"
+            ></iframe>
+          </div>
         </CardContent>
       </Card>
 
