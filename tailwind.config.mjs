@@ -54,7 +54,8 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["Inter", ...fontFamily.sans],
+        sans: ["Source Sans Pro", ...fontFamily.sans],
+        serif: ["Crimson Text", ...fontFamily.serif],
         mono: ["JetBrains Mono", ...fontFamily.mono],
       },
       typography: {
@@ -62,21 +63,52 @@ export default {
           css: {
             maxWidth: 'none',
             color: 'hsl(var(--foreground))',
+            fontFamily: '"Crimson Text", Georgia, "Times New Roman", Times, serif',
+            fontSize: '1.125rem',
+            lineHeight: '1.7',
+            'h1, h2, h3, h4, h5, h6': {
+              fontFamily: '"Source Sans Pro", ui-sans-serif, system-ui, sans-serif',
+              fontWeight: '600',
+              letterSpacing: '-0.025em',
+            },
+            h1: {
+              fontSize: '2.25rem',
+              lineHeight: '1.1',
+              fontWeight: '700',
+            },
+            h2: {
+              fontSize: '1.875rem',
+              lineHeight: '1.2',
+            },
+            h3: {
+              fontSize: '1.5rem',
+              lineHeight: '1.3',
+            },
+            p: {
+              marginTop: '1.25rem',
+              marginBottom: '1.25rem',
+              lineHeight: '1.7',
+            },
             a: {
               color: 'hsl(var(--primary))',
               textDecoration: 'underline',
               fontWeight: '500',
+            },
+            strong: {
+              fontWeight: '600',
             },
             '[data-rehype-pretty-code-fragment]': {
               position: 'relative',
             },
             pre: {
               padding: 0,
+              fontFamily: '"JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
             },
             code: {
               border: '1px solid hsl(var(--border))',
               position: 'relative',
               borderRadius: '0.375rem',
+              fontFamily: '"JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
             }
           },
         },
