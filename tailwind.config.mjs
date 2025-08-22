@@ -64,7 +64,7 @@ export default {
             maxWidth: 'none',
             color: 'hsl(var(--foreground))',
             fontFamily: '"Crimson Text", Georgia, "Times New Roman", Times, serif',
-            fontSize: '1.125rem',
+            fontSize: '1.25rem',
             lineHeight: '1.7',
             'h1, h2, h3, h4, h5, h6': {
               fontFamily: '"Source Sans Pro", ui-sans-serif, system-ui, sans-serif',
@@ -72,16 +72,16 @@ export default {
               letterSpacing: '-0.025em',
             },
             h1: {
-              fontSize: '2.25rem',
+              fontSize: '2.5rem',
               lineHeight: '1.1',
               fontWeight: '700',
             },
             h2: {
-              fontSize: '1.875rem',
+              fontSize: '2rem',
               lineHeight: '1.2',
             },
             h3: {
-              fontSize: '1.5rem',
+              fontSize: '1.625rem',
               lineHeight: '1.3',
             },
             p: {
