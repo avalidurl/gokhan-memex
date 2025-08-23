@@ -3,7 +3,7 @@ import { X } from 'lucide-astro'
 import Button from './ui/Button.astro'
 ---
 
-<div id="privacy-notice" class="fixed bottom-4 right-4 z-50 max-w-sm bg-background border border-border rounded-lg shadow-lg p-4 hidden">
+<div id="privacy-notice" class="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 z-50 max-w-sm md:max-w-sm bg-background border border-border rounded-lg shadow-lg p-4 hidden">
   <div class="flex items-start gap-3">
     <div class="flex-1">
       <p class="text-sm text-foreground mb-3">
@@ -11,10 +11,10 @@ import Button from './ui/Button.astro'
         <a href="/privacy" class="text-primary hover:underline">Learn more</a>
       </p>
       <div class="flex gap-2">
-        <Button variant="outline" size="sm" id="decline-privacy" class="text-xs">
+        <Button variant="outline" size="sm" id="decline-privacy" class="text-xs h-7 px-3">
           Opt Out
         </Button>
-        <Button size="sm" id="accept-privacy" class="text-xs">
+        <Button size="sm" id="accept-privacy" class="text-xs h-7 px-3">
           Keep Analytics
         </Button>
       </div>
