@@ -34,21 +34,67 @@ const lists = {
   books: []
 }
 
+// Structured data for SEO and LLM understanding
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Influential Thinkers & Essential Reading",
+  "description": "Curated collection of thought leaders, researchers, and writers shaping AI, rationality, fintech, and deep tech innovation",
+  "author": {
+    "@type": "Person",
+    "name": "Gökhan Turhan",
+    "url": "https://gokhanturhan.com"
+  },
+  "about": [
+    "Artificial Intelligence",
+    "Rationality",
+    "Financial Technology", 
+    "Deep Technology",
+    "Innovation",
+    "Startups",
+    "Technology Research"
+  ],
+  "hasPart": lists.people.map(person => ({
+    "@type": "WebSite",
+    "name": person.name,
+    "url": person.url,
+    "description": person.description
+  }))
+}
+
 ---
 
 <BaseLayout
-  title="Lists"
-  description="Curated lists of people, books, and music that inform my research across fintech, deep tech, and emerging technologies."
+  title="Influential Thinkers & Essential Reading | Curated Lists"
+  description="Discover the thought leaders, researchers, and writers shaping AI, rationality, fintech, and deep tech. From Scott Alexander's Astral Codex Ten to Paul Graham's essays - explore the intellectual network behind breakthrough innovation."
 >
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} slot="head" />
+  
+  <!-- Additional meta tags for topical authority -->
+  <meta name="keywords" content="AI researchers, rationality, Scott Alexander, Paul Graham, fintech thought leaders, deep tech innovation, startup advisors, technology writers" slot="head" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" slot="head" />
+  
+  <!-- Open Graph optimization -->
+  <meta property="og:type" content="website" slot="head" />
+  <meta property="og:title" content="Influential Thinkers Shaping AI, Rationality & Deep Tech Innovation" slot="head" />
+  <meta property="article:author" content="Gökhan Turhan" slot="head" />
+  <meta property="article:section" content="Technology" slot="head" />
+  <meta property="article:tag" content="AI Research, Rationality, Fintech, Deep Tech, Innovation" slot="head" />
   <div class="container max-w-4xl mx-auto px-4 py-8">
     <Breadcrumbs items={breadcrumbs} currentPage="Lists" />
 
     <!-- Header -->
     <div class="mb-12">
-      <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Lists</h1>
-      <p class="text-lg text-muted-foreground max-w-2xl">
-        Curated collections of people, books, and music that inform my research and thinking across fintech, deep tech, and emerging technologies.
-      </p>
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Influential Thinkers & Essential Reading</h1>
+      <div class="max-w-3xl space-y-4">
+        <p class="text-lg text-muted-foreground leading-relaxed">
+          A carefully curated network of the most influential voices shaping artificial intelligence, rationality, financial technology, and deep tech innovation. These thought leaders, researchers, and writers represent the intellectual foundation underlying breakthrough developments in technology and society.
+        </p>
+        <p class="text-base text-muted-foreground leading-relaxed">
+          From <strong>Scott Alexander's</strong> rigorous analysis of AI safety and rationality, to <strong>Paul Graham's</strong> foundational startup wisdom, to <strong>Mario Gabriele's</strong> deep dives into emerging technology companies—this collection maps the essential reading for anyone serious about understanding the future of technology.
+        </p>
+      </div>
     </div>
 
     <!-- Accordion Lists -->
@@ -58,24 +104,36 @@ const lists = {
         <AccordionItem data-accordion-item class="border rounded-lg">
           <AccordionTrigger class="text-left">
             <div class="flex items-center justify-between w-full pr-4">
-              <h2 class="text-xl font-semibold">People</h2>
+              <h2 class="text-xl font-semibold">Thought Leaders & Researchers</h2>
               <Badge variant="secondary">{lists.people.length}</Badge>
             </div>
           </AccordionTrigger>
           <AccordionContent>
-            <div class="grid gap-4">
-              {lists.people.length === 0 && (
-                <p class="text-sm text-muted-foreground italic text-center py-4">
-                  People recommendations will be added here over time.
+            <div class="space-y-6">
+              <!-- Context paragraph for SEO -->
+              <div class="bg-accent/10 rounded-lg p-4">
+                <p class="text-sm text-muted-foreground leading-relaxed">
+                  This collection represents a network of <strong>interconnected thinkers</strong> whose work spans <strong>AI safety research</strong>, <strong>rationality studies</strong>, <strong>venture capital insights</strong>, and <strong>deep technology analysis</strong>. Many of these authors reference and build upon each other's work, forming an intellectual ecosystem at the forefront of technological progress.
                 </p>
-              )}
-              {lists.people.map(person => (
-                <ListItem
-                  name={person.name}
-                  url={person.url}
-                  description={person.description}
-                />
-              ))}
+              </div>
+              
+              <!-- People grid with semantic markup -->
+              <section aria-label="Curated list of influential technology thought leaders" class="grid gap-4">
+                {lists.people.length === 0 && (
+                  <p class="text-sm text-muted-foreground italic text-center py-4">
+                    People recommendations will be added here over time.
+                  </p>
+                )}
+                {lists.people.map(person => (
+                  <article>
+                    <ListItem
+                      name={person.name}
+                      url={person.url}
+                      description={person.description}
+                    />
+                  </article>
+                ))}
+              </section>
             </div>
           </AccordionContent>
         </AccordionItem>
@@ -179,9 +237,24 @@ const lists = {
       </Accordion>
     </div>
 
-    <!-- Note -->
+    <!-- Related Content & Internal Links -->
     <Card class="mt-8 bg-accent/20 border-accent">
       <CardContent class="p-6">
+        <h3 class="font-semibold text-lg mb-4">Related Research & Analysis</h3>
+        <div class="space-y-3 mb-4">
+          <p class="text-sm text-muted-foreground leading-relaxed">
+            These curated voices inform my ongoing research in <a href="/journal" class="text-primary hover:underline font-medium">strategic innovation</a>, 
+            <a href="/journal/?category=fintech" class="text-primary hover:underline font-medium">fintech developments</a>, and 
+            <a href="/journal/?category=ai" class="text-primary hover:underline font-medium">AI safety frameworks</a>. 
+            Many insights from this network appear throughout my <a href="/journal" class="text-primary hover:underline font-medium">journal entries</a> 
+            and <a href="/subscribe" class="text-primary hover:underline font-medium">newsletter analysis</a>.
+          </p>
+          <p class="text-sm text-muted-foreground">
+            For deeper exploration of these themes, see my thoughts on <a href="/journal" class="text-primary hover:underline font-medium">competitive governance</a>, 
+            <a href="/journal" class="text-primary hover:underline font-medium">stablecoin mechanisms</a>, and 
+            <a href="/journal" class="text-primary hover:underline font-medium">AGI timeline considerations</a>.
+          </p>
+        </div>
         <p class="text-sm text-muted-foreground">
           <strong>Note:</strong> These lists are continuously curated and updated. The music section will populate after content migration from the existing blog.
         </p>

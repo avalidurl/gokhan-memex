@@ -33,7 +33,15 @@ const breadcrumbs: { label: string; href: string }[] = []
           <p class="text-muted-foreground mb-6">Concepts that Solve Problems</p>
           
           <div class="w-full max-w-lg mx-auto">
-            <div class="aspect-[4/3] md:aspect-[3/2] w-full">
+            <div class="aspect-[4/3] md:aspect-[3/2] w-full relative">
+              <!-- Loading placeholder -->
+              <div id="iframe-placeholder" class="absolute inset-0 bg-background border border-border rounded-md flex items-center justify-center">
+                <div class="text-center">
+                  <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-3"></div>
+                  <p class="text-sm text-muted-foreground">Loading newsletter...</p>
+                </div>
+              </div>
+              
               <iframe 
                 src="https://gokhan.substack.com/embed" 
                 width="100%" 
@@ -41,7 +49,9 @@ const breadcrumbs: { label: string; href: string }[] = []
                 style="border:1px solid #EEE; background:white;" 
                 frameborder="0" 
                 scrolling="no"
-                class="rounded-md w-full h-full"
+                loading="lazy"
+                class="rounded-md w-full h-full opacity-0 transition-opacity duration-500"
+                onload="this.style.opacity='1'; document.getElementById('iframe-placeholder').style.display='none';"
               ></iframe>
             </div>
           </div>
