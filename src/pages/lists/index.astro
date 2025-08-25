@@ -99,10 +99,14 @@ const structuredData = {
     <div class="space-y-6">
       <Accordion class="w-full">
         <!-- People List -->
-        <AccordionItem data-accordion-item class="border rounded-lg">
+        <AccordionItem data-accordion-item class="border rounded-lg" id="blogroll">
           <AccordionTrigger class="text-left">
             <div class="flex items-center justify-between w-full pr-4">
-              <h2 class="text-xl font-semibold">Blogroll: People, Newsletters, Podcasts, Research, Publications</h2>
+              <h2 class="text-xl font-semibold">
+                <a href="#blogroll" class="hover:text-primary transition-colors">
+                  Blogroll: People, Newsletters, Podcasts, Research, Publications
+                </a>
+              </h2>
               <Badge variant="secondary">{lists.people.length}</Badge>
             </div>
           </AccordionTrigger>
@@ -137,10 +141,12 @@ const structuredData = {
         </AccordionItem>
 
         <!-- Books List -->
-        <AccordionItem data-accordion-item class="border rounded-lg">
+        <AccordionItem data-accordion-item class="border rounded-lg" id="books">
           <AccordionTrigger class="text-left">
             <div class="flex items-center justify-between w-full pr-4">
-              <h2 class="text-xl font-semibold">Books</h2>
+              <h2 class="text-xl font-semibold">
+                <a href="#books" class="hover:text-primary transition-colors">Books</a>
+              </h2>
               <Badge variant="secondary">{bookPosts.length}</Badge>
             </div>
           </AccordionTrigger>
@@ -188,10 +194,12 @@ const structuredData = {
         </AccordionItem>
 
         <!-- Music List -->
-        <AccordionItem data-accordion-item class="border rounded-lg">
+        <AccordionItem data-accordion-item class="border rounded-lg" id="music">
           <AccordionTrigger class="text-left">
             <div class="flex items-center justify-between w-full pr-4">
-              <h2 class="text-xl font-semibold">Music</h2>
+              <h2 class="text-xl font-semibold">
+                <a href="#music" class="hover:text-primary transition-colors">Music</a>
+              </h2>
               <Badge variant="secondary">{musicPosts.length}</Badge>
             </div>
           </AccordionTrigger>
