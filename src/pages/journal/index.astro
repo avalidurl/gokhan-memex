@@ -51,53 +51,35 @@ const breadcrumbs: { label: string; href: string }[] = []
     </div>
 
     <!-- Posts Grid -->
-    <div class="space-y-6">
+    <div class="space-y-4">
       {posts.map(post => (
-        <Card class="hover:shadow-lg transition-shadow">
-          <CardContent class="p-6">
-            <div class="flex flex-col space-y-3">
-              <!-- Date and Category -->
-              <div class="flex items-center gap-3 text-sm text-muted-foreground">
-                <a 
-                  href={`/journal/${new Date(post.data.publishDate).getFullYear()}`}
-                  class="hover:text-foreground transition-colors"
-                >
-                  {formatDate(post.data.publishDate)}
-                </a>
-                <span>•</span>
-                <Badge variant="category">{post.data.category}</Badge>
-              </div>
-
-              <!-- Title -->
-              <h2 class="text-xl md:text-2xl font-semibold">
-                <a 
-                  href={`/journal/${post.slug}`}
-                  class="hover:text-primary transition-colors"
-                >
-                  {post.data.title}
-                </a>
-              </h2>
-
-              <!-- Description -->
-              <p class="text-muted-foreground font-serif leading-relaxed">
-                {post.data.description}
-              </p>
-
-              <!-- Tags -->
-              {post.data.tags && post.data.tags.length > 0 && (
-                <div class="flex flex-wrap gap-2 pt-2">
-                  {post.data.tags.map(tag => (
-                    <Badge variant="outline" class="text-xs">
-                      <a href={`/archive/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}>
-                        {tag}
-                      </a>
-                    </Badge>
-                  ))}
-                </div>
-              )}
+        <a 
+          href={`/journal/${post.slug}`}
+          class="block p-6 border border-border rounded-lg hover:bg-accent/30 transition-all duration-200 group"
+        >
+          <div class="flex flex-col space-y-3">
+            <!-- Title -->
+            <h2 class="text-xl md:text-2xl font-semibold group-hover:text-primary transition-colors">
+              {post.data.title}
+            </h2>
+            
+            <!-- Date -->
+            <div class="text-sm text-muted-foreground">
+              {formatDate(post.data.publishDate)}
             </div>
-          </CardContent>
-        </Card>
+
+            <!-- Tags -->
+            {post.data.tags && post.data.tags.length > 0 && (
+              <div class="flex flex-wrap gap-2">
+                {post.data.tags.slice(0, 6).map(tag => (
+                  <span class="inline-flex items-center px-2 py-1 text-xs font-medium bg-muted/50 text-muted-foreground rounded">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        </a>
       ))}
     </div>
 
