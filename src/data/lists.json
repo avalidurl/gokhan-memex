@@ -7,8 +7,23 @@
     },
     {
       "name": "Astral Codex Ten",
-      "description": "A blog by Scott Alexander exploring rationality, effective altruism, psychiatry, and society through data-driven analysis and thoughtful commentary",
+      "description": "Scott Alexander's blog exploring rationality, effective altruism, psychiatry, and society through data-driven analysis",
       "url": "https://www.astralcodexten.com/"
+    },
+    {
+      "name": "Bismarck Brief",
+      "description": "A newsletter providing strategic analysis on technology, governance, and geopolitical developments",
+      "url": "https://brief.bismarckanalysis.com/"
+    },
+    {
+      "name": "Capital Gains",
+      "description": "Byrne Hobart's premium newsletter providing deeper financial and strategic analysis",
+      "url": "https://capitalgains.thediff.co/"
+    },
+    {
+      "name": "Cremieux Recueil",
+      "description": "Research paper discussions and academic insights that ought to be discussed",
+      "url": "https://www.cremieux.xyz/"
     },
     {
       "name": "David Chapman",
@@ -16,8 +31,18 @@
       "url": "https://meaningness.com/"
     },
     {
+      "name": "Diff",
+      "description": "Byrne Hobart's analysis of inflections in finance and tech for industry professionals",
+      "url": "https://www.thediff.co/"
+    },
+    {
+      "name": "Emil Kirkegaard",
+      "description": "Intelligence research, psychometrics, and population genetics analysis",
+      "url": "https://www.emilkirkegaard.com/"
+    },
+    {
       "name": "Generalist",
-      "description": "A blog by Mario Gabriele providing in-depth analysis of technology companies, market trends, and investment opportunities",
+      "description": "Mario Gabriele's in-depth analysis of technology companies, market trends, and investment opportunities",
       "url": "https://www.generalist.com/"
     },
     {
@@ -27,7 +52,7 @@
     },
     {
       "name": "Information Processing",
-      "description": "A blog by Steve Hsu examining physics, genetics, artificial intelligence, and human enhancement through the lens of scientific research",
+      "description": "Steve Hsu's research on physics, genetics, artificial intelligence, and human enhancement through scientific analysis",
       "url": "https://stevehsu.substack.com/"
     },
     {
@@ -37,8 +62,18 @@
     },
     {
       "name": "next play",
-      "description": "A blog by Ben Lang helping people find their next play by sending opportunities, hosting gatherings, and curating content",
+      "description": "Ben Lang's newsletter helping people find opportunities through curated content and gatherings",
       "url": "https://nextplayso.substack.com/"
+    },
+    {
+      "name": "Noahpinion",
+      "description": "Economics analysis and commentary with data-driven insights on technology and policy",
+      "url": "https://www.noahpinion.blog/"
+    },
+    {
+      "name": "Palladium Magazine",
+      "description": "A publication focused on governance, futurism, and technological progress with long-form analysis",
+      "url": "https://www.palladiummag.com/"
     },
     {
       "name": "Patrick Collison",
@@ -51,13 +86,18 @@
       "url": "https://www.paulgraham.com/"
     },
     {
+      "name": "Pirate Wires",
+      "description": "A daily newsletter covering tech culture, politics, and industry developments with contrarian perspectives",
+      "url": "https://www.piratewires.com/"
+    },
+    {
       "name": "qntm",
       "description": "Writer known for fiction like 'There Is No Antimemetics Division' and technical writing",
       "url": "https://qntm.org/"
     },
     {
       "name": "Razib Khan's Unsupervised Learning",
-      "description": "A blog by Razib Khan covering conversations on genetics, history, politics, books, culture and evolution",
+      "description": "Conversations on genetics, history, politics, books, culture and evolution",
       "url": "https://www.razibkhan.com/"
     },
     {
@@ -72,8 +112,13 @@
     },
     {
       "name": "Slate Star Codex",
-      "description": "A blog by Scott Alexander (archived) covering psychology, medicine, politics, and philosophy with rigorous statistical thinking",
+      "description": "Scott Alexander's archived blog covering psychology, medicine, politics, and philosophy with rigorous statistical analysis",
       "url": "https://slatestarcodex.com/"
+    },
+    {
+      "name": "Steve Sailer",
+      "description": "Commentary on demographics, politics, and social trends with statistical analysis",
+      "url": "https://www.stevesailer.net/"
     }
   ]
 }
