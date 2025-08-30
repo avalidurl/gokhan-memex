@@ -103,7 +103,7 @@ const structuredData = {
           <AccordionTrigger class="text-left">
             <div class="flex items-center justify-between w-full pr-4">
               <h2 class="text-xl font-semibold">
-                <a href="#blogroll" class="hover:text-primary transition-colors">
+                <a href="#blogroll" class="hover:text-primary transition-colors" onclick="updateURL('#blogroll')">
                   Blogroll: People, Newsletters, Podcasts, Research, Publications
                 </a>
               </h2>
@@ -145,7 +145,7 @@ const structuredData = {
           <AccordionTrigger class="text-left">
             <div class="flex items-center justify-between w-full pr-4">
               <h2 class="text-xl font-semibold">
-                <a href="#books" class="hover:text-primary transition-colors">Books</a>
+                <a href="#books" class="hover:text-primary transition-colors" onclick="updateURL('#books')">Books</a>
               </h2>
               <Badge variant="secondary">{bookPosts.length}</Badge>
             </div>
@@ -198,7 +198,7 @@ const structuredData = {
           <AccordionTrigger class="text-left">
             <div class="flex items-center justify-between w-full pr-4">
               <h2 class="text-xl font-semibold">
-                <a href="#music" class="hover:text-primary transition-colors">Music</a>
+                <a href="#music" class="hover:text-primary transition-colors" onclick="updateURL('#music')">Music</a>
               </h2>
               <Badge variant="secondary">{musicPosts.length}</Badge>
             </div>
@@ -253,3 +253,24 @@ const structuredData = {
     </Card>
   </div>
 </BaseLayout>
+
+<script>
+  function updateURL(hash) {
+    // Update URL without page reload
+    if (history.pushState) {
+      history.pushState(null, null, hash);
+    } else {
+      location.hash = hash;
+    }
+  }
+  
+  // Handle direct links to sections on page load
+  window.addEventListener('DOMContentLoaded', function() {
+    if (window.location.hash) {
+      const element = document.querySelector(window.location.hash);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  });
+</script>
