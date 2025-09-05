@@ -99,7 +99,8 @@ const structuredData = {
     <div class="space-y-6">
       <Accordion class="w-full">
         <!-- People List -->
-        <AccordionItem data-accordion-item class="border rounded-lg" id="blogroll">
+        <div id="blogroll">
+        <AccordionItem data-accordion-item class="border rounded-lg">
           <AccordionTrigger class="text-left">
             <div class="flex items-center justify-between w-full pr-4">
               <h2 class="text-xl font-semibold">
@@ -139,9 +140,11 @@ const structuredData = {
             </div>
           </AccordionContent>
         </AccordionItem>
+        </div>
 
         <!-- Books List -->
-        <AccordionItem data-accordion-item class="border rounded-lg" id="books">
+        <div id="books">
+        <AccordionItem data-accordion-item class="border rounded-lg">
           <AccordionTrigger class="text-left">
             <div class="flex items-center justify-between w-full pr-4">
               <h2 class="text-xl font-semibold">
@@ -192,9 +195,11 @@ const structuredData = {
             </div>
           </AccordionContent>
         </AccordionItem>
+        </div>
 
         <!-- Music List -->
-        <AccordionItem data-accordion-item class="border rounded-lg" id="music">
+        <div id="music">
+        <AccordionItem data-accordion-item class="border rounded-lg">
           <AccordionTrigger class="text-left">
             <div class="flex items-center justify-between w-full pr-4">
               <h2 class="text-xl font-semibold">
@@ -240,6 +245,7 @@ const structuredData = {
             </div>
           </AccordionContent>
         </AccordionItem>
+        </div>
       </Accordion>
     </div>
 
@@ -255,10 +261,10 @@ const structuredData = {
 </BaseLayout>
 
 <script>
-  function updateURL(hash) {
+  function updateURL(hash: string): void {
     // Update URL without page reload
     if (history.pushState) {
-      history.pushState(null, null, hash);
+      history.pushState(null, '', window.location.pathname + hash);
     } else {
       location.hash = hash;
     }
