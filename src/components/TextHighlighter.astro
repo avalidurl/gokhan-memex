@@ -69,171 +69,181 @@
   }
 </style>
 
-<script>
-  class TextHighlighter {
-    private popup: HTMLElement | null = null;
-    private currentSelection: string = '';
-    private currentUrl: string = '';
-    private popupTimeout: number | null = null;
+<script is:inline>
+  (function() {
+    'use strict';
+    
+    function TextHighlighter() {
+      var self = this;
+      self.popup = null;
+      self.currentSelection = '';
+      self.currentUrl = '';
+      self.popupTimeout = null;
 
-    constructor() {
-      this.init();
-    }
+      self.init = function() {
+        self.popup = document.getElementById('highlight-popup');
+        self.currentUrl = window.location.href;
+        
+        // Listen for text selection
+        document.addEventListener('mouseup', self.handleMouseUp);
+        document.addEventListener('keyup', self.handleKeyUp);
+        
+        // Hide popup when clicking elsewhere
+        document.addEventListener('click', self.handleDocumentClick);
+        
+        // Setup share buttons
+        self.setupShareButtons();
+      };
 
-    init() {
-      this.popup = document.getElementById('highlight-popup');
-      this.currentUrl = window.location.href;
-      
-      // Listen for text selection
-      document.addEventListener('mouseup', this.handleMouseUp.bind(this));
-      document.addEventListener('keyup', this.handleKeyUp.bind(this));
-      
-      // Hide popup when clicking elsewhere
-      document.addEventListener('click', this.handleDocumentClick.bind(this));
-      
-      // Setup share buttons
-      this.setupShareButtons();
-    }
+      self.handleMouseUp = function(event) {
+        // Small delay to ensure selection is complete
+        setTimeout(function() { self.handleSelection(event); }, 10);
+      };
 
-    handleMouseUp(event: Event) {
-      // Small delay to ensure selection is complete
-      setTimeout(() => this.handleSelection(event), 10);
-    }
-
-    handleKeyUp(event: KeyboardEvent) {
-      // Handle keyboard selection (Shift + arrow keys, etc.)
-      if (event.shiftKey || ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) {
-        setTimeout(() => this.handleSelection(event), 10);
-      }
-    }
-
-    handleSelection(event: Event) {
-      console.log('handleSelection called');
-      const selection = window.getSelection();
-      if (!selection || selection.isCollapsed) {
-        console.log('No selection or collapsed');
-        this.hidePopup();
-        return;
-      }
-
-      const selectedText = selection.toString().trim();
-      console.log('Selected text:', selectedText, 'Length:', selectedText.length);
-      if (selectedText.length < 10) {
-        console.log('Text too short');
-        this.hidePopup();
-        return;
-      }
-
-      // Check if selection is within article content
-      const range = selection.getRangeAt(0);
-      const container = range.commonAncestorContainer;
-      const articleContent = document.querySelector('.prose-content');
-      
-      console.log('Article content found:', !!articleContent);
-      console.log('Container in article:', articleContent?.contains(container));
-      
-      if (!articleContent || !articleContent.contains(container)) {
-        console.log('Selection not in article content');
-        this.hidePopup();
-        return;
-      }
-
-      this.currentSelection = selectedText;
-      console.log('About to show popup');
-      this.showPopup(event);
-    }
-
-    showPopup(event: Event) {
-      console.log('showPopup called');
-      if (!this.popup) {
-        console.log('No popup element found!');
-        return;
-      }
-
-      const selection = window.getSelection();
-      if (!selection || !selection.rangeCount) {
-        console.log('No selection for popup positioning');
-        return;
-      }
-
-      const range = selection.getRangeAt(0);
-      const rect = range.getBoundingClientRect();
-      
-      // Position popup above the selection
-      const popupX = rect.left + (rect.width / 2);
-      const popupY = rect.top - 80; // More space above
-      
-      // Adjust for viewport boundaries
-      const popupWidth = 220;
-      const adjustedX = Math.max(10, Math.min(popupX - popupWidth / 2, window.innerWidth - popupWidth - 10));
-      
-      console.log('Popup position:', { x: adjustedX, y: popupY + window.scrollY });
-      
-      this.popup.style.left = `${adjustedX}px`;
-      this.popup.style.top = `${popupY + window.scrollY}px`;
-      this.popup.style.pointerEvents = 'auto';
-      
-      console.log('About to animate popup');
-      // Animate in
-      requestAnimationFrame(() => {
-        if (this.popup) {
-          this.popup.classList.remove('scale-95', 'opacity-0');
-          this.popup.classList.add('scale-100', 'opacity-100');
-          console.log('Popup should be visible now');
+      self.handleKeyUp = function(event) {
+        // Handle keyboard selection (Shift + arrow keys, etc.)
+        if (event.shiftKey || ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) {
+          setTimeout(function() { self.handleSelection(event); }, 10);
         }
+      };
+
+      self.handleSelection = function(event) {
+        console.log('handleSelection called');
+        var selection = window.getSelection();
+        if (!selection || selection.isCollapsed) {
+          console.log('No selection or collapsed');
+          self.hidePopup();
+          return;
+        }
+
+        var selectedText = selection.toString().trim();
+        console.log('Selected text:', selectedText, 'Length:', selectedText.length);
+        if (selectedText.length < 10) {
+          console.log('Text too short');
+          self.hidePopup();
+          return;
+        }
+
+        // Check if selection is within article content
+        var range = selection.getRangeAt(0);
+        var container = range.commonAncestorContainer;
+        var articleContent = document.querySelector('.prose-content');
+        
+        console.log('Article content found:', !!articleContent);
+        console.log('Container in article:', articleContent && articleContent.contains(container));
+        
+        if (!articleContent || !articleContent.contains(container)) {
+          console.log('Selection not in article content');
+          self.hidePopup();
+          return;
+        }
+
+        self.currentSelection = selectedText;
+        console.log('About to show popup');
+        self.showPopup(event);
+      };
+
+      self.showPopup = function(event) {
+        console.log('showPopup called');
+        if (!self.popup) {
+          console.log('No popup element found!');
+          return;
+        }
+
+        var selection = window.getSelection();
+        if (!selection || !selection.rangeCount) {
+          console.log('No selection for popup positioning');
+          return;
+        }
+
+        var range = selection.getRangeAt(0);
+        var rect = range.getBoundingClientRect();
+        
+        // Position popup above the selection
+        var popupX = rect.left + (rect.width / 2);
+        var popupY = rect.top - 80; // More space above
+        
+        // Adjust for viewport boundaries
+        var popupWidth = 220;
+        var adjustedX = Math.max(10, Math.min(popupX - popupWidth / 2, window.innerWidth - popupWidth - 10));
+        
+        console.log('Popup position:', { x: adjustedX, y: popupY + window.scrollY });
+        
+        self.popup.style.left = adjustedX + 'px';
+        self.popup.style.top = (popupY + window.scrollY) + 'px';
+        self.popup.style.pointerEvents = 'auto';
+        
+        console.log('About to animate popup');
+        // Animate in
+        requestAnimationFrame(function() {
+          if (self.popup) {
+            self.popup.classList.remove('scale-95', 'opacity-0');
+            self.popup.classList.add('scale-100', 'opacity-100');
+            console.log('Popup should be visible now');
+          }
+        });
+      };
+
+      self.hidePopup = function() {
+        if (!self.popup) return;
+        
+        if (self.popupTimeout) {
+          clearTimeout(self.popupTimeout);
+        }
+        
+        self.popup.classList.remove('scale-100', 'opacity-100');
+        self.popup.classList.add('scale-95', 'opacity-0');
+        self.popup.style.pointerEvents = 'none';
+      };
+
+      self.handleDocumentClick = function(event) {
+        var target = event.target;
+        if (self.popup && !self.popup.contains(target) && !target.closest('#share-x') && !target.closest('#share-linkedin')) {
+          self.hidePopup();
+        }
+      };
+
+      self.setupShareButtons = function() {
+        var shareXBtn = document.getElementById('share-x');
+        var shareLinkedInBtn = document.getElementById('share-linkedin');
+
+        if (shareXBtn) {
+          shareXBtn.addEventListener('click', function() {
+            self.shareOnX();
+          });
+        }
+
+        if (shareLinkedInBtn) {
+          shareLinkedInBtn.addEventListener('click', function() {
+            self.shareOnLinkedIn();
+          });
+        }
+      };
+
+      self.shareOnX = function() {
+        var text = '"' + self.currentSelection + '"\n\n' + self.currentUrl;
+        var url = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text);
+        window.open(url, '_blank', 'noopener,noreferrer');
+        self.hidePopup();
+      };
+
+      self.shareOnLinkedIn = function() {
+        var url = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(self.currentUrl);
+        window.open(url, '_blank', 'noopener,noreferrer');
+        self.hidePopup();
+      };
+
+      // Initialize immediately
+      self.init();
+    }
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() { 
+        new TextHighlighter(); 
       });
+    } else {
+      new TextHighlighter();
     }
-
-    hidePopup() {
-      if (!this.popup) return;
-      
-      if (this.popupTimeout) {
-        clearTimeout(this.popupTimeout);
-      }
-      
-      this.popup.classList.remove('scale-100', 'opacity-100');
-      this.popup.classList.add('scale-95', 'opacity-0');
-      this.popup.style.pointerEvents = 'none';
-    }
-
-    handleDocumentClick(event: MouseEvent) {
-      const target = event.target as Element;
-      if (this.popup && !this.popup.contains(target) && !target.closest('#share-x') && !target.closest('#share-linkedin')) {
-        this.hidePopup();
-      }
-    }
-
-    setupShareButtons() {
-      const shareXBtn = document.getElementById('share-x');
-      const shareLinkedInBtn = document.getElementById('share-linkedin');
-
-      shareXBtn?.addEventListener('click', () => {
-        this.shareOnX();
-      });
-
-      shareLinkedInBtn?.addEventListener('click', () => {
-        this.shareOnLinkedIn();
-      });
-    }
-
-    shareOnX() {
-      const text = `"${this.currentSelection}"\n\n${this.currentUrl}`;
-      const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
-      window.open(url, '_blank', 'noopener,noreferrer');
-      this.hidePopup();
-    }
-
-    shareOnLinkedIn() {
-      const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(this.currentUrl)}`;
-      window.open(url, '_blank', 'noopener,noreferrer');
-      this.hidePopup();
-    }
-  }
-
-  // Initialize when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => new TextHighlighter());
-  } else {
-    new TextHighlighter();
-  }
+  })();
 </script>
