@@ -5,13 +5,13 @@
 <div id="text-highlighter" class="hidden">
   <!-- Highlight Share Popup -->
   <div id="highlight-popup" 
-       class="fixed z-50 bg-popover border border-border rounded-lg shadow-lg p-3 transition-all duration-200 transform scale-95 opacity-0"
-       style="pointer-events: none;">
+       class="fixed z-[9999] bg-white dark:bg-gray-900 border-2 border-blue-500 rounded-lg shadow-2xl p-3 transition-all duration-200 transform scale-95 opacity-0"
+       style="pointer-events: none; min-width: 200px;">
     
     <!-- Popup Content -->
     <div class="flex items-center gap-2">
       <!-- Share Highlight Label -->
-      <span class="text-sm font-medium text-popover-foreground whitespace-nowrap">
+      <span class="text-sm font-medium text-gray-900 dark:text-gray-100 whitespace-nowrap">
         Share highlight
       </span>
       
@@ -108,14 +108,18 @@
     }
 
     handleSelection(event: Event) {
+      console.log('handleSelection called');
       const selection = window.getSelection();
       if (!selection || selection.isCollapsed) {
+        console.log('No selection or collapsed');
         this.hidePopup();
         return;
       }
 
       const selectedText = selection.toString().trim();
+      console.log('Selected text:', selectedText, 'Length:', selectedText.length);
       if (selectedText.length < 10) {
+        console.log('Text too short');
         this.hidePopup();
         return;
       }
@@ -125,41 +129,57 @@
       const container = range.commonAncestorContainer;
       const articleContent = document.querySelector('.prose-content');
       
+      console.log('Article content found:', !!articleContent);
+      console.log('Container in article:', articleContent?.contains(container));
+      
       if (!articleContent || !articleContent.contains(container)) {
+        console.log('Selection not in article content');
         this.hidePopup();
         return;
       }
 
       this.currentSelection = selectedText;
+      console.log('About to show popup');
       this.showPopup(event);
     }
 
     showPopup(event: Event) {
-      if (!this.popup) return;
+      console.log('showPopup called');
+      if (!this.popup) {
+        console.log('No popup element found!');
+        return;
+      }
 
       const selection = window.getSelection();
-      if (!selection || !selection.rangeCount) return;
+      if (!selection || !selection.rangeCount) {
+        console.log('No selection for popup positioning');
+        return;
+      }
 
       const range = selection.getRangeAt(0);
       const rect = range.getBoundingClientRect();
       
       // Position popup above the selection
       const popupX = rect.left + (rect.width / 2);
-      const popupY = rect.top - 60;
+      const popupY = rect.top - 80; // More space above
       
       // Adjust for viewport boundaries
-      const popupWidth = 200;
+      const popupWidth = 220;
       const adjustedX = Math.max(10, Math.min(popupX - popupWidth / 2, window.innerWidth - popupWidth - 10));
+      
+      console.log('Popup position:', { x: adjustedX, y: popupY + window.scrollY });
       
       this.popup.style.left = `${adjustedX}px`;
       this.popup.style.top = `${popupY + window.scrollY}px`;
       this.popup.style.pointerEvents = 'auto';
       
+      console.log('About to animate popup');
       // Animate in
       requestAnimationFrame(() => {
         if (this.popup) {
           this.popup.classList.remove('scale-95', 'opacity-0');
           this.popup.classList.add('scale-100', 'opacity-100');
+          console.log('Popup should be visible now');
         }
       });
     }
