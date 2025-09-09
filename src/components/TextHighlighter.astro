@@ -1,0 +1,218 @@
+---
+// Text Highlighter Component
+---
+
+<div id="text-highlighter" class="hidden">
+  <!-- Highlight Share Popup -->
+  <div id="highlight-popup" 
+       class="fixed z-50 bg-popover border border-border rounded-lg shadow-lg p-3 transition-all duration-200 transform scale-95 opacity-0"
+       style="pointer-events: none;">
+    
+    <!-- Popup Content -->
+    <div class="flex items-center gap-2">
+      <!-- Share Highlight Label -->
+      <span class="text-sm font-medium text-popover-foreground whitespace-nowrap">
+        Share highlight
+      </span>
+      
+      <!-- Divider -->
+      <div class="w-px h-4 bg-border"></div>
+      
+      <!-- Social Share Buttons -->
+      <div class="flex items-center gap-1">
+        <!-- X (Twitter) Button -->
+        <button id="share-x" 
+                class="flex items-center justify-center w-8 h-8 rounded-md bg-black hover:bg-gray-800 transition-colors group"
+                title="Share on X">
+          <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </button>
+        
+        <!-- LinkedIn Button -->
+        <button id="share-linkedin" 
+                class="flex items-center justify-center w-8 h-8 rounded-md bg-blue-600 hover:bg-blue-700 transition-colors group"
+                title="Share on LinkedIn">
+          <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Popup Arrow -->
+    <div class="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-border"></div>
+    <div class="absolute top-full left-1/2 transform -translate-x-1/2 -mt-px w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-popover"></div>
+  </div>
+</div>
+
+<style>
+  /* Custom highlight color - light yellow aligned with your palette */
+  ::selection {
+    background-color: rgb(254 240 138 / 0.6); /* yellow-200 with opacity */
+    color: inherit;
+  }
+
+  .text-highlight {
+    background-color: rgb(254 240 138 / 0.6); /* yellow-200 with opacity */
+    border-radius: 3px;
+    padding: 1px 2px;
+    margin: -1px -2px;
+  }
+
+  .dark ::selection {
+    background-color: rgb(253 224 71 / 0.4); /* yellow-300 with reduced opacity for dark mode */
+  }
+
+  .dark .text-highlight {
+    background-color: rgb(253 224 71 / 0.4);
+  }
+</style>
+
+<script>
+  class TextHighlighter {
+    private popup: HTMLElement | null = null;
+    private currentSelection: string = '';
+    private currentUrl: string = '';
+    private popupTimeout: number | null = null;
+
+    constructor() {
+      this.popup = document.getElementById('highlight-popup');
+      this.currentUrl = window.location.href;
+      this.init();
+    }
+
+    init() {
+      // Listen for text selection
+      document.addEventListener('mouseup', this.handleMouseUp.bind(this));
+      document.addEventListener('keyup', this.handleKeyUp.bind(this));
+      
+      // Hide popup when clicking elsewhere
+      document.addEventListener('click', this.handleDocumentClick.bind(this));
+      
+      // Setup share buttons
+      this.setupShareButtons();
+    }
+
+    handleMouseUp(event: MouseEvent) {
+      // Small delay to ensure selection is complete
+      setTimeout(() => this.handleSelection(event), 10);
+    }
+
+    handleKeyUp(event: KeyboardEvent) {
+      // Handle keyboard selection (Shift + arrow keys, etc.)
+      if (event.shiftKey || ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) {
+        setTimeout(() => this.handleSelection(event), 10);
+      }
+    }
+
+    handleSelection(event: Event) {
+      const selection = window.getSelection();
+      if (!selection || selection.isCollapsed) {
+        this.hidePopup();
+        return;
+      }
+
+      const selectedText = selection.toString().trim();
+      if (selectedText.length < 10) {
+        this.hidePopup();
+        return;
+      }
+
+      // Check if selection is within article content
+      const range = selection.getRangeAt(0);
+      const container = range.commonAncestorContainer;
+      const articleContent = document.querySelector('.prose-content');
+      
+      if (!articleContent || !articleContent.contains(container)) {
+        this.hidePopup();
+        return;
+      }
+
+      this.currentSelection = selectedText;
+      this.showPopup(event as MouseEvent);
+    }
+
+    showPopup(event: MouseEvent) {
+      if (!this.popup) return;
+
+      const selection = window.getSelection();
+      if (!selection || !selection.rangeCount) return;
+
+      const range = selection.getRangeAt(0);
+      const rect = range.getBoundingClientRect();
+      
+      // Position popup above the selection
+      const popupX = rect.left + (rect.width / 2);
+      const popupY = rect.top - 10;
+      
+      // Adjust for viewport boundaries
+      const popupWidth = 200; // Approximate popup width
+      const adjustedX = Math.max(10, Math.min(popupX - popupWidth / 2, window.innerWidth - popupWidth - 10));
+      
+      this.popup.style.left = `${adjustedX}px`;
+      this.popup.style.top = `${popupY + window.scrollY}px`;
+      this.popup.style.pointerEvents = 'auto';
+      
+      // Animate in
+      requestAnimationFrame(() => {
+        if (this.popup) {
+          this.popup.classList.remove('scale-95', 'opacity-0');
+          this.popup.classList.add('scale-100', 'opacity-100');
+        }
+      });
+    }
+
+    hidePopup() {
+      if (!this.popup) return;
+      
+      if (this.popupTimeout) {
+        clearTimeout(this.popupTimeout);
+      }
+      
+      this.popup.classList.remove('scale-100', 'opacity-100');
+      this.popup.classList.add('scale-95', 'opacity-0');
+      this.popup.style.pointerEvents = 'none';
+    }
+
+    handleDocumentClick(event: MouseEvent) {
+      const target = event.target as Element;
+      if (this.popup && !this.popup.contains(target) && !target.closest('#share-x') && !target.closest('#share-linkedin')) {
+        this.hidePopup();
+      }
+    }
+
+    setupShareButtons() {
+      const shareXBtn = document.getElementById('share-x');
+      const shareLinkedInBtn = document.getElementById('share-linkedin');
+
+      shareXBtn?.addEventListener('click', () => {
+        this.shareOnX();
+      });
+
+      shareLinkedInBtn?.addEventListener('click', () => {
+        this.shareOnLinkedIn();
+      });
+    }
+
+    shareOnX() {
+      const text = `"${this.currentSelection}"\n\n${this.currentUrl}`;
+      const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank', 'noopener,noreferrer');
+      this.hidePopup();
+    }
+
+    shareOnLinkedIn() {
+      const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(this.currentUrl)}`;
+      window.open(url, '_blank', 'noopener,noreferrer');
+      this.hidePopup();
+    }
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => new TextHighlighter());
+  } else {
+    new TextHighlighter();
+  }
+</script>

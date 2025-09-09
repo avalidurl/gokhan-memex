@@ -2,6 +2,7 @@
 import { type CollectionEntry, getCollection } from 'astro:content'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import Badge from '../../components/ui/Badge.astro'
+import TextHighlighter from '../../components/TextHighlighter.astro'
 import { ExternalLink, ArrowLeft } from 'lucide-astro'
 
 export async function getStaticPaths() {
@@ -87,7 +88,7 @@ const formattedDate = publishDate.toLocaleDateString('en-US', {
     </header>
 
     <!-- Project Content -->
-    <div class="prose prose-neutral dark:prose-invert max-w-none">
+    <div class="prose prose-neutral dark:prose-invert max-w-none prose-content">
       <Content />
     </div>
 
@@ -99,4 +100,7 @@ const formattedDate = publishDate.toLocaleDateString('en-US', {
       </a>
     </div>
   </article>
+
+  <!-- Text Highlighter Component -->
+  <TextHighlighter />
 </BaseLayout>
