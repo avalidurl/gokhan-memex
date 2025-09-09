@@ -69,164 +69,151 @@
   }
 </style>
 
-<script is:inline>
-(function() {
-  function TextHighlighter() {
-    var self = this;
-    self.popup = null;
-    self.currentSelection = '';
-    self.currentUrl = '';
-    self.popupTimeout = null;
+<script>
+  class TextHighlighter {
+    private popup: HTMLElement | null = null;
+    private currentSelection: string = '';
+    private currentUrl: string = '';
+    private popupTimeout: number | null = null;
 
-    self.init = function() {
-      self.popup = document.getElementById('highlight-popup');
-      self.currentUrl = window.location.href;
+    constructor() {
+      this.init();
+    }
+
+    init() {
+      this.popup = document.getElementById('highlight-popup');
+      this.currentUrl = window.location.href;
       
       // Listen for text selection
-      document.addEventListener('mouseup', self.handleMouseUp);
-      document.addEventListener('keyup', self.handleKeyUp);
+      document.addEventListener('mouseup', this.handleMouseUp.bind(this));
+      document.addEventListener('keyup', this.handleKeyUp.bind(this));
       
       // Hide popup when clicking elsewhere
-      document.addEventListener('click', self.handleDocumentClick);
+      document.addEventListener('click', this.handleDocumentClick.bind(this));
       
       // Setup share buttons
-      self.setupShareButtons();
-    };
+      this.setupShareButtons();
+    }
 
-    self.handleMouseUp = function(event) {
+    handleMouseUp(event: Event) {
       // Small delay to ensure selection is complete
-      setTimeout(function() { self.handleSelection(event); }, 10);
-    };
+      setTimeout(() => this.handleSelection(event), 10);
+    }
 
-    self.handleKeyUp = function(event) {
+    handleKeyUp(event: KeyboardEvent) {
       // Handle keyboard selection (Shift + arrow keys, etc.)
-      if (event.shiftKey || ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].indexOf(event.key) !== -1) {
-        setTimeout(function() { self.handleSelection(event); }, 10);
+      if (event.shiftKey || ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) {
+        setTimeout(() => this.handleSelection(event), 10);
       }
-    };
+    }
 
-    self.handleSelection = function(event) {
-      var selection = window.getSelection();
+    handleSelection(event: Event) {
+      const selection = window.getSelection();
       if (!selection || selection.isCollapsed) {
-        self.hidePopup();
+        this.hidePopup();
         return;
       }
 
-      var selectedText = selection.toString().trim();
+      const selectedText = selection.toString().trim();
       if (selectedText.length < 10) {
-        self.hidePopup();
+        this.hidePopup();
         return;
       }
 
       // Check if selection is within article content
-      var range = selection.getRangeAt(0);
-      var container = range.commonAncestorContainer;
-      var articleContent = document.querySelector('.prose-content');
+      const range = selection.getRangeAt(0);
+      const container = range.commonAncestorContainer;
+      const articleContent = document.querySelector('.prose-content');
       
       if (!articleContent || !articleContent.contains(container)) {
-        self.hidePopup();
+        this.hidePopup();
         return;
       }
 
-      self.currentSelection = selectedText;
-      self.showPopup(event);
-    };
+      this.currentSelection = selectedText;
+      this.showPopup(event);
+    }
 
-    self.showPopup = function(event) {
-      if (!self.popup) {
-        return;
-      }
+    showPopup(event: Event) {
+      if (!this.popup) return;
 
-      var selection = window.getSelection();
-      if (!selection || !selection.rangeCount) {
-        return;
-      }
+      const selection = window.getSelection();
+      if (!selection || !selection.rangeCount) return;
 
-      var range = selection.getRangeAt(0);
-      var rect = range.getBoundingClientRect();
+      const range = selection.getRangeAt(0);
+      const rect = range.getBoundingClientRect();
       
       // Position popup above the selection
-      var popupX = rect.left + (rect.width / 2);
-      var popupY = rect.top - 60; // More space above
+      const popupX = rect.left + (rect.width / 2);
+      const popupY = rect.top - 60;
       
       // Adjust for viewport boundaries
-      var popupWidth = 200; // Approximate popup width
-      var adjustedX = Math.max(10, Math.min(popupX - popupWidth / 2, window.innerWidth - popupWidth - 10));
+      const popupWidth = 200;
+      const adjustedX = Math.max(10, Math.min(popupX - popupWidth / 2, window.innerWidth - popupWidth - 10));
       
-      self.popup.style.left = adjustedX + 'px';
-      self.popup.style.top = (popupY + window.scrollY) + 'px';
-      self.popup.style.pointerEvents = 'auto';
+      this.popup.style.left = `${adjustedX}px`;
+      this.popup.style.top = `${popupY + window.scrollY}px`;
+      this.popup.style.pointerEvents = 'auto';
       
       // Animate in
-      var popup = self.popup;
-      requestAnimationFrame(function() {
-        popup.classList.remove('scale-95', 'opacity-0');
-        popup.classList.add('scale-100', 'opacity-100');
+      requestAnimationFrame(() => {
+        if (this.popup) {
+          this.popup.classList.remove('scale-95', 'opacity-0');
+          this.popup.classList.add('scale-100', 'opacity-100');
+        }
       });
-    };
+    }
 
-    self.hidePopup = function() {
-      if (!self.popup) return;
+    hidePopup() {
+      if (!this.popup) return;
       
-      if (self.popupTimeout) {
-        clearTimeout(self.popupTimeout);
+      if (this.popupTimeout) {
+        clearTimeout(this.popupTimeout);
       }
       
-      self.popup.classList.remove('scale-100', 'opacity-100');
-      self.popup.classList.add('scale-95', 'opacity-0');
-      self.popup.style.pointerEvents = 'none';
-    };
+      this.popup.classList.remove('scale-100', 'opacity-100');
+      this.popup.classList.add('scale-95', 'opacity-0');
+      this.popup.style.pointerEvents = 'none';
+    }
 
-    self.handleDocumentClick = function(event) {
-      var target = event.target;
-      if (self.popup && !self.popup.contains(target) && !target.closest('#share-x') && !target.closest('#share-linkedin')) {
-        self.hidePopup();
+    handleDocumentClick(event: MouseEvent) {
+      const target = event.target as Element;
+      if (this.popup && !this.popup.contains(target) && !target.closest('#share-x') && !target.closest('#share-linkedin')) {
+        this.hidePopup();
       }
-    };
+    }
 
-    self.setupShareButtons = function() {
-      var shareXBtn = document.getElementById('share-x');
-      var shareLinkedInBtn = document.getElementById('share-linkedin');
+    setupShareButtons() {
+      const shareXBtn = document.getElementById('share-x');
+      const shareLinkedInBtn = document.getElementById('share-linkedin');
 
-      if (shareXBtn) {
-        shareXBtn.addEventListener('click', function() {
-          self.shareOnX();
-        });
-      }
+      shareXBtn?.addEventListener('click', () => {
+        this.shareOnX();
+      });
 
-      if (shareLinkedInBtn) {
-        shareLinkedInBtn.addEventListener('click', function() {
-          self.shareOnLinkedIn();
-        });
-      }
-    };
+      shareLinkedInBtn?.addEventListener('click', () => {
+        this.shareOnLinkedIn();
+      });
+    }
 
-    self.shareOnX = function() {
-      var text = '"' + self.currentSelection + '"\n\n' + self.currentUrl;
-      var url = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text);
+    shareOnX() {
+      const text = `"${this.currentSelection}"\n\n${this.currentUrl}`;
+      const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
       window.open(url, '_blank', 'noopener,noreferrer');
-      self.hidePopup();
-    };
+      this.hidePopup();
+    }
 
-    self.shareOnLinkedIn = function() {
-      var url = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(self.currentUrl);
+    shareOnLinkedIn() {
+      const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(this.currentUrl)}`;
       window.open(url, '_blank', 'noopener,noreferrer');
-      self.hidePopup();
-    };
-
-    // Initialize
-    self.init();
+      this.hidePopup();
+    }
   }
 
   // Initialize when DOM is ready
-  function initTextHighlighter() {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => new TextHighlighter());
+  } else {
     new TextHighlighter();
   }
-  
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initTextHighlighter);
-  } else {
-    initTextHighlighter();
-  }
-})();
 </script>
