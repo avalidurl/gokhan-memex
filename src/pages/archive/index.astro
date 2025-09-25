@@ -38,9 +38,9 @@ allPosts.forEach(post => {
   })
 })
 
-// Sort categories and tags by count (descending)
+// Sort categories by count (descending) and tags alphabetically
 const sortedCategories = Array.from(categoryMap.entries()).sort((a, b) => b[1] - a[1])
-const sortedTags = Array.from(tagMap.entries()).sort((a, b) => b[1] - a[1])
+const sortedTags = Array.from(tagMap.entries()).sort((a, b) => a[0].localeCompare(b[0]))
 
 // Group posts by year and month
 type Post = typeof allPosts[0]
