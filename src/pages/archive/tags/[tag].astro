@@ -1,0 +1,151 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content'
+import type { GetStaticPaths } from 'astro'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import Card from '@/components/ui/Card.astro'
+import CardContent from '@/components/ui/CardContent.astro'
+import Badge from '@/components/ui/Badge.astro'
+import { formatDate } from '@/lib/utils'
+
+type PostEntry = CollectionEntry<'blog'>
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const allPosts = (await getCollection('blog'))
+    .filter((post: PostEntry) => !post.data.draft)
+
+  // Get all unique tags
+  const tagSet = new Set<string>()
+  allPosts.forEach((post: PostEntry) => {
+    post.data.tags?.forEach((tag: string) => {
+      tagSet.add(tag)
+    })
+  })
+
+  return Array.from(tagSet).map((tag: string) => ({
+    params: {
+      tag: tag.toLowerCase().replace(/\s+/g, '-')
+    }
+  }))
+}
+
+// Read from params and fetch data
+const { tag: tagSlug } = Astro.params as { tag: string }
+
+// Get all posts and find the original tag name
+const allPosts = (await getCollection('blog'))
+  .filter((post: PostEntry) => !post.data.draft)
+
+// Find the actual tag name from slug
+const tagMap = new Map<string, string>()
+allPosts.forEach((post: PostEntry) => {
+  post.data.tags?.forEach((tag: string) => {
+    const slug = tag.toLowerCase().replace(/\s+/g, '-')
+    tagMap.set(slug, tag)
+  })
+})
+
+const tag = tagMap.get(tagSlug) || tagSlug
+
+// Filter posts for this tag
+const posts: PostEntry[] = allPosts
+  .filter((post: PostEntry) => post.data.tags?.some((t: string) =>
+    t.toLowerCase().replace(/\s+/g, '-') === tagSlug
+  ))
+  .sort((a: PostEntry, b: PostEntry) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf())
+
+const breadcrumbs = [
+  { label: 'Archive', href: '/archive' },
+  { label: 'Tags', href: '/archive#tags' }
+]
+---
+
+<BaseLayout
+  title={`${tag} - Archive`}
+  description={`${posts.length} posts tagged with ${tag}. Explore content about ${tag.toLowerCase()}.`}
+>
+  <div class="container max-w-4xl mx-auto px-4 py-8">
+    <Breadcrumbs items={breadcrumbs} currentPage={tag} />
+
+    <!-- Header -->
+    <div class="mb-12">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="text-3xl md:text-4xl font-bold tracking-tight">#{tag}</h1>
+        <Badge variant="secondary">{posts.length} post{posts.length !== 1 ? 's' : ''}</Badge>
+      </div>
+      <p class="text-lg text-muted-foreground">
+        All posts tagged with {tag}
+      </p>
+    </div>
+
+    <!-- Posts -->
+    {posts.length > 0 ? (
+      <div class="space-y-6">
+        {posts.map((post: PostEntry) => (
+          <Card class="hover:shadow-lg transition-shadow">
+            <CardContent class="p-6">
+              <div class="space-y-3">
+                <!-- Date and Category -->
+                <div class="flex items-center gap-3 text-sm text-muted-foreground">
+                  <time datetime={post.data.publishDate.toISOString()}>
+                    {formatDate(post.data.publishDate)}
+                  </time>
+                  <span>•</span>
+                  <Badge variant="category">{post.data.category}</Badge>
+                </div>
+
+                <!-- Title -->
+                <h2 class="text-xl md:text-2xl font-semibold">
+                  <a
+                    href={`/journal/${post.slug}`}
+                    class="hover:text-primary transition-colors"
+                  >
+                    {post.data.title}
+                  </a>
+                </h2>
+
+                <!-- Description -->
+                <p class="text-muted-foreground leading-relaxed">
+                  {post.data.description}
+                </p>
+
+                <!-- Tags -->
+                {post.data.tags && post.data.tags.length > 0 && (
+                  <div class="flex flex-wrap gap-2 pt-2">
+                    {post.data.tags.map((postTag: string) => (
+                      <Badge
+                        variant={postTag === tag ? "default" : "outline"}
+                        class="text-xs"
+                      >
+                        <a href={`/archive/tags/${postTag.toLowerCase().replace(/\s+/g, '-')}`}>
+                          {postTag}
+                        </a>
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    ) : (
+      <div class="text-center py-12">
+        <p class="text-lg text-muted-foreground mb-4">No posts found with this tag.</p>
+        <p class="text-sm text-muted-foreground">
+          <a href="/archive" class="text-primary hover:underline">Browse all tags</a>
+        </p>
+      </div>
+    )}
+
+    <!-- Back to Archive -->
+    <div class="mt-12 text-center">
+      <a
+        href="/archive"
+        class="inline-flex items-center px-4 py-2 bg-secondary hover:bg-secondary/80 text-secondary-foreground rounded-md transition-colors font-medium"
+      >
+        ← Back to Archive
+      </a>
+    </div>
+  </div>
+</BaseLayout>
