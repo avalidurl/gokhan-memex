@@ -104,12 +104,6 @@
     margin-top: 0;
   }
 
-  a {
-    color: hsl(var(--primary));
-    text-decoration: underline;
-    font-weight: 500;
-  }
-
   strong {
     font-weight: 600;
   }
