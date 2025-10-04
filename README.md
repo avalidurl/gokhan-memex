@@ -39,7 +39,7 @@ An evolving "memex" — a networked knowledge garden, portfolio, and research ar
 ### Content Model
 
 - `src/content/blog` holds MDX entries with frontmatter fields (`title`, `description`, `publishDate`, `category`, `tags`, etc.). Astro collections enforce schemas in `src/content/config.ts`.
-- `src/content/projects` documents live dashboards and experiments, including the NVIDIA vs Crypto Market Cap tracker and SP100 Capex dashboard.
+- `src/content/projects` documents live dashboards and experiments, including the NVIDIA vs Crypto Market Cap tracker and SP100 Financial Tracker.
 - `src/data` provides curated lists and link hubs surfaced on their respective pages.
 
 ### Performance & Observability
@@ -158,5 +158,6 @@ src/
 ## License & Attribution
 
 All site content © 2025 Gökhan Turhan. Source code is shared for reference; please contact the author for reuse permissions or collaboration inquiries.
+
 
 
