@@ -198,7 +198,7 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`
     </script>
     
     <!-- Structured Data - Person Schema -->
-    <script type="application/ld+json" set:html={JSON.stringify({
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Gökhan Turhan",

@@ -157,9 +157,7 @@ const uniqueId = `vimeo-${Math.random().toString(36).substring(2, 11)}`
     function loadVimeoEmbed(container: Element) {
       const containerEl = container as HTMLElement;
       const src = containerEl.dataset.src;
-      const width = containerEl.dataset.width || '100%';
       const height = containerEl.dataset.height || 'auto';
-      const responsive = containerEl.dataset.responsive === 'true';
       const aspectClass = containerEl.dataset.aspectClass || '';
       
       const placeholder = container.querySelector('.vimeo-placeholder');
