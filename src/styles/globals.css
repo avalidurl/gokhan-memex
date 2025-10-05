@@ -113,4 +113,26 @@
     border-radius: 0.375rem;
     font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   }
+
+  /* Anchor link styles for headings */
+  .anchor-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .anchor-link:hover {
+    color: hsl(var(--primary));
+  }
+
+  /* Add a link icon on hover */
+  .anchor-link:hover::before {
+    content: "🔗 ";
+    opacity: 0.6;
+    margin-right: 0.25rem;
+  }
+
+  /* Smooth scroll behavior for anchor navigation */
+  html {
+    scroll-behavior: smooth;
+  }
 }

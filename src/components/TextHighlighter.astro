@@ -95,19 +95,19 @@
         self.setupShareButtons();
       };
 
-      self.handleMouseUp = function(event) {
+      self.handleMouseUp = function() {
         // Small delay to ensure selection is complete
-        setTimeout(function() { self.handleSelection(event); }, 10);
+        setTimeout(function() { self.handleSelection(); }, 10);
       };
 
       self.handleKeyUp = function(event) {
         // Handle keyboard selection (Shift + arrow keys, etc.)
         if (event.shiftKey || ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) {
-          setTimeout(function() { self.handleSelection(event); }, 10);
+          setTimeout(function() { self.handleSelection(); }, 10);
         }
       };
 
-      self.handleSelection = function(event) {
+      self.handleSelection = function() {
         console.log('handleSelection called');
         var selection = window.getSelection();
         if (!selection || selection.isCollapsed) {
@@ -140,10 +140,10 @@
 
         self.currentSelection = selectedText;
         console.log('About to show popup');
-        self.showPopup(event);
+        self.showPopup();
       };
 
-      self.showPopup = function(event) {
+      self.showPopup = function() {
         console.log('showPopup called');
         if (!self.popup) {
           console.log('No popup element found!');
