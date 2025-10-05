@@ -168,6 +168,17 @@ const structuredData = post.data.schema ? (Array.isArray(post.data.schema) ? pos
     @apply text-primary hover:underline;
   }
 
+  /* Remove underline from heading anchor links */
+  .prose-content :global(h1 a.anchor-link),
+  .prose-content :global(h2 a.anchor-link),
+  .prose-content :global(h3 a.anchor-link),
+  .prose-content :global(h4 a.anchor-link),
+  .prose-content :global(h5 a.anchor-link),
+  .prose-content :global(h6 a.anchor-link) {
+    @apply no-underline;
+    text-decoration: none !important;
+  }
+
   .prose-content :global(blockquote) {
     @apply border-l-4 border-primary/30 bg-accent/20 rounded-r-lg;
   }

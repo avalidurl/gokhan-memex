@@ -116,18 +116,18 @@
 
   /* Anchor link styles for headings */
   .anchor-link {
-    text-decoration: none;
-    color: inherit;
+    text-decoration: none !important;
+    color: inherit !important;
     position: relative;
+    display: inline-block;
   }
 
   /* Add a subtle link icon on hover */
   .anchor-link:hover::after {
-    content: "🔗";
-    opacity: 0.5;
-    margin-left: 0.5rem;
-    font-size: 0.875em;
-    position: absolute;
+    content: " 🔗";
+    opacity: 0.6;
+    font-size: 0.85em;
+    margin-left: 0.25rem;
   }
 
   /* Smooth scroll behavior for anchor navigation */
