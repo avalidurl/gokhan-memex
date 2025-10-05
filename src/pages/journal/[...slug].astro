@@ -23,6 +23,9 @@ const { Content } = await post.render()
 const breadcrumbs = [
   { label: 'Journal', href: '/journal' }
 ]
+
+// Prepare structured data if schema exists in frontmatter
+const structuredData = post.data.schema ? (Array.isArray(post.data.schema) ? post.data.schema : [post.data.schema]) : []
 ---
 
 <BaseLayout
@@ -31,6 +34,30 @@ const breadcrumbs = [
   type="article"
   image={post.data.heroImage || `/og/${post.slug}.png`}
 >
+  {/* Structured Data for SEO and LLM discoverability */}
+  {structuredData.map((schema: any) => (
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      ...schema,
+      "author": {
+        "@type": "Person",
+        "name": post.data.author,
+        "url": "https://gokhanturhan.com"
+      },
+      "datePublished": post.data.publishDate.toISOString(),
+      "url": `https://gokhanturhan.com/journal/${post.slug}`,
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": `https://gokhanturhan.com/journal/${post.slug}`
+      }
+    })} slot="head" />
+  ))}
+
+  {/* Additional meta keywords for LLM discoverability */}
+  {post.data.seoKeywords && (
+    <meta name="keywords" content={post.data.seoKeywords.join(', ')} slot="head" />
+  )}
+
   <div class="container max-w-4xl mx-auto px-4 py-8">
     <Breadcrumbs items={breadcrumbs} currentPage={post.data.title} />
 
