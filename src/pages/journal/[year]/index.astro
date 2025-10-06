@@ -113,7 +113,7 @@ const breadcrumbs = [
                         </p>
                         <div class="flex items-center gap-4 text-xs text-muted-foreground">
                           <span>{formatDate(post.data.publishDate)}</span>
-                          <a href={`/archive/categories/${post.data.category.toLowerCase().replace(/\s+/g, '-')}`}>
+                          <a href={`/archive/categories/${post.data.category.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and')}`}>
                             <Badge variant="outline" class="text-xs">
                               {post.data.category}
                             </Badge>
