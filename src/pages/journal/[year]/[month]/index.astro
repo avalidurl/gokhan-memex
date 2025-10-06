@@ -91,7 +91,9 @@ const breadcrumbs = [
                     {formatDate(post.data.publishDate)}
                   </time>
                   <span>•</span>
-                  <Badge variant="category">{post.data.category}</Badge>
+                  <a href={`/archive/categories/${post.data.category.toLowerCase().replace(/\s+/g, '-')}`}>
+                    <Badge variant="category">{post.data.category}</Badge>
+                  </a>
                 </div>
 
                 <!-- Title -->

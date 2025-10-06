@@ -83,9 +83,13 @@ const breadcrumbs = [
             <AccordionItem data-accordion-item class="border rounded-lg">
               <AccordionTrigger class="text-left">
                 <div class="flex items-center justify-between w-full pr-4">
-                  <h2 class="text-xl font-semibold">
+                  <a 
+                    href={`/journal/${year}/${(monthIndex + 1).toString().padStart(2, '0')}`}
+                    class="text-xl font-semibold hover:text-primary transition-colors"
+                    onclick="event.stopPropagation()"
+                  >
                     {monthNames[monthIndex]} {year}
-                  </h2>
+                  </a>
                   <Badge variant="secondary">
                     {monthPosts.length} post{monthPosts.length !== 1 ? 's' : ''}
                   </Badge>
@@ -109,9 +113,11 @@ const breadcrumbs = [
                         </p>
                         <div class="flex items-center gap-4 text-xs text-muted-foreground">
                           <span>{formatDate(post.data.publishDate)}</span>
-                          <Badge variant="outline" class="text-xs">
-                            {post.data.category}
-                          </Badge>
+                          <a href={`/archive/categories/${post.data.category.toLowerCase().replace(/\s+/g, '-')}`}>
+                            <Badge variant="outline" class="text-xs">
+                              {post.data.category}
+                            </Badge>
+                          </a>
                           {post.data.tags && post.data.tags.length > 0 && (
                             <div class="flex gap-1">
                               {post.data.tags.slice(0, 3).map(tag => (
