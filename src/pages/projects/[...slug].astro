@@ -2,7 +2,6 @@
 import { type CollectionEntry, getCollection } from 'astro:content'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import Badge from '../../components/ui/Badge.astro'
-import TextHighlighter from '../../components/TextHighlighter.astro'
 import { ExternalLink, ArrowLeft } from 'lucide-astro'
 
 export async function getStaticPaths() {
@@ -101,6 +100,4 @@ const formattedDate = publishDate.toLocaleDateString('en-US', {
     </div>
   </article>
 
-  <!-- Text Highlighter Component -->
-  <TextHighlighter />
 </BaseLayout>
