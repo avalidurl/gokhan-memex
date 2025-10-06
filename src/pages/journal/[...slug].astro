@@ -76,11 +76,15 @@ const structuredData = post.data.schema ? (Array.isArray(post.data.schema) ? pos
         <div class="space-y-4">
           <!-- Meta Info -->
           <div class="flex items-center gap-3 text-sm text-muted-foreground">
-            <time datetime={post.data.publishDate.toISOString()}>
-              {formatDate(post.data.publishDate)}
-            </time>
+            <a href={`/journal/${post.data.publishDate.getFullYear()}/${(post.data.publishDate.getMonth() + 1).toString().padStart(2, '0')}`} class="hover:text-foreground transition-colors">
+              <time datetime={post.data.publishDate.toISOString()}>
+                {formatDate(post.data.publishDate)}
+              </time>
+            </a>
             <span>•</span>
-            <Badge variant="category">{post.data.category}</Badge>
+            <a href={`/archive/categories/${post.data.category.toLowerCase().replace(/\s+/g, '-')}`}>
+              <Badge variant="category">{post.data.category}</Badge>
+            </a>
           </div>
 
           <!-- Title -->
