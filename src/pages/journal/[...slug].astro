@@ -4,6 +4,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Badge from '@/components/ui/Badge.astro'
 import SocialShare from '@/components/SocialShare.astro'
+import TextHighlighter from '@/components/TextHighlighter.astro'
 import { formatDate } from '@/lib/utils'
 
 export async function getStaticPaths() {
@@ -153,6 +154,8 @@ const structuredData = post.data.schema ? (Array.isArray(post.data.schema) ? pos
     </article>
   </div>
 
+  <!-- Text Highlighter Component -->
+  <TextHighlighter />
 </BaseLayout>
 
 <style>
