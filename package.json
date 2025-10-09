@@ -28,5 +28,8 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
     "@types/node": "^22.8.6"
+  },
+  "engines": {
+    "node": ">=18.20.8"
   }
 }

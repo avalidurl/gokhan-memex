@@ -1,4 +1,6 @@
 # Redirect old blog URLs (if needed)
+# Exclude static assets under /blog/images from redirect
+!/blog/images/*
 /blog/* /journal/:splat 301
 
 # Newsletter redirect (permanent)
