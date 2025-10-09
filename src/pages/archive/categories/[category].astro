@@ -54,6 +54,7 @@ const breadcrumbs = [
 <BaseLayout
   title={`${category} - Archive`}
   description={`${posts.length} posts in the ${category} category. Explore topics in ${category.toLowerCase()}.`}
+  robots="noindex, follow"
 >
   <div class="container max-w-4xl mx-auto px-4 py-8">
     <Breadcrumbs items={breadcrumbs} currentPage={category} />

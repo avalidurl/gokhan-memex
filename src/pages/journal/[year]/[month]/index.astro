@@ -65,6 +65,7 @@ const breadcrumbs = [
 <BaseLayout
   title={`${monthName} ${year}`}
   description={`${monthPosts.length} posts published in ${monthName} ${year}`}
+  robots="noindex, follow"
 >
   <div class="container max-w-4xl mx-auto px-4 py-8">
     <Breadcrumbs items={breadcrumbs} currentPage={`${monthName} ${year}`} />

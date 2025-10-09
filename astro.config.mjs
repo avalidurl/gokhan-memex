@@ -17,16 +17,16 @@ export default defineConfig({
       changefreq: 'weekly',
       priority: 0.7,
       lastmod: new Date(),
-      customPages: [
-        'https://gokhanturhan.com/newsletter',
-        'https://gokhanturhan.com/thank-you'
-      ],
       serialize(item) {
         // Update lastmod to current time for better indexing
         item.lastmod = new Date();
         // Set higher priority for important pages
         if (item.url === '' || item.url === '/' || item.url.includes('/journal/')) {
           item.priority = 1.0;
+        }
+        // Ensure canonical trailing slash format
+        if (item.url && !item.url.endsWith('/')) {
+          item.url = item.url + '/';
         }
         return item;
       }
