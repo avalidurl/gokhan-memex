@@ -1,0 +1,9 @@
+# Ensure GitHub Linguist recognizes Astro, not Svelte
+*.astro linguist-language=Astro
+
+# De-emphasize non-source from language stats
+public/** linguist-vendored
+*.md *.mdx linguist-documentation
+*.csv linguist-vendored
+*.zip linguist-vendored
+
