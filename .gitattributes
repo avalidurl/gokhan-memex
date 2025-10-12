@@ -3,7 +3,8 @@
 
 # De-emphasize non-source from language stats
 public/** linguist-vendored
-*.md *.mdx linguist-documentation
+*.md linguist-documentation
+*.mdx linguist-documentation
 *.csv linguist-vendored
 *.zip linguist-vendored
 
