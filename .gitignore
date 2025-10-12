@@ -1,3 +1,15 @@
+# Private audit exports and reports
+gokhanturhan.com-Coverage-*/
+/gokhanturhan.com-Coverage-*.zip
+/*.csv
+
+# Local project notes
+/PROJECT_TODO.md
+
+# Standard ignores
+node_modules/
+dist/
+.DS_Store
 research-1/
 # Dependencies
 node_modules/
