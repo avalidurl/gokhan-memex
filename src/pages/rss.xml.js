@@ -16,7 +16,7 @@ export async function GET(context) {
       pubDate: post.data.publishDate,
       description: post.data.description,
       link: `/journal/${post.slug}/`,
-      categories: [post.data.category, ...post.data.tags],
+      categories: [post.data.category, ...(post.data.tags || [])].filter(Boolean),
       author: post.data.author,
     })),
     customData: `

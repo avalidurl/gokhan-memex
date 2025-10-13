@@ -166,20 +166,44 @@ import { Search as SearchIcon } from 'lucide-astro'
         return
       }
       
-      this.results.innerHTML = posts.map((post, index) => `
-        <a href="${post.link}" class="search-result flex items-center gap-2 rounded-sm px-2 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground" data-index="${index}">
-          <div class="flex flex-col gap-1">
-            <span class="font-medium">${this.highlight(post.title, query)}</span>
-            <span class="text-xs text-muted-foreground line-clamp-2">${this.highlight(post.description.substring(0, 100) + '...', query)}</span>
-          </div>
-        </a>
-      `).join('')
+      this.results.innerHTML = posts.map((post, index) => {
+        const safeLink = this.escapeAttribute(post.link)
+        const safeTitle = this.highlight(this.escapeHTML(post.title), query)
+        const safeDesc = this.highlight(this.escapeHTML(post.description.substring(0, 100) + '...'), query)
+        return `
+          <a href="${safeLink}" class="search-result flex items-center gap-2 rounded-sm px-2 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground" data-index="${index}">
+            <div class="flex flex-col gap-1">
+              <span class="font-medium">${safeTitle}</span>
+              <span class="text-xs text-muted-foreground line-clamp-2">${safeDesc}</span>
+            </div>
+          </a>
+        `
+      }).join('')
     }
     
     highlight(text: string, query: string) {
       if (!query) return text
-      const regex = new RegExp(`(${query})`, 'gi')
+      const safeQuery = this.escapeRegExp(query)
+      const regex = new RegExp(`(${safeQuery})`, 'gi')
       return text.replace(regex, '<mark class="bg-yellow-200 text-black">$1</mark>')
+    }
+
+    escapeHTML(text: string) {
+      return text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;')
+    }
+
+    escapeAttribute(text: string) {
+      // Conservative attribute escaping
+      return this.escapeHTML(text).replace(/`/g, '&#96;')
+    }
+
+    escapeRegExp(text: string) {
+      return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
     }
     
     clearResults() {
