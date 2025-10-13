@@ -29,8 +29,6 @@ build/
 # Astro
 .astro/
 
-# SvelteKit (legacy files to ignore)
-.svelte-kit/
 
 # Generated files
 .vercel/

@@ -6,7 +6,7 @@ An evolving "memex" — a networked knowledge garden, portfolio, and research ar
 
 - **Modern Astro Stack** – Astro 5 with the latest content collections, Markdown/MDX support, TypeScript, and Tailwind CSS. shadcn/ui components are ported to Astro for consistent primitives across pages.
 - **Digital Garden Information Architecture** – Journal, archive, lists, links, and portfolio sections share a common taxonomy, rich metadata, and SEO-friendly permalinks.
-- **Performance Monitoring Suite** – First-party Core Web Vitals instrumentation, RUM sampling, debug dashboards, and alerting live under `src/lib`. Toggle the overlay via `?debug=performance` while developing.
+- **Performance Utilities** – Lightweight timing helpers and an optional dev dashboard live under `src/lib`. Use `initializePerformanceDashboard()` and `performanceDebug()` during development.
 - **Offline-First Experience** – A custom service worker, offline status banner, and `/offline` control panel manage cached posts, update checks, and manual cache clearing.
 - **Search & Discovery** – Client-side command palette powered by the generated RSS feed supports Cmd/Ctrl‑K search, highlight sharing, and deep linking.
 - **SEO & PWA Tooling** – Structured data, canonical URLs, Open Graph/Twitter cards, RSS, sitemap, and manifest are emitted by default; the layout preloads fonts with progressive enhancement.
@@ -19,7 +19,7 @@ An evolving "memex" — a networked knowledge garden, portfolio, and research ar
 | Styling | Tailwind CSS 3, shadcn/ui primitives, custom design tokens (`critical.css`) |
 | Content | MDX collections via `astro:content`, JSON data feeds |
 | Build Utilities | TypeScript, Astro integrations (`@astrojs/mdx`, `@astrojs/rss`, `@astrojs/sitemap`, `@astrojs/tailwind`) |
-| Observability | Custom performance monitor, analytics wrapper, RUM, service worker manager |
+| Observability | Lightweight performance utilities, minimal analytics, service worker |
 | Deployment | Any static host (Netlify, Vercel, Cloudflare, etc.) serving the `dist` directory |
 
 ## System Overview
@@ -34,7 +34,7 @@ An evolving "memex" — a networked knowledge garden, portfolio, and research ar
 - `Navigation.astro` renders the sticky header, command palette triggers, RSS link, and responsive menu.
 - shadcn-derived components live under `src/components/ui`, enabling consistent cards, badges, accordions, inputs, and alerts throughout the site.
 - Rich embeds (`src/components/embeds`) wrap platforms like YouTube, Vimeo, Bandcamp, Substack, Mirror, and NFT viewers; they lazy-load to preserve vitals.
-- `TextHighlighter.astro` enables quote selection and share-to-social interactions across long-form writing.
+ 
 
 ### Content Model
 
@@ -44,8 +44,8 @@ An evolving "memex" — a networked knowledge garden, portfolio, and research ar
 
 ### Performance & Observability
 
-- `src/lib/performance.ts`, `analytics.ts`, `rum.ts`, `performance-dashboard.ts`, and `performance-alerts.ts` combine to gather Core Web Vitals, custom timings, user interaction data, and issue alerts.
-- `window.performanceDashboard`, `window.performanceMonitor`, and related globals become available when debug mode is enabled (localhost or `?debug=performance`).
+- `src/lib/performance.ts`, `analytics.ts`, and `performance-dashboard.ts` provide timing helpers, basic analytics hooks, and an optional dev dashboard.
+- In development, call `performanceDebug()` from the console to inspect live metrics.
 
 ### Offline & Service Worker Layer
 
@@ -56,8 +56,8 @@ An evolving "memex" — a networked knowledge garden, portfolio, and research ar
 
 Prerequisites:
 
-- Node.js 20.x (Astro 5 requires active LTS or later)
-- npm 10.x (ships with Node 20)
+- Node.js >= 18.20.8 (per `engines` in `package.json`)
+- npm 10.x+
 
 Install dependencies:
 
@@ -104,7 +104,7 @@ heroImageAlt: "Conceptual memex illustration"
 ---
 ```
 
-- Use MDX components (`<TwitterEmbed />`, `<VimeoEmbed />`, `<TextHighlighter />`) as needed. All components map to the design system tokens automatically.
+- Use MDX components (`<TwitterEmbed />`, `<YouTubeEmbed />`, `<VimeoEmbed />`, `<SpotifyEmbed />`, `<BandcampEmbed />`, `<AppleMusicEmbed />`) as needed. All components map to the design system tokens automatically.
 
 ### Projects & Dashboards
 
@@ -138,14 +138,13 @@ heroImageAlt: "Conceptual memex illustration"
 
 ```
 src/
-├── components/          # Navigation, embeds, UI primitives, modals, highlight tools
+├── components/          # Navigation, embeds, UI primitives, modals
 ├── content/             # MDX collections for blog posts and projects
 ├── data/                # Curated link/list JSON data
 ├── layouts/             # BaseLayout and shared document chrome
-├── lib/                 # Performance suite, analytics, service worker helpers, utilities
+├── lib/                 # Perf utilities, analytics wrapper, service worker helpers
 ├── pages/               # Astro pages (home, journal, archive, portfolio, offline, etc.)
 ├── styles/              # Critical tokens + Tailwind globals
-└── types/               # Shared TypeScript types
 ```
 
 ## Maintenance Checklist
