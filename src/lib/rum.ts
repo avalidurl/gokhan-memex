@@ -64,6 +64,8 @@ export interface ServiceWorkerEvent {
 /**
  * RUM Monitor Class
  */
+import { getAnalytics } from './analytics';
+
 export class RUMMonitor {
   private config: RUMConfig;
   private metrics: RUMMetrics;
@@ -345,7 +347,7 @@ export class RUMMonitor {
    */
   private trackLongTask(entry: PerformanceEntry): void {
     // Track long tasks that block the main thread
-    const analytics = (window as any).analytics;
+    const analytics = getAnalytics();
     if (analytics) {
       analytics.trackEvent({
         action: 'long_task',
@@ -363,7 +365,7 @@ export class RUMMonitor {
   private trackResourceTiming(entry: PerformanceResourceTiming): void {
     // Track slow loading resources
     if (entry.duration > 1000) { // Resources taking more than 1 second
-      const analytics = (window as any).analytics;
+      const analytics = getAnalytics();
       if (analytics) {
         analytics.trackEvent({
           action: 'slow_resource',
@@ -421,7 +423,7 @@ export class RUMMonitor {
   public sendMetrics(): void {
     if (!this.config.enabled) return;
 
-    const analytics = (window as any).analytics;
+    const analytics = getAnalytics();
     if (!analytics) return;
 
     // Send summary metrics
