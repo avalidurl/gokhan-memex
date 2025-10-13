@@ -61,3 +61,9 @@ Status: internal reference only, do **not** push to public remotes.
 - `@layer base` in `globals.css` scoped to typography only; global link underline removed to restore component-specific styling.
 - Outstanding follow-up: add automated visual regression or manual checklist for light/dark theme verification on key pages. Manual NoScript/slow-network check still pending for next session.
 
+### 2025-10-13 Update
+
+- Verified site targets static output (`astro.config.mjs: output: 'static'`).
+- Confirmed Tailwind tokens mapped to CSS variables; typography moved to `@tailwindcss/typography` via config.
+- Updated public documentation to reflect the current Astro-based stack and remove legacy references.
+
