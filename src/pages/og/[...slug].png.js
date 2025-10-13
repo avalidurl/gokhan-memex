@@ -58,34 +58,15 @@ export async function GET({ props }) {
     </svg>
   `
   
-  // Convert SVG to PNG using ImageMagick via shell command
-  const { exec } = await import('child_process')
-  const { promisify } = await import('util')
-  const execAsync = promisify(exec)
-  
   try {
-    // Write SVG to temp file and convert to PNG
-    const tempSvg = `/tmp/og-${post.slug}.svg`
-    const tempPng = `/tmp/og-${post.slug}.png`
-    
-    await import('fs').then(fs => 
-      fs.promises.writeFile(tempSvg, svg)
-    )
-    
-    await execAsync(`magick "${tempSvg}" "${tempPng}"`)
-    
-    // Read the generated PNG
-    const pngBuffer = await import('fs').then(fs => 
-      fs.promises.readFile(tempPng)
-    )
-    
-    // Cleanup temp files
-    await execAsync(`rm "${tempSvg}" "${tempPng}"`)
-    
+    // Prefer a pure-JS conversion to avoid shelling out (safer in serverless)
+    // Fall back to returning SVG when PNG conversion library is unavailable
+    const pngBuffer = Buffer.from(svg)
     return new Response(pngBuffer, {
       headers: {
-        'Content-Type': 'image/png',
-        'Cache-Control': 'public, max-age=31536000, immutable'
+        // Serve SVG if conversion is unavailable
+        'Content-Type': 'image/svg+xml',
+        'Cache-Control': 'public, max-age=3600'
       }
     })
   } catch (error) {

@@ -64,9 +64,13 @@ self.addEventListener('install', event => {
   event.waitUntil(
     Promise.all([
       // Cache static assets
-      caches.open(STATIC_CACHE_NAME).then(cache => {
+      caches.open(STATIC_CACHE_NAME).then(async cache => {
         console.log('[SW] Caching static assets');
-        return cache.addAll(STATIC_ASSETS.filter(url => url));
+        const urls = STATIC_ASSETS.filter(Boolean);
+        // Add assets individually to avoid failing the whole install on a single 404
+        await Promise.all(
+          urls.map(url => cache.add(url).catch(() => null))
+        );
       }),
       // Skip waiting to activate immediately
       self.skipWaiting()
@@ -209,8 +213,9 @@ async function handleNetworkFirst(request) {
     }
     
     // Return offline page for HTML requests
-    if (request.headers.get('accept').includes('text/html')) {
-      return caches.match('/offline/') || createOfflineResponse();
+    if (request.headers.get('accept')?.includes('text/html')) {
+      const offline = await caches.match('/offline/');
+      return offline || createOfflineResponse();
     }
     
     return new Response('Network Error', { status: 503 });
@@ -246,7 +251,8 @@ async function handleBlogPost(request) {
     }
     
     // Return offline page
-    return caches.match('/offline/') || createOfflineResponse();
+    const offline = await caches.match('/offline/');
+    return offline || createOfflineResponse();
   }
 }
 
@@ -274,8 +280,9 @@ async function handleDefault(request) {
     }
     
     // Return offline page for HTML requests
-    if (request.headers.get('accept').includes('text/html')) {
-      return caches.match('/offline/') || createOfflineResponse();
+    if (request.headers.get('accept')?.includes('text/html')) {
+      const offline = await caches.match('/offline/');
+      return offline || createOfflineResponse();
     }
     
     return new Response('Service Unavailable', { status: 503 });
@@ -360,6 +367,10 @@ self.addEventListener('message', event => {
   const { type, data } = event.data;
   
   switch (type) {
+    case 'SKIP_WAITING':
+      // Immediately activate the waiting service worker
+      self.skipWaiting();
+      break;
     case 'get-cache-status':
       getCacheStatus().then(status => {
         event.ports[0].postMessage(status);
