@@ -1,4 +1,4 @@
-# Ensure GitHub Linguist recognizes Astro, not Svelte
+# Ensure GitHub Linguist recognizes Astro
 *.astro linguist-language=Astro
 
 # De-emphasize non-source from language stats
