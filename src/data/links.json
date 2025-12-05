@@ -4,7 +4,7 @@
     "items": [
       {
         "name": "X",
-        "url": "https://x.com/0xgokhan",
+        "url": "https://x.com/goekhan",
         "description": "Daily thoughts and market observations"
       },
       {
@@ -29,12 +29,12 @@
       },
       {
         "name": "TikTok",
-        "url": "https://tiktok.com/@0xgokhan",
+        "url": "https://tiktok.com/@goekhan",
         "description": "Short-form video content and trends"
       },
       {
         "name": "Threads",
-        "url": "https://threads.net/@0xgokhan",
+        "url": "https://threads.net/@goekhan",
         "description": "Meta's text-based social platform"
       }
     ]
@@ -109,7 +109,7 @@
       },
       {
         "name": "X Articles",
-        "url": "https://x.com/0xgokhan/articles",
+        "url": "https://x.com/goekhan/articles",
         "description": "Long-form articles on X platform"
       }
     ]
