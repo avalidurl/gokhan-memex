@@ -1,55 +1,43 @@
 ---
 interface Props {
   url: string
-  tweetId?: string
-  username?: string
-  text?: string
 }
 
-const { url, username, text } = Astro.props
+const { url } = Astro.props
 
+// Normalize URL (handle both x.com and twitter.com)
+const normalizedUrl = url.replace('x.com', 'twitter.com').split('?')[0]
 ---
 
-<div class="my-6 not-prose">
-  <div class="rounded-lg border bg-card p-6">
-    <div class="space-y-4">
-      <!-- Header -->
-      <div class="flex items-center justify-between">
-        <h3 class="text-lg font-semibold">Tweet</h3>
-        <div class="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
-          Twitter/X
-        </div>
-      </div>
-
-      {text && (
-        <blockquote class="text-sm border-l-4 border-primary pl-4 italic">
-          "{text}"
-        </blockquote>
-      )}
-
-      {username && (
-        <p class="text-sm text-muted-foreground">by @{username}</p>
-      )}
-
-      <!-- Actions -->
-      <div class="flex gap-3">
-        <a
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors text-sm font-medium"
-        >
-          View Tweet →
-        </a>
-        <a
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center px-4 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md transition-colors text-sm"
-        >
-          Open in X/Twitter
-        </a>
-      </div>
-    </div>
-  </div>
+<div class="my-6 not-prose twitter-embed-container">
+  <blockquote class="twitter-tweet" data-dnt="true">
+    <a href={normalizedUrl}></a>
+  </blockquote>
 </div>
+
+<script is:inline>
+  // Load Twitter widget script if not already loaded
+  (function() {
+    if (window.twttr) {
+      window.twttr.widgets.load();
+      return;
+    }
+    
+    const script = document.createElement('script');
+    script.src = 'https://platform.twitter.com/widgets.js';
+    script.async = true;
+    script.charset = 'utf-8';
+    document.head.appendChild(script);
+  })();
+</script>
+
+<style>
+  .twitter-embed-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .twitter-tweet {
+    margin: 0 auto !important;
+  }
+</style>
