@@ -1,21 +1,9 @@
 ---
 import { getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import Breadcrumbs from '@/components/Breadcrumbs.astro'
-import ListItem from '@/components/ListItem.astro'
-import Card from '@/components/ui/Card.astro'
-import CardContent from '@/components/ui/CardContent.astro'
-import Accordion from '@/components/ui/Accordion.astro'
-import AccordionItem from '@/components/ui/AccordionItem.astro'
-import AccordionTrigger from '@/components/ui/AccordionTrigger.astro'
-import AccordionContent from '@/components/ui/AccordionContent.astro'
-import Badge from '@/components/ui/Badge.astro'
-import { formatDate } from '@/lib/utils'
 
 // Import lists data
 import listsData from '@/data/lists.json'
-
-const breadcrumbs: { label: string; href: string }[] = []
 
 // Get all published blog posts for music and books categories
 const allPosts = (await getCollection('blog'))
@@ -28,255 +16,112 @@ const bookPosts = allPosts.filter(post =>
   (post.data.tags && post.data.tags.includes('books'))
 )
 
-// Use imported data
-const lists = {
-  people: listsData.people,
-  books: []
-}
-
-// Structured data for SEO and LLM understanding
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "name": "Influential Thinkers & Essential Reading",
-  "description": "Curated collection of thought leaders, researchers, and writers shaping AI, rationality, fintech, and deep tech innovation",
-  "author": {
-    "@type": "Person",
-    "name": "Gökhan Turhan",
-    "url": "https://gokhanturhan.com"
-  },
-  "about": [
-    "Artificial Intelligence",
-    "Rationality",
-    "Financial Technology", 
-    "Deep Technology",
-    "Innovation",
-    "Startups",
-    "Technology Research",
-    "Economics",
-    "Demographics",
-    "Intelligence Research",
-    "Psychometrics",
-    "Governance",
-    "Futurism"
-  ],
-  "hasPart": lists.people.map(person => ({
-    "@type": "WebSite",
-    "name": person.name,
-    "url": person.url,
-    "description": person.description
-  }))
-}
-
+const people = listsData.people
 ---
 
 <BaseLayout
-  title="Influential Thinkers & Essential Reading | Curated Lists"
-  description="Discover the thought leaders, researchers, and writers shaping AI, rationality, fintech, and deep tech. From Scott Alexander's Astral Codex Ten to Paul Graham's essays - explore the intellectual network behind breakthrough innovation."
+  title="Lists"
+  description="Curated collection of thought leaders, researchers, and writers shaping AI, rationality, fintech, and deep tech."
 >
-  <!-- Structured Data for SEO -->
-  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} slot="head" />
-  
-  <!-- Additional meta tags for topical authority -->
-  <meta name="keywords" content="AI researchers, rationality, Scott Alexander, Paul Graham, Noah Smith, Byrne Hobart, fintech thought leaders, deep tech innovation, startup advisors, technology writers, economics blogs, research analysis, Palladium Magazine, Pirate Wires" slot="head" />
-  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" slot="head" />
-  
-  <!-- Open Graph optimization -->
-  <meta property="og:type" content="website" slot="head" />
-  <meta property="og:title" content="Influential Thinkers Shaping AI, Rationality & Deep Tech Innovation" slot="head" />
-  <meta property="article:author" content="Gökhan Turhan" slot="head" />
-  <meta property="article:section" content="Technology" slot="head" />
-  <meta property="article:tag" content="AI Research, Rationality, Fintech, Deep Tech, Innovation" slot="head" />
-  <div class="container max-w-4xl mx-auto px-4 py-8">
-    <Breadcrumbs items={breadcrumbs} currentPage="Lists" />
-
+  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
     <!-- Header -->
-    <div class="mb-12">
-      <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Lists</h1>
-    </div>
+    <header class="mb-12">
+      <h1 class="text-3xl font-semibold tracking-tight mb-4">Lists</h1>
+      <p class="text-muted-foreground">
+        Curated recommendations of people, publications, and content I follow.
+      </p>
+    </header>
 
-    <!-- Accordion Lists -->
-    <div class="space-y-6">
-      <Accordion class="w-full">
-        <!-- People List -->
-        <div id="blogroll">
-        <AccordionItem data-accordion-item class="border rounded-lg">
-          <AccordionTrigger class="text-left">
-            <div class="flex items-center justify-between w-full pr-4">
-              <h2 class="text-xl font-semibold">
-                <a href="#blogroll" class="hover:text-primary transition-colors" onclick="updateURL('#blogroll')">
-                  Blogroll: People, Newsletters, Podcasts, Research, Publications
-                </a>
-              </h2>
-              <Badge variant="secondary">{lists.people.length}</Badge>
-            </div>
-          </AccordionTrigger>
-          <AccordionContent>
-            <div class="space-y-6">
-              <!-- Context paragraph for SEO -->
-              <div class="bg-accent/10 rounded-lg p-4">
-                <p class="text-sm text-muted-foreground leading-relaxed">
-                  This collection represents a network of <strong>interconnected thinkers</strong> whose work spans <strong>AI safety research</strong>, <strong>rationality studies</strong>, <strong>economics analysis</strong>, <strong>venture capital insights</strong>, <strong>demographic research</strong>, and <strong>governance futurism</strong>. Many of these authors reference and build upon each other's work, forming an intellectual ecosystem at the forefront of technological and social progress.
-                </p>
-              </div>
-              
-              <!-- People grid with semantic markup -->
-              <section aria-label="Curated list of influential technology thought leaders" class="grid gap-4">
-                {lists.people.length === 0 && (
-                  <p class="text-sm text-muted-foreground italic text-center py-4">
-                    People recommendations will be added here over time.
-                  </p>
-                )}
-                {lists.people.map(person => (
-                  <article>
-                    <ListItem
-                      name={person.name}
-                      url={person.url}
-                      description={person.description}
-                    />
-                  </article>
-                ))}
-              </section>
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-        </div>
-
-        <!-- Books List -->
-        <div id="books">
-        <AccordionItem data-accordion-item class="border rounded-lg">
-          <AccordionTrigger class="text-left">
-            <div class="flex items-center justify-between w-full pr-4">
-              <h2 class="text-xl font-semibold">
-                <a href="#books" class="hover:text-primary transition-colors" onclick="updateURL('#books')">Books</a>
-              </h2>
-              <Badge variant="secondary">{bookPosts.length}</Badge>
-            </div>
-          </AccordionTrigger>
-          <AccordionContent>
-            <div class="space-y-4">
-              <p class="text-sm text-muted-foreground mb-4">
-                Book reviews and reading reflections from my journal.
-              </p>
-              <div class="grid gap-3">
-                {bookPosts.map(post => (
-                  <div class="flex items-start justify-between p-3 border rounded-lg hover:bg-accent/20 transition-colors">
-                    <div class="flex-1">
-                      <h3 class="font-medium">
-                        <a href={`/journal/${post.slug}`} class="hover:text-primary transition-colors">
-                          {post.data.title}
-                        </a>
-                      </h3>
-                      <p class="text-xs text-muted-foreground mt-1">
-                        {formatDate(post.data.publishDate)}
-                      </p>
-                      {post.data.description && (
-                        <p class="text-sm text-muted-foreground mt-1 line-clamp-2">
-                          {post.data.description}
-                        </p>
-                      )}
-                      {post.data.tags && (
-                        <div class="flex gap-1 mt-2">
-                          {post.data.tags.slice(0, 3).map(tag => (
-                            <Badge variant="outline" class="text-xs">{tag}</Badge>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-                
-                {bookPosts.length === 0 && (
-                  <p class="text-sm text-muted-foreground italic text-center py-4">
-                    Book reviews will appear here as content is published.
-                  </p>
-                )}
-              </div>
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-        </div>
-
-        <!-- Music List -->
-        <div id="music">
-        <AccordionItem data-accordion-item class="border rounded-lg">
-          <AccordionTrigger class="text-left">
-            <div class="flex items-center justify-between w-full pr-4">
-              <h2 class="text-xl font-semibold">
-                <a href="#music" class="hover:text-primary transition-colors" onclick="updateURL('#music')">Music</a>
-              </h2>
-              <Badge variant="secondary">{musicPosts.length}</Badge>
-            </div>
-          </AccordionTrigger>
-          <AccordionContent>
-            <div class="space-y-4">
-              <p class="text-sm text-muted-foreground mb-4">
-                Music-related posts from my journal, exploring sound art, playlists, and musical concepts.
-              </p>
-              <div class="grid gap-3">
-                {musicPosts.map(post => (
-                  <div class="flex items-start justify-between p-3 border rounded-lg hover:bg-accent/20 transition-colors">
-                    <div class="flex-1">
-                      <h3 class="font-medium">
-                        <a href={`/journal/${post.slug}`} class="hover:text-primary transition-colors">
-                          {post.data.title}
-                        </a>
-                      </h3>
-                      <p class="text-xs text-muted-foreground mt-1">
-                        {formatDate(post.data.publishDate)}
-                      </p>
-                      {post.data.tags && (
-                        <div class="flex gap-1 mt-2">
-                          {post.data.tags.slice(0, 3).map(tag => (
-                            <Badge variant="outline" class="text-xs">{tag}</Badge>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-                
-                {musicPosts.length === 0 && (
-                  <p class="text-sm text-muted-foreground italic text-center py-4">
-                    Music posts will appear here after content migration.
-                  </p>
-                )}
-              </div>
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-        </div>
-      </Accordion>
-    </div>
-
-    <!-- Note -->
-    <Card class="mt-8 bg-accent/20 border-accent">
-      <CardContent class="p-6">
-        <p class="text-sm text-muted-foreground">
-          <strong>Note:</strong> These lists are continuously curated and updated. The music section will populate after content migration from the existing blog.
+    <div class="space-y-12">
+      <!-- Blogroll Section -->
+      <section id="blogroll">
+        <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+          Blogroll
+        </h2>
+        <p class="text-sm text-muted-foreground mb-6">
+          Thinkers and writers on AI, rationality, economics, and technology.
         </p>
-      </CardContent>
-    </Card>
+        <ul class="space-y-3">
+          {people.map(person => (
+            <li>
+              <a 
+                href={person.url}
+                target={person.url.startsWith('/') ? '_self' : '_blank'}
+                rel={person.url.startsWith('/') ? '' : 'noopener'}
+                class="group block"
+              >
+                <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
+                  {person.name}
+                </span>
+                {!person.url.startsWith('/') && (
+                  <span class="text-muted-foreground text-sm ml-1">↗</span>
+                )}
+                <span class="block text-sm text-muted-foreground mt-0.5">
+                  {person.description}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <!-- Books Section -->
+      {bookPosts.length > 0 && (
+        <section id="books">
+          <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+            Books
+          </h2>
+          <p class="text-sm text-muted-foreground mb-6">
+            Book reviews and reading reflections.
+          </p>
+          <ul class="space-y-2">
+            {bookPosts.map(post => (
+              <li>
+                <a 
+                  href={`/journal/${post.slug}/`}
+                  class="group flex items-baseline gap-3 py-1"
+                >
+                  <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
+                    {post.data.title}
+                  </span>
+                  <span class="text-sm text-muted-foreground shrink-0">
+                    {post.data.publishDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <!-- Music Section -->
+      {musicPosts.length > 0 && (
+        <section id="music">
+          <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+            Music
+          </h2>
+          <p class="text-sm text-muted-foreground mb-6">
+            Sound art, playlists, and musical explorations.
+          </p>
+          <ul class="space-y-2">
+            {musicPosts.map(post => (
+              <li>
+                <a 
+                  href={`/journal/${post.slug}/`}
+                  class="group flex items-baseline gap-3 py-1"
+                >
+                  <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
+                    {post.data.title}
+                  </span>
+                  <span class="text-sm text-muted-foreground shrink-0">
+                    {post.data.publishDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+    </div>
   </div>
 </BaseLayout>
-
-<script>
-  function updateURL(hash: string): void {
-    // Update URL without page reload
-    if (history.pushState) {
-      history.pushState(null, '', window.location.pathname + hash);
-    } else {
-      location.hash = hash;
-    }
-  }
-  
-  // Handle direct links to sections on page load
-  window.addEventListener('DOMContentLoaded', function() {
-    if (window.location.hash) {
-      const element = document.querySelector(window.location.hash);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  });
-</script>

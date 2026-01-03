@@ -1,175 +1,266 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import Card from '@/components/ui/Card.astro'
-import CardContent from '@/components/ui/CardContent.astro'
 import { getCollection } from 'astro:content'
 
-// Get featured interviews
+// Get all posts grouped by category
 const allPosts = await getCollection('blog')
-const featuredInterviews = allPosts
-  .filter(post => post.data.category === 'Interviews' && post.data.featured)
-  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
-  .slice(0, 2)
 
-// If no featured interviews, get the most recent interviews
-const interviews = featuredInterviews.length > 0 ? featuredInterviews : 
-  allPosts
+// Get recent posts (last 5)
+const recentPosts = allPosts
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+  .slice(0, 5)
+
+// Get featured essays (longer posts, not interviews)
+const essays = allPosts
+  .filter(post => post.data.category !== 'Interviews' && post.data.category !== 'Links')
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+  .slice(0, 5)
+
+// Get interviews
+const interviews = allPosts
     .filter(post => post.data.category === 'Interviews')
     .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
-    .slice(0, 2)
+  .slice(0, 4)
+
+// Get research/tech posts
+const research = allPosts
+  .filter(post => 
+    post.data.tags?.some(tag => 
+      ['research', 'technology', 'stablecoins', 'defi', 'agi', 'ai'].includes(tag.toLowerCase())
+    )
+  )
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+  .slice(0, 4)
 ---
 
 <BaseLayout 
   title="Gökhan Turhan"
   description="Strategic Innovation Architect exploring stablecoins, AGI, tokenization, and investment strategies. Turning global systemic challenges into high-leverage opportunities through technology and foresight."
 >
-  <div class="container max-w-4xl mx-auto px-4 py-12">
-    <!-- Hero Section -->
-    <div class="text-center mb-16">
-      <h1 class="text-4xl md:text-6xl font-bold tracking-tight mb-6">
+  <div class="mx-auto max-w-2xl px-6 py-16 lg:py-24">
+    <!-- Bio Section -->
+    <section class="mb-16">
+      <h1 class="font-serif text-3xl md:text-4xl mb-6 text-foreground">
         Gökhan Turhan
       </h1>
-
+      <div class="prose prose-lg dark:prose-invert max-w-none">
+        <p class="text-lg text-muted-foreground leading-relaxed">
+          T-shaped generalist exploring stablecoins, DeFi mechanics, and deep tech. 
+          Currently focused on AGI timelines, tokenization strategies, and turning 
+          global systemic challenges into high-leverage opportunities.
+        </p>
+        <p class="text-base text-muted-foreground">
+          Contact via <a href="https://t.me/gigabvgatti" target="_blank" rel="noopener" class="text-foreground hover:underline">Telegram</a> or <a href="mailto:info@gokhanturhan.com" class="text-foreground hover:underline">email</a>.
+        </p>
     </div>
+    </section>
 
-    <!-- Main Content -->
-    <div class="max-w-3xl mx-auto">
-      <Card>
-        <CardContent class="p-8 md:p-12">
-          <div class="prose prose-lg prose-blue dark:prose-invert max-w-none">
-            <h2 class="text-2xl md:text-3xl font-semibold tracking-tight mb-6">NOW</h2>
-            <ul class="text-lg leading-relaxed mb-8 space-y-3">
-              <li>I am an ever-curious t-shaped generalist.</li>
-              <li>I contribute to projects as either a technical product lead, or solution architect.</li>
-              <li>Currently, I am nerd-sniped by stablecoins, DeFi supply chain mechanics, deep tech resolving global priorities.</li>
-              <li>It goes without saying I am a Kardashev scale accelerationist and invested in AGI timelines superforecasting initiatives.</li>
-              <li>You can contact me either via <a href="https://t.me/gigabvgatti" target="_blank" rel="noopener noreferrer" class="text-foreground font-medium hover:underline">Telegram</a> or <a href="mailto:info@gokhanturhan.com" class="text-foreground font-medium hover:underline">e-mail</a>.</li>
+    <!-- Categorized Links -->
+    <div class="space-y-12">
+      
+      <!-- Recent Writing -->
+      {recentPosts.length > 0 && (
+        <section>
+          <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+            Recent Writing
+          </h2>
+          <ul class="space-y-2">
+            {recentPosts.map((post) => (
+              <li>
+                <a 
+                  href={`/journal/${post.slug}/`}
+                  class="group flex items-baseline gap-3 py-1"
+                >
+                  <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
+                    {post.data.title}
+                  </span>
+                  <span class="text-sm text-muted-foreground shrink-0">
+                    {post.data.publishDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                  </span>
+                </a>
+              </li>
+            ))}
             </ul>
+          <a href="/journal" class="inline-block mt-4 text-sm text-muted-foreground hover:text-foreground transition-colors">
+            View all →
+          </a>
+        </section>
+      )}
 
-            <!-- Decorative Sun Symbol -->
-            <div class="flex justify-center mt-8 mb-4">
-              <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-foreground opacity-60">
-                <defs>
-                  <!-- Radial gradient for the radiant effect -->
-                  <radialGradient id="blackRadiance" cx="50%" cy="50%" r="60%">
-                    <stop offset="0%" style="stop-color:currentColor;stop-opacity:1" />
-                    <stop offset="40%" style="stop-color:currentColor;stop-opacity:0.8" />
-                    <stop offset="70%" style="stop-color:currentColor;stop-opacity:0.4" />
-                    <stop offset="90%" style="stop-color:currentColor;stop-opacity:0.2" />
-                    <stop offset="100%" style="stop-color:currentColor;stop-opacity:0" />
-                  </radialGradient>
-                </defs>
-                
-                <!-- Outer radiance -->
-                <circle cx="16" cy="16" r="15" fill="url(#blackRadiance)"/>
-                
-                <!-- Concentric circles for layered radiance -->
-                <circle cx="16" cy="16" r="12" fill="currentColor" opacity="0.3"/>
-                <circle cx="16" cy="16" r="9" fill="currentColor" opacity="0.6"/>
-                <circle cx="16" cy="16" r="6.5" fill="currentColor" opacity="0.9"/>
-                
-                <!-- Central core -->
-                <circle cx="16" cy="16" r="4.5" fill="currentColor"/>
-              </svg>
-            </div>
+      <!-- Essays -->
+      {essays.length > 0 && (
+        <section>
+          <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+            Essays
+          </h2>
+          <ul class="space-y-2">
+            {essays.map((post) => (
+              <li>
+                <a 
+                  href={`/journal/${post.slug}/`}
+                  class="group flex items-baseline gap-3 py-1"
+                >
+                  <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
+                    {post.data.title}
+                  </span>
+                  <span class="text-sm text-muted-foreground shrink-0">
+                    {post.data.publishDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+      <!-- Research & Tech -->
+      {research.length > 0 && (
+        <section>
+          <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+            Research & Tech
+          </h2>
+          <ul class="space-y-2">
+            {research.map((post) => (
+              <li>
+                <a 
+                  href={`/journal/${post.slug}/`}
+                  class="group flex items-baseline gap-3 py-1"
+                >
+                  <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
+                    {post.data.title}
+                  </span>
+                  <span class="text-sm text-muted-foreground shrink-0">
+                    {post.data.publishDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
-    <!-- Recent Projects -->
-    <div class="mt-16 max-w-3xl mx-auto">
-      <h2 class="text-2xl font-semibold mb-6 text-center">Recent Projects</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card class="hover:shadow-lg transition-shadow">
-          <CardContent class="p-6 flex flex-col h-full">
-            <h3 class="text-xl font-semibold mb-3">NVIDIA vs Crypto Market Cap</h3>
-            <p class="text-muted-foreground font-serif mb-4 flex-grow">
-              Real-time comparison dashboard tracking NVIDIA stock market capitalization against total cryptocurrency market cap.
-            </p>
-            <div class="flex gap-3 mt-auto">
+      <!-- Interviews -->
+      {interviews.length > 0 && (
+        <section>
+          <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+            Interviews
+          </h2>
+          <ul class="space-y-2">
+            {interviews.map((post) => (
+              <li>
+                <a 
+                  href={`/journal/${post.slug}/`}
+                  class="group flex items-baseline gap-3 py-1"
+                >
+                  <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
+                    {post.data.title}
+                  </span>
+                  <span class="text-sm text-muted-foreground shrink-0">
+                    {post.data.publishDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <!-- Projects -->
+      <section>
+        <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+          Projects
+        </h2>
+        <ul class="space-y-2">
+          <li>
               <a 
                 href="https://market-cap-tracker.vercel.app/"
                 target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center px-6 py-2.5 border border-foreground/15 bg-background text-foreground hover:bg-foreground/5 hover:border-foreground/25 transition-all duration-200 font-serif font-medium text-sm tracking-wide rounded"
-              >
-                View Dashboard →
-              </a>
-              <a 
-                href="/projects/market-cap-tracker/"
-                class="inline-flex items-center text-primary font-medium hover:underline"
-              >
-                Learn More
-              </a>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card class="hover:shadow-lg transition-shadow">
-          <CardContent class="p-6 flex flex-col h-full">
-            <h3 class="text-xl font-semibold mb-3">SP100 Financial Tracker</h3>
-            <p class="text-muted-foreground font-serif mb-4 flex-grow">
-              Comprehensive S&P 100 dashboard surfacing capex, earnings, revenue, and sector rotations with real-time updates.
-            </p>
-            <div class="flex gap-3 mt-auto">
+              rel="noopener"
+              class="group flex items-baseline gap-3 py-1"
+            >
+              <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
+                NVIDIA vs Crypto Market Cap Tracker
+              </span>
+              <span class="text-sm text-muted-foreground">↗</span>
+            </a>
+          </li>
+          <li>
               <a 
                 href="https://sp100-financial-tracker.pages.dev/"
                 target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center px-6 py-2.5 border border-foreground/15 bg-background text-foreground hover:bg-foreground/5 hover:border-foreground/25 transition-all duration-200 font-serif font-medium text-sm tracking-wide rounded"
-              >
-                View Dashboard →
-              </a>
-              <a 
-                href="/projects/sp100-capex-dashboard/"
-                class="inline-flex items-center text-primary font-medium hover:underline"
-              >
-                Learn More
-              </a>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
+              rel="noopener"
+              class="group flex items-baseline gap-3 py-1"
+            >
+              <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
+                SP100 Financial Tracker
+              </span>
+              <span class="text-sm text-muted-foreground">↗</span>
+            </a>
+          </li>
+        </ul>
+      </section>
 
-    <!-- Featured Interviews -->
-    {interviews.length > 0 && (
-      <div class="mt-16 max-w-3xl mx-auto">
-        <h2 class="text-2xl font-semibold mb-6 text-center">Featured Interviews</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {interviews.map((interview) => (
-            <Card class="hover:shadow-lg transition-shadow">
-              <CardContent class="p-6 flex flex-col h-full">
-                <h3 class="text-xl font-semibold mb-3">{interview.data.title}</h3>
-                <p class="text-muted-foreground font-serif mb-4 flex-grow">
-                  {interview.data.description || 'Interview post'}
-                </p>
-                
-                {interview.data.tags && interview.data.tags.length > 0 && (
-                  <div class="flex flex-wrap gap-2 mb-4">
-                    {interview.data.tags.slice(0, 3).map((tag) => (
-                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
-                        {tag}
+      <!-- Quick Links -->
+      <section>
+        <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+          Elsewhere
+        </h2>
+        <ul class="space-y-2">
+          <li>
+            <a 
+              href="https://x.com/goekhan"
+              target="_blank"
+              rel="noopener"
+              class="group flex items-baseline gap-3 py-1"
+            >
+              <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
+                X (Twitter)
+              </span>
+              <span class="text-sm text-muted-foreground">↗</span>
+            </a>
+          </li>
+          <li>
+            <a 
+              href="https://github.com/avalidurl"
+              target="_blank"
+              rel="noopener"
+              class="group flex items-baseline gap-3 py-1"
+            >
+              <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
+                GitHub
+              </span>
+              <span class="text-sm text-muted-foreground">↗</span>
+            </a>
+          </li>
+          <li>
+            <a 
+              href="https://gokhan.substack.com"
+              target="_blank"
+              rel="noopener"
+              class="group flex items-baseline gap-3 py-1"
+            >
+              <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
+                Substack
                       </span>
-                    ))}
-                  </div>
-                )}
-                
-                <div class="flex gap-3 mt-auto">
-                  <a 
-                    href={`/journal/${interview.slug}/`}
-                    class="inline-flex items-center px-6 py-2.5 border border-foreground/15 bg-background text-foreground hover:bg-foreground/5 hover:border-foreground/25 transition-all duration-200 font-serif font-medium text-sm tracking-wide rounded"
-                  >
-                    Read Interview →
-                  </a>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+              <span class="text-sm text-muted-foreground">↗</span>
+            </a>
+          </li>
+          <li>
+            <a 
+              href="https://linkedin.com/in/goekhanturhan"
+              target="_blank"
+              rel="noopener"
+              class="group flex items-baseline gap-3 py-1"
+            >
+              <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
+                LinkedIn
+              </span>
+              <span class="text-sm text-muted-foreground">↗</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+
       </div>
-    )}
   </div>
 </BaseLayout>

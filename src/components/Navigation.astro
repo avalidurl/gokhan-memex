@@ -1,114 +1,119 @@
 ---
-import { Rss, Menu, X, Search } from 'lucide-astro'
-import Button from './ui/Button.astro'
+import { Menu, X, Search } from 'lucide-astro'
 import ThemeToggle from './ThemeToggle.astro'
 import SearchComponent from './Search.astro'
 
 const currentPath = Astro.url.pathname
+const isHomepage = currentPath === '/'
+const isArticle = currentPath.startsWith('/journal/') && currentPath !== '/journal/' && currentPath !== '/journal'
+
 const navigation = [
   { name: 'Journal', href: '/journal' },
   { name: 'Archive', href: '/archive' },
-  { name: 'Portfolio', href: '/portfolio' },
   { name: 'Lists', href: '/lists' },
   { name: 'Links', href: '/links' },
   { name: 'Subscribe', href: '/subscribe' }
 ]
 ---
 
-<header class="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-  <div class="container flex h-16 items-center">
-    <!-- Logo/Brand -->
-    <div class="mr-4 hidden md:flex">
-      <a class="mr-6 flex items-center space-x-2 font-bold text-xl" href="/">
-        Gökhan Turhan
-      </a>
-    </div>
-    
-    <!-- Mobile Logo -->
-    <div class="mr-4 flex md:hidden">
-      <a class="mr-6 flex items-center space-x-2 font-bold text-lg" href="/">
-        Gökhan Turhan
-      </a>
-    </div>
-
-    <!-- Desktop Navigation - Centered -->
-    <div class="flex-1 flex justify-center">
-      <nav class="flex items-center space-x-8 text-sm font-medium hidden md:flex">
-        {navigation.map((item) => (
-          <a
-            href={item.href}
-            class={`transition-colors hover:text-foreground/80 ${
-              currentPath === item.href 
-                ? 'text-foreground font-medium' 
-                : 'text-foreground/60'
-            }`}
+<header class="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/80">
+  <div class="mx-auto max-w-5xl px-6 lg:px-8">
+    <div class="flex h-14 items-center justify-between">
+      <!-- Left side: Logo/Name or Back button -->
+      <div class="flex items-center">
+        {isArticle ? (
+          <a 
+            href="/journal" 
+            class="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+            aria-label="Back to Journal"
           >
-            {item.name}
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            <span class="text-sm font-medium hidden sm:inline">Close</span>
           </a>
-        ))}
-      </nav>
-    </div>
+        ) : (
+          <a 
+            class="font-serif text-lg tracking-tight text-foreground hover:text-foreground/80 transition-colors" 
+            href="/"
+          >
+            Gökhan Turhan
+          </a>
+        )}
+      </div>
 
-    <!-- Right side actions -->
-    <div class="flex items-center space-x-2">
-      <!-- Search Button -->
-      <Button variant="ghost" size="sm" id="search-button">
-        <Search class="h-4 w-4" />
-        <span class="sr-only">Search</span>
-      </Button>
-      
-      <!-- Theme Toggle -->
-      <ThemeToggle />
-      
-      <!-- RSS Button -->
-      <Button variant="ghost" size="sm" class="hidden md:inline-flex">
-        <a href="/rss.xml" class="flex items-center space-x-2">
-          <Rss class="h-4 w-4" />
-          <span class="hidden sm:inline-block">RSS</span>
-        </a>
-      </Button>
+      <!-- Center: Navigation Links (Desktop only, not on article pages) -->
+      {!isArticle && (
+        <nav class="hidden md:flex items-center gap-8">
+          {navigation.map((item) => (
+            <a
+              href={item.href}
+              class={`text-sm transition-colors ${
+                currentPath === item.href || currentPath.startsWith(item.href + '/')
+                  ? 'text-foreground font-medium' 
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              {item.name}
+            </a>
+          ))}
+        </nav>
+      )}
 
-      <!-- Mobile Menu Button -->
-      <Button variant="ghost" size="sm" class="md:hidden" id="mobile-menu-button">
-        <Menu class="h-4 w-4" id="menu-icon" />
-        <X class="h-4 w-4 hidden" id="close-icon" />
-        <span class="sr-only">Toggle menu</span>
-      </Button>
-    </div>
-  </div>
-
-  <!-- Mobile Navigation -->
-  <div class="md:hidden hidden" id="mobile-menu">
-    <nav class="flex flex-col space-y-3 px-4 pb-4 pt-2">
-      {navigation.map((item) => (
-        <a
-          href={item.href}
-          class={`block px-3 py-2 text-base font-medium transition-colors hover:text-foreground/80 ${
-            currentPath === item.href 
-              ? 'text-foreground bg-accent rounded-md' 
-              : 'text-foreground/60'
-          }`}
+      <!-- Right side: Actions -->
+      <div class="flex items-center gap-1">
+        <!-- Search Button -->
+        <button 
+          id="search-button"
+          class="p-2 text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted/50"
+          aria-label="Search"
         >
-          {item.name}
-        </a>
-      ))}
-      <button 
-        id="mobile-search-button"
-        class="flex items-center space-x-2 px-3 py-2 text-base font-medium text-foreground/60 hover:text-foreground/80"
-      >
-        <Search class="h-4 w-4" />
-        <span>Search</span>
-      </button>
-      <a 
-        href="/rss.xml" 
-        class="flex items-center space-x-2 px-3 py-2 text-base font-medium text-foreground/60 hover:text-foreground/80"
-      >
-        <Rss class="h-4 w-4" />
-        <span>RSS Feed</span>
-      </a>
-    </nav>
+          <Search class="h-4 w-4" />
+        </button>
+        
+        <!-- Theme Toggle -->
+        <ThemeToggle />
+
+        <!-- Mobile Menu Button (not on article pages) -->
+        {!isArticle && (
+          <button 
+            class="md:hidden p-2 text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted/50" 
+            id="mobile-menu-button"
+            aria-label="Toggle menu"
+          >
+            <Menu class="h-5 w-5" id="menu-icon" />
+            <X class="h-5 w-5 hidden" id="close-icon" />
+          </button>
+        )}
+      </div>
+    </div>
   </div>
+
 </header>
+
+<!-- Mobile Navigation Overlay - Outside header for proper stacking -->
+<div class="md:hidden hidden fixed inset-x-0 top-14 bottom-0 bg-background z-50 overflow-y-auto" id="mobile-menu">
+  <nav class="flex flex-col px-6 py-6">
+    {navigation.map((item) => (
+      <a
+        href={item.href}
+        class={`py-4 text-xl border-b border-border/30 transition-colors ${
+          currentPath === item.href || currentPath.startsWith(item.href + '/')
+            ? 'text-foreground font-medium' 
+            : 'text-muted-foreground hover:text-foreground'
+        }`}
+      >
+        {item.name}
+      </a>
+    ))}
+    <a 
+      href="/rss.xml" 
+      class="py-4 text-xl text-muted-foreground hover:text-foreground transition-colors"
+    >
+      RSS Feed
+    </a>
+  </nav>
+</div>
 
 <!-- Search Modal -->
 <SearchComponent />
@@ -127,12 +132,24 @@ const navigation = [
         menu?.classList.remove('hidden')
         menuIcon?.classList.add('hidden')
         closeIcon?.classList.remove('hidden')
+        document.body.style.overflow = 'hidden'
       } else {
         menu?.classList.add('hidden')
         menuIcon?.classList.remove('hidden')
         closeIcon?.classList.add('hidden')
+        document.body.style.overflow = ''
       }
     })
 
+    // Close menu on navigation
+    const menuLinks = menu?.querySelectorAll('a')
+    menuLinks?.forEach(link => {
+      link.addEventListener('click', () => {
+        menu?.classList.add('hidden')
+        menuIcon?.classList.remove('hidden')
+        closeIcon?.classList.add('hidden')
+        document.body.style.overflow = ''
+      })
+    })
   })
 </script>

@@ -6,23 +6,6 @@
 @tailwind utilities;
 
 @layer base {
-  /* Extended color variables (non-critical) */
-  :root {
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-  }
-
-  .dark {
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-  }
-}
-
-@layer base {
   html {
     font-family: "Crimson Text", Georgia, "Times New Roman", Times, serif;
   }

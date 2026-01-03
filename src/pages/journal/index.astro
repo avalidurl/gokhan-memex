@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import { formatDate } from '@/lib/utils'
 
 // Get all published blog posts, sorted by date (newest first)
@@ -9,81 +8,74 @@ const allPosts = (await getCollection('blog'))
   .filter(post => !post.data.draft)
   .sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf())
 
-// Show all posts (no pagination)
-const posts = allPosts
+// Group posts by year
+const postsByYear = allPosts.reduce((acc, post) => {
+  const year = new Date(post.data.publishDate).getFullYear()
+  if (!acc[year]) acc[year] = []
+  acc[year].push(post)
+  return acc
+}, {} as Record<number, typeof allPosts>)
 
-const breadcrumbs: { label: string; href: string }[] = []
+const years = Object.keys(postsByYear).map(Number).sort((a, b) => b - a)
 ---
 
 <BaseLayout
   title="Journal"
   description="Latest thoughts on stablecoins, tokenization, AGI, investment strategies, and global systemic challenges."
 >
-  <div class="container max-w-4xl mx-auto px-4 py-8">
-    <Breadcrumbs items={breadcrumbs} currentPage="Journal" />
-
+  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
     <!-- Header -->
-    <div class="mb-8">
-      <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Journal</h1>
-      <p class="text-lg text-muted-foreground">
-        Thoughts on stablecoins, tokenization, AGI, investment strategies, and global systemic challenges
+    <header class="mb-12">
+      <h1 class="text-3xl font-semibold tracking-tight mb-4">Journal</h1>
+      <p class="text-muted-foreground">
+        {allPosts.length} posts on stablecoins, tokenization, AGI, and more.
       </p>
-      <p class="text-sm text-muted-foreground mt-2">
-        {allPosts.length} posts
-      </p>
-      <div class="mt-4 flex items-center gap-4">
+      <div class="mt-4 flex items-center gap-6 text-sm">
         <a 
           href="/archive" 
-          class="inline-flex items-center text-primary hover:underline font-medium"
+          class="text-muted-foreground hover:text-foreground transition-colors"
         >
-          Browse Archive →
+          Browse by category →
         </a>
         <a 
-          href="/subscribe" 
-          class="inline-flex items-center px-2 py-1 bg-primary text-primary-foreground rounded text-xs font-medium hover:bg-primary/90 transition-colors"
+          href="/rss.xml" 
+          class="text-muted-foreground hover:text-foreground transition-colors"
         >
-          Subscribe
+          RSS
         </a>
       </div>
-    </div>
+    </header>
 
-    <!-- Posts Grid -->
-    <div class="space-y-4">
-      {posts.map(post => (
-        <a 
-          href={`/journal/${post.slug}`}
-          class="block p-4 border border-border rounded-lg hover:bg-accent/30 transition-all duration-200 group"
-        >
-          <div class="flex flex-col space-y-3">
-            <!-- Title -->
-            <h2 class="text-xl md:text-2xl font-semibold group-hover:text-primary transition-colors">
-              {post.data.title}
-            </h2>
-            
-            <!-- Date -->
-            <div class="text-sm text-muted-foreground">
-              {formatDate(post.data.publishDate)}
-            </div>
-
-            <!-- Tags -->
-            {post.data.tags && post.data.tags.length > 0 && (
-              <div class="flex flex-wrap gap-2">
-                {post.data.tags.slice(0, 6).map(tag => (
-                  <span class="inline-flex items-center px-2 py-1 text-xs font-medium bg-muted/50 text-muted-foreground rounded">
-                    {tag}
+    <!-- Posts by Year -->
+    <div class="space-y-12">
+      {years.map(year => (
+        <section>
+          <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+            {year}
+          </h2>
+          <ul class="space-y-1">
+            {postsByYear[year].map(post => (
+              <li>
+                <a 
+                  href={`/journal/${post.slug}/`}
+                  class="group flex items-baseline gap-4 py-2"
+                >
+                  <span class="text-foreground group-hover:underline decoration-1 underline-offset-2 flex-1">
+                    {post.data.title}
                   </span>
-                ))}
-              </div>
-            )}
-          </div>
-        </a>
+                  <span class="text-sm text-muted-foreground shrink-0 tabular-nums">
+                    {new Date(post.data.publishDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
       ))}
     </div>
 
-
-
     <!-- Empty State -->
-    {posts.length === 0 && (
+    {allPosts.length === 0 && (
       <div class="text-center py-12">
         <p class="text-lg text-muted-foreground mb-4">No posts found.</p>
         <p class="text-sm text-muted-foreground">
