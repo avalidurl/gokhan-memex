@@ -1,41 +1,37 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import Card from '@/components/ui/Card.astro'
-import CardContent from '@/components/ui/CardContent.astro'
-import Button from '@/components/ui/Button.astro'
 ---
 
 <BaseLayout
   title="Page Not Found"
   description="The page you're looking for doesn't exist."
 >
-  <div class="container max-w-2xl mx-auto px-4 py-16">
-    <div class="text-center">
-      <Card>
-        <CardContent class="p-12">
-          <div class="mb-8">
-            <h1 class="text-6xl font-bold text-muted-foreground mb-4">404</h1>
-            <h2 class="text-2xl md:text-3xl font-semibold mb-4">Page Not Found</h2>
-            <p class="text-muted-foreground text-lg mb-8">
-              The page you're looking for doesn't exist or has been moved.
-            </p>
-          </div>
-          
-          <div class="space-y-4">
-            <Button class="w-full sm:w-auto">
-              <a href="/" class="flex items-center space-x-2">
-                <span>← Back to Homepage</span>
-              </a>
-            </Button>
-            
-            <div class="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <a href="/journal" class="text-primary hover:underline">Browse Journal</a>
-              <a href="/archive" class="text-primary hover:underline">Explore Archive</a>
-              <a href="/lists" class="text-primary hover:underline">Check Lists</a>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+  <div class="mx-auto max-w-2xl px-6 py-24 lg:py-32 text-center">
+    <p class="text-8xl font-light text-muted-foreground mb-8">404</p>
+    <h1 class="text-2xl font-semibold tracking-tight mb-4">Page not found</h1>
+    <p class="text-muted-foreground mb-12">
+      The page you're looking for doesn't exist or has been moved.
+    </p>
+    
+    <div class="space-y-4">
+      <a 
+        href="/"
+        class="inline-block px-6 py-3 bg-foreground text-background font-medium rounded-md hover:bg-foreground/90 transition-colors"
+      >
+        ← Back to home
+      </a>
+      
+      <div class="flex justify-center gap-6 pt-4 text-sm">
+        <a href="/journal" class="text-muted-foreground hover:text-foreground hover:underline underline-offset-2">
+          Journal
+        </a>
+        <a href="/archive" class="text-muted-foreground hover:text-foreground hover:underline underline-offset-2">
+          Archive
+        </a>
+        <a href="/lists" class="text-muted-foreground hover:text-foreground hover:underline underline-offset-2">
+          Lists
+        </a>
+      </div>
     </div>
   </div>
 </BaseLayout>

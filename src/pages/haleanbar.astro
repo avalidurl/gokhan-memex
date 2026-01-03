@@ -1,58 +1,29 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import Breadcrumbs from '@/components/Breadcrumbs.astro'
-import Card from '@/components/ui/Card.astro'
-import CardContent from '@/components/ui/CardContent.astro'
-
-const breadcrumbs = [
-  { label: 'Lists', href: '/lists' }
-]
 ---
 
 <BaseLayout
   title="Hale Anbar"
   description="Artist and researcher exploring intersections of technology and creative practice"
 >
-  <div class="container max-w-4xl mx-auto px-4 py-8">
-    <Breadcrumbs items={breadcrumbs} currentPage="Hale Anbar" />
-
-    <!-- Header -->
-    <div class="mb-12">
-      <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Hale Anbar</h1>
-      <p class="text-lg text-muted-foreground max-w-2xl">
-        Artist and researcher exploring intersections of technology and creative practice
+  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
+    <header class="mb-12">
+      <h1 class="text-3xl font-semibold tracking-tight mb-4">Hale Anbar</h1>
+      <p class="text-muted-foreground">
+        Artist and researcher exploring intersections of technology and creative practice.
       </p>
-    </div>
+    </header>
 
-    <!-- Main Content -->
-    <div class="max-w-3xl mx-auto">
-      <Card>
-        <CardContent class="p-8 md:p-12">
-          <div class="text-center">
-            <pre class="text-sm font-mono text-muted-foreground mb-6 whitespace-pre-wrap">
-                    🌸 ♡ 🌺 ♡ 🌸
-                 ♡     updating     ♡
-               🌺   with love and   🌺
-                 ♡   flowers ♡
-                    🌸 ♡ 🌺 ♡ 🌸
-
-              ╭────────────────────╮
-              │  ♡  ✿  ♡  ✿  ♡  │
-              │ ✿ Page coming ✿  │
-              │  ♡  soon... ♡     │
-              │ ✿  ♡  ✿  ♡  ✿  │
-              ╰────────────────────╯
-
-                   ♡ ♡ ♡ ♡ ♡
-                  🌺 🌸 🌺 🌸 🌺
-            </pre>
-            
-            <p class="text-lg text-muted-foreground">
-              updating
-            </p>
-          </div>
-        </CardContent>
-      </Card>
+    <div class="py-12 text-center">
+      <p class="text-muted-foreground mb-8">
+        Page coming soon.
+      </p>
+      <a 
+        href="/lists"
+        class="text-foreground hover:underline decoration-1 underline-offset-2"
+      >
+        ← Back to lists
+      </a>
     </div>
   </div>
 </BaseLayout>

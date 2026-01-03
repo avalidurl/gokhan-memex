@@ -1,167 +1,152 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import Breadcrumbs from '@/components/Breadcrumbs.astro'
-import Card from '@/components/ui/Card.astro'
-import CardContent from '@/components/ui/CardContent.astro'
-import Button from '@/components/ui/Button.astro'
-import { Rss } from 'lucide-astro'
-
-const breadcrumbs: { label: string; href: string }[] = []
 ---
 
 <BaseLayout
   title="Subscribe"
   description="Stay updated with my latest research on stablecoins, AGI, investment strategies, and global systemic challenges."
 >
-  <!-- Preconnect to Substack domain for faster loading -->
-  <link rel="preconnect" href="https://gokhan.substack.com" slot="head" />
-  <link rel="dns-prefetch" href="https://gokhan.substack.com" slot="head" />
-  <div class="container max-w-4xl mx-auto px-4 py-8">
-    <Breadcrumbs items={breadcrumbs} currentPage="Subscribe" />
-
+  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
     <!-- Header -->
-    <div class="text-center mb-12">
-      <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Subscribe</h1>
-      <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
-        Stay updated with my latest research and insights on stablecoins, tokenization, 
-        AGI timelines, investment strategies, and emerging technologies.
+    <header class="mb-12">
+      <h1 class="text-3xl font-semibold tracking-tight mb-4">Subscribe</h1>
+      <p class="text-muted-foreground">
+        Get my latest essays on stablecoins, tokenization, AGI, and emerging technologies delivered to your inbox.
       </p>
+    </header>
+
+    <div class="space-y-12">
+      <!-- Newsletter Section -->
+      <section>
+        <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-6">
+          Newsletter
+        </h2>
+        
+        <form 
+          action="https://gokhan.substack.com/api/v1/free?nojs=true"
+          method="POST"
+          class="space-y-4"
+        >
+          <div class="flex flex-col sm:flex-row gap-3">
+            <input
+              type="email"
+              name="email"
+              placeholder="your@email.com"
+              required
+              autocomplete="email"
+              class="flex-1 px-4 py-3 bg-background border border-border rounded-md text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-colors"
+            />
+            <button
+              type="submit"
+              class="px-6 py-3 bg-foreground text-background font-medium rounded-md hover:bg-foreground/90 transition-colors shrink-0"
+            >
+              Subscribe
+            </button>
+          </div>
+          <input type="hidden" name="first_url" value="https://gokhanturhan.com/subscribe" />
+          <input type="hidden" name="first_referrer" value="" />
+          <input type="hidden" name="current_url" value="https://gokhanturhan.com/subscribe" />
+          <input type="hidden" name="current_referrer" value="" />
+          <input type="hidden" name="referral_code" value="" />
+          <input type="hidden" name="source" value="embed" />
+        </form>
+        
+        <p class="text-sm text-muted-foreground mt-4">
+          Free, no spam. Unsubscribe anytime.
+        </p>
+      </section>
+
+      <!-- RSS Section -->
+      <section>
+        <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+          RSS Feed
+        </h2>
+        <p class="text-muted-foreground mb-4">
+          Subscribe via RSS to get updates in your preferred reader.
+        </p>
+        <ul class="space-y-2">
+          <li>
+            <a 
+              href="/rss.xml"
+              class="group flex items-baseline justify-between py-1"
+            >
+              <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
+                RSS Feed
+              </span>
+              <code class="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
+                /rss.xml
+              </code>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Social Section -->
+      <section>
+        <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+          Elsewhere
+        </h2>
+        <ul class="space-y-2">
+          <li>
+            <a 
+              href="https://x.com/goekhan"
+              target="_blank"
+              rel="noopener"
+              class="group flex items-baseline justify-between py-1"
+            >
+              <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
+                X (Twitter)
+              </span>
+              <span class="text-sm text-muted-foreground">↗</span>
+            </a>
+          </li>
+          <li>
+            <a 
+              href="https://gokhan.substack.com"
+              target="_blank"
+              rel="noopener"
+              class="group flex items-baseline justify-between py-1"
+            >
+              <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
+                Substack
+              </span>
+              <span class="text-sm text-muted-foreground">↗</span>
+            </a>
+          </li>
+          <li>
+            <a 
+              href="https://github.com/avalidurl"
+              target="_blank"
+              rel="noopener"
+              class="group flex items-baseline justify-between py-1"
+            >
+              <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
+                GitHub
+              </span>
+              <span class="text-sm text-muted-foreground">↗</span>
+            </a>
+          </li>
+          <li>
+            <a 
+              href="https://linkedin.com/in/goekhanturhan"
+              target="_blank"
+              rel="noopener"
+              class="group flex items-baseline justify-between py-1"
+            >
+              <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
+                LinkedIn
+              </span>
+              <span class="text-sm text-muted-foreground">↗</span>
+            </a>
+          </li>
+        </ul>
+      </section>
     </div>
 
-    <div class="grid grid-cols-1 gap-8 max-w-2xl mx-auto">
-      <!-- Newsletter -->
-      <Card class="hover:shadow-lg transition-shadow dark:bg-card dark:border-border">
-        <CardContent class="p-8 text-center">
-          <h3 class="text-2xl font-bold mb-2">Gökhan Turhan's Newsletter</h3>
-          <p class="text-muted-foreground mb-6">Concepts that Solve Problems</p>
-          
-          <div class="w-full max-w-lg mx-auto">
-            <div class="aspect-[4/3] md:aspect-[3/2] w-full relative">
-              <!-- Optimized loading with preload -->
-              <div id="iframe-placeholder" class="absolute inset-0 bg-background border border-border rounded-md flex items-center justify-center transition-opacity duration-300">
-                <div class="text-center">
-                  <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-3"></div>
-                  <p class="text-sm text-muted-foreground">Loading newsletter...</p>
-                </div>
-              </div>
-              
-              <!-- Preload the Substack domain -->
-              <link rel="preconnect" href="https://gokhan.substack.com" />
-              <link rel="dns-prefetch" href="https://gokhan.substack.com" />
-              
-              <iframe 
-                id="substack-embed"
-                src="https://gokhan.substack.com/embed" 
-                width="100%" 
-                height="100%" 
-                style="border:1px solid #EEE; background:white;" 
-                frameborder="0" 
-                scrolling="no"
-                loading="eager"
-                class="rounded-md w-full h-full opacity-0 transition-opacity duration-300"
-                onload="this.style.opacity='1'; document.getElementById('iframe-placeholder').style.opacity='0'; setTimeout(() => document.getElementById('iframe-placeholder').style.display='none', 300);"
-              ></iframe>
-            </div>
-          </div>
-          
-          <!-- Inline script to start loading immediately -->
-          <script is:inline>
-            // Start preloading Substack content as soon as possible
-            (function() {
-              const iframe = document.getElementById('substack-embed');
-              if (iframe && 'IntersectionObserver' in window) {
-                // If already in viewport, load immediately
-                const rect = iframe.getBoundingClientRect();
-                const isInViewport = rect.top >= 0 && rect.left >= 0 && 
-                  rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && 
-                  rect.right <= (window.innerWidth || document.documentElement.clientWidth);
-                
-                if (isInViewport) {
-                  // Already visible, ensure it loads quickly
-                  iframe.loading = 'eager';
-                }
-              }
-            })();
-          </script>
-        </CardContent>
-      </Card>
-
-      <!-- RSS Feed -->
-      <Card class="hover:shadow-lg transition-shadow">
-        <CardContent class="p-8 text-center">
-          <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-            <Rss class="w-8 h-8 text-primary" />
-          </div>
-          
-          <h2 class="text-2xl font-semibold mb-4">RSS Feed</h2>
-          <p class="text-muted-foreground mb-6 leading-relaxed">
-            Subscribe to my RSS feed to get updates directly in your preferred RSS reader. 
-            Perfect for staying updated without social media noise.
-          </p>
-          
-          <div class="space-y-4">
-            <Button class="w-full">
-              <a href="/rss.xml" class="flex items-center justify-center space-x-2">
-                <Rss class="w-4 h-4" />
-                <span>Subscribe to RSS</span>
-              </a>
-            </Button>
-            
-            <p class="text-xs text-muted-foreground">
-              Copy this URL: <code class="bg-accent px-2 py-1 rounded text-xs">https://gokhanturhan.com/rss.xml</code>
-            </p>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-
-    <!-- Additional Options -->
-    <div class="mt-12">
-      <Card>
-        <CardContent class="p-8">
-          <h3 class="text-xl font-semibold mb-6 text-center">Other Ways to Follow</h3>
-          
-          <div class="flex justify-center gap-4">
-            <a 
-              href="https://x.com/goekhan" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              class="w-12 h-12 bg-black rounded-full flex items-center justify-center hover:scale-110 transition-transform"
-            >
-              <span class="text-white font-bold text-lg">𝕏</span>
-            </a>
-
-            <a 
-              href="https://github.com/avalidurl" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              class="w-12 h-12 bg-gray-900 rounded-full flex items-center justify-center hover:scale-110 transition-transform"
-            >
-              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M12 0C5.374 0 0 5.373 0 12 0 17.302 3.438 21.8 8.207 23.387c.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-              </svg>
-            </a>
-
-            <a 
-              href="https://linkedin.com/in/goekhanturhan" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center hover:scale-110 transition-transform"
-            >
-              <span class="text-white font-bold text-sm">in</span>
-            </a>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-
-    <!-- Privacy Note -->
-    <div class="mt-8 text-center">
-      <p class="text-sm text-muted-foreground max-w-2xl mx-auto">
-        Your privacy matters. RSS feeds don't track you, and newsletter subscriptions 
-        are managed through Substack with their privacy policies. I don't share 
-        email addresses or use tracking beyond basic analytics.
+    <footer class="mt-12 pt-8 border-t border-border">
+      <p class="text-sm text-muted-foreground">
+        Your privacy matters. I don't share email addresses or use tracking beyond basic analytics.
       </p>
-    </div>
+    </footer>
   </div>
 </BaseLayout>

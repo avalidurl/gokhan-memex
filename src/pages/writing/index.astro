@@ -1,70 +1,29 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import Card from '@/components/ui/Card.astro'
-import CardContent from '@/components/ui/CardContent.astro'
 ---
 
 <BaseLayout
   title="Writing"
-  description="Long-form essays, research papers, and written works on technology, philosophy, and emerging systems."
+  description="Essays, research, and long-form analysis."
 >
-  <div class="container max-w-3xl mx-auto px-4 py-12">
-    <!-- Header -->
-    <div class="text-center mb-12">
-      <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Writing</h1>
-      <p class="text-xl text-muted-foreground">
-        Essays, research, and long-form analysis
+  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
+    <header class="mb-12">
+      <h1 class="text-3xl font-semibold tracking-tight mb-4">Writing</h1>
+      <p class="text-muted-foreground">
+        Essays, research, and long-form analysis.
       </p>
+    </header>
+
+    <div class="py-12 text-center">
+      <p class="text-muted-foreground mb-8">
+        Writing portfolio coming soon.
+      </p>
+      <a 
+        href="/journal"
+        class="text-foreground hover:underline decoration-1 underline-offset-2"
+      >
+        ← Read journal posts
+      </a>
     </div>
-
-    <!-- Updating Message -->
-    <Card class="bg-accent/20 border-accent">
-      <CardContent class="p-8 text-center">
-        <div class="mb-6">
-          <pre class="text-xs text-muted-foreground font-mono leading-tight">
-{`    ✍️
-   ___
-  |   |  📝
-  |   |   \\
-  |   |    \\
-  |   |     📄
-  |___|    /
-    |     /
-    |    /
- ___| __/___
-|           |
-| WRITING   |
-| MACHINE   |
-|___________|
- |||     |||
- |||     |||
-_|||_____|||_`}
-          </pre>
-        </div>
-        
-        <h2 class="text-2xl font-semibold mb-4">Manuscripts in Progress</h2>
-        <p class="text-muted-foreground mb-6 leading-relaxed">
-          Comprehensive writing portfolio being compiled. Will feature in-depth research papers, 
-          philosophical essays, and analytical pieces on stablecoins, tokenization, AGI timelines, 
-          and global systemic challenges.
-        </p>
-        
-        <div class="text-sm text-muted-foreground">
-          <p>📚 Research Papers</p>
-          <p>💭 Philosophical Essays</p>
-          <p>🔬 Technical Analysis</p>
-          <p>🌍 Systems Thinking</p>
-        </div>
-
-        <div class="mt-8">
-          <a 
-            href="/journal" 
-            class="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors font-medium"
-          >
-            Read Journal Posts →
-          </a>
-        </div>
-      </CardContent>
-    </Card>
   </div>
 </BaseLayout>
