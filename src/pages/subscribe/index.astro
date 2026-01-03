@@ -22,34 +22,19 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
           Newsletter
         </h2>
         
-        <form id="subscribe-form" class="space-y-4">
-          <div class="flex flex-col sm:flex-row gap-3">
-            <input
-              type="email"
-              id="email-input"
-              placeholder="your@email.com"
-              required
-              autocomplete="email"
-              class="flex-1 px-4 py-3 bg-background border border-border rounded-md text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-colors"
-            />
-            <button
-              type="submit"
-              class="px-6 py-3 bg-foreground text-background font-medium rounded-md hover:bg-foreground/90 transition-colors shrink-0"
-            >
-              Subscribe
-            </button>
-          </div>
-        </form>
+        <p class="text-muted-foreground mb-6">
+          Get essays on stablecoins, tokenization, AGI, and emerging technologies delivered to your inbox.
+        </p>
         
-        <script>
-          document.getElementById('subscribe-form')?.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = (document.getElementById('email-input') as HTMLInputElement).value;
-            if (email) {
-              window.location.href = `https://gokhan.substack.com/subscribe?email=${encodeURIComponent(email)}&simple=true`;
-            }
-          });
-        </script>
+        <a 
+          href="https://gokhan.substack.com/subscribe"
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-2 px-6 py-3 bg-foreground text-background font-medium rounded-md hover:bg-foreground/90 transition-colors"
+        >
+          Subscribe on Substack
+          <span>→</span>
+        </a>
         
         <p class="text-sm text-muted-foreground mt-4">
           Free, no spam. Unsubscribe anytime.
@@ -89,8 +74,8 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
         <ul class="space-y-2">
           <li>
             <a 
-              href="https://x.com/goekhan"
-              target="_blank"
+              href="https://x.com/goekhan" 
+              target="_blank" 
               rel="noopener"
               class="group flex items-baseline justify-between py-1"
             >
@@ -115,8 +100,8 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
           </li>
           <li>
             <a 
-              href="https://github.com/avalidurl"
-              target="_blank"
+              href="https://github.com/avalidurl" 
+              target="_blank" 
               rel="noopener"
               class="group flex items-baseline justify-between py-1"
             >
@@ -128,8 +113,8 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
           </li>
           <li>
             <a 
-              href="https://linkedin.com/in/goekhanturhan"
-              target="_blank"
+              href="https://linkedin.com/in/goekhanturhan" 
+              target="_blank" 
               rel="noopener"
               class="group flex items-baseline justify-between py-1"
             >
