@@ -22,16 +22,11 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
           Newsletter
         </h2>
         
-        <!-- Intentionally no redirect - Substack handles confirmation -->
-        <form 
-          action="https://gokhan.substack.com/api/v1/free?nojs=true"
-          method="POST"
-          class="space-y-4"
-        >
+        <form id="subscribe-form" class="space-y-4">
           <div class="flex flex-col sm:flex-row gap-3">
             <input
               type="email"
-              name="email"
+              id="email-input"
               placeholder="your@email.com"
               required
               autocomplete="email"
@@ -44,13 +39,17 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
               Subscribe
             </button>
           </div>
-          <input type="hidden" name="first_url" value="https://gokhanturhan.com/subscribe" />
-          <input type="hidden" name="first_referrer" value="" />
-          <input type="hidden" name="current_url" value="https://gokhanturhan.com/subscribe" />
-          <input type="hidden" name="current_referrer" value="" />
-          <input type="hidden" name="referral_code" value="" />
-          <input type="hidden" name="source" value="embed" />
         </form>
+        
+        <script>
+          document.getElementById('subscribe-form')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = (document.getElementById('email-input') as HTMLInputElement).value;
+            if (email) {
+              window.location.href = `https://gokhan.substack.com/subscribe?email=${encodeURIComponent(email)}&simple=true`;
+            }
+          });
+        </script>
         
         <p class="text-sm text-muted-foreground mt-4">
           Free, no spam. Unsubscribe anytime.
