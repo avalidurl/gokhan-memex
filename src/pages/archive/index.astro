@@ -1,14 +1,6 @@
 ---
 import { getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import Breadcrumbs from '@/components/Breadcrumbs.astro'
-import Card from '@/components/ui/Card.astro'
-import CardContent from '@/components/ui/CardContent.astro'
-import Badge from '@/components/ui/Badge.astro'
-import Accordion from '@/components/ui/Accordion.astro'
-import AccordionItem from '@/components/ui/AccordionItem.astro'
-import AccordionTrigger from '@/components/ui/AccordionTrigger.astro'
-import AccordionContent from '@/components/ui/AccordionContent.astro'
 
 // Get all published blog posts
 const allPosts = (await getCollection('blog'))
@@ -19,249 +11,115 @@ const allPosts = (await getCollection('blog'))
 const categoryMap = new Map<string, number>()
 allPosts.forEach(post => {
   const category = post.data.category
-  if (categoryMap.has(category)) {
-    categoryMap.set(category, (categoryMap.get(category) ?? 0) + 1)
-  } else {
-    categoryMap.set(category, 1)
-  }
+  categoryMap.set(category, (categoryMap.get(category) ?? 0) + 1)
 })
 
 // Extract tags and their counts
 const tagMap = new Map<string, number>()
 allPosts.forEach(post => {
   post.data.tags?.forEach(tag => {
-    if (tagMap.has(tag)) {
-      tagMap.set(tag, (tagMap.get(tag) ?? 0) + 1)
-    } else {
-      tagMap.set(tag, 1)
-    }
+    tagMap.set(tag, (tagMap.get(tag) ?? 0) + 1)
   })
 })
 
-// Sort categories by count (descending) and tags alphabetically
+// Sort categories by count (descending) and tags by count
 const sortedCategories = Array.from(categoryMap.entries()).sort((a, b) => b[1] - a[1])
-const sortedTags = Array.from(tagMap.entries()).sort((a, b) => a[0].localeCompare(b[0]))
+const sortedTags = Array.from(tagMap.entries()).sort((a, b) => b[1] - a[1])
 
-// Group posts by year and month
-type Post = typeof allPosts[0]
-const postsByYear = new Map<number, Post[]>()
-const postsByYearMonth = new Map<string, Post[]>()
-
+// Group posts by year
+const postsByYear = new Map<number, typeof allPosts>()
 allPosts.forEach(post => {
-  const date = new Date(post.data.publishDate)
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1 // 1-based month
-  const yearMonthKey = `${year}-${month.toString().padStart(2, '0')}`
-  
-  // Group by year
-  if (postsByYear.has(year)) {
-    postsByYear.get(year)?.push(post)
-  } else {
-    postsByYear.set(year, [post])
-  }
-  
-  // Group by year-month
-  if (postsByYearMonth.has(yearMonthKey)) {
-    postsByYearMonth.get(yearMonthKey)?.push(post)
-  } else {
-    postsByYearMonth.set(yearMonthKey, [post])
-  }
+  const year = new Date(post.data.publishDate).getFullYear()
+  if (!postsByYear.has(year)) postsByYear.set(year, [])
+  postsByYear.get(year)?.push(post)
 })
-
-// Create month data for display
-const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
-                   'July', 'August', 'September', 'October', 'November', 'December']
-
-interface YearMonthData {
-  year: number
-  month: number
-  monthName: string
-  postCount: number
-  slug: string
-}
-
-const yearMonthData: YearMonthData[] = []
-Array.from(postsByYear.entries())
-  .sort((a, b) => b[0] - a[0])
-  .forEach(([year, yearPosts]) => {
-    const monthsInYear = new Set<number>()
-    yearPosts.forEach(post => {
-      const month = new Date(post.data.publishDate).getMonth()
-      monthsInYear.add(month)
-    })
-    
-    Array.from(monthsInYear)
-      .sort((a, b) => b - a)
-      .forEach(month => {
-        const monthPosts = yearPosts.filter(post => 
-          new Date(post.data.publishDate).getMonth() === month
-        )
-        yearMonthData.push({
-          year,
-          month: month + 1,
-          monthName: monthNames[month] || 'Unknown',
-          postCount: monthPosts.length,
-          slug: `${year}/${(month + 1).toString().padStart(2, '0')}`
-        })
-      })
-  })
-
-const breadcrumbs: { label: string; href: string }[] = []
+const sortedYears = Array.from(postsByYear.keys()).sort((a, b) => b - a)
 ---
 
 <BaseLayout
   title="Archive"
-  description="Browse all content by categories, tags, and years. Explore topics across fintech, deep tech, art markets, and global challenges."
+  description="Browse all content by categories, tags, and years."
   robots="noindex, follow"
 >
-  <div class="container max-w-6xl mx-auto px-4 py-8">
-    <Breadcrumbs items={breadcrumbs} currentPage="Archive" />
-
+  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
     <!-- Header -->
-    <div class="mb-12">
-      <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Archive</h1>
-      <p class="text-lg text-muted-foreground">
-        Browse {allPosts.length} posts by 
-        <a href="#categories" class="text-primary hover:underline cursor-pointer">categories</a>, 
-        <a href="#tags" class="text-primary hover:underline cursor-pointer">tags</a>, and 
-        <a href="#dates" class="text-primary hover:underline cursor-pointer">years</a>
+    <header class="mb-12">
+      <h1 class="text-3xl font-semibold tracking-tight mb-4">Archive</h1>
+      <p class="text-muted-foreground">
+        {allPosts.length} posts across {sortedCategories.length} categories and {sortedTags.length} tags.
       </p>
+    </header>
+
+    <div class="space-y-12">
+      <!-- Categories Section -->
+      <section id="categories">
+        <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+          Categories
+        </h2>
+        <ul class="space-y-1">
+          {sortedCategories.map(([category, count]) => (
+            <li>
+              <a 
+                href={`/archive/categories/${category.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and')}`}
+                class="group flex items-baseline justify-between py-2"
+              >
+                <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
+                  {category}
+                </span>
+                <span class="text-sm text-muted-foreground tabular-nums">
+                  {count}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <!-- Tags Section -->
+      <section id="tags">
+        <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+          Tags
+        </h2>
+        <div class="flex flex-wrap gap-2">
+          {sortedTags.slice(0, 40).map(([tag, count]) => (
+            <a 
+              href={`/archive/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+              class="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              #{tag} <span class="text-xs opacity-60">({count})</span>
+            </a>
+          ))}
+          {sortedTags.length > 40 && (
+            <span class="text-sm text-muted-foreground">
+              +{sortedTags.length - 40} more
+            </span>
+          )}
+        </div>
+      </section>
+
+      <!-- Years Section -->
+      <section id="years">
+        <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+          Years
+        </h2>
+        <ul class="space-y-1">
+          {sortedYears.map(year => (
+            <li>
+              <a 
+                href={`/journal/${year}`}
+                class="group flex items-baseline justify-between py-2"
+              >
+                <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
+                  {year}
+                </span>
+                <span class="text-sm text-muted-foreground tabular-nums">
+                  {postsByYear.get(year)?.length} posts
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
-
-    <!-- Archive Accordion -->
-    <div class="space-y-6">
-      <Accordion class="w-full">
-        <!-- Categories Section -->
-        <AccordionItem data-accordion-item class="border rounded-lg">
-          <AccordionTrigger class="text-left">
-            <div class="flex items-center justify-between w-full pr-4">
-              <h2 class="text-xl font-semibold">Categories</h2>
-              <Badge variant="secondary">{sortedCategories.length}</Badge>
-            </div>
-          </AccordionTrigger>
-          <AccordionContent>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {sortedCategories.map(([category, count]) => (
-                <Card class="hover:shadow-lg transition-shadow">
-                  <CardContent class="p-4">
-                    <a
-                      href={`/archive/categories/${category.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and')}`}
-                      class="block"
-                    >
-                      <h3 class="font-medium mb-2 hover:text-primary transition-colors">
-                        {category}
-                      </h3>
-                      <div class="flex items-center justify-between">
-                        <Badge variant="secondary" class="text-xs">
-                          {count} post{count !== 1 ? 's' : ''}
-                        </Badge>
-                      </div>
-                    </a>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-
-        <!-- Tags Section -->
-        <AccordionItem data-accordion-item class="border rounded-lg">
-          <AccordionTrigger class="text-left">
-            <div class="flex items-center justify-between w-full pr-4">
-              <h2 class="text-xl font-semibold">Tags</h2>
-              <Badge variant="secondary">{sortedTags.length}</Badge>
-            </div>
-          </AccordionTrigger>
-          <AccordionContent>
-            <div class="flex flex-wrap gap-2">
-              {sortedTags.map(([tag, count]) => (
-                <a href={`/archive/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}>
-                  <Badge 
-                    variant="outline" 
-                    class="hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer"
-                  >
-                    {tag} ({count})
-                  </Badge>
-                </a>
-              ))}
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-
-        <!-- Years Section -->
-        <AccordionItem data-accordion-item class="border rounded-lg">
-          <AccordionTrigger class="text-left">
-            <div class="flex items-center justify-between w-full pr-4">
-              <h2 class="text-xl font-semibold">Years</h2>
-              <Badge variant="secondary">{Array.from(postsByYear.entries()).length}</Badge>
-            </div>
-          </AccordionTrigger>
-          <AccordionContent>
-            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {Array.from(postsByYear.entries())
-                .sort((a, b) => b[0] - a[0])
-                .map(([year, posts]) => (
-                  <Card class="hover:shadow-lg transition-shadow">
-                    <CardContent class="p-4 text-center">
-                      <a
-                        href={`/journal/${year}`}
-                        class="block"
-                      >
-                        <h3 class="text-2xl font-bold mb-2 hover:text-primary transition-colors">
-                          {year}
-                        </h3>
-                        <Badge variant="secondary" class="text-xs">
-                          {posts.length} post{posts.length !== 1 ? 's' : ''}
-                        </Badge>
-                      </a>
-                    </CardContent>
-                  </Card>
-                ))}
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-
-        <!-- Recent Months Section -->
-        <AccordionItem data-accordion-item class="border rounded-lg">
-          <AccordionTrigger class="text-left">
-            <div class="flex items-center justify-between w-full pr-4">
-              <h2 class="text-xl font-semibold">Recent Months</h2>
-              <Badge variant="secondary">12</Badge>
-            </div>
-          </AccordionTrigger>
-          <AccordionContent>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              {yearMonthData.slice(0, 12).map(monthData => (
-                <Card class="hover:shadow-lg transition-shadow">
-                  <CardContent class="p-4">
-                    <a
-                      href={`/journal/${monthData.slug}`}
-                      class="block"
-                    >
-                      <h3 class="font-medium mb-1 hover:text-primary transition-colors">
-                        {monthData.monthName} {monthData.year}
-                      </h3>
-                      <Badge variant="secondary" class="text-xs">
-                        {monthData.postCount} post{monthData.postCount !== 1 ? 's' : ''}
-                      </Badge>
-                    </a>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
-    </div>
-
-    <!-- Empty State -->
-    {allPosts.length === 0 && (
-      <div class="text-center py-12">
-        <p class="text-lg text-muted-foreground mb-4">No posts found.</p>
-        <p class="text-sm text-muted-foreground">
-          Content is being migrated. Check back soon!
-        </p>
-      </div>
-    )}
   </div>
 </BaseLayout>

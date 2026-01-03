@@ -1,8 +1,8 @@
 ---
 import { type CollectionEntry, getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Badge from '@/components/ui/Badge.astro'
+import TableOfContents from '@/components/TableOfContents.astro'
 import SocialShare from '@/components/SocialShare.astro'
 import { formatDate } from '@/lib/utils'
 
@@ -17,14 +17,13 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<'blog'>
 
 const post = Astro.props
-const { Content } = await post.render()
-
-const breadcrumbs = [
-  { label: 'Journal', href: '/journal' }
-]
+const { Content, headings } = await post.render()
 
 // Prepare structured data if schema exists in frontmatter
 const structuredData = post.data.schema ? (Array.isArray(post.data.schema) ? post.data.schema : [post.data.schema]) : []
+
+// Check if we have enough headings to show TOC
+const showToc = headings.filter(h => h.depth === 2 || h.depth === 3).length >= 3
 ---
 
 <BaseLayout
@@ -57,142 +56,166 @@ const structuredData = post.data.schema ? (Array.isArray(post.data.schema) ? pos
     <meta name="keywords" content={post.data.seoKeywords.join(', ')} slot="head" />
   )}
 
-  <div class="container max-w-4xl mx-auto px-4 py-8">
-    <Breadcrumbs items={breadcrumbs} currentPage={post.data.title} />
+  <div class="mx-auto max-w-6xl px-6 py-8 lg:py-12">
+    <div class={`${showToc ? 'lg:grid lg:grid-cols-[220px_1fr] lg:gap-12' : ''}`}>
+      
+      {/* Table of Contents - Desktop Left Sidebar */}
+      {showToc && (
+        <aside class="hidden lg:block">
+          <TableOfContents headings={headings} />
+        </aside>
+      )}
 
-    <article class="prose prose-lg prose-blue dark:prose-invert max-w-none">
-      <!-- Article Header -->
-      <header class="not-prose mb-12">
-        {post.data.heroImage && (
-          <img
-            src={post.data.heroImage}
-            alt={post.data.heroImageAlt || post.data.title}
-            class="w-full rounded-lg shadow-lg mb-8"
-            loading="eager"
-          />
-        )}
+      {/* Main Content */}
+      <article class="max-w-2xl mx-auto lg:mx-0">
+        <!-- Article Header -->
+        <header class="mb-10">
+          {post.data.heroImage && (
+            <img
+              src={post.data.heroImage}
+              alt={post.data.heroImageAlt || post.data.title}
+              class="w-full rounded-lg mb-8"
+              loading="eager"
+            />
+          )}
 
-        <div class="space-y-4">
-          <!-- Meta Info -->
-          <div class="flex items-center gap-3 text-sm text-muted-foreground">
-            <a href={`/journal/${post.data.publishDate.getFullYear()}/${(post.data.publishDate.getMonth() + 1).toString().padStart(2, '0')}`} class="hover:text-foreground transition-colors">
+          <div class="space-y-4">
+            <!-- Meta Info -->
+            <div class="flex items-center gap-3 text-sm text-muted-foreground">
               <time datetime={post.data.publishDate.toISOString()}>
                 {formatDate(post.data.publishDate)}
               </time>
-            </a>
-            <span>•</span>
-            <a href={`/archive/categories/${post.data.category.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and')}`}>
-              <Badge variant="category">{post.data.category}</Badge>
-            </a>
-          </div>
-
-          <!-- Title -->
-          <h1 class="text-3xl md:text-5xl font-bold tracking-tight text-foreground">
-            {post.data.title}
-          </h1>
-
-          <!-- Description -->
-          <p class="text-xl text-muted-foreground leading-relaxed">
-            {post.data.description}
-          </p>
-
-          <!-- Tags -->
-          {post.data.tags && post.data.tags.length > 0 && (
-            <div class="flex flex-wrap gap-2 pt-4">
-              {post.data.tags.map(tag => (
-                <Badge variant="outline" class="text-xs">
-                  <a href={`/archive/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}>
-                    {tag}
-                  </a>
-                </Badge>
-              ))}
+              <span>·</span>
+              <a 
+                href={`/archive/categories/${post.data.category.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and')}`}
+                class="hover:text-foreground transition-colors"
+              >
+                {post.data.category}
+              </a>
             </div>
-          )}
-        </div>
-      </header>
 
-      <!-- Article Content -->
-      <div class="prose-content">
-        <Content />
-      </div>
+            <!-- Title -->
+            <h1 class="text-3xl md:text-4xl font-semibold tracking-tight text-foreground leading-tight">
+              {post.data.title}
+            </h1>
 
-      <!-- Social Share -->
-      <div class="not-prose mt-12 pt-8 border-t border-border">
-        <SocialShare 
-          title={post.data.title}
-          url={`${Astro.site?.origin || 'https://gokhanturhan.com'}${Astro.url.pathname}`}
-          description={post.data.description}
-        />
-      </div>
+            <!-- Description -->
+            {post.data.description && (
+              <p class="text-lg text-muted-foreground leading-relaxed">
+                {post.data.description}
+              </p>
+            )}
 
-      <!-- Article Footer -->
-      <footer class="not-prose mt-8 pt-8 border-t border-border">
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <div>
-            <p class="text-sm text-muted-foreground">
-              Published on {formatDate(post.data.publishDate)} by {post.data.author}
-            </p>
+            <!-- Tags -->
+            {post.data.tags && post.data.tags.length > 0 && (
+              <div class="flex flex-wrap gap-2 pt-2">
+                {post.data.tags.map(tag => (
+                  <a 
+                    href={`/archive/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+                    class="text-xs text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    #{tag}
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
+        </header>
 
-          <div class="flex items-center gap-4">
-            <a
-              href="/journal"
-              class="text-sm text-primary hover:underline font-medium"
-            >
-              ← Back to Journal
-            </a>
-            <a
-              href="/rss.xml"
-              class="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              RSS Feed
-            </a>
+        {/* Mobile TOC */}
+        {showToc && (
+          <div class="lg:hidden mb-8 p-4 bg-muted/30 rounded-lg">
+            <details>
+              <summary class="text-sm font-medium text-muted-foreground cursor-pointer">
+                Table of Contents
+              </summary>
+              <nav class="mt-3">
+                <ul class="space-y-2">
+                  {headings.filter(h => h.depth === 2 || h.depth === 3).map((heading) => (
+                    <li class={heading.depth === 3 ? 'pl-4' : ''}>
+                      <a 
+                        href={`#${heading.slug}`}
+                        class="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        {heading.text}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </details>
           </div>
+        )}
+
+        <!-- Article Content -->
+        <div class="prose prose-lg prose-neutral dark:prose-invert max-w-none prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-foreground prose-a:underline prose-a:decoration-1 prose-a:underline-offset-2 hover:prose-a:decoration-2 prose-p:text-foreground/90 prose-li:text-foreground/90 prose-blockquote:border-l-2 prose-blockquote:border-muted-foreground/30 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-muted-foreground prose-code:text-sm prose-code:bg-muted/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none prose-pre:bg-muted/30 prose-pre:border prose-pre:border-border">
+          <Content />
         </div>
-      </footer>
-    </article>
+
+        <!-- Social Share -->
+        <div class="mt-12 pt-8 border-t border-border">
+          <SocialShare 
+            title={post.data.title}
+            url={`${Astro.site?.origin || 'https://gokhanturhan.com'}${Astro.url.pathname}`}
+            description={post.data.description}
+          />
+        </div>
+
+        <!-- Article Footer -->
+        <footer class="mt-8 pt-8 border-t border-border">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-sm text-muted-foreground">
+            <span>
+              Published on {formatDate(post.data.publishDate)}
+            </span>
+            <div class="flex items-center gap-6">
+              <a
+                href="/journal"
+                class="hover:text-foreground transition-colors"
+              >
+                ← All posts
+              </a>
+              <a
+                href="/rss.xml"
+                class="hover:text-foreground transition-colors"
+              >
+                RSS
+              </a>
+            </div>
+          </div>
+        </footer>
+      </article>
+    </div>
   </div>
-
 </BaseLayout>
 
 <style>
-  .prose-content :global(h1),
-  .prose-content :global(h2),
-  .prose-content :global(h3),
-  .prose-content :global(h4),
-  .prose-content :global(h5),
-  .prose-content :global(h6) {
-    @apply scroll-mt-24;
+  .prose :global(h1),
+  .prose :global(h2),
+  .prose :global(h3),
+  .prose :global(h4),
+  .prose :global(h5),
+  .prose :global(h6) {
+    scroll-margin-top: 5rem;
   }
 
-  .prose-content :global(a) {
-    @apply text-primary hover:underline;
-  }
-
-  /* Remove underline from heading anchor links */
-  .prose-content :global(h1 a.anchor-link),
-  .prose-content :global(h2 a.anchor-link),
-  .prose-content :global(h3 a.anchor-link),
-  .prose-content :global(h4 a.anchor-link),
-  .prose-content :global(h5 a.anchor-link),
-  .prose-content :global(h6 a.anchor-link) {
-    @apply no-underline;
+  /* Anchor link styles */
+  .prose :global(h1 a.anchor-link),
+  .prose :global(h2 a.anchor-link),
+  .prose :global(h3 a.anchor-link),
+  .prose :global(h4 a.anchor-link),
+  .prose :global(h5 a.anchor-link),
+  .prose :global(h6 a.anchor-link) {
     text-decoration: none !important;
+    color: inherit;
   }
 
-  .prose-content :global(blockquote) {
-    @apply border-l-4 border-primary/30 bg-accent/20 rounded-r-lg;
+  .prose :global(h2),
+  .prose :global(h3) {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
   }
 
-  .prose-content :global(code) {
-    @apply bg-accent/50 rounded px-1.5 py-0.5 text-sm font-mono;
-  }
-
-  .prose-content :global(pre) {
-    @apply bg-accent/30 rounded-lg p-4 overflow-x-auto;
-  }
-
-  .prose-content :global(pre code) {
-    @apply bg-transparent p-0;
+  .prose :global(p + p) {
+    margin-top: 1.25rem;
   }
 </style>
