@@ -19,8 +19,35 @@ type Props = CollectionEntry<'blog'>
 const post = Astro.props
 const { Content, headings } = await post.render()
 
-// Prepare structured data if schema exists in frontmatter
-const structuredData = post.data.schema ? (Array.isArray(post.data.schema) ? post.data.schema : [post.data.schema]) : []
+// Default Article schema - always present for SEO
+const defaultArticleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": post.data.title,
+  "description": post.data.description,
+  "author": {
+    "@type": "Person",
+    "name": post.data.author,
+    "url": "https://gokhanturhan.com"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Gökhan Turhan",
+    "url": "https://gokhanturhan.com"
+  },
+  "datePublished": post.data.publishDate.toISOString(),
+  "url": `https://gokhanturhan.com/journal/${post.slug}/`,
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": `https://gokhanturhan.com/journal/${post.slug}/`
+  },
+  "image": post.data.heroImage ? `https://gokhanturhan.com${post.data.heroImage}` : "https://gokhanturhan.com/og-default.png",
+  "articleSection": post.data.category,
+  "keywords": post.data.tags?.join(', ') || ''
+}
+
+// Additional custom schema from frontmatter (if any)
+const customSchemas = post.data.schema ? (Array.isArray(post.data.schema) ? post.data.schema : [post.data.schema]) : []
 
 // Check if we have enough headings to show TOC
 const showToc = headings.filter(h => h.depth === 2 || h.depth === 3).length >= 3
@@ -32,22 +59,14 @@ const showToc = headings.filter(h => h.depth === 2 || h.depth === 3).length >= 3
   type="article"
   image={post.data.heroImage || `/og/${post.slug}.png`}
 >
-  {/* Structured Data for SEO and LLM discoverability */}
-  {structuredData.map((schema: any) => (
+  {/* Default Article Schema - always present */}
+  <script type="application/ld+json" set:html={JSON.stringify(defaultArticleSchema)} slot="head" />
+  
+  {/* Additional custom schemas from frontmatter */}
+  {customSchemas.map((schema: any) => (
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
-      ...schema,
-      "author": {
-        "@type": "Person",
-        "name": post.data.author,
-        "url": "https://gokhanturhan.com"
-      },
-      "datePublished": post.data.publishDate.toISOString(),
-      "url": `https://gokhanturhan.com/journal/${post.slug}`,
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": `https://gokhanturhan.com/journal/${post.slug}`
-      }
+      ...schema
     })} slot="head" />
   ))}
 
