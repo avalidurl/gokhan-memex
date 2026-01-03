@@ -23,14 +23,14 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
         </h2>
         
         <form 
-          id="subscribe-form"
+          action="https://gokhan.substack.com/api/v1/free?nojs=true&next=https://gokhanturhan.com/thank-you"
+          method="POST"
           class="space-y-4"
         >
           <div class="flex flex-col sm:flex-row gap-3">
             <input
               type="email"
               name="email"
-              id="email-input"
               placeholder="your@email.com"
               required
               autocomplete="email"
@@ -38,13 +38,17 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
             />
             <button
               type="submit"
-              id="submit-btn"
-              class="px-6 py-3 bg-foreground text-background font-medium rounded-md hover:bg-foreground/90 transition-colors shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
+              class="px-6 py-3 bg-foreground text-background font-medium rounded-md hover:bg-foreground/90 transition-colors shrink-0"
             >
               Subscribe
             </button>
           </div>
-          <p id="form-message" class="text-sm hidden"></p>
+          <input type="hidden" name="first_url" value="https://gokhanturhan.com/subscribe" />
+          <input type="hidden" name="first_referrer" value="" />
+          <input type="hidden" name="current_url" value="https://gokhanturhan.com/subscribe" />
+          <input type="hidden" name="current_referrer" value="" />
+          <input type="hidden" name="referral_code" value="" />
+          <input type="hidden" name="source" value="embed" />
         </form>
         
         <p class="text-sm text-muted-foreground mt-4">
@@ -146,62 +150,3 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
     </footer>
   </div>
 </BaseLayout>
-
-<script>
-  const form = document.getElementById('subscribe-form') as HTMLFormElement;
-  const emailInput = document.getElementById('email-input') as HTMLInputElement;
-  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
-  const messageEl = document.getElementById('form-message') as HTMLParagraphElement;
-
-  function showMessage(text: string, isError: boolean = false) {
-    messageEl.textContent = text;
-    messageEl.className = `text-sm ${isError ? 'text-red-500' : 'text-green-600 dark:text-green-400'}`;
-    messageEl.classList.remove('hidden');
-  }
-
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const email = emailInput.value.trim();
-    if (!email) return;
-
-    // Disable form while submitting
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Subscribing...';
-    messageEl.classList.add('hidden');
-
-    try {
-      // Submit to Substack
-      const response = await fetch('https://gokhan.substack.com/api/v1/free', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          first_url: window.location.href,
-          first_referrer: document.referrer || '',
-          current_url: window.location.href,
-          current_referrer: document.referrer || '',
-          referral_code: '',
-          source: 'embed'
-        }),
-        mode: 'cors'
-      });
-
-      if (response.ok) {
-        // Success - redirect to thank you page
-        window.location.href = '/thank-you';
-      } else {
-        // If CORS fails or other error, still redirect (Substack may have processed it)
-        // Substack's API often returns errors for CORS but still processes the subscription
-        window.location.href = '/thank-you';
-      }
-    } catch (error) {
-      // Network error or CORS issue - try fallback method
-      // Open Substack subscribe page in same window as fallback
-      const substackUrl = `https://gokhan.substack.com/subscribe?email=${encodeURIComponent(email)}&simple=true`;
-      window.location.href = substackUrl;
-    }
-  });
-</script>
