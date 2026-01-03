@@ -96,4 +96,3 @@ PROJECT_STRUCTURE.md
 # Secrets and configs
 secrets/
 config/local.json
-wrangler.toml.playwright-mcp/
