@@ -1,0 +1,52 @@
+# Gökhan Turhan - Memex
+
+> T-shaped generalist founder, researcher, and Strategic Innovation Architect operating across fintech, deep tech, competitive governance, art markets, and investment strategies.
+
+## About
+
+This is the personal memex (digital garden) of Gökhan Turhan. The site contains essays, interviews, dashboards, and exploratory projects orbiting stablecoins, tokenization, AGI timelines, conceptual art, prediction markets, and adjacent frontier technologies.
+
+## Author
+
+- Name: Gökhan Turhan
+- Twitter/X: @goekhan
+- Website: https://gokhanturhan.com
+- Expertise: Stablecoins, Real World Assets (RWA), Tokenization, Cryptography, AGI timelines, Fintech, Deep Tech, Art Markets, Prediction Markets, Competitive Governance
+
+## Content Categories
+
+- Finance & Markets: Crypto, DeFi, stablecoins, market analysis
+- Knowledge Patterns: Memex building, knowledge management, digital gardens
+- Builder Log: Project updates, prediction markets, development notes
+- Conceptual Art: Blockchain art, conceptual writing, video art
+- Interviews: Conversations with builders and thinkers
+- Productivity: Note-taking, tools, workflows
+
+## Key Pages
+
+- Home: https://gokhanturhan.com/
+- Journal (Blog): https://gokhanturhan.com/journal/
+- Archive: https://gokhanturhan.com/archive/
+- Portfolio: https://gokhanturhan.com/portfolio/
+- RSS Feed: https://gokhanturhan.com/rss.xml
+- Sitemap: https://gokhanturhan.com/sitemap-index.xml
+
+## Recent Topics
+
+- Consumer crypto product critique
+- Stablecoin infrastructure
+- Prediction markets and information markets
+- Digital garden / memex building
+- Conceptual art on blockchain
+- Token gating criticism
+- Knowledge management in the age of LLMs
+
+## Contact
+
+- Email: info@gokhanturhan.com
+- For collaboration, consulting, or inquiries
+
+## License
+
+All site content © 2026 Gökhan Turhan. Source code shared for reference; contact author for reuse permissions.
+
