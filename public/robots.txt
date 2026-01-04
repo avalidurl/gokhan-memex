@@ -4,6 +4,10 @@ Allow: /
 # Sitemap
 Sitemap: https://gokhanturhan.com/sitemap-index.xml
 
+# LLMs.txt for AI crawlers
+# See: https://llmstxt.org/
+LLMs-txt: https://gokhanturhan.com/llms.txt
+
 # Allow all major crawlers
 User-agent: Googlebot
 Allow: /
