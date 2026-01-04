@@ -18,27 +18,24 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
     <div class="space-y-12">
       <!-- Newsletter Section -->
       <section>
-        <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-6">
+        <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
           Newsletter
         </h2>
-        
-        <p class="text-muted-foreground mb-6">
-          Get essays on stablecoins, tokenization, AGI, and emerging technologies delivered to your inbox.
-        </p>
-        
-        <a 
-          href="https://gokhan.substack.com/subscribe"
-          target="_blank"
-          rel="noopener"
-          class="inline-flex items-center gap-2 px-6 py-3 bg-foreground text-background font-medium rounded-md hover:bg-foreground/90 transition-colors"
-        >
-          Subscribe on Substack
-          <span>→</span>
-        </a>
-        
-        <p class="text-sm text-muted-foreground mt-4">
-          Free, no spam. Unsubscribe anytime.
-        </p>
+        <ul class="space-y-2">
+          <li>
+            <a 
+              href="https://gokhan.substack.com/subscribe"
+              target="_blank"
+              rel="noopener"
+              class="group flex items-baseline justify-between py-1"
+            >
+              <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
+                gokhan.substack.com
+              </span>
+              <span class="text-sm text-muted-foreground">↗</span>
+            </a>
+          </li>
+        </ul>
       </section>
 
       <!-- RSS Section -->
