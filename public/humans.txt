@@ -1,0 +1,19 @@
+/* TEAM */
+Creator: Gökhan Turhan
+Site: https://gokhanturhan.com
+Twitter: @goekhan
+Location: Istanbul, Turkey
+
+/* THANKS */
+Astro - https://astro.build
+Tailwind CSS - https://tailwindcss.com
+Netlify/Cloudflare - Static hosting
+
+/* SITE */
+Last update: 2026-01-04
+Language: English
+Doctype: HTML5
+Standards: HTML5, CSS3, ES6+
+Components: Astro, MDX, Tailwind
+IDE: Cursor
+
