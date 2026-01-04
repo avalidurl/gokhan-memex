@@ -49,8 +49,8 @@ const defaultArticleSchema = {
 // Additional custom schema from frontmatter (if any)
 const customSchemas = post.data.schema ? (Array.isArray(post.data.schema) ? post.data.schema : [post.data.schema]) : []
 
-// Check if we have enough headings to show TOC
-const showToc = headings.filter(h => h.depth === 2 || h.depth === 3).length >= 3
+// Show TOC if there are 2+ headings (lowered threshold for more posts to have TOC)
+const showToc = headings.filter(h => h.depth === 2 || h.depth === 3).length >= 2
 ---
 
 <BaseLayout
@@ -75,8 +75,8 @@ const showToc = headings.filter(h => h.depth === 2 || h.depth === 3).length >= 3
     <meta name="keywords" content={post.data.seoKeywords.join(', ')} slot="head" />
   )}
 
-  <div class="mx-auto max-w-6xl px-6 py-8 lg:py-12">
-    <div class={`${showToc ? 'lg:grid lg:grid-cols-[220px_1fr] lg:gap-12' : ''}`}>
+  <div class={`mx-auto px-6 py-8 lg:py-12 ${showToc ? 'max-w-5xl' : 'max-w-2xl'}`}>
+    <div class={`${showToc ? 'lg:grid lg:grid-cols-[200px_1fr] lg:gap-10' : ''}`}>
       
       {/* Table of Contents - Desktop Left Sidebar */}
       {showToc && (
@@ -86,7 +86,7 @@ const showToc = headings.filter(h => h.depth === 2 || h.depth === 3).length >= 3
       )}
 
       {/* Main Content */}
-      <article class="max-w-2xl mx-auto lg:mx-0">
+      <article class={`${showToc ? 'max-w-2xl' : 'max-w-none'}`}>
         <!-- Article Header -->
         <header class="mb-10">
           {post.data.heroImage && (
