@@ -1,13 +1,6 @@
 ---
 import { type CollectionEntry, getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import Breadcrumbs from '@/components/Breadcrumbs.astro'
-import Accordion from '@/components/ui/Accordion.astro'
-import AccordionItem from '@/components/ui/AccordionItem.astro'
-import AccordionTrigger from '@/components/ui/AccordionTrigger.astro'
-import AccordionContent from '@/components/ui/AccordionContent.astro'
-import Badge from '@/components/ui/Badge.astro'
-import { formatDate } from '@/lib/utils'
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog')
@@ -52,123 +45,61 @@ yearPosts.forEach(post => {
 
 // Sort months in descending order (most recent first)
 const sortedMonths: [number, PostType[]][] = Array.from(postsByMonth.entries()).sort((a, b) => b[0] - a[0])
-
-const breadcrumbs = [
-  { label: 'Journal', href: '/journal' },
-  { label: 'Archive', href: '/archive' }
-]
 ---
 
 <BaseLayout
-  title={`Posts from ${year}`}
-  description={`Browse all ${yearPosts.length} posts published in ${year}`}
+  title={`${year}`}
+  description={`${yearPosts.length} posts published in ${year}`}
   robots="noindex, follow"
 >
-  <div class="container max-w-4xl mx-auto px-4 py-8">
-    <Breadcrumbs items={breadcrumbs} currentPage={year.toString()} />
-
+  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
     <!-- Header -->
-    <div class="mb-12">
-      <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-        Posts from {year}
-      </h1>
-      <p class="text-lg text-muted-foreground">
-        {yearPosts.length} post{yearPosts.length !== 1 ? 's' : ''} published in {year}
+    <header class="mb-12">
+      <h1 class="text-3xl font-semibold tracking-tight mb-4">{year}</h1>
+      <p class="text-muted-foreground">
+        {yearPosts.length} post{yearPosts.length !== 1 ? 's' : ''} published
       </p>
-    </div>
+    </header>
 
     {yearPosts.length > 0 ? (
-      <div class="space-y-6">
-        <Accordion class="w-full">
-          {sortedMonths.map(([monthIndex, monthPosts]) => (
-            <AccordionItem data-accordion-item class="border rounded-lg">
-              <AccordionTrigger class="text-left">
-                <div class="flex items-center justify-between w-full pr-4">
+      <div class="space-y-12">
+        {sortedMonths.map(([monthIndex, monthPosts]) => (
+          <section>
+            <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+              {monthNames[monthIndex]}
+            </h2>
+            <ul class="space-y-2">
+              {monthPosts.map(post => (
+                <li>
                   <a 
-                    href={`/journal/${year}/${(monthIndex + 1).toString().padStart(2, '0')}`}
-                    class="text-xl font-semibold hover:text-primary transition-colors"
-                    onclick="event.stopPropagation()"
+                    href={`/journal/${post.slug}/`}
+                    class="group flex items-baseline gap-3 py-1"
                   >
-                    {monthNames[monthIndex]} {year}
+                    <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
+                      {post.data.title}
+                    </span>
+                    <span class="text-sm text-muted-foreground shrink-0">
+                      {new Date(post.data.publishDate).getDate()}
+                    </span>
                   </a>
-                  <Badge variant="secondary">
-                    {monthPosts.length} post{monthPosts.length !== 1 ? 's' : ''}
-                  </Badge>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent>
-                <div class="space-y-4">
-                  {monthPosts.map(post => (
-                    <div class="flex items-start justify-between p-4 border rounded-lg hover:bg-accent/20 transition-colors">
-                      <div class="flex-1">
-                        <h3 class="font-semibold text-lg mb-2">
-                          <a 
-                            href={`/journal/${post.slug}`}
-                            class="hover:text-primary transition-colors"
-                          >
-                            {post.data.title}
-                          </a>
-                        </h3>
-                        <p class="text-sm text-muted-foreground mb-2">
-                          {post.data.description}
-                        </p>
-                        <div class="flex items-center gap-4 text-xs text-muted-foreground">
-                          <span>{formatDate(post.data.publishDate)}</span>
-                          <a href={`/archive/categories/${post.data.category.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and')}`}>
-                            <Badge variant="outline" class="text-xs">
-                              {post.data.category}
-                            </Badge>
-                          </a>
-                          {post.data.tags && post.data.tags.length > 0 && (
-                            <div class="flex gap-1">
-                              {post.data.tags.slice(0, 3).map(tag => (
-                                <Badge variant="outline" class="text-xs">
-                                  {tag}
-                                </Badge>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                
-                <!-- Month Archive Link -->
-                <div class="mt-4 pt-4 border-t">
-                  <a 
-                    href={`/journal/${year}/${(monthIndex + 1).toString().padStart(2, '0')}`}
-                    class="text-sm text-primary hover:underline font-medium"
-                  >
-                    View {monthNames[monthIndex]} {year} archive →
-                  </a>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
       </div>
     ) : (
-      <div class="text-center py-12">
-        <p class="text-lg text-muted-foreground mb-4">No posts found for {year}.</p>
-        <p class="text-sm text-muted-foreground">
-          <a href="/archive" class="text-primary hover:underline">
-            Browse other years
-          </a>
-        </p>
-      </div>
+      <p class="text-muted-foreground">No posts found for {year}.</p>
     )}
 
     <!-- Navigation -->
-    <div class="mt-12 pt-8 border-t">
-      <div class="flex justify-center">
-        <a 
-          href="/archive"
-          class="text-sm text-primary hover:underline font-medium"
-        >
-          ← Back to Archive
-        </a>
-      </div>
-    </div>
+    <footer class="mt-12 pt-8 border-t border-border">
+      <a 
+        href="/archive"
+        class="text-sm text-muted-foreground hover:text-foreground transition-colors"
+      >
+        ← Back to Archive
+      </a>
+    </footer>
   </div>
 </BaseLayout>

@@ -1,11 +1,6 @@
 ---
 import { type CollectionEntry, getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import Breadcrumbs from '@/components/Breadcrumbs.astro'
-import Card from '@/components/ui/Card.astro'
-import CardContent from '@/components/ui/CardContent.astro'
-import Badge from '@/components/ui/Badge.astro'
-import { formatDate } from '@/lib/utils'
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog')
@@ -54,12 +49,6 @@ const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
                    'July', 'August', 'September', 'October', 'November', 'December']
 
 const monthName = monthNames[month - 1]
-
-const breadcrumbs = [
-  { label: 'Journal', href: '/journal' },
-  { label: 'Archive', href: '/archive' },
-  { label: year.toString(), href: `/journal/${year}` }
-]
 ---
 
 <BaseLayout
@@ -67,98 +56,53 @@ const breadcrumbs = [
   description={`${monthPosts.length} posts published in ${monthName} ${year}`}
   robots="noindex, follow"
 >
-  <div class="container max-w-4xl mx-auto px-4 py-8">
-    <Breadcrumbs items={breadcrumbs} currentPage={`${monthName} ${year}`} />
-
+  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
     <!-- Header -->
-    <div class="mb-12">
-      <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-        {monthName} {year}
-      </h1>
-      <p class="text-lg text-muted-foreground">
-        {monthPosts.length} post{monthPosts.length !== 1 ? 's' : ''} published in {monthName} {year}
+    <header class="mb-12">
+      <h1 class="text-3xl font-semibold tracking-tight mb-4">{monthName} {year}</h1>
+      <p class="text-muted-foreground">
+        {monthPosts.length} post{monthPosts.length !== 1 ? 's' : ''} published
       </p>
-    </div>
+    </header>
 
     {monthPosts.length > 0 ? (
-      <div class="space-y-6">
+      <ul class="space-y-3">
         {monthPosts.map(post => (
-          <Card class="hover:shadow-lg transition-shadow">
-            <CardContent class="p-6">
-              <div class="space-y-3">
-                <!-- Date and Category -->
-                <div class="flex items-center gap-3 text-sm text-muted-foreground">
-                  <time datetime={post.data.publishDate.toISOString()}>
-                    {formatDate(post.data.publishDate)}
-                  </time>
-                  <span>•</span>
-                  <a href={`/archive/categories/${post.data.category.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and')}`}>
-                    <Badge variant="category">{post.data.category}</Badge>
-                  </a>
-                </div>
-
-                <!-- Title -->
-                <h2 class="text-xl md:text-2xl font-semibold">
-                  <a 
-                    href={`/journal/${post.slug}`}
-                    class="hover:text-primary transition-colors"
-                  >
-                    {post.data.title}
-                  </a>
-                </h2>
-
-                <!-- Description -->
-                <p class="text-muted-foreground leading-relaxed">
-                  {post.data.description}
-                </p>
-
-                <!-- Tags -->
-                {post.data.tags && post.data.tags.length > 0 && (
-                  <div class="flex flex-wrap gap-2 pt-2">
-                    {post.data.tags.map(tag => (
-                      <Badge variant="outline" class="text-xs">
-                        <a href={`/archive/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}>
-                          {tag}
-                        </a>
-                      </Badge>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </CardContent>
-          </Card>
+          <li>
+            <a 
+              href={`/journal/${post.slug}/`}
+              class="group block"
+            >
+              <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
+                {post.data.title}
+              </span>
+              <span class="block text-sm text-muted-foreground mt-0.5">
+                {post.data.description}
+              </span>
+            </a>
+          </li>
         ))}
-      </div>
+      </ul>
     ) : (
-      <div class="text-center py-12">
-        <p class="text-lg text-muted-foreground mb-4">No posts found for {monthName} {year}.</p>
-        <p class="text-sm text-muted-foreground">
-          <a href={`/journal/${year}`} class="text-primary hover:underline mr-4">
-            Browse {year}
-          </a>
-          <a href="/archive" class="text-primary hover:underline">
-            Browse all archives
-          </a>
-        </p>
-      </div>
+      <p class="text-muted-foreground">No posts found for {monthName} {year}.</p>
     )}
 
     <!-- Navigation -->
-    <div class="mt-12 pt-8 border-t">
-      <div class="flex justify-between items-center">
+    <footer class="mt-12 pt-8 border-t border-border">
+      <div class="flex justify-between">
         <a 
-          href={`/journal/${year}`}
-          class="text-sm text-primary hover:underline font-medium"
+          href={`/journal/${year}/`}
+          class="text-sm text-muted-foreground hover:text-foreground transition-colors"
         >
-          ← Back to {year}
+          ← {year}
         </a>
         <a 
           href="/archive"
-          class="text-sm text-primary hover:underline font-medium"
+          class="text-sm text-muted-foreground hover:text-foreground transition-colors"
         >
-          All Archives
+          Archive
         </a>
       </div>
-    </div>
+    </footer>
   </div>
 </BaseLayout>
