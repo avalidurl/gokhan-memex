@@ -90,9 +90,12 @@ const sortedYears = Array.from(postsByYear.keys()).sort((a, b) => b - a)
             </a>
           ))}
           {sortedTags.length > 40 && (
-            <span class="text-sm text-muted-foreground">
+            <a 
+              href="/archive/tags"
+              class="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
               +{sortedTags.length - 40} more
-            </span>
+            </a>
           )}
         </div>
       </section>
