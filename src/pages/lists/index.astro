@@ -49,9 +49,9 @@ const people = listsData.people
               ▼
             </span>
           </summary>
-          <ul class="space-y-3 pt-4">
+          <div class="space-y-3 pt-4">
             {people.map(person => (
-              <li>
+              <div>
                 <a 
                   href={person.url}
                   target={person.url.startsWith('/') ? '_self' : '_blank'}
@@ -68,9 +68,9 @@ const people = listsData.people
                     {person.description}
                   </span>
                 </a>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </details>
       </section>
 
@@ -91,9 +91,9 @@ const people = listsData.people
                 ▼
               </span>
             </summary>
-            <ul class="space-y-2 pt-4">
+            <div class="space-y-2 pt-4">
               {bookPosts.map(post => (
-                <li>
+                <div>
                   <a 
                     href={`/journal/${post.slug}/`}
                     class="group/link flex items-baseline gap-3 py-1"
@@ -105,9 +105,9 @@ const people = listsData.people
                       {post.data.publishDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
                     </span>
                   </a>
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           </details>
         </section>
       )}
@@ -129,9 +129,9 @@ const people = listsData.people
                 ▼
               </span>
             </summary>
-            <ul class="space-y-2 pt-4">
+            <div class="space-y-2 pt-4">
               {musicPosts.map(post => (
-                <li>
+                <div>
                   <a 
                     href={`/journal/${post.slug}/`}
                     class="group/link flex items-baseline gap-3 py-1"
@@ -143,9 +143,9 @@ const people = listsData.people
                       {post.data.publishDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
                     </span>
                   </a>
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           </details>
         </section>
       )}
