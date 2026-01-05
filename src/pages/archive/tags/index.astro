@@ -38,7 +38,7 @@ const sortedTags = Array.from(tagMap.entries()).sort((a, b) => b[1] - a[1])
           href={`/archive/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
           class="text-sm text-muted-foreground hover:text-foreground transition-colors"
         >
-          #{tag} <span class="text-xs opacity-60">({count})</span>
+          {tag} <span class="text-xs opacity-60">({count})</span>
         </a>
       ))}
     </div>
