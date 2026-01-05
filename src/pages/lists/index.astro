@@ -32,96 +32,134 @@ const people = listsData.people
       </p>
     </header>
 
-    <div class="space-y-12">
+    <div class="space-y-8">
       <!-- Blogroll Section -->
       <section id="blogroll">
-        <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
-          Blogroll
-        </h2>
-        <p class="text-sm text-muted-foreground mb-6">
-          Thinkers and writers on AI, rationality, economics, and technology.
-        </p>
-        <ul class="space-y-3">
-          {people.map(person => (
-            <li>
-              <a 
-                href={person.url}
-                target={person.url.startsWith('/') ? '_self' : '_blank'}
-                rel={person.url.startsWith('/') ? '' : 'noopener'}
-                class="group block"
-              >
-                <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
-                  {person.name}
-                </span>
-                {!person.url.startsWith('/') && (
-                  <span class="text-muted-foreground text-sm ml-1">↗</span>
-                )}
-                <span class="block text-sm text-muted-foreground mt-0.5">
-                  {person.description}
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <!-- Books Section -->
-      {bookPosts.length > 0 && (
-        <section id="books">
-          <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
-            Books
-          </h2>
-          <p class="text-sm text-muted-foreground mb-6">
-            Book reviews and reading reflections.
-          </p>
-          <ul class="space-y-2">
-            {bookPosts.map(post => (
+        <details class="group" open>
+          <summary class="flex items-center justify-between cursor-pointer list-none py-2 border-b border-border">
+            <div>
+              <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground">
+                Blogroll
+              </h2>
+              <p class="text-sm text-muted-foreground mt-1">
+                Thinkers and writers on AI, rationality, economics, and technology.
+              </p>
+            </div>
+            <span class="text-muted-foreground transition-transform group-open:rotate-180">
+              ▼
+            </span>
+          </summary>
+          <ul class="space-y-3 pt-4">
+            {people.map(person => (
               <li>
                 <a 
-                  href={`/journal/${post.slug}/`}
-                  class="group flex items-baseline gap-3 py-1"
+                  href={person.url}
+                  target={person.url.startsWith('/') ? '_self' : '_blank'}
+                  rel={person.url.startsWith('/') ? '' : 'noopener'}
+                  class="group/link block"
                 >
-                  <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
-                    {post.data.title}
+                  <span class="text-foreground group-hover/link:underline decoration-1 underline-offset-2">
+                    {person.name}
                   </span>
-                  <span class="text-sm text-muted-foreground shrink-0">
-                    {post.data.publishDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                  {!person.url.startsWith('/') && (
+                    <span class="text-muted-foreground text-sm ml-1">↗</span>
+                  )}
+                  <span class="block text-sm text-muted-foreground mt-0.5">
+                    {person.description}
                   </span>
                 </a>
               </li>
             ))}
           </ul>
+        </details>
+      </section>
+
+      <!-- Books Section -->
+      {bookPosts.length > 0 && (
+        <section id="books">
+          <details class="group">
+            <summary class="flex items-center justify-between cursor-pointer list-none py-2 border-b border-border">
+              <div>
+                <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground">
+                  Books
+                </h2>
+                <p class="text-sm text-muted-foreground mt-1">
+                  Book reviews and reading reflections.
+                </p>
+              </div>
+              <span class="text-muted-foreground transition-transform group-open:rotate-180">
+                ▼
+              </span>
+            </summary>
+            <ul class="space-y-2 pt-4">
+              {bookPosts.map(post => (
+                <li>
+                  <a 
+                    href={`/journal/${post.slug}/`}
+                    class="group/link flex items-baseline gap-3 py-1"
+                  >
+                    <span class="text-foreground group-hover/link:underline decoration-1 underline-offset-2">
+                      {post.data.title}
+                    </span>
+                    <span class="text-sm text-muted-foreground shrink-0">
+                      {post.data.publishDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </details>
         </section>
       )}
 
       <!-- Music Section -->
       {musicPosts.length > 0 && (
         <section id="music">
-          <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
-            Music
-          </h2>
-          <p class="text-sm text-muted-foreground mb-6">
-            Sound art, playlists, and musical explorations.
-          </p>
-          <ul class="space-y-2">
-            {musicPosts.map(post => (
-              <li>
-                <a 
-                  href={`/journal/${post.slug}/`}
-                  class="group flex items-baseline gap-3 py-1"
-                >
-                  <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
-                    {post.data.title}
-                  </span>
-                  <span class="text-sm text-muted-foreground shrink-0">
-                    {post.data.publishDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
+          <details class="group">
+            <summary class="flex items-center justify-between cursor-pointer list-none py-2 border-b border-border">
+              <div>
+                <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground">
+                  Music
+                </h2>
+                <p class="text-sm text-muted-foreground mt-1">
+                  Sound art, playlists, and musical explorations.
+                </p>
+              </div>
+              <span class="text-muted-foreground transition-transform group-open:rotate-180">
+                ▼
+              </span>
+            </summary>
+            <ul class="space-y-2 pt-4">
+              {musicPosts.map(post => (
+                <li>
+                  <a 
+                    href={`/journal/${post.slug}/`}
+                    class="group/link flex items-baseline gap-3 py-1"
+                  >
+                    <span class="text-foreground group-hover/link:underline decoration-1 underline-offset-2">
+                      {post.data.title}
+                    </span>
+                    <span class="text-sm text-muted-foreground shrink-0">
+                      {post.data.publishDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </details>
         </section>
       )}
     </div>
   </div>
 </BaseLayout>
+
+<style>
+  /* Hide default marker */
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+  
+  details summary::marker {
+    display: none;
+  }
+</style>
