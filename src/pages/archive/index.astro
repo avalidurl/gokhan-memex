@@ -86,7 +86,7 @@ const sortedYears = Array.from(postsByYear.keys()).sort((a, b) => b - a)
               href={`/archive/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
               class="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
-              #{tag} <span class="text-xs opacity-60">({count})</span>
+              {tag} <span class="text-xs opacity-60">({count})</span>
             </a>
           ))}
           {sortedTags.length > 40 && (
