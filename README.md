@@ -1,85 +1,121 @@
 # Gökhan Memex
 
-An evolving "memex" — a networked knowledge garden, portfolio, and research archive for [Gökhan Turhan](https://gokhanturhan.com). The site captures essays, interviews, dashboards, and exploratory projects that orbit stablecoins, tokenization, AGI timelines, conceptual art, and adjacent frontier technologies. It is designed as a fast, privacy-aware, offline-ready reference that can scale from personal notebook to public publication hub.
+A personal **memex** — a networked knowledge garden, portfolio, and research archive for [Gökhan Turhan](https://gokhanturhan.com). The site captures essays, interviews, dashboards, and exploratory projects orbiting stablecoins, tokenization, AGI timelines, conceptual art, prediction markets, and adjacent frontier technologies. Designed as a fast, privacy-aware, offline-ready reference that scales from personal notebook to public publication hub.
 
-## Highlights
+## Features
 
-- **Modern Astro Stack** – Astro 5 with the latest content collections, Markdown/MDX support, TypeScript, and Tailwind CSS. shadcn/ui components are ported to Astro for consistent primitives across pages.
-- **Digital Garden Information Architecture** – Journal, archive, lists, links, and portfolio sections share a common taxonomy, rich metadata, and SEO-friendly permalinks.
-- **Performance Utilities** – Lightweight timing helpers and an optional dev dashboard live under `src/lib`. Use `initializePerformanceDashboard()` and `performanceDebug()` during development.
-- **Offline-First Experience** – A custom service worker, offline status banner, and `/offline` control panel manage cached posts, update checks, and manual cache clearing.
-- **Search & Discovery** – Client-side command palette powered by the generated RSS feed supports Cmd/Ctrl‑K search, highlight sharing, and deep linking.
-- **SEO & PWA Tooling** – Structured data, canonical URLs, Open Graph/Twitter cards, RSS, sitemap, and manifest are emitted by default; the layout preloads fonts with progressive enhancement.
+- **Modern Astro Stack** — Astro 5 with content collections, MDX support, TypeScript, and Tailwind CSS. shadcn/ui-inspired components ported to Astro for consistent primitives.
+- **Digital Garden Architecture** — Journal, archive, lists, links, and portfolio sections with shared taxonomy, rich metadata, and SEO-friendly permalinks.
+- **Offline-First PWA** — Custom service worker, offline status banner, and `/offline` management UI for cached content.
+- **Search & Discovery** — Client-side command palette (Cmd/Ctrl‑K) powered by RSS feed for instant search.
+- **SEO & GEO Ready** — Structured data (JSON-LD), canonical URLs, Open Graph/Twitter cards, RSS, sitemap, `llms.txt` for AI crawlers, and `robots.txt` directives.
+- **Security Headers** — Configured via `_headers` for X-Content-Type-Options, X-Frame-Options, X-XSS-Protection, HSTS, Referrer-Policy, and Permissions-Policy.
 
 ## Tech Stack
 
-| Layer | Tooling |
-| --- | --- |
+| Layer | Technology |
+|-------|------------|
 | Framework | [Astro 5](https://astro.build) (static output) |
-| Styling | Tailwind CSS 3, shadcn/ui primitives, custom design tokens (`critical.css`) |
-| Content | MDX collections via `astro:content`, JSON data feeds |
-| Build Utilities | TypeScript, Astro integrations (`@astrojs/mdx`, `@astrojs/rss`, `@astrojs/sitemap`, `@astrojs/tailwind`) |
-| Observability | Lightweight performance utilities, minimal analytics, service worker |
-| Deployment | Any static host (Netlify, Vercel, Cloudflare, etc.) serving the `dist` directory |
+| Language | [TypeScript](https://www.typescriptlang.org) |
+| Styling | [Tailwind CSS 3](https://tailwindcss.com), [@tailwindcss/typography](https://tailwindcss.com/docs/typography-plugin) |
+| Content | [MDX](https://mdxjs.com) via `astro:content`, JSON data feeds |
+| Icons | [Lucide](https://lucide.dev) via `lucide-astro` |
+| Syntax Highlighting | [Shiki](https://shiki.style) (github-dark-dimmed theme) |
+| Deployment | [Cloudflare Pages](https://pages.cloudflare.com) |
 
-## System Overview
+## Dependencies & Credits
 
-### Layout & Meta Layer
+### Core Framework
 
-- `src/layouts/BaseLayout.astro` centralizes HTML shell, meta tags, structured data, font loading, theme toggling, and Google Analytics consent logic.
-- `critical.css` inlines theme tokens (light/dark palette, typography defaults) for the first paint; `globals.css` defers the full Tailwind build.
+| Package | Version | Description |
+|---------|---------|-------------|
+| [astro](https://astro.build) | ^5.13.2 | The web framework for content-driven websites |
+| [@astrojs/mdx](https://docs.astro.build/en/guides/integrations-guide/mdx/) | ^4.3.4 | MDX integration for Astro |
+| [@astrojs/rss](https://docs.astro.build/en/guides/rss/) | ^4.0.7 | RSS feed generation |
+| [@astrojs/sitemap](https://docs.astro.build/en/guides/integrations-guide/sitemap/) | ^3.2.0 | Sitemap generation |
+| [@astrojs/tailwind](https://docs.astro.build/en/guides/integrations-guide/tailwind/) | ^5.1.1 | Tailwind CSS integration |
+| [@astrojs/check](https://docs.astro.build/en/guides/typescript/) | ^0.9.4 | Type checking for Astro |
 
-### Navigation & Interface
+### Styling & UI
 
-- `Navigation.astro` renders the sticky header, command palette triggers, RSS link, and responsive menu.
-- shadcn-derived components live under `src/components/ui`, enabling consistent cards, badges, accordions, inputs, and alerts throughout the site.
-- Rich embeds (`src/components/embeds`) wrap platforms like YouTube, Vimeo, Bandcamp, Substack, Mirror, and NFT viewers; they lazy-load to preserve vitals.
- 
+| Package | Version | Description |
+|---------|---------|-------------|
+| [tailwindcss](https://tailwindcss.com) | ^3.4.13 | Utility-first CSS framework |
+| [@tailwindcss/typography](https://tailwindcss.com/docs/typography-plugin) | ^0.5.15 | Beautiful typographic defaults for prose |
+| [class-variance-authority](https://cva.style) | ^0.7.0 | Component variant management |
+| [clsx](https://github.com/lukeed/clsx) | ^2.1.1 | Utility for constructing className strings |
+| [tailwind-merge](https://github.com/dcastil/tailwind-merge) | ^2.5.4 | Merge Tailwind classes without conflicts |
+| [lucide-astro](https://lucide.dev) | ^0.456.0 | Beautiful & consistent icons |
 
-### Content Model
+### Content Processing
 
-- `src/content/blog` holds MDX entries with frontmatter fields (`title`, `description`, `publishDate`, `category`, `tags`, etc.). Astro collections enforce schemas in `src/content/config.ts`.
-- `src/content/projects` documents live dashboards and experiments, including the NVIDIA vs Crypto Market Cap tracker and SP100 Financial Tracker.
-- `src/data` provides curated lists and link hubs surfaced on their respective pages.
+| Package | Version | Description |
+|---------|---------|-------------|
+| [rehype-slug](https://github.com/rehypejs/rehype-slug) | ^6.0.0 | Add `id` attributes to headings |
+| [rehype-autolink-headings](https://github.com/rehypejs/rehype-autolink-headings) | ^7.1.0 | Automatically add links to headings |
 
-### Performance & Observability
+### Development
 
-- `src/lib/performance.ts`, `analytics.ts`, and `performance-dashboard.ts` provide timing helpers, basic analytics hooks, and an optional dev dashboard.
-- In development, call `performanceDebug()` from the console to inspect live metrics.
+| Package | Version | Description |
+|---------|---------|-------------|
+| [typescript](https://www.typescriptlang.org) | ^5.9.2 | TypeScript language |
+| [@types/node](https://www.npmjs.com/package/@types/node) | ^22.8.6 | Node.js type definitions |
 
-### Offline & Service Worker Layer
+### Design System Inspiration
 
-- `src/lib/service-worker.ts` orchestrates registration, update cycles, cache inspection, manual cache operations, and network status telemetry.
-- `/offline` exposes a management UI that lists cached posts, static pages, and provides controls to refresh or clear caches.
+- [shadcn/ui](https://ui.shadcn.com) — Component patterns and design tokens ported to Astro
+
+### Typography
+
+- [Source Sans Pro](https://fonts.google.com/specimen/Source+Sans+Pro) — Headings and UI
+- [Crimson Text](https://fonts.google.com/specimen/Crimson+Text) — Body text and prose
+- [JetBrains Mono](https://www.jetbrains.com/lp/mono/) — Code blocks
+
+## Project Structure
+
+```
+gokhan-memex/
+├── public/                  # Static assets (images, favicon, manifest, robots.txt, llms.txt)
+│   ├── .well-known/        # security.txt
+│   └── blog/images/        # Blog post images
+├── src/
+│   ├── components/         # Astro components (Navigation, UI primitives, embeds)
+│   │   ├── embeds/         # YouTube, Vimeo, Bandcamp, Spotify, etc.
+│   │   └── ui/             # shadcn-style UI components
+│   ├── content/            # MDX collections
+│   │   ├── blog/           # Journal posts
+│   │   └── projects/       # Project documentation
+│   ├── data/               # JSON data (links, lists)
+│   ├── layouts/            # BaseLayout with meta, structured data, theme
+│   ├── lib/                # Utilities (analytics, service-worker, utils)
+│   ├── pages/              # Astro pages (routes)
+│   └── styles/             # critical.css, globals.css
+├── dist/                   # Build output (generated)
+├── _headers                # Cloudflare/Netlify security headers
+├── _redirects              # Redirect rules
+├── astro.config.mjs        # Astro configuration
+├── tailwind.config.mjs     # Tailwind configuration
+├── tsconfig.json           # TypeScript configuration
+└── package.json            # Dependencies and scripts
+```
 
 ## Local Development
 
-Prerequisites:
-
-- Node.js >= 18.20.8 (per `engines` in `package.json`)
+**Prerequisites:**
+- Node.js >= 18.20.8
 - npm 10.x+
 
-Install dependencies:
-
 ```bash
+# Install dependencies
 npm install
-```
 
-Start the development server (hot reload on port 4321 by default):
-
-```bash
+# Start dev server (http://localhost:4321)
 npm run dev
-```
 
-Create a production build and analyze output under `dist/`:
-
-```bash
+# Build for production
 npm run build
-```
 
-Preview the built site locally:
-
-```bash
+# Preview production build
 npm run preview
 ```
 
@@ -87,76 +123,93 @@ npm run preview
 
 ### Journal Posts
 
-- Add MDX files under `src/content/blog/`.
-- Frontmatter example:
+Create MDX files in `src/content/blog/` with frontmatter:
 
-```md
+```mdx
 ---
-title: "Building a Memex #1"
-description: "Kick-off notes on designing a personal knowledge engine."
-publishDate: 2025-07-29
-category: "Technology & Data"
-tags: ["memex", "knowledge-management"]
-featured: true
+title: "Post Title"
+description: "Brief description for SEO and previews"
+publishDate: 2026-01-05
+author: "Gökhan Turhan"
+category: "Finance & Markets"
+tags: ["crypto", "stablecoins", "defi"]
+featured: false
 draft: false
-heroImage: "/images/building-a-memex.jpg"
-heroImageAlt: "Conceptual memex illustration"
+heroImage: "/blog/images/my-image.webp"
+heroImageAlt: "Image description"
+readingTime: 5
 ---
+
+Content goes here...
 ```
 
-- Use MDX components (`<TwitterEmbed />`, `<YouTubeEmbed />`, `<VimeoEmbed />`, `<SpotifyEmbed />`, `<BandcampEmbed />`, `<AppleMusicEmbed />`) as needed. All components map to the design system tokens automatically.
+### Available Categories
 
-### Projects & Dashboards
+- Finance & Markets
+- Knowledge Patterns
+- Builder Log
+- Conceptual Art
+- Interviews
+- Productivity
 
-- Place MDX dossiers inside `src/content/projects/` with fields for `projectUrl`, `githubUrl`, feature lists, and context.
-- Featured projects populate the homepage grid via collection queries.
+### Embed Components
 
-### Assets & Static Files
+Use rich media embeds in MDX:
 
-- Store images and static assets in `public/`; Astro copies them verbatim to the output.
-- Open Graph and RSS thumbnails live under `public/og/` and are referenced by content frontmatter.
-
-## Search & Discovery
-
-- The command palette listens for `Cmd/Ctrl + K` and fetches `/rss.xml` to populate results.
-- Highlighted excerpts from posts populate the search suggestions list. Search components live in `src/components/Search.astro`.
-- Breadcrumbs, archive pages, and taxonomy indexes are powered by Astro collections for zero-runtime link networks.
-
-## Offline & Privacy Tips
-
-- Visit `/offline` while online to pre-cache high-value posts for travel or low-connectivity scenarios.
-- Toggle analytics consent through the privacy notice banner; GA requests remain anonymized and respect opt-outs.
-- Service worker debug logs are exposed when `serviceWorkerManager` runs in debug mode (set via constructor options or URL flags during development).
-
-## Deployment Notes
-
-- The app builds to static HTML/CSS/JS under `dist/`; host it on any static-capable platform.
-- Ensure the host serves `_headers` and `_redirects` if you need Astro’s recommended caching and redirect behavior (useful on Netlify).
-- Update `astro.config.mjs` if deploying to a non-root path or custom domain.
-
-## Project Structure
-
-```
-src/
-├── components/          # Navigation, embeds, UI primitives, modals
-├── content/             # MDX collections for blog posts and projects
-├── data/                # Curated link/list JSON data
-├── layouts/             # BaseLayout and shared document chrome
-├── lib/                 # Perf utilities, analytics wrapper, service worker helpers
-├── pages/               # Astro pages (home, journal, archive, portfolio, offline, etc.)
-├── styles/              # Critical tokens + Tailwind globals
+```mdx
+<YouTubeEmbed id="video-id" />
+<VimeoEmbed id="video-id" />
+<SpotifyEmbed uri="spotify:track:xxx" />
+<BandcampEmbed albumId="123" />
+<TwitterEmbed id="tweet-id" />
 ```
 
-## Maintenance Checklist
+## SEO & Discoverability
 
-- Run `npm run build` before deploying to catch type errors and Astro diagnostics.
-- Validate light/dark mode after editing `critical.css` or `globals.css`.
-- Regenerate or audit the RSS feed after major content migrations.
-- Review performance alerts when shipping heavy embeds or rich media posts.
+The site includes:
 
-## License & Attribution
+- **Sitemap** — Auto-generated at `/sitemap-index.xml`
+- **RSS Feed** — Available at `/rss.xml`
+- **robots.txt** — Crawler directives with sitemap reference
+- **llms.txt** — AI crawler manifest for GEO (Generative Engine Optimization)
+- **humans.txt** — Site credits and team info
+- **security.txt** — Vulnerability disclosure contact
+- **JSON-LD** — Structured data for Person, Article, and WebSite schemas
+- **Open Graph & Twitter Cards** — Social sharing metadata
 
-All site content © 2025 Gökhan Turhan. Source code is shared for reference; please contact the author for reuse permissions or collaboration inquiries.
+## Deployment
 
+The site builds to static HTML/CSS/JS in `dist/`. Currently deployed on **Cloudflare Pages**.
 
+```bash
+npm run build
+```
 
+Ensure your host serves:
+- `_headers` for security headers and caching rules
+- `_redirects` for any redirect rules
+
+## Security
+
+Configured headers via `_headers`:
+
+- `X-Content-Type-Options: nosniff`
+- `X-Frame-Options: SAMEORIGIN`
+- `X-XSS-Protection: 1; mode=block`
+- `Strict-Transport-Security` (HSTS with preload)
+- `Referrer-Policy: strict-origin-when-cross-origin`
+- `Permissions-Policy` (camera, microphone, geolocation disabled)
+
+## Offline Support
+
+- Service worker caches key pages for offline access
+- Visit `/offline` to manage cached content
+- PWA manifest enables "Add to Home Screen"
+
+## License
+
+All site content © 2026 Gökhan Turhan. Source code shared for reference; contact the author for reuse permissions or collaboration inquiries.
+
+---
+
+Built with [Astro](https://astro.build) • Styled with [Tailwind CSS](https://tailwindcss.com) • Deployed on [Cloudflare Pages](https://pages.cloudflare.com)
