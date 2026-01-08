@@ -20,5 +20,9 @@ export function slugify(text: string): string {
     .replace(/[^\w-]+/g, '')
 }
 
+export function humanizeKebab(text: string): string {
+  return text.replace(/-/g, ' ')
+}
+
 // Re-export analytics utilities
 export { initializeAnalytics, getAnalytics, setupAutoTracking } from './analytics'
