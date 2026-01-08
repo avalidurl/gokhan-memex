@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import { formatDate } from '@/lib/utils'
 
 // Get all published blog posts, sorted by date (newest first)
 const allPosts = (await getCollection('blog'))
