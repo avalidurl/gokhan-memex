@@ -2,6 +2,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content'
 import type { GetStaticPaths } from 'astro'
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import { humanizeKebab } from '@/lib/utils'
 
 type PostEntry = CollectionEntry<'blog'>
 
@@ -37,6 +38,7 @@ allPosts.forEach((post: PostEntry) => {
 })
 
 const tag = tagMap.get(tagSlug) || tagSlug
+const displayTag = humanizeKebab(tag)
 
 const posts: PostEntry[] = allPosts
   .filter((post: PostEntry) => post.data.tags?.some((t: string) =>
@@ -46,8 +48,8 @@ const posts: PostEntry[] = allPosts
 ---
 
 <BaseLayout
-  title={`${tag} - Archive`}
-  description={`${posts.length} posts tagged with ${tag}.`}
+  title={`${displayTag} - Archive`}
+  description={`${posts.length} posts tagged with ${displayTag}.`}
   robots="noindex, follow"
 >
   <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
@@ -55,7 +57,7 @@ const posts: PostEntry[] = allPosts
       <p class="text-sm text-muted-foreground mb-2">
         <a href="/archive" class="hover:underline underline-offset-2">Archive</a> / Tags
       </p>
-      <h1 class="text-3xl font-semibold tracking-tight mb-2">{tag}</h1>
+      <h1 class="text-3xl font-semibold tracking-tight mb-2">{displayTag}</h1>
       <p class="text-muted-foreground">
         {posts.length} post{posts.length !== 1 ? 's' : ''}
       </p>

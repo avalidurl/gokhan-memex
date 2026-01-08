@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import { humanizeKebab } from '@/lib/utils'
 
 // Get all published blog posts
 const allPosts = (await getCollection('blog'))
@@ -38,7 +39,7 @@ const sortedTags = Array.from(tagMap.entries()).sort((a, b) => b[1] - a[1])
           href={`/archive/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
           class="text-sm text-muted-foreground hover:text-foreground transition-colors"
         >
-          {tag} <span class="text-xs opacity-60">({count})</span>
+          {humanizeKebab(tag)} <span class="text-xs opacity-60">({count})</span>
         </a>
       ))}
     </div>
