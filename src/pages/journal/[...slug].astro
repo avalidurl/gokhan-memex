@@ -1,7 +1,6 @@
 ---
 import { type CollectionEntry, getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import Badge from '@/components/ui/Badge.astro'
 import TableOfContents from '@/components/TableOfContents.astro'
 import SocialShare from '@/components/SocialShare.astro'
 import { formatDate } from '@/lib/utils'
@@ -60,11 +59,11 @@ const showToc = headings.filter(h => h.depth === 2 || h.depth === 3).length >= 2
   image={post.data.heroImage || `/og/${post.slug}.png`}
 >
   {/* Default Article Schema - always present */}
-  <script type="application/ld+json" set:html={JSON.stringify(defaultArticleSchema)} slot="head" />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(defaultArticleSchema)} slot="head" />
   
   {/* Additional custom schemas from frontmatter */}
   {customSchemas.map((schema: any) => (
-    <script type="application/ld+json" set:html={JSON.stringify({
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       ...schema
     })} slot="head" />

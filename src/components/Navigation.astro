@@ -4,7 +4,6 @@ import ThemeToggle from './ThemeToggle.astro'
 import SearchComponent from './Search.astro'
 
 const currentPath = Astro.url.pathname
-const isHomepage = currentPath === '/'
 const isArticle = currentPath.startsWith('/journal/') && currentPath !== '/journal/' && currentPath !== '/journal'
 
 const navigation = [
