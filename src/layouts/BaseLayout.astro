@@ -260,5 +260,28 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`
     
     <!-- Offline Status Indicator -->
     <OfflineStatus />
+    
+    <!-- Lightbox for images - click to enlarge -->
+    <div id="lightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;cursor:zoom-out;overflow:auto" onclick="this.style.display='none'">
+      <img id="lightbox-img" style="max-width:95%;max-height:95%;margin:auto;display:block;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)" />
+      <span style="position:fixed;top:20px;right:30px;color:#fff;font-size:40px;cursor:pointer">&times;</span>
+    </div>
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', () => {
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        document.querySelectorAll('article img, .prose img').forEach(img => {
+          img.style.cursor = 'zoom-in';
+          img.addEventListener('click', (e) => {
+            e.preventDefault();
+            lightboxImg.src = img.src;
+            lightbox.style.display = 'block';
+          });
+        });
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') lightbox.style.display = 'none';
+        });
+      });
+    </script>
   </body>
 </html>
