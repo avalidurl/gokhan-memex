@@ -1,28 +1,7 @@
----
-title: "21st Century Civilization: Week 8 — Industry and Money"
-description: "A comprehensive digest of the Week 8 discussion on Industry and Money from the 21st Century Civilization curriculum, covering Chinese industrial policy, monetary systems, GDP methodology, and civilizational trajectories."
-publishDate: 2026-01-18
-author: "Gökhan Turhan"
-category: "discussion-digests"
-tags:
-  - "21st-century-civilization"
-  - "political-economy"
-  - "industrial-policy"
-  - "china"
-  - "monetary-systems"
-  - "european-union"
-  - "creative-destruction"
-  - "schumpeter"
-  - "jane-jacobs"
-draft: false
-featured: true
-excerpt: "Structured digest on Chinese industrial policy, creative destruction, currency feedback, EU contradictions, and 24 questions for intellectual inquiry."
-seoKeywords:
-  - "21st century civilization"
-  - "political economy"
-  - "Chinese industrial policy"
-  - "EU monetary union"
-  - "GDP methodology"
+# 21st Century Civilization: Week 8 — Industry and Money
+
+*A comprehensive digest of the Week 8 discussion covering Chinese industrial policy, monetary systems, GDP methodology, and civilizational trajectories.*
+
 ---
 
 # 21st Century Civilization: Week 8 Discussion Digest
@@ -109,7 +88,9 @@ The discussion demonstrated particular engagement with the tension between state
 
 *Comparative positioning of major economies on governance centralization and growth orientation axes.*
 
-![Mermaid Diagram](https://mermaid.ink/img/base64:cXVhZHJhbnRDaGFydAogICAgdGl0bGUgR292ZXJuYW5jZSBNb2RlbHMgQ29tcGFyZWQKICAgIHgtYXhpcyBEaXN0cmlidXRlZCBEZWNpc2lvbi1NYWtpbmcgLS0-IENlbnRyYWxpemVkIERlY2lzaW9uLU1ha2luZwogICAgeS1heGlzIFN0YWJpbGl0eSBQcmlvcml0eSAtLT4gR3Jvd3RoIFByaW9yaXR5CiAgICBxdWFkcmFudC0xIEhpZ2ggR3Jvd3RoICYgQ2VudHJhbGl6ZWQKICAgIHF1YWRyYW50LTIgSGlnaCBHcm93dGggJiBEaXN0cmlidXRlZAogICAgcXVhZHJhbnQtMyBTdGFiaWxpdHkgJiBEaXN0cmlidXRlZAogICAgcXVhZHJhbnQtNCBTdGFiaWxpdHkgJiBDZW50cmFsaXplZAogICAgQ2hpbmE6IFswLjg1LCAwLjgwXQogICAgVW5pdGVkX1N0YXRlczogWzAuMzAsIDAuNTVdCiAgICBFdXJvcGVhbl9VbmlvbjogWzAuMzUsIDAuMjVdCiAgICBTaW5nYXBvcmU6IFswLjcwLCAwLjc1XQ==)
+
+**[INSERT DIAGRAM IMAGE HERE]**
+
 
 ---
 
@@ -129,7 +110,9 @@ The group engaged extensively with Dan Wang's book *Breakneck*, exploring the ce
 
 *Flow of transferable manufacturing skills across industries in Chinese industrial hubs.*
 
-![Mermaid Diagram](https://mermaid.ink/img/base64:Zmxvd2NoYXJ0IFRCCiAgICBzdWJncmFwaCBTa2lsbHMgW1RyYW5zZmVyYWJsZSBTa2lsbHNdCiAgICAgICAgRltQcmVjaXNpb24gQXNzZW1ibHldCiAgICAgICAgR1tRdWFsaXR5IENvbnRyb2xdCiAgICAgICAgSFtTdXBwbHkgQ2hhaW4gTWdtdF0KICAgICAgICBJW1JhcGlkIFByb3RvdHlwaW5nXQogICAgZW5kCiAgICAKICAgIFNraWxscyAtLT4gQQogICAgCiAgICBzdWJncmFwaCBUcmFuc2ZlciBbS25vd2hvdyBUcmFuc2ZlciBFY29zeXN0ZW1dCiAgICAgICAgQVtTbWFydHBob25lIEFzc2VtYmx5XSAtLT4gQltEcm9uZSBNYW51ZmFjdHVyaW5nXQogICAgICAgIEIgLS0-IENbRWxlY3RyaWMgVmVoaWNsZXNdCiAgICAgICAgQyAtLT4gRFtHcmVlbiBUZWNobm9sb2d5XQogICAgICAgIEQgLS0-IEVbTmV4dCBHZW4gVGVjaF0KICAgIGVuZA==)
+
+**[INSERT DIAGRAM IMAGE HERE]**
+
 
 By contrast, the American model's focus on innovation and product discovery without maintaining domestic manufacturing capacity results in the gradual loss of this embedded workforce knowhow—a form of tacit knowledge that cannot be easily recovered once lost.
 
@@ -169,7 +152,9 @@ By contrast, in stagnant economies, the absence of visible dynamism encourages c
 
 *Self-reinforcing cycles of optimism/dynamism versus pessimism/stagnation.*
 
-![Mermaid Diagram](https://mermaid.ink/img/base64:Zmxvd2NoYXJ0IFRCCiAgICBzdWJncmFwaCBWaXJ0dW91c0N5Y2xlIFtWaXJ0dW91cyBDeWNsZV0KICAgICAgICBkaXJlY3Rpb24gVEIKICAgICAgICBBMVtFY29ub21pYyBEeW5hbWlzbV0gLS0-IEEyW1Zpc2libGUgVHJhbnNmb3JtYXRpb25dCiAgICAgICAgQTIgLS0-IEEzW09wdGltaXNtXQogICAgICAgIEEzIC0tPiBBNFtSaXNrLVRha2luZyAmIEFkYXB0YXRpb25dCiAgICAgICAgQTQgLS0-IEExCiAgICBlbmQKICAgIAogICAgc3ViZ3JhcGggVmljaW91c0N5Y2xlIFtWaWNpb3VzIEN5Y2xlXQogICAgICAgIGRpcmVjdGlvbiBUQgogICAgICAgIEIxW0Vjb25vbWljIFN0YWduYXRpb25dIC0tPiBCMltObyBWaXNpYmxlIENoYW5nZV0KICAgICAgICBCMiAtLT4gQjNbUGVzc2ltaXNtXQogICAgICAgIEIzIC0tPiBCNFtTdGF0dXMgUHJlc2VydmF0aW9uXQogICAgICAgIEI0IC0tPiBCMQogICAgZW5k)
+
+**[INSERT DIAGRAM IMAGE HERE]**
+
 
 **B. The Trade-off Europe Has Made**
 
@@ -199,7 +184,9 @@ The third reading traces the historical shift from the gold standard to fiat cur
 
 *Historical progression from commodity-backed currency to modern fiat systems.*
 
-![Mermaid Diagram](https://mermaid.ink/img/base64:dGltZWxpbmUKICAgIHRpdGxlIEV2b2x1dGlvbiBvZiBNb25ldGFyeSBTeXN0ZW1zCiAgICBzZWN0aW9uIENvbW1vZGl0eSBFcmEKICAgICAgICBQcmUtMjB0aCBDZW50dXJ5IDogR29sZCBTdGFuZGFyZAogICAgICAgICAgICAgICAgICAgICAgICA6IEZpeGVkIEV4Y2hhbmdlIFJhdGVzCiAgICAgICAgICAgICAgICAgICAgICAgIDogTGltaXRlZCBTdGF0ZSBGaW5hbmNpbmcKICAgIHNlY3Rpb24gVHJhbnNpdGlvbgogICAgICAgIDE5NDQgOiBCcmV0dG9uIFdvb2RzCiAgICAgICAgICAgICA6IERvbGxhci1Hb2xkIFBlZwogICAgICAgICAgICAgOiBNYW5hZ2VkIEV4Y2hhbmdlCiAgICBzZWN0aW9uIEZpYXQgRXJhCiAgICAgICAgMTk3MSA6IE5peG9uIFNob2NrCiAgICAgICAgICAgICA6IEVuZCBvZiBHb2xkIENvbnZlcnRpYmlsaXR5CiAgICAgICAgUG9zdC0xOTcxIDogUHVyZSBGaWF0IEN1cnJlbmN5CiAgICAgICAgICAgICAgICAgIDogRmxvYXRpbmcgRXhjaGFuZ2UgUmF0ZXMKICAgICAgICAgICAgICAgICAgOiBFeHBhbmRlZCBTdGF0ZSBGaW5hbmNpbmcKICAgICAgICAgICAgICAgICAgOiBEZWJ0LUJhc2VkIEVjb25vbXk=)
+
+**[INSERT DIAGRAM IMAGE HERE]**
+
 
 ### 4.2 Discussion Themes
 
@@ -219,7 +206,9 @@ The discussion connected monetary policy to geopolitical influence. Because the 
 
 *Hub-and-spoke model of Federal Reserve policy impact on global economic actors.*
 
-![Mermaid Diagram](https://mermaid.ink/img/base64:Zmxvd2NoYXJ0IFRCCiAgICBGRURbRmVkZXJhbCBSZXNlcnZlXQogICAgCiAgICBGRUQgLS0-IHxSYXRlIENoYW5nZXN8IERPTVtEb21lc3RpYyBFY29ub215XQogICAgRkVEIC0tPiB8RG9sbGFyIFN0cmVuZ3RofCBFTVtFbWVyZ2luZyBNYXJrZXRzXQogICAgRkVEIC0tPiB8RGVidCBTZXJ2aWNpbmd8IENPUlBbR2xvYmFsIENvcnBvcmF0aW9uc10KICAgIEZFRCAtLT4gfFJlc2VydmUgQ3VycmVuY3l8IFRSQURFW0ludGVybmF0aW9uYWwgVHJhZGVdCiAgICBGRUQgLS0-IHxZaWVsZCBEaWZmZXJlbnRpYWxzfCBCQU5LU1tHbG9iYWwgQmFua2luZ10KICAgIAogICAgRU0gLS0-IHxEb2xsYXIgRGVidCBTdHJlc3N8IENSSVNJU1tEZWJ0IENyaXNlc10KICAgIFRSQURFIC0tPiB8RG9sbGFyIERlbWFuZHwgRlhbQ3VycmVuY3kgTWFya2V0c10=)
+
+**[INSERT DIAGRAM IMAGE HERE]**
+
 
 **D. Monetary Policy and Executive Priorities**
 
@@ -247,7 +236,9 @@ The Jacobsian insight on currency was explained: weak economies naturally develo
 
 *Contrasting natural currency adjustment with shared currency distortion effects.*
 
-![Mermaid Diagram](https://mermaid.ink/img/base64:Zmxvd2NoYXJ0IFRCCiAgICBzdWJncmFwaCBOYXR1cmFsRmVlZGJhY2sgW05hdHVyYWwgQ3VycmVuY3kgRmVlZGJhY2tdCiAgICAgICAgZGlyZWN0aW9uIFRCCiAgICAgICAgVzFbV2VhayBFY29ub215XSAtLT4gVzJbV2VhayBDdXJyZW5jeV0KICAgICAgICBXMiAtLT4gVzNbRXhwZW5zaXZlIEltcG9ydHNdCiAgICAgICAgVzIgLS0-IFc0W0NoZWFwIEV4cG9ydHNdCiAgICAgICAgVzMgLS0-IFc1W09ubHkgUHJvZHVjdGl2ZSBJbXBvcnRzXQogICAgICAgIFc0IC0tPiBXNltFeHBvcnQgQ29tcGV0aXRpdmVuZXNzXQogICAgICAgIFc1IC0tPiBXN1tFY29ub21pYyBEZXZlbG9wbWVudF0KICAgICAgICBXNiAtLT4gVzcKICAgICAgICBXNyAtLT4gVzhbU3Ryb25nZXIgRWNvbm9teV0KICAgIGVuZAogICAgCiAgICBzdWJncmFwaCBTaGFyZWRDdXJyZW5jeSBbU2hhcmVkIEN1cnJlbmN5IEVmZmVjdF0KICAgICAgICBkaXJlY3Rpb24gVEIKICAgICAgICBTMVtXZWFrIFJlZ2lvbl0gLS0-IFMyW0N1cnJlbmN5IFRvbyBTdHJvbmddCiAgICAgICAgUzIgLS0-IFMzW1VuY29tcGV0aXRpdmUgRXhwb3J0c10KICAgICAgICBTMiAtLT4gUzRbQ2hlYXAgSW1wb3J0c10KICAgICAgICBTMyAtLT4gUzVbRWNvbm9taWMgU3RhZ25hdGlvbl0KICAgICAgICBTNCAtLT4gUzUKICAgICAgICBTNSAtLT4gUzEKICAgIGVuZA==)
+
+**[INSERT DIAGRAM IMAGE HERE]**
+
 
 **C. The Euro's Distortive Effects**
 
@@ -265,7 +256,9 @@ The distinction between monetary union and fiscal union was noted as crucial. Wi
 
 *Relationship between current EU structure, required integration levels, and barriers to further unification.*
 
-![Mermaid Diagram](https://mermaid.ink/img/base64:Zmxvd2NoYXJ0IFRCCiAgICBzdWJncmFwaCBDdXJyZW50IFtDdXJyZW50IEVVIFN0cnVjdHVyZV0KICAgICAgICBNVVtNb25ldGFyeSBVbmlvbl0KICAgICAgICBNVSAtLT4gfEV4aXN0c3wgRVVST1tTaGFyZWQgQ3VycmVuY3ldCiAgICBlbmQKICAgIAogICAgc3ViZ3JhcGggUmVxdWlyZWQgW1JlcXVpcmVkIGZvciBTdGFiaWxpdHldCiAgICAgICAgRlVbRmlzY2FsIFVuaW9uXQogICAgICAgIFBVW1BvbGl0aWNhbCBVbmlvbl0KICAgICAgICBGVSAtLT4gfEVuYWJsZXN8IFNIT0NLW1Nob2NrIFJlc3BvbnNlXQogICAgICAgIFBVIC0tPiB8RW5hYmxlc3wgRlUKICAgIGVuZAogICAgCiAgICBzdWJncmFwaCBCYXJyaWVycyBbSW50ZWdyYXRpb24gQmFycmllcnNdCiAgICAgICAgTEFOR1tMYW5ndWFnZSBEaWZmZXJlbmNlc10KICAgICAgICBOQVRbTmF0aW9uYWwgSWRlbnRpdHldCiAgICAgICAgU09WW1JldGFpbmVkIFNvdmVyZWlnbnR5XQogICAgZW5kCiAgICAKICAgIEJhcnJpZXJzIC0tPiB8UHJldmVudHN8IFBVCiAgICBNVSAtLi0-IHxXaXRob3V0fCBGVQogICAgRlUgLS4tPiB8R2FwfCBDUklTSVNbU3RydWN0dXJhbCBGcmFnaWxpdHld)
+
+**[INSERT DIAGRAM IMAGE HERE]**
+
 
 ---
 
@@ -293,7 +286,9 @@ Historical regimes like the Habsburgs and Romanovs maintained power for centurie
 
 *Contrasting fragile material-based legitimacy with resilient non-material foundations.*
 
-![Mermaid Diagram](https://mermaid.ink/img/base64:Zmxvd2NoYXJ0IFRCCiAgICBzdWJncmFwaCBNb2Rlcm4gW01vZGVybiBMZWdpdGltYWN5XQogICAgICAgIGRpcmVjdGlvbiBUQgogICAgICAgIE0xW01hdGVyaWFsIFByb21pc2VdIC0tPiBNMltFY29ub21pYyBQcm9zcGVyaXR5XQogICAgICAgIE0yIC0tPiBNM1tDaXRpemVuIFN1cHBvcnRdCiAgICAgICAgTTMgLS4tPiB8SGFyZCBUaW1lc3wgTTRbTGVnaXRpbWFjeSBDcmlzaXNdCiAgICBlbmQKICAgIAogICAgc3ViZ3JhcGggSGlzdG9yaWNhbCBbSGlzdG9yaWNhbCBMZWdpdGltYWN5XQogICAgICAgIGRpcmVjdGlvbiBUQgogICAgICAgIEgxW05vbi1NYXRlcmlhbCBGb3VuZGF0aW9uc10KICAgICAgICBIMSAtLT4gSDJbVHJhZGl0aW9uXQogICAgICAgIEgxIC0tPiBIM1tSZWxpZ2lvdXMgU2FuY3Rpb25dCiAgICAgICAgSDEgLS0-IEg0W0R5bmFzdGljIENvbnRpbnVpdHldCiAgICAgICAgSDIgLS0-IEg1W1Jlc2lsaWVuY2UgaW4gQ3Jpc2lzXQogICAgICAgIEgzIC0tPiBINQogICAgICAgIEg0IC0tPiBINQogICAgZW5k)
+
+**[INSERT DIAGRAM IMAGE HERE]**
+
 
 ### 6.3 Hayek and Distributed Knowledge
 
@@ -307,7 +302,9 @@ The discussion touched on contemporary tax policy debates as examples of late-st
 
 *Self-reinforcing dynamics of taxation, production incentives, and behavioral responses.*
 
-![Mermaid Diagram](https://mermaid.ink/img/base64:Zmxvd2NoYXJ0IFRCCiAgICBzdWJncmFwaCBGaXNjYWxTcGlyYWwgW0Zpc2NhbCBQcmVzc3VyZSBTcGlyYWxdCiAgICAgICAgZGlyZWN0aW9uIFRCCiAgICAgICAgVDFbSGlnaCBUYXggQnVyZGVuXSAtLT4gVDJbUmVkdWNlZCBJbmNlbnRpdmUgdG8gUHJvZHVjZV0KICAgICAgICBUMiAtLT4gVDNbTG93ZXIgVGF4IEJhc2VdCiAgICAgICAgVDMgLS0-IFQ0W1JldmVudWUgU2hvcnRmYWxsXQogICAgICAgIFQ0IC0tPiBUNVtJbmNyZWFzZSBUYXggUmF0ZXNdCiAgICAgICAgVDUgLS0-IFQxCiAgICBlbmQKICAgIAogICAgc3ViZ3JhcGggQmVoYXZpb3JhbFJlc3BvbnNlIFtSYXRpb25hbCBSZXNwb25zZV0KICAgICAgICBkaXJlY3Rpb24gVEIKICAgICAgICBCMVtEaW1pbmlzaGluZyBSZXR1cm5zIG9uIFdvcmtdIC0tPiBCMltSZWRpcmVjdCBFZmZvcnRdCiAgICAgICAgQjIgLS0-IEIzW1NlY3VyZSBTdGF0ZSBCZW5lZml0c10KICAgICAgICBCMiAtLT4gQjRbVGF4IE9wdGltaXphdGlvbl0KICAgICAgICBCMiAtLT4gQjVbUmVsb2NhdGlvbl0KICAgIGVuZA==)
+
+**[INSERT DIAGRAM IMAGE HERE]**
+
 
 Historical parallels were noted: populations under excessive tax burdens have historically sometimes welcomed changes in governance that promised fiscal relief.
 
@@ -331,7 +328,9 @@ The group prepared for Week 9 ("Sociopolitics"), with participants selecting rea
 
 *Central themes and sub-topics covered in the Week 8 discussion on Industry and Money.*
 
-![Mermaid Diagram](https://mermaid.ink/img/base64:bWluZG1hcAogIHJvb3QoKFdlZWsgODogSW5kdXN0cnkgJiBNb25leSkpCiAgICBJbmR1c3RyaWFsIFBvbGljeQogICAgICBDaGluYSBNb2RlbAogICAgICAgIFN0YXRlIENvb3JkaW5hdGlvbgogICAgICAgIEtub3dob3cgVHJhbnNmZXIKICAgICAgICBUYXggU3RydWN0dXJlCiAgICAgIEFtZXJpY2FuIENvbnN0cmFpbnRzCiAgICAgICAgRGlzdHJpYnV0ZWQgVmV0byBQb2ludHMKICAgICAgICBCdWlsZGluZyBDaGFsbGVuZ2VzCiAgICBNb25ldGFyeSBTeXN0ZW1zCiAgICAgIEZlZCBHbG9iYWwgUm9sZQogICAgICBDdXJyZW5jeSBGZWVkYmFjawogICAgICBHb2xkIHRvIEZpYXQgRXZvbHV0aW9uCiAgICBFY29ub21pYyBNZWFzdXJlbWVudAogICAgICBHRFAgTWV0aG9kb2xvZ3kKICAgICAgUXVhbGl0eSBBZGp1c3RtZW50cwogICAgICBDcm9zcy1OYXRpb25hbCBDb21wYXJpc29uCiAgICBQb2xpdGljYWwgRWNvbm9teQogICAgICBTdGFiaWxpdHkgdnMgRHluYW1pc20KICAgICAgRVUgU3RydWN0dXJlCiAgICAgIFN0YXRlIExlZ2l0aW1hY3kKICAgIENpdmlsaXphdGlvbmFsIFF1ZXN0aW9ucwogICAgICBDcmVhdGl2ZSBEZXN0cnVjdGlvbgogICAgICBGZXJ0aWxpdHkgJiBPcHRpbWlzbQogICAgICBGaXNjYWwgU3VzdGFpbmFiaWxpdHk=)
+
+**[INSERT DIAGRAM IMAGE HERE]**
+
 
 ---
 
