@@ -1,0 +1,12 @@
+# Project-specific ignores
+node_modules/
+dist/
+build/
+.next/
+.env*
+*.log
+.git/
+package-lock.json
+yarn.lock
+coverage/
+.DS_Store
