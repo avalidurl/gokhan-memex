@@ -113,13 +113,8 @@
     margin-left: 0.25rem;
   }
 
-  .reading-container {
-    max-width: 65ch;
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    html {
-      scroll-behavior: smooth;
-    }
+  /* Smooth scroll behavior for anchor navigation */
+  html {
+    scroll-behavior: smooth;
   }
 }

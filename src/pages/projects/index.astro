@@ -14,19 +14,19 @@ const otherProjects = projects.filter(project => !project.data.featured)
   title="Projects" 
   description="A collection of projects, dashboards, and digital tools."
 >
-  <div class="eink-wrap py-[clamp(1.25rem,3vw,2.5rem)]">
+  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
     <!-- Header -->
-    <header class="mb-10 lg:mb-12">
-      <h1 class="eink-hero-title font-serif">Projects</h1>
-      <p class="eink-hero-copy">
+    <header class="mb-12">
+      <h1 class="text-3xl font-semibold tracking-tight mb-4">Projects</h1>
+      <p class="text-muted-foreground">
         Dashboards, tools, and experiments.
       </p>
     </header>
 
-    <div class="space-y-5">
+    <div class="space-y-12">
       {featuredProjects.length > 0 && (
-        <section class="eink-card">
-          <h2 class="eink-ui text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+        <section>
+          <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
             Featured
           </h2>
           <ul class="space-y-3">
@@ -36,13 +36,13 @@ const otherProjects = projects.filter(project => !project.data.featured)
                   href={project.data.projectUrl || `/projects/${project.slug}/`}
                   target={project.data.projectUrl ? '_blank' : '_self'}
                   rel={project.data.projectUrl ? 'noopener' : ''}
-                  class="group block rounded-md px-2 py-1 transition-colors hover:bg-muted/50"
+                  class="group block"
                 >
                   <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
                     {project.data.title}
                   </span>
                   {project.data.projectUrl && (
-                    <span class="eink-meta ml-1">↗</span>
+                    <span class="text-muted-foreground text-sm ml-1">↗</span>
                   )}
                   <span class="block text-sm text-muted-foreground mt-0.5">
                     {project.data.description}
@@ -55,8 +55,8 @@ const otherProjects = projects.filter(project => !project.data.featured)
       )}
 
       {otherProjects.length > 0 && (
-        <section class="eink-card">
-          <h2 class="eink-ui text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+        <section>
+          <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
             All Projects
           </h2>
           <ul class="space-y-3">
@@ -66,13 +66,13 @@ const otherProjects = projects.filter(project => !project.data.featured)
                   href={project.data.projectUrl || `/projects/${project.slug}/`}
                   target={project.data.projectUrl ? '_blank' : '_self'}
                   rel={project.data.projectUrl ? 'noopener' : ''}
-                  class="group block rounded-md px-2 py-1 transition-colors hover:bg-muted/50"
+                  class="group block"
                 >
                   <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
                     {project.data.title}
                   </span>
                   {project.data.projectUrl && (
-                    <span class="eink-meta ml-1">↗</span>
+                    <span class="text-muted-foreground text-sm ml-1">↗</span>
                   )}
                   <span class="block text-sm text-muted-foreground mt-0.5">
                     {project.data.description}
