@@ -58,6 +58,7 @@ const showToc = headings.filter(h => h.depth === 2 || h.depth === 3).length >= 2
   type="article"
   image={post.data.heroImage || `/og/${post.slug}.png`}
 >
+  <div class="reading-progress" id="reading-progress"></div>
   {/* Default Article Schema - always present */}
   <script is:inline type="application/ld+json" set:html={JSON.stringify(defaultArticleSchema)} slot="head" />
   
@@ -206,7 +207,34 @@ const showToc = headings.filter(h => h.depth === 2 || h.depth === 3).length >= 2
   </div>
 </BaseLayout>
 
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const progress = document.getElementById('reading-progress')
+    if (!progress) return
+
+    const updateProgress = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight
+      const pct = max > 0 ? (window.scrollY / max) * 100 : 0
+      progress.style.width = `${pct}%`
+    }
+
+    window.addEventListener('scroll', updateProgress, { passive: true })
+    updateProgress()
+  })
+</script>
+
 <style>
+  .reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 60;
+    width: 0%;
+    height: 2px;
+    background: hsl(var(--accent));
+    transition: width 0.08s linear;
+  }
+
   .prose :global(h1),
   .prose :global(h2),
   .prose :global(h3),
@@ -235,5 +263,11 @@ const showToc = headings.filter(h => h.depth === 2 || h.depth === 3).length >= 2
 
   .prose :global(p + p) {
     margin-top: 1.25rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reading-progress {
+      transition: none;
+    }
   }
 </style>

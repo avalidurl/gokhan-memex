@@ -6,6 +6,11 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --eink-wrap-max: min(1100px, calc(100% - clamp(1rem, 2vw, 2rem)));
+    --eink-section-space: clamp(1.25rem, 3vw, 2.5rem);
+  }
+
   html {
     font-family: "Crimson Text", Georgia, "Times New Roman", Times, serif;
   }
@@ -16,6 +21,12 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.8;
+    position: relative;
+  }
+
+  body > * {
+    position: relative;
+    z-index: 2;
   }
 
   h1,
@@ -32,8 +43,8 @@
   }
 
   h1 {
-    font-size: 2.25rem;
-    line-height: 1.1;
+    font-size: clamp(2rem, 1.65rem + 1.6vw, 3.1rem);
+    line-height: 1.15;
     font-weight: 700;
   }
 
@@ -67,6 +78,7 @@
   .prose {
     line-height: 1.8;
     margin-bottom: 1.25rem;
+    font-variant-numeric: oldstyle-nums;
   }
 
   h1,
@@ -120,9 +132,44 @@
 
   .eink-card {
     border: 1px solid hsl(var(--border));
-    border-radius: 0.75rem;
-    background-color: color-mix(in srgb, hsl(var(--card)) 70%, transparent);
-    padding: 1.5rem;
+    border-radius: 12px;
+    background-color: hsl(var(--card));
+    box-shadow: 0 0 0 1px hsl(var(--border));
+    padding: 1rem;
+  }
+
+  .eink-wrap {
+    width: var(--eink-wrap-max);
+    margin-inline: auto;
+  }
+
+  .eink-section {
+    padding-block: var(--eink-section-space);
+    border-bottom: 1px solid hsl(var(--border));
+  }
+
+  .eink-meta {
+    color: hsl(var(--muted-foreground));
+    font-family: "Source Sans Pro", ui-sans-serif, system-ui, sans-serif;
+    font-size: 0.85rem;
+  }
+
+  .eink-ui {
+    font-family: "Source Sans Pro", ui-sans-serif, system-ui, sans-serif;
+  }
+
+  .eink-hero-title {
+    margin: 0 0 0.75rem;
+    line-height: 1.15;
+    font-size: clamp(2rem, 1.65rem + 1.6vw, 3.1rem);
+    letter-spacing: -0.02em;
+  }
+
+  .eink-hero-copy {
+    margin: 0;
+    color: hsl(var(--muted-foreground));
+    font-size: clamp(1.1rem, 1rem + 0.5vw, 1.3rem);
+    max-width: 65ch;
   }
 }
 
