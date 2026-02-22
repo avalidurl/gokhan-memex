@@ -64,7 +64,7 @@
   p,
   article,
   .prose {
-    line-height: 1.7;
+    line-height: 1.75;
     margin-bottom: 1.25rem;
   }
 
@@ -113,8 +113,4 @@
     margin-left: 0.25rem;
   }
 
-  /* Smooth scroll behavior for anchor navigation */
-  html {
-    scroll-behavior: smooth;
-  }
 }

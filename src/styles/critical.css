@@ -9,7 +9,7 @@
   --secondary: 40 20% 92%;
   --secondary-foreground: 20 14% 12%;
   --muted: 40 20% 90%;
-  --muted-foreground: 20 10% 45%;
+  --muted-foreground: 20 10% 38%;
   --accent: 32 40% 55%;
   --accent-foreground: 20 14% 12%;
   --border: 40 20% 88%;
@@ -60,10 +60,9 @@
 html {
   height: 100%;
   font-size: 18px;
-  line-height: 1.6;
+  line-height: 1.75;
   -webkit-text-size-adjust: 100%;
   tab-size: 4;
-  scroll-behavior: smooth;
 }
 
 body {
@@ -81,4 +80,21 @@ body {
 
 html:not(.fonts-loaded) body {
   font-family: serif;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
