@@ -118,16 +118,11 @@
     max-width: 65ch;
   }
 
-  .paper-grain {
-    background-image:
-      radial-gradient(circle at 20% 10%, rgb(0 0 0 / 0.12) 0.4px, transparent 0.5px),
-      radial-gradient(circle at 80% 40%, rgb(0 0 0 / 0.08) 0.4px, transparent 0.5px);
-    background-size: 4px 4px, 5px 5px;
-    background-blend-mode: multiply;
-  }
-
-  .dark .paper-grain {
-    background-image: none;
+  .eink-card {
+    border: 1px solid hsl(var(--border));
+    border-radius: 0.75rem;
+    background-color: color-mix(in srgb, hsl(var(--card)) 70%, transparent);
+    padding: 1.5rem;
   }
 }
 
