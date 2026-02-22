@@ -70,7 +70,7 @@ export default {
             'h1, h2, h3, h4, h5, h6': {
               fontFamily: '"Crimson Text", Georgia, "Times New Roman", Times, serif',
               fontWeight: '600',
-              letterSpacing: '-0.02em',
+              letterSpacing: '-0.025em',
             },
             h1: {
               fontSize: '2.5rem',
