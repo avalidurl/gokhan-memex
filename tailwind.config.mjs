@@ -68,9 +68,9 @@ export default {
             lineHeight: '1.8',
             fontVariantNumeric: 'oldstyle-nums',
             'h1, h2, h3, h4, h5, h6': {
-              fontFamily: '"Source Sans Pro", ui-sans-serif, system-ui, sans-serif',
+              fontFamily: '"Crimson Text", Georgia, "Times New Roman", Times, serif',
               fontWeight: '600',
-              letterSpacing: '-0.025em',
+              letterSpacing: '-0.02em',
             },
             h1: {
               fontSize: '2.5rem',
