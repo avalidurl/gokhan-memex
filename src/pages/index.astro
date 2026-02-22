@@ -2,21 +2,12 @@
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { getCollection } from 'astro:content'
 
-// Get all posts grouped by category
+// Get recent journal posts.
 const allPosts = await getCollection('blog')
-
-// Get featured essays (longer posts, not interviews)
-const essays = allPosts
-  .filter(post => post.data.category !== 'Interviews' && post.data.category !== 'Links')
+const journalPosts = allPosts
+  .filter(post => post.data.category !== 'Links')
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
   .slice(0, 5)
-
-// Get interviews
-const interviews = allPosts
-    .filter(post => post.data.category === 'Interviews')
-    .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
-  .slice(0, 4)
-
 ---
 
 <BaseLayout 
@@ -31,55 +22,26 @@ const interviews = allPosts
       </h1>
       <div class="prose prose-lg dark:prose-invert max-w-none">
         <p class="text-lg text-muted-foreground leading-relaxed">
-          T-shaped generalist exploring stablecoins, DeFi mechanics, and deep tech. 
-          Currently focused on AGI timelines, tokenization strategies, and turning 
+          T-shaped generalist exploring stablecoins, DeFi mechanics, and deep tech.
+          Currently focused on AGI timelines, tokenization strategies, and turning
           global systemic challenges into high-leverage opportunities.
         </p>
-        <p class="text-base text-muted-foreground">
-          Contact via <a href="https://x.com/goekhan" target="_blank" rel="noopener" class="text-foreground hover:underline">X</a>, <a href="https://t.me/gigabvgatti" target="_blank" rel="noopener" class="text-foreground hover:underline">Telegram</a>, <a href="https://linkedin.com/in/goekhanturhan" target="_blank" rel="noopener" class="text-foreground hover:underline">LinkedIn</a>, <a href="https://gokhan.substack.com" target="_blank" rel="noopener" class="text-foreground hover:underline">Substack</a>, or <a href="mailto:info@gokhanturhan.com" class="text-foreground hover:underline">Email</a>.
-        </p>
-    </div>
+      </div>
     </section>
 
-    <!-- Categorized Links -->
+    <!-- Homepage Cards -->
     <div class="space-y-12">
-      
-      <!-- Essays -->
-      {essays.length > 0 && (
-        <section>
-          <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
-            <a href="/journal/" class="hover:text-foreground">Essays</a>
-          </h2>
-          <ul class="space-y-2">
-            {essays.map((post) => (
-              <li>
-                <a 
-                  href={`/journal/${post.slug}/`}
-                  class="group flex items-baseline gap-3 py-1"
-                >
-                  <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
-                    {post.data.title}
-                  </span>
-                  <span class="text-sm text-muted-foreground shrink-0">
-                    {post.data.publishDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
 
-      <!-- Interviews -->
-      {interviews.length > 0 && (
+      <!-- Journal -->
+      {journalPosts.length > 0 && (
         <section>
           <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
-            Interviews
+            <a href="/journal/" class="hover:text-foreground">Journal</a>
           </h2>
           <ul class="space-y-2">
-            {interviews.map((post) => (
+            {journalPosts.map((post) => (
               <li>
-                <a 
+                <a
                   href={`/journal/${post.slug}/`}
                   class="group flex items-baseline gap-3 py-1"
                 >
@@ -103,9 +65,9 @@ const interviews = allPosts
         </h2>
         <ul class="space-y-2">
           <li>
-              <a 
-                href="https://market-cap-tracker.vercel.app/"
-                target="_blank"
+            <a
+              href="https://market-cap-tracker.vercel.app/"
+              target="_blank"
               rel="noopener"
               class="group flex items-baseline gap-3 py-1"
             >
@@ -116,9 +78,9 @@ const interviews = allPosts
             </a>
           </li>
           <li>
-              <a 
-                href="https://sp100-financial-tracker.pages.dev/"
-                target="_blank"
+            <a
+              href="https://sp100-financial-tracker.pages.dev/"
+              target="_blank"
               rel="noopener"
               class="group flex items-baseline gap-3 py-1"
             >
@@ -131,6 +93,21 @@ const interviews = allPosts
         </ul>
       </section>
 
-      </div>
+      <!-- Contact -->
+      <section>
+        <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+          Contact
+        </h2>
+        <ul class="space-y-2">
+          <li>
+            <a href="/subscribe" class="group flex items-baseline gap-3 py-1">
+              <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
+                Contact (Substack, X, LinkedIn, GitHub)
+              </span>
+            </a>
+          </li>
+        </ul>
+      </section>
+    </div>
   </div>
 </BaseLayout>

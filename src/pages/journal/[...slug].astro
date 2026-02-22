@@ -85,7 +85,7 @@ const showToc = headings.filter(h => h.depth === 2 || h.depth === 3).length >= 2
       )}
 
       {/* Main Content */}
-      <article class={`${showToc ? 'max-w-2xl' : 'max-w-none'}`}>
+      <article class="reading-container max-w-none">
         <!-- Article Header -->
         <header class="mb-10">
           {post.data.heroImage && (
