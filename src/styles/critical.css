@@ -1,8 +1,8 @@
 :root {
-  /* Flexoki-inspired warm paper palette */
+  /* Mockup parity palette */
   --background: 45 100% 97%;
   --foreground: 30 4% 11%;
-  --card: 45 43% 98%;
+  --card: 48 100% 98%;
   --card-foreground: 30 4% 11%;
   --primary: 30 4% 11%;
   --primary-foreground: 45 100% 97%;
@@ -26,7 +26,7 @@
 .dark {
   --background: 30 4% 11%;
   --foreground: 54 11% 79%;
-  --card: 32 5% 14%;
+  --card: 30 5% 13%;
   --card-foreground: 54 11% 79%;
   --primary: 54 11% 79%;
   --primary-foreground: 30 4% 11%;
@@ -81,6 +81,25 @@ body {
   font-feature-settings: "kern" 1, "liga" 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Strict mockup grain: faint, light mode only. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image:
+    radial-gradient(circle at 20% 10%, rgb(0 0 0 / 0.18) 0.35px, transparent 0.5px),
+    radial-gradient(circle at 80% 40%, rgb(0 0 0 / 0.12) 0.35px, transparent 0.5px),
+    radial-gradient(circle at 40% 90%, rgb(0 0 0 / 0.14) 0.35px, transparent 0.5px);
+  background-size: 4px 4px, 5px 5px, 6px 6px;
+  z-index: 1;
+}
+
+.dark body::before {
+  display: none;
 }
 
 html:not(.fonts-loaded) body {

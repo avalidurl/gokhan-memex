@@ -14,9 +14,9 @@ const navigation = [
 ]
 ---
 
-<header class="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/80">
-  <div class="mx-auto max-w-5xl px-6 lg:px-8">
-    <div class="flex h-14 items-center justify-between">
+<header id="site-header" class="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/80 transition-transform duration-200">
+  <div class="eink-wrap">
+    <div class="flex min-h-[56px] items-center justify-between gap-4">
       <!-- Left side: Logo/Name or Back button -->
       <div class="flex items-center">
         {isArticle ? (
@@ -32,7 +32,7 @@ const navigation = [
           </a>
         ) : (
           <a 
-            class="font-serif text-lg tracking-tight text-foreground hover:text-foreground/80 transition-colors" 
+            class="eink-ui text-base font-bold tracking-[-0.02em] text-foreground hover:text-foreground/80 transition-colors"
             href="/"
           >
             Gökhan Turhan
@@ -42,11 +42,11 @@ const navigation = [
 
       <!-- Center: Navigation Links (Desktop only, not on article pages) -->
       {!isArticle && (
-        <nav class="hidden md:flex items-center gap-8">
+        <nav class="eink-ui hidden md:flex items-center gap-4 text-[0.95rem]">
           {navigation.map((item) => (
             <a
               href={item.href}
-              class={`text-sm transition-colors ${
+              class={`transition-colors ${
                 currentPath === item.href || currentPath.startsWith(item.href + '/')
                   ? 'text-foreground font-medium' 
                   : 'text-muted-foreground hover:text-foreground'
@@ -59,11 +59,11 @@ const navigation = [
       )}
 
       <!-- Right side: Actions -->
-      <div class="flex items-center gap-1">
+      <div class="flex items-center gap-2">
         <!-- Search Button -->
         <button 
           id="search-button"
-          class="p-2 text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted/50"
+          class="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full border border-border bg-card text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
           aria-label="Search"
         >
           <Search class="h-4 w-4" />
@@ -75,7 +75,7 @@ const navigation = [
         <!-- Mobile Menu Button (not on article pages) -->
         {!isArticle && (
           <button 
-            class="md:hidden p-2 text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted/50" 
+            class="md:hidden flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full border border-border bg-card text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
             id="mobile-menu-button"
             aria-label="Toggle menu"
           >
@@ -90,8 +90,8 @@ const navigation = [
 </header>
 
 <!-- Mobile Navigation Overlay - Outside header for proper stacking -->
-<div class="md:hidden hidden fixed inset-x-0 top-14 bottom-0 bg-background z-50 overflow-y-auto" id="mobile-menu">
-  <nav class="flex flex-col px-6 py-6">
+<div class="md:hidden hidden fixed inset-x-0 top-14 bottom-0 bg-background z-50 overflow-y-auto border-t border-border" id="mobile-menu">
+  <nav class="eink-ui flex flex-col px-6 py-6">
     {navigation.map((item) => (
       <a
         href={item.href}
@@ -122,6 +122,10 @@ const navigation = [
     const menu = document.getElementById('mobile-menu')
     const menuIcon = document.getElementById('menu-icon')
     const closeIcon = document.getElementById('close-icon')
+    const siteHeader = document.getElementById('site-header')
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    let lastScrollY = window.scrollY
+    let isHeaderHidden = false
 
     button?.addEventListener('click', () => {
       const isHidden = menu?.classList.contains('hidden')
@@ -149,5 +153,25 @@ const navigation = [
         document.body.style.overflow = ''
       })
     })
+
+    const onScroll = () => {
+      if (prefersReducedMotion) return
+      if (!siteHeader || (menu && !menu.classList.contains('hidden'))) return
+
+      const currentY = window.scrollY
+      const delta = currentY - lastScrollY
+
+      if (currentY > 80 && delta > 4 && !isHeaderHidden) {
+        siteHeader.style.transform = 'translateY(-100%)'
+        isHeaderHidden = true
+      } else if (delta < -4 && isHeaderHidden) {
+        siteHeader.style.transform = 'translateY(0)'
+        isHeaderHidden = false
+      }
+
+      lastScrollY = currentY
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
   })
 </script>

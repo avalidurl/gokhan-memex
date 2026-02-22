@@ -42,11 +42,11 @@ const sortedYears = Array.from(postsByYear.keys()).sort((a, b) => b - a)
   description="Browse all content by categories, tags, and years."
   robots="noindex, follow"
 >
-  <div class="mx-auto max-w-5xl px-6 py-12 lg:py-20">
+  <div class="eink-wrap py-[clamp(1.25rem,3vw,2.5rem)]">
     <!-- Header -->
     <header class="mb-10 lg:mb-12">
-      <h1 class="text-4xl md:text-5xl tracking-tight mb-3">Archive</h1>
-      <p class="text-lg text-muted-foreground">
+      <h1 class="eink-hero-title font-serif">Archive</h1>
+      <p class="eink-hero-copy">
         {allPosts.length} posts across {sortedCategories.length} categories and {sortedTags.length} tags.
       </p>
     </header>
@@ -54,7 +54,7 @@ const sortedYears = Array.from(postsByYear.keys()).sort((a, b) => b - a)
     <div class="space-y-5">
       <!-- Categories Section -->
       <section id="categories" class="eink-card">
-        <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+        <h2 class="eink-ui text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
           Categories
         </h2>
         <ul class="space-y-2">
@@ -67,7 +67,7 @@ const sortedYears = Array.from(postsByYear.keys()).sort((a, b) => b - a)
                 <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
                   {category}
                 </span>
-                <span class="text-sm text-muted-foreground tabular-nums">
+                <span class="eink-meta tabular-nums">
                   {count}
                 </span>
               </a>
@@ -78,14 +78,14 @@ const sortedYears = Array.from(postsByYear.keys()).sort((a, b) => b - a)
 
       <!-- Tags Section -->
       <section id="tags" class="eink-card">
-        <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+        <h2 class="eink-ui text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
           Tags
         </h2>
         <div class="flex flex-wrap gap-2">
           {sortedTags.slice(0, 40).map(([tag, count]) => (
             <a 
               href={`/archive/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
-              class="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              class="eink-ui text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               {humanizeKebab(tag)} <span class="text-xs opacity-60">({count})</span>
             </a>
@@ -93,7 +93,7 @@ const sortedYears = Array.from(postsByYear.keys()).sort((a, b) => b - a)
           {sortedTags.length > 40 && (
             <a 
               href="/archive/tags"
-              class="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              class="eink-ui text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               +{sortedTags.length - 40} more
             </a>
@@ -103,7 +103,7 @@ const sortedYears = Array.from(postsByYear.keys()).sort((a, b) => b - a)
 
       <!-- Years Section -->
       <section id="years" class="eink-card">
-        <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+        <h2 class="eink-ui text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
           Years
         </h2>
         <ul class="space-y-2">
@@ -116,7 +116,7 @@ const sortedYears = Array.from(postsByYear.keys()).sort((a, b) => b - a)
                 <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
                   {year}
                 </span>
-                <span class="text-sm text-muted-foreground tabular-nums">
+                <span class="eink-meta tabular-nums">
                   {postsByYear.get(year)?.length} posts
                 </span>
               </a>

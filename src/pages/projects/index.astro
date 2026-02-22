@@ -14,11 +14,11 @@ const otherProjects = projects.filter(project => !project.data.featured)
   title="Projects" 
   description="A collection of projects, dashboards, and digital tools."
 >
-  <div class="mx-auto max-w-5xl px-6 py-12 lg:py-20">
+  <div class="eink-wrap py-[clamp(1.25rem,3vw,2.5rem)]">
     <!-- Header -->
     <header class="mb-10 lg:mb-12">
-      <h1 class="text-4xl md:text-5xl tracking-tight mb-3">Projects</h1>
-      <p class="text-lg text-muted-foreground">
+      <h1 class="eink-hero-title font-serif">Projects</h1>
+      <p class="eink-hero-copy">
         Dashboards, tools, and experiments.
       </p>
     </header>
@@ -26,7 +26,7 @@ const otherProjects = projects.filter(project => !project.data.featured)
     <div class="space-y-5">
       {featuredProjects.length > 0 && (
         <section class="eink-card">
-          <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+          <h2 class="eink-ui text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
             Featured
           </h2>
           <ul class="space-y-3">
@@ -42,7 +42,7 @@ const otherProjects = projects.filter(project => !project.data.featured)
                     {project.data.title}
                   </span>
                   {project.data.projectUrl && (
-                    <span class="text-muted-foreground text-sm ml-1">↗</span>
+                    <span class="eink-meta ml-1">↗</span>
                   )}
                   <span class="block text-sm text-muted-foreground mt-0.5">
                     {project.data.description}
@@ -56,7 +56,7 @@ const otherProjects = projects.filter(project => !project.data.featured)
 
       {otherProjects.length > 0 && (
         <section class="eink-card">
-          <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+          <h2 class="eink-ui text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
             All Projects
           </h2>
           <ul class="space-y-3">
@@ -72,7 +72,7 @@ const otherProjects = projects.filter(project => !project.data.featured)
                     {project.data.title}
                   </span>
                   {project.data.projectUrl && (
-                    <span class="text-muted-foreground text-sm ml-1">↗</span>
+                    <span class="eink-meta ml-1">↗</span>
                   )}
                   <span class="block text-sm text-muted-foreground mt-0.5">
                     {project.data.description}
