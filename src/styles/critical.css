@@ -24,26 +24,26 @@
 }
 
 .dark {
-  /* Deep charcoal - sophisticated and easy on the eyes */
-  --background: 220 15% 10%;
-  --foreground: 40 20% 92%;
-  --card: 220 15% 12%;
-  --card-foreground: 40 20% 92%;
-  --primary: 40 30% 80%;
-  --primary-foreground: 220 15% 10%;
-  --secondary: 220 15% 16%;
-  --secondary-foreground: 40 20% 92%;
-  --muted: 220 15% 18%;
-  --muted-foreground: 220 10% 60%;
-  --accent: 32 35% 50%;
-  --accent-foreground: 40 20% 92%;
-  --border: 220 15% 20%;
-  --input: 220 15% 20%;
-  --ring: 40 30% 80%;
-  --popover: 220 15% 12%;
-  --popover-foreground: 40 20% 92%;
+  /* Warm charcoal - e-ink dark mode, no blue cast, reduced halation */
+  --background: 25 8% 11%;
+  --foreground: 40 15% 84%;
+  --card: 25 8% 13%;
+  --card-foreground: 40 15% 84%;
+  --primary: 40 25% 78%;
+  --primary-foreground: 25 8% 11%;
+  --secondary: 25 8% 17%;
+  --secondary-foreground: 40 15% 84%;
+  --muted: 25 8% 18%;
+  --muted-foreground: 40 10% 54%;
+  --accent: 32 30% 48%;
+  --accent-foreground: 40 15% 84%;
+  --border: 25 8% 22%;
+  --input: 25 8% 22%;
+  --ring: 40 25% 78%;
+  --popover: 25 8% 13%;
+  --popover-foreground: 40 15% 84%;
   --destructive: 0 63% 31%;
-  --destructive-foreground: 40 20% 92%;
+  --destructive-foreground: 40 15% 84%;
   color-scheme: dark;
 }
 
