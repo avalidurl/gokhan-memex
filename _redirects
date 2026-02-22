@@ -5,6 +5,7 @@
 
 # Newsletter redirect (permanent)
 /newsletter /subscribe 301
+/links /subscribe 301
 
 # Favicon: redirect .ico requests to existing SVG
 /favicon.ico /favicon.svg 301

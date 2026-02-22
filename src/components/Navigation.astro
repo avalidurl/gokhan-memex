@@ -10,12 +10,11 @@ const navigation = [
   { name: 'Journal', href: '/journal' },
   { name: 'Archive', href: '/archive' },
   { name: 'Lists', href: '/lists' },
-  { name: 'Links', href: '/links' },
-  { name: 'Subscribe', href: '/subscribe' }
+  { name: 'Contact', href: '/subscribe' }
 ]
 ---
 
-<header class="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/80">
+<header id="site-header" class="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/80 transition-transform duration-200">
   <div class="mx-auto max-w-5xl px-6 lg:px-8">
     <div class="flex h-14 items-center justify-between">
       <!-- Left side: Logo/Name or Back button -->
@@ -123,6 +122,10 @@ const navigation = [
     const menu = document.getElementById('mobile-menu')
     const menuIcon = document.getElementById('menu-icon')
     const closeIcon = document.getElementById('close-icon')
+    const siteHeader = document.getElementById('site-header')
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    let lastScrollY = window.scrollY
+    let isHeaderHidden = false
 
     button?.addEventListener('click', () => {
       const isHidden = menu?.classList.contains('hidden')
@@ -150,5 +153,27 @@ const navigation = [
         document.body.style.overflow = ''
       })
     })
+
+    // Hide header while scrolling down to maximize reading viewport.
+    const onScroll = () => {
+      if (prefersReducedMotion) return
+      if (!siteHeader || menu && !menu.classList.contains('hidden')) return
+
+      const currentY = window.scrollY
+      const delta = currentY - lastScrollY
+      const hideThreshold = 96
+
+      if (currentY > hideThreshold && delta > 4 && !isHeaderHidden) {
+        siteHeader.style.transform = 'translateY(-100%)'
+        isHeaderHidden = true
+      } else if (delta < -4 && isHeaderHidden) {
+        siteHeader.style.transform = 'translateY(0)'
+        isHeaderHidden = false
+      }
+
+      lastScrollY = currentY
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
   })
 </script>
