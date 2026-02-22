@@ -14,18 +14,18 @@ const otherProjects = projects.filter(project => !project.data.featured)
   title="Projects" 
   description="A collection of projects, dashboards, and digital tools."
 >
-  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
+  <div class="mx-auto max-w-5xl px-6 py-12 lg:py-20">
     <!-- Header -->
-    <header class="mb-12">
-      <h1 class="text-3xl font-semibold tracking-tight mb-4">Projects</h1>
-      <p class="text-muted-foreground">
+    <header class="mb-10 lg:mb-12">
+      <h1 class="text-4xl md:text-5xl tracking-tight mb-3">Projects</h1>
+      <p class="text-lg text-muted-foreground">
         Dashboards, tools, and experiments.
       </p>
     </header>
 
-    <div class="space-y-12">
+    <div class="space-y-5">
       {featuredProjects.length > 0 && (
-        <section>
+        <section class="eink-card">
           <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
             Featured
           </h2>
@@ -36,7 +36,7 @@ const otherProjects = projects.filter(project => !project.data.featured)
                   href={project.data.projectUrl || `/projects/${project.slug}/`}
                   target={project.data.projectUrl ? '_blank' : '_self'}
                   rel={project.data.projectUrl ? 'noopener' : ''}
-                  class="group block"
+                  class="group block rounded-md px-2 py-1 transition-colors hover:bg-muted/50"
                 >
                   <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
                     {project.data.title}
@@ -55,7 +55,7 @@ const otherProjects = projects.filter(project => !project.data.featured)
       )}
 
       {otherProjects.length > 0 && (
-        <section>
+        <section class="eink-card">
           <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
             All Projects
           </h2>
@@ -66,7 +66,7 @@ const otherProjects = projects.filter(project => !project.data.featured)
                   href={project.data.projectUrl || `/projects/${project.slug}/`}
                   target={project.data.projectUrl ? '_blank' : '_self'}
                   rel={project.data.projectUrl ? 'noopener' : ''}
-                  class="group block"
+                  class="group block rounded-md px-2 py-1 transition-colors hover:bg-muted/50"
                 >
                   <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
                     {project.data.title}

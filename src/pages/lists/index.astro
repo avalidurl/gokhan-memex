@@ -23,20 +23,20 @@ const people = listsData.people
   title="Lists"
   description="Curated collection of thought leaders, researchers, and writers shaping AI, rationality, fintech, and deep tech."
 >
-  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
+  <div class="mx-auto max-w-5xl px-6 py-12 lg:py-20">
     <!-- Header -->
-    <header class="mb-12">
-      <h1 class="text-3xl font-semibold tracking-tight mb-4">Lists</h1>
-      <p class="text-muted-foreground">
+    <header class="mb-10 lg:mb-12">
+      <h1 class="text-4xl md:text-5xl tracking-tight mb-3">Lists</h1>
+      <p class="text-lg text-muted-foreground">
         Curated recommendations of people, publications, and content I follow.
       </p>
     </header>
 
-    <div class="space-y-8">
+    <div class="space-y-5">
       <!-- Blogroll Section -->
-      <section id="blogroll">
+      <section id="blogroll" class="eink-card">
         <details class="group" open>
-          <summary class="flex items-center justify-between cursor-pointer list-none py-2 border-b border-border">
+          <summary class="flex items-center justify-between cursor-pointer list-none py-1 border-b border-border">
             <div>
               <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground">
                 Blogroll
@@ -56,7 +56,7 @@ const people = listsData.people
                   href={person.url}
                   target={person.url.startsWith('/') ? '_self' : '_blank'}
                   rel={person.url.startsWith('/') ? '' : 'noopener'}
-                  class="group/link block"
+                  class="group/link block rounded-md px-2 py-1 transition-colors hover:bg-muted/50"
                 >
                   <span class="text-foreground group-hover/link:underline decoration-1 underline-offset-2">
                     {person.name}
@@ -76,9 +76,9 @@ const people = listsData.people
 
       <!-- Books Section -->
       {bookPosts.length > 0 && (
-        <section id="books">
+        <section id="books" class="eink-card">
           <details class="group">
-            <summary class="flex items-center justify-between cursor-pointer list-none py-2 border-b border-border">
+            <summary class="flex items-center justify-between cursor-pointer list-none py-1 border-b border-border">
               <div>
                 <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground">
                   Books
@@ -96,7 +96,7 @@ const people = listsData.people
                 <div>
                   <a 
                     href={`/journal/${post.slug}/`}
-                    class="group/link flex items-baseline gap-3 py-1"
+                    class="group/link flex flex-col gap-1 rounded-md px-2 py-1 transition-colors hover:bg-muted/50 sm:flex-row sm:items-baseline sm:justify-between"
                   >
                     <span class="text-foreground group-hover/link:underline decoration-1 underline-offset-2">
                       {post.data.title}
@@ -114,9 +114,9 @@ const people = listsData.people
 
       <!-- Music Section -->
       {musicPosts.length > 0 && (
-        <section id="music">
+        <section id="music" class="eink-card">
           <details class="group">
-            <summary class="flex items-center justify-between cursor-pointer list-none py-2 border-b border-border">
+            <summary class="flex items-center justify-between cursor-pointer list-none py-1 border-b border-border">
               <div>
                 <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground">
                   Music
@@ -134,7 +134,7 @@ const people = listsData.people
                 <div>
                   <a 
                     href={`/journal/${post.slug}/`}
-                    class="group/link flex items-baseline gap-3 py-1"
+                    class="group/link flex flex-col gap-1 rounded-md px-2 py-1 transition-colors hover:bg-muted/50 sm:flex-row sm:items-baseline sm:justify-between"
                   >
                     <span class="text-foreground group-hover/link:underline decoration-1 underline-offset-2">
                       {post.data.title}
