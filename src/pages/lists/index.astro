@@ -2,9 +2,6 @@
 import { getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 
-// Import lists data
-import listsData from '@/data/lists.json'
-
 // Get all published blog posts for music and books categories
 const allPosts = (await getCollection('blog'))
   .filter(post => !post.data.draft)
@@ -16,64 +13,22 @@ const bookPosts = allPosts.filter(post =>
   (post.data.tags && post.data.tags.includes('books'))
 )
 
-const people = listsData.people
 ---
 
 <BaseLayout
   title="Lists"
-  description="Curated collection of thought leaders, researchers, and writers shaping AI, rationality, fintech, and deep tech."
+  description="Curated collection of books and music content."
 >
   <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
     <!-- Header -->
     <header class="mb-12">
       <h1 class="text-3xl font-semibold tracking-tight mb-4">Lists</h1>
       <p class="text-muted-foreground">
-        Curated recommendations of people, publications, and content I follow.
+        Curated books and music content I follow.
       </p>
     </header>
 
     <div class="space-y-8">
-      <!-- Blogroll Section -->
-      <section id="blogroll">
-        <details class="group" open>
-          <summary class="flex items-center justify-between cursor-pointer list-none py-2 border-b border-border">
-            <div>
-              <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground">
-                Blogroll
-              </h2>
-              <p class="text-sm text-muted-foreground mt-1">
-                Thinkers and writers on AI, rationality, economics, and technology.
-              </p>
-            </div>
-            <span class="text-muted-foreground transition-transform group-open:rotate-180">
-              ▼
-            </span>
-          </summary>
-          <div class="space-y-3 pt-4">
-            {people.map(person => (
-              <div>
-                <a 
-                  href={person.url}
-                  target={person.url.startsWith('/') ? '_self' : '_blank'}
-                  rel={person.url.startsWith('/') ? '' : 'noopener'}
-                  class="group/link block"
-                >
-                  <span class="text-foreground group-hover/link:underline decoration-1 underline-offset-2">
-                    {person.name}
-                  </span>
-                  {!person.url.startsWith('/') && (
-                    <span class="text-muted-foreground text-sm ml-1">↗</span>
-                  )}
-                  <span class="block text-sm text-muted-foreground mt-0.5">
-                    {person.description}
-                  </span>
-                </a>
-              </div>
-            ))}
-          </div>
-        </details>
-      </section>
-
       <!-- Books Section -->
       {bookPosts.length > 0 && (
         <section id="books">
