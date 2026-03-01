@@ -1,0 +1,12 @@
+[book]
+title = "21st Century Civilization — Week 11"
+authors = ["Gökhan Turhan"]
+language = "en"
+src = "src"
+
+[build]
+build-dir = "book"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"

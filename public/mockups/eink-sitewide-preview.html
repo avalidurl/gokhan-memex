@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Ink Site-Wide Local Mockup</title>
+  <style>
+    :root {
+      --bg: #fffcf0;
+      --fg: #1c1b1a;
+      --muted: #6f6e69;
+      --border: #e6e4d9;
+      --accent: #bc5215;
+      --card: #fffdf7;
+      --shadow: 0 0 0 1px var(--border);
+    }
+    .dark {
+      --bg: #1c1b1a;
+      --fg: #cecdc3;
+      --muted: #878580;
+      --border: #343331;
+      --accent: #da702c;
+      --card: #232220;
+      --shadow: 0 0 0 1px var(--border);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: "Crimson Text", Georgia, "Times New Roman", serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.8;
+      transition: background-color .2s ease, color .2s ease;
+      min-height: 100vh;
+    }
+
+    /* Faint paper grain (light mode only) */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.04;
+      background-image:
+        radial-gradient(circle at 20% 10%, rgba(0,0,0,.18) 0.35px, transparent 0.5px),
+        radial-gradient(circle at 80% 40%, rgba(0,0,0,.12) 0.35px, transparent 0.5px),
+        radial-gradient(circle at 40% 90%, rgba(0,0,0,.14) 0.35px, transparent 0.5px);
+      background-size: 4px 4px, 5px 5px, 6px 6px;
+      z-index: 1;
+    }
+    .dark body::before { display: none; }
+
+    .progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      width: 0%;
+      background: var(--accent);
+      z-index: 60;
+      transition: width .08s linear;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid var(--border);
+      background: color-mix(in srgb, var(--bg) 94%, transparent);
+      backdrop-filter: blur(4px);
+      transform: translateY(0);
+      transition: transform .25s ease, opacity .25s ease;
+      opacity: 1;
+    }
+    .nav.hidden {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+
+    .wrap {
+      width: min(1100px, calc(100% - clamp(1rem, 2vw, 2rem)));
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .nav-row {
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      font-family: "Source Sans Pro", system-ui, sans-serif;
+      letter-spacing: -0.02em;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .menu {
+      display: flex;
+      gap: 1rem;
+      font-family: "Source Sans Pro", system-ui, sans-serif;
+      font-size: .95rem;
+      color: var(--muted);
+    }
+
+    .controls {
+      display: flex;
+      gap: .5rem;
+      align-items: center;
+    }
+
+    .btn {
+      min-height: 44px;
+      min-width: 44px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--fg);
+      border-radius: 999px;
+      padding: 0 .9rem;
+      font-family: "Source Sans Pro", system-ui, sans-serif;
+      font-size: .85rem;
+      cursor: pointer;
+    }
+
+    .section {
+      padding: clamp(1.25rem, 3vw, 2.5rem) 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero h1 {
+      margin: 0 0 .75rem 0;
+      line-height: 1.15;
+      font-size: clamp(2rem, 1.65rem + 1.6vw, 3.1rem);
+      letter-spacing: -0.02em;
+    }
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(1.1rem, 1rem + .5vw, 1.3rem);
+      max-width: 65ch;
+    }
+
+    .cards {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      margin-top: 1rem;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      background: var(--card);
+      box-shadow: var(--shadow);
+    }
+    .card h3 {
+      margin: 0 0 .5rem 0;
+      line-height: 1.25;
+      font-size: 1.6rem;
+    }
+    .meta {
+      color: var(--muted);
+      font-family: "Source Sans Pro", system-ui, sans-serif;
+      font-size: .85rem;
+    }
+
+    .reading-grid {
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: 220px 1fr;
+    }
+    .toc {
+      position: sticky;
+      top: 76px;
+      align-self: start;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: .8rem;
+      font-family: "Source Sans Pro", system-ui, sans-serif;
+      font-size: .9rem;
+      color: var(--muted);
+      background: var(--card);
+    }
+    .focus .toc { display: none; }
+    .focus .reading-grid { grid-template-columns: 1fr; }
+
+    .article {
+      max-width: 65ch;
+    }
+    .article h2 {
+      line-height: 1.25;
+      margin: 2rem 0 .5rem;
+      font-size: clamp(1.6rem, 1.4rem + .7vw, 2rem);
+    }
+    .article p {
+      margin: 0 0 1.25rem 0;
+      font-size: clamp(1.125rem, 1.02rem + .45vw, 1.3rem);
+      font-variant-numeric: oldstyle-nums;
+    }
+    .article blockquote {
+      margin: 1.5rem 0;
+      padding: .5rem 1rem;
+      border-left: 2px solid var(--accent);
+      color: color-mix(in srgb, var(--fg) 88%, var(--muted));
+      font-style: italic;
+    }
+
+    .footer {
+      color: var(--muted);
+      font-family: "Source Sans Pro", system-ui, sans-serif;
+      font-size: .9rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.5rem 0 2rem;
+    }
+
+    @media (max-width: 900px) {
+      .reading-grid { grid-template-columns: 1fr; }
+      .toc { display: none; }
+      .menu { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition: none !important;
+        animation: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <header class="nav" id="nav">
+    <div class="wrap nav-row">
+      <div class="brand">GOKHAN TURHAN</div>
+      <nav class="menu">
+        <span>Journal</span>
+        <span>Archive</span>
+        <span>Lists</span>
+        <span>Links</span>
+      </nav>
+      <div class="controls">
+        <button class="btn" id="focusToggle">Focus Mode</button>
+        <button class="btn" id="themeToggle">Dark</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" id="root">
+    <section class="section hero">
+      <h1>E-Ink Reading UX Overhaul (Site-Wide)</h1>
+      <p>
+        Warm paper tones, inky contrast, fluid typography, reduced motion, and consistent reading rhythm across homepage, journal, archive, and lists.
+      </p>
+    </section>
+
+    <section class="section">
+      <div class="cards">
+        <article class="card">
+          <div class="meta">Homepage card</div>
+          <h3>Quiet interface with editorial hierarchy</h3>
+          <p class="meta">Readable density, calm borders, no decorative clutter.</p>
+        </article>
+        <article class="card">
+          <div class="meta">Archive card</div>
+          <h3>Warm neutrals for long scanning sessions</h3>
+          <p class="meta">Muted metadata and clear active accents.</p>
+        </article>
+        <article class="card">
+          <div class="meta">Lists card</div>
+          <h3>Consistent tokens across all templates</h3>
+          <p class="meta">One palette, one rhythm, many routes.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section reading-grid" id="readingSection">
+      <aside class="toc">
+        <strong>Contents</strong>
+        <div>Why E-Ink UX</div>
+        <div>Typography Defaults</div>
+        <div>Motion Safety</div>
+        <div>Site-Wide Rollout</div>
+      </aside>
+      <article class="article">
+        <h2>Why this feels more readable</h2>
+        <p>
+          The baseline uses a warm off-white background and deep inky text rather than cool gray or pure black/white contrast. The result is lower visual harshness while preserving legibility over long sessions.
+        </p>
+        <p>
+          Paragraph size scales fluidly with <code>clamp()</code>, maintaining a consistent measure near 65 characters per line. Spacing is bottom-biased to avoid doubled paragraph gaps.
+        </p>
+        <blockquote>
+          E-ink style is not nostalgia. It is a practical way to reduce visual fatigue and keep attention on words.
+        </blockquote>
+        <h2>Reduced motion by default rules</h2>
+        <p>
+          Smooth scrolling and transitions are constrained to motion-safe contexts. For reduced-motion users, interactions are immediate and predictable with no decorative animation overhead.
+        </p>
+        <h2>Route-level consistency</h2>
+        <p>
+          This mockup shows a single token and typography system applied to homepage cards, archive scanning blocks, and long-form article reading surfaces. It demonstrates the site-wide target before implementation.
+        </p>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <span>Local preview mock only.</span>
+      <span>Path: /mockups/eink-sitewide-preview.html</span>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      const html = document.documentElement;
+      const root = document.getElementById("root");
+      const nav = document.getElementById("nav");
+      const progress = document.getElementById("progress");
+      const themeToggle = document.getElementById("themeToggle");
+      const focusToggle = document.getElementById("focusToggle");
+
+      let lastY = window.scrollY;
+      let hidden = false;
+
+      themeToggle.addEventListener("click", () => {
+        html.classList.toggle("dark");
+        themeToggle.textContent = html.classList.contains("dark") ? "Light" : "Dark";
+      });
+
+      focusToggle.addEventListener("click", () => {
+        root.classList.toggle("focus");
+      });
+
+      function updateProgress() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+        progress.style.width = pct.toFixed(2) + "%";
+      }
+
+      function updateNav() {
+        const y = window.scrollY;
+        const delta = y - lastY;
+        const threshold = 80;
+        if (y > threshold && delta > 4 && !hidden) {
+          nav.classList.add("hidden");
+          hidden = true;
+        } else if (delta < -4 && hidden) {
+          nav.classList.remove("hidden");
+          hidden = false;
+        }
+        lastY = y;
+      }
+
+      window.addEventListener("scroll", () => {
+        updateProgress();
+        updateNav();
+      }, { passive: true });
+
+      updateProgress();
+    })();
+  </script>
+</body>
+</html>
