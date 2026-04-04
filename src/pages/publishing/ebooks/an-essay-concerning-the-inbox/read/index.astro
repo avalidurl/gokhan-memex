@@ -13,6 +13,7 @@ if (!ebook) {
 const lines = loadEbookLines(ebook)
 const pages = paginateEbookLines(lines, ebook.linesPerPage)
 const pageJumpLinks = pages.filter((page) => page.pageNumber === 1 || page.pageNumber % 5 === 0)
+const cantoStartLines = new Map(ebook.toc.map((entry) => [entry.startLine, entry]))
 ---
 
 <BaseLayout
@@ -92,6 +93,22 @@ const pageJumpLinks = pages.filter((page) => page.pageNumber === 1 || page.pageN
       </div>
     </nav>
 
+    <nav class="mt-6 rounded-2xl border border-border/70 bg-card/30 p-5">
+      <p class="mb-4 text-xs uppercase tracking-[0.22em] text-muted-foreground">Contents</p>
+      <ol class="space-y-2 text-base leading-7 text-foreground/90">
+        {ebook.toc.map((entry) => (
+          <li>
+            <a
+              href={`#${entry.anchor}`}
+              class="transition-colors hover:text-foreground hover:underline decoration-1 underline-offset-4"
+            >
+              {entry.number}. {entry.title}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+
     <div class="mt-10 space-y-8">
       {pages.map((page) => (
         <section
@@ -109,12 +126,24 @@ const pageJumpLinks = pages.filter((page) => page.pageNumber === 1 || page.pageN
           </div>
 
           <div class="mt-6 space-y-3">
-            {page.lines.map((line) => (
-              <p class="grid grid-cols-[3.75rem_1fr] gap-4 text-base leading-8">
-                <span class="font-mono text-xs text-muted-foreground">{String(line.number).padStart(4, '0')}</span>
-                <span>{line.text}</span>
-              </p>
-            ))}
+            {page.lines.map((line) => {
+              const cantoEntry = cantoStartLines.get(line.number)
+
+              return (
+                <div class="space-y-3">
+                  {cantoEntry ? (
+                    <div id={cantoEntry.anchor} class="mb-1 scroll-mt-24 border-b border-border/60 pb-3">
+                      <p class="mb-1 text-xs uppercase tracking-[0.22em] text-muted-foreground">Canto {cantoEntry.number}</p>
+                      <h2 class="text-2xl font-semibold tracking-tight">{cantoEntry.title}</h2>
+                    </div>
+                  ) : null}
+                  <p class="grid grid-cols-[3.75rem_1fr] gap-4 text-base leading-8">
+                    <span class="font-mono text-xs text-muted-foreground">{String(line.number).padStart(4, '0')}</span>
+                    <span>{line.text}</span>
+                  </p>
+                </div>
+              )
+            })}
           </div>
         </section>
       ))}
