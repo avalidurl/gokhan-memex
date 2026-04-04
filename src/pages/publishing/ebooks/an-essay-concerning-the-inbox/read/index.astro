@@ -1,0 +1,123 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import { getEbookBySlug } from '@/data/ebooks'
+import { loadEbookLines, paginateEbookLines } from '@/lib/ebook-reader'
+
+const ebook = getEbookBySlug('an-essay-concerning-the-inbox')
+
+if (!ebook) {
+  throw new Error('E-book metadata not found.')
+}
+
+const lines = loadEbookLines(ebook)
+const pages = paginateEbookLines(lines, ebook.linesPerPage)
+const pageJumpLinks = pages.filter((page) => page.pageNumber === 1 || page.pageNumber % 5 === 0)
+---
+
+<BaseLayout
+  title={`${ebook.title} | Read Online`}
+  description={`Read ${ebook.title} online in HTML with page-numbered sections.`}
+  image={ebook.coverImage}
+>
+  <div id="top" class="mx-auto max-w-6xl px-6 py-12 lg:py-16">
+    <Breadcrumbs
+      items={[
+        { label: 'Publishing', href: '/publishing/' },
+        { label: 'E-books', href: '/publishing/ebooks/' },
+        { label: ebook.title, href: `/publishing/ebooks/${ebook.slug}/` },
+      ]}
+      currentPage="Read online"
+    />
+
+    <section class="rounded-[2rem] border border-border/70 bg-card/40 p-6 shadow-sm shadow-black/5 md:p-8">
+      <div class="grid gap-8 lg:grid-cols-[280px_1fr]">
+        <img
+          src={ebook.coverImage}
+          alt={`Cover art for ${ebook.title}`}
+          class="w-full rounded-[1.75rem] border border-border/70 bg-muted/20 object-cover shadow-lg shadow-black/10"
+        />
+
+        <div>
+          <p class="mb-3 text-sm uppercase tracking-[0.28em] text-muted-foreground">Online Reader</p>
+          <h1 class="mb-4 text-4xl font-semibold tracking-tight">{ebook.title}</h1>
+          <p class="mb-4 max-w-2xl text-lg text-muted-foreground">{ebook.subtitle}</p>
+          <p class="mb-6 text-base text-foreground/90">{ebook.blurb}</p>
+
+          <div class="mb-8 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted-foreground">
+            <span>By {ebook.author}</span>
+            <span>{ebook.pageCount} pages</span>
+            <span>{ebook.lineCount} numbered lines</span>
+          </div>
+
+          <div class="rounded-2xl border border-border/70 bg-background/70 p-5">
+            <p class="mb-2 text-xs uppercase tracking-[0.22em] text-muted-foreground">Inside cover</p>
+            <p class="mb-1 text-xl font-semibold text-foreground">{ebook.title}</p>
+            <p class="mb-1 text-muted-foreground">{ebook.subtitle}</p>
+            <p class="mb-0 text-sm text-foreground/90">By {ebook.author}</p>
+          </div>
+
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a
+              href={ebook.epubUrl}
+              class="inline-flex items-center justify-center rounded-full border border-foreground/15 px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-foreground/25 hover:bg-foreground/5"
+              download
+            >
+              Download EPUB
+            </a>
+            <a
+              href={ebook.staticHtmlUrl}
+              class="inline-flex items-center justify-center rounded-full border border-border bg-muted/20 px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-foreground/20 hover:bg-muted/40"
+              target="_blank"
+              rel="noopener"
+            >
+              Raw HTML export
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="mt-8 rounded-2xl border border-border/70 bg-card/30 p-4">
+      <p class="mb-3 text-xs uppercase tracking-[0.22em] text-muted-foreground">Page numbers</p>
+      <div class="flex flex-wrap gap-2">
+        {pageJumpLinks.map((page) => (
+          <a
+            href={`#page-${page.pageNumber}`}
+            class="rounded-full border border-border/70 px-3 py-1 text-sm text-muted-foreground transition-colors hover:border-foreground/20 hover:text-foreground"
+          >
+            Page {page.pageNumber}
+          </a>
+        ))}
+      </div>
+    </nav>
+
+    <div class="mt-10 space-y-8">
+      {pages.map((page) => (
+        <section
+          id={`page-${page.pageNumber}`}
+          class="rounded-[2rem] border border-border/70 bg-card/40 p-6 shadow-sm shadow-black/5 md:p-8"
+        >
+          <div class="flex items-center justify-between gap-4 border-b border-border/60 pb-4">
+            <div>
+              <p class="mb-1 text-xs uppercase tracking-[0.24em] text-muted-foreground">Page {page.pageNumber}</p>
+              <p class="text-sm text-muted-foreground">
+                Lines {String(page.lines[0]?.number ?? 0).padStart(4, '0')} to {String(page.lines[page.lines.length - 1]?.number ?? 0).padStart(4, '0')}
+              </p>
+            </div>
+            <a href="#top" class="text-sm text-muted-foreground transition-colors hover:text-foreground">Back to top</a>
+          </div>
+
+          <div class="mt-6 space-y-3">
+            {page.lines.map((line) => (
+              <p class="grid grid-cols-[3.75rem_1fr] gap-4 text-base leading-8">
+                <span class="font-mono text-xs text-muted-foreground">{String(line.number).padStart(4, '0')}</span>
+                <span>{line.text}</span>
+              </p>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
