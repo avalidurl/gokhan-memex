@@ -14,8 +14,8 @@ interface Props {
 const { items, currentPage } = Astro.props
 ---
 
-<nav aria-label="breadcrumb" class="mb-6">
-  <ol class="flex items-center space-x-2 text-sm text-muted-foreground">
+<nav aria-label="breadcrumb" class="mb-6 overflow-x-auto pb-2">
+  <ol class="flex min-w-max items-center gap-2 whitespace-nowrap text-sm text-muted-foreground">
     <!-- Home -->
     <li>
       <a 
@@ -30,10 +30,10 @@ const { items, currentPage } = Astro.props
     <!-- Breadcrumb items -->
     {items.map((item) => (
       <>
-        <li>
+        <li class="flex-shrink-0">
           <ChevronRight class="h-4 w-4" />
         </li>
-        <li>
+        <li class="flex-shrink-0">
           <a 
             href={item.href}
             class="hover:text-foreground transition-colors"
@@ -47,10 +47,10 @@ const { items, currentPage } = Astro.props
     <!-- Current page -->
     {currentPage && (
       <>
-        <li>
+        <li class="flex-shrink-0">
           <ChevronRight class="h-4 w-4" />
         </li>
-        <li class="text-foreground font-medium">
+        <li class="max-w-[12rem] truncate text-foreground font-medium sm:max-w-none" title={currentPage}>
           {currentPage}
         </li>
       </>

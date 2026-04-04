@@ -21,7 +21,7 @@ const publishedLabel = new Date(ebook.publishedOn).toLocaleDateString('en-US', {
   description={ebook.description}
   image={ebook.coverImage}
 >
-  <div class="mx-auto max-w-5xl px-6 py-12 lg:py-16">
+  <div class="ebook-document mx-auto max-w-5xl px-6 py-12 lg:py-16">
     <Breadcrumbs
       items={[
         { label: 'Publishing', href: '/publishing/' },
@@ -35,41 +35,41 @@ const publishedLabel = new Date(ebook.publishedOn).toLocaleDateString('en-US', {
         <img
           src={ebook.coverImage}
           alt={`Cover art for ${ebook.title}`}
-          class="w-full rounded-[2rem] border border-border/70 bg-muted/20 object-cover shadow-lg shadow-black/10"
+          class="w-full border border-foreground/10 object-cover"
         />
       </div>
 
       <div>
-        <p class="mb-3 text-sm uppercase tracking-[0.28em] text-muted-foreground">Publishing / E-books</p>
+        <p class="doc-eyebrow mb-3">Publishing / E-books</p>
         <h1 class="mb-4 text-4xl font-semibold tracking-tight">{ebook.title}</h1>
-        <p class="mb-5 max-w-2xl text-lg text-muted-foreground">{ebook.subtitle}</p>
+        <p class="mb-5 max-w-2xl text-lg text-foreground/70">{ebook.subtitle}</p>
 
-        <div class="mb-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted-foreground">
+        <div class="mb-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-foreground/60">
           <span>{ebook.author}</span>
           <span>{publishedLabel}</span>
           <span>{ebook.pageCount} pages</span>
           <span>{ebook.lineCount} lines</span>
         </div>
 
-        <p class="max-w-3xl text-base text-foreground/90">{ebook.blurb}</p>
+        <p class="doc-copy max-w-3xl text-lg text-foreground/90">{ebook.blurb}</p>
 
-        <div class="mt-8 flex flex-wrap gap-3">
+        <div class="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-base">
           <a
             href={ebook.browserEditionUrl}
-            class="inline-flex items-center justify-center rounded-full border border-foreground/15 px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-foreground/25 hover:bg-foreground/5"
+            class="doc-link"
           >
             Open HTML edition
           </a>
           <a
             href={ebook.epubUrl}
-            class="inline-flex items-center justify-center rounded-full border border-border bg-muted/20 px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-foreground/20 hover:bg-muted/40"
+            class="doc-link"
             download
           >
             Download EPUB
           </a>
           <a
             href={ebook.staticHtmlUrl}
-            class="inline-flex items-center justify-center rounded-full px-2 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            class="doc-link"
             target="_blank"
             rel="noopener"
           >
@@ -79,13 +79,54 @@ const publishedLabel = new Date(ebook.publishedOn).toLocaleDateString('en-US', {
       </div>
     </section>
 
-    <section class="mt-14">
-      <div class="max-w-3xl rounded-3xl border border-border/70 bg-card/40 p-6 shadow-sm shadow-black/5">
-        <p class="mb-3 text-xs uppercase tracking-[0.22em] text-muted-foreground">Info</p>
-        <p class="mb-0 text-lg leading-8 text-foreground/90">
-          {ebook.blurb}
-        </p>
+    <section class="mt-14 grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
+      <div class="border-t border-foreground/15 pt-6">
+        <p class="doc-eyebrow mb-3">Info</p>
+        <p class="doc-copy mb-0 text-lg text-foreground/90">{ebook.blurb}</p>
+      </div>
+
+      <div class="border-t border-foreground/15 pt-6">
+        <h2 class="mb-4 text-2xl font-semibold tracking-tight">Table of Contents</h2>
+        <ol class="space-y-2 text-base leading-7">
+          {ebook.toc.map((entry) => (
+            <li>
+              <a href={`${ebook.browserEditionUrl}#${entry.anchor}`} class="doc-link">
+                {entry.number}. {entry.title}
+              </a>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   </div>
 </BaseLayout>
+
+<style>
+  .ebook-document {
+    color: #171717;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+
+  .ebook-document .doc-eyebrow {
+    color: #666;
+    font-family: "Courier New", monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .ebook-document .doc-copy {
+    line-height: 1.38;
+  }
+
+  .ebook-document .doc-link {
+    color: #1a0dab;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.12em;
+  }
+
+  .ebook-document .doc-link:visited {
+    color: #551a8b;
+  }
+</style>
