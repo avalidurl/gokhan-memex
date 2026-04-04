@@ -7,30 +7,30 @@ import { ebooks } from '@/data/ebooks'
   title="Publishing"
   description="Digital editions, browser-readable texts, and downloadable e-books by Gökhan Turhan."
 >
-  <div class="mx-auto max-w-3xl px-6 py-12 lg:py-16">
+  <div class="publishing-document mx-auto max-w-4xl px-6 py-12 lg:py-16">
     <header class="mb-12">
-      <p class="mb-3 text-sm uppercase tracking-[0.28em] text-muted-foreground">Publishing</p>
+      <p class="doc-eyebrow mb-3">Publishing</p>
       <h1 class="mb-4 text-3xl font-semibold tracking-tight">Publishing</h1>
-      <p class="max-w-2xl text-muted-foreground">
-        Digital editions, browser-readable texts, and downloadable books served as static artifacts through Cloudflare Pages.
+      <p class="doc-copy max-w-2xl text-foreground/80">
+        Digital editions, browser-readable texts, and downloadable books prepared as quiet web documents.
       </p>
     </header>
 
-    <section id="ebooks" class="rounded-3xl border border-border/70 bg-card/40 p-6 shadow-sm shadow-black/5">
-      <div class="flex flex-col gap-4 border-b border-border/60 pb-5 sm:flex-row sm:items-end sm:justify-between">
+    <section id="ebooks" class="border-t border-foreground/15 pt-8">
+      <div class="flex flex-col gap-4 border-b border-foreground/10 pb-5 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h2 class="text-2xl font-semibold tracking-tight">
-            <a href="/publishing/ebooks/" class="hover:underline decoration-1 underline-offset-4">
+            <a href="/publishing/ebooks/" class="doc-link">
               E-books
             </a>
           </h2>
-          <p class="mt-2 max-w-xl text-sm text-muted-foreground">
+          <p class="doc-copy mt-2 max-w-xl text-base text-foreground/75">
             Screen-native editions with EPUB downloads, browser reading, and cover art preserved as first-class web assets.
           </p>
         </div>
         <a
           href="/publishing/ebooks/"
-          class="inline-flex items-center justify-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground hover:underline decoration-1 underline-offset-4"
+          class="doc-link text-base"
         >
           View library
         </a>
@@ -38,25 +38,25 @@ import { ebooks } from '@/data/ebooks'
 
       <ul class="mt-6 space-y-6">
         {ebooks.map((ebook) => (
-          <li class="grid gap-5 md:grid-cols-[140px_1fr]">
+          <li class="grid gap-5 py-2 md:grid-cols-[140px_1fr]">
             <a href={`/publishing/ebooks/${ebook.slug}/`} class="block">
               <img
                 src={ebook.coverImage}
                 alt={`Cover art for ${ebook.title}`}
-                class="w-full rounded-2xl border border-border/70 bg-muted/20 object-cover shadow-sm"
+                class="w-full border border-foreground/10 object-cover"
                 loading="lazy"
               />
             </a>
             <div>
-              <p class="mb-2 text-xs uppercase tracking-[0.22em] text-muted-foreground">E-book 01</p>
+              <p class="doc-eyebrow mb-2">E-book 01</p>
               <h3 class="mt-0 text-xl font-semibold">
-                <a href={`/publishing/ebooks/${ebook.slug}/`} class="hover:underline decoration-1 underline-offset-4">
+                <a href={`/publishing/ebooks/${ebook.slug}/`} class="doc-link">
                   {ebook.title}
                 </a>
               </h3>
-              <p class="mb-3 text-sm text-muted-foreground">{ebook.subtitle}</p>
-              <p class="text-base text-foreground/90">{ebook.blurb}</p>
-              <div class="mt-4 flex flex-wrap gap-4 text-sm text-muted-foreground">
+              <p class="mb-3 text-base text-foreground/70">{ebook.subtitle}</p>
+              <p class="doc-copy text-lg text-foreground/90">{ebook.blurb}</p>
+              <div class="mt-4 flex flex-wrap gap-4 text-sm text-foreground/60">
                 <span>{ebook.author}</span>
                 <span>{ebook.pageCount} pages</span>
                 <span>{ebook.lineCount} lines</span>
@@ -68,3 +68,33 @@ import { ebooks } from '@/data/ebooks'
     </section>
   </div>
 </BaseLayout>
+
+<style>
+  .publishing-document {
+    color: #171717;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+
+  .publishing-document .doc-eyebrow {
+    color: #666;
+    font-family: "Courier New", monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .publishing-document .doc-copy {
+    line-height: 1.38;
+  }
+
+  .publishing-document .doc-link {
+    color: #1a0dab;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.12em;
+  }
+
+  .publishing-document .doc-link:visited {
+    color: #551a8b;
+  }
+</style>

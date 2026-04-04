@@ -35,6 +35,9 @@ import Button from './ui/Button.astro'
     
     // Check if user has already made a choice
     const privacyChoice = localStorage.getItem('privacy-choice')
+    const isPublishingRoute = window.location.pathname.startsWith('/publishing/')
+    const isSmallScreen = window.matchMedia('(max-width: 640px)').matches
+    const showDelay = isPublishingRoute || isSmallScreen ? 8000 : 2000
     
     // Show popup only if no previous choice was made
     if (!privacyChoice) {
@@ -42,7 +45,7 @@ import Button from './ui/Button.astro'
       setTimeout(() => {
         notice?.classList.remove('hidden')
         notice?.classList.add('animate-in', 'slide-in-from-bottom-2')
-      }, 2000) // 2 second delay
+      }, showDelay)
     }
     
     // Handle accept
@@ -109,5 +112,25 @@ import Button from './ui/Button.astro'
   
   .animate-out.slide-out-to-bottom-2 {
     animation: slide-out-to-bottom 0.3s ease-in;
+  }
+
+  @media (max-width: 640px) {
+    #privacy-notice {
+      bottom: 0.75rem;
+      left: 0.75rem;
+      right: 0.75rem;
+      max-width: none;
+      padding: 0.875rem;
+    }
+
+    #privacy-notice p {
+      font-size: 0.82rem;
+      line-height: 1.45;
+      margin-bottom: 0.75rem;
+    }
+
+    #privacy-notice .flex.gap-2 {
+      flex-wrap: wrap;
+    }
   }
 </style>
