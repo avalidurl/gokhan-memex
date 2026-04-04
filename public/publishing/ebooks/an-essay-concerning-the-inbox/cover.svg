@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="2400" viewBox="0 0 1600 2400">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#021108"/>
+      <stop offset="100%" stop-color="#081c0d"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#042414"/>
+      <stop offset="100%" stop-color="#0b2a18"/>
+    </linearGradient>
+    <pattern id="scanlines" width="8" height="8" patternUnits="userSpaceOnUse">
+      <rect width="8" height="4" fill="rgba(0,0,0,0.0)"/>
+      <rect y="4" width="8" height="4" fill="rgba(0,0,0,0.15)"/>
+    </pattern>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="2400" fill="url(#bg)"/>
+  <rect x="90" y="90" width="1420" height="2220" rx="30" fill="#0c140e" stroke="#395842" stroke-width="6"/>
+  <rect x="150" y="150" width="1300" height="2100" rx="22" fill="url(#screen)" stroke="#93ffb2" stroke-width="5"/>
+  <rect x="150" y="150" width="1300" height="2100" rx="22" fill="url(#scanlines)" opacity="0.7"/>
+
+  <text x="200" y="230" fill="#b7ffc8" font-family="Courier New, monospace" font-size="32">TEXT PROCESSOR :: DRAFT 001 :: PAGE 001</text>
+  <text x="200" y="278" fill="#8ef9a7" font-family="Courier New, monospace" font-size="22">F1=HELP   ^K^S=SAVE   ^Q^F=FIND   INS=INSERT   PORT=110   STATUS:READY</text>
+
+  <text x="210" y="430" fill="#d7ffe0" font-family="Courier New, monospace" font-size="104" filter="url(#glow)">AN ESSAY</text>
+  <text x="210" y="550" fill="#d7ffe0" font-family="Courier New, monospace" font-size="104" filter="url(#glow)">CONCERNING</text>
+  <text x="210" y="670" fill="#d7ffe0" font-family="Courier New, monospace" font-size="104" filter="url(#glow)">THE INBOX</text>
+
+  <text x="214" y="762" fill="#9cffb1" font-family="Courier New, monospace" font-size="34">A LOCKEAN POEM IN 1000 LINES</text>
+  <text x="214" y="810" fill="#d7ffe0" font-family="Courier New, monospace" font-size="28">BY GOKHAN TURHAN</text>
+  <text x="214" y="858" fill="#86ffac" font-family="Courier New, monospace" font-size="28">fetchpop   PopTart   get-mail   gwpop</text>
+  <text x="214" y="906" fill="#86ffac" font-family="Courier New, monospace" font-size="28">pimp   pop-perl   popc   popmail   upop</text>
+
+  <rect x="210" y="950" width="1180" height="960" rx="12" fill="rgba(0,0,0,0.12)" stroke="#67f390" stroke-width="2"/>
+  <text x="240" y="1002" fill="#b0ffc2" font-family="Courier New, monospace" font-size="22">001....|....010....|....020....|....030....|....040....|....050</text>
+      <text x="190" y="1020" fill="#5ef18b" font-size="26" opacity="0.34">01</text><text x="250" y="1020" fill="#80ff9b" font-size="26" opacity="0.28">| PopTart :: a complex idea :: /var/spool/mail</text>
+      <text x="190" y="1090" fill="#5ef18b" font-size="26" opacity="0.34">02</text><text x="250" y="1090" fill="#80ff9b" font-size="26" opacity="0.28">| get-mail :: judgment :: /var/spool/mail</text>
+      <text x="190" y="1160" fill="#5ef18b" font-size="26" opacity="0.34">03</text><text x="250" y="1160" fill="#80ff9b" font-size="26" opacity="0.28">| gwpop :: duration :: /var/spool/mail</text>
+      <text x="190" y="1230" fill="#5ef18b" font-size="26" opacity="0.34">04</text><text x="250" y="1230" fill="#80ff9b" font-size="26" opacity="0.28">| pimp :: identity :: /var/spool/mail</text>
+      <text x="190" y="1300" fill="#5ef18b" font-size="26" opacity="0.34">05</text><text x="250" y="1300" fill="#80ff9b" font-size="26" opacity="0.28">| pop-perl :: association :: /var/spool/mail</text>
+      <text x="190" y="1370" fill="#5ef18b" font-size="26" opacity="0.34">06</text><text x="250" y="1370" fill="#80ff9b" font-size="26" opacity="0.28">| popc :: memory :: /var/spool/mail</text>
+      <text x="190" y="1440" fill="#5ef18b" font-size="26" opacity="0.34">07</text><text x="250" y="1440" fill="#80ff9b" font-size="26" opacity="0.28">| popmail :: consent :: /var/spool/mail</text>
+      <text x="190" y="1510" fill="#5ef18b" font-size="26" opacity="0.34">08</text><text x="250" y="1510" fill="#80ff9b" font-size="26" opacity="0.28">| upop :: property :: /var/spool/mail</text>
+      <text x="190" y="1580" fill="#5ef18b" font-size="26" opacity="0.34">09</text><text x="250" y="1580" fill="#80ff9b" font-size="26" opacity="0.28">| popclient :: personhood :: /var/spool/mail</text>
+      <text x="190" y="1650" fill="#5ef18b" font-size="26" opacity="0.34">10</text><text x="250" y="1650" fill="#80ff9b" font-size="26" opacity="0.28">| fetchmail :: evidence :: /var/spool/mail</text>
+      <text x="190" y="1720" fill="#5ef18b" font-size="26" opacity="0.34">11</text><text x="250" y="1720" fill="#80ff9b" font-size="26" opacity="0.28">| movemail :: reflection :: /var/spool/mail</text>
+      <text x="190" y="1790" fill="#5ef18b" font-size="26" opacity="0.34">12</text><text x="250" y="1790" fill="#80ff9b" font-size="26" opacity="0.28">| rpop :: a simple idea :: /var/spool/mail</text>
+
+  <rect x="210" y="1970" width="1180" height="160" rx="12" fill="rgba(0,0,0,0.20)" stroke="#67f390" stroke-width="2"/>
+  <text x="245" y="2030" fill="#d7ffe0" font-family="Courier New, monospace" font-size="28">No innate letter arrives; contact writes the mind.</text>
+  <text x="245" y="2082" fill="#9cffb1" font-family="Courier New, monospace" font-size="24">Green phosphor, page ruler, command bar: an homage to early text processors.</text>
+
+  <text x="210" y="2200" fill="#8ef9a7" font-family="Courier New, monospace" font-size="24">AUTHOR: GOKHAN TURHAN   FORMAT: EPUB   HOST: CLOUDFLARE PAGES</text>
+</svg>

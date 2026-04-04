@@ -1,0 +1,14 @@
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/publishing/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/publishing/ebooks/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/publishing/ebooks/an-essay-concerning-the-inbox/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/publishing/ebooks/an-essay-concerning-the-inbox/read/
+  Cache-Control: public, max-age=0, must-revalidate
