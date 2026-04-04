@@ -475,7 +475,7 @@ def build_cover_svg() -> str:
   <text x="210" y="670" fill="#d7ffe0" font-family="Courier New, monospace" font-size="104" filter="url(#glow)">THE INBOX</text>
 
   <text x="214" y="762" fill="#9cffb1" font-family="Courier New, monospace" font-size="34">A LOCKEAN POEM IN 1000 LINES</text>
-  <text x="214" y="810" fill="#d7ffe0" font-family="Courier New, monospace" font-size="28">BY GOKHAN TURHAN</text>
+  <text x="214" y="810" fill="#d7ffe0" font-family="Courier New, monospace" font-size="28">BY GÖKHAN TURHAN</text>
   <text x="214" y="858" fill="#86ffac" font-family="Courier New, monospace" font-size="28">fetchpop   PopTart   get-mail   gwpop</text>
   <text x="214" y="906" fill="#86ffac" font-family="Courier New, monospace" font-size="28">pimp   pop-perl   popc   popmail   upop</text>
 
@@ -487,7 +487,7 @@ def build_cover_svg() -> str:
   <text x="245" y="2030" fill="#d7ffe0" font-family="Courier New, monospace" font-size="28">No innate letter arrives; contact writes the mind.</text>
   <text x="245" y="2082" fill="#9cffb1" font-family="Courier New, monospace" font-size="24">Green phosphor, page ruler, command bar: an homage to early text processors.</text>
 
-  <text x="210" y="2200" fill="#8ef9a7" font-family="Courier New, monospace" font-size="24">AUTHOR: GOKHAN TURHAN   FORMAT: EPUB   HOST: CLOUDFLARE PAGES</text>
+  <text x="210" y="2200" fill="#8ef9a7" font-family="Courier New, monospace" font-size="24">AUTHOR: GÖKHAN TURHAN   FORMAT: EPUB   EDITION: DIGITAL</text>
 </svg>
 """
 
@@ -565,7 +565,7 @@ def build_html(by_canto: list[list[str]]) -> str:
       <p><strong>{html.escape(TITLE)}</strong></p>
       <p>{html.escape(SUBTITLE)}</p>
       <p>By {html.escape(AUTHOR)}</p>
-      <p>First digital edition for Cloudflare Pages.</p>
+      <p>First digital edition.</p>
     </section>
 
     <nav class="toc">
