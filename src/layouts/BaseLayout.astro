@@ -35,8 +35,7 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Theme: must run synchronously before first paint to prevent flash -->
     <script is:inline>
-      const t = localStorage.getItem('theme') ??
-        (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const t = localStorage.getItem('theme') ?? 'light';
       if (t === 'dark') document.documentElement.classList.add('dark');
     </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -78,8 +77,8 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`
     <meta name="apple-mobile-web-app-title" content={siteName} />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="msapplication-config" content="/browserconfig.xml" />
-    <meta name="msapplication-TileColor" content="#c49a6c" />
-    <meta name="theme-color" content="#c49a6c" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="theme-color" content="#ffffff" />
     
     <!-- Apple Touch Icons -->
     <link rel="apple-touch-icon" href="/icons/icon-152x152.png" />
@@ -91,64 +90,12 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`
     <meta name="msapplication-square150x150logo" content="/icons/icon-144x144.png" />
     <meta name="msapplication-square310x310logo" content="/icons/icon-384x384.png" />
     
-    <!-- Fonts - Optimized Loading -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    
     <!-- Substack DNS prefetch for faster iframe loading -->
     <link rel="dns-prefetch" href="https://gokhan.substack.com" />
     <link rel="preconnect" href="https://gokhan.substack.com" />
     
-    <!-- Load fonts with swap behavior for instant text rendering -->
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap"
-      media="print"
-      onload="this.media='all'"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap"
-      media="print"
-      onload="this.media='all'"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
-      media="print"
-      onload="this.media='all'"
-    />
-    
-    <!-- Fallback for users with JS disabled -->
-    <noscript>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" />
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" />
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" />
-    </noscript>
-    
     <!-- Critical CSS - Inlined for First Contentful Paint Optimization -->
     <style is:inline set:html={criticalStyles}></style>
-
-
-    <!-- Font loading progressive enhancement -->
-    <script is:inline>
-      document.documentElement.classList.add('js');
-
-      const markFontsLoaded = () => {
-        document.documentElement.classList.add('fonts-loaded');
-      };
-
-      if ('fonts' in document) {
-        Promise.all([
-          document.fonts.load('400 1em "Crimson Text"'),
-          document.fonts.load('600 1em "Source Sans Pro"')
-        ]).then(markFontsLoaded).catch(markFontsLoaded);
-
-        document.fonts.ready.then(markFontsLoaded).catch(markFontsLoaded);
-      } else {
-        window.addEventListener('load', markFontsLoaded);
-      }
-    </script>
     
     <!-- Google Analytics - Load by Default -->
     <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-TSMR6G8LLL"></script>
@@ -236,7 +183,7 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`
     })} />
   </head>
 
-  <body class="min-h-screen bg-background font-sans antialiased">
+  <body class="min-h-screen bg-background font-serif">
     <ThemeProvider />
     <div class="relative flex min-h-screen flex-col">
       <Navigation />
@@ -246,15 +193,15 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`
       </main>
       
       <!-- Footer -->
-      <footer class="mt-auto py-12 px-6">
+      <footer class="mt-auto border-t border-border px-6 py-8">
         <div class="mx-auto max-w-2xl">
-          <div class="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
+          <div class="flex flex-col gap-3 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
             <span>© {new Date().getFullYear()} Gökhan Turhan</span>
-            <div class="flex items-center gap-6">
-              <a href="/rss.xml" class="hover:text-foreground transition-colors">RSS</a>
-              <a href="/subscribe" class="hover:text-foreground transition-colors">Contact</a>
-              <a href="/privacy" class="hover:text-foreground transition-colors">Privacy</a>
-              <a href="/disclaimer" class="hover:text-foreground transition-colors">Disclaimer</a>
+            <div class="flex flex-wrap items-center gap-x-5 gap-y-1">
+              <a href="/rss.xml" class="raw-link">RSS</a>
+              <a href="/subscribe" class="raw-link">Contact</a>
+              <a href="/privacy" class="raw-link">Privacy</a>
+              <a href="/disclaimer" class="raw-link">Disclaimer</a>
             </div>
           </div>
         </div>
