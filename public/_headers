@@ -12,3 +12,9 @@
 
 /publishing/ebooks/an-essay-concerning-the-inbox/read/
   Cache-Control: public, max-age=0, must-revalidate
+
+/cv/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/cv.json
+  Cache-Control: public, max-age=300
