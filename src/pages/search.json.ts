@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro'
 import { getCollection } from 'astro:content'
+import { cvPlainText, cvMeta } from '@/data/cv'
 import { ebooks } from '@/data/ebooks'
 
 type SearchDocument = {
@@ -75,6 +76,16 @@ export const GET: APIRoute = async () => {
       category: 'Publishing',
       content: `${ebook.title} ${ebook.subtitle} ${ebook.blurb} ${ebook.protocols.join(' ')}`
     })),
+    {
+      title: `${cvMeta.name} — CV`,
+      link: '/cv/',
+      description: `${cvMeta.title}. ${cvMeta.tagline}`,
+      excerpt: cvMeta.tagline,
+      date: new Date(cvMeta.lastUpdated).toISOString(),
+      tags: ['cv', 'resume', 'career', 'hiring', 'fintech', 'growth'],
+      category: 'CV',
+      content: cvPlainText()
+    },
   ]
 
   return new Response(JSON.stringify([...staticDocuments, ...documents]), {

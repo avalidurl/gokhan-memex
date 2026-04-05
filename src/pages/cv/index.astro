@@ -1,0 +1,235 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import {
+  contact,
+  cvJsonLd,
+  cvMeta,
+  education,
+  experience,
+  languages,
+  profile,
+  publications,
+  skillGroups,
+} from '@/data/cv'
+
+const site = Astro.site ?? new URL('https://gokhanturhan.com')
+const jsonLd = cvJsonLd(site)
+const description =
+  `${cvMeta.name} — ${cvMeta.title}. ${cvMeta.tagline.slice(0, 155)}…`
+---
+
+<BaseLayout
+  title={`${cvMeta.name} — CV`}
+  description={description}
+  robots="index, follow, max-image-preview:large, max-snippet:-1"
+>
+  <div class="cv-document mx-auto max-w-3xl px-6 py-12 lg:py-16">
+    <Breadcrumbs items={[]} currentPage="CV" />
+
+    <article itemscope itemtype="https://schema.org/Person">
+      <meta itemprop="name" content={cvMeta.name} />
+      <meta itemprop="email" content="gokhan@gokhanturhan.com" />
+
+      <p class="doc-eyebrow mb-3">Curriculum vitae</p>
+      <h1 class="mb-2 text-4xl font-semibold tracking-tight" itemprop="name">
+        {cvMeta.name}
+      </h1>
+      <p class="mb-1 text-lg text-foreground/80" itemprop="jobTitle">{cvMeta.title}</p>
+      <p class="mb-6 max-w-2xl text-lg text-foreground/90" itemprop="description">
+        {cvMeta.tagline}
+      </p>
+
+      <p class="mb-8 text-sm text-muted-foreground">
+        Updated {cvMeta.lastUpdated} · Machine-readable:
+        <a href="/cv.json" class="doc-link ml-1">JSON</a>
+        <span class="mx-1">·</span>
+        <a href="/cv/plain.txt" class="doc-link">Plain text</a>
+        <span class="mx-1">·</span>
+        <a href="/cv/raw.html" class="doc-link">Raw HTML</a>
+      </p>
+
+      <div class="mb-10 flex flex-wrap gap-x-5 gap-y-2 text-base">
+        <a href={cvMeta.pdfUrl} class="doc-link" download={cvMeta.pdfFileName}>
+          Download PDF
+        </a>
+      </div>
+
+      <section class="border-t border-foreground/15 pt-8" aria-labelledby="contact-heading">
+        <h2 id="contact-heading" class="mb-4 text-2xl font-semibold tracking-tight">
+          Contact
+        </h2>
+        <address class="not-italic text-foreground/90">
+          <ul class="space-y-2">
+            {contact.map((c) => (
+              <li>
+                <span class="text-muted-foreground">{c.label}:</span>{' '}
+                {c.url ? (
+                  <a href={c.url} class="doc-link" rel="noopener noreferrer">
+                    {c.value}
+                  </a>
+                ) : (
+                  c.value
+                )}
+              </li>
+            ))}
+          </ul>
+        </address>
+      </section>
+
+      <section class="mt-10 border-t border-foreground/15 pt-8" aria-labelledby="profile-heading">
+        <h2 id="profile-heading" class="mb-4 text-2xl font-semibold tracking-tight">
+          Profile
+        </h2>
+        <div class="space-y-4 text-lg text-foreground/90">
+          {profile.map((p) => (
+            <p>{p}</p>
+          ))}
+        </div>
+      </section>
+
+      <section class="mt-10 border-t border-foreground/15 pt-8" aria-labelledby="exp-heading">
+        <h2 id="exp-heading" class="mb-4 text-2xl font-semibold tracking-tight">
+          Experience
+        </h2>
+        <div class="space-y-10">
+          {experience.map((job) => (
+            <section>
+              <h3 class="text-xl font-semibold tracking-tight">
+                {job.role}
+                <span class="font-normal text-foreground/70"> — {job.org}</span>
+                {job.location && (
+                  <span class="block text-base font-normal text-muted-foreground">{job.location}</span>
+                )}
+              </h3>
+              <p class="mt-1 text-sm text-muted-foreground">
+                <time datetime={job.start}>{job.start}</time>
+                {' – '}
+                <time datetime={job.end}>{job.end}</time>
+              </p>
+              <ul class="mt-3 list-disc space-y-2 pl-6 text-foreground/90">
+                {job.bullets.map((b) => (
+                  <li>{b}</li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </div>
+      </section>
+
+      <section class="mt-10 border-t border-foreground/15 pt-8" aria-labelledby="edu-heading">
+        <h2 id="edu-heading" class="mb-4 text-2xl font-semibold tracking-tight">
+          Education
+        </h2>
+        <ul class="space-y-6">
+          {education.map((ed) => (
+            <li>
+              <p class="font-semibold text-foreground">
+                {ed.degree}
+                {'honors' in ed && ed.honors ? ` — ${ed.honors}` : ''}
+              </p>
+              <p class="text-foreground/90">{ed.school}</p>
+              <p class="text-sm text-muted-foreground">{ed.years}</p>
+              {'detail' in ed && ed.detail && <p class="mt-2 text-foreground/90">{ed.detail}</p>}
+              {'link' in ed && ed.link && (
+                <p class="mt-1">
+                  <a href={ed.link} class="doc-link" rel="noopener noreferrer">
+                    {ed.linkLabel ?? 'Link'}
+                  </a>
+                </p>
+              )}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="mt-10 border-t border-foreground/15 pt-8" aria-labelledby="pub-heading">
+        <h2 id="pub-heading" class="mb-4 text-2xl font-semibold tracking-tight">
+          Publications & exhibitions
+        </h2>
+        <ul class="list-disc space-y-2 pl-6 text-foreground/90">
+          {publications.map((p) => (
+            <li>{p}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="mt-10 border-t border-foreground/15 pt-8" aria-labelledby="skills-heading">
+        <h2 id="skills-heading" class="mb-4 text-2xl font-semibold tracking-tight">
+          Skills & tooling
+        </h2>
+        <div class="space-y-8">
+          {skillGroups.map((g) => (
+            <section>
+              <h3 class="mb-2 text-sm font-medium uppercase tracking-wider text-muted-foreground">
+                {g.name}
+              </h3>
+              <ul class="space-y-2 text-foreground/90">
+                {g.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </div>
+      </section>
+
+      <section class="mt-10 border-t border-foreground/15 pt-8" aria-labelledby="lang-heading">
+        <h2 id="lang-heading" class="mb-4 text-2xl font-semibold tracking-tight">
+          Languages
+        </h2>
+        <ul class="space-y-2 text-foreground/90">
+          {languages.map((l) => (
+            <li>
+              <strong>{l.name}</strong>: {l.level}
+            </li>
+          ))}
+        </ul>
+      </section>
+    </article>
+
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </div>
+</BaseLayout>
+
+<style>
+  .cv-document {
+    color: #171717;
+    font-family: Georgia, 'Times New Roman', serif;
+  }
+
+  :global(.dark) .cv-document {
+    color: hsl(var(--foreground));
+  }
+
+  .cv-document .doc-eyebrow {
+    color: #666;
+    font-family: 'Courier New', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  :global(.dark) .cv-document .doc-eyebrow {
+    color: hsl(var(--muted-foreground));
+  }
+
+  .cv-document .doc-link {
+    color: #1a0dab;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.12em;
+  }
+
+  .cv-document .doc-link:visited {
+    color: #551a8b;
+  }
+
+  :global(.dark) .cv-document .doc-link {
+    color: hsl(var(--primary));
+  }
+
+  :global(.dark) .cv-document .doc-link:visited {
+    color: hsl(265 42% 78%);
+  }
+</style>
