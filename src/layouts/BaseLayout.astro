@@ -1,8 +1,10 @@
 ---
 import Navigation from '@/components/Navigation.astro'
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import ThemeProvider from '@/components/ThemeProvider.astro'
 import PrivacyNotice from '@/components/PrivacyNotice.astro'
 import OfflineStatus from '@/components/OfflineStatus.astro'
+import { getAutoBreadcrumbs, type BreadcrumbItem } from '@/lib/breadcrumbs'
 import '@/styles/globals.css'
 import criticalStyles from '@/styles/critical.css?inline'
 
@@ -13,6 +15,10 @@ export interface Props {
   canonicalURL?: string
   type?: 'website' | 'article'
   robots?: string
+  /** Hide breadcrumbs (default: show on all pages except home). */
+  showBreadcrumbs?: boolean
+  /** Full breadcrumb trail; overrides auto-detection from URL + title. */
+  breadcrumbOverride?: { items: BreadcrumbItem[]; currentPage: string }
 }
 
 const {
@@ -21,11 +27,17 @@ const {
   image = '/og-default.png',
   canonicalURL = new URL(Astro.url.pathname, Astro.site),
   type = 'website',
-  robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
+  robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+  showBreadcrumbs = true,
+  breadcrumbOverride,
 } = Astro.props
 
 const siteName = 'Gökhan Turhan'
 const fullTitle = title === siteName ? title : `${title} | ${siteName}`
+
+const pathname = Astro.url.pathname
+const breadcrumbData =
+  showBreadcrumbs && (breadcrumbOverride ?? getAutoBreadcrumbs(pathname, title))
 ---
 
 <!DOCTYPE html>
@@ -187,8 +199,13 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`
     <ThemeProvider />
     <div class="relative flex min-h-screen flex-col">
       <Navigation />
-      
+
       <main class="flex-1">
+        {breadcrumbData && (
+          <div class="mx-auto max-w-5xl px-6 pt-6 lg:px-8">
+            <Breadcrumbs items={breadcrumbData.items} currentPage={breadcrumbData.currentPage} />
+          </div>
+        )}
         <slot />
       </main>
       

@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import { getEbookBySlug } from '@/data/ebooks'
 import { loadEbookLines, paginateEbookLines } from '@/lib/ebook-reader'
 
@@ -20,17 +19,16 @@ const cantoStartLines = new Map(ebook.toc.map((entry) => [entry.startLine, entry
   title={`${ebook.title} | Read Online`}
   description={`Read ${ebook.title} online in HTML with page-numbered sections.`}
   image={ebook.coverImage}
+  breadcrumbOverride={{
+    items: [
+      { label: 'Publishing', href: '/publishing/' },
+      { label: 'E-books', href: '/publishing/ebooks/' },
+      { label: ebook.title, href: `/publishing/ebooks/${ebook.slug}/` },
+    ],
+    currentPage: 'Read online',
+  }}
 >
   <div id="top" class="reader-document mx-auto max-w-5xl px-6 py-12 lg:py-16">
-    <Breadcrumbs
-      items={[
-        { label: 'Publishing', href: '/publishing/' },
-        { label: 'E-books', href: '/publishing/ebooks/' },
-        { label: ebook.title, href: `/publishing/ebooks/${ebook.slug}/` },
-      ]}
-      currentPage="Read online"
-    />
-
     <section class="border-t border-foreground/15 pt-8">
       <div class="grid gap-8 lg:grid-cols-[240px_1fr]">
         <img
