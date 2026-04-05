@@ -7,7 +7,12 @@ const allPosts = (await getCollection('blog'))
   .filter(post => !post.data.draft)
   .sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf())
 
-const musicPosts = allPosts.filter(post => post.data.category === 'Music')
+const musicPosts = allPosts.filter(
+  (post) =>
+    post.data.category === 'Music' ||
+    post.data.category === 'sound' ||
+    (post.data.tags && post.data.tags.includes('music'))
+)
 const bookPosts = allPosts.filter(post => 
   post.data.category === 'Books' || 
   (post.data.tags && post.data.tags.includes('books'))
