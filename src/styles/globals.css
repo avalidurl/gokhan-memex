@@ -106,11 +106,15 @@
   }
 
   a:visited {
-    color: rgb(85 26 139);
+    color: hsl(270 45% 34%);
   }
 
   a:hover {
     text-decoration-thickness: 2px;
+  }
+
+  .dark a:visited {
+    color: hsl(265 42% 78%);
   }
 
   button,
@@ -152,7 +156,11 @@
   }
 
   .raw-link:visited {
-    color: rgb(85 26 139);
+    color: hsl(270 45% 34%);
+  }
+
+  .dark .raw-link:visited {
+    color: hsl(265 42% 78%);
   }
 
   .raw-link:hover {
