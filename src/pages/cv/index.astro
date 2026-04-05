@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import {
   contact,
   cvJsonLd,
@@ -23,10 +22,9 @@ const description =
   title={`${cvMeta.name} — CV`}
   description={description}
   robots="index, follow, max-image-preview:large, max-snippet:-1"
+  breadcrumbOverride={{ items: [], currentPage: 'CV' }}
 >
   <div class="cv-document mx-auto max-w-3xl px-6 py-12 lg:py-16">
-    <Breadcrumbs items={[]} currentPage="CV" />
-
     <article itemscope itemtype="https://schema.org/Person">
       <meta itemprop="name" content={cvMeta.name} />
       <meta itemprop="email" content="gokhan@gokhanturhan.com" />

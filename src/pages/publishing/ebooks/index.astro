@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import { ebooks } from '@/data/ebooks'
 ---
 
@@ -9,8 +8,6 @@ import { ebooks } from '@/data/ebooks'
   description="Downloadable EPUBs and browser-readable digital books by Gökhan Turhan."
 >
   <div class="publishing-document mx-auto max-w-4xl px-6 py-12 lg:py-16">
-    <Breadcrumbs items={[{ label: 'Publishing', href: '/publishing/' }]} currentPage="E-books" />
-
     <header class="mb-12">
       <p class="doc-eyebrow mb-3">Publishing / E-books</p>
       <h1 class="mb-4 text-3xl font-semibold tracking-tight">E-books</h1>

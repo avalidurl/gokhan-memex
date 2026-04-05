@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import { getEbookBySlug } from '@/data/ebooks'
 
 const ebook = getEbookBySlug('an-essay-concerning-the-inbox')
@@ -20,16 +19,15 @@ const publishedLabel = new Date(ebook.publishedOn).toLocaleDateString('en-US', {
   title={ebook.title}
   description={ebook.description}
   image={ebook.coverImage}
+  breadcrumbOverride={{
+    items: [
+      { label: 'Publishing', href: '/publishing/' },
+      { label: 'E-books', href: '/publishing/ebooks/' },
+    ],
+    currentPage: ebook.title,
+  }}
 >
   <div class="ebook-document mx-auto max-w-5xl px-6 py-12 lg:py-16">
-    <Breadcrumbs
-      items={[
-        { label: 'Publishing', href: '/publishing/' },
-        { label: 'E-books', href: '/publishing/ebooks/' },
-      ]}
-      currentPage={ebook.title}
-    />
-
     <section class="grid gap-8 lg:grid-cols-[320px_1fr] lg:items-start">
       <div class="lg:sticky lg:top-24">
         <img
