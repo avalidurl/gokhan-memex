@@ -1,6 +1,9 @@
 import rss from '@astrojs/rss'
 import { getCollection } from 'astro:content'
 
+/** Channel contact; must match public site mailto (see cv.ts / privacy / disclaimer). */
+const SITE_EMAIL = 'gokhan@gokhanturhan.com'
+
 export async function GET(context) {
   const posts = await getCollection('blog')
   const publishedPosts = posts
@@ -17,12 +20,13 @@ export async function GET(context) {
       description: post.data.description,
       link: `/journal/${post.slug}/`,
       categories: [post.data.category, ...(post.data.tags || [])].filter(Boolean),
-      author: post.data.author,
+      // RSS 2.0: author should be email (optional name in parentheses)
+      author: `${SITE_EMAIL} (${post.data.author})`,
     })),
     customData: `
       <language>en-us</language>
-      <managingEditor>info@gokhanturhan.com (Gökhan Turhan)</managingEditor>
-      <webMaster>info@gokhanturhan.com (Gökhan Turhan)</webMaster>
+      <managingEditor>${SITE_EMAIL} (Gökhan Turhan)</managingEditor>
+      <webMaster>${SITE_EMAIL} (Gökhan Turhan)</webMaster>
       <copyright>2025 Gökhan Turhan</copyright>
       <category>Technology</category>
       <category>Finance</category>
