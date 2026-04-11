@@ -202,26 +202,38 @@ import { academicPublications, poetryWorks, experimentalWorks } from '@/data/pub
                 <p class="mb-3 text-base text-foreground/70">
                   {work.creators} · {work.year}
                 </p>
-                <p class="mb-3 text-base text-foreground/75">
-                  Commissioned by <a href={work.commissionedByHref} class="doc-link" target="_blank" rel="noopener noreferrer">{work.commissionedByName}</a>.
-                </p>
-                <p class="doc-copy mb-4 text-sm text-foreground/65">
-                  {work.zoraStatusNote}
-                </p>
+                {work.commissionedByName && work.commissionedByHref && (
+                  <p class="mb-3 text-base text-foreground/75">
+                    Commissioned by <a href={work.commissionedByHref} class="doc-link" target="_blank" rel="noopener noreferrer">{work.commissionedByName}</a>.
+                  </p>
+                )}
+                {work.statusNote && (
+                  <p class="doc-copy mb-4 text-sm text-foreground/65">
+                    {work.statusNote}
+                  </p>
+                )}
                 <p class="doc-copy mb-4 text-base text-foreground/85">
                   {work.accompanyingText}
                 </p>
-                <audio controls preload="none" class="w-full max-w-xl">
-                  <source src={work.audioHref} type={work.audioMimeType} />
-                </audio>
-                <div class="mt-4 flex flex-wrap items-center gap-4 text-sm text-foreground/60">
-                  <a href={work.sourceHref} class="doc-link" target="_blank" rel="noopener noreferrer">
-                    View on Zora
-                  </a>
-                  <a href={work.originalAudioHref} class="doc-link" target="_blank" rel="noopener noreferrer">
-                    Original audio source
-                  </a>
-                </div>
+                {work.audioHref && work.audioMimeType && (
+                  <audio controls preload="none" class="w-full max-w-xl">
+                    <source src={work.audioHref} type={work.audioMimeType} />
+                  </audio>
+                )}
+                {(work.sourceHref || work.originalAudioHref) && (
+                  <div class="mt-4 flex flex-wrap items-center gap-4 text-sm text-foreground/60">
+                    {work.sourceHref && (
+                      <a href={work.sourceHref} class="doc-link" target="_blank" rel="noopener noreferrer">
+                        {work.sourceLabel ?? 'View source'}
+                      </a>
+                    )}
+                    {work.originalAudioHref && (
+                      <a href={work.originalAudioHref} class="doc-link" target="_blank" rel="noopener noreferrer">
+                        {work.originalAudioLabel ?? 'Original source'}
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
             </li>
           ))}
