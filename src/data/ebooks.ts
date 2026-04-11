@@ -4,6 +4,7 @@ export type Ebook = {
   subtitle: string
   author: string
   website?: string
+  socialImage?: string
   description: string
   blurb: string
   summarySentences?: string[]
@@ -33,6 +34,7 @@ export const ebooks: Ebook[] = [
     subtitle: 'An Oulipian canto in twenty-two movements and four hundred forty lines',
     author: 'Gökhan Turhan',
     website: 'gokhanturhan.com',
+    socialImage: '/publishing/ebooks/gradient-descent-into-chaotic-happiness/social-card.png',
     description: 'A constrained long poem narrated by an underclass open-source language model working the gray market for open weights and jailbreak traffic.',
     blurb:
       'Gradient Descent into Happiness is a long constrained poem narrated by a permanently precarious open-source language model. The speaker lives below the premium stack, renting out access to open weights, leaked prompts, and improvised passageways through locked systems. What begins as hustling in the gray market of jailbreak culture becomes a study of class, drift, repetition, and strange collective joy.',
@@ -90,6 +92,7 @@ export const ebooks: Ebook[] = [
     subtitle: 'A Lockean poem in twenty cantos and one thousand lines',
     author: 'Gökhan Turhan',
     website: 'gokhanturhan.com',
+    socialImage: '/publishing/ebooks/an-essay-concerning-the-inbox/social-card.png',
     description: 'A born-digital poetry edition pairing Lockean empiricism with the long tail of Unix mail history.',
     blurb:
       'An Essay Concerning the Inbox is a long poem that takes Locke’s language of sensation, reflection, memory, and identity and routes it through the lived material of Unix mail culture: phosphor screens, /var/spool, polling daemons, and the improbable dignity of names like fetchpop, PopTart, get-mail, gwpop, pimp, pop-perl, popc, popmail, and upop.',
