@@ -49,7 +49,7 @@ import { academicPublications, poetryWorks, experimentalWorks } from '@/data/pub
                     loading="lazy"
                   />
                 </a>
-                <details class="group border-b border-foreground/10 pb-4">
+                <details class="ebook-item group border-b border-foreground/10 pb-4">
                   <summary class="list-none cursor-pointer">
                     <p class="doc-eyebrow mb-2">E-book {String(index + 1).padStart(2, '0')}</p>
                     <h3 class="mt-0 text-xl font-semibold doc-link inline">{ebook.title}</h3>
@@ -262,11 +262,11 @@ import { academicPublications, poetryWorks, experimentalWorks } from '@/data/pub
     display: none;
   }
 
-  .publishing-document .ebook-caret {
+  .publishing-document .ebook-item > summary .ebook-caret {
     transition: transform 160ms ease;
   }
 
-  .publishing-document details[open] .ebook-caret {
+  .publishing-document .ebook-item[open] > summary .ebook-caret {
     transform: rotate(180deg);
   }
 </style>

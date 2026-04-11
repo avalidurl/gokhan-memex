@@ -29,7 +29,7 @@ import { ebooks } from '@/data/ebooks'
           </a>
 
           <div class="flex flex-col">
-            <details class="group">
+            <details class="ebook-item group">
               <summary class="list-none cursor-pointer">
                 <div class="doc-eyebrow mb-4 flex flex-wrap items-center gap-x-4 gap-y-2">
                   <span>E-book {String(index + 1).padStart(2, '0')}</span>
@@ -101,11 +101,11 @@ import { ebooks } from '@/data/ebooks'
     color: #551a8b;
   }
 
-  .publishing-document .ebook-caret {
+  .publishing-document .ebook-item > summary .ebook-caret {
     transition: transform 160ms ease;
   }
 
-  .publishing-document details[open] .ebook-caret {
+  .publishing-document .ebook-item[open] > summary .ebook-caret {
     transform: rotate(180deg);
   }
 </style>
