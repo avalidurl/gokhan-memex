@@ -16,7 +16,7 @@ const summarySentences = ebook.summarySentences?.length ? ebook.summarySentences
 <BaseLayout
   title={ebook.title}
   description={ebook.description}
-  image={ebook.coverImage}
+  image={ebook.socialImage ?? ebook.coverImage}
   breadcrumbOverride={{
     items: [
       { label: 'Publishing', href: '/publishing/' },
