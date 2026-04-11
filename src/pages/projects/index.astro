@@ -8,6 +8,13 @@ const projects = (await getCollection('projects')).sort(
 
 const featuredProjects = projects.filter(project => project.data.featured)
 const otherProjects = projects.filter(project => !project.data.featured)
+const labProjects = [
+  {
+    title: 'Biases & Fallacies Lab',
+    href: '/projects/biases-fallacies-lab/',
+    description: 'A text-based training game for cognitive biases and logical fallacies.',
+  },
+]
 ---
 
 <BaseLayout 
@@ -53,6 +60,26 @@ const otherProjects = projects.filter(project => !project.data.featured)
           </ul>
         </section>
       )}
+
+      <section>
+        <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+          Labs
+        </h2>
+        <ul class="space-y-3">
+          {labProjects.map((project) => (
+            <li>
+              <a href={project.href} class="group block">
+                <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
+                  {project.title}
+                </span>
+                <span class="block text-sm text-muted-foreground mt-0.5">
+                  {project.description}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
 
       {otherProjects.length > 0 && (
         <section>
