@@ -1,0 +1,90 @@
+body {
+  font-family: Georgia, serif;
+  line-height: 1.34;
+  margin: 5%;
+  color: #171717;
+}
+
+h1,
+h2,
+.subtitle,
+.credit {
+  text-align: center;
+}
+
+.title-page {
+  page-break-after: always;
+}
+
+.inside-cover {
+  page-break-after: always;
+  text-align: center;
+}
+
+.cover {
+  display: block;
+  margin: 0 auto 2rem;
+  width: 100%;
+  max-width: 32rem;
+}
+
+.subtitle {
+  font-size: 1.05rem;
+  margin-top: 0.5rem;
+}
+
+.credit {
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.intro-note,
+.custom-toc {
+  page-break-after: always;
+}
+
+.about-list {
+  margin-top: 1rem;
+  padding-left: 1.25rem;
+}
+
+.about-list li {
+  margin: 0 0 0.68rem;
+}
+
+.custom-toc .toc-list {
+  columns: 2;
+  column-gap: 2.4rem;
+  padding-left: 1.15rem;
+}
+
+.custom-toc .toc-list li {
+  margin: 0 0 0.34rem;
+  break-inside: avoid;
+}
+
+.poem {
+  margin-top: 1.25rem;
+}
+
+.line {
+  margin: 0;
+  text-indent: 0;
+  display: flex;
+  gap: 0.8rem;
+}
+
+.ln {
+  min-width: 3.8rem;
+  color: #6f6f6f;
+  font-family: "Courier New", monospace;
+  font-size: 0.88rem;
+}
+
+.text {
+  flex: 1;
+}
+
+.canto {
+  page-break-before: always;
+}
