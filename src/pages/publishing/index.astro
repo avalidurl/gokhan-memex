@@ -39,7 +39,7 @@ import { academicPublications, poetryWorks, experimentalWorks } from '@/data/pub
           </div>
 
           <ul class="space-y-6">
-            {ebooks.map((ebook) => (
+            {ebooks.map((ebook, index) => (
               <li class="grid gap-5 py-2 md:grid-cols-[140px_1fr]">
                 <a href={`/publishing/ebooks/${ebook.slug}/`} class="block">
                   <img
@@ -49,21 +49,23 @@ import { academicPublications, poetryWorks, experimentalWorks } from '@/data/pub
                     loading="lazy"
                   />
                 </a>
-                <div>
-                  <p class="doc-eyebrow mb-2">E-book 01</p>
-                  <h3 class="mt-0 text-xl font-semibold">
-                    <a href={`/publishing/ebooks/${ebook.slug}/`} class="doc-link">
-                      {ebook.title}
-                    </a>
-                  </h3>
-                  <p class="mb-3 text-base text-foreground/70">{ebook.subtitle}</p>
-                  <p class="doc-copy text-lg text-foreground/90">{ebook.blurb}</p>
-                  <div class="mt-4 flex flex-wrap gap-4 text-sm text-foreground/60">
-                    <span>{ebook.author}</span>
-                    <span>{ebook.pageCount} pages</span>
-                    <span>{ebook.lineCount} lines</span>
+                <details class="group border-b border-foreground/10 pb-4">
+                  <summary class="list-none cursor-pointer">
+                    <p class="doc-eyebrow mb-2">E-book {String(index + 1).padStart(2, '0')}</p>
+                    <h3 class="mt-0 text-xl font-semibold doc-link inline">{ebook.title}</h3>
+                    <p class="mb-2 text-base text-foreground/70">{ebook.subtitle}</p>
+                    <span class="text-foreground/60 transition-transform inline-block group-open:rotate-180">▼</span>
+                  </summary>
+                  <div class="pt-3">
+                    <p class="doc-copy text-lg text-foreground/90">{ebook.blurb}</p>
+                    <div class="mt-4 flex flex-wrap gap-4 text-sm text-foreground/60">
+                      <span>{ebook.author}</span>
+                      <span>{ebook.pageCount} pages</span>
+                      <span>{ebook.lineCount} lines</span>
+                      <a href={`/publishing/ebooks/${ebook.slug}/`} class="doc-link">View details</a>
+                    </div>
                   </div>
-                </div>
+                </details>
               </li>
             ))}
           </ul>

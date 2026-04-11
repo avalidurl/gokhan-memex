@@ -29,42 +29,43 @@ import { ebooks } from '@/data/ebooks'
           </a>
 
           <div class="flex flex-col">
-            <div class="doc-eyebrow mb-4 flex flex-wrap items-center gap-x-4 gap-y-2">
-              <span>E-book {String(index + 1).padStart(2, '0')}</span>
-              <span>{ebook.pageCount} pages</span>
-              <span>{new Date(ebook.publishedOn).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
-            </div>
+            <details class="group">
+              <summary class="list-none cursor-pointer">
+                <div class="doc-eyebrow mb-4 flex flex-wrap items-center gap-x-4 gap-y-2">
+                  <span>E-book {String(index + 1).padStart(2, '0')}</span>
+                  <span>{ebook.pageCount} pages</span>
+                  <span>{new Date(ebook.publishedOn).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                </div>
+                <h2 class="mt-0 text-2xl font-semibold tracking-tight doc-link inline">{ebook.title}</h2>
+                <p class="mb-2 text-base text-foreground/70">{ebook.subtitle}</p>
+                <span class="text-foreground/60 transition-transform inline-block group-open:rotate-180">▼</span>
+              </summary>
 
-            <h2 class="mt-0 text-2xl font-semibold tracking-tight">
-              <a href={`/publishing/ebooks/${ebook.slug}/`} class="doc-link">
-                {ebook.title}
-              </a>
-            </h2>
-            <p class="mb-3 text-base text-foreground/70">{ebook.subtitle}</p>
-            <p class="doc-copy mb-6 max-w-2xl text-lg text-foreground/90">{ebook.blurb}</p>
+              <p class="doc-copy mb-6 max-w-2xl text-lg text-foreground/90 pt-3">{ebook.blurb}</p>
 
-            <div class="mt-auto flex flex-wrap gap-x-5 gap-y-2 text-base">
-              <a
-                href={ebook.browserEditionUrl}
-                class="doc-link"
-              >
-                Open HTML
-              </a>
-              <a
-                href={ebook.epubUrl}
-                class="doc-link"
-                download
-              >
-                Download EPUB
-              </a>
-              <a
-                href={`/publishing/ebooks/${ebook.slug}/`}
-                class="doc-link"
-              >
-                View details
-              </a>
+              <div class="mt-auto flex flex-wrap gap-x-5 gap-y-2 text-base">
+                <a
+                  href={ebook.browserEditionUrl}
+                  class="doc-link"
+                >
+                  Open HTML
+                </a>
+                <a
+                  href={ebook.epubUrl}
+                  class="doc-link"
+                  download
+                >
+                  Download EPUB
+                </a>
+                <a
+                  href={`/publishing/ebooks/${ebook.slug}/`}
+                  class="doc-link"
+                >
+                  View details
+                </a>
+              </div>
+            </details>
             </div>
-          </div>
         </article>
       ))}
     </div>

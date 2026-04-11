@@ -1,0 +1,12 @@
+---
+import EbookReaderDocument from '@/components/publishing/EbookReaderDocument.astro'
+import { getEbookBySlug } from '@/data/ebooks'
+
+const ebook = getEbookBySlug('gradient-descent-into-chaotic-happiness')
+
+if (!ebook) {
+  throw new Error('E-book metadata not found.')
+}
+---
+
+<EbookReaderDocument ebook={ebook} />
