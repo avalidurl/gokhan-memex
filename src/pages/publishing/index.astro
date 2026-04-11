@@ -176,7 +176,7 @@ import { academicPublications, poetryWorks, experimentalWorks } from '@/data/pub
         <ul class="pt-6 space-y-6">
           {experimentalWorks.map((work) => (
             <li class="grid gap-5 py-2 md:grid-cols-[140px_1fr]">
-              <a href={work.sourceHref} class="block" target="_blank" rel="noopener noreferrer">
+              <a href={work.detailHref} class="block">
                 <img
                   src={work.coverImage}
                   alt={work.coverAlt}
@@ -187,7 +187,7 @@ import { academicPublications, poetryWorks, experimentalWorks } from '@/data/pub
               <div>
                 <p class="doc-eyebrow mb-2">{work.type}</p>
                 <h3 class="mt-0 text-xl font-semibold leading-tight">
-                  <a href={work.sourceHref} class="doc-link" target="_blank" rel="noopener noreferrer">
+                  <a href={work.detailHref} class="doc-link">
                     {work.title}
                   </a>
                 </h3>
