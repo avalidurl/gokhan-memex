@@ -1,0 +1,71 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { academicPublications } from '@/data/publishing'
+---
+
+<BaseLayout
+  title="Academic"
+  description="Selected publications, chapters, and graduate work by Gökhan Turhan."
+>
+  <div class="publishing-document mx-auto max-w-4xl px-6 py-12 lg:py-16">
+    <header class="mb-12">
+      <p class="doc-eyebrow mb-3">Publishing / Academic</p>
+      <h1 class="mb-4 text-3xl font-semibold tracking-tight">Academic</h1>
+      <p class="doc-copy max-w-2xl text-foreground/80">
+        Selected publications, chapters, and graduate work.
+      </p>
+    </header>
+
+    <div class="space-y-8">
+      {academicPublications.map((item) => (
+        <article class="border-t border-foreground/15 pt-8">
+          <p class="doc-eyebrow mb-3">{item.type}</p>
+          <h2 class="mt-0 text-2xl font-semibold tracking-tight leading-tight">
+            <a href={item.href} class="doc-link" target="_blank" rel="noopener noreferrer">
+              {item.title}
+            </a>
+          </h2>
+          <p class="mb-3 text-base text-foreground/70">
+            {item.venue} · {item.year}
+          </p>
+          <div class="flex flex-wrap gap-x-5 gap-y-2 text-base">
+            <span class="text-foreground/70">{item.author}</span>
+            <a href={item.href} class="doc-link" target="_blank" rel="noopener noreferrer">
+              {item.linkLabel}
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .publishing-document {
+    color: #171717;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+
+  .publishing-document .doc-eyebrow {
+    color: #666;
+    font-family: "Courier New", monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .publishing-document .doc-copy {
+    line-height: 1.38;
+  }
+
+  .publishing-document .doc-link {
+    color: #1a0dab;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.12em;
+  }
+
+  .publishing-document .doc-link:visited {
+    color: #551a8b;
+  }
+</style>
