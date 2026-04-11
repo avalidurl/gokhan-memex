@@ -54,7 +54,7 @@ import { academicPublications, poetryWorks, experimentalWorks } from '@/data/pub
                     <p class="doc-eyebrow mb-2">E-book {String(index + 1).padStart(2, '0')}</p>
                     <h3 class="mt-0 text-xl font-semibold doc-link inline">{ebook.title}</h3>
                     <p class="mb-2 text-base text-foreground/70">{ebook.subtitle}</p>
-                    <span class="text-foreground/60 transition-transform inline-block group-open:rotate-180">▲</span>
+                    <span class="ebook-caret text-foreground/60 inline-block">▲</span>
                   </summary>
                   <div class="pt-3">
                     <p class="doc-copy text-lg text-foreground/90">{ebook.blurb}</p>
@@ -260,5 +260,13 @@ import { academicPublications, poetryWorks, experimentalWorks } from '@/data/pub
 
   .publishing-document details summary::marker {
     display: none;
+  }
+
+  .publishing-document .ebook-caret {
+    transition: transform 160ms ease;
+  }
+
+  .publishing-document details[open] .ebook-caret {
+    transform: rotate(180deg);
   }
 </style>
