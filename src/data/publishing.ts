@@ -1,3 +1,14 @@
+type PoetryWork = {
+  type: 'Visual Poetry'
+  title: string
+  creators: string
+  year: string
+  coverImage: string
+  coverAlt: string
+  sourceHref: string
+  amazonHref: string
+}
+
 export const academicPublications = [
   {
     type: 'Book Chapter',
@@ -20,7 +31,7 @@ export const academicPublications = [
   },
 ] as const
 
-export const poetryWorks = [] as const
+export const poetryWorks: PoetryWork[] = []
 
 export const experimentalWorks = [
   {
