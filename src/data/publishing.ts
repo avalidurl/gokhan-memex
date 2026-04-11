@@ -9,6 +9,26 @@ type PoetryWork = {
   amazonHref: string
 }
 
+type ExperimentalWork = {
+  type: 'Experimental'
+  title: string
+  detailHref: string
+  creators: string
+  year: string
+  coverImage: string
+  coverAlt: string
+  accompanyingText: string
+  sourceHref?: string
+  sourceLabel?: string
+  audioHref?: string
+  originalAudioHref?: string
+  originalAudioLabel?: string
+  audioMimeType?: string
+  commissionedByName?: string
+  commissionedByHref?: string
+  statusNote?: string
+}
+
 export const academicPublications = [
   {
     type: 'Book Chapter',
@@ -33,7 +53,7 @@ export const academicPublications = [
 
 export const poetryWorks: PoetryWork[] = []
 
-export const experimentalWorks = [
+export const experimentalWorks: ExperimentalWork[] = [
   {
     type: 'Experimental',
     title: 'CASSETTE',
@@ -44,12 +64,14 @@ export const experimentalWorks = [
     coverAlt: 'Cover art for CASSETTE',
     sourceHref:
       'https://zora.co/collect/zora:0xc51e1c9166f3ac33e4ee0a68e0339abcd202a773?source=post_page-----491d9ac49dcd---------------------------------------',
+    sourceLabel: 'View on Zora',
     audioHref: '/media/experimental/cassette-original.mp3',
     originalAudioHref: 'https://ipfs.io/ipfs/bafybeiania42cxiwenc36eirrkfrlq3fs4hfynmch2mttymy2hwolcfase',
+    originalAudioLabel: 'Original sound source',
     audioMimeType: 'audio/mpeg',
     commissionedByName: 'William M. Peaster',
     commissionedByHref: 'https://x.com/wmpeaster',
-    zoraStatusNote:
+    statusNote:
       'As of now, the Zora application frontend for this work is not reachable due to external factors.',
     accompanyingText: `This piece of pure noise-oriented audio work is indeed the strata of different layers of spoken word and sound bites that I did create in the Summer of 2022—late August to be precise in an AirBnB near Galata Tower in Istanbul.
 
@@ -87,4 +109,17 @@ I wanted to turn all of those files that went to SR application into an admixtur
 
 Enjoy.`,
   },
-] as const
+  {
+    type: 'Experimental',
+    title: 'NUMBERS',
+    detailHref: '/publishing/experimental/numbers/',
+    creators: 'Gökhan Turhan',
+    year: '2026',
+    coverImage: '/publishing/experimental/numbers/logo-0-black.png',
+    coverAlt: 'Black square logo with a white zero for Numbers',
+    accompanyingText:
+      'Numbers begins with zero and waits for a hand. Each mint selects a point from a finite field of 10000 signs. A black serif figure stands alone on a white plane. Nothing moves except ownership and attention. Every digit is ordinary until counted by someone. Sequence becomes scarcity the moment order is broken. Chance permutes the grid, but the set remains complete. Arithmetic turns into portrait when a collector says mine. Here the smallest abstraction behaves like a relic. Between 0 and 9999, mathematics learns to whisper.',
+    statusNote:
+      'A generative number edition prepared for first-come, first-served release on OpenSea Studio.',
+  },
+]

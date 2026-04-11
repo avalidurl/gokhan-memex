@@ -1,0 +1,69 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { experimentalWorks } from '@/data/publishing'
+
+const work = experimentalWorks.find((entry) => entry.detailHref === '/publishing/experimental/numbers/')
+
+if (!work) {
+  throw new Error('NUMBERS entry not found in experimentalWorks')
+}
+---
+
+<BaseLayout
+  title="NUMBERS"
+  description="A generative art project built from the finite set of numbers between 0 and 9999."
+>
+  <div class="publishing-document mx-auto max-w-5xl px-6 py-12 lg:py-16">
+    <header class="mb-12">
+      <p class="doc-eyebrow mb-3">Publishing / Experimental / NUMBERS</p>
+      <h1 class="mb-4 text-3xl font-semibold tracking-tight">{work.title}</h1>
+      <p class="doc-copy max-w-3xl text-foreground/80">
+        {work.creators} · {work.year}
+      </p>
+    </header>
+
+    <article class="space-y-8 border-t border-foreground/15 pt-8">
+      <img
+        src={work.coverImage}
+        alt={work.coverAlt}
+        class="mx-auto w-full max-w-xl border border-foreground/10 object-cover"
+        loading="eager"
+      />
+
+      {work.statusNote && <p class="doc-copy text-sm text-foreground/65">{work.statusNote}</p>}
+
+      <h2 class="text-2xl font-semibold tracking-tight">Statement</h2>
+      <p class="doc-copy text-base text-foreground/90">{work.accompanyingText}</p>
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .publishing-document {
+    color: #171717;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+
+  .publishing-document .doc-eyebrow {
+    color: #666;
+    font-family: "Courier New", monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .publishing-document .doc-copy {
+    line-height: 1.38;
+  }
+
+  .publishing-document .doc-link {
+    color: #1a0dab;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.12em;
+  }
+
+  .publishing-document .doc-link:visited {
+    color: #551a8b;
+  }
+</style>
