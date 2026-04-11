@@ -37,6 +37,7 @@ export const experimentalWorks = [
   {
     type: 'Experimental',
     title: 'CASSETTE',
+    detailHref: '/publishing/experimental/casette/',
     creators: 'Gökhan Turhan',
     year: '2023',
     coverImage: 'https://ipfs.io/ipfs/bafybeihak4ytvarr2h5nsrouhenoqctpdrnn5laur3kd5hgkcjm3ymd7by',
