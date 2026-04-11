@@ -50,9 +50,13 @@ import { academicPublications, poetryWorks, experimentalWorks } from '@/data/pub
                   />
                 </a>
                 <details class="ebook-item group border-b border-foreground/10 pb-4">
-                  <summary class="list-none cursor-pointer">
-                    <p class="doc-eyebrow mb-2">E-book {String(index + 1).padStart(2, '0')}</p>
-                    <h3 class="mt-0 text-xl font-semibold doc-link inline">{ebook.title}</h3>
+                  <p class="doc-eyebrow mb-2">E-book {String(index + 1).padStart(2, '0')}</p>
+                  <h3 class="mt-0 text-xl font-semibold">
+                    <a href={`/publishing/ebooks/${ebook.slug}/`} class="doc-link">
+                      {ebook.title}
+                    </a>
+                  </h3>
+                  <summary class="list-none cursor-pointer mt-1">
                     <p class="mb-2 text-base text-foreground/70">{ebook.subtitle}</p>
                     <span class="ebook-caret text-foreground/60 inline-block">▲</span>
                   </summary>
