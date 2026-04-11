@@ -1,0 +1,141 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import type { Ebook } from '@/data/ebooks'
+
+const { ebook } = Astro.props as { ebook: Ebook }
+
+const publishedLabel = new Date(ebook.publishedOn).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+})
+
+const summarySentences = ebook.summarySentences?.length ? ebook.summarySentences : [ebook.blurb]
+---
+
+<BaseLayout
+  title={ebook.title}
+  description={ebook.description}
+  image={ebook.coverImage}
+  breadcrumbOverride={{
+    items: [
+      { label: 'Publishing', href: '/publishing/' },
+      { label: 'E-books', href: '/publishing/ebooks/' },
+    ],
+    currentPage: ebook.title,
+  }}
+>
+  <div class="ebook-document mx-auto max-w-5xl px-6 py-12 lg:py-16">
+    <section class="grid gap-8 lg:grid-cols-[320px_1fr] lg:items-start">
+      <div class="lg:sticky lg:top-24">
+        <img
+          src={ebook.coverImage}
+          alt={`Cover art for ${ebook.title}`}
+          class="w-full border border-foreground/10 object-cover"
+        />
+      </div>
+
+      <div>
+        <p class="doc-eyebrow mb-3">Publishing / E-books</p>
+        <h1 class="mb-4 text-4xl font-semibold tracking-tight">{ebook.title}</h1>
+        <p class="mb-5 max-w-2xl text-lg text-foreground/70">{ebook.subtitle}</p>
+
+        <div class="mb-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-foreground/60">
+          <span>{ebook.author}</span>
+          <span>{publishedLabel}</span>
+          <span>{ebook.pageCount} pages</span>
+          <span>{ebook.lineCount} lines</span>
+        </div>
+
+        <p class="doc-copy max-w-3xl text-lg text-foreground/90">{ebook.blurb}</p>
+
+        <div class="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-base">
+          <a
+            href={ebook.browserEditionUrl}
+            class="doc-link"
+          >
+            Open HTML edition
+          </a>
+          <a
+            href={ebook.epubUrl}
+            class="doc-link"
+            download
+          >
+            Download EPUB
+          </a>
+          <a
+            href={ebook.staticHtmlUrl}
+            class="doc-link"
+            target="_blank"
+            rel="noopener"
+          >
+            Raw HTML export
+          </a>
+          {ebook.sourceTextUrl ? (
+            <a
+              href={ebook.sourceTextUrl}
+              class="doc-link"
+              download
+            >
+              Download source text
+            </a>
+          ) : null}
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-14 grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
+      <div class="border-t border-foreground/15 pt-6">
+        <p class="doc-eyebrow mb-3">Info</p>
+        <div class="space-y-4">
+          {summarySentences.map((sentence) => (
+            <p class="doc-copy mb-0 text-lg text-foreground/90">{sentence}</p>
+          ))}
+        </div>
+      </div>
+
+      <div class="border-t border-foreground/15 pt-6">
+        <h2 class="mb-4 text-2xl font-semibold tracking-tight">Table of Contents</h2>
+        <ol class="space-y-2 text-base leading-7">
+          {ebook.toc.map((entry) => (
+            <li>
+              <a href={`${ebook.browserEditionUrl}#${entry.anchor}`} class="doc-link">
+                {entry.number}. {entry.title}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .ebook-document {
+    color: #171717;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+
+  .ebook-document .doc-eyebrow {
+    color: #666;
+    font-family: "Courier New", monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .ebook-document .doc-copy {
+    line-height: 1.38;
+  }
+
+  .ebook-document .doc-link {
+    color: #1a0dab;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.12em;
+  }
+
+  .ebook-document .doc-link:visited {
+    color: #551a8b;
+  }
+</style>
