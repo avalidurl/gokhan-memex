@@ -192,8 +192,8 @@ import { academicPublications, poetryWorks, experimentalWorks } from '@/data/pub
                   loading="lazy"
                 />
               </a>
-              <div>
-                <p class="doc-eyebrow mb-2">{work.type}</p>
+              <div class="border-b border-foreground/10 pb-4">
+                <p class="doc-eyebrow mb-2">{work.type.toUpperCase()}</p>
                 <h3 class="mt-0 text-xl font-semibold leading-tight">
                   <a href={work.detailHref} class="doc-link">
                     {work.title}
@@ -202,38 +202,44 @@ import { academicPublications, poetryWorks, experimentalWorks } from '@/data/pub
                 <p class="mb-3 text-base text-foreground/70">
                   {work.creators} · {work.year}
                 </p>
-                {work.commissionedByName && work.commissionedByHref && (
-                  <p class="mb-3 text-base text-foreground/75">
-                    Commissioned by <a href={work.commissionedByHref} class="doc-link" target="_blank" rel="noopener noreferrer">{work.commissionedByName}</a>.
-                  </p>
-                )}
-                {work.statusNote && (
-                  <p class="doc-copy mb-4 text-sm text-foreground/65">
-                    {work.statusNote}
-                  </p>
-                )}
-                <p class="doc-copy mb-4 text-base text-foreground/85">
-                  {work.accompanyingText}
-                </p>
-                {work.audioHref && work.audioMimeType && (
-                  <audio controls preload="none" class="w-full max-w-xl">
-                    <source src={work.audioHref} type={work.audioMimeType} />
-                  </audio>
-                )}
-                {(work.sourceHref || work.originalAudioHref) && (
-                  <div class="mt-4 flex flex-wrap items-center gap-4 text-sm text-foreground/60">
-                    {work.sourceHref && (
-                      <a href={work.sourceHref} class="doc-link" target="_blank" rel="noopener noreferrer">
-                        {work.sourceLabel ?? 'View source'}
-                      </a>
+                <details class="experimental-item group">
+                  <summary class="list-none cursor-pointer mt-1">
+                    <span class="experimental-caret text-foreground/60 inline-block">▲</span>
+                  </summary>
+                  <div class="pt-3">
+                    {work.commissionedByName && work.commissionedByHref && (
+                      <p class="mb-3 text-base text-foreground/75">
+                        Commissioned by <a href={work.commissionedByHref} class="doc-link" target="_blank" rel="noopener noreferrer">{work.commissionedByName}</a>.
+                      </p>
                     )}
-                    {work.originalAudioHref && (
-                      <a href={work.originalAudioHref} class="doc-link" target="_blank" rel="noopener noreferrer">
-                        {work.originalAudioLabel ?? 'Original source'}
-                      </a>
+                    {work.statusNote && (
+                      <p class="doc-copy mb-4 text-sm text-foreground/65">
+                        {work.statusNote}
+                      </p>
                     )}
+                    <p class="doc-copy text-lg text-foreground/90">
+                      {work.accompanyingText}
+                    </p>
+                    {work.audioHref && work.audioMimeType && (
+                      <audio controls preload="none" class="mt-4 w-full max-w-xl">
+                        <source src={work.audioHref} type={work.audioMimeType} />
+                      </audio>
+                    )}
+                    <div class="mt-4 flex flex-wrap gap-4 text-sm text-foreground/60">
+                      <a href={work.detailHref} class="doc-link">View details</a>
+                      {work.sourceHref && (
+                        <a href={work.sourceHref} class="doc-link" target="_blank" rel="noopener noreferrer">
+                          {work.sourceLabel ?? 'View source'}
+                        </a>
+                      )}
+                      {work.originalAudioHref && (
+                        <a href={work.originalAudioHref} class="doc-link" target="_blank" rel="noopener noreferrer">
+                          {work.originalAudioLabel ?? 'Original source'}
+                        </a>
+                      )}
+                    </div>
                   </div>
-                )}
+                </details>
               </div>
             </li>
           ))}
@@ -285,6 +291,14 @@ import { academicPublications, poetryWorks, experimentalWorks } from '@/data/pub
   }
 
   .publishing-document .ebook-item[open] > summary .ebook-caret {
+    transform: rotate(180deg);
+  }
+
+  .publishing-document .experimental-item > summary .experimental-caret {
+    transition: transform 160ms ease;
+  }
+
+  .publishing-document .experimental-item[open] > summary .experimental-caret {
     transform: rotate(180deg);
   }
 </style>
