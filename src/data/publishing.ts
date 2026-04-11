@@ -20,18 +20,7 @@ export const academicPublications = [
   },
 ] as const
 
-export const poetryWorks = [
-  {
-    type: 'Visual Poetry',
-    title: 'Hür Xerolage 65',
-    creators: 'Gökhan Turhan and Hâle Turhan',
-    year: '2016',
-    coverImage: 'https://covers.openlibrary.org/b/isbn/1936687372-L.jpg',
-    coverAlt: 'Cover of Hür Xerolage 65',
-    sourceHref: 'https://xexoxial.org/is/xerolage65/by/gokhan_turhan_and_hale_turhan',
-    amazonHref: 'https://www.amazon.com/Hur-Xerolage-65-hale-turhan/dp/1936687372',
-  },
-] as const
+export const poetryWorks = [] as const
 
 export const experimentalWorks = [
   {
