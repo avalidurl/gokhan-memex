@@ -1,0 +1,104 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { experimentalWorks } from '@/data/publishing'
+---
+
+<BaseLayout
+  title="Experimental"
+  description="Sound-led and hybrid experiments across writing, recording, and networked media by Gökhan Turhan."
+>
+  <div class="publishing-document mx-auto max-w-4xl px-6 py-12 lg:py-16">
+    <header class="mb-12">
+      <p class="doc-eyebrow mb-3">Publishing / Experimental</p>
+      <h1 class="mb-4 text-3xl font-semibold tracking-tight">Experimental</h1>
+      <p class="doc-copy max-w-2xl text-foreground/80">
+        Sound-led and hybrid experiments across writing, recording, and networked media.
+      </p>
+    </header>
+
+    <div class="space-y-10">
+      {experimentalWorks.map((work) => (
+        <article class="border-t border-foreground/15 pt-8">
+          <div class="grid gap-6 md:grid-cols-[220px_1fr]">
+            <a href={work.sourceHref} class="block" target="_blank" rel="noopener noreferrer">
+              <img
+                src={work.coverImage}
+                alt={work.coverAlt}
+                class="w-full border border-foreground/10 object-cover"
+                loading="lazy"
+              />
+            </a>
+
+            <div>
+              <p class="doc-eyebrow mb-3">{work.type}</p>
+              <h2 class="mt-0 text-2xl font-semibold tracking-tight leading-tight">
+                <a href={work.sourceHref} class="doc-link" target="_blank" rel="noopener noreferrer">
+                  {work.title}
+                </a>
+              </h2>
+              <p class="mb-4 text-base text-foreground/70">
+                {work.creators} · {work.year}
+              </p>
+              <p class="mb-3 text-base text-foreground/75">
+                Commissioned by <a href={work.commissionedByHref} class="doc-link" target="_blank" rel="noopener noreferrer">{work.commissionedByName}</a>.
+              </p>
+              <p class="doc-copy mb-4 text-sm text-foreground/65">
+                {work.zoraStatusNote}
+              </p>
+
+              <div class="mb-6 flex flex-wrap gap-x-5 gap-y-2 text-base">
+                <a href={work.sourceHref} class="doc-link" target="_blank" rel="noopener noreferrer">
+                  View on Zora
+                </a>
+                <a href={work.originalAudioHref} class="doc-link" target="_blank" rel="noopener noreferrer">
+                  Original sound source
+                </a>
+              </div>
+
+              <audio controls preload="none" class="mb-6 w-full max-w-2xl">
+                <source src={work.audioHref} type={work.audioMimeType} />
+              </audio>
+
+              <h3 class="mb-3 text-lg font-semibold tracking-tight">Accompanying text</h3>
+              <div class="space-y-4">
+                {work.accompanyingText.split('\n\n').map((paragraph) => (
+                  <p class="doc-copy text-base text-foreground/90">{paragraph}</p>
+                ))}
+              </div>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .publishing-document {
+    color: #171717;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+
+  .publishing-document .doc-eyebrow {
+    color: #666;
+    font-family: "Courier New", monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .publishing-document .doc-copy {
+    line-height: 1.38;
+  }
+
+  .publishing-document .doc-link {
+    color: #1a0dab;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.12em;
+  }
+
+  .publishing-document .doc-link:visited {
+    color: #551a8b;
+  }
+</style>

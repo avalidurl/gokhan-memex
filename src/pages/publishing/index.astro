@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { ebooks } from '@/data/ebooks'
-import { academicPublications, poetryWorks } from '@/data/publishing'
+import { academicPublications, poetryWorks, experimentalWorks } from '@/data/publishing'
 ---
 
 <BaseLayout
@@ -150,6 +150,68 @@ import { academicPublications, poetryWorks } from '@/data/publishing'
                   </a>
                   <a href={work.amazonHref} class="doc-link" target="_blank" rel="noopener noreferrer">
                     Amazon (opens Amazon)
+                  </a>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </details>
+    </section>
+
+    <section id="experimental" class="border-t border-foreground/15 pt-10">
+      <details class="group" open>
+        <summary class="flex items-center justify-between cursor-pointer list-none border-b border-foreground/10 pb-5">
+          <div>
+            <h2 class="text-2xl font-semibold tracking-tight">
+              <a href="/publishing/experimental/" class="doc-link">Experimental</a>
+            </h2>
+            <p class="doc-copy mt-2 max-w-xl text-base text-foreground/75">
+              Sound-led and hybrid experiments across writing, recording, and networked media.
+            </p>
+          </div>
+          <span class="text-foreground/60 transition-transform group-open:rotate-180">▼</span>
+        </summary>
+
+        <ul class="pt-6 space-y-6">
+          {experimentalWorks.map((work) => (
+            <li class="grid gap-5 py-2 md:grid-cols-[140px_1fr]">
+              <a href={work.sourceHref} class="block" target="_blank" rel="noopener noreferrer">
+                <img
+                  src={work.coverImage}
+                  alt={work.coverAlt}
+                  class="w-full border border-foreground/10 object-cover"
+                  loading="lazy"
+                />
+              </a>
+              <div>
+                <p class="doc-eyebrow mb-2">{work.type}</p>
+                <h3 class="mt-0 text-xl font-semibold leading-tight">
+                  <a href={work.sourceHref} class="doc-link" target="_blank" rel="noopener noreferrer">
+                    {work.title}
+                  </a>
+                </h3>
+                <p class="mb-3 text-base text-foreground/70">
+                  {work.creators} · {work.year}
+                </p>
+                <p class="mb-3 text-base text-foreground/75">
+                  Commissioned by <a href={work.commissionedByHref} class="doc-link" target="_blank" rel="noopener noreferrer">{work.commissionedByName}</a>.
+                </p>
+                <p class="doc-copy mb-4 text-sm text-foreground/65">
+                  {work.zoraStatusNote}
+                </p>
+                <p class="doc-copy mb-4 text-base text-foreground/85 line-clamp-4">
+                  {work.accompanyingText}
+                </p>
+                <audio controls preload="none" class="w-full max-w-xl">
+                  <source src={work.audioHref} type={work.audioMimeType} />
+                </audio>
+                <div class="mt-4 flex flex-wrap items-center gap-4 text-sm text-foreground/60">
+                  <a href={work.sourceHref} class="doc-link" target="_blank" rel="noopener noreferrer">
+                    View on Zora
+                  </a>
+                  <a href={work.originalAudioHref} class="doc-link" target="_blank" rel="noopener noreferrer">
+                    Original audio source
                   </a>
                 </div>
               </div>
