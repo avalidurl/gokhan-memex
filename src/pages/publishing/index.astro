@@ -1,6 +1,41 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { ebooks } from '@/data/ebooks'
+
+const academicPublications = [
+  {
+    type: 'Book Chapter',
+    title: 'On the Hyperstitional Implications of Memes as Digital Objects in Turkey',
+    venue: 'Yeni Medya Çalışmaları V: Türkiye İnternet Tarihi',
+    year: '2019',
+    author: 'Gökhan Turhan',
+    href: 'https://www.academia.edu/38354264/_T%C3%BCm_Kitap_T%C3%BCrkiye_%C4%B0nternet_Tarihi_Yeni_Medya_%C3%87al%C4%B1%C5%9Fmalar%C4%B1_V',
+    linkLabel: 'Source',
+  },
+  {
+    type: 'MA Thesis',
+    title:
+      'The Importance and Function of Media Laboratories for the Preservation of Works of Digital and Electronic Literature',
+    venue: 'Istanbul Bilgi University',
+    year: '2017',
+    author: 'Gökhan Turhan',
+    href: 'https://openaccess.bilgi.edu.tr/server/api/core/bitstreams/f36d4016-ad5a-4e69-bdce-b79a084dd47b/content',
+    linkLabel: 'PDF',
+  },
+]
+
+const poetryWorks = [
+  {
+    type: 'Visual Poetry',
+    title: 'Hür Xerolage 65',
+    creators: 'Gökhan Turhan and Hâle Turhan',
+    year: '2016',
+    coverImage: 'https://covers.openlibrary.org/b/isbn/1936687372-L.jpg',
+    coverAlt: 'Cover of Hür Xerolage 65',
+    sourceHref: 'https://xexoxial.org/is/xerolage65/by/gokhan_turhan_and_hale_turhan',
+    amazonHref: 'https://www.amazon.com/Hur-Xerolage-65-hale-turhan/dp/1936687372',
+  },
+]
 ---
 
 <BaseLayout
@@ -60,6 +95,84 @@ import { ebooks } from '@/data/ebooks'
                 <span>{ebook.author}</span>
                 <span>{ebook.pageCount} pages</span>
                 <span>{ebook.lineCount} lines</span>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section id="academic" class="border-t border-foreground/15 pt-10">
+      <div class="flex flex-col gap-4 border-b border-foreground/10 pb-5 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 class="text-2xl font-semibold tracking-tight">Academic</h2>
+          <p class="doc-copy mt-2 max-w-xl text-base text-foreground/75">
+            Selected publications, chapters, and graduate work.
+          </p>
+        </div>
+      </div>
+
+      <ul class="mt-6 space-y-6">
+        {academicPublications.map((item) => (
+          <li class="border-b border-foreground/10 pb-5">
+            <p class="doc-eyebrow mb-2">{item.type}</p>
+            <h3 class="mt-0 text-xl font-semibold leading-tight">
+              <a href={item.href} class="doc-link" target="_blank" rel="noopener noreferrer">
+                {item.title}
+              </a>
+            </h3>
+            <p class="mb-3 text-base text-foreground/70">
+              {item.venue} · {item.year}
+            </p>
+            <div class="flex flex-wrap items-center gap-4 text-sm text-foreground/60">
+              <span>{item.author}</span>
+              <a href={item.href} class="doc-link" target="_blank" rel="noopener noreferrer">
+                {item.linkLabel}
+              </a>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section id="poetry" class="border-t border-foreground/15 pt-10">
+      <div class="flex flex-col gap-4 border-b border-foreground/10 pb-5 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 class="text-2xl font-semibold tracking-tight">Poetry</h2>
+          <p class="doc-copy mt-2 max-w-xl text-base text-foreground/75">
+            Visual poetry works and publication references.
+          </p>
+        </div>
+      </div>
+
+      <ul class="mt-6 space-y-6">
+        {poetryWorks.map((work) => (
+          <li class="grid gap-5 py-2 md:grid-cols-[140px_1fr]">
+            <a href={work.sourceHref} class="block" target="_blank" rel="noopener noreferrer">
+              <img
+                src={work.coverImage}
+                alt={work.coverAlt}
+                class="w-full border border-foreground/10 object-cover"
+                loading="lazy"
+              />
+            </a>
+            <div>
+              <p class="doc-eyebrow mb-2">{work.type}</p>
+              <h3 class="mt-0 text-xl font-semibold leading-tight">
+                <a href={work.sourceHref} class="doc-link" target="_blank" rel="noopener noreferrer">
+                  {work.title}
+                </a>
+              </h3>
+              <p class="mb-3 text-base text-foreground/70">
+                {work.creators} · {work.year}
+              </p>
+              <div class="flex flex-wrap items-center gap-4 text-sm text-foreground/60">
+                <a href={work.sourceHref} class="doc-link" target="_blank" rel="noopener noreferrer">
+                  Read on Xexoxial
+                </a>
+                <a href={work.amazonHref} class="doc-link" target="_blank" rel="noopener noreferrer">
+                  Amazon (opens Amazon)
+                </a>
               </div>
             </div>
           </li>
