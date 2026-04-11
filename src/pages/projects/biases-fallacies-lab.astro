@@ -75,56 +75,42 @@ const deckJson = JSON.stringify(studyDeck)
           <div class="min-w-0 border-b border-border lg:border-b-0 lg:border-r">
             <div
               id="terminal-log"
-              class="min-h-[28rem] space-y-3 bg-[radial-gradient(circle_at_top,rgba(245,158,11,0.08),transparent_34%),linear-gradient(180deg,rgba(255,255,255,1),rgba(250,250,249,0.96))] px-6 py-6 font-mono text-sm leading-7"
+              class="min-h-[20rem] space-y-3 bg-[radial-gradient(circle_at_top,rgba(245,158,11,0.08),transparent_34%),linear-gradient(180deg,rgba(255,255,255,1),rgba(250,250,249,0.96))] px-6 py-6 font-mono text-sm leading-7"
               aria-live="polite"
             ></div>
           </div>
 
           <aside class="flex min-w-0 flex-col gap-4 bg-muted/20 px-5 py-5">
             <div class="rounded-2xl border border-border bg-background p-4">
-              <p class="mb-2 font-mono text-[11px] uppercase tracking-[0.24em] text-muted-foreground">Mission state</p>
-              <dl class="grid grid-cols-2 gap-3 text-sm">
-                <div>
-                  <dt class="text-muted-foreground">Mode</dt>
-                  <dd class="font-semibold text-foreground" id="stat-mode">Mixed</dd>
+              <p class="mb-2 font-mono text-[11px] uppercase tracking-[0.24em] text-muted-foreground">Session</p>
+              <div class="grid grid-cols-3 gap-2 text-xs">
+                <div class="rounded-lg border border-border bg-muted/30 px-2 py-2">
+                  <p class="m-0 text-muted-foreground">Mode</p>
+                  <p class="m-0 font-semibold text-foreground" id="stat-mode">Mixed</p>
                 </div>
-                <div>
-                  <dt class="text-muted-foreground">Round</dt>
-                  <dd class="font-semibold text-foreground" id="stat-round">0</dd>
+                <div class="rounded-lg border border-border bg-muted/30 px-2 py-2">
+                  <p class="m-0 text-muted-foreground">Round</p>
+                  <p class="m-0 font-semibold text-foreground" id="stat-round">0</p>
                 </div>
-                <div>
-                  <dt class="text-muted-foreground">Score</dt>
-                  <dd class="font-semibold text-foreground" id="stat-score">0</dd>
+                <div class="rounded-lg border border-border bg-muted/30 px-2 py-2">
+                  <p class="m-0 text-muted-foreground">Streak</p>
+                  <p class="m-0 font-semibold text-foreground" id="stat-streak">0</p>
                 </div>
-                <div>
-                  <dt class="text-muted-foreground">Streak</dt>
-                  <dd class="font-semibold text-foreground" id="stat-streak">0</dd>
-                </div>
-                <div>
-                  <dt class="text-muted-foreground">Best</dt>
-                  <dd class="font-semibold text-foreground" id="stat-best">0</dd>
-                </div>
-                <div>
-                  <dt class="text-muted-foreground">Mastered</dt>
-                  <dd class="font-semibold text-foreground" id="stat-mastered">0</dd>
-                </div>
-              </dl>
-            </div>
-
-            <div class="rounded-2xl border border-border bg-background p-4">
-              <p class="mb-2 font-mono text-[11px] uppercase tracking-[0.24em] text-muted-foreground">Quick commands</p>
-              <div class="flex flex-wrap gap-2" id="quick-command-buttons">
-                <button type="button" data-command="hint" class="quick-command rounded-full border border-border bg-background px-3 py-1.5 text-xs text-muted-foreground transition hover:border-foreground/30 hover:text-foreground">hint</button>
-                <button type="button" data-command="explain" class="quick-command rounded-full border border-border bg-background px-3 py-1.5 text-xs text-muted-foreground transition hover:border-foreground/30 hover:text-foreground">explain</button>
-                <button type="button" data-command="next" class="quick-command rounded-full border border-border bg-background px-3 py-1.5 text-xs text-muted-foreground transition hover:border-foreground/30 hover:text-foreground">next</button>
-                <button type="button" data-command="stats" class="quick-command rounded-full border border-border bg-background px-3 py-1.5 text-xs text-muted-foreground transition hover:border-foreground/30 hover:text-foreground">stats</button>
+              </div>
+              <div class="hidden">
+                <span id="stat-score">0</span>
+                <span id="stat-best">0</span>
+                <span id="stat-mastered">0</span>
               </div>
             </div>
 
             <div class="rounded-2xl border border-border bg-background p-4">
               <p class="mb-2 font-mono text-[11px] uppercase tracking-[0.24em] text-muted-foreground">Active case</p>
               <div class="space-y-3">
-                <p class="m-0 text-sm text-muted-foreground" id="current-family">Waiting for case data.</p>
+                <p class="m-0 rounded-xl border border-border bg-muted/40 px-3 py-3 text-sm leading-6 text-foreground" id="current-scenario">
+                  Waiting for case data.
+                </p>
+                <p class="m-0 text-xs text-muted-foreground" id="current-family">Answer with A-D.</p>
                 <div id="answer-buttons" class="grid gap-2"></div>
                 <button
                   type="button"
@@ -207,7 +193,7 @@ const deckJson = JSON.stringify(studyDeck)
 
           <p class="raw-kicker mb-3">How to play</p>
           <ul class="m-0 space-y-2 pl-5 text-sm text-muted-foreground">
-            <li>Read the scenario in the terminal.</li>
+            <li>Read the scenario in the Active case panel.</li>
             <li>Answer with <code>a</code>, <code>b</code>, <code>c</code>, or <code>d</code>.</li>
             <li>Use <code>hint</code> when you need a nudge and <code>explain</code> to force a teaching recap.</li>
             <li>Switch decks with <code>bias</code>, <code>fallacy</code>, or <code>mixed</code>.</li>
@@ -296,6 +282,7 @@ const deckJson = JSON.stringify(studyDeck)
       atlasSearchInput = document.getElementById('atlas-search') as HTMLInputElement | null
       atlasList = document.getElementById('atlas-list')
       focusCardEl = document.getElementById('focus-card')
+      currentScenario = document.getElementById('current-scenario')
       currentFamily = document.getElementById('current-family')
       modeButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('.mode-button'))
       quickCommandButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('.quick-command'))
@@ -637,12 +624,12 @@ const deckJson = JSON.stringify(studyDeck)
 
       logSystem(text: string, tone: LogLine['tone'] = 'neutral') {
         this.logs.push({ speaker: 'system', tone, text })
-        this.logs = this.logs.slice(-18)
+        this.logs = this.logs.slice(-10)
       }
 
       logPlayer(text: string) {
         this.logs.push({ speaker: 'player', text })
-        this.logs = this.logs.slice(-18)
+        this.logs = this.logs.slice(-10)
       }
 
       escapeHtml(text: string) {
@@ -860,10 +847,11 @@ const deckJson = JSON.stringify(studyDeck)
       }
 
       renderCurrentFamily() {
-        if (!this.currentFamily || !this.currentCard) return
+        if (!this.currentFamily || !this.currentScenario || !this.currentCard) return
+        this.currentScenario.textContent = this.currentCard.scenario
         this.currentFamily.textContent = this.solved
           ? `Resolved as ${this.currentCard.name}. Use next for another case.`
-          : `${this.currentCard.kind.toUpperCase()} | ${this.currentCard.family} | Answer with A-D or a card name.`
+          : `${this.currentCard.kind.toUpperCase()} | ${this.currentCard.family} | Answer with A-D.`
       }
 
       render() {
