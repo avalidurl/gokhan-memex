@@ -49,17 +49,18 @@ import { academicPublications, poetryWorks, experimentalWorks } from '@/data/pub
                     loading="lazy"
                   />
                 </a>
-                <details class="ebook-item group border-b border-foreground/10 pb-4">
+                <div class="border-b border-foreground/10 pb-4">
                   <p class="doc-eyebrow mb-2">E-book {String(index + 1).padStart(2, '0')}</p>
                   <h3 class="mt-0 text-xl font-semibold">
                     <a href={`/publishing/ebooks/${ebook.slug}/`} class="doc-link">
                       {ebook.title}
                     </a>
                   </h3>
-                  <summary class="list-none cursor-pointer mt-1">
-                    <p class="mb-2 text-base text-foreground/70">{ebook.subtitle}</p>
-                    <span class="ebook-caret text-foreground/60 inline-block">▲</span>
-                  </summary>
+                  <p class="mb-2 text-base text-foreground/70">{ebook.subtitle}</p>
+                  <details class="ebook-item group">
+                    <summary class="list-none cursor-pointer mt-1">
+                      <span class="ebook-caret text-foreground/60 inline-block">▲</span>
+                    </summary>
                   <div class="pt-3">
                     <p class="doc-copy text-lg text-foreground/90">{ebook.blurb}</p>
                     <div class="mt-4 flex flex-wrap gap-4 text-sm text-foreground/60">
@@ -69,7 +70,8 @@ import { academicPublications, poetryWorks, experimentalWorks } from '@/data/pub
                       <a href={`/publishing/ebooks/${ebook.slug}/`} class="doc-link">View details</a>
                     </div>
                   </div>
-                </details>
+                  </details>
+                </div>
               </li>
             ))}
           </ul>
