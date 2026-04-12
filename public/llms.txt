@@ -44,7 +44,7 @@ This is the personal memex (digital garden) of Gökhan Turhan. The site contains
 ## Contact
 
 - Email: gokhan@gokhanturhan.com
-- Telegram: https://t.me/gigabvgatti
+- Telegram: https://t.me/goekhanturhan
 - For collaboration, consulting, or inquiries
 
 ## License
