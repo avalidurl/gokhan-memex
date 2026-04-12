@@ -8,196 +8,271 @@ const deckJson = JSON.stringify(studyDeck)
 <BaseLayout
   title="Biases & Fallacies Lab"
   description={`A text-based training game for ${studyDeckStats.biases} cognitive biases and ${studyDeckStats.fallacies} logical fallacies.`}
+  showBreadcrumbs={false}
 >
-  <div class="mx-auto max-w-6xl px-6 py-12 lg:py-16">
-    <header class="mb-10 max-w-3xl">
-      <p class="raw-kicker mb-4">Interactive Project</p>
-      <h1 class="mb-4 text-4xl font-semibold tracking-tight text-foreground">Biases & Fallacies Lab</h1>
-      <p class="mb-4 text-lg text-muted-foreground">
-        A text-first training game that turns messy real-world scenarios into recognition drills. The lab ships with
-        <strong>{studyDeckStats.total}</strong> study cards across
-        <strong>{studyDeckStats.biases}</strong> cognitive biases and
-        <strong>{studyDeckStats.fallacies}</strong> logical fallacies, plus a searchable atlas so the session can
-        double as a reference tool.
-      </p>
-      <p class="text-sm text-muted-foreground">
-        Type <code>a</code> through <code>d</code> to answer, or use commands like <code>hint</code>,
-        <code>next</code>, <code>bias</code>, <code>fallacy</code>, <code>mixed</code>, and <code>stats</code>.
-      </p>
-      <p class="mb-0 mt-4 rounded-2xl border border-border bg-muted/40 px-4 py-3 text-sm text-muted-foreground">
-        Source note: there is no single closed master list for "all" biases and fallacies, so this lab uses a cross-sourced working taxonomy drawn from {studySourceStack.length} reference layers rather than pretending one website is definitive.
-      </p>
+  <div class="mx-auto max-w-7xl px-6 py-10 lg:py-14">
+    <header class="mb-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(260px,320px)] lg:items-end">
+      <div class="max-w-3xl">
+        <p class="raw-kicker mb-4">Interactive Project</p>
+        <h1 class="mb-4 text-4xl font-semibold tracking-tight text-foreground">Biases & Fallacies Lab</h1>
+        <p class="text-lg text-muted-foreground">
+          A recognition drill for messy real-world reasoning. Read one case, name the pattern, and use the atlas only when you need the reference layer.
+        </p>
+      </div>
+      <div class="space-y-4 border-l border-border/70 pl-5">
+        <div>
+          <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-muted-foreground">Protocol</p>
+          <p class="mt-2 text-sm leading-6 text-muted-foreground">
+            Answer with <code>a</code> through <code>d</code>. Use <code>h</code> for hint and <code>n</code> for next. Search the atlas when you want the reference file.
+          </p>
+        </div>
+        <p class="m-0 text-sm leading-6 text-muted-foreground">
+          Source note: this lab uses a cross-sourced working taxonomy from {studySourceStack.length} reference layers rather than pretending one website is definitive.
+        </p>
+      </div>
     </header>
 
-    <div class="grid gap-6 xl:grid-cols-[minmax(0,1.45fr)_minmax(320px,0.9fr)]">
-      <section class="overflow-hidden rounded-[2rem] border border-border bg-background text-foreground shadow-sm">
-        <div class="border-b border-border bg-[linear-gradient(135deg,rgba(245,158,11,0.09),rgba(2,132,199,0.08))] px-6 py-5">
-          <div class="flex flex-wrap items-center justify-between gap-4">
-            <div>
-              <p class="mb-1 font-mono text-xs uppercase tracking-[0.28em] text-muted-foreground">Archive Console</p>
-              <h2 class="m-0 text-2xl font-semibold text-foreground">Field Terminal</h2>
-            </div>
-            <div class="flex flex-wrap gap-2 text-xs text-muted-foreground">
-              <span class="rounded-full border border-border bg-muted/40 px-3 py-1">Text-based</span>
-              <span class="rounded-full border border-border bg-muted/40 px-3 py-1">{studyDeckStats.total} cards</span>
-              <span class="rounded-full border border-border bg-muted/40 px-3 py-1">{studyDeckStats.families} families</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="border-b border-border bg-muted/20 px-6 py-4">
-          <div class="flex flex-wrap gap-2" id="mode-buttons">
-            <button
-              type="button"
-              data-mode="mixed"
-              class="mode-button rounded-full border border-border bg-background px-4 py-2 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground transition hover:border-foreground/30 hover:text-foreground"
-            >
-              Mixed deck
-            </button>
-            <button
-              type="button"
-              data-mode="bias"
-              class="mode-button rounded-full border border-border bg-background px-4 py-2 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground transition hover:border-foreground/30 hover:text-foreground"
-            >
-              Biases
-            </button>
-            <button
-              type="button"
-              data-mode="fallacy"
-              class="mode-button rounded-full border border-border bg-background px-4 py-2 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground transition hover:border-foreground/30 hover:text-foreground"
-            >
-              Fallacies
-            </button>
-          </div>
-        </div>
-
-        <div class="grid gap-0 lg:grid-cols-[minmax(0,1fr)_280px]">
-          <div class="min-w-0 border-b border-border lg:border-b-0 lg:border-r">
-            <div
-              id="terminal-log"
-              class="min-h-[20rem] space-y-3 bg-[radial-gradient(circle_at_top,rgba(245,158,11,0.08),transparent_34%),linear-gradient(180deg,rgba(255,255,255,1),rgba(250,250,249,0.96))] px-6 py-6 font-mono text-sm leading-7"
-              aria-live="polite"
-            ></div>
-          </div>
-
-          <aside class="flex min-w-0 flex-col gap-4 bg-muted/20 px-5 py-5">
-            <div class="rounded-2xl border border-border bg-background p-4">
-              <p class="mb-2 font-mono text-[11px] uppercase tracking-[0.24em] text-muted-foreground">Session</p>
-              <div class="grid grid-cols-3 gap-2 text-xs">
-                <div class="rounded-lg border border-border bg-muted/30 px-2 py-2">
-                  <p class="m-0 text-muted-foreground">Mode</p>
-                  <p class="m-0 font-semibold text-foreground" id="stat-mode">Mixed</p>
-                </div>
-                <div class="rounded-lg border border-border bg-muted/30 px-2 py-2">
-                  <p class="m-0 text-muted-foreground">Round</p>
-                  <p class="m-0 font-semibold text-foreground" id="stat-round">0</p>
-                </div>
-                <div class="rounded-lg border border-border bg-muted/30 px-2 py-2">
-                  <p class="m-0 text-muted-foreground">Streak</p>
-                  <p class="m-0 font-semibold text-foreground" id="stat-streak">0</p>
-                </div>
-              </div>
-              <div class="hidden">
-                <span id="stat-score">0</span>
-                <span id="stat-best">0</span>
-                <span id="stat-mastered">0</span>
-              </div>
-            </div>
-
-            <div class="rounded-2xl border border-border bg-background p-4">
-              <p class="mb-2 font-mono text-[11px] uppercase tracking-[0.24em] text-muted-foreground">Active case</p>
-              <div class="space-y-3">
-                <p class="m-0 rounded-xl border border-border bg-muted/40 px-3 py-3 text-sm leading-6 text-foreground" id="current-scenario">
-                  Waiting for case data.
+    <div class="grid gap-8 xl:grid-cols-[minmax(0,1.55fr)_minmax(320px,0.92fr)]">
+      <section class="overflow-hidden rounded-[2rem] border border-border/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(248,250,252,0.92))] text-foreground shadow-sm">
+        <div class="border-b border-border/70 px-6 py-6 lg:px-8">
+          <div class="flex flex-col gap-6">
+            <div class="flex flex-wrap items-start justify-between gap-4">
+              <div class="max-w-2xl">
+                <p class="mb-2 font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">Play Surface</p>
+                <h2 class="m-0 text-2xl font-semibold text-foreground">Field drill</h2>
+                <p class="mt-2 text-sm leading-6 text-muted-foreground">
+                  One case at a time. Keep the rhythm tight, keep the mistakes cheap, and let the explanations teach the pattern.
                 </p>
-                <p class="m-0 text-xs text-muted-foreground" id="current-family">Answer with A-D.</p>
-                <div id="answer-buttons" class="grid gap-2"></div>
+              </div>
+              <div class="flex flex-wrap gap-2" id="mode-buttons">
                 <button
                   type="button"
-                  id="continue-button"
-                  class="hidden w-full rounded-xl bg-amber-300 px-4 py-3 text-sm font-semibold text-stone-950 transition hover:bg-amber-200"
+                  data-mode="mixed"
+                  class="mode-button rounded-full border border-border bg-background px-4 py-2 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground transition hover:border-foreground/20 hover:text-foreground"
                 >
-                  Continue
+                  Mixed
+                </button>
+                <button
+                  type="button"
+                  data-mode="bias"
+                  class="mode-button rounded-full border border-border bg-background px-4 py-2 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground transition hover:border-foreground/20 hover:text-foreground"
+                >
+                  Bias
+                </button>
+                <button
+                  type="button"
+                  data-mode="fallacy"
+                  class="mode-button rounded-full border border-border bg-background px-4 py-2 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground transition hover:border-foreground/20 hover:text-foreground"
+                >
+                  Fallacy
                 </button>
               </div>
             </div>
-          </aside>
+
+            <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+              <div>
+                <p class="mb-1 font-mono text-[11px] uppercase tracking-[0.24em] text-muted-foreground">Mode</p>
+                <p class="m-0 text-lg font-semibold text-foreground" id="stat-mode">Mixed deck</p>
+              </div>
+              <div>
+                <p class="mb-1 font-mono text-[11px] uppercase tracking-[0.24em] text-muted-foreground">Round</p>
+                <p class="m-0 text-lg font-semibold text-foreground" id="stat-round">0</p>
+              </div>
+              <div>
+                <p class="mb-1 font-mono text-[11px] uppercase tracking-[0.24em] text-muted-foreground">Streak</p>
+                <p class="m-0 text-lg font-semibold text-foreground" id="stat-streak">0</p>
+              </div>
+              <div>
+                <p class="mb-1 font-mono text-[11px] uppercase tracking-[0.24em] text-muted-foreground">Score</p>
+                <p class="m-0 text-lg font-semibold text-foreground" id="stat-score">0</p>
+              </div>
+            </div>
+
+            <div class="space-y-3">
+              <div class="flex flex-wrap items-center justify-between gap-3 text-sm text-muted-foreground">
+                <span>Mastery coverage <span class="font-medium text-foreground" id="stat-mastered">0/0</span></span>
+                <span>Accuracy <span class="font-medium text-foreground" id="stat-accuracy">0%</span></span>
+              </div>
+              <div class="h-2 rounded-full bg-black/6 dark:bg-white/10">
+                <div id="mastery-bar" class="h-full w-0 rounded-full bg-amber-300 transition-[width] duration-300 ease-out"></div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="border-t border-border bg-muted/20 px-6 py-5">
-          <form id="command-form" class="space-y-3">
-            <label class="font-mono text-xs uppercase tracking-[0.24em] text-muted-foreground" for="command-input">
-              Command line
-            </label>
-            <div class="flex flex-col gap-3 sm:flex-row">
-              <div class="flex min-w-0 flex-1 items-center rounded-2xl border border-border bg-background px-4">
-                <span class="mr-3 font-mono text-sm text-muted-foreground">$</span>
-                <input
-                  id="command-input"
-                  class="h-12 w-full bg-transparent font-mono text-sm text-foreground outline-none placeholder:text-muted-foreground"
-                  type="text"
-                  placeholder="Type a, b, c, d, hint, next, bias, fallacy, mixed, stats"
-                  autocomplete="off"
-                  spellcheck="false"
-                />
-              </div>
-              <button
-                type="submit"
-                class="rounded-2xl border border-border bg-background px-5 py-3 font-mono text-xs uppercase tracking-[0.2em] text-foreground transition hover:border-foreground/30 hover:bg-muted/40"
-              >
-                Run
-              </button>
+        <div class="px-6 py-6 lg:px-8 lg:py-8">
+          <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_300px]">
+            <div class="min-w-0">
+              <p id="current-meta" class="mb-4 font-mono text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
+                Waiting for case data.
+              </p>
+              <p id="current-scenario" class="m-0 max-w-3xl text-2xl font-medium leading-10 text-foreground sm:text-[2rem] sm:leading-[2.8rem]">
+                Waiting for case data.
+              </p>
+              <p id="current-family" class="mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">
+                Choose the pattern that best explains the case.
+              </p>
+              <div id="feedback-card" class="mt-6 hidden"></div>
             </div>
-          </form>
+
+            <aside class="min-w-0 border-t border-border/70 pt-6 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">
+              <p class="mb-3 font-mono text-[11px] uppercase tracking-[0.24em] text-muted-foreground">Choose the match</p>
+              <div id="answer-buttons" class="grid gap-3"></div>
+              <button
+                type="button"
+                id="continue-button"
+                class="mt-4 hidden w-full rounded-2xl bg-amber-300 px-4 py-3 text-sm font-semibold text-stone-950 transition hover:bg-amber-200"
+              >
+                Continue
+              </button>
+
+              <div class="mt-5 flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  data-command="hint"
+                  class="quick-command rounded-full border border-border px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground transition hover:border-foreground/20 hover:text-foreground"
+                >
+                  Hint
+                </button>
+                <button
+                  type="button"
+                  data-command="skip"
+                  class="quick-command rounded-full border border-border px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground transition hover:border-foreground/20 hover:text-foreground"
+                >
+                  Skip
+                </button>
+                <button
+                  type="button"
+                  data-command="explain"
+                  class="quick-command rounded-full border border-border px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground transition hover:border-foreground/20 hover:text-foreground"
+                >
+                  Explain
+                </button>
+                <button
+                  type="button"
+                  data-command="stats"
+                  class="quick-command rounded-full border border-border px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground transition hover:border-foreground/20 hover:text-foreground"
+                >
+                  Stats
+                </button>
+              </div>
+              <p class="mt-4 text-xs leading-5 text-muted-foreground">
+                Keyboard shortcuts: <code>a-d</code> answer, <code>h</code> hint, <code>n</code> next.
+              </p>
+            </aside>
+          </div>
+        </div>
+
+        <div class="border-t border-border/70 px-6 py-5 lg:px-8">
+          <details class="group">
+            <summary class="cursor-pointer list-none font-mono text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
+              Power commands
+            </summary>
+            <form id="command-form" class="mt-4 space-y-3">
+              <label class="sr-only" for="command-input">Command line</label>
+              <div class="flex flex-col gap-3 sm:flex-row">
+                <div class="flex min-w-0 flex-1 items-center rounded-2xl border border-border bg-background px-4">
+                  <span class="mr-3 font-mono text-sm text-muted-foreground">$</span>
+                  <input
+                    id="command-input"
+                    class="h-12 w-full bg-transparent font-mono text-sm text-foreground outline-none placeholder:text-muted-foreground"
+                    type="text"
+                    placeholder="Type a, b, c, d, hint, next, bias, fallacy, mixed, stats"
+                    autocomplete="off"
+                    spellcheck="false"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  class="rounded-2xl border border-border bg-background px-5 py-3 font-mono text-xs uppercase tracking-[0.2em] text-foreground transition hover:border-foreground/20 hover:bg-muted/40"
+                >
+                  Run
+                </button>
+              </div>
+            </form>
+          </details>
         </div>
       </section>
 
-      <aside class="space-y-6">
-        <section class="rounded-[2rem] border border-border bg-[linear-gradient(180deg,rgba(255,251,235,0.75),rgba(255,255,255,0.95))] p-6 shadow-sm dark:border-stone-800 dark:bg-[linear-gradient(180deg,rgba(28,25,23,0.92),rgba(12,10,9,0.98))]">
-          <p class="raw-kicker mb-3">Atlas</p>
-          <div class="mb-4">
-            <label class="mb-2 block text-sm font-medium text-foreground" for="atlas-search">Search the library</label>
+      <aside class="min-w-0 space-y-6">
+        <section class="overflow-hidden rounded-[2rem] border border-border/70 bg-background shadow-sm">
+          <div class="border-b border-border/70 px-6 py-5">
+            <div class="flex flex-wrap items-start justify-between gap-4">
+              <div>
+                <p class="mb-2 font-mono text-[11px] uppercase tracking-[0.24em] text-muted-foreground">Reference Surface</p>
+                <h2 class="m-0 text-xl font-semibold text-foreground">Case notes & atlas</h2>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  data-inspector-view="card"
+                  class="inspector-button rounded-full border border-border bg-background px-4 py-2 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground transition hover:border-foreground/20 hover:text-foreground"
+                >
+                  Case notes
+                </button>
+                <button
+                  type="button"
+                  data-inspector-view="library"
+                  class="inspector-button rounded-full border border-border bg-background px-4 py-2 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground transition hover:border-foreground/20 hover:text-foreground"
+                >
+                  Atlas
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div id="card-panel" class="px-6 py-6">
+            <div id="focus-card" class="space-y-4 text-sm text-muted-foreground">
+              <p class="m-0">Answer a case or open the atlas to pin a concept here.</p>
+            </div>
+          </div>
+
+          <div id="library-panel" class="hidden border-t border-border/70 px-6 py-6">
+            <label class="mb-2 block text-sm font-medium text-foreground" for="atlas-search">Search the atlas</label>
             <input
               id="atlas-search"
-              class="w-full rounded-2xl border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition focus:border-foreground/40 dark:border-stone-700 dark:bg-stone-900"
+              class="w-full rounded-2xl border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition focus:border-foreground/20"
               type="search"
               placeholder="Search by name, family, or concept"
               autocomplete="off"
               spellcheck="false"
             />
-          </div>
-          <div class="mb-4 flex flex-wrap gap-2 text-xs text-muted-foreground">
-            <span class="rounded-full border border-border px-3 py-1 dark:border-stone-700">{studyDeckStats.biases} biases</span>
-            <span class="rounded-full border border-border px-3 py-1 dark:border-stone-700">{studyDeckStats.fallacies} fallacies</span>
-            <span class="rounded-full border border-border px-3 py-1 dark:border-stone-700">{studyDeckStats.total} total cards</span>
-          </div>
-          <div id="atlas-list" class="max-h-[28rem] space-y-2 overflow-y-auto pr-1"></div>
-        </section>
-
-        <section class="rounded-[2rem] border border-border bg-background p-6 shadow-sm dark:border-stone-800 dark:bg-stone-950">
-          <p class="raw-kicker mb-3">Concept file</p>
-          <div id="focus-card" class="space-y-4 text-sm text-muted-foreground">
-            <p class="m-0">Answer a case or click any atlas item to pin a concept here.</p>
+            <div class="mt-4 flex flex-wrap gap-2 text-xs text-muted-foreground">
+              <span class="rounded-full border border-border px-3 py-1">{studyDeckStats.biases} biases</span>
+              <span class="rounded-full border border-border px-3 py-1">{studyDeckStats.fallacies} fallacies</span>
+              <span class="rounded-full border border-border px-3 py-1">{studyDeckStats.total} total cards</span>
+            </div>
+            <div id="atlas-list" class="mt-4 max-h-[32rem] space-y-2 overflow-y-auto pr-1"></div>
           </div>
         </section>
 
-        <section class="rounded-[2rem] border border-border bg-background p-6 shadow-sm dark:border-stone-800 dark:bg-stone-950">
-          <p class="raw-kicker mb-3">Source stack</p>
-          <ul class="m-0 mb-6 space-y-2 pl-5 text-sm text-muted-foreground">
+        <section class="rounded-[2rem] border border-border/70 bg-[linear-gradient(180deg,rgba(255,251,235,0.6),rgba(255,255,255,0.92))] px-6 py-6 shadow-sm dark:bg-[linear-gradient(180deg,rgba(41,37,36,0.9),rgba(12,10,9,0.98))]">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <p class="mb-2 font-mono text-[11px] uppercase tracking-[0.24em] text-muted-foreground">Session journal</p>
+              <p class="m-0 text-sm leading-6 text-muted-foreground">
+                The terminal flavor stays here: a compact trace of commands, hints, and outcomes.
+              </p>
+            </div>
+            <button
+              type="button"
+              data-command="help"
+              class="quick-command rounded-full border border-border bg-background px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground transition hover:border-foreground/20 hover:text-foreground"
+            >
+              Help
+            </button>
+          </div>
+          <div id="terminal-log" class="mt-5 space-y-2" aria-live="polite"></div>
+        </section>
+
+        <section class="rounded-[2rem] border border-border/70 bg-background px-6 py-6 shadow-sm">
+          <p class="mb-3 font-mono text-[11px] uppercase tracking-[0.24em] text-muted-foreground">Source stack</p>
+          <ul class="m-0 space-y-2 pl-5 text-sm leading-6 text-muted-foreground">
             {studySourceStack.map((source) => (
               <li>
                 <a href={source.url} target="_blank" rel="noopener">{source.label}</a> {source.description}
               </li>
             ))}
-          </ul>
-
-          <p class="raw-kicker mb-3">How to play</p>
-          <ul class="m-0 space-y-2 pl-5 text-sm text-muted-foreground">
-            <li>Read the scenario in the Active case panel.</li>
-            <li>Answer with <code>a</code>, <code>b</code>, <code>c</code>, or <code>d</code>.</li>
-            <li>Use <code>hint</code> when you need a nudge and <code>explain</code> to force a teaching recap.</li>
-            <li>Switch decks with <code>bias</code>, <code>fallacy</code>, or <code>mixed</code>.</li>
-            <li>Your mastery data stays in this browser so the lab can keep targeting weak spots.</li>
           </ul>
         </section>
       </aside>
@@ -229,6 +304,7 @@ const deckJson = JSON.stringify(studyDeck)
     }
 
     type Mode = 'mixed' | 'bias' | 'fallacy'
+    type InspectorView = 'card' | 'library'
 
     type LogLine = {
       speaker: 'system' | 'player'
@@ -263,6 +339,7 @@ const deckJson = JSON.stringify(studyDeck)
       logs: LogLine[] = []
       progress: StoredProgress = { cards: {}, bestStreak: 0 }
       mode: Mode = 'mixed'
+      inspectorView: InspectorView = 'card'
       round = 0
       score = 0
       streak = 0
@@ -270,11 +347,14 @@ const deckJson = JSON.stringify(studyDeck)
       currentOptions: StudyCard[] = []
       solved = false
       hintUsed = false
+      selectedOptionId: string | null = null
+      lastOutcome: 'correct' | 'incorrect' | 'skipped' | null = null
       focusCard: StudyCard | null = null
       atlasSearch = ''
       virtualMs = 0
 
       terminalLog = document.getElementById('terminal-log')
+      feedbackCard = document.getElementById('feedback-card')
       answerButtons = document.getElementById('answer-buttons')
       continueButton = document.getElementById('continue-button') as HTMLButtonElement | null
       commandForm = document.getElementById('command-form') as HTMLFormElement | null
@@ -283,16 +363,21 @@ const deckJson = JSON.stringify(studyDeck)
       atlasList = document.getElementById('atlas-list')
       focusCardEl = document.getElementById('focus-card')
       currentScenario = document.getElementById('current-scenario')
+      currentMeta = document.getElementById('current-meta')
       currentFamily = document.getElementById('current-family')
       modeButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('.mode-button'))
+      inspectorButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('.inspector-button'))
       quickCommandButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('.quick-command'))
+      cardPanel = document.getElementById('card-panel')
+      libraryPanel = document.getElementById('library-panel')
 
       statMode = document.getElementById('stat-mode')
       statRound = document.getElementById('stat-round')
       statScore = document.getElementById('stat-score')
       statStreak = document.getElementById('stat-streak')
-      statBest = document.getElementById('stat-best')
+      statAccuracy = document.getElementById('stat-accuracy')
       statMastered = document.getElementById('stat-mastered')
+      masteryBar = document.getElementById('mastery-bar')
 
       constructor(deck: StudyCard[]) {
         this.deck = deck
@@ -327,6 +412,13 @@ const deckJson = JSON.stringify(studyDeck)
           })
         })
 
+        this.inspectorButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            const view = button.dataset.inspectorView as InspectorView
+            this.setInspectorView(view)
+          })
+        })
+
         this.quickCommandButtons.forEach((button) => {
           button.addEventListener('click', () => {
             const command = button.dataset.command
@@ -335,8 +427,10 @@ const deckJson = JSON.stringify(studyDeck)
         })
 
         this.atlasSearchInput?.addEventListener('input', (event) => {
+          this.inspectorView = 'library'
           this.atlasSearch = (event.target as HTMLInputElement).value.trim()
           this.renderAtlas()
+          this.renderInspector()
           this.syncTextState()
         })
 
@@ -407,6 +501,25 @@ const deckJson = JSON.stringify(studyDeck)
         }).length
       }
 
+      totalAttempts() {
+        return Object.values(this.progress.cards).reduce((sum, record) => sum + record.seen, 0)
+      }
+
+      totalCorrect() {
+        return Object.values(this.progress.cards).reduce((sum, record) => sum + record.correct, 0)
+      }
+
+      overallAccuracy() {
+        const attempts = this.totalAttempts()
+        if (attempts === 0) return 0
+        return Math.round((this.totalCorrect() / attempts) * 100)
+      }
+
+      masteryPercent() {
+        if (this.deck.length === 0) return 0
+        return Math.round((this.masteredCount() / this.deck.length) * 100)
+      }
+
       randomPick<T>(items: T[]) {
         return items[Math.floor(Math.random() * items.length)]
       }
@@ -456,9 +569,12 @@ const deckJson = JSON.stringify(studyDeck)
         this.round += 1
         this.solved = false
         this.hintUsed = false
+        this.selectedOptionId = null
+        this.lastOutcome = null
         this.currentCard = this.pickCard()
         this.currentOptions = this.buildOptions(this.currentCard)
         this.focusCard = this.currentCard
+        this.inspectorView = 'card'
 
         if (!initial) {
           this.logSystem(`Spinning up round ${this.round} in ${this.modeLabel(this.mode)} mode.`)
@@ -507,6 +623,7 @@ const deckJson = JSON.stringify(studyDeck)
 
         const record = this.progress.cards[this.currentCard.id] ?? { seen: 0, correct: 0, wrong: 0 }
         record.seen += 1
+        this.selectedOptionId = selected.id
 
         const isCorrect = selected.id === this.currentCard.id
         if (isCorrect) {
@@ -514,15 +631,18 @@ const deckJson = JSON.stringify(studyDeck)
           this.score += this.hintUsed ? 7 : 10
           this.streak += 1
           this.progress.bestStreak = Math.max(this.progress.bestStreak, this.streak)
+          this.lastOutcome = 'correct'
           this.logSystem(`Correct: ${this.currentCard.name}. ${this.currentCard.whyItFits}`, 'success')
         } else {
           record.wrong += 1
           this.streak = 0
+          this.lastOutcome = 'incorrect'
           this.logSystem(`Missed. The right answer was ${this.currentCard.name}. ${this.currentCard.whyItFits}`, 'warning')
         }
 
         this.progress.cards[this.currentCard.id] = record
         this.focusCard = this.currentCard
+        this.inspectorView = 'card'
         this.solved = true
         this.saveProgress()
         this.render()
@@ -553,6 +673,9 @@ const deckJson = JSON.stringify(studyDeck)
         this.progress.cards[this.currentCard.id] = record
         this.streak = 0
         this.focusCard = this.currentCard
+        this.selectedOptionId = null
+        this.lastOutcome = 'skipped'
+        this.inspectorView = 'card'
         this.solved = true
         this.logSystem(`Skipped. ${this.currentCard.name}: ${this.currentCard.summary}`, 'warning')
         this.saveProgress()
@@ -565,9 +688,15 @@ const deckJson = JSON.stringify(studyDeck)
         this.startRound()
       }
 
+      setInspectorView(view: InspectorView) {
+        this.inspectorView = view
+        this.renderInspector()
+        this.syncTextState()
+      }
+
       printStats() {
         const mastered = this.masteredCount()
-        const seen = Object.values(this.progress.cards).reduce((sum, record) => sum + record.seen, 0)
+        const seen = this.totalAttempts()
         this.logSystem(`Stats | score ${this.score} | streak ${this.streak} | best ${this.progress.bestStreak} | mastered ${mastered}/${this.deck.length} | attempts ${seen}`)
         this.render()
       }
@@ -624,12 +753,12 @@ const deckJson = JSON.stringify(studyDeck)
 
       logSystem(text: string, tone: LogLine['tone'] = 'neutral') {
         this.logs.push({ speaker: 'system', tone, text })
-        this.logs = this.logs.slice(-10)
+        this.logs = this.logs.slice(-6)
       }
 
       logPlayer(text: string) {
         this.logs.push({ speaker: 'player', text })
-        this.logs = this.logs.slice(-10)
+        this.logs = this.logs.slice(-6)
       }
 
       escapeHtml(text: string) {
@@ -653,44 +782,63 @@ const deckJson = JSON.stringify(studyDeck)
               line.speaker === 'player'
                 ? 'text-foreground'
                 : line.tone === 'success'
-                  ? 'text-emerald-700'
+                  ? 'text-emerald-700 dark:text-emerald-300'
                   : line.tone === 'warning'
-                    ? 'text-rose-700'
+                    ? 'text-rose-700 dark:text-rose-300'
                     : line.tone === 'accent'
-                      ? 'text-sky-700'
+                      ? 'text-sky-700 dark:text-sky-300'
                       : 'text-foreground'
 
             const prefix = line.speaker === 'player' ? '&gt;' : '::'
-            return `<div class="rounded-2xl border border-border bg-background px-4 py-3 ${toneClass}"><span class="mr-3 text-muted-foreground">${prefix}</span>${this.escapeHtml(line.text)}</div>`
+            return `<div class="rounded-2xl border border-border/60 bg-background/80 px-3 py-2 font-mono text-xs leading-6 ${toneClass}"><span class="mr-2 text-muted-foreground">${prefix}</span>${this.escapeHtml(line.text)}</div>`
           })
           .join('')
       }
 
       renderButtons() {
         if (!this.answerButtons || !this.currentCard) return
-
-        if (this.solved) {
-          this.answerButtons.innerHTML = ''
-          this.continueButton?.classList.remove('hidden')
-          return
-        }
-
-        this.continueButton?.classList.add('hidden')
         this.answerButtons.innerHTML = this.currentOptions
           .map((option, index) => {
             const label = LETTERS[index]
+            const isCorrect = option.id === this.currentCard?.id
+            const isSelected = option.id === this.selectedOptionId
+            const solvedStateClasses = !this.solved
+              ? 'border-border bg-background hover:border-foreground/20 hover:bg-black/[0.02] dark:hover:bg-white/[0.03]'
+              : isCorrect
+                ? 'border-emerald-300 bg-emerald-50/90 text-emerald-950 dark:border-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-100'
+                : isSelected
+                  ? 'border-rose-300 bg-rose-50/90 text-rose-950 dark:border-rose-700 dark:bg-rose-950/30 dark:text-rose-100'
+                  : 'border-border/70 bg-background/70 text-muted-foreground'
+            const marker = this.solved
+              ? isCorrect
+                ? '<span class="text-[11px] font-medium uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-300">Correct</span>'
+                : isSelected
+                  ? '<span class="text-[11px] font-medium uppercase tracking-[0.18em] text-rose-700 dark:text-rose-300">Selected</span>'
+                  : '<span class="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">Option</span>'
+              : '<span class="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">Option</span>'
+
             return `
               <button
                 type="button"
-                class="answer-button rounded-xl border border-border bg-background px-3 py-3 text-left text-sm text-foreground transition hover:border-foreground/30 hover:bg-muted/40"
+                class="answer-button rounded-2xl border px-4 py-4 text-left text-sm text-foreground transition ${solvedStateClasses}"
                 data-command="${label.toLowerCase()}"
+                ${this.solved ? 'disabled' : ''}
               >
-                <span class="mb-1 block font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">${label}</span>
+                <div class="mb-2 flex items-center justify-between gap-3">
+                  <span class="block font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">${label}</span>
+                  ${marker}
+                </div>
                 <span class="block">${this.escapeHtml(option.name)}</span>
               </button>
             `
           })
           .join('')
+
+        if (this.solved) {
+          this.continueButton?.classList.remove('hidden')
+        } else {
+          this.continueButton?.classList.add('hidden')
+        }
 
         Array.from(this.answerButtons.querySelectorAll<HTMLButtonElement>('.answer-button')).forEach((button) => {
           button.addEventListener('click', () => {
@@ -705,18 +853,79 @@ const deckJson = JSON.stringify(studyDeck)
         this.statRound!.textContent = String(this.round)
         this.statScore!.textContent = String(this.score)
         this.statStreak!.textContent = String(this.streak)
-        this.statBest!.textContent = String(this.progress.bestStreak)
+        this.statAccuracy!.textContent = `${this.overallAccuracy()}%`
         this.statMastered!.textContent = `${this.masteredCount()}/${this.deck.length}`
+        this.masteryBar!.style.width = `${this.masteryPercent()}%`
       }
 
       renderModeButtons() {
         this.modeButtons.forEach((button) => {
           const active = button.dataset.mode === this.mode
           button.classList.toggle('border-amber-300', active)
-          button.classList.toggle('bg-amber-200/10', active)
-          button.classList.toggle('text-amber-100', active)
+          button.classList.toggle('bg-amber-100/70', active)
+          button.classList.toggle('text-stone-950', active)
           button.classList.toggle('text-muted-foreground', !active)
         })
+      }
+
+      renderInspectorButtons() {
+        this.inspectorButtons.forEach((button) => {
+          const active = button.dataset.inspectorView === this.inspectorView
+          button.classList.toggle('border-amber-300', active)
+          button.classList.toggle('bg-amber-100/70', active)
+          button.classList.toggle('text-stone-950', active)
+          button.classList.toggle('text-muted-foreground', !active)
+        })
+      }
+
+      feedbackMarkup() {
+        if (!this.currentCard || !this.solved) return ''
+
+        const isCorrect = this.lastOutcome === 'correct'
+        const isSkipped = this.lastOutcome === 'skipped'
+        const wrapperClass = isCorrect
+          ? 'border-emerald-300 bg-emerald-50/90 dark:border-emerald-800 dark:bg-emerald-950/30'
+          : isSkipped
+            ? 'border-amber-300 bg-amber-50/90 dark:border-amber-800 dark:bg-amber-950/30'
+            : 'border-rose-300 bg-rose-50/90 dark:border-rose-800 dark:bg-rose-950/30'
+        const eyebrow = isCorrect ? 'Correct match' : isSkipped ? 'Skipped case' : 'Not quite'
+        const summary = isCorrect
+          ? 'You identified the right pattern. Lock in why it fits before moving on.'
+          : isSkipped
+            ? 'The answer is revealed so you can study the pattern without guessing.'
+            : 'The answer was nearby, but the reasoning pattern points somewhere more specific.'
+
+        return `
+          <div class="rounded-[1.6rem] border ${wrapperClass} p-5">
+            <p class="mb-2 font-mono text-[11px] uppercase tracking-[0.24em] text-muted-foreground">${eyebrow}</p>
+            <h3 class="m-0 text-xl font-semibold text-foreground">${this.escapeHtml(this.currentCard.name)}</h3>
+            <p class="mt-2 text-sm leading-6 text-muted-foreground">${this.escapeHtml(summary)}</p>
+            <div class="mt-4 grid gap-3">
+              <div class="rounded-2xl bg-background/70 px-4 py-3 dark:bg-stone-950/50">
+                <p class="mb-1 font-medium text-foreground">Why this matches</p>
+                <p class="m-0 text-sm leading-6 text-muted-foreground">${this.escapeHtml(this.currentCard.whyItFits)}</p>
+              </div>
+              <div class="rounded-2xl bg-background/70 px-4 py-3 dark:bg-stone-950/50">
+                <p class="mb-1 font-medium text-foreground">Counter-move</p>
+                <p class="m-0 text-sm leading-6 text-muted-foreground">${this.escapeHtml(this.currentCard.counter)}</p>
+              </div>
+            </div>
+            ${this.hintUsed ? '<p class="mt-4 mb-0 text-xs text-muted-foreground">Hint was used on this round, so the score bonus was reduced.</p>' : ''}
+          </div>
+        `
+      }
+
+      renderFeedbackCard() {
+        if (!this.feedbackCard) return
+
+        if (!this.solved) {
+          this.feedbackCard.classList.add('hidden')
+          this.feedbackCard.innerHTML = ''
+          return
+        }
+
+        this.feedbackCard.innerHTML = this.feedbackMarkup()
+        this.feedbackCard.classList.remove('hidden')
       }
 
       focusMarkup(card: StudyCard) {
@@ -777,7 +986,7 @@ const deckJson = JSON.stringify(studyDeck)
       renderFocusCard() {
         if (!this.focusCardEl) return
         if (!this.focusCard) {
-          this.focusCardEl.innerHTML = '<p class="m-0">Answer a case or click any atlas item to pin a concept here.</p>'
+          this.focusCardEl.innerHTML = '<p class="m-0">Answer a case or open the atlas to pin a concept here.</p>'
           return
         }
         this.focusCardEl.innerHTML = this.focusMarkup(this.focusCard)
@@ -839,19 +1048,28 @@ const deckJson = JSON.stringify(studyDeck)
             const card = this.deck.find((entry) => entry.id === button.dataset.cardId)
             if (!card) return
             this.focusCard = card
+            this.inspectorView = 'card'
             this.renderFocusCard()
             this.renderAtlas()
+            this.renderInspector()
             this.syncTextState()
           })
         })
       }
 
-      renderCurrentFamily() {
-        if (!this.currentFamily || !this.currentScenario || !this.currentCard) return
+      renderInspector() {
+        this.cardPanel?.classList.toggle('hidden', this.inspectorView !== 'card')
+        this.libraryPanel?.classList.toggle('hidden', this.inspectorView !== 'library')
+        this.renderInspectorButtons()
+      }
+
+      renderCurrentCase() {
+        if (!this.currentFamily || !this.currentScenario || !this.currentCard || !this.currentMeta) return
+        this.currentMeta.textContent = `${this.currentCard.kind.toUpperCase()} | ${this.currentCard.family}`
         this.currentScenario.textContent = this.currentCard.scenario
         this.currentFamily.textContent = this.solved
-          ? `Resolved as ${this.currentCard.name}. Use next for another case.`
-          : `${this.currentCard.kind.toUpperCase()} | ${this.currentCard.family} | Answer with A-D.`
+          ? `Resolved as ${this.currentCard.name}. Review the explanation, then continue to the next case.`
+          : 'Choose the pattern that best explains the case, then keep the streak moving.'
       }
 
       render() {
@@ -859,21 +1077,26 @@ const deckJson = JSON.stringify(studyDeck)
         this.renderButtons()
         this.renderStats()
         this.renderModeButtons()
+        this.renderFeedbackCard()
         this.renderFocusCard()
         this.renderAtlas()
-        this.renderCurrentFamily()
+        this.renderInspector()
+        this.renderCurrentCase()
         this.syncTextState()
       }
 
       textState() {
         return {
           mode: this.mode,
+          inspector_view: this.inspectorView,
           round: this.round,
           score: this.score,
           streak: this.streak,
           best_streak: this.progress.bestStreak,
           mastered: this.masteredCount(),
+          accuracy: this.overallAccuracy(),
           solved: this.solved,
+          last_outcome: this.lastOutcome,
           current_case: this.currentCard
             ? {
                 kind: this.currentCard.kind,
