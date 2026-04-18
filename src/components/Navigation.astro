@@ -76,80 +76,100 @@ const navigation = [
 
         <!-- Mobile Menu Button (not on article pages) -->
         {!isArticle && (
-          <button 
-            class="md:hidden p-2 text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted/50" 
+          <button
             id="mobile-menu-button"
+            class="inline-flex rounded-md p-2 text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground md:hidden"
             aria-label="Toggle menu"
+            aria-controls="mobile-menu"
+            aria-expanded="false"
+            type="button"
           >
-            <Menu class="h-5 w-5" id="menu-icon" />
-            <X class="h-5 w-5 hidden" id="close-icon" />
+            <Menu id="menu-icon" class="h-5 w-5" />
+            <X id="close-icon" class="hidden h-5 w-5" />
           </button>
         )}
       </div>
     </div>
   </div>
-
 </header>
 
-<!-- Mobile Navigation Overlay - Outside header for proper stacking -->
-<div class="md:hidden hidden fixed inset-x-0 top-14 bottom-0 bg-background z-50 overflow-y-auto" id="mobile-menu">
-  <nav class="flex flex-col px-6 py-6">
-    {navigation.map((item) => (
+{!isArticle && (
+  <div
+    id="mobile-menu"
+    class="fixed inset-x-0 top-14 bottom-0 z-50 hidden overflow-y-auto bg-background md:hidden"
+    aria-hidden="true"
+  >
+    <nav class="flex flex-col px-6 py-6">
+      {navigation.map((item) => (
+        <a
+          href={item.href}
+          class={`mobile-menu-link border-b border-border/30 py-4 text-xl transition-colors ${
+            currentPath === item.href || currentPath.startsWith(item.href + '/')
+              ? 'text-foreground font-medium'
+              : 'text-muted-foreground hover:text-foreground'
+          }`}
+        >
+          {item.name}
+        </a>
+      ))}
       <a
-        href={item.href}
-        class={`py-4 text-xl border-b border-border/30 transition-colors ${
-          currentPath === item.href || currentPath.startsWith(item.href + '/')
-            ? 'text-foreground font-medium' 
-            : 'text-muted-foreground hover:text-foreground'
-        }`}
+        href="/rss.xml"
+        class="mobile-menu-link py-4 text-xl text-muted-foreground transition-colors hover:text-foreground"
       >
-        {item.name}
+        RSS Feed
       </a>
-    ))}
-    <a 
-      href="/rss.xml" 
-      class="py-4 text-xl text-muted-foreground hover:text-foreground transition-colors"
-    >
-      RSS Feed
-    </a>
-  </nav>
-</div>
+    </nav>
+  </div>
+)}
 
 <!-- Search Modal -->
 <SearchComponent />
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const button = document.getElementById('mobile-menu-button')
-    const menu = document.getElementById('mobile-menu')
-    const menuIcon = document.getElementById('menu-icon')
-    const closeIcon = document.getElementById('close-icon')
+<script is:inline>
+  (() => {
+    function initNavigation() {
+      const button = document.getElementById('mobile-menu-button')
+      const menu = document.getElementById('mobile-menu')
+      const menuIcon = document.getElementById('menu-icon')
+      const closeIcon = document.getElementById('close-icon')
 
-    button?.addEventListener('click', () => {
-      const isHidden = menu?.classList.contains('hidden')
-      
-      if (isHidden) {
-        menu?.classList.remove('hidden')
-        menuIcon?.classList.add('hidden')
-        closeIcon?.classList.remove('hidden')
-        document.body.style.overflow = 'hidden'
-      } else {
-        menu?.classList.add('hidden')
-        menuIcon?.classList.remove('hidden')
-        closeIcon?.classList.add('hidden')
-        document.body.style.overflow = ''
+      if (!(button instanceof HTMLButtonElement) || !(menu instanceof HTMLElement)) return
+      if (button.dataset.initialized === 'true') return
+      button.dataset.initialized = 'true'
+
+      const setOpen = (open) => {
+        button.setAttribute('aria-expanded', open ? 'true' : 'false')
+        menu.setAttribute('aria-hidden', open ? 'false' : 'true')
+        menu.classList.toggle('hidden', !open)
+        menuIcon?.classList.toggle('hidden', open)
+        closeIcon?.classList.toggle('hidden', !open)
+        document.body.style.overflow = open ? 'hidden' : ''
       }
-    })
 
-    // Close menu on navigation
-    const menuLinks = menu?.querySelectorAll('a')
-    menuLinks?.forEach(link => {
-      link.addEventListener('click', () => {
-        menu?.classList.add('hidden')
-        menuIcon?.classList.remove('hidden')
-        closeIcon?.classList.add('hidden')
-        document.body.style.overflow = ''
+      setOpen(false)
+
+      button.addEventListener('click', () => {
+        const isOpen = button.getAttribute('aria-expanded') === 'true'
+        setOpen(!isOpen)
       })
-    })
-  })
+
+      menu.querySelectorAll('.mobile-menu-link').forEach((link) => {
+        link.addEventListener('click', () => setOpen(false))
+      })
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') setOpen(false)
+      })
+
+      window.addEventListener('pageshow', () => setOpen(false))
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initNavigation, { once: true })
+    } else {
+      initNavigation()
+    }
+
+    document.addEventListener('astro:page-load', initNavigation)
+  })()
 </script>
