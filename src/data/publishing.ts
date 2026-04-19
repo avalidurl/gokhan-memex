@@ -1,14 +1,3 @@
-type PoetryWork = {
-  type: 'Visual Poetry'
-  title: string
-  creators: string
-  year: string
-  coverImage: string
-  coverAlt: string
-  sourceHref: string
-  amazonHref: string
-}
-
 type ExperimentalWork = {
   type: 'Experimental'
   title: string
@@ -50,8 +39,6 @@ export const academicPublications = [
     linkLabel: 'PDF',
   },
 ] as const
-
-export const poetryWorks: PoetryWork[] = []
 
 export const experimentalWorks: ExperimentalWork[] = [
   {
@@ -108,18 +95,5 @@ Just as I was about to trash that file into the black hole addy, I was chatting 
 I wanted to turn all of those files that went to SR application into an admixture of lo-fi cassette spoken word and experimental music, which is pure poetry for a person such as myself per se.
 
 Enjoy.`,
-  },
-  {
-    type: 'Experimental',
-    title: 'NUMBERS',
-    detailHref: '/publishing/experimental/numbers/',
-    creators: 'Gökhan Turhan',
-    year: '2026',
-    coverImage: '/publishing/experimental/numbers/logo-0-black.png',
-    coverAlt: 'Black square logo with a white zero for Numbers',
-    accompanyingText:
-      'Numbers begins with zero and waits for a hand. Each mint selects a point from a finite field of 10000 signs. A black serif figure stands alone on a white plane. Nothing moves except ownership and attention. Every digit is ordinary until counted by someone. Sequence becomes scarcity the moment order is broken. Chance permutes the grid, but the set remains complete. Arithmetic turns into portrait when a collector says mine. Here the smallest abstraction behaves like a relic. Between 0 and 9999, mathematics learns to whisper.',
-    statusNote:
-      'A generative number edition prepared for first-come, first-served release on OpenSea Studio.',
   },
 ]
