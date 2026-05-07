@@ -14,6 +14,7 @@ export type Ebook = {
   staticHtmlUrl: string
   sourceTextUrl?: string
   sourceTextPath: string
+  fontUrl?: string
   asemicDataPath?: string
   linesPerVerse?: number
   lineCount: number
@@ -59,6 +60,7 @@ export const ebooks: Ebook[] = [
     staticHtmlUrl: '/publishing/ebooks/the-guy-with-compute/browser-edition.html',
     sourceTextUrl: '/publishing/ebooks/the-guy-with-compute/poem.txt',
     sourceTextPath: 'public/publishing/ebooks/the-guy-with-compute/poem.txt',
+    fontUrl: '/publishing/ebooks/the-guy-with-compute/font.ttf',
     asemicDataPath: 'public/publishing/ebooks/the-guy-with-compute/poem-asemic.json',
     linesPerVerse: 4,
     lineCount: 320,
