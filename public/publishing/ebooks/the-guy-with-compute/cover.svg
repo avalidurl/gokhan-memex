@@ -705,7 +705,7 @@
 <rect x="72" y="72" width="1456" height="2256" fill="none" stroke="#5C3A1E" stroke-width="0.4"/>
 <text x="1510" y="110" text-anchor="end" font-family="Cormorant Garamond, Georgia, serif" font-size="36" fill="#5C3A1E">PLATE I</text>
 <line x1="1410" y1="118" x2="1510" y2="118" stroke="#5C3A1E" stroke-width="0.6"/>
-<text x="800.0" y="155" text-anchor="middle" font-family="Courier New, monospace" font-size="14" fill="#5C3A1E" letter-spacing="6">CL. ASEMICA &#160;&#8226;&#160; ORD. COMPUTERIA &#160;&#8226;&#160; COMPUTUS SERAPHINIANUS</text>
+<text x="800.0" y="155" text-anchor="middle" font-family="Courier New, monospace" font-size="14" fill="#5C3A1E" letter-spacing="6">CL. ASEMICA &#160;&#8226;&#160; ORD. COMPUTERIA &#160;&#8226;&#160; COMPUTUS NUMOGRAMMATICUS</text>
 <path d="M800.0,1896.0 C812.0,1399.0 778.0,999.0 796.0,502.0" stroke="#B87333" stroke-width="7" fill="none" stroke-linecap="round"/>
 <path d="M810.0,1896.0 C822.0,1399.0 789.0,999.0 806.0,502.0" stroke="#B87333" stroke-width="2.4" fill="none" opacity="0.7"/>
 <line x1="358.0" y1="1896.0" x2="1242.0" y2="1896.0" stroke="#5C3A1E" stroke-width="1.2" opacity="0.85"/>
