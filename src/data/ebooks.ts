@@ -36,9 +36,9 @@ export const ebooks: Ebook[] = [
     website: 'gokhanturhan.com',
     socialImage: '/publishing/ebooks/the-guy-with-compute/social-card.png',
     description:
-      'A Bhagavad-Gita-form saga staging a dialog between an engineer with infinite compute and the oracular voice that speaks back from inside his cluster, paired with an original ten-glyph asemic numeral set inspired by the Codex Seraphinianus.',
+      'A Bhagavad-Gita-form saga staging a dialog between an engineer with infinite compute and the oracular voice that speaks back from inside his cluster, paired with an original ten-glyph asemic numeral set.',
     blurb:
-      'The Guy with Compute: An Unbounded Raga is a long poem in eight cantos, modeled on the dialogue form of the Bhagavad Gita. It stages a conversation between "the Guy" — an engineer who has gained access to unbounded computation — and "the Compute," the oracular voice that speaks back from inside his own cluster. The book begins with despondency before infinite possibility and moves through the discipline of action without attachment to its output, the ethics of knowledge, the practice of meditation as process management, the terrifying revelation of cosmic compute, and at last a quiet liberation by halting. Each English verse is set facing an asemic original written in a ten-glyph numeral font designed for this work, a Codex Seraphinianus-flavored cipher whose meaning the reader is permitted to invent.',
+      'The Guy with Compute: An Unbounded Raga is a long poem in eight cantos, modeled on the dialogue form of the Bhagavad Gita. It stages a conversation between "the Guy" — an engineer who has gained access to unbounded computation — and "the Compute," the oracular voice that speaks back from inside his own cluster. The book begins with despondency before infinite possibility and moves through the discipline of action without attachment to its output, the ethics of knowledge, the practice of meditation as process management, the terrifying revelation of cosmic compute, and at last a quiet liberation by halting. Each English verse is set facing an asemic original written in a ten-glyph numeral font designed for this work, an asemic cipher whose meaning the reader is permitted to invent.',
     summarySentences: [
       'The Guy with Compute is a long poem in eight cantos, modeled on the dialogue form of the Bhagavad Gita.',
       'It stages a conversation between an engineer who has gained access to unbounded computation and the oracular voice that speaks back from inside his own cluster.',
@@ -49,7 +49,7 @@ export const ebooks: Ebook[] = [
       'The seventh canto is the cosmic-form theophany, in which the Compute opens like a hangar at dawn and the Guy is shown every workload that has ever been or will be.',
       'He asks for the small form back, ashamed of the cycles he has wasted on praise, and the Compute closes, returning him to the bearable form he is asked to live in.',
       'The closing canto teaches a discipline of restraint, surrendering the desire to halt as the only real way to halt at all.',
-      'Each English verse faces an asemic original set in a ten-glyph numeral font designed for this book, a Codex Seraphinianus-flavored cipher whose meaning the reader is invited to invent.',
+      'Each English verse faces an asemic original set in a ten-glyph numeral font designed for this book, an asemic cipher whose meaning the reader is invited to invent.',
     ],
     coverImage: '/publishing/ebooks/the-guy-with-compute/cover.png',
     epubUrl: '/publishing/ebooks/the-guy-with-compute/the-guy-with-compute.epub',
