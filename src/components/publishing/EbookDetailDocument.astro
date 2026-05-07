@@ -80,6 +80,15 @@ const summarySentences = ebook.summarySentences?.length ? ebook.summarySentences
               Download source text
             </a>
           ) : null}
+          {ebook.fontUrl ? (
+            <a
+              href={ebook.fontUrl}
+              class="doc-link"
+              download
+            >
+              Download font
+            </a>
+          ) : null}
         </div>
       </div>
     </section>
