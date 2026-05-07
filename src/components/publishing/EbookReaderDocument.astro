@@ -79,6 +79,9 @@ const cantoStartLines = new Map(ebook.toc.map((entry) => [entry.startLine, entry
             {ebook.sourceTextUrl ? (
               <a href={ebook.sourceTextUrl} class="doc-link" download>Download source text</a>
             ) : null}
+            {ebook.fontUrl ? (
+              <a href={ebook.fontUrl} class="doc-link" download>Download font</a>
+            ) : null}
           </div>
         </div>
       </div>
