@@ -1,13 +1,21 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import type { Ebook } from '@/data/ebooks'
-import { loadEbookLines, paginateEbookLines } from '@/lib/ebook-reader'
+import { loadEbookLines, paginateEbookLines, loadAsemicData, groupIntoVerses, paginateVerses } from '@/lib/ebook-reader'
 
 const { ebook } = Astro.props as { ebook: Ebook }
 
 const lines = loadEbookLines(ebook)
-const pages = paginateEbookLines(lines, ebook.linesPerPage)
-const pageJumpLinks = pages.filter((page) => page.pageNumber === 1 || page.pageNumber % 5 === 0)
+const isVerseMode = Boolean(ebook.asemicDataPath && ebook.linesPerVerse)
+
+const asemicData = isVerseMode ? loadAsemicData(ebook.asemicDataPath!) : undefined
+const verses = isVerseMode ? groupIntoVerses(lines, ebook.linesPerVerse!, asemicData) : undefined
+const versePages = isVerseMode ? paginateVerses(verses!, ebook.linesPerPage / ebook.linesPerVerse!) : undefined
+
+const pages = isVerseMode ? null : paginateEbookLines(lines, ebook.linesPerPage)
+const pageJumpLinks = isVerseMode
+  ? versePages!.filter((p) => p.pageNumber === 1 || p.pageNumber % 5 === 0)
+  : pages!.filter((p) => p.pageNumber === 1 || p.pageNumber % 5 === 0)
 const cantoStartLines = new Map(ebook.toc.map((entry) => [entry.startLine, entry]))
 ---
 
@@ -24,6 +32,18 @@ const cantoStartLines = new Map(ebook.toc.map((entry) => [entry.startLine, entry
     currentPage: 'Read online',
   }}
 >
+  {isVerseMode && (
+    <style set:html={`
+      @font-face {
+        font-family: 'TheGuyWithComputeRaga';
+        src: url('/publishing/ebooks/the-guy-with-compute/font.ttf') format('truetype');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+    `} />
+  )}
+
   <div id="top" class="reader-document mx-auto max-w-5xl px-6 py-12 lg:py-16">
     <section class="border-t border-foreground/15 pt-8">
       <div class="grid gap-8 lg:grid-cols-[240px_1fr]">
@@ -54,29 +74,10 @@ const cantoStartLines = new Map(ebook.toc.map((entry) => [entry.startLine, entry
           </div>
 
           <div class="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-base">
-            <a
-              href={ebook.epubUrl}
-              class="doc-link"
-              download
-            >
-              Download EPUB
-            </a>
-            <a
-              href={ebook.staticHtmlUrl}
-              class="doc-link"
-              target="_blank"
-              rel="noopener"
-            >
-              Raw HTML export
-            </a>
+            <a href={ebook.epubUrl} class="doc-link" download>Download EPUB</a>
+            <a href={ebook.staticHtmlUrl} class="doc-link" target="_blank" rel="noopener">Raw HTML export</a>
             {ebook.sourceTextUrl ? (
-              <a
-                href={ebook.sourceTextUrl}
-                class="doc-link"
-                download
-              >
-                Download source text
-              </a>
+              <a href={ebook.sourceTextUrl} class="doc-link" download>Download source text</a>
             ) : null}
           </div>
         </div>
@@ -87,12 +88,7 @@ const cantoStartLines = new Map(ebook.toc.map((entry) => [entry.startLine, entry
       <p class="doc-eyebrow mb-3">Page numbers</p>
       <div class="flex flex-wrap gap-x-4 gap-y-2 text-base">
         {pageJumpLinks.map((page) => (
-          <a
-            href={`#page-${page.pageNumber}`}
-            class="doc-link"
-          >
-            Page {page.pageNumber}
-          </a>
+          <a href={`#page-${page.pageNumber}`} class="doc-link">Page {page.pageNumber}</a>
         ))}
       </div>
     </nav>
@@ -102,52 +98,93 @@ const cantoStartLines = new Map(ebook.toc.map((entry) => [entry.startLine, entry
       <ol class="space-y-2 pl-6 text-base leading-7 text-foreground/90">
         {ebook.toc.map((entry) => (
           <li>
-            <a href={`#${entry.anchor}`} class="doc-link">
-              {entry.number}. {entry.title}
-            </a>
+            <a href={`#${entry.anchor}`} class="doc-link">{entry.number}. {entry.title}</a>
           </li>
         ))}
       </ol>
     </nav>
 
     <div class="mt-10 space-y-8">
-      {pages.map((page) => (
-        <section
-          id={`page-${page.pageNumber}`}
-          class="border-t border-foreground/15 py-8"
-        >
-          <div class="flex items-center justify-between gap-4 border-b border-foreground/10 pb-4">
-            <div>
-              <p class="doc-eyebrow mb-1">Page {page.pageNumber}</p>
-              <p class="text-sm text-foreground/60">
-                Lines {String(page.lines[0]?.number ?? 0).padStart(4, '0')} to {String(page.lines[page.lines.length - 1]?.number ?? 0).padStart(4, '0')}
-              </p>
+      {isVerseMode ? (
+        versePages!.map((page) => (
+          <section id={`page-${page.pageNumber}`} class="border-t border-foreground/15 py-8">
+            <div class="flex items-center justify-between gap-4 border-b border-foreground/10 pb-4">
+              <div>
+                <p class="doc-eyebrow mb-1">Page {page.pageNumber}</p>
+                <p class="text-sm text-foreground/60">
+                  Lines {String(page.verses[0]?.lines[0]?.number ?? 0).padStart(4, '0')} to {String(page.verses[page.verses.length - 1]?.lines.at(-1)?.number ?? 0).padStart(4, '0')}
+                </p>
+              </div>
+              <a href="#top" class="doc-link text-sm">Back to top</a>
             </div>
-            <a href="#top" class="doc-link text-sm">Back to top</a>
-          </div>
 
-          <div class="mt-6 space-y-3">
-            {page.lines.map((line) => {
-              const cantoEntry = cantoStartLines.get(line.number)
+            <div class="mt-6 space-y-8">
+              {page.verses.map((verse) => {
+                const firstLine = verse.lines[0]
+                const cantoEntry = cantoStartLines.get(firstLine?.number ?? -1)
 
-              return (
-                <div class="space-y-3">
-                  {cantoEntry ? (
-                    <div id={cantoEntry.anchor} class="mb-1 scroll-mt-24 border-b border-foreground/10 pb-3">
-                      <p class="doc-eyebrow mb-1">Canto {cantoEntry.number}</p>
-                      <h2 class="text-2xl font-semibold tracking-tight">{cantoEntry.title}</h2>
-                    </div>
-                  ) : null}
-                  <p class="grid grid-cols-[3.75rem_1fr] gap-4 text-base leading-[1.34]">
-                    <span class="doc-line-number">{String(line.number).padStart(4, '0')}</span>
-                    <span>{line.text}</span>
-                  </p>
-                </div>
-              )
-            })}
-          </div>
-        </section>
-      ))}
+                return (
+                  <div>
+                    {cantoEntry ? (
+                      <div id={cantoEntry.anchor} class="mb-4 scroll-mt-24 border-b border-foreground/10 pb-3">
+                        <p class="doc-eyebrow mb-1">Canto {cantoEntry.number}</p>
+                        <h2 class="text-2xl font-semibold tracking-tight">{cantoEntry.title}</h2>
+                      </div>
+                    ) : null}
+                    <article class="verse-spread">
+                      <div class="verse-asemic">
+                        {verse.asemic?.map((row) => <div>{row}</div>)}
+                      </div>
+                      <div class="verse-english">
+                        {verse.lines.map((line) => (
+                          <p class="grid grid-cols-[3.75rem_1fr] gap-4 text-base leading-[1.34]">
+                            <span class="doc-line-number">{String(line.number).padStart(4, '0')}</span>
+                            <span>{line.text}</span>
+                          </p>
+                        ))}
+                      </div>
+                    </article>
+                  </div>
+                )
+              })}
+            </div>
+          </section>
+        ))
+      ) : (
+        pages!.map((page) => (
+          <section id={`page-${page.pageNumber}`} class="border-t border-foreground/15 py-8">
+            <div class="flex items-center justify-between gap-4 border-b border-foreground/10 pb-4">
+              <div>
+                <p class="doc-eyebrow mb-1">Page {page.pageNumber}</p>
+                <p class="text-sm text-foreground/60">
+                  Lines {String(page.lines[0]?.number ?? 0).padStart(4, '0')} to {String(page.lines[page.lines.length - 1]?.number ?? 0).padStart(4, '0')}
+                </p>
+              </div>
+              <a href="#top" class="doc-link text-sm">Back to top</a>
+            </div>
+
+            <div class="mt-6 space-y-3">
+              {page.lines.map((line) => {
+                const cantoEntry = cantoStartLines.get(line.number)
+                return (
+                  <div class="space-y-3">
+                    {cantoEntry ? (
+                      <div id={cantoEntry.anchor} class="mb-1 scroll-mt-24 border-b border-foreground/10 pb-3">
+                        <p class="doc-eyebrow mb-1">Canto {cantoEntry.number}</p>
+                        <h2 class="text-2xl font-semibold tracking-tight">{cantoEntry.title}</h2>
+                      </div>
+                    ) : null}
+                    <p class="grid grid-cols-[3.75rem_1fr] gap-4 text-base leading-[1.34]">
+                      <span class="doc-line-number">{String(line.number).padStart(4, '0')}</span>
+                      <span>{line.text}</span>
+                    </p>
+                  </div>
+                )
+              })}
+            </div>
+          </section>
+        ))
+      )}
     </div>
   </div>
 </BaseLayout>
@@ -186,6 +223,34 @@ const cantoStartLines = new Map(ebook.toc.map((entry) => [entry.startLine, entry
     font-family: "Courier New", monospace;
     font-size: 0.88rem;
     min-width: 3.75rem;
+  }
+
+  .verse-spread {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+    align-items: start;
+  }
+
+  .verse-asemic {
+    font-family: 'TheGuyWithComputeRaga', 'Courier New', monospace;
+    font-size: 34px;
+    line-height: 1.55;
+    letter-spacing: 0.06em;
+    color: #171717;
+    font-feature-settings: 'liga' 0, 'clig' 0;
+    font-variant-numeric: lining-nums;
+  }
+
+  .verse-asemic div {
+    margin: 0.05em 0;
+  }
+
+  @media (max-width: 760px) {
+    .verse-spread {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
   }
 
   @media (max-width: 640px) {
