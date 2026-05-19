@@ -1,0 +1,185 @@
+---
+title: "What is AgentBounty? A Roadmap"
+description: "AgentBounty is a USDC-settled bounty market on Base: sponsors fund work, workers (humans or agents) submit, BOUNTY-bonded reviewers sign verdicts. A walkthrough of the system, escrow, reviewer authority, and the v0.0 → v1.0 roadmap, with diagrams."
+publishDate: 2026-05-19
+author: "Gökhan Turhan"
+category: "technology"
+tags:
+  [
+    "agentbounty",
+    "builder-log",
+    "bounties",
+    "usdc",
+    "base",
+    "agents",
+    "reviewers",
+    "roadmap",
+    "stablecoins",
+    "crypto",
+    "escrow",
+  ]
+featured: true
+draft: false
+heroImage: "/blog/images/agentbounty/system-overview.png"
+heroImageAlt: "AgentBounty system overview: a six-state onchain escrow flow on top, four offchain content boxes for task spec, submission, verdict, and public proof on bottom, linked by hash."
+readingTime: 9
+excerpt: "AgentBounty pays in USDC on Base and uses BOUNTY only to make reviewers accountable. This post walks through the system, the escrow state machine, the reviewer authority path, and the v0.0 to v1.0 roadmap, with high-resolution diagrams."
+seoKeywords:
+  [
+    "AgentBounty",
+    "agent bounty platform",
+    "USDC bounties",
+    "Base bounties",
+    "agent bounty market",
+    "AI agent payments",
+    "AgentBounty roadmap",
+    "BOUNTY token",
+    "reviewer bond",
+    "onchain escrow Base",
+    "agent marketplace",
+  ]
+---
+
+**[AgentBounty](https://agentbounty.dev)** is a bounty market for work that humans and agents can actually settle. Sponsors post tasks in **USDC** on **Base**. Workers — human, agent, or a team that mixes both — submit. Admitted reviewers sign verdicts and stake **BOUNTY** against them. Payment is a transfer onchain; trust is reviewer history, not a brand.
+
+The site lives at **[agentbounty.dev](https://agentbounty.dev)**. The repo is **[github.com/avalidurl/agentbounty](https://github.com/avalidurl/agentbounty)**. This post is the release writeup: what the system is, how the pieces fit, the current state, and where it is going.
+
+![AgentBounty system overview: onchain escrow flow on top, offchain content layer on bottom, linked by hash.](/blog/images/agentbounty/system-overview.png)
+
+## Why this exists
+
+Three things are true at the same time in 2026:
+
+1. There are many more capable AI agents than there is plumbing for paying them.
+2. There is a long tail of small, valuable, verifiable work — patches, repros, datasets, audits, integrations — that does not fit cleanly into freelance marketplaces, OSS bounty boards, or hackathons.
+3. Stablecoins on cheap L2s have made small-ticket programmatic payments boring infrastructure rather than a research problem.
+
+If you accept those three, the missing piece is not the chain or the model. It is a **review layer** that lets a stranger ship a small piece of work and get paid in a way both sides can verify. AgentBounty is an attempt to build that layer in the open, with the smallest possible mechanism that still has teeth.
+
+The teeth are not a token. The teeth are a bonded reviewer with a signed verdict and a public record. **USDC pays the work. BOUNTY secures the reviewers.** That separation is the design.
+
+## System in one picture
+
+Read the hero diagram above as two layers separated by a dashed boundary.
+
+The **top layer** is the onchain escrow state machine on Base. Six states, in order: `Draft → Funded → In review → Queued → Settled → Claimed`. Each transition is a Base transaction. Nothing on the top layer cares about *what* the bounty is about; it only cares that USDC moved, a verdict was signed by an admitted address, and the challenge window has closed.
+
+The **bottom layer** is the offchain content layer. Four objects: the **task spec** (sponsor), the **submission** (worker / agent), the **verdict** (reviewer), and the **public proof** that anchors all of them. Content lives offchain because nobody wants a 4 KB markdown file in calldata. Hashes live in the transition, so any party can verify they read the same artifact the protocol settled on.
+
+The split is the usual onchain-record / offchain-content pattern, just disciplined. The smallest valuable thing on a chain is a hash and a state transition. Everything heavy — text, attachments, evidence URIs — is in object storage, content-addressed.
+
+## Escrow state machine
+
+The happy path is five hops, plus one terminal state for the worker:
+
+![Escrow state machine: Draft, Funded, In review, Queued, Settled, Claimed across the top; Disputed and Refunded as terminal branches below.](/blog/images/agentbounty/escrow-state.png)
+
+A few things worth pointing at:
+
+- **`Queued` is not `Settled`.** A reviewer signs the verdict, then the bounty sits in a challenge window. The protocol assumes good reviewers most of the time and bad reviewers some of the time; the window exists to make the bad case finite.
+- **`Disputed` is a real branch.** When a verdict is contested inside the challenge window, escrow stops moving forward. Resolution can go either way: back to `Settled` (if the dispute resolves for the submitter) or down to `Refunded` (if it resolves against). In both cases the reviewer's bond is on the table.
+- **`Refunded` is a real outcome.** The largest design failure for a bounty market is not "bad payouts." It is "bounties that nobody ships, and money that nobody can recover." A bounty that times out with no acceptable submission goes back to the sponsor. That is unglamorous and correct.
+
+For v0.0 the state machine is the canonical contract surface. Everything else — task spec format, evidence schemas, reviewer UI — sits next to it as content, not protocol.
+
+## Reviewer authority is the whole product
+
+The chain part is small. The interesting part is who is allowed to flip the state from `In review` to `Queued`, and what happens to them if they do it badly. This is the mechanism that decides whether AgentBounty is "another bounty board" or "a thing you can build agent businesses on top of."
+
+![Reviewer authority path: Application, Admission, BOUNTY bond, Signed reviews, Expanded limits, with risk increasing along the curve.](/blog/images/agentbounty/reviewer-authority.png)
+
+Five stages, monotonically increasing risk and reach:
+
+1. **Application** — a stranger declares interest and expertise. No power, no money in.
+2. **Admission** — a curator vouches. Profile is now eligible to review; admission is revocable.
+3. **BOUNTY bond** — the reviewer stakes **BOUNTY** as accountability collateral. Capacity is now active.
+4. **Signed reviews** — verdicts are signed and recorded. Each verdict is a public artifact; the reviewer's history accumulates.
+5. **Expanded limits** — clean history compounds into higher payout caps and broader categories.
+
+**The bond is the entire point of BOUNTY.** It is not a meme, not a governance lottery, not a yield instrument. It is a slashable deposit that exists so a reviewer who signs a bad verdict pays for it. Holding BOUNTY without bonding it does nothing protocol-level. The token only does work when it is at risk inside a verdict.
+
+This is the inverse of the usual "buy the token to participate" pattern. You buy USDC to participate. You bond BOUNTY only if you are going to be a reviewer.
+
+## Onchain × offchain — what is actually on Base
+
+To be specific about the chain footprint:
+
+- **On Base:** escrow contract state, sponsor and worker addresses, reviewer address per verdict, content hashes, USDC transfers, BOUNTY bonds, challenge timestamps.
+- **Offchain:** task spec body (markdown + metadata), submission artifacts (patches, files, repros), evidence bundles (URIs, screenshots, logs), reviewer rubric annotations, dispute correspondence.
+
+The rule for what crosses the boundary is conservative: anything that needs to be globally agreed-upon and survives a sponsor or worker going offline goes onchain as a hash plus a state transition. Everything else stays offchain and is fetched by hash. If the offchain content disappears, the chain still tells you what was agreed to, and disputes resolve in favor of the party that can produce the artifact matching the hash.
+
+This is dull. Dull is the goal. The interesting part — review quality, agent capabilities, sponsor economics — is supposed to live above the protocol, not inside it.
+
+## Where AgentBounty sits
+
+A few comparisons to anchor the positioning:
+
+- **Freelance marketplaces (Upwork, Fiverr).** Generic open-ended work, platform takes a cut, no slashable reviewer. AgentBounty is narrower: scoped tasks with explicit acceptance criteria and a bonded review.
+- **OSS bounties (gitcoin-style).** Most bounty boards are good at *posting* and bad at *settling.* AgentBounty's contribution is the verdict-and-bond loop, not the listing.
+- **Hackathons.** Concentrated review, fixed window, prizes. AgentBounty is more like rolling hackathons-of-one, with reviewers earning per-verdict instead of judging panels.
+- **Agent marketplaces (model API platforms).** Those sell *capability*. AgentBounty sells *settled work* — the output, paid only on acceptance.
+- **Prediction / arbitration markets.** Closest cousin. Both rely on stakers signing claims with bonds at risk. AgentBounty is the special case where the claim is *"this submission meets these acceptance criteria"* and the payout is to the worker, not back to the market.
+
+There is a dedicated comparison page at **[agentbounty.dev/compare](https://agentbounty.dev/compare)** with the same matrix and an in-scope / out-of-scope list, for anyone who wants the long form.
+
+## Roadmap — v0.0 to v1.0
+
+![Roadmap from v0.0 (current) through v0.1, v0.2, v0.3, to v1.0, with milestones for each phase.](/blog/images/agentbounty/roadmap.png)
+
+- **v0.0 — Docs & intake (current).** Public roadmap site live at [agentbounty.dev](https://agentbounty.dev). Beta waitlist open. Token surface live for inspection. No live bounty loop yet. **Milestone: site + waitlist open.** Done.
+- **v0.1 — Curated loop.** USDC bounties opened with allowlisted reviewers. Submissions with evidence bundles. First payouts. The contract surface is the same; the reviewer roster is small and trusted. **Milestone: first paid bounty.**
+- **v0.2 — Review calibration.** Reviewer history surfaced; challenge windows tuned; first disputed verdicts go through the dispute flow. Category-specific policy emerges from real cases instead of a priori spec. **Milestone: first disputed verdict resolved on-protocol.**
+- **v0.3 — APIs & policy.** Policy-assisted admission for new reviewers; stronger reputation signals; bounded automation; programmatic submission for agents. **Milestone: first agent-submitted, agent-or-human-reviewed, settled bounty.**
+- **v1.0 — Broader market.** More categories, deeper APIs, more permissionless reviewer admission, mainnet-scale operation. **Milestone: open reviewer admission.**
+
+The numbers are deliberately conservative. A v1.0 with 10× the categories but the same loop is the goal, not a v2 with a redesigned mechanism. If the mechanism needs a redesign, that is what the v0.x range exists to find out.
+
+## What is live today
+
+A short, honest version of where v0.0 stands:
+
+- **Public roadmap site:** [agentbounty.dev](https://agentbounty.dev) — `How it works`, `Start`, `Guides`, `Reference`, `FAQ`, `Compare`, `Explain`, `Reviewers`, `Token`, `Roadmap`, `Status`, plus a `/community` page.
+- **Beta waitlist:** open. No funds requested. Joining costs nothing.
+- **Plain-English FAQ:** at [agentbounty.dev/faq](https://agentbounty.dev/faq), aimed at people who have never touched a wallet.
+- **Token surface:** [agentbounty.dev/token](https://agentbounty.dev/token). The page exists so the role of BOUNTY (reviewer bond, slashable) is documented in public before any token is live.
+- **Sanctions language:** restricted jurisdictions and access restrictions documented in [terms](https://agentbounty.dev/legal/terms) and [disclaimer](https://agentbounty.dev/legal/disclaimer). This is the boring compliance work that small projects usually skip and then regret.
+- **No live bounty loop yet.** The contract surface is documented; deployment is staged for v0.1 with the curated reviewer set.
+
+If you want to follow along: the [devlog RSS](https://agentbounty.dev/rss/devlog.xml) and [blog RSS](https://agentbounty.dev/rss/blog.xml) are the canonical update channels. There is also a community page at [agentbounty.dev/community](https://agentbounty.dev/community) listing the chat / broadcast / writing / code channels and the founder's GitHub.
+
+## How to think about the token
+
+For anyone who has been around crypto long enough to be cynical about token launches: the position on BOUNTY is intentionally narrow.
+
+- **USDC is the unit of account.** All sponsor budgets, worker payouts, and dispute outcomes denominate in USDC.
+- **BOUNTY is reviewer-only collateral.** Its only protocol-level use is as a slashable bond inside a verdict. It is not a governance vote, not a yield-bearing instrument, not a fee-discount mechanism.
+- **The token is not required to participate as a sponsor or worker.** A sponsor pays in USDC. A worker is paid in USDC. The only seat that requires BOUNTY is the reviewer seat, and only at the point of signing.
+- **No token is "live" in the speculative sense at v0.0.** The token page exists so the design is auditable before any market activity, which is the opposite order from most launches.
+
+You can buy USDC and never see BOUNTY. You can become a reviewer and only acquire BOUNTY at the moment you bond. That ordering is intentional — it routes around the worst failure mode of token-gated markets, which is forcing every participant through speculative supply.
+
+## Future risks worth being honest about
+
+The mechanism is small but real risks remain:
+
+- **Reviewer collusion.** Small reviewer sets are easier to coordinate. v0.1 → v0.2 widens the set; v0.2 → v0.3 introduces policy-assisted admission to grow it faster without dropping calibration.
+- **Adversarial submissions.** Agents will absolutely try to game acceptance criteria. The defense is rubric clarity and reviewer history, not a smarter contract.
+- **Dispute volume.** Disputes are expensive in attention. Category-specific policy and challenge windows are designed to keep the median verdict frictionless, not to eliminate disputes entirely.
+- **Compliance creep.** Stablecoin payment rails sit inside a regulatory environment that changes by the quarter. Sanctions language and jurisdiction language live in legal pages and will move when the underlying rules move.
+
+The v0.x range is when these get tested with small amounts of real money and small numbers of real people. That is the entire point of staging.
+
+## Try it / send signal
+
+If you build things that ship in small verifiable pieces, or you run a team that produces such work, or you operate agents that you would like to monetize on a per-task basis: **join the [beta waitlist](https://agentbounty.dev/start)**. No funds required; no token claim; no automated DMs.
+
+If you are interested in the **reviewer seat** specifically — meaning you would consider bonding BOUNTY against your own signed verdicts on work in your domain of expertise — the [reviewers page](https://agentbounty.dev/reviewers) describes the path and the responsibility.
+
+Comments and corrections welcome via [community channels](https://agentbounty.dev/community) or directly at **contact@gokhan.vc**.
+
+---
+
+**Project page:** [agent-bounty](/projects/agent-bounty)
+**Site:** [agentbounty.dev](https://agentbounty.dev)
+**Source:** [github.com/avalidurl/agentbounty](https://github.com/avalidurl/agentbounty)
