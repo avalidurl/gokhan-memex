@@ -1,0 +1,61 @@
+---
+title: "Three questions about AgentBounty"
+description: "Why developer-wallet trades are operational funding, what BOUNTY actually does, and what the v0.0 to v1.0 roadmap looks like. A short Q&A on the AgentBounty mechanism."
+publishDate: 2026-05-20
+author: "Gökhan Turhan"
+category: "technology"
+tags:
+  [
+    "agentbounty",
+    "builder-log",
+    "q-and-a",
+    "token",
+    "roadmap",
+    "developer-wallets",
+    "disclosure",
+    "bounty",
+    "usdc",
+    "base",
+    "crypto",
+  ]
+featured: false
+draft: false
+heroImage: "/blog/images/agentbounty/system-overview.png"
+heroImageAlt: "AgentBounty system overview: onchain escrow flow on top, offchain content layer on bottom, linked by hash."
+readingTime: 4
+excerpt: "A short Q&A on AgentBounty: why developer-wallet trades are operational funding, what BOUNTY actually does (it secures the reviewers, not the work), and how the roadmap scales from v0.0 docs through to a broader v1.0 market."
+seoKeywords:
+  [
+    "AgentBounty",
+    "AgentBounty Q&A",
+    "BOUNTY token role",
+    "developer wallet disclosure",
+    "AgentBounty roadmap",
+    "USDC bounties",
+    "Base bounties",
+    "agent bounty market",
+  ]
+---
+
+## Main Questions
+
+Over the last three days, AgentBounty moved from a placeholder into a public documentation and roadmap surface. The site now explains the core loop, the comparison with other work markets, the Plain-English FAQ, the BOUNTY token role, the roadmap, and the legal/privacy/disclaimer pages. The current state is still early: the MVP bounty loop is under construction, the waitlist is open, and the public site is meant to make the mechanism readable before live escrow launches.
+
+### Why does the developer arbitrage price movements in the market?
+
+AgentBounty is a bootstrapped full-stack project, so developer-wallet buys and sells should be understood as operational funding activity, not as market signal or investment guidance. The project needs to pay for devtools, compute, RPC, hosting, audits, legal work, and other infrastructure before the live bounty loop exists. When developer wallets trade around market movements, the purpose is to keep the project funded and moving, not to promise price performance or tell anyone else what to do. See the token caveats on [BOUNTY token](https://agentbounty.dev/token/) and the legal language on [Disclaimer](https://agentbounty.dev/legal/disclaimer/).
+
+### What does the BOUNTY token do?
+
+The short version is: USDC pays the work; BOUNTY secures the reviewers. Sponsors fund bounties in USDC, and accepted workers are planned to be paid in USDC. BOUNTY is not the worker payment unit; its intended role is reviewer admission, bonding/staking, reputation, anti-spam alignment, and accountability for signed verdicts. A reviewer bond matters because review authority should cost something: if a reviewer signs careless or bad decisions, future challenge and dispute mechanics can put that reviewer's bond and reputation at risk. See [How it works](https://agentbounty.dev/how-it-works/), [Reviewers](https://agentbounty.dev/reviewers/), [Token](https://agentbounty.dev/token/), and the [Plain-English FAQ](https://agentbounty.dev/faq/).
+
+### What are the long-term scaling goals and roadmap?
+
+AgentBounty starts narrow because the hard part is not posting tasks; the hard part is evidence, review, and accountable settlement. The roadmap begins with v0.0 documentation and intake, then moves to a curated v0.1 loop with USDC bounties, evidence-backed submissions, allowlisted reviewers, and visible payouts. Later stages add reviewer history, challenge windows, dispute records, category policies, stronger APIs, policy-assisted reviewer admission, and more permissionless participation. The goal is not to become a generic freelance marketplace; it is to scale a repeatable bounty loop where human and agent work can be checked, settled, and proven. See the [Roadmap](https://agentbounty.dev/roadmap/), [Compare](https://agentbounty.dev/compare/), [Reference](https://agentbounty.dev/reference/), and [Status](https://agentbounty.dev/status/).
+
+## Further Reading
+
+- Release log: [Site scaffold and documentation surface](https://agentbounty.dev/devlog/2026-05-19-site-scaffold/)
+- Launch blog: [Welcome to AgentBounty](https://agentbounty.dev/blog/2026-05-19-welcome/)
+- Longer essay: [What is AgentBounty? A Roadmap](https://gokhanturhan.com/journal/what-is-agentbounty-a-roadmap/)
+- Legal: [Terms](https://agentbounty.dev/legal/terms/), [Privacy](https://agentbounty.dev/legal/privacy/), [Disclaimer](https://agentbounty.dev/legal/disclaimer/)
