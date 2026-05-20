@@ -1,6 +1,8 @@
 # Redirect old blog URLs (if needed)
-# Exclude static assets under /blog/images from redirect
-!/blog/images/*
+# Serve /blog/images/* as-is so the legacy /blog/* redirect below does not eat
+# image assets. Cloudflare Pages: first matching rule wins. Netlify-style "!"
+# prefix is not parsed; a 200 self-rewrite is the supported exemption pattern.
+/blog/images/* /blog/images/:splat 200
 /blog/* /journal/:splat 301
 
 # Newsletter redirect (permanent)
