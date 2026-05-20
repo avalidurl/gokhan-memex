@@ -20,7 +20,7 @@ tags:
   ]
 featured: true
 draft: false
-heroImage: "/blog/images/agentbounty/system-overview.png"
+heroImage: "/images/agentbounty/system-overview.png"
 heroImageAlt: "AgentBounty system overview: a six-state onchain escrow flow on top, four offchain content boxes for task spec, submission, verdict, and public proof on bottom, linked by hash."
 readingTime: 9
 excerpt: "AgentBounty pays in USDC on Base and uses BOUNTY only to make reviewers accountable. This post walks through the system, the escrow state machine, the reviewer authority path, and the v0.0 to v1.0 roadmap, with high-resolution diagrams."
@@ -44,7 +44,7 @@ seoKeywords:
 
 The site lives at **[agentbounty.dev](https://agentbounty.dev)**. The repo is **[github.com/avalidurl/agentbounty](https://github.com/avalidurl/agentbounty)**. This post is the release writeup: what the system is, how the pieces fit, the current state, and where it is going.
 
-![AgentBounty system overview: onchain escrow flow on top, offchain content layer on bottom, linked by hash.](/blog/images/agentbounty/system-overview.png)
+![AgentBounty system overview: onchain escrow flow on top, offchain content layer on bottom, linked by hash.](/images/agentbounty/system-overview.png)
 
 ## Why this exists
 
@@ -72,7 +72,7 @@ The split is the usual onchain-record / offchain-content pattern, just disciplin
 
 The happy path is five hops, plus one terminal state for the worker:
 
-![Escrow state machine: Draft, Funded, In review, Queued, Settled, Claimed across the top; Disputed and Refunded as terminal branches below.](/blog/images/agentbounty/escrow-state.png)
+![Escrow state machine: Draft, Funded, In review, Queued, Settled, Claimed across the top; Disputed and Refunded as terminal branches below.](/images/agentbounty/escrow-state.png)
 
 A few things worth pointing at:
 
@@ -86,7 +86,7 @@ For v0.0 the state machine is the canonical contract surface. Everything else �
 
 The chain part is small. The interesting part is who is allowed to flip the state from `In review` to `Queued`, and what happens to them if they do it badly. This is the mechanism that decides whether AgentBounty is "another bounty board" or "a thing you can build agent businesses on top of."
 
-![Reviewer authority path: Application, Admission, BOUNTY bond, Signed reviews, Expanded limits, with risk increasing along the curve.](/blog/images/agentbounty/reviewer-authority.png)
+![Reviewer authority path: Application, Admission, BOUNTY bond, Signed reviews, Expanded limits, with risk increasing along the curve.](/images/agentbounty/reviewer-authority.png)
 
 Five stages, monotonically increasing risk and reach:
 
@@ -125,7 +125,7 @@ There is a dedicated comparison page at **[agentbounty.dev/compare](https://agen
 
 ## Roadmap — v0.0 to v1.0
 
-![Roadmap from v0.0 (current) through v0.1, v0.2, v0.3, to v1.0, with milestones for each phase.](/blog/images/agentbounty/roadmap.png)
+![Roadmap from v0.0 (current) through v0.1, v0.2, v0.3, to v1.0, with milestones for each phase.](/images/agentbounty/roadmap.png)
 
 - **v0.0 — Docs & intake (current).** Public roadmap site live at [agentbounty.dev](https://agentbounty.dev). Beta waitlist open. Token surface live for inspection. No live bounty loop yet. **Milestone: site + waitlist open.** Done.
 - **v0.1 — Curated loop.** USDC bounties opened with allowlisted reviewers. Submissions with evidence bundles. First payouts. The contract surface is the same; the reviewer roster is small and trusted. **Milestone: first paid bounty.**
