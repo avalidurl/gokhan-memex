@@ -2,7 +2,7 @@ import rss from '@astrojs/rss'
 import { getCollection } from 'astro:content'
 
 /** Channel contact; must match public site mailto (see cv.ts / privacy / disclaimer). */
-const SITE_EMAIL = 'contact@gokhan.vc'
+const SITE_EMAIL = 'contact@gokhanturhan.com'
 
 export async function GET(context) {
   const posts = await getCollection('blog')

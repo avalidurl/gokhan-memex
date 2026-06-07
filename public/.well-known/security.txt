@@ -1,7 +1,7 @@
 # Security Policy for gokhanturhan.com
 # https://securitytxt.org/
 
-Contact: mailto:contact@gokhan.vc
+Contact: mailto:contact@gokhanturhan.com
 Expires: 2027-01-01T00:00:00.000Z
 Preferred-Languages: en, tr
 Canonical: https://gokhanturhan.com/.well-known/security.txt

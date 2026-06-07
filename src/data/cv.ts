@@ -17,7 +17,7 @@ export type ContactLine = { label: string; value: string; url?: string }
 
 export const contact: ContactLine[] = [
   { label: 'Location', value: 'İstanbul, Türkiye' },
-  { label: 'Email', value: 'contact@gokhan.vc', url: 'mailto:contact@gokhan.vc' },
+  { label: 'Email', value: 'contact@gokhanturhan.com', url: 'mailto:contact@gokhanturhan.com' },
   { label: 'Website', value: 'gokhanturhan.com', url: 'https://gokhanturhan.com/' },
   { label: 'LinkedIn', value: 'linkedin.com/in/goekhanturhan', url: 'https://linkedin.com/in/goekhanturhan' },
   { label: 'X', value: 'x.com/goekhan', url: 'https://x.com/goekhan' },
@@ -250,7 +250,7 @@ export function cvJsonLd(site: URL) {
     '@type': 'Person',
     name: cvMeta.name,
     url: new URL('/cv/', site).href,
-    email: 'contact@gokhan.vc',
+    email: 'contact@gokhanturhan.com',
     jobTitle: cvMeta.title,
     description: cvMeta.tagline,
     address: {
