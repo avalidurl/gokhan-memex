@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import PostTitle from '@/components/PostTitle.astro'
 
 // Get all published blog posts for music and books categories
 const allPosts = (await getCollection('blog'))
@@ -58,9 +59,7 @@ const bookPosts = allPosts.filter(post =>
                     href={`/journal/${post.slug}/`}
                     class="group/link flex items-baseline gap-3 py-1"
                   >
-                    <span class="text-foreground group-hover/link:underline decoration-1 underline-offset-2">
-                      {post.data.title}
-                    </span>
+                    <PostTitle title={post.data.title} class="text-foreground group-hover/link:underline decoration-1 underline-offset-2" />
                     <span class="text-sm text-muted-foreground shrink-0">
                       {post.data.publishDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
                     </span>
@@ -96,9 +95,7 @@ const bookPosts = allPosts.filter(post =>
                     href={`/journal/${post.slug}/`}
                     class="group/link flex items-baseline gap-3 py-1"
                   >
-                    <span class="text-foreground group-hover/link:underline decoration-1 underline-offset-2">
-                      {post.data.title}
-                    </span>
+                    <PostTitle title={post.data.title} class="text-foreground group-hover/link:underline decoration-1 underline-offset-2" />
                     <span class="text-sm text-muted-foreground shrink-0">
                       {post.data.publishDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
                     </span>

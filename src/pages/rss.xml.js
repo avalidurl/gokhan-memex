@@ -1,5 +1,6 @@
 import rss from '@astrojs/rss'
 import { getCollection } from 'astro:content'
+import { plainPostTitle } from '@/lib/utils'
 
 /** Channel contact; must match public site mailto (see cv.ts / privacy / disclaimer). */
 const SITE_EMAIL = 'contact@gokhanturhan.com'
@@ -15,7 +16,7 @@ export async function GET(context) {
     description: 'T-shaped generalist solopreneur, researcher, and conceptual artist operating across fintech, deep tech, competitive governance, art markets, and investment strategies.',
     site: context.site,
     items: publishedPosts.map(post => ({
-      title: post.data.title,
+      title: plainPostTitle(post.data.title),
       pubDate: post.data.publishDate,
       description: post.data.description,
       link: `/journal/${post.slug}/`,

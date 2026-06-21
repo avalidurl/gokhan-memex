@@ -1,4 +1,5 @@
 import { getCollection } from 'astro:content'
+import { plainPostTitle } from '@/lib/utils'
 
 export async function getStaticPaths() {
   const posts = (await getCollection('blog')).filter((post) => !post.data.draft)
@@ -10,8 +11,7 @@ export async function getStaticPaths() {
 
 export async function GET({ props }) {
   const { post } = props
-  
-  // Simple SVG-based OG image generation
+  const title = plainPostTitle(post.data.title)
   const svg = `
     <svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
       <!-- Background -->
@@ -34,7 +34,7 @@ export async function GET({ props }) {
       
       <!-- Title -->
       <text x="100" y="220" fill="white" font-family="Arial, sans-serif" font-size="48" font-weight="bold">
-        <tspan x="100" dy="0">${post.data.title.length > 40 ? post.data.title.substring(0, 37) + '...' : post.data.title}</tspan>
+        <tspan x="100" dy="0">${title.length > 40 ? title.substring(0, 37) + '...' : title}</tspan>
       </text>
       
       <!-- Description -->
