@@ -148,12 +148,9 @@ export const publications = [
 
 export const skillGroups = [
   {
-    name: 'AI tooling',
+    name: 'Agentic AI stack',
     items: [
-      'Code & Dev: ChatGPT / Codex CLI · Claude Code · Cursor · OpenCode · Jules',
-      'AI Platforms: Google AI Studio · Hugging Face · Gemini · Grok · Antigravity',
-      'Rapid Builders: Lovable · Bolt',
-      'Voice & Creative AI: Whispr · Suno',
+      'Claude Code · Codex · Cursor · Factory AI · ElevenLabs · Hugging Face · Gemini · Google AI Studio · Grok · Jules · OpenCode · Antigravity',
     ],
   },
   {
