@@ -1,6 +1,7 @@
 ---
 import { type CollectionEntry, getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import PostTitle from '@/components/PostTitle.astro'
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog')
@@ -73,9 +74,7 @@ const monthName = monthNames[month - 1]
               href={`/journal/${post.slug}/`}
               class="group block"
             >
-              <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
-                {post.data.title}
-              </span>
+              <PostTitle title={post.data.title} class="text-foreground group-hover:underline decoration-1 underline-offset-2" />
               <span class="block text-sm text-muted-foreground mt-0.5">
                 {post.data.description}
               </span>

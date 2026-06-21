@@ -1,0 +1,21 @@
+---
+import { renderPostTitle } from '@/lib/utils'
+
+interface Props {
+  title: string
+  as?: 'h1' | 'span'
+  class?: string
+}
+
+const { title, as = 'span', class: className } = Astro.props
+const Tag = as
+---
+
+<Tag class={className} set:html={renderPostTitle(title)} />
+
+<style>
+  :global(del) {
+    text-decoration: line-through;
+    text-decoration-color: color-mix(in srgb, var(--muted-foreground) 60%, transparent);
+  }
+</style>
