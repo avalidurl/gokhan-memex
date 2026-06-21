@@ -2,6 +2,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content'
 import type { GetStaticPaths } from 'astro'
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import PostTitle from '@/components/PostTitle.astro'
 import { humanizeKebab } from '@/lib/utils'
 
 type PostEntry = CollectionEntry<'blog'>
@@ -71,9 +72,7 @@ const posts: PostEntry[] = allPosts
               href={`/journal/${post.slug}/`}
               class="group flex items-baseline gap-3 py-1"
             >
-              <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
-                {post.data.title}
-              </span>
+              <PostTitle title={post.data.title} class="text-foreground group-hover:underline decoration-1 underline-offset-2" />
               <span class="text-sm text-muted-foreground shrink-0">
                 {post.data.publishDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
               </span>
