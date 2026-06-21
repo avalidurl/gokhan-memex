@@ -10,7 +10,7 @@ export const cvMeta = {
     'Full-spectrum growth operator across fintech infrastructure, AI-native tooling, and tokenized markets. Builds websites, prototypes, content, and growth engines, with code, not just slide decks.',
   pdfUrl: '/cv/Gokhan_Turhan_CV.pdf',
   pdfFileName: 'Gokhan_Turhan_CV.pdf',
-  lastUpdated: '2026-03-02',
+  lastUpdated: '2026-06-21',
 } as const
 
 export type ContactLine = { label: string; value: string; url?: string }
@@ -121,12 +121,9 @@ export const publications = [
 
 export const skillGroups = [
   {
-    name: 'AI tooling',
+    name: 'Agentic AI stack',
     items: [
-      'Code & Dev: ChatGPT / Codex CLI · Claude Code · Cursor · OpenCode · Jules',
-      'AI Platforms: Google AI Studio · Hugging Face · Gemini · Grok · Antigravity',
-      'Rapid Builders: Lovable · Bolt',
-      'Voice & Creative AI: Whispr · Suno',
+      'Claude Code · Codex · Cursor · Factory AI · ElevenLabs · Hugging Face · Gemini · Google AI Studio · Grok · Jules · Lovable · Bolt · OpenCode · Antigravity · Suno',
     ],
   },
   {
