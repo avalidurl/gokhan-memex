@@ -5,28 +5,32 @@
 
 export const cvMeta = {
   name: 'Gökhan Turhan',
-  title: 'Full-spectrum growth operator',
+  title: 'Full-spectrum growth operator & founder-technologist',
   tagline:
-    'Full-spectrum growth operator across fintech infrastructure, AI-native tooling, and tokenized markets. Builds websites, prototypes, content, and growth engines, with code, not just slide decks.',
+    'Full-spectrum growth operator and founder-technologist across fintech infrastructure, AI-native tooling, and tokenized markets. Ships full-stack apps end-to-end across AI, crypto, and startup verticals — code, prototypes, content, and growth engines, not just slide decks.',
   pdfUrl: '/cv/Gokhan_Turhan_CV.pdf',
   pdfFileName: 'Gokhan_Turhan_CV.pdf',
-  lastUpdated: '2026-03-02',
+  lastUpdated: '2026-06-21',
 } as const
 
 export type ContactLine = { label: string; value: string; url?: string }
 
 export const contact: ContactLine[] = [
   { label: 'Location', value: 'İstanbul, Türkiye' },
-  { label: 'Email', value: 'contact@gokhanturhan.com', url: 'mailto:contact@gokhanturhan.com' },
+  { label: 'Email', value: 'contact@gokhan.vc', url: 'mailto:contact@gokhan.vc' },
+  { label: 'Website', value: 'gokhan.vc', url: 'https://gokhan.vc/' },
   { label: 'Website', value: 'gokhanturhan.com', url: 'https://gokhanturhan.com/' },
+  { label: 'Website', value: 'numetal.xyz', url: 'https://numetal.xyz/' },
   { label: 'LinkedIn', value: 'linkedin.com/in/goekhanturhan', url: 'https://linkedin.com/in/goekhanturhan' },
   { label: 'X', value: 'x.com/goekhan', url: 'https://x.com/goekhan' },
   { label: 'GitHub', value: 'github.com/avalidurl', url: 'https://github.com/avalidurl' },
+  { label: 'GitHub (gokhan-vc)', value: 'github.com/gokhan-vc', url: 'https://github.com/gokhan-vc' },
   { label: 'Substack', value: 'gokhan.substack.com', url: 'https://gokhan.substack.com/' },
 ]
 
 export const profile = [
   `Growth and business development operator focused on building growth engines that compound distribution, conversion, and revenue. I run end-to-end systems across performance marketing, partnership development, CRM orchestration, and experimentation to move quickly from strategy to measurable outcomes.`,
+  `As a founder-technologist I ship full-stack apps end-to-end — architecture, code, deployment, and distribution — across AI, crypto, and startup verticals, from smart contracts to landing pages.`,
   `My operating model blends AI-native execution with channel-specific creative, analytics instrumentation, and rapid iteration loops across paid, owned, and earned media. I specialize in memetic viral social engineering: message architecture, platform-native storytelling, and feedback-driven campaign scaling that improves both reach and unit economics.`,
   `I am proactive by default, with taste in art, classical and jazz music, a serious home-chef practice, and a consistent training-and-sports discipline.`,
 ]
@@ -41,6 +45,29 @@ export type CVExperience = {
 }
 
 export const experience: CVExperience[] = [
+  {
+    role: 'Founder & CTO',
+    org: 'Atelier Gökhan Turhan',
+    location: 'İstanbul',
+    start: '2024',
+    end: 'Present',
+    bullets: [
+      'Founder and sole technologist — chief technical officer, developer, coder, and bootstrapper in one, shipping the entire stack from smart contract to landing page.',
+      'Atelier Gökhan Turhan is a venture research studio into AGI and human coexistence, incubating products at the seam of AI, crypto, and startups.',
+      'Ship full-stack apps end-to-end — architecture, code, deployment, and growth — across AI, crypto, and startup verticals.',
+    ],
+  },
+  {
+    role: 'Founder',
+    org: 'Numetal',
+    location: 'İstanbul',
+    start: '2026',
+    end: 'Present',
+    bullets: [
+      'Numetal is the Agent Accelerator Studio & Bureau within Atelier Gökhan Turhan — chain-agnostic, building and backing autonomous agents under one brand and one token ($NUMETAL).',
+      'Lead architect, developer, and operator across product, protocol, and distribution — "we ship machines that ship themselves."',
+    ],
+  },
   {
     role: 'Head of Growth & Marketing',
     org: 'Kingpost.io + Quake Cash',
@@ -250,7 +277,7 @@ export function cvJsonLd(site: URL) {
     '@type': 'Person',
     name: cvMeta.name,
     url: new URL('/cv/', site).href,
-    email: 'contact@gokhanturhan.com',
+    email: 'contact@gokhan.vc',
     jobTitle: cvMeta.title,
     description: cvMeta.tagline,
     address: {
