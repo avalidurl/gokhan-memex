@@ -3,7 +3,8 @@ import { type CollectionEntry, getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import TableOfContents from '@/components/TableOfContents.astro'
 import SocialShare from '@/components/SocialShare.astro'
-import { formatDate, humanizeKebab } from '@/lib/utils'
+import PostTitle from '@/components/PostTitle.astro'
+import { formatDate, humanizeKebab, plainPostTitle } from '@/lib/utils'
 
 export async function getStaticPaths() {
   const posts = (await getCollection('blog')).filter((post) => !post.data.draft)
@@ -22,7 +23,7 @@ const { Content, headings } = await post.render()
 const defaultArticleSchema = {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": post.data.title,
+  "headline": plainPostTitle(post.data.title),
   "description": post.data.description,
   "author": {
     "@type": "Person",
@@ -53,7 +54,7 @@ const showToc = headings.filter(h => h.depth === 2 || h.depth === 3).length >= 2
 ---
 
 <BaseLayout
-  title={post.data.title}
+  title={plainPostTitle(post.data.title)}
   description={post.data.description}
   type="article"
   image={post.data.heroImage || `/og/${post.slug}.png`}
@@ -91,7 +92,7 @@ const showToc = headings.filter(h => h.depth === 2 || h.depth === 3).length >= 2
           {post.data.heroImage && (
             <img
               src={post.data.heroImage}
-              alt={post.data.heroImageAlt || post.data.title}
+              alt={post.data.heroImageAlt || plainPostTitle(post.data.title)}
               class="w-full rounded-lg mb-8"
               loading="eager"
             />
@@ -113,9 +114,7 @@ const showToc = headings.filter(h => h.depth === 2 || h.depth === 3).length >= 2
             </div>
 
             <!-- Title -->
-            <h1 class="text-3xl md:text-4xl font-semibold tracking-tight text-foreground leading-tight">
-              {post.data.title}
-            </h1>
+            <PostTitle title={post.data.title} as="h1" class="text-3xl md:text-4xl font-semibold tracking-tight text-foreground leading-tight" />
 
             <!-- Description -->
             {post.data.description && (
@@ -173,7 +172,7 @@ const showToc = headings.filter(h => h.depth === 2 || h.depth === 3).length >= 2
         <!-- Social Share -->
         <div class="mt-12 pt-8 border-t border-border">
           <SocialShare 
-            title={post.data.title}
+            title={plainPostTitle(post.data.title)}
             url={`${Astro.site?.origin || 'https://gokhanturhan.com'}${Astro.url.pathname}`}
             description={post.data.description}
           />
@@ -235,5 +234,14 @@ const showToc = headings.filter(h => h.depth === 2 || h.depth === 3).length >= 2
 
   .prose :global(p + p) {
     margin-top: 1.25rem;
+  }
+
+  .prose :global(.superseded-content) {
+    opacity: 0.7;
+  }
+
+  .prose :global(.superseded-content :where(p, li, h2, h3, h4, h5, h6, a, strong, em, blockquote, td, th, figcaption)) {
+    text-decoration: line-through;
+    text-decoration-color: color-mix(in srgb, var(--muted-foreground) 50%, transparent);
   }
 </style>

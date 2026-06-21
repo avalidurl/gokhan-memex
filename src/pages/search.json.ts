@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro'
 import { getCollection } from 'astro:content'
 import { cvPlainText, cvMeta } from '@/data/cv'
 import { ebooks } from '@/data/ebooks'
+import { plainPostTitle } from '@/lib/utils'
 
 type SearchDocument = {
   title: string
@@ -35,7 +36,7 @@ export const GET: APIRoute = async () => {
     .sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf())
 
   const documents: SearchDocument[] = posts.map(post => ({
-    title: post.data.title,
+    title: plainPostTitle(post.data.title),
     link: `/journal/${post.slug}/`,
     description: post.data.description,
     excerpt: post.data.excerpt ?? '',
