@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content'
 import { plainPostTitle } from '@/lib/utils'
 
 /** Channel contact; must match public site mailto (see cv.ts / privacy / disclaimer). */
-const SITE_EMAIL = 'contact@gokhanturhan.com'
+const SITE_EMAIL = 'contact@gokhan.vc'
 
 export async function GET(context) {
   const posts = await getCollection('blog')
