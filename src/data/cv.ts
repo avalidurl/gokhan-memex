@@ -123,7 +123,7 @@ export const skillGroups = [
   {
     name: 'Agentic AI stack',
     items: [
-      'Claude Code · Codex · Cursor · Factory AI · ElevenLabs · Hugging Face · Gemini · Google AI Studio · Grok · Jules · Lovable · Bolt · OpenCode · Antigravity · Suno',
+      'Claude Code · Codex · Cursor · Factory AI · ElevenLabs · Hugging Face · Gemini · Google AI Studio · Grok · Jules · OpenCode · Antigravity',
     ],
   },
   {
