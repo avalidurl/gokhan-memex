@@ -1,47 +1,52 @@
+/* Monochrome palette — the house style is strictly black & white. Hierarchy is
+   carried by weight, case, and value; never hue. Var names unchanged so every
+   component keeps working. --backdrop is the gray desk the white sheet sits on. */
 :root {
+  --backdrop: 0 0% 91%;
   --background: 0 0% 100%;
-  --foreground: 220 16% 8%;
+  --foreground: 0 0% 8%;
   --card: 0 0% 100%;
-  --card-foreground: 220 16% 8%;
-  --primary: 240 100% 47%;
+  --card-foreground: 0 0% 8%;
+  --primary: 0 0% 8%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 210 17% 97%;
-  --secondary-foreground: 220 16% 8%;
-  --muted: 210 17% 97%;
-  --muted-foreground: 220 8% 38%;
-  --accent: 210 17% 95%;
-  --accent-foreground: 220 16% 8%;
-  --border: 220 13% 84%;
-  --input: 220 13% 84%;
-  --ring: 240 100% 47%;
-  --radius: 0.125rem;
+  --secondary: 0 0% 96%;
+  --secondary-foreground: 0 0% 8%;
+  --muted: 0 0% 96%;
+  --muted-foreground: 0 0% 38%;
+  --accent: 0 0% 93%;
+  --accent-foreground: 0 0% 8%;
+  --border: 0 0% 80%;
+  --input: 0 0% 80%;
+  --ring: 0 0% 8%;
+  --radius: 0;
   --popover: 0 0% 100%;
-  --popover-foreground: 220 16% 8%;
-  --destructive: 0 84% 60%;
+  --popover-foreground: 0 0% 8%;
+  --destructive: 0 0% 20%;
   --destructive-foreground: 0 0% 100%;
   color-scheme: light;
 }
 
 .dark {
-  --background: 220 14% 10%;
-  --foreground: 210 20% 92%;
-  --card: 220 14% 10%;
-  --card-foreground: 210 20% 92%;
-  --primary: 212 100% 78%;
-  --primary-foreground: 220 14% 10%;
-  --secondary: 220 13% 16%;
-  --secondary-foreground: 210 20% 92%;
-  --muted: 220 13% 16%;
-  --muted-foreground: 210 10% 65%;
-  --accent: 220 13% 18%;
-  --accent-foreground: 210 20% 92%;
-  --border: 220 13% 24%;
-  --input: 220 13% 24%;
-  --ring: 212 100% 78%;
-  --popover: 220 14% 10%;
-  --popover-foreground: 210 20% 92%;
-  --destructive: 0 63% 31%;
-  --destructive-foreground: 210 20% 92%;
+  --backdrop: 0 0% 4%;
+  --background: 0 0% 8%;
+  --foreground: 0 0% 91%;
+  --card: 0 0% 8%;
+  --card-foreground: 0 0% 91%;
+  --primary: 0 0% 91%;
+  --primary-foreground: 0 0% 8%;
+  --secondary: 0 0% 14%;
+  --secondary-foreground: 0 0% 91%;
+  --muted: 0 0% 14%;
+  --muted-foreground: 0 0% 64%;
+  --accent: 0 0% 16%;
+  --accent-foreground: 0 0% 91%;
+  --border: 0 0% 24%;
+  --input: 0 0% 24%;
+  --ring: 0 0% 91%;
+  --popover: 0 0% 8%;
+  --popover-foreground: 0 0% 91%;
+  --destructive: 0 0% 70%;
+  --destructive-foreground: 0 0% 8%;
   color-scheme: dark;
 }
 
@@ -66,14 +71,40 @@ html {
 body {
   height: 100%;
   margin: 0;
-  background-color: hsl(var(--background));
+  background-color: hsl(var(--backdrop));
   color: hsl(var(--foreground));
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, "Liberation Sans", sans-serif;
   font-size: 1.0625rem;
   line-height: inherit;
   font-feature-settings: "kern" 1, "liga" 1;
-  -webkit-font-smoothing: auto;
+  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* The sheet — a white working sheet on the gray desk. Applied to the page wrapper
+   in BaseLayout; everything inside keeps its own layout. */
+.site-sheet {
+  max-width: 76rem;
+  margin: 0 auto;
+  background: hsl(var(--background));
+  border-left: 1px solid hsl(var(--border));
+  border-right: 1px solid hsl(var(--border));
+}
+
+/* Dither strip — the halftone divider. */
+.dither {
+  height: 11px;
+  background-image: radial-gradient(hsl(var(--foreground)) 0.62px, transparent 0.72px);
+  background-size: 3px 3px;
+  opacity: 0.42;
+}
+
+/* Header nav reads as uppercase index stamps; purely presentational. */
+.site-sheet header nav a {
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  font-weight: 600;
 }
 
 @media (prefers-reduced-motion: no-preference) {
