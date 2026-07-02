@@ -3,196 +3,178 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 import PostTitle from '@/components/PostTitle.astro'
 import { getCollection } from 'astro:content'
 
-// Get all posts grouped by category (published only)
-const allPosts = (await getCollection('blog')).filter((post) => !post.data.draft)
-
-// Get featured essays (longer posts, not interviews or links)
-const essays = allPosts
+const essays = (await getCollection('blog'))
   .filter(
-    (post) =>
-      post.data.category.toLowerCase() !== 'interviews' &&
-      post.data.category !== 'Links'
+    (p) =>
+      !p.data.draft &&
+      p.data.category.toLowerCase() !== 'interviews' &&
+      p.data.category !== 'Links'
   )
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
-  .slice(0, 5)
+  .slice(0, 6)
 
-// Interviews (frontmatter uses lowercase "interviews")
-const interviews = allPosts
-  .filter((post) => post.data.category.toLowerCase() === 'interviews')
-  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
-  .slice(0, 3)
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
 
+const index = [
+  { k: 'Journal', d: 'essays, notes & dispatches', href: '/journal/', v: '/journal', ext: false },
+  { k: 'Atelier Gökhan', d: 'the venture studio', href: 'https://gokhan.vc/', v: 'gokhan.vc', ext: true },
+  { k: 'Ishtar', d: 'agentic dating', href: 'https://ishtar.numetal.xyz/', v: 'ishtar.numetal.xyz', ext: true, live: true },
+  { k: 'Numetal Lab', d: 'agent accelerator studio', href: 'https://numetal.xyz/', v: 'numetal.xyz', ext: true },
+  { k: 'CV', d: 'the long version', href: '/cv/', v: '/cv', ext: false },
+  { k: 'Newsletters', d: 'Substack + dispatches', href: '/subscribe/', v: '/subscribe', ext: false },
+]
 ---
 
-<BaseLayout 
+<BaseLayout
   title="Gökhan Turhan"
-  description="Strategic Innovation Architect exploring stablecoins, AGI, tokenization, and investment strategies. Turning global systemic challenges into high-leverage opportunities through technology and foresight."
+  description="Full-spectrum growth operator across fintech infrastructure, AI-native tooling, and tokenized markets. Journal, studios, CV, newsletters."
 >
-  <div class="mx-auto max-w-2xl px-6 py-16 lg:py-24">
-    <!-- Bio Section -->
-    <section class="mb-16">
-      <h1 class="font-sans text-3xl md:text-4xl mb-6 text-foreground">
-        Gökhan Turhan
-      </h1>
-      <div class="prose prose-lg dark:prose-invert max-w-none">
-        <p class="text-lg text-muted-foreground leading-relaxed">
-          Full-spectrum growth operator across fintech infrastructure, AI-native tooling, and tokenized markets. Builds websites, prototypes, content, and growth engines, with code, not just slide decks.
-        </p>
-        <p class="text-lg text-muted-foreground leading-relaxed">
-          I care most about getting to abundant energy and real industrial scale fast -
-          the boring-except-it-isn't stuff: power, manufacturing, compute, and the global
-          problems that don't get solved without that base. I think governance should
-          compete: let patchwork jurisdictions try different rules and reward outcomes,
-          not paperwork theater.
-        </p>
-        <p class="text-base text-muted-foreground leading-relaxed">
-          Fintech and payments are where I actually work - custody, tokenization, DeFi
-          mechanics, market structure - and the mess around shipping it: partners,
-          distribution, institutional story. I'm comfortable owning "ship + sell":
-          priorities like a PM, outreach like BD, technical writing and ecosystem comms
-          like DevRel (positioning, docs, launches).
-        </p>
-        <p class="text-base text-muted-foreground leading-relaxed">
-          I also make conceptual art. It keeps me honest about naming, framing, and
-          compression when the product is basically "a complicated system nobody wants
-          to misunderstand."
-        </p>
-        <p class="text-base text-muted-foreground">
-          Contact via <a href="https://x.com/goekhan" target="_blank" rel="noopener" class="text-foreground hover:underline">X</a>, <a href="https://t.me/goekhanturhan" target="_blank" rel="noopener" class="text-foreground hover:underline">Telegram</a>, <a href="https://linkedin.com/in/goekhanturhan" target="_blank" rel="noopener" class="text-foreground hover:underline">LinkedIn</a>, <a href="https://gokhan.substack.com" target="_blank" rel="noopener" class="text-foreground hover:underline">Substack</a>, or <a href="mailto:contact@gokhan.vc" class="text-foreground hover:underline">Email</a>.
-        </p>
-    </div>
-    </section>
+  <div class="ds">
+    <div class="meta">Gökhan Turhan · operator · fintech × AI × tokenized markets</div>
+    <div class="dither"></div>
 
-    <!-- Categorized Links -->
-    <div class="space-y-12">
-      
-      <!-- Essays -->
-      {essays.length > 0 && (
-        <section>
-          <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
-            <a href="/journal/" class="hover:text-foreground">Essays</a>
-          </h2>
-          <ul class="space-y-2">
+    <div class="grid">
+      <div class="main">
+        <h1 class="h">Gökhan Turhan</h1>
+        <p class="lead">
+          Full-spectrum growth operator across <b>fintech infrastructure, AI-native
+          tooling, and tokenized markets</b>. Builds websites, prototypes, content, and
+          growth engines — with code, not just slide decks.
+        </p>
+        <div class="def">
+          I care most about getting to <b>abundant energy and real industrial scale</b>
+          fast: power, manufacturing, compute, and the global problems that don't get
+          solved without that base. Governance should compete — let jurisdictions try
+          different rules and reward outcomes, not paperwork theater.
+        </div>
+        <p class="p">
+          Fintech and payments are where I actually work — custody, tokenization, DeFi
+          mechanics, market structure — and the mess around shipping it: partners,
+          distribution, institutional story. I own <b>ship + sell</b>: priorities like a
+          PM, outreach like BD, technical writing and comms like DevRel. I also make
+          conceptual art; it keeps me honest about naming and compression.
+        </p>
+        <div class="cta">
+          <a class="btn" href="/journal/">Read the journal →</a>
+          <span class="note">contact:
+            <a href="https://x.com/goekhan" target="_blank" rel="noopener">X</a> ·
+            <a href="https://t.me/goekhanturhan" target="_blank" rel="noopener">Telegram</a> ·
+            <a href="https://linkedin.com/in/goekhanturhan" target="_blank" rel="noopener">LinkedIn</a> ·
+            <a href="mailto:contact@gokhan.vc">email</a>
+          </span>
+        </div>
+      </div>
+
+      <aside class="side">
+        <div class="idxh">Index</div>
+        <div class="dot"></div>
+        <div class="idx">
+          {index.map((r) => (
+            <a
+              class="ix"
+              href={r.href}
+              target={r.ext ? '_blank' : undefined}
+              rel={r.ext ? 'noopener noreferrer' : undefined}
+            >
+              <span class="ixl"><span class="k">{r.k}</span>{r.live && <span class="live">live</span>}<span class="d"> — {r.d}</span></span>
+              <span class="v">{r.v} {r.ext ? '↗' : '→'}</span>
+            </a>
+          ))}
+        </div>
+      </aside>
+    </div>
+
+    {essays.length > 0 && (
+      <>
+        <div class="dither dgap"></div>
+        <section class="recent">
+          <div class="idxh">Recent from the journal</div>
+          <ul class="rlist">
             {essays.map((post) => (
               <li>
-                <a 
-                  href={`/journal/${post.slug}/`}
-                  class="group flex items-baseline gap-3 py-1"
-                >
-                  <PostTitle title={post.data.title} class="text-foreground group-hover:underline decoration-1 underline-offset-2" />
-                  <span class="text-sm text-muted-foreground shrink-0">
-                    {post.data.publishDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
-                  </span>
+                <a href={`/journal/${post.slug}/`}>
+                  <PostTitle title={post.data.title} class="rt" />
+                  <span class="rd">{fmt(post.data.publishDate)}</span>
                 </a>
               </li>
             ))}
           </ul>
-          <p class="mt-3">
-            <a
-              href="/journal/"
-              class="text-sm text-muted-foreground hover:text-foreground underline decoration-1 underline-offset-2"
-            >
-              Read more
-            </a>
-          </p>
+          <a class="more" href="/journal/">All essays →</a>
         </section>
-      )}
-
-      <!-- Projects -->
-      <section>
-        <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
-          <a href="/projects/" class="hover:text-foreground">Projects</a>
-        </h2>
-        <ul class="space-y-2">
-          <li>
-            <a
-              href="https://gokhan.vc/"
-              target="_blank"
-              rel="noopener"
-              class="group flex items-baseline gap-3 py-1"
-            >
-              <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
-                Atelier Gökhan Turhan
-              </span>
-              <span class="text-sm text-muted-foreground">↗</span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://numetal.xyz/"
-              target="_blank"
-              rel="noopener"
-              class="group flex items-baseline gap-3 py-1"
-            >
-              <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
-                Numetal
-              </span>
-              <span class="text-sm text-muted-foreground">↗</span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="/projects/biases-fallacies-lab/"
-              class="group flex items-baseline gap-3 py-1"
-            >
-              <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
-                Biases & Fallacies Lab
-              </span>
-            </a>
-          </li>
-          <li>
-              <a 
-                href="https://market-cap-tracker.vercel.app/"
-                target="_blank"
-              rel="noopener"
-              class="group flex items-baseline gap-3 py-1"
-            >
-              <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
-                NVIDIA vs Crypto Market Cap Tracker
-              </span>
-              <span class="text-sm text-muted-foreground">↗</span>
-            </a>
-          </li>
-          <li>
-              <a 
-                href="https://sp100-financial-tracker.pages.dev/"
-                target="_blank"
-              rel="noopener"
-              class="group flex items-baseline gap-3 py-1"
-            >
-              <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
-                SP100 Financial Tracker
-              </span>
-              <span class="text-sm text-muted-foreground">↗</span>
-            </a>
-          </li>
-        </ul>
-      </section>
-
-      <!-- Interviews -->
-      {interviews.length > 0 && (
-        <section>
-          <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
-            <a href="/archive/categories/interviews/" class="hover:text-foreground">Interviews</a>
-          </h2>
-          <ul class="space-y-2">
-            {interviews.map((post) => (
-              <li>
-                <a
-                  href={`/journal/${post.slug}/`}
-                  class="group flex items-baseline gap-3 py-1"
-                >
-                  <PostTitle title={post.data.title} class="text-foreground group-hover:underline decoration-1 underline-offset-2" />
-                  <span class="text-sm text-muted-foreground shrink-0">
-                    {post.data.publishDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      </div>
+      </>
+    )}
   </div>
+
+  <style>
+    .ds { padding: 20px 34px 48px; color: hsl(var(--foreground)); }
+    .meta {
+      font-family: "Courier New", ui-monospace, monospace;
+      font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+      color: hsl(var(--muted-foreground));
+    }
+    .dither {
+      height: 11px; opacity: .42; margin: 14px 0;
+      background-image: radial-gradient(hsl(var(--foreground)) .62px, transparent .72px);
+      background-size: 3px 3px;
+    }
+    .dgap { margin: 36px 0 22px; }
+    .grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 46px; align-items: start; }
+    .h { font-size: clamp(2.1rem, 5vw, 2.7rem); font-weight: 700; letter-spacing: -.025em; line-height: 1.03; }
+    .lead { font-size: 16px; line-height: 1.55; margin-top: 15px; max-width: 56ch; color: hsl(var(--foreground)); }
+    .lead b, .p b, .def b { font-weight: 700; }
+    .def {
+      border-left: 2px solid hsl(var(--foreground)); padding: 4px 0 4px 18px;
+      margin: 22px 0; font-style: italic; max-width: 54ch; line-height: 1.5; color: hsl(var(--foreground));
+    }
+    .p { font-size: 16px; line-height: 1.55; margin-top: 14px; max-width: 56ch; color: hsl(var(--muted-foreground)); }
+    .cta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 26px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: hsl(var(--background)); border: 1.5px solid hsl(var(--foreground));
+      color: hsl(var(--foreground)); font-weight: 700; font-size: 14px; padding: 9px 18px;
+      box-shadow: 2px 2px 0 hsl(var(--foreground)); text-decoration: none;
+      transition: transform .05s, box-shadow .05s, background .1s;
+    }
+    .btn:hover { background: hsl(var(--muted)); }
+    .btn:active { transform: translate(2px, 2px); box-shadow: 0 0 0 hsl(var(--foreground)); }
+    .note { font-size: 13px; color: hsl(var(--muted-foreground)); }
+    .note a { color: hsl(var(--foreground)); text-decoration: underline; text-underline-offset: 2px; }
+    .idxh { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; margin-bottom: 8px; }
+    .dot {
+      height: 6px; opacity: .5;
+      background-image: radial-gradient(hsl(var(--foreground)) .5px, transparent .6px);
+      background-size: 3px 3px;
+    }
+    .idx { border: 1.5px solid hsl(var(--foreground)); border-top: none; }
+    .ix {
+      display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+      padding: 12px 13px; border-bottom: 1px solid hsl(var(--border));
+      text-decoration: none; color: hsl(var(--foreground));
+    }
+    .ix:last-child { border-bottom: none; }
+    .ix:hover { background: hsl(var(--muted)); }
+    .ixl .k { font-weight: 700; }
+    .ixl .d { font-weight: 400; color: hsl(var(--muted-foreground)); }
+    .ixl .live {
+      font-size: 7.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em;
+      border: 1px solid currentColor; border-radius: 2px; padding: 1px 3px;
+      vertical-align: middle; margin-left: 5px;
+    }
+    .v { font-family: "Courier New", monospace; font-size: 11.5px; color: hsl(var(--muted-foreground)); white-space: nowrap; }
+    .recent .rlist { list-style: none; padding: 0; margin: 10px 0 0; }
+    .recent li a {
+      display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+      padding: 10px 0; border-bottom: 1px solid hsl(var(--border));
+      text-decoration: none; color: hsl(var(--foreground));
+    }
+    .recent li a:hover .rt { text-decoration: underline; text-underline-offset: 2px; }
+    .recent .rd { font-family: "Courier New", monospace; font-size: 12px; color: hsl(var(--muted-foreground)); white-space: nowrap; }
+    .more { display: inline-block; margin-top: 14px; font-size: 13px; color: hsl(var(--muted-foreground)); text-decoration: underline; text-underline-offset: 2px; }
+    .more:hover { color: hsl(var(--foreground)); }
+    @media (max-width: 820px) {
+      .grid { grid-template-columns: 1fr; gap: 30px; }
+      .ds { padding: 16px 20px 40px; }
+    }
+  </style>
 </BaseLayout>
