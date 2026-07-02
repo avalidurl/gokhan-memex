@@ -7,12 +7,12 @@ const currentPath = Astro.url.pathname
 const isArticle = currentPath.startsWith('/journal/') && currentPath !== '/journal/' && currentPath !== '/journal'
 
 const navigation = [
-  { name: 'Journal', href: '/journal' },
+  { name: 'Journal', href: '/journal/' },
   { name: 'Atelier Gökhan', href: 'https://gokhan.vc', external: true },
   { name: 'Ishtar', href: 'https://ishtar.numetal.xyz', external: true, live: true },
   { name: 'Numetal Lab', href: 'https://numetal.xyz', external: true },
-  { name: 'CV', href: '/cv' },
-  { name: 'Newsletters', href: '/subscribe' }
+  { name: 'CV', href: '/cv/' },
+  { name: 'Newsletters', href: '/subscribe/' }
 ]
 ---
 
@@ -34,7 +34,7 @@ const navigation = [
           </a>
         ) : (
           <a 
-            class="font-serif text-lg tracking-tight text-foreground hover:text-foreground/80 transition-colors" 
+            class="font-sans text-lg tracking-tight text-foreground hover:text-foreground/80 transition-colors" 
             href="/"
           >
             Gökhan Turhan
