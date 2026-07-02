@@ -58,6 +58,7 @@ const showToc = headings.filter(h => h.depth === 2 || h.depth === 3).length >= 2
   description={post.data.description}
   type="article"
   image={post.data.heroImage || `/og/${post.slug}.png`}
+  canonicalURL={post.data.originalUrl}
 >
   {/* Default Article Schema - always present */}
   <script is:inline type="application/ld+json" set:html={JSON.stringify(defaultArticleSchema)} slot="head" />
