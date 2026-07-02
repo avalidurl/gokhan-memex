@@ -84,7 +84,7 @@ body {
 /* The sheet — a white working sheet on the gray desk. Applied to the page wrapper
    in BaseLayout; everything inside keeps its own layout. */
 .site-sheet {
-  max-width: 76rem;
+  max-width: 67rem;
   margin: 0 auto;
   background: hsl(var(--background));
   border-left: 1px solid hsl(var(--border));
