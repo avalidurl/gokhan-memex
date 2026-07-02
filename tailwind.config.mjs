@@ -1,4 +1,5 @@
 import { fontFamily } from "tailwindcss/defaultTheme"
+import twColors from "tailwindcss/colors"
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -14,6 +15,7 @@ export default {
     },
     extend: {
       colors: {
+        gray: twColors.neutral,
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -54,20 +56,57 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["Georgia", '"Times New Roman"', "Times", ...fontFamily.serif],
-        serif: ["Georgia", '"Times New Roman"', "Times", ...fontFamily.serif],
-        mono: ['"Courier New"', "Courier", ...fontFamily.mono],
+        sans: ['"Helvetica Neue"', "Helvetica", "Arial", '"Liberation Sans"', ...fontFamily.sans],
+        serif: ['"Helvetica Neue"', "Helvetica", "Arial", '"Liberation Sans"', ...fontFamily.sans],
+        mono: ['ui-monospace', '"SF Mono"', 'Menlo', ...fontFamily.mono],
       },
       typography: {
         DEFAULT: {
           css: {
+            '--tw-prose-body': 'hsl(var(--foreground))',
+            '--tw-prose-headings': 'hsl(var(--foreground))',
+            '--tw-prose-lead': 'hsl(var(--muted-foreground))',
+            '--tw-prose-links': 'hsl(var(--foreground))',
+            '--tw-prose-bold': 'hsl(var(--foreground))',
+            '--tw-prose-counters': 'hsl(var(--muted-foreground))',
+            '--tw-prose-bullets': 'hsl(var(--muted-foreground))',
+            '--tw-prose-hr': 'hsl(var(--border))',
+            '--tw-prose-quotes': 'hsl(var(--foreground))',
+            '--tw-prose-quote-borders': 'hsl(var(--border))',
+            '--tw-prose-captions': 'hsl(var(--muted-foreground))',
+            '--tw-prose-code': 'hsl(var(--foreground))',
+            '--tw-prose-pre-code': 'hsl(var(--background))',
+            '--tw-prose-pre-bg': 'hsl(var(--secondary-foreground))',
+            '--tw-prose-th-borders': 'hsl(var(--border))',
+            '--tw-prose-td-borders': 'hsl(var(--border))',
+            '--tw-prose-invert-body': 'hsl(var(--foreground))',
+            '--tw-prose-invert-headings': 'hsl(var(--foreground))',
+            '--tw-prose-invert-links': 'hsl(var(--foreground))',
+            '--tw-prose-invert-bold': 'hsl(var(--foreground))',
+            '--tw-prose-invert-code': 'hsl(var(--foreground))',
+            '--tw-prose-kbd': 'hsl(var(--foreground))',
+            '--tw-prose-kbd-shadows': '20 20 20',
+            '--tw-prose-invert-lead': 'hsl(var(--muted-foreground))',
+            '--tw-prose-invert-counters': 'hsl(var(--muted-foreground))',
+            '--tw-prose-invert-bullets': 'hsl(var(--muted-foreground))',
+            '--tw-prose-invert-hr': 'hsl(var(--border))',
+            '--tw-prose-invert-quotes': 'hsl(var(--foreground))',
+            '--tw-prose-invert-quote-borders': 'hsl(var(--border))',
+            '--tw-prose-invert-captions': 'hsl(var(--muted-foreground))',
+            '--tw-prose-invert-kbd': 'hsl(var(--foreground))',
+            '--tw-prose-invert-kbd-shadows': '230 230 230',
+            '--tw-prose-invert-pre-code': 'hsl(var(--background))',
+            '--tw-prose-invert-pre-bg': 'hsl(var(--secondary))',
+            '--tw-prose-invert-th-borders': 'hsl(var(--border))',
+            '--tw-prose-invert-td-borders': 'hsl(var(--border))',
+
             maxWidth: 'none',
             color: 'hsl(var(--foreground))',
-            fontFamily: 'Georgia, "Times New Roman", Times, serif',
+            fontFamily: '"Helvetica Neue", Helvetica, Arial, "Liberation Sans", sans-serif',
             fontSize: '1.125rem',
             lineHeight: '1.75',
             'h1, h2, h3, h4, h5, h6': {
-              fontFamily: 'Georgia, "Times New Roman", Times, serif',
+              fontFamily: '"Helvetica Neue", Helvetica, Arial, "Liberation Sans", sans-serif',
               fontWeight: '700',
               letterSpacing: '0',
             },
@@ -104,13 +143,13 @@ export default {
             },
             pre: {
               padding: '1rem',
-              fontFamily: '"Courier New", Courier, ui-monospace, monospace',
+              fontFamily: 'ui-monospace, "SF Mono", Menlo, monospace',
             },
             code: {
               border: '1px solid hsl(var(--border))',
               position: 'relative',
               borderRadius: '0',
-              fontFamily: '"Courier New", Courier, ui-monospace, monospace',
+              fontFamily: 'ui-monospace, "SF Mono", Menlo, monospace',
             }
           },
         },
