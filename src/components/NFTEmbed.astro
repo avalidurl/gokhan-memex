@@ -96,7 +96,11 @@ function parseNFTUrl(url: string) {
 const nftInfo = url ? parseNFTUrl(url) : { platform: 'NFT', displayUrl: '', action: 'View NFT' }
 const displayTitle = title || nftMetadata?.name || 'Untitled'
 const displayDescription = description || nftMetadata?.description || ''
-const displayImage = image || nftMetadata?.image_url || ''
+const rawImage = image || nftMetadata?.image_url || ''
+// Local content images serve from Cloudflare Images (ids mirror site paths).
+const displayImage = /^\/(images|blog\/images)\//.test(rawImage) && !/\.svg$/i.test(rawImage)
+  ? `https://imagedelivery.net/6y1i3FNnwnl61Xv3wGE82g/${rawImage.slice(1)}/w=800,format=auto`
+  : rawImage
 const displayCreator = creator || nftMetadata?.creator || ''
 
 // Generate URLs from contract address and token ID
