@@ -92,15 +92,10 @@ const breadcrumbData =
     <meta name="msapplication-TileColor" content="#ffffff" />
     <meta name="theme-color" content="#ffffff" />
     
-    <!-- Apple Touch Icons -->
-    <link rel="apple-touch-icon" href="/icons/icon-152x152.png" />
+    <!-- Apple Touch Icons (real files in /public/icons — generated from the mark) -->
+    <link rel="apple-touch-icon" href="/icons/icon-180x180.png" />
     <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180x180.png" />
-    
-    <!-- Microsoft Tiles -->
-    <meta name="msapplication-square70x70logo" content="/icons/icon-72x72.png" />
-    <meta name="msapplication-square150x150logo" content="/icons/icon-144x144.png" />
-    <meta name="msapplication-square310x310logo" content="/icons/icon-384x384.png" />
     
     <!-- Substack DNS prefetch for faster iframe loading -->
     <link rel="dns-prefetch" href="https://gokhan.substack.com" />
@@ -195,10 +190,11 @@ const breadcrumbData =
     })} />
   </head>
 
-  <body class="min-h-screen bg-background font-serif">
+  <body class="min-h-screen font-serif">
     <ThemeProvider />
-    <div class="relative flex min-h-screen flex-col">
+    <div class="site-sheet relative flex min-h-screen flex-col">
       <Navigation />
+      <div class="dither" aria-hidden="true"></div>
 
       <main class="flex-1">
         {breadcrumbData && (
@@ -210,7 +206,8 @@ const breadcrumbData =
       </main>
       
       <!-- Footer -->
-      <footer class="mt-auto border-t border-border px-6 py-8">
+      <div class="dither" aria-hidden="true"></div>
+      <footer class="mt-auto px-6 py-8">
         <div class="mx-auto max-w-2xl">
           <div class="flex flex-col gap-3 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
             <span>© {new Date().getFullYear()} Gökhan Turhan</span>

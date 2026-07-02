@@ -7,12 +7,12 @@
 
 @layer base {
   html {
-    font-family: Georgia, "Times New Roman", Times, serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     background: hsl(var(--background));
   }
 
   body {
-    font-family: Georgia, "Times New Roman", Times, serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-feature-settings: "kern" 1, "liga" 1;
     -webkit-font-smoothing: auto;
     -moz-osx-font-smoothing: grayscale;
@@ -25,7 +25,7 @@
   h5,
   h6,
   .heading {
-    font-family: Georgia, "Times New Roman", Times, serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 700;
     letter-spacing: 0;
     line-height: 1.18;
@@ -106,7 +106,7 @@
   }
 
   a:visited {
-    color: hsl(270 45% 34%);
+    color: hsl(0 0% 30%);
   }
 
   a:hover {
@@ -114,7 +114,7 @@
   }
 
   .dark a:visited {
-    color: hsl(265 42% 78%);
+    color: hsl(0 0% 72%);
   }
 
   button,
@@ -156,11 +156,11 @@
   }
 
   .raw-link:visited {
-    color: hsl(270 45% 34%);
+    color: hsl(0 0% 30%);
   }
 
   .dark .raw-link:visited {
-    color: hsl(265 42% 78%);
+    color: hsl(0 0% 72%);
   }
 
   .raw-link:hover {

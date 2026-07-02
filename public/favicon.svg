@@ -1,14 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <defs>
-    <linearGradient id="amber" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#d4a574"/>
-      <stop offset="100%" stop-color="#a67c52"/>
-    </linearGradient>
-  </defs>
-  
-  <!-- G letterform as path - clean geometric design -->
-  <path 
-    fill="url(#amber)"
+  <!-- G letterform — monochrome mark -->
+  <rect width="32" height="32" fill="#ffffff"/>
+  <path
+    fill="#141414"
     d="M16 2C8.268 2 2 8.268 2 16s6.268 14 14 14 14-6.268 14-14h-5c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c3.19 0 5.99 1.66 7.58 4.16l4.24-2.45C24.96 4.86 20.77 2 16 2z
           M17 14v5h11v-5H17z"
   />
