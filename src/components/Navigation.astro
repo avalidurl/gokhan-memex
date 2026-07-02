@@ -8,11 +8,11 @@ const isArticle = currentPath.startsWith('/journal/') && currentPath !== '/journ
 
 const navigation = [
   { name: 'Journal', href: '/journal' },
-  { name: 'Archive', href: '/archive' },
-  { name: 'Lists', href: '/lists' },
-  { name: 'Publishing', href: '/publishing' },
+  { name: 'Atelier Gökhan', href: 'https://gokhan.vc', external: true },
+  { name: 'Ishtar', href: 'https://ishtar.numetal.xyz', external: true, live: true },
+  { name: 'Numetal Lab', href: 'https://numetal.xyz', external: true },
   { name: 'CV', href: '/cv' },
-  { name: 'Contact', href: '/subscribe' }
+  { name: 'Newsletters', href: '/subscribe' }
 ]
 ---
 
@@ -44,17 +44,19 @@ const navigation = [
 
       <!-- Center: Navigation Links (Desktop only, not on article pages) -->
       {!isArticle && (
-        <nav class="hidden md:flex items-center gap-8">
+        <nav class="hidden md:flex items-center gap-x-5 lg:gap-x-6">
           {navigation.map((item) => (
             <a
               href={item.href}
-              class={`text-sm transition-colors ${
-                currentPath === item.href || currentPath.startsWith(item.href + '/')
-                  ? 'text-foreground font-medium' 
+              target={item.external ? '_blank' : undefined}
+              rel={item.external ? 'noopener noreferrer' : undefined}
+              class={`nav-link text-[11px] uppercase tracking-[0.14em] transition-colors ${
+                !item.external && (currentPath === item.href || currentPath.startsWith(item.href + '/'))
+                  ? 'text-foreground font-semibold'
                   : 'text-muted-foreground hover:text-foreground'
               }`}
             >
-              {item.name}
+              {item.name}{item.live && <sup class="nav-live">live</sup>}{item.external && <span class="nav-ext" aria-hidden="true">↗</span>}
             </a>
           ))}
         </nav>
@@ -103,13 +105,15 @@ const navigation = [
       {navigation.map((item) => (
         <a
           href={item.href}
-          class={`mobile-menu-link border-b border-border/30 py-4 text-xl transition-colors ${
-            currentPath === item.href || currentPath.startsWith(item.href + '/')
+          target={item.external ? '_blank' : undefined}
+          rel={item.external ? 'noopener noreferrer' : undefined}
+          class={`mobile-menu-link border-b border-border/30 py-4 text-lg uppercase tracking-wide transition-colors ${
+            !item.external && (currentPath === item.href || currentPath.startsWith(item.href + '/'))
               ? 'text-foreground font-medium'
               : 'text-muted-foreground hover:text-foreground'
           }`}
         >
-          {item.name}
+          {item.name}{item.live && <sup class="nav-live">live</sup>}{item.external && <span class="nav-ext" aria-hidden="true"> ↗</span>}
         </a>
       ))}
       <a
@@ -173,3 +177,16 @@ const navigation = [
     document.addEventListener('astro:page-load', initNavigation)
   })()
 </script>
+
+<style>
+  /* "live" superscript badge on the Ishtar nav item — B&W chip */
+  .nav-live{
+    display:inline-block; font-size:8px; font-weight:700; letter-spacing:.1em;
+    text-transform:uppercase; vertical-align:super; margin-left:3px;
+    border:1px solid currentColor; border-radius:2px; padding:1px 3px; line-height:1;
+  }
+  .nav-ext{ margin-left:3px; font-size:.8em; opacity:.55; }
+</style>
+
+<!-- Site-wide Gwern-style hover link popups (B&W) -->
+<script src="/popups.js" defer></script>
