@@ -136,8 +136,8 @@ const showToc = tocHeadings.length >= 2
 
       {/* (d) bordered CONTENTS box — replaces the sidebar TOC */}
       {showToc && (
-        <nav class="contents-box" aria-label="Contents">
-          <div class="contents-label">Contents</div>
+        <details class="contents-box" open>
+          <summary class="contents-label">Contents</summary>
           <ol class="contents-list">
             {tocHeadings.map((heading) => (
               <li class={heading.depth === 3 ? 'contents-item contents-item-nested' : 'contents-item'}>
@@ -145,7 +145,7 @@ const showToc = tocHeadings.length >= 2
               </li>
             ))}
           </ol>
-        </nav>
+        </details>
       )}
 
       <!-- Article Content -->
@@ -277,7 +277,14 @@ const showToc = tocHeadings.length >= 2
     color: hsl(var(--muted-foreground));
     padding: 0.6rem 0.9rem;
     border-bottom: 1px solid hsl(var(--border));
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
   }
+  .contents-label::-webkit-details-marker { display: none; }
+  .contents-label::before { content: "▸  "; color: hsl(var(--foreground)); }
+  .contents-box[open] > .contents-label::before { content: "▾  "; }
+  .contents-box:not([open]) > .contents-label { border-bottom: none; }
   .contents-list {
     list-style: none;
     counter-reset: contents;
