@@ -204,7 +204,7 @@ const showToc = tocHeadings.length >= 2
     border-bottom: 1px solid hsl(var(--border));
     font-family: "Courier New", Courier, ui-monospace, monospace;
     font-size: 11px;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: hsl(var(--muted-foreground));
   }
@@ -221,18 +221,18 @@ const showToc = tocHeadings.length >= 2
   .eyebrow {
     font-family: "Courier New", Courier, ui-monospace, monospace;
     font-size: 11px;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: hsl(var(--muted-foreground));
     margin-bottom: 0.55rem;
   }
 
-  /* (c) big bold H1 title */
+  /* (c) big bold H1 title — numetal type-scale, translated to black */
   .dispatch-title {
-    font-size: clamp(1.9rem, 5vw, 2.6rem);
+    font-size: 32px;
     font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.01em;
+    line-height: 1.06;
+    letter-spacing: -0.02em;
     color: hsl(var(--foreground));
     margin: 0 0 0.6rem;
   }
@@ -330,25 +330,49 @@ const showToc = tocHeadings.length >= 2
     scroll-margin-top: 5rem;
   }
 
-  /* (e) section h2 headings — top border-rule + generous top margin */
+  /* Body paragraphs — numetal type-scale (16px / 1.62), translated to black.
+     Overrides the Tailwind `prose-lg` sizes so the rendered article matches. */
+  .dispatch-prose :global(:where(p)) {
+    font-size: 16px;
+    line-height: 1.62;
+    margin: 0 0 18px;
+    color: hsl(var(--foreground));
+  }
+  .dispatch-prose :global(:where(li)) {
+    font-size: 16px;
+    line-height: 1.62;
+    color: hsl(var(--foreground));
+  }
+
+  /* (e) section h2 headings — top border-rule + numetal 21px scale */
   .dispatch-prose :global(h2) {
-    margin-top: 3rem;
-    margin-bottom: 1rem;
-    padding-top: 1.6rem;
-    border-top: 1.5px solid hsl(var(--border));
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 34px 0 12px;
+    padding-top: 14px;
+    border-top: 1px solid hsl(var(--border));
+    color: hsl(var(--foreground));
   }
   .dispatch-prose :global(h2:first-child) {
     margin-top: 1rem;
     padding-top: 0;
     border-top: 0;
   }
+
+  /* (f) sub-head h3 — numetal mono uppercase label */
   .dispatch-prose :global(h3) {
-    margin-top: 2.2rem;
-    margin-bottom: 0.9rem;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    font-family: "Courier New", ui-monospace, monospace;
+    color: hsl(var(--foreground));
+    margin: 26px 0 8px;
   }
 
   .dispatch-prose :global(p + p) {
-    margin-top: 1.25rem;
+    margin-top: 0;
   }
 
   /* Anchor link styles */
@@ -371,11 +395,13 @@ const showToc = tocHeadings.length >= 2
     text-decoration-color: color-mix(in srgb, var(--muted-foreground) 50%, transparent);
   }
 
-  /* Responsive: tighter padding on mobile */
+  /* Responsive: tighter padding on mobile + numetal small-screen scale */
   @media (max-width: 640px) {
     .docstrip { font-size: 10px; letter-spacing: 0.08em; }
     .contents-list { padding: 0.6rem 0.7rem 0.7rem; }
     .contents-label { padding: 0.55rem 0.7rem; }
-    .dispatch-title { font-size: clamp(1.7rem, 8vw, 2.1rem); }
+    .dispatch-title { font-size: 26px; }
+    .dispatch-prose :global(:where(p)),
+    .dispatch-prose :global(:where(li)) { font-size: 15px; margin-bottom: 15px; }
   }
 </style>
