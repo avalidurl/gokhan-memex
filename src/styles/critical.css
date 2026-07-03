@@ -63,8 +63,8 @@
 html {
   height: 100%;
   background-color: hsl(var(--backdrop));
-  font-size: 18px;
-  line-height: 1.75;
+  font-size: 16px;
+  line-height: 1.65;
   -webkit-text-size-adjust: 100%;
   tab-size: 4;
 }
@@ -75,8 +75,8 @@ body {
   background-color: hsl(var(--backdrop));
   color: hsl(var(--foreground));
   font-family: "Helvetica Neue", Helvetica, Arial, "Liberation Sans", sans-serif;
-  font-size: 1.0625rem;
-  line-height: inherit;
+  font-size: 0.9375rem;
+  line-height: 1.5;
   font-feature-settings: "kern" 1, "liga" 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
