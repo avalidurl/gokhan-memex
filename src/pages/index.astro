@@ -131,13 +131,13 @@ const index = [
     .cta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 26px; }
     .btn {
       display: inline-flex; align-items: center; gap: 8px;
-      background: hsl(var(--background)); border: 1.5px solid hsl(var(--foreground));
-      color: hsl(var(--foreground)); font-weight: 700; font-size: 14px; padding: 9px 18px;
+      background: hsl(var(--foreground)); border: 1.5px solid hsl(var(--foreground));
+      color: hsl(var(--background)); font-weight: 700; font-size: 14px; padding: 9px 17px;
       box-shadow: 2px 2px 0 hsl(var(--foreground)); text-decoration: none;
       transition: transform .05s, box-shadow .05s, background .1s;
     }
-    .btn:hover { background: hsl(var(--muted)); }
-    .btn:active { transform: translate(2px, 2px); box-shadow: 0 0 0 hsl(var(--foreground)); }
+    .btn:hover { background: hsl(var(--foreground) / 0.85); }
+    .btn:active { transform: translate(2px, 2px); box-shadow: 0 0 0; }
     .note { font-size: 13px; color: hsl(var(--muted-foreground)); }
     .note a { color: hsl(var(--foreground)); text-decoration: underline; text-underline-offset: 2px; }
     .idxh { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; margin-bottom: 8px; }
