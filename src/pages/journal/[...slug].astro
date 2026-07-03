@@ -1,7 +1,6 @@
 ---
 import { type CollectionEntry, getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import TableOfContents from '@/components/TableOfContents.astro'
 import SocialShare from '@/components/SocialShare.astro'
 import PostTitle from '@/components/PostTitle.astro'
 import ResponsiveImage from '@/components/ResponsiveImage.astro'
@@ -9,16 +8,29 @@ import { formatDate, humanizeKebab, plainPostTitle } from '@/lib/utils'
 
 export async function getStaticPaths() {
   const posts = (await getCollection('blog')).filter((post) => !post.data.draft)
+  // Stable, deterministic doc numbers: order all published posts by publishDate
+  // (oldest first) and assign JOURNAL-<n> by position. Slug tiebreak keeps it
+  // stable when two posts share a date.
+  const ordered = [...posts].sort((a, b) => {
+    const d = a.data.publishDate.getTime() - b.data.publishDate.getTime()
+    return d !== 0 ? d : a.slug.localeCompare(b.slug)
+  })
+  const docNumber = new Map(ordered.map((p, i) => [p.slug, i + 1]))
   return posts.map(post => ({
     params: { slug: post.slug },
-    props: post,
+    props: { ...post, docNumber: docNumber.get(post.slug) ?? 0 },
   }))
 }
 
-type Props = CollectionEntry<'blog'>
+type Props = CollectionEntry<'blog'> & { docNumber: number }
 
 const post = Astro.props
 const { Content, headings } = await post.render()
+
+// Doc-strip identifiers — plain mono labels in the datasheet register.
+const docId = `JOURNAL-${String(post.docNumber).padStart(3, '0')}`
+const docCategory = (post.data.category || 'JOURNAL').toUpperCase()
+const docDate = post.data.publishDate.toISOString().slice(0, 10)
 
 // Default Article schema - always present for SEO
 const defaultArticleSchema = {
@@ -50,8 +62,9 @@ const defaultArticleSchema = {
 // Additional custom schema from frontmatter (if any)
 const customSchemas = post.data.schema ? (Array.isArray(post.data.schema) ? post.data.schema : [post.data.schema]) : []
 
-// Show TOC if there are 2+ headings (lowered threshold for more posts to have TOC)
-const showToc = headings.filter(h => h.depth === 2 || h.depth === 3).length >= 2
+// CONTENTS box: numbered list of in-page section links (depth 2-3).
+const tocHeadings = headings.filter(h => h.depth === 2 || h.depth === 3)
+const showToc = tocHeadings.length >= 2
 ---
 
 <BaseLayout
@@ -63,7 +76,7 @@ const showToc = headings.filter(h => h.depth === 2 || h.depth === 3).length >= 2
 >
   {/* Default Article Schema - always present */}
   <script is:inline type="application/ld+json" set:html={JSON.stringify(defaultArticleSchema)} slot="head" />
-  
+
   {/* Additional custom schemas from frontmatter */}
   {customSchemas.map((schema: any) => (
     <script is:inline type="application/ld+json" set:html={JSON.stringify({
@@ -77,174 +90,292 @@ const showToc = headings.filter(h => h.depth === 2 || h.depth === 3).length >= 2
     <meta name="keywords" content={post.data.seoKeywords.join(', ')} slot="head" />
   )}
 
-  <div class={`mx-auto px-6 py-8 lg:py-12 ${showToc ? 'max-w-5xl' : 'max-w-2xl'}`}>
-    <div class={`${showToc ? 'lg:grid lg:grid-cols-[200px_1fr] lg:gap-10' : ''}`}>
-      
-      {/* Table of Contents - Desktop Left Sidebar */}
-      {showToc && (
-        <aside class="hidden lg:block">
-          <TableOfContents headings={headings} />
-        </aside>
-      )}
+  <div class="dispatch mx-auto max-w-2xl px-6 py-8 lg:py-12">
+    <article>
+      <!-- (a) DOC-STRIP -->
+      <div class="docstrip">
+        <span class="docstrip-id"><span class="tick" aria-hidden="true">▮</span>&nbsp;DOC · {docId} · {docCategory}</span>
+        <span class="docstrip-pub">PUBLISHED · {docDate}</span>
+      </div>
 
-      {/* Main Content */}
-      <article class={`${showToc ? 'max-w-2xl' : 'max-w-none'}`}>
-        <!-- Article Header -->
-        <header class="mb-10">
-          {post.data.heroImage && (
-            <ResponsiveImage
-              src={post.data.heroImage}
-              alt={post.data.heroImageAlt || plainPostTitle(post.data.title)}
-              class="w-full mb-8"
-              loading="eager"
-              fetchpriority="high"
-            />
-          )}
-
-          <div class="space-y-4">
-            <!-- Meta Info -->
-            <div class="flex items-center gap-3 text-sm text-muted-foreground">
-              <time datetime={post.data.publishDate.toISOString()}>
-                {formatDate(post.data.publishDate)}
-              </time>
-              <span>·</span>
-              <a 
-                href={`/archive/categories/${post.data.category.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and')}`}
-                class="hover:text-foreground transition-colors"
-              >
-                {post.data.category}
-              </a>
-            </div>
-
-            <!-- Title -->
-            <PostTitle title={post.data.title} as="h1" class="text-3xl md:text-4xl font-semibold tracking-tight text-foreground leading-tight" />
-
-            <!-- Description -->
-            {post.data.description && (
-              <p class="text-lg text-muted-foreground leading-relaxed">
-                {post.data.description}
-              </p>
-            )}
-
-            <!-- Tags -->
-            {post.data.tags && post.data.tags.length > 0 && (
-              <div class="flex flex-wrap gap-2 pt-2">
-                {post.data.tags.map(tag => (
-                  <a 
-                    href={`/archive/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
-                    class="text-xs text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {humanizeKebab(tag)}
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
-        </header>
-
-        {/* Mobile TOC */}
-        {showToc && (
-          <div class="lg:hidden mb-8 p-4 bg-muted/30 rounded-lg">
-            <details>
-              <summary class="text-sm font-medium text-muted-foreground cursor-pointer">
-                Table of Contents
-              </summary>
-              <nav class="mt-3">
-                <ul class="space-y-2">
-                  {headings.filter(h => h.depth === 2 || h.depth === 3).map((heading) => (
-                    <li class={heading.depth === 3 ? 'pl-4' : ''}>
-                      <a 
-                        href={`#${heading.slug}`}
-                        class="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                      >
-                        {heading.text}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </details>
-          </div>
+      <!-- Article Header -->
+      <header class="dispatch-header">
+        {post.data.heroImage && (
+          <ResponsiveImage
+            src={post.data.heroImage}
+            alt={post.data.heroImageAlt || plainPostTitle(post.data.title)}
+            class="w-full mb-8"
+            loading="eager"
+            fetchpriority="high"
+          />
         )}
 
-        <!-- Article Content -->
-        <div class="prose prose-lg prose-neutral dark:prose-invert max-w-none prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-foreground prose-a:underline prose-a:decoration-1 prose-a:underline-offset-2 hover:prose-a:decoration-2 prose-p:text-foreground/90 prose-li:text-foreground/90 prose-blockquote:border-l-2 prose-blockquote:border-muted-foreground/30 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-muted-foreground prose-code:text-sm prose-code:bg-muted/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none prose-pre:bg-muted/30 prose-pre:border prose-pre:border-border">
-          <Content />
-        </div>
+        <!-- (b) mono uppercase eyebrow -->
+        <div class="eyebrow">JOURNAL · {docDate} · GÖKHAN TURHAN</div>
 
-        <!-- Social Share -->
-        <div class="mt-12 pt-8 border-t border-border">
-          <SocialShare 
-            title={plainPostTitle(post.data.title)}
-            url={`${Astro.site?.origin || 'https://gokhanturhan.com'}${Astro.url.pathname}`}
-            description={post.data.description}
-          />
-        </div>
+        <!-- (c) big bold H1 -->
+        <PostTitle title={post.data.title} as="h1" class="dispatch-title" />
 
-        <!-- Article Footer -->
-        <footer class="mt-8 pt-8 border-t border-border">
-          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-sm text-muted-foreground">
-            <span>
-              Published on {formatDate(post.data.publishDate)}
-            </span>
-            <div class="flex items-center gap-6">
+        {post.data.description && (
+          <p class="dispatch-lede">{post.data.description}</p>
+        )}
+
+        {post.data.tags && post.data.tags.length > 0 && (
+          <div class="dispatch-tags">
+            {post.data.tags.map(tag => (
               <a
-                href="/journal"
-                class="hover:text-foreground transition-colors"
+                href={`/archive/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+                class="dispatch-tag"
               >
-                ← All posts
+                {humanizeKebab(tag)}
               </a>
-              <a
-                href="/rss.xml"
-                class="hover:text-foreground transition-colors"
-              >
-                RSS
-              </a>
-            </div>
+            ))}
           </div>
-        </footer>
-      </article>
-    </div>
+        )}
+      </header>
+
+      {/* (d) bordered CONTENTS box — replaces the sidebar TOC */}
+      {showToc && (
+        <nav class="contents-box" aria-label="Contents">
+          <div class="contents-label">Contents</div>
+          <ol class="contents-list">
+            {tocHeadings.map((heading) => (
+              <li class={heading.depth === 3 ? 'contents-item contents-item-nested' : 'contents-item'}>
+                <a href={`#${heading.slug}`} class="contents-link">{heading.text}</a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
+
+      <!-- Article Content -->
+      <div class="dispatch-prose prose prose-lg prose-neutral dark:prose-invert max-w-none prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-foreground prose-a:underline prose-a:decoration-1 prose-a:underline-offset-2 hover:prose-a:decoration-2 prose-p:text-foreground/90 prose-li:text-foreground/90 prose-blockquote:border-l-2 prose-blockquote:border-muted-foreground/30 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-muted-foreground prose-code:text-sm prose-code:bg-muted/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none prose-pre:bg-muted/30 prose-pre:border prose-pre:border-border">
+        <Content />
+      </div>
+
+      <!-- Social Share -->
+      <div class="mt-12 pt-8 border-t border-border">
+        <SocialShare
+          title={plainPostTitle(post.data.title)}
+          url={`${Astro.site?.origin || 'https://gokhanturhan.com'}${Astro.url.pathname}`}
+          description={post.data.description}
+        />
+      </div>
+
+      <!-- Article Footer -->
+      <footer class="mt-8 pt-8 border-t border-border">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-sm text-muted-foreground">
+          <span>
+            Published on {formatDate(post.data.publishDate)}
+          </span>
+          <div class="flex items-center gap-6">
+            <a
+              href="/journal"
+              class="hover:text-foreground transition-colors"
+            >
+              ← All posts
+            </a>
+            <a
+              href="/rss.xml"
+              class="hover:text-foreground transition-colors"
+            >
+              RSS
+            </a>
+          </div>
+        </div>
+      </footer>
+    </article>
   </div>
 </BaseLayout>
 
 <style>
-  .prose :global(h1),
-  .prose :global(h2),
-  .prose :global(h3),
-  .prose :global(h4),
-  .prose :global(h5),
-  .prose :global(h6) {
+  /* Dispatch layout — datasheet register, strictly monochrome. Hierarchy is
+     carried by weight, case, value, and rules; never hue. Mono = house Courier
+     stack (matches globals.css / index.astro); body = Helvetica via BaseLayout. */
+
+  /* (a) DOC-STRIP */
+  .docstrip {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding-bottom: 0.55rem;
+    border-bottom: 1px solid hsl(var(--border));
+    font-family: "Courier New", Courier, ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
+  }
+  .docstrip-id { color: hsl(var(--foreground)); }
+  .docstrip .tick { color: hsl(var(--foreground)); }
+  .docstrip-pub { color: hsl(var(--muted-foreground)); }
+
+  /* Header */
+  .dispatch-header {
+    margin: 1.8rem 0 0;
+  }
+
+  /* (b) mono uppercase eyebrow */
+  .eyebrow {
+    font-family: "Courier New", Courier, ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
+    margin-bottom: 0.55rem;
+  }
+
+  /* (c) big bold H1 title */
+  .dispatch-title {
+    font-size: clamp(1.9rem, 5vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: hsl(var(--foreground));
+    margin: 0 0 0.6rem;
+  }
+
+  .dispatch-lede {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: hsl(var(--muted-foreground));
+    margin: 0.6rem 0 0;
+    max-width: 60ch;
+  }
+
+  .dispatch-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    margin-top: 0.9rem;
+    font-family: "Courier New", Courier, ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .dispatch-tag {
+    color: hsl(var(--muted-foreground));
+    text-decoration: none;
+    border-bottom: 1px solid hsl(var(--border));
+  }
+  .dispatch-tag:hover { color: hsl(var(--foreground)); border-color: hsl(var(--foreground)); }
+
+  /* (d) bordered CONTENTS box */
+  .contents-box {
+    border: 1px solid hsl(var(--border));
+    background: hsl(var(--card));
+    margin: 1.9rem 0 0;
+    padding: 0;
+  }
+  .contents-label {
+    font-family: "Courier New", Courier, ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
+    padding: 0.6rem 0.9rem;
+    border-bottom: 1px solid hsl(var(--border));
+  }
+  .contents-list {
+    list-style: none;
+    counter-reset: contents;
+    margin: 0;
+    padding: 0.7rem 0.9rem 0.85rem;
+    font-size: 0.9rem;
+  }
+  .contents-item {
+    counter-increment: contents;
+    line-height: 1.5;
+    margin: 0.28rem 0;
+    display: flex;
+    gap: 0.55rem;
+  }
+  .contents-item::before {
+    content: counter(contents, decimal-leading-zero);
+    font-family: "Courier New", Courier, ui-monospace, monospace;
+    font-size: 11px;
+    color: hsl(var(--muted-foreground));
+    flex: 0 0 auto;
+    padding-top: 0.12em;
+  }
+  .contents-item-nested {
+    padding-left: 1.4rem;
+    counter-increment: none;
+  }
+  .contents-item-nested::before {
+    content: "–";
+    color: hsl(var(--muted-foreground));
+  }
+  .contents-link {
+    color: hsl(var(--foreground));
+    text-decoration: none;
+    border-bottom: 1px solid hsl(var(--border));
+  }
+  .contents-link:hover {
+    border-color: hsl(var(--foreground));
+  }
+
+  /* Prose spacing + anchors */
+  .dispatch-prose {
+    margin-top: 2rem;
+  }
+  .dispatch-prose :global(h1),
+  .dispatch-prose :global(h2),
+  .dispatch-prose :global(h3),
+  .dispatch-prose :global(h4),
+  .dispatch-prose :global(h5),
+  .dispatch-prose :global(h6) {
     scroll-margin-top: 5rem;
   }
 
+  /* (e) section h2 headings — top border-rule + generous top margin */
+  .dispatch-prose :global(h2) {
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    padding-top: 1.6rem;
+    border-top: 1.5px solid hsl(var(--border));
+  }
+  .dispatch-prose :global(h2:first-child) {
+    margin-top: 1rem;
+    padding-top: 0;
+    border-top: 0;
+  }
+  .dispatch-prose :global(h3) {
+    margin-top: 2.2rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .dispatch-prose :global(p + p) {
+    margin-top: 1.25rem;
+  }
+
   /* Anchor link styles */
-  .prose :global(h1 a.anchor-link),
-  .prose :global(h2 a.anchor-link),
-  .prose :global(h3 a.anchor-link),
-  .prose :global(h4 a.anchor-link),
-  .prose :global(h5 a.anchor-link),
-  .prose :global(h6 a.anchor-link) {
+  .dispatch-prose :global(h1 a.anchor-link),
+  .dispatch-prose :global(h2 a.anchor-link),
+  .dispatch-prose :global(h3 a.anchor-link),
+  .dispatch-prose :global(h4 a.anchor-link),
+  .dispatch-prose :global(h5 a.anchor-link),
+  .dispatch-prose :global(h6 a.anchor-link) {
     text-decoration: none !important;
     color: inherit;
   }
 
-  .prose :global(h2),
-  .prose :global(h3) {
-    margin-top: 2.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .prose :global(p + p) {
-    margin-top: 1.25rem;
-  }
-
-  .prose :global(.superseded-content) {
+  .dispatch-prose :global(.superseded-content) {
     opacity: 0.7;
   }
 
-  .prose :global(.superseded-content :where(p, li, h2, h3, h4, h5, h6, a, strong, em, blockquote, td, th, figcaption)) {
+  .dispatch-prose :global(.superseded-content :where(p, li, h2, h3, h4, h5, h6, a, strong, em, blockquote, td, th, figcaption)) {
     text-decoration: line-through;
     text-decoration-color: color-mix(in srgb, var(--muted-foreground) 50%, transparent);
+  }
+
+  /* Responsive: tighter padding on mobile */
+  @media (max-width: 640px) {
+    .docstrip { font-size: 10px; letter-spacing: 0.08em; }
+    .contents-list { padding: 0.6rem 0.7rem 0.7rem; }
+    .contents-label { padding: 0.55rem 0.7rem; }
+    .dispatch-title { font-size: clamp(1.7rem, 8vw, 2.1rem); }
   }
 </style>
