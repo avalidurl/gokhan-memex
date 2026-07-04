@@ -328,6 +328,26 @@ const showToc = tocHeadings.length >= 2
   .dispatch-prose {
     margin-top: 2rem;
   }
+
+  /* SS1 TL;DR box — bordered, offset shadow, mono label. Monochrome house style. */
+  .dispatch-prose :global(.tldr) {
+    border: 1.5px solid hsl(var(--foreground));
+    background: hsl(var(--card));
+    padding: 14px 18px;
+    margin: 0 0 26px;
+    box-shadow: 5px 5px 0 hsl(var(--foreground));
+  }
+  .dispatch-prose :global(.tldr .tldr-k) {
+    display: block;
+    font-family: "Courier New", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
+    margin-bottom: 8px;
+  }
+  .dispatch-prose :global(.tldr ul) { margin: 0; padding-left: 18px; }
+  .dispatch-prose :global(.tldr li) { margin: 6px 0; font-size: 15px; line-height: 1.5; }
   .dispatch-prose :global(h1),
   .dispatch-prose :global(h2),
   .dispatch-prose :global(h3),
