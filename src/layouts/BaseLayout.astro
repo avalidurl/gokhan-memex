@@ -194,6 +194,15 @@ const breadcrumbData =
   </head>
 
   <body class="min-h-screen font-sans">
+    <a
+      class="nrbar"
+      href="https://ishtar.numetal.xyz/blog/not-raising-a-preseed/"
+      aria-label="We are not raising — read the raise dispatch"
+    >
+      <span class="nrbar-dot" aria-hidden="true"></span><span>WE ARE NOT RAISING</span><sup
+        class="nrbar-live">LIVE</sup
+      ><span class="nrbar-arw" aria-hidden="true">→</span>
+    </a>
     <ThemeProvider />
     <div class="site-sheet relative flex min-h-screen flex-col">
       <Navigation />
@@ -253,5 +262,35 @@ const breadcrumbData =
         });
       });
     </script>
+    <!-- Collapsible article headings (blog/journal only; no-ops elsewhere). -->
+    <script src="/blog-collapse.js" defer></script>
   </body>
 </html>
+
+<style>
+  .nrbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #141414;
+    color: #fff;
+    text-decoration: none;
+    font-family: "Courier New", Courier, ui-monospace, monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    padding: 6px 12px;
+    border-bottom: 1px solid #000;
+  }
+  .nrbar:hover { background: #000; }
+  .nrbar-dot { width: 6px; height: 6px; border-radius: 50%; background: #fff; animation: nrpulse 1.8s infinite; }
+  .nrbar-live { font-size: 8px; letter-spacing: 0.16em; vertical-align: super; border: 1px solid rgba(255,255,255,0.75); padding: 1px 4px; border-radius: 2px; margin-left: 1px; }
+  .nrbar-arw { opacity: 0.8; }
+  @keyframes nrpulse {
+    0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.55); }
+    70% { box-shadow: 0 0 0 6px rgba(255,255,255,0); }
+    100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+  }
+  @media (prefers-reduced-motion: reduce) { .nrbar-dot { animation: none; } }
+</style>
