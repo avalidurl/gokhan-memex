@@ -131,18 +131,6 @@
           "sizes": "96x96"
         }
       ]
-    },
-    {
-      "name": "Subscribe",
-      "short_name": "Subscribe",
-      "description": "Subscribe to newsletter",
-      "url": "/subscribe/",
-      "icons": [
-        {
-          "src": "/icons/shortcut-subscribe.png",
-          "sizes": "96x96"
-        }
-      ]
     }
   ],
   "related_applications": [],

@@ -17,7 +17,6 @@ const STATIC_ASSETS = [
   '/projects/',
   '/links/',
   '/lists/',
-  '/subscribe/',
   '/offline/',
   '/favicon.svg',
   '/_astro/globals.css',

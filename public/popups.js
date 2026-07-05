@@ -16,8 +16,7 @@
 
   var PATHANN = {
     "/journal": { k: "gokhanturhan.com", t: "Journal", d: "Essays, notes, and dispatches by Gökhan Turhan." },
-    "/cv": { k: "gokhanturhan.com", t: "CV", d: "Work, writing, and background — the long version." },
-    "/subscribe": { k: "gokhanturhan.com", t: "Newsletters", d: "Subscribe by email. The Substack and dispatches, in your inbox." }
+    "/cv": { k: "gokhanturhan.com", t: "CV", d: "Work, writing, and background — the long version." }
   };
 
   var pop = null, showT = null, hideT = null;
