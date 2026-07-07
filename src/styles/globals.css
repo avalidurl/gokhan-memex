@@ -1,6 +1,8 @@
 /* Non-critical CSS - Critical CSS is inlined in BaseLayout.astro */
 /* This file contains the full Tailwind CSS build for non-critical styles */
 
+@import './bureau.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PostTitle from '@/components/PostTitle.astro'
+import SubscribeBlock from '@/components/SubscribeBlock.astro'
 
 // Get all published blog posts, sorted by date (newest first)
 const allPosts = (await getCollection('blog'))
@@ -22,6 +23,7 @@ const years = Object.keys(postsByYear).map(Number).sort((a, b) => b - a)
 <BaseLayout
   title="Journal"
   description="Latest thoughts on stablecoins, tokenization, AGI, investment strategies, and global systemic challenges."
+  hideFooterSubscribe
 >
   <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
     <!-- Header -->
@@ -82,4 +84,5 @@ const years = Object.keys(postsByYear).map(Number).sort((a, b) => b - a)
       </div>
     )}
   </div>
+  <SubscribeBlock />
 </BaseLayout>

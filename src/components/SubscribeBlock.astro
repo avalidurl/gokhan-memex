@@ -1,0 +1,107 @@
+---
+/**
+ * In-flow newsletter block — Ishtar dispatches foot-sub pattern.
+ * Stripe divider + subtle outlined form; native POST to api.gokhan.vc.
+ */
+interface Props {
+  site?: string;
+  localFeed?: string;
+}
+
+const {
+  site = 'personal',
+  localFeed = '/rss.xml',
+} = Astro.props;
+
+const unifiedFeed = 'https://api.gokhan.vc/feed.xml';
+const subscribeAction = 'https://api.gokhan.vc/newsletter/subscribe';
+---
+
+<div class="subscribe-wrap">
+  <div class="stripe" aria-hidden="true"></div>
+  <div class="foot-sub" aria-labelledby="foot-sub-heading" data-xmtp-root>
+    <form class="foot-sub-form" method="POST" action={subscribeAction}>
+      <p class="foot-sub-copy" id="foot-sub-heading">
+        Dispatches from the studio — occasional, low-frequency notes on what we ship. Optional wallet
+        delivery over XMTP. <strong>No spam.</strong>
+      </p>
+      <div class="foot-sub-row">
+        <input
+          type="email"
+          name="email"
+          required
+          placeholder="you@email.com"
+          autocomplete="email"
+          aria-label="Email"
+          class="foot-sub-input"
+        />
+        <input type="hidden" name="site" value={site} />
+        <div class="foot-sub-actions">
+          <button type="submit" class="foot-sub-btn">Subscribe</button>
+          <button
+            type="button"
+            class="foot-sub-btn foot-sub-btn--xmtp"
+            data-xmtp-btn
+            data-xmtp-site={site}
+          >
+            Connect wallet (XMTP)
+          </button>
+        </div>
+      </div>
+    </form>
+    <p class="foot-sub-status" data-xmtp-status role="status" aria-live="polite"></p>
+    <p class="foot-sub-rss">
+      <strong>Two RSS feeds</strong> — <a href={localFeed}>this&nbsp;site</a> · <a href={unifiedFeed}
+        >everything</a
+      > (all studio sites).
+    </p>
+  </div>
+</div>
+
+<script src="/newsletter-xmtp.js" defer></script>
+
+<style>
+  .subscribe-wrap {
+    width: 100%;
+    max-width: 42rem;
+    margin: 0 auto;
+    padding: 0 1.5rem 3rem;
+  }
+
+  .foot-sub-copy {
+    margin: 0 0 0.3rem;
+    font-size: 0.95em;
+    line-height: 1.45;
+    color: hsl(var(--muted-foreground));
+    max-width: 62ch;
+  }
+
+  .foot-sub-copy strong {
+    color: hsl(var(--foreground));
+    font-weight: 700;
+  }
+
+  .foot-sub-status {
+    font-family: "Courier New", Courier, ui-monospace, monospace;
+    font-size: 12px;
+    color: hsl(var(--muted-foreground));
+    margin: 0.35rem 0 0;
+    min-height: 1.2em;
+  }
+
+  .foot-sub-status.is-ok {
+    color: hsl(var(--foreground));
+  }
+
+  .foot-sub-status.is-err {
+    color: #e10600;
+  }
+
+  .foot-sub-rss {
+    margin: 0.4rem 0 0;
+    font-size: 0.9em;
+    opacity: 0.85;
+    color: hsl(var(--muted-foreground));
+    line-height: 1.4;
+  }
+</style>
