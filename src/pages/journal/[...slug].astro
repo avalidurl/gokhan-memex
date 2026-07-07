@@ -118,7 +118,7 @@ const showToc = tocHeadings.length >= 2
         <!-- (c) big bold H1 -->
         <PostTitle title={post.data.title} as="h1" class="dispatch-title" />
 
-        {post.slug === 'not-raising-a-preseed' && (
+        {(post.slug === 'not-raising-a-preseed' || post.slug === 'universal-sex-layer') && (
           <p class="deck-links">
             <a class="deck-pdf" href="https://ishtar.numetal.xyz/deck/not-raising-a-preseed/ishtar-deck-not-a-preseed.pdf" download>Download PDF</a>
             <a class="deck-view" href="https://ishtar.numetal.xyz/deck/not-raising-a-preseed/">View deck →</a>
@@ -289,6 +289,39 @@ const showToc = tocHeadings.length >= 2
     border-bottom: 1px solid hsl(var(--border));
     font-size: 13px;
     text-decoration: none;
+  }
+
+  .epigraph {
+    border-left: 3px solid hsl(var(--foreground));
+    padding: 0.15rem 0 0.15rem 1.1rem;
+    margin: 1.1rem 0 0;
+    max-width: 52ch;
+  }
+  .epigraph p {
+    font-size: 17px;
+    line-height: 1.55;
+    font-style: italic;
+    margin: 0 0 0.35rem;
+  }
+  .epigraph cite {
+    font-family: "Courier New", Courier, ui-monospace, monospace;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: hsl(var(--muted-foreground));
+    font-style: normal;
+  }
+
+  .pdf-embed {
+    border: 1px solid hsl(var(--border));
+    background: hsl(var(--card));
+    margin: 1.2rem 0 1.5rem;
+  }
+  .pdf-embed object,
+  .pdf-embed iframe {
+    width: 100%;
+    height: min(80vh, 680px);
+    display: block;
+    border: 0;
   }
 
   .dispatch-tags {
