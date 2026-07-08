@@ -121,7 +121,9 @@ const showToc = tocHeadings.length >= 2
         {(post.slug === 'not-raising-a-preseed' || post.slug === 'universal-sex-layer') && (
           <p class="deck-links">
             <a class="deck-pdf" href="https://assets.numetal.xyz/deck/ishtar-deck-not-a-preseed.pdf" download>Download PDF</a>
+            <span class="deck-sep" aria-hidden="true">·</span>
             <a class="deck-view" href="https://ishtar.numetal.xyz/deck/not-raising-a-preseed/">View deck →</a>
+            <span class="deck-sep" aria-hidden="true">·</span>
             <a class="deck-md" href="https://ishtar.numetal.xyz/deck/not-raising-a-preseed/deck.md">deck.md</a>
           </p>
         )}
@@ -290,6 +292,10 @@ const showToc = tocHeadings.length >= 2
     font-size: 13px;
     text-decoration: none;
   }
+  .deck-sep {
+    color: hsl(var(--muted-foreground));
+    user-select: none;
+  }
 
   .epigraph {
     border-left: 3px solid hsl(var(--foreground));
@@ -303,12 +309,36 @@ const showToc = tocHeadings.length >= 2
     font-style: italic;
     margin: 0 0 0.35rem;
   }
-  .epigraph cite {
+  .epigraph cite,
+  .epigraph .epigraph-cite {
     font-family: "Courier New", Courier, ui-monospace, monospace;
     font-size: 12px;
     letter-spacing: 0.06em;
     color: hsl(var(--muted-foreground));
     font-style: normal;
+    margin: 0;
+  }
+
+  .dispatch-prose :global(.epigraph) {
+    border-left: 3px solid hsl(var(--foreground));
+    padding: 0.15rem 0 0.15rem 1.1rem;
+    margin: 0 0 1.25rem;
+    max-width: 52ch;
+  }
+  .dispatch-prose :global(.epigraph p) {
+    font-size: 17px;
+    line-height: 1.55;
+    font-style: italic;
+    margin: 0 0 0.35rem;
+  }
+  .dispatch-prose :global(.epigraph .epigraph-cite),
+  .dispatch-prose :global(.epigraph cite) {
+    font-family: "Courier New", Courier, ui-monospace, monospace;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: hsl(var(--muted-foreground));
+    font-style: normal;
+    margin: 0;
   }
 
   .dispatch-tags {
