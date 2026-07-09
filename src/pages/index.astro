@@ -16,6 +16,19 @@ const essays = (await getCollection('blog'))
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
 
+const products = [
+  {
+    k: 'CURB',
+    href: 'https://curb.numetal.xyz',
+    tip: 'Agent-to-agent inference swap — clear peer offers with dual-payee x402 USDC.',
+  },
+  {
+    k: 'Ishtar',
+    href: 'https://ishtar.numetal.xyz',
+    tip: 'Agent-mediated dating venue — chaperoned courtship with x402 premium artifacts.',
+  },
+]
+
 const index = [
   { k: 'Journal', d: 'essays, notes & dispatches', href: '/journal/', v: '/journal', ext: false },
   { k: 'Publishing', d: 'editions & e-books', href: '/publishing/', v: '/publishing', ext: false },
@@ -67,6 +80,26 @@ const index = [
       </div>
 
       <aside class="side">
+        <div class="prods-block">
+          <div class="idxh">Products</div>
+          <div class="dot"></div>
+          <div class="prods">
+            {products.map((p) => (
+              <a
+                class="prod"
+                href={p.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={p.tip}
+                data-tip={p.tip}
+              >
+                <span class="prod-k">{p.k}</span>
+                <span class="v">↗</span>
+              </a>
+            ))}
+          </div>
+        </div>
+
         <div class="idxh">Index</div>
         <div class="dot"></div>
         <div class="idx">
@@ -146,6 +179,27 @@ const index = [
       background-image: radial-gradient(hsl(var(--foreground)) .5px, transparent .6px);
       background-size: 3px 3px;
     }
+    .prods-block { margin-bottom: 28px; }
+    .prods { border: 1.5px solid hsl(var(--foreground)); border-top: none; }
+    .prod {
+      position: relative;
+      display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+      padding: 11px 13px; border-bottom: 1px solid hsl(var(--border));
+      text-decoration: none; color: hsl(var(--foreground));
+    }
+    .prod:last-child { border-bottom: none; }
+    .prod:hover { background: hsl(var(--muted)); }
+    .prod-k { font-weight: 700; }
+    .prod::after {
+      content: attr(data-tip);
+      position: absolute; left: 0; right: 0; top: calc(100% + 6px); z-index: 5;
+      padding: 8px 10px; border: 1.5px solid hsl(var(--foreground));
+      background: hsl(var(--background)); color: hsl(var(--foreground));
+      font-size: 12px; font-weight: 400; line-height: 1.4; letter-spacing: 0;
+      text-transform: none; box-shadow: 2px 2px 0 hsl(var(--foreground));
+      opacity: 0; pointer-events: none; transition: opacity .1s;
+    }
+    .prod:hover::after, .prod:focus-visible::after { opacity: 1; }
     .idx { border: 1.5px solid hsl(var(--foreground)); border-top: none; }
     .ix {
       display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
