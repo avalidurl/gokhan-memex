@@ -384,6 +384,9 @@ function leafAttrs(leaf: Leaf) {
     font-weight: 400;
     letter-spacing: 0.03em;
     color: hsl(var(--muted-foreground));
+    line-height: 1.5;
+    /* reserve two lines so collapsed faces stay equal across the row */
+    min-height: 3em;
   }
 
   .board-toggle {
