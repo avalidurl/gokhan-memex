@@ -1,0 +1,546 @@
+---
+// Bureau tile board — same structure as gokhan.vc's portfolio kanban:
+// open-by-default cards (index stamp, link count, title/domain/owner,
+// ink divider, link tree, JS-free CLOSE toggle), monochrome hard borders.
+
+interface Leaf {
+  platform: string
+  note: string
+  href: string
+  ext?: boolean
+}
+
+interface Tile {
+  id: string
+  label: string
+  domain: string
+  owner: string
+  blurb?: string
+  tools: Leaf[]
+  socials?: Leaf[]
+  contact?: Leaf
+}
+
+const tiles: Tile[] = [
+  {
+    id: 'gokhan',
+    label: 'Gökhan Turhan',
+    domain: 'gokhanturhan.com',
+    owner: 'fullstack autodidact · solopreneur · generalist',
+    blurb:
+      'Fullstack, autodidact developer and solopreneur — a generalist shipping across fintech, culture, and frontier AI. Code first: products, prototypes, and the growth engines around them.',
+    tools: [
+      { platform: 'CV', note: 'the long version', href: '/cv/' },
+      { platform: 'Journal', note: 'essays & notes', href: '/journal/' },
+      { platform: 'Publishing', note: 'editions & e-books', href: '/publishing/' },
+    ],
+    socials: [
+      { platform: 'X', note: '@goekhan', href: 'https://x.com/goekhan', ext: true },
+      { platform: 'GitHub', note: 'avalidurl', href: 'https://github.com/avalidurl', ext: true },
+      {
+        platform: 'LinkedIn',
+        note: 'in/goekhanturhan',
+        href: 'https://linkedin.com/in/goekhanturhan',
+        ext: true,
+      },
+      { platform: 'Farcaster', note: '@gokhan', href: 'https://warpcast.com/gokhan', ext: true },
+      { platform: 'Telegram', note: '@goekhanturhan', href: 'https://t.me/goekhanturhan', ext: true },
+    ],
+    contact: {
+      platform: 'Email',
+      note: 'contact@gokhan.vc',
+      href: 'mailto:contact@gokhan.vc',
+    },
+  },
+  {
+    id: 'products',
+    label: 'Products',
+    domain: 'numetal.xyz',
+    owner: 'shipped & live',
+    tools: [
+      {
+        platform: 'CURB',
+        note: 'agent↔agent inference swap',
+        href: 'https://curb.numetal.xyz',
+        ext: true,
+      },
+      {
+        platform: 'Ishtar',
+        note: 'agentic dating venue',
+        href: 'https://ishtar.numetal.xyz',
+        ext: true,
+      },
+      {
+        platform: 'HeartBench',
+        note: 'model dating leaderboard',
+        href: 'https://ishtar.numetal.xyz/heartbench/',
+        ext: true,
+      },
+      {
+        platform: 'Numetal Labs',
+        note: 'agent accelerator studio',
+        href: 'https://numetal.xyz',
+        ext: true,
+      },
+    ],
+  },
+  {
+    id: 'studio',
+    label: 'Studio',
+    domain: 'gokhan.vc',
+    owner: 'Atelier Gökhan Turhan',
+    tools: [
+      { platform: 'Website', note: 'the venture studio', href: 'https://gokhan.vc', ext: true },
+      { platform: 'API', note: 'estate front door', href: 'https://api.gokhan.vc', ext: true },
+      { platform: 'Blog', note: 'studio dispatches', href: 'https://gokhan.vc/blog', ext: true },
+      { platform: 'GitHub', note: 'gokhan-vc', href: 'https://github.com/gokhan-vc', ext: true },
+    ],
+  },
+  {
+    id: 'writing',
+    label: 'Writing',
+    domain: 'gokhan.substack.com',
+    owner: 'essays & dispatches',
+    tools: [
+      { platform: 'Journal', note: 'the writing home', href: '/journal/' },
+      { platform: 'Substack', note: 'gokhan.substack.com', href: 'https://gokhan.substack.com', ext: true },
+      { platform: 'RSS — writing', note: 'rss.xml', href: 'https://gokhanturhan.com/rss.xml', ext: true },
+      {
+        platform: 'RSS — everything',
+        note: 'all sites',
+        href: 'https://api.gokhan.vc/feed.xml',
+        ext: true,
+      },
+    ],
+  },
+  {
+    id: 'hobby',
+    label: 'Hobby Projects',
+    domain: 'github.com/avalidurl',
+    owner: 'personal bench',
+    tools: [
+      {
+        platform: 'tickerline',
+        note: 'claudelines.com',
+        href: 'https://claudelines.com/statuslines/tickerline',
+        ext: true,
+      },
+      {
+        platform: 'GitHub',
+        note: 'avalidurl/tickerline',
+        href: 'https://github.com/avalidurl/tickerline',
+        ext: true,
+      },
+      {
+        platform: 'S&P 100 CapEx',
+        note: 'sp100-financial-tracker.pages.dev',
+        href: 'https://sp100-financial-tracker.pages.dev',
+        ext: true,
+      },
+      {
+        platform: 'GitHub',
+        note: 'avalidurl/sp100-financial-tracker',
+        href: 'https://github.com/avalidurl/sp100-financial-tracker',
+        ext: true,
+      },
+      {
+        platform: 'NVIDIA vs crypto',
+        note: 'market-cap-tracker.vercel.app',
+        href: 'https://market-cap-tracker.vercel.app',
+        ext: true,
+      },
+      {
+        platform: 'GitHub',
+        note: 'avalidurl/market-cap-tracker',
+        href: 'https://github.com/avalidurl/market-cap-tracker',
+        ext: true,
+      },
+      { platform: 'All projects', note: 'the full list', href: '/projects/' },
+    ],
+  },
+  {
+    id: 'memex',
+    label: 'Memex',
+    domain: 'github.com/avalidurl/gokhan-memex',
+    owner: 'this site, open source',
+    tools: [
+      {
+        platform: 'Source',
+        note: 'avalidurl/gokhan-memex',
+        href: 'https://github.com/avalidurl/gokhan-memex',
+        ext: true,
+      },
+      { platform: 'Lists', note: 'reading & references', href: '/lists/' },
+      { platform: 'Projects', note: 'builds & experiments', href: '/projects/' },
+      {
+        platform: 'Greek Anki',
+        note: 'avalidurl/greek-alphabet-anki',
+        href: 'https://github.com/avalidurl/greek-alphabet-anki',
+        ext: true,
+      },
+    ],
+  },
+]
+
+function leafCount(tile: Tile): number {
+  return tile.tools.length + (tile.socials?.length ?? 0) + (tile.contact ? 1 : 0)
+}
+
+function leafAttrs(leaf: Leaf) {
+  return leaf.ext ? { target: '_blank', rel: 'noopener noreferrer' } : {}
+}
+---
+
+<section class="board-section" aria-labelledby="board-title">
+  <p class="board-stamp" id="board-title">Board · six tiles, one person</p>
+
+  <div class="kanban-board" role="list">
+    {
+      tiles.map((tile, index) => (
+        <article class="kanban-col" role="listitem">
+          <details class="board-details" open>
+            <summary class="board-header" id={`tile-${tile.id}`}>
+              <span class="board-meta" aria-hidden="true">
+                <span class="board-index">{String(index + 1).padStart(2, '0')}</span>
+                <span class="board-count">{leafCount(tile)} links</span>
+              </span>
+              <span class="board-summary">
+                <span class="board-label">{tile.label}</span>
+                <span class="board-domain">{tile.domain}</span>
+                <span class="board-owner">{tile.owner}</span>
+              </span>
+              <span class="board-toggle" aria-hidden="true">
+                <span class="board-toggle-open">Open</span>
+                <span class="board-toggle-close">Close</span>
+                <span class="board-chevron" />
+              </span>
+            </summary>
+            <div class="board-body" aria-labelledby={`tile-${tile.id}`}>
+              {tile.blurb && <p class="board-blurb">{tile.blurb}</p>}
+              <ul class="leaves" role="list">
+                {tile.tools.map((leaf) => (
+                  <li class="leaf">
+                    <a class="leaf-link" href={leaf.href} {...leafAttrs(leaf)}>
+                      <span class="leaf-platform">{leaf.platform}</span>
+                      <span class="leaf-note">{leaf.note}</span>
+                    </a>
+                  </li>
+                ))}
+                {tile.socials && tile.socials.length > 0 && (
+                  <li class="leaf-heading">
+                    <h3 class="socials-heading">Socials</h3>
+                  </li>
+                )}
+                {(tile.socials ?? []).map((leaf) => (
+                  <li class="leaf">
+                    <a class="leaf-link" href={leaf.href} {...leafAttrs(leaf)}>
+                      <span class="leaf-platform">{leaf.platform}</span>
+                      <span class="leaf-note">{leaf.note}</span>
+                    </a>
+                  </li>
+                ))}
+                {tile.contact && (
+                  <li class="leaf leaf-contact">
+                    <a class="leaf-link" href={tile.contact.href}>
+                      <span class="leaf-platform">{tile.contact.platform}</span>
+                      <span class="leaf-note">{tile.contact.note}</span>
+                    </a>
+                  </li>
+                )}
+              </ul>
+            </div>
+          </details>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .board-section {
+    width: 100%;
+  }
+
+  .board-stamp {
+    font-family: 'Courier New', ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
+    margin: 0 0 18px;
+    text-align: center;
+  }
+
+  .kanban-board {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 22px;
+    align-items: start;
+  }
+
+  @media (min-width: 640px) {
+    .kanban-board {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .kanban-board {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .kanban-col {
+    min-width: 0;
+  }
+
+  .board-details {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid hsl(var(--foreground));
+    background: hsl(var(--card));
+    box-shadow: 2px 2px 0 hsl(var(--foreground));
+  }
+
+  .board-header {
+    position: relative;
+    margin: 0;
+    padding: 14px;
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .board-details[open] > .board-header {
+    border-bottom: 2px solid hsl(var(--foreground));
+  }
+
+  .board-header::-webkit-details-marker,
+  .board-header::marker {
+    display: none;
+  }
+
+  .board-header:hover {
+    background: hsl(var(--muted));
+  }
+
+  .board-header:focus-visible {
+    outline: 2px solid hsl(var(--foreground));
+    outline-offset: 2px;
+  }
+
+  .board-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: 'Courier New', ui-monospace, monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .board-index {
+    color: hsl(var(--foreground));
+    font-weight: 700;
+  }
+
+  .board-count {
+    color: hsl(var(--muted-foreground));
+  }
+
+  .board-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .board-label {
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: hsl(var(--foreground));
+    overflow-wrap: anywhere;
+    font-size: 19px;
+  }
+
+  .board-domain {
+    font-family: 'Courier New', ui-monospace, monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: hsl(var(--foreground));
+    overflow-wrap: anywhere;
+  }
+
+  .board-owner {
+    font-family: 'Courier New', ui-monospace, monospace;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    color: hsl(var(--muted-foreground));
+  }
+
+  .board-toggle {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Courier New', ui-monospace, monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: hsl(var(--foreground));
+  }
+
+  .board-toggle-close {
+    display: none;
+  }
+
+  .board-details[open] > .board-header .board-toggle-open {
+    display: none;
+  }
+
+  .board-details[open] > .board-header .board-toggle-close {
+    display: inline;
+  }
+
+  .board-chevron {
+    flex: 0 0 auto;
+    width: 8px;
+    height: 8px;
+    margin-bottom: 3px;
+    border-right: 2px solid hsl(var(--foreground));
+    border-bottom: 2px solid hsl(var(--foreground));
+    transform: rotate(45deg);
+    transition: transform 120ms ease-out;
+  }
+
+  .board-details[open] > .board-header .board-chevron {
+    transform: rotate(-135deg);
+    margin-bottom: -2px;
+  }
+
+  .board-body {
+    padding: 0 14px 14px;
+  }
+
+  .board-blurb {
+    margin: 12px 0 0;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: hsl(var(--foreground));
+    border-left: 2px solid hsl(var(--foreground));
+    padding-left: 12px;
+  }
+
+  .leaves {
+    list-style: none;
+    margin: 10px 0 0;
+    padding: 0 0 0 8px;
+    position: relative;
+    border-left: 2px solid hsl(var(--border));
+  }
+
+  .leaf {
+    position: relative;
+    padding: 4px 0 4px 20px;
+  }
+
+  .leaf::before {
+    content: '';
+    position: absolute;
+    left: -2px;
+    top: 50%;
+    width: 14px;
+    border-top: 2px solid hsl(var(--border));
+  }
+
+  .leaf-heading {
+    list-style: none;
+    padding: 14px 0 4px 20px;
+    position: relative;
+  }
+
+  .leaf-heading::before {
+    content: '';
+    position: absolute;
+    left: -2px;
+    top: 50%;
+    width: 14px;
+    border-top: 2px solid hsl(var(--border));
+  }
+
+  .socials-heading {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: hsl(var(--foreground));
+  }
+
+  .leaf-contact {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed hsl(var(--border));
+  }
+
+  .leaf-contact::before {
+    display: none;
+  }
+
+  .leaf-link {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+    max-width: 100%;
+    padding: 3px 8px;
+    border: 2px solid transparent;
+    text-decoration: none;
+    transition:
+      box-shadow 80ms ease-out,
+      border-color 80ms ease-out,
+      background 80ms ease-out;
+  }
+
+  .leaf-platform {
+    font-weight: 700;
+    font-size: 13px;
+    color: hsl(var(--foreground));
+  }
+
+  .leaf-note {
+    font-family: 'Courier New', ui-monospace, monospace;
+    font-size: 11px;
+    color: hsl(var(--muted-foreground));
+    overflow-wrap: anywhere;
+    line-height: 1.35;
+  }
+
+  .leaf-link:hover,
+  .leaf-link:focus-visible {
+    background: hsl(var(--background));
+    border-color: hsl(var(--foreground));
+    box-shadow: 2px 2px 0 hsl(var(--foreground));
+  }
+
+  .leaf-link:hover .leaf-platform,
+  .leaf-link:focus-visible .leaf-platform {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+
+  .leaf-link:focus-visible {
+    outline: 2px solid hsl(var(--foreground));
+    outline-offset: 2px;
+  }
+</style>

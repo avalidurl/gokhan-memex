@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PostTitle from '@/components/PostTitle.astro'
+import PortfolioBoard from '@/components/PortfolioBoard.astro'
 import { getCollection } from 'astro:content'
 
 const essays = (await getCollection('blog'))
@@ -117,6 +118,9 @@ const index = [
         </div>
       </aside>
     </div>
+
+    <div class="dither dgap"></div>
+    <PortfolioBoard />
 
     {essays.length > 0 && (
       <>
