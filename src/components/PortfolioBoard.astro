@@ -198,7 +198,7 @@ function leafAttrs(leaf: Leaf) {
     {
       tiles.map((tile, index) => (
         <article class="kanban-col" role="listitem">
-          <details class="board-details" open>
+          <details class="board-details">
             <summary class="board-header" id={`tile-${tile.id}`}>
               <span class="board-meta" aria-hidden="true">
                 <span class="board-index">{String(index + 1).padStart(2, '0')}</span>
