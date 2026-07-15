@@ -97,7 +97,7 @@
   code {
     border: 1px solid hsl(var(--border));
     border-radius: 0;
-    font-family: "Courier New", Courier, ui-monospace, monospace;
+    font-family: var(--font-mono);
   }
 
   a {
@@ -171,7 +171,7 @@
 
   .raw-kicker {
     color: hsl(var(--muted-foreground));
-    font-family: "Courier New", Courier, ui-monospace, monospace;
+    font-family: var(--font-mono);
     font-size: 0.78rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;

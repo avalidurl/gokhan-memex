@@ -215,7 +215,7 @@ const showToc = tocHeadings.length >= 2
     flex-wrap: wrap;
     padding-bottom: 0.55rem;
     border-bottom: 1px solid hsl(var(--border));
-    font-family: "Courier New", Courier, ui-monospace, monospace;
+    font-family: var(--font-mono);
     font-size: 11px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -232,7 +232,7 @@ const showToc = tocHeadings.length >= 2
 
   /* (b) mono uppercase eyebrow */
   .eyebrow {
-    font-family: "Courier New", Courier, ui-monospace, monospace;
+    font-family: var(--font-mono);
     font-size: 11px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
@@ -266,7 +266,7 @@ const showToc = tocHeadings.length >= 2
     gap: 0.55rem 0.75rem;
   }
   .deck-pdf {
-    font-family: "Courier New", Courier, ui-monospace, monospace;
+    font-family: var(--font-mono);
     font-size: 11px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -280,7 +280,7 @@ const showToc = tocHeadings.length >= 2
   .deck-view {
     color: hsl(var(--foreground));
     border-bottom: 1px solid hsl(var(--border));
-    font-family: "Courier New", Courier, ui-monospace, monospace;
+    font-family: var(--font-mono);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     font-size: 11px;
@@ -311,7 +311,7 @@ const showToc = tocHeadings.length >= 2
   }
   .epigraph cite,
   .epigraph .epigraph-cite {
-    font-family: "Courier New", Courier, ui-monospace, monospace;
+    font-family: var(--font-mono);
     font-size: 12px;
     letter-spacing: 0.06em;
     color: hsl(var(--muted-foreground));
@@ -333,7 +333,7 @@ const showToc = tocHeadings.length >= 2
   }
   .dispatch-prose :global(.epigraph .epigraph-cite),
   .dispatch-prose :global(.epigraph cite) {
-    font-family: "Courier New", Courier, ui-monospace, monospace;
+    font-family: var(--font-mono);
     font-size: 12px;
     letter-spacing: 0.06em;
     color: hsl(var(--muted-foreground));
@@ -346,7 +346,7 @@ const showToc = tocHeadings.length >= 2
     flex-wrap: wrap;
     gap: 0.9rem;
     margin-top: 0.9rem;
-    font-family: "Courier New", Courier, ui-monospace, monospace;
+    font-family: var(--font-mono);
     font-size: 11px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -366,7 +366,7 @@ const showToc = tocHeadings.length >= 2
     padding: 0;
   }
   .contents-label {
-    font-family: "Courier New", Courier, ui-monospace, monospace;
+    font-family: var(--font-mono);
     font-size: 11px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
@@ -397,7 +397,7 @@ const showToc = tocHeadings.length >= 2
   }
   .contents-item::before {
     content: counter(contents, decimal-leading-zero);
-    font-family: "Courier New", Courier, ui-monospace, monospace;
+    font-family: var(--font-mono);
     font-size: 11px;
     color: hsl(var(--muted-foreground));
     flex: 0 0 auto;
@@ -435,7 +435,7 @@ const showToc = tocHeadings.length >= 2
   }
   .dispatch-prose :global(.tldr .tldr-k) {
     display: block;
-    font-family: "Courier New", ui-monospace, monospace;
+    font-family: var(--font-mono);
     font-size: 11px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
@@ -489,7 +489,7 @@ const showToc = tocHeadings.length >= 2
     font-weight: 700;
     letter-spacing: 0.02em;
     text-transform: uppercase;
-    font-family: "Courier New", ui-monospace, monospace;
+    font-family: var(--font-mono);
     color: hsl(var(--foreground));
     margin: 26px 0 8px;
   }
