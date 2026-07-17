@@ -1,64 +1,81 @@
-/* Monochrome palette — the house style is black & white. Hierarchy is carried
-   by weight, case, and value. One hue is licensed: the Bureau blue below, with
-   exactly three jobs — primary CTA fill, hover wash, index/chrome stamps
-   (the blue analog of agentbounty.dev's yellow). Var names unchanged so every
-   component keeps working. --backdrop is the gray desk the white sheet sits on. */
+/* House register — filed technical document. Strict monochrome, four tokens
+   per theme, monospace only. Hierarchy is carried by border weight, casing,
+   letter-spacing, size, and weight — never by color. Legacy variable names are
+   kept and remapped onto the four tokens so every component keeps working. */
 :root {
-  --accent-blue: 221 71% 45%;
-  --accent-blue-strong: 221 78% 52%;
-  --accent-blue-soft: 221 64% 84%;
-  --accent-blue-wash: 221 76% 96%;
-  --accent-blue-foreground: 0 0% 100%;
-  --backdrop: 0 0% 91%;
-  --background: 0 0% 100%;
-  --foreground: 0 0% 8%;
-  --card: 0 0% 100%;
-  --card-foreground: 0 0% 8%;
-  --primary: 0 0% 8%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 0 0% 96%;
-  --secondary-foreground: 0 0% 8%;
-  --muted: 0 0% 96%;
-  --muted-foreground: 0 0% 38%;
-  --accent: 0 0% 93%;
-  --accent-foreground: 0 0% 8%;
-  --border: 0 0% 80%;
-  --input: 0 0% 80%;
-  --ring: 0 0% 8%;
+  /* The four tokens (light — "paper") */
+  --ink: #0a0a0a;
+  --paper: #f4f4f2;
+  --dim: #5c5c5c;
+  --faint: #d8d8d4;
+
+  /* Legacy HSL triplets, remapped onto the four tokens */
+  --accent-blue: 0 0% 3.92%;
+  --accent-blue-strong: 0 0% 3.92%;
+  --accent-blue-soft: 60 5% 83.9%;
+  --accent-blue-wash: 60 5% 83.9%;
+  --accent-blue-foreground: 60 8% 95.3%;
+  --backdrop: 60 8% 95.3%;
+  --background: 60 8% 95.3%;
+  --foreground: 0 0% 3.92%;
+  --card: 60 8% 95.3%;
+  --card-foreground: 0 0% 3.92%;
+  --primary: 0 0% 3.92%;
+  --primary-foreground: 60 8% 95.3%;
+  --secondary: 60 5% 83.9%;
+  --secondary-foreground: 0 0% 3.92%;
+  --muted: 60 5% 83.9%;
+  --muted-foreground: 0 0% 36.08%;
+  --accent: 60 5% 83.9%;
+  --accent-foreground: 0 0% 3.92%;
+  --border: 0 0% 3.92%;
+  --input: 0 0% 3.92%;
+  --ring: 0 0% 3.92%;
   --radius: 0;
-  --popover: 0 0% 100%;
-  --popover-foreground: 0 0% 8%;
-  --destructive: 0 0% 20%;
-  --destructive-foreground: 0 0% 100%;
+  --popover: 60 8% 95.3%;
+  --popover-foreground: 0 0% 3.92%;
+  --destructive: 0 0% 3.92%;
+  --destructive-foreground: 60 8% 95.3%;
+
+  --font-mono: "SF Mono", "IBM Plex Mono", "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --font-sans: "SF Mono", "IBM Plex Mono", "JetBrains Mono", ui-monospace, Menlo, monospace;
+
   color-scheme: light;
 }
 
 .dark {
-  --accent-blue: 221 92% 68%;
-  --accent-blue-strong: 221 95% 74%;
-  --accent-blue-soft: 221 45% 28%;
-  --accent-blue-wash: 221 42% 14%;
-  --accent-blue-foreground: 0 0% 8%;
-  --backdrop: 0 0% 4%;
-  --background: 0 0% 8%;
-  --foreground: 0 0% 91%;
-  --card: 0 0% 8%;
-  --card-foreground: 0 0% 91%;
-  --primary: 0 0% 91%;
-  --primary-foreground: 0 0% 8%;
-  --secondary: 0 0% 14%;
-  --secondary-foreground: 0 0% 91%;
-  --muted: 0 0% 14%;
-  --muted-foreground: 0 0% 64%;
-  --accent: 0 0% 16%;
-  --accent-foreground: 0 0% 91%;
-  --border: 0 0% 24%;
-  --input: 0 0% 24%;
-  --ring: 0 0% 91%;
-  --popover: 0 0% 8%;
-  --popover-foreground: 0 0% 91%;
-  --destructive: 0 0% 70%;
-  --destructive-foreground: 0 0% 8%;
+  /* The four tokens (dark — same design, inverted ink) */
+  --ink: #e8e8e6;
+  --paper: #0e0e0e;
+  --dim: #9a9a9a;
+  --faint: #2a2a2a;
+
+  --accent-blue: 60 4% 90.59%;
+  --accent-blue-strong: 60 4% 90.59%;
+  --accent-blue-soft: 0 0% 16.47%;
+  --accent-blue-wash: 0 0% 16.47%;
+  --accent-blue-foreground: 0 0% 5.49%;
+  --backdrop: 0 0% 5.49%;
+  --background: 0 0% 5.49%;
+  --foreground: 60 4% 90.59%;
+  --card: 0 0% 5.49%;
+  --card-foreground: 60 4% 90.59%;
+  --primary: 60 4% 90.59%;
+  --primary-foreground: 0 0% 5.49%;
+  --secondary: 0 0% 16.47%;
+  --secondary-foreground: 60 4% 90.59%;
+  --muted: 0 0% 16.47%;
+  --muted-foreground: 0 0% 60.39%;
+  --accent: 0 0% 16.47%;
+  --accent-foreground: 60 4% 90.59%;
+  --border: 60 4% 90.59%;
+  --input: 60 4% 90.59%;
+  --ring: 60 4% 90.59%;
+  --popover: 0 0% 5.49%;
+  --popover-foreground: 60 4% 90.59%;
+  --destructive: 60 4% 90.59%;
+  --destructive-foreground: 0 0% 5.49%;
+
   color-scheme: dark;
 }
 
@@ -66,71 +83,106 @@
 *::before,
 *::after {
   box-sizing: border-box;
-  border-color: hsl(var(--border));
+  border-color: var(--ink);
   text-rendering: optimizeLegibility;
   -webkit-font-feature-settings: "kern" 1;
   font-feature-settings: "kern" 1;
+  /* Filed documents do not move, cast shadows, or round their corners. */
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  transition: none !important;
+  animation: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 html {
   height: 100%;
-  background-color: hsl(var(--backdrop));
-  font-size: 16px;
-  line-height: 1.65;
+  background-color: var(--paper);
+  font-size: 14px;
+  line-height: 1.55;
   -webkit-text-size-adjust: 100%;
   tab-size: 4;
+  font-variant-numeric: tabular-nums;
 }
 
 body {
   min-height: 100vh;
   margin: 0;
-  background-color: hsl(var(--backdrop));
-  color: hsl(var(--foreground));
-  font-family: "Helvetica Neue", Helvetica, Arial, "Liberation Sans", sans-serif;
-  font-size: 0.9375rem;
-  line-height: 1.5;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.55;
   font-feature-settings: "kern" 1, "liga" 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-align: left;
 }
 
-/* The sheet — a white working sheet on the gray desk. Applied to the page wrapper
-   in BaseLayout; everything inside keeps its own layout. */
+/* The filed sheet — one paper plane, ruled at the edges. */
 .site-sheet {
-  max-width: 67rem;
+  max-width: 880px;
   margin: 0 auto;
-  background: hsl(var(--background));
-  border-left: 1px solid hsl(var(--border));
-  border-right: 1px solid hsl(var(--border));
+  background: var(--paper);
+  border-left: 1px solid var(--ink);
+  border-right: 1px solid var(--ink);
 }
 
-/* Dither strip — the halftone divider. */
+/* Legacy divider classes, demoted to plain rules (no halftone, no caution
+   colors). The one permitted graphic is .perforation below. */
 .dither {
-  height: 11px;
-  background-image: radial-gradient(hsl(var(--foreground)) 0.62px, transparent 0.72px);
-  background-size: 3px 3px;
-  opacity: 0.42;
+  height: 0;
+  border-top: 1px solid var(--ink);
+  opacity: 1;
 }
 
-/* Caution stripe + footer subscribe — Ishtar dispatches pattern */
 .stripe {
-  height: 6px;
+  height: 0;
   margin-top: 2.2rem;
-  background-image: repeating-linear-gradient(135deg, #e10600 0 9px, transparent 9px 18px);
+  border-top: 2px solid var(--ink);
+  background-image: none;
+}
+
+/* Perforation/tally bar — the single permitted graphic; divider before the colophon. */
+.perforation {
+  height: 10px;
+  background-image: repeating-linear-gradient(90deg, var(--ink) 0 6px, transparent 6px 12px);
+}
+
+/* Colophon — 2px top rule, two tiny uppercase dim strings pushed apart. */
+.colophon {
+  border-top: 2px solid var(--ink);
+  padding-top: 0.6rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--dim);
+}
+
+.colophon a {
+  color: var(--ink);
+  text-decoration: underline;
+}
+
+/* Utility-class overrides: nothing centers, nothing floats. */
+.text-center {
+  text-align: left !important;
 }
 
 .foot-sub {
   padding: 1.2rem 0 0.2rem;
-  color: hsl(var(--muted-foreground));
+  color: var(--dim);
 }
 
 .foot-sub a {
-  color: hsl(var(--muted-foreground));
+  color: var(--ink);
   text-decoration: underline;
-}
-
-.foot-sub a:hover {
-  color: hsl(var(--foreground));
 }
 
 .foot-sub-form {
@@ -148,15 +200,15 @@ body {
   flex: 1;
   min-width: 0;
   padding: 10px 12px;
-  border: 1px solid currentColor;
+  border: 1px solid var(--ink);
   background: transparent;
-  color: inherit;
+  color: var(--ink);
   font: inherit;
   box-sizing: border-box;
 }
 
 .foot-sub-input:focus-visible {
-  outline: 2px solid hsl(var(--foreground));
+  outline: 2px solid var(--ink);
   outline-offset: 2px;
 }
 
@@ -169,29 +221,27 @@ body {
 
 .foot-sub-btn {
   padding: 10px 18px;
-  border: 1px solid currentColor;
+  border: 1px solid var(--ink);
   background: transparent;
-  color: inherit;
+  color: var(--ink);
   font: inherit;
   cursor: pointer;
   white-space: nowrap;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.14em;
 }
 
 .foot-sub-btn:hover,
 .foot-sub-btn:focus-visible {
-  border-color: hsl(var(--foreground));
-  color: hsl(var(--foreground));
+  border-color: var(--ink);
+  background: var(--faint);
+  color: var(--ink);
 }
 
 .foot-sub-btn--xmtp {
-  font-family: var(--font-mono, ui-monospace, "SF Mono", Menlo, monospace);
-  font-size: 0.92em;
-}
-
-.foot-sub-btn--xmtp:hover,
-.foot-sub-btn--xmtp:focus-visible {
-  color: #e10600;
-  border-color: #e10600;
+  font-family: var(--font-mono);
+  font-size: 11px;
 }
 
 .foot-sub-btn--xmtp:disabled {
@@ -226,23 +276,12 @@ body {
 .site-sheet header nav a {
   text-transform: uppercase;
   font-size: 0.72rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.14em;
   font-weight: 600;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+  html {
     scroll-behavior: auto !important;
   }
 }

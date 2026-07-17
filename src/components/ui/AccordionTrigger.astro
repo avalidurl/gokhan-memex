@@ -1,6 +1,5 @@
 ---
 import { cn } from '@/lib/utils'
-import { ChevronDown } from 'lucide-astro'
 
 interface Props {
   class?: string
@@ -22,7 +21,7 @@ const { class: className, id, ...props } = Astro.props
   {...props}
 >
   <slot />
-  <ChevronDown class="h-4 w-4 shrink-0 transition-transform duration-200" />
+  <span class="shrink-0 font-mono" data-accordion-glyph aria-hidden="true">+</span>
 </button>
 
 <script>
@@ -33,7 +32,7 @@ const { class: className, id, ...props } = Astro.props
       trigger.addEventListener('click', () => {
         const item = trigger.closest('[data-accordion-item]');
         const content = item?.querySelector('[data-accordion-content]');
-        const chevron = trigger.querySelector('svg');
+        const chevron = trigger.querySelector('[data-accordion-glyph]');
         
         if (content && chevron) {
           const isOpen = trigger.getAttribute('aria-expanded') === 'true';
@@ -41,11 +40,11 @@ const { class: className, id, ...props } = Astro.props
           if (isOpen) {
             trigger.setAttribute('aria-expanded', 'false');
             content.classList.add('hidden');
-            chevron.style.transform = 'rotate(0deg)';
+            chevron.textContent = '+';
           } else {
             trigger.setAttribute('aria-expanded', 'true');
             content.classList.remove('hidden');
-            chevron.style.transform = 'rotate(180deg)';
+            chevron.textContent = '\u2212';
           }
         }
       });

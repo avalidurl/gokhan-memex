@@ -308,7 +308,7 @@ function leafAttrs(leaf: Leaf) {
 
   .board-details:hover,
   .board-details:focus-within {
-    box-shadow: 5px 5px 0 hsl(var(--accent-blue-soft));
+    background: hsl(var(--card));
   }
 
   .board-header {
@@ -333,7 +333,7 @@ function leafAttrs(leaf: Leaf) {
   }
 
   .board-header:hover {
-    background: hsl(var(--accent-blue-wash));
+    background: var(--faint);
   }
 
   .board-header:focus-visible {
@@ -353,7 +353,7 @@ function leafAttrs(leaf: Leaf) {
   }
 
   .board-index {
-    color: hsl(var(--accent-blue));
+    color: var(--dim);
     font-weight: 700;
   }
 
@@ -422,14 +422,7 @@ function leafAttrs(leaf: Leaf) {
   }
 
   .board-chevron {
-    flex: 0 0 auto;
-    width: 8px;
-    height: 8px;
-    margin-bottom: 3px;
-    border-right: 2px solid hsl(var(--foreground));
-    border-bottom: 2px solid hsl(var(--foreground));
-    transform: rotate(45deg);
-    transition: transform 120ms ease-out;
+    display: none;
   }
 
   .board-details[open] > .board-header .board-chevron {
@@ -446,7 +439,7 @@ function leafAttrs(leaf: Leaf) {
     font-size: 13.5px;
     line-height: 1.55;
     color: hsl(var(--foreground));
-    border-left: 2px solid hsl(var(--accent-blue));
+    border-left: 2px solid var(--ink);
     padding-left: 12px;
   }
 
@@ -537,9 +530,8 @@ function leafAttrs(leaf: Leaf) {
 
   .leaf-link:hover,
   .leaf-link:focus-visible {
-    background: hsl(var(--accent-blue-wash));
-    border-color: hsl(var(--accent-blue));
-    box-shadow: 2px 2px 0 hsl(var(--accent-blue-soft));
+    background: var(--faint);
+    border-color: var(--ink);
   }
 
   .leaf-link:hover .leaf-platform,

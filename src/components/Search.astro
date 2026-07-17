@@ -1,26 +1,25 @@
 ---
-import { Search as SearchIcon } from 'lucide-astro'
 ---
 
 <!-- Search Modal -->
 <div id="search-modal" class="fixed inset-0 z-[100] hidden" role="dialog" aria-modal="true" aria-label="Search posts">
   <!-- Backdrop -->
-  <div class="fixed inset-0 bg-background/80 backdrop-blur-sm" id="search-backdrop"></div>
-  
+  <div class="fixed inset-0 bg-background/90" id="search-backdrop"></div>
+
   <!-- Modal Content -->
-  <div class="fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 sm:rounded-lg">
+  <div class="fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border-2 bg-background p-6">
     <!-- Search Input -->
-    <div class="flex items-center border rounded-md px-3">
-      <SearchIcon class="mr-2 h-4 w-4 shrink-0 opacity-50" />
+    <div class="flex items-center border px-3">
+      <span class="mr-2 shrink-0 text-[10px] uppercase tracking-[0.18em] text-muted-foreground" aria-hidden="true">Find</span>
       <input
         id="search-input"
-        class="flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+        class="flex h-11 w-full bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
         placeholder="Search posts..."
         type="search"
         autocomplete="off"
         spellcheck="false"
       />
-      <kbd class="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+      <kbd class="pointer-events-none inline-flex h-5 select-none items-center gap-1 border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
         <span class="text-xs">ESC</span>
       </kbd>
     </div>
@@ -172,7 +171,7 @@ import { Search as SearchIcon } from 'lucide-astro'
         const safeTitle = this.highlight(this.escapeHTML(post.title), query)
         const safeDesc = this.highlight(this.escapeHTML(post.description.substring(0, 100) + '...'), query)
         return `
-          <a href="${safeLink}" class="search-result flex items-center gap-2 rounded-sm px-2 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground" data-index="${index}">
+          <a href="${safeLink}" class="search-result flex items-center gap-2 px-2 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground" data-index="${index}">
             <div class="flex flex-col gap-1">
               <span class="font-medium">${safeTitle}</span>
               <span class="text-xs text-muted-foreground line-clamp-2">${safeDesc}</span>
@@ -186,7 +185,7 @@ import { Search as SearchIcon } from 'lucide-astro'
       if (!query) return text
       const safeQuery = this.escapeRegExp(query)
       const regex = new RegExp(`(${safeQuery})`, 'gi')
-      return text.replace(regex, '<mark class="bg-yellow-200 text-black">$1</mark>')
+      return text.replace(regex, '<mark class="bg-muted text-foreground underline">$1</mark>')
     }
 
     escapeHTML(text: string) {

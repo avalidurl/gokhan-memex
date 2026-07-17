@@ -121,12 +121,12 @@ const summarySentences = ebook.summarySentences?.length ? ebook.summarySentences
 
 <style>
   .ebook-document {
-    color: #171717;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    font-family: "SF Mono", "IBM Plex Mono", "JetBrains Mono", ui-monospace, Menlo, monospace;
   }
 
   .ebook-document .doc-eyebrow {
-    color: #666;
+    color: var(--dim);
     font-family: "Courier New", monospace;
     font-size: 0.78rem;
     letter-spacing: 0.18em;
@@ -138,13 +138,13 @@ const summarySentences = ebook.summarySentences?.length ? ebook.summarySentences
   }
 
   .ebook-document .doc-link {
-    color: #141414;
+    color: var(--ink);
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.12em;
   }
 
   .ebook-document .doc-link:visited {
-    color: #444444;
+    color: var(--dim);
   }
 </style>

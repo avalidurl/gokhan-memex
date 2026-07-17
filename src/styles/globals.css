@@ -8,15 +8,22 @@
 @tailwind utilities;
 
 @layer base {
+  *,
+  ::before,
+  ::after {
+    --tw-ring-offset-color: hsl(var(--background));
+  }
+
   html {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background: hsl(var(--background));
+    font-family: var(--font-mono);
+    background: var(--paper);
+    font-variant-numeric: tabular-nums;
   }
 
   body {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: var(--font-mono);
     font-feature-settings: "kern" 1, "liga" 1;
-    -webkit-font-smoothing: auto;
+    -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
@@ -27,48 +34,74 @@
   h5,
   h6,
   .heading {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: var(--font-mono);
     font-weight: 700;
-    letter-spacing: 0;
-    line-height: 1.18;
+    letter-spacing: 0.02em;
+    line-height: 1.05;
   }
 
+  /* Page title — the only large type on the sheet. */
   h1 {
-    font-size: 2.4rem;
-    line-height: 1.12;
+    font-size: clamp(26px, 5.5vw, 44px);
+    line-height: 1.05;
     font-weight: 700;
   }
 
+  /* Section headings — tiny, uppercase, ruled; a flush-right section number
+     is set by the counter below. Hierarchy by rule weight, not size. */
   h2 {
-    font-size: 1.9rem;
-    line-height: 1.2;
+    position: relative;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-weight: 700;
+    line-height: 1.4;
+    border-bottom: 2px solid var(--ink);
+    padding: 0 3.5rem 0.35rem 0;
+  }
+
+  main {
+    counter-reset: docsec;
+  }
+
+  main h2::after {
+    counter-increment: docsec;
+    content: "§" counter(docsec);
+    position: absolute;
+    right: 0;
+    bottom: 0.35rem;
+    color: var(--dim);
+    font-weight: 400;
+    letter-spacing: 0.06em;
   }
 
   h3 {
-    font-size: 1.55rem;
-    line-height: 1.3;
-  }
-
-  h4 {
-    font-size: 1.25rem;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-weight: 700;
     line-height: 1.4;
   }
 
-  h5 {
-    font-size: 1.125rem;
-    line-height: 1.4;
-  }
-
+  h4,
+  h5,
   h6 {
-    font-size: 1rem;
-    line-height: 1.5;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-weight: 400;
+    line-height: 1.4;
   }
 
   p,
   article,
   .prose {
-    line-height: 1.72;
+    line-height: 1.55;
     margin-bottom: 1rem;
+  }
+
+  p {
+    max-width: 72ch;
   }
 
   h1,
@@ -95,20 +128,50 @@
   }
 
   code {
-    border: 1px solid hsl(var(--border));
-    border-radius: 0;
+    border: 1px solid var(--ink);
+    background: var(--faint);
     font-family: var(--font-mono);
+    font-size: 12.5px;
+  }
+
+  pre {
+    border: 1px solid var(--ink);
+    background: var(--faint);
+    font-size: 12.5px;
+    line-height: 1.6;
+    overflow-x: auto;
+  }
+
+  pre code {
+    border: 0;
+    background: transparent;
+  }
+
+  /* Syntax-highlighted blocks: remap the highlighter's inline token literals
+     onto the theme variables so code inverts with the rest of the sheet. */
+  .astro-code {
+    background-color: var(--faint) !important;
+    border: 1px solid var(--ink);
+  }
+
+  .astro-code,
+  .astro-code span {
+    color: var(--ink) !important;
+  }
+
+  .astro-code span[style*="#5c5c5c"] {
+    color: var(--dim) !important;
   }
 
   a {
-    color: hsl(var(--primary));
+    color: var(--ink);
     text-decoration: underline;
     text-underline-offset: 0.12em;
     text-decoration-thickness: 1px;
   }
 
   a:visited {
-    color: hsl(0 0% 30%);
+    color: var(--ink);
   }
 
   a:hover {
@@ -116,7 +179,7 @@
   }
 
   .dark a:visited {
-    color: hsl(0 0% 72%);
+    color: var(--ink);
   }
 
   button,
@@ -128,7 +191,28 @@
 
   hr {
     border: 0;
-    border-top: 1px solid hsl(var(--border));
+    border-top: 1px solid var(--ink);
+  }
+
+  /* Tables — fully ruled ledger boxes on the paper plane. */
+  table {
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
+  }
+
+  th,
+  td {
+    border: 1px solid var(--ink);
+    padding: 0.35rem 0.6rem;
+  }
+
+  th {
+    background: var(--faint);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-weight: 700;
+    text-align: left;
   }
 
   /* Anchor link styles for headings */
@@ -139,9 +223,8 @@
     display: inline-block;
   }
 
-  /* Add a subtle link icon on hover */
   .anchor-link:hover::after {
-    content: " 🔗";
+    content: " ¶";
     opacity: 0.6;
     font-size: 0.85em;
     margin-left: 0.25rem;
@@ -151,18 +234,18 @@
 
 @layer components {
   .raw-link {
-    color: hsl(var(--primary));
+    color: var(--ink);
     text-decoration: underline;
     text-underline-offset: 0.12em;
     text-decoration-thickness: 1px;
   }
 
   .raw-link:visited {
-    color: hsl(0 0% 30%);
+    color: var(--ink);
   }
 
   .dark .raw-link:visited {
-    color: hsl(0 0% 72%);
+    color: var(--ink);
   }
 
   .raw-link:hover {
@@ -170,7 +253,7 @@
   }
 
   .raw-kicker {
-    color: hsl(var(--muted-foreground));
+    color: var(--dim);
     font-family: var(--font-mono);
     font-size: 0.78rem;
     letter-spacing: 0.18em;

@@ -67,28 +67,30 @@ export default defineConfig({
   ],
   markdown: {
     shikiConfig: {
-      // Monochrome code theme — the house style carries hierarchy by value and
-      // weight, never hue. Grayscale ramp: comments recede, keywords advance.
+      // House code theme — the four register tokens only. Hierarchy is carried
+      // by weight and style (bold advances, italic recedes), never hue. CSS in
+      // globals.css remaps these literals onto the theme variables so the
+      // blocks invert correctly in dark mode.
       theme: {
         name: 'mono-sheet',
-        type: 'dark',
+        type: 'light',
         colors: {
-          'editor.background': '#161613',
-          'editor.foreground': '#e9e9e2',
+          'editor.background': '#d8d8d4',
+          'editor.foreground': '#0a0a0a',
         },
         tokenColors: [
-          { scope: ['comment', 'punctuation.definition.comment'], settings: { foreground: '#84847b', fontStyle: 'italic' } },
-          { scope: ['keyword', 'storage.type', 'storage.modifier'], settings: { foreground: '#ffffff', fontStyle: 'bold' } },
-          { scope: ['string', 'string.quoted', 'punctuation.definition.string'], settings: { foreground: '#b9b9b0' } },
-          { scope: ['constant', 'constant.numeric', 'constant.language'], settings: { foreground: '#d4d4cc' } },
-          { scope: ['variable', 'meta.definition.variable'], settings: { foreground: '#e9e9e2' } },
-          { scope: ['entity.name.function', 'support.function'], settings: { foreground: '#ffffff' } },
-          { scope: ['entity.name.type', 'entity.name.class', 'support.type', 'support.class'], settings: { foreground: '#f2f2ec', fontStyle: 'bold' } },
-          { scope: ['entity.name.tag', 'punctuation.definition.tag'], settings: { foreground: '#cfcfc6' } },
-          { scope: ['entity.other.attribute-name'], settings: { foreground: '#a8a89e', fontStyle: 'italic' } },
-          { scope: ['punctuation', 'meta.brace'], settings: { foreground: '#9b9b95' } },
-          { scope: ['markup.inserted'], settings: { foreground: '#ffffff' } },
-          { scope: ['markup.deleted'], settings: { foreground: '#84847b', fontStyle: 'strikethrough' } },
+          { scope: ['comment', 'punctuation.definition.comment'], settings: { foreground: '#5c5c5c', fontStyle: 'italic' } },
+          { scope: ['keyword', 'storage.type', 'storage.modifier'], settings: { foreground: '#0a0a0a', fontStyle: 'bold' } },
+          { scope: ['string', 'string.quoted', 'punctuation.definition.string'], settings: { foreground: '#5c5c5c' } },
+          { scope: ['constant', 'constant.numeric', 'constant.language'], settings: { foreground: '#0a0a0a' } },
+          { scope: ['variable', 'meta.definition.variable'], settings: { foreground: '#0a0a0a' } },
+          { scope: ['entity.name.function', 'support.function'], settings: { foreground: '#0a0a0a', fontStyle: 'bold' } },
+          { scope: ['entity.name.type', 'entity.name.class', 'support.type', 'support.class'], settings: { foreground: '#0a0a0a', fontStyle: 'bold' } },
+          { scope: ['entity.name.tag', 'punctuation.definition.tag'], settings: { foreground: '#0a0a0a' } },
+          { scope: ['entity.other.attribute-name'], settings: { foreground: '#5c5c5c', fontStyle: 'italic' } },
+          { scope: ['punctuation', 'meta.brace'], settings: { foreground: '#5c5c5c' } },
+          { scope: ['markup.inserted'], settings: { foreground: '#0a0a0a' } },
+          { scope: ['markup.deleted'], settings: { foreground: '#5c5c5c', fontStyle: 'strikethrough' } },
         ],
       },
       wrap: true

@@ -45,21 +45,21 @@ const deckJson = JSON.stringify(studyDeck)
                 <button
                   type="button"
                   data-mode="mixed"
-                  class="mode-button rounded-full bg-background px-4 py-2 text-base text-foreground/70 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.08)] transition hover:bg-foreground hover:text-background"
+                  class="mode-button border border-border bg-background px-4 py-2 text-base text-foreground/70 transition hover:bg-foreground hover:text-background"
                 >
                   Mixed
                 </button>
                 <button
                   type="button"
                   data-mode="bias"
-                  class="mode-button rounded-full bg-background px-4 py-2 text-base text-foreground/70 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.08)] transition hover:bg-foreground hover:text-background"
+                  class="mode-button border border-border bg-background px-4 py-2 text-base text-foreground/70 transition hover:bg-foreground hover:text-background"
                 >
                   Bias
                 </button>
                 <button
                   type="button"
                   data-mode="fallacy"
-                  class="mode-button rounded-full bg-background px-4 py-2 text-base text-foreground/70 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.08)] transition hover:bg-foreground hover:text-background"
+                  class="mode-button border border-border bg-background px-4 py-2 text-base text-foreground/70 transition hover:bg-foreground hover:text-background"
                 >
                   Fallacy
                 </button>
@@ -127,28 +127,28 @@ const deckJson = JSON.stringify(studyDeck)
                 <button
                   type="button"
                   data-command="hint"
-                  class="quick-command rounded-full bg-background px-3 py-1.5 text-base text-foreground/65 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.08)] transition hover:bg-foreground hover:text-background"
+                  class="quick-command border border-border bg-background px-3 py-1.5 text-base text-foreground/65 transition hover:bg-foreground hover:text-background"
                 >
                   Hint
                 </button>
                 <button
                   type="button"
                   data-command="skip"
-                  class="quick-command rounded-full bg-background px-3 py-1.5 text-base text-foreground/65 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.08)] transition hover:bg-foreground hover:text-background"
+                  class="quick-command border border-border bg-background px-3 py-1.5 text-base text-foreground/65 transition hover:bg-foreground hover:text-background"
                 >
                   Skip
                 </button>
                 <button
                   type="button"
                   data-command="explain"
-                  class="quick-command rounded-full bg-background px-3 py-1.5 text-base text-foreground/65 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.08)] transition hover:bg-foreground hover:text-background"
+                  class="quick-command border border-border bg-background px-3 py-1.5 text-base text-foreground/65 transition hover:bg-foreground hover:text-background"
                 >
                   Explain
                 </button>
                 <button
                   type="button"
                   data-command="stats"
-                  class="quick-command rounded-full bg-background px-3 py-1.5 text-base text-foreground/65 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.08)] transition hover:bg-foreground hover:text-background"
+                  class="quick-command border border-border bg-background px-3 py-1.5 text-base text-foreground/65 transition hover:bg-foreground hover:text-background"
                 >
                   Stats
                 </button>
@@ -168,7 +168,7 @@ const deckJson = JSON.stringify(studyDeck)
             <form id="command-form" class="mt-4 space-y-3">
               <label class="sr-only" for="command-input">Command line</label>
               <div class="flex flex-col gap-3 sm:flex-row">
-                <div class="flex min-w-0 flex-1 items-center rounded-2xl bg-background px-4 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.08)]">
+                <div class="flex min-w-0 flex-1 items-center rounded-2xl bg-background px-4">
                   <span class="mr-3 text-sm text-foreground/45">$</span>
                   <input
                     id="command-input"
@@ -181,7 +181,7 @@ const deckJson = JSON.stringify(studyDeck)
                 </div>
                 <button
                   type="submit"
-                  class="rounded-2xl bg-background px-5 py-3 text-sm text-foreground shadow-[inset_0_0_0_1px_rgba(0,0,0,0.08)] transition hover:bg-foreground hover:text-background"
+                  class="rounded-2xl bg-background px-5 py-3 text-sm text-foreground transition hover:bg-foreground hover:text-background"
                 >
                   Run
                 </button>
@@ -203,14 +203,14 @@ const deckJson = JSON.stringify(studyDeck)
                 <button
                   type="button"
                   data-inspector-view="card"
-                  class="inspector-button rounded-full bg-background px-4 py-2 text-base text-foreground/65 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.08)] transition hover:bg-foreground hover:text-background"
+                  class="inspector-button border border-border bg-background px-4 py-2 text-base text-foreground/65 transition hover:bg-foreground hover:text-background"
                 >
                   Case notes
                 </button>
                 <button
                   type="button"
                   data-inspector-view="library"
-                  class="inspector-button rounded-full bg-background px-4 py-2 text-base text-foreground/65 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.08)] transition hover:bg-foreground hover:text-background"
+                  class="inspector-button border border-border bg-background px-4 py-2 text-base text-foreground/65 transition hover:bg-foreground hover:text-background"
                 >
                   Atlas
                 </button>
@@ -254,7 +254,7 @@ const deckJson = JSON.stringify(studyDeck)
             <button
               type="button"
               data-command="help"
-              class="quick-command rounded-full bg-background px-3 py-1.5 text-base text-foreground/65 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.08)] transition hover:bg-foreground hover:text-background"
+              class="quick-command border border-border bg-background px-3 py-1.5 text-base text-foreground/65 transition hover:bg-foreground hover:text-background"
             >
               Help
             </button>
@@ -278,8 +278,8 @@ const deckJson = JSON.stringify(studyDeck)
 
   <style>
     .lab-document {
-      color: #171717;
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: var(--ink);
+      font-family: "SF Mono", "IBM Plex Mono", "JetBrains Mono", ui-monospace, Menlo, monospace;
     }
 
     .lab-document .lab-copy {
@@ -287,14 +287,14 @@ const deckJson = JSON.stringify(studyDeck)
     }
 
     .lab-document .lab-link {
-      color: #141414;
+      color: var(--ink);
       text-decoration: underline;
       text-decoration-thickness: 1px;
       text-underline-offset: 0.12em;
     }
 
     .lab-document .lab-link:visited {
-      color: #444444;
+      color: var(--dim);
     }
   </style>
 
@@ -819,12 +819,12 @@ const deckJson = JSON.stringify(studyDeck)
             const isCorrect = option.id === this.currentCard?.id
             const isSelected = option.id === this.selectedOptionId
             const solvedStateClasses = !this.solved
-              ? 'bg-background shadow-[0_10px_30px_rgba(0,0,0,0.06),inset_0_0_0_1px_rgba(0,0,0,0.04)] hover:bg-foreground/[0.03] hover:shadow-[0_14px_36px_rgba(0,0,0,0.08),inset_0_0_0_1px_rgba(0,0,0,0.05)]'
+              ? 'bg-background hover:bg-foreground/[0.03]'
               : isCorrect
-                ? 'bg-foreground text-background shadow-[0_10px_30px_rgba(0,0,0,0.12)]'
+                ? 'bg-foreground text-background'
                 : isSelected
-                  ? 'bg-foreground/[0.08] text-foreground shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)]'
-                  : 'bg-background text-foreground/55 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.04)]'
+                  ? 'bg-foreground/[0.08] text-foreground'
+                  : 'bg-background text-foreground/55'
             const marker = this.solved
               ? isCorrect
                 ? '<span class="text-sm text-background/80">Correct</span>'

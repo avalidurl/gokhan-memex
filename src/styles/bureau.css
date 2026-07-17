@@ -1,66 +1,27 @@
-/* Bureau register — shared with gokhan.vc (atelier). Tokens + tile/sheet primitives for subscribe UI. */
-@import '@fontsource-variable/archivo/wght.css';
-@import '@fontsource-variable/geist-mono/wght.css';
-
-:root {
-  --bg: #e7e7e7;
-  --paper: #ffffff;
-  --ink: #141414;
-  --muted: #7c7c7c;
-  --line: #cdcdcd;
-  --hard: #8c8c8c;
-
-  --accent-purple: #141414;
-  --accent-rose: #5a5a5a;
-  --accent-green: #7c7c7c;
-
-  --font-sans: 'Archivo Variable', Archivo, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
-
-  --shadow-hard: 2px 2px 0 var(--ink);
-  --shadow-hard-strong: 4px 4px 0 var(--ink);
-  --border-hard: 2px solid var(--ink);
-  --border-hairline: 1px solid var(--line);
-
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 16px;
-  --space-4: 24px;
-  --space-5: 32px;
-  --space-6: 48px;
-  --space-7: 64px;
-}
+/* House register primitives — filed-document chrome shared across surfaces.
+   No webfonts: system monospace only (stack defined in critical.css).
+   Tokens live in critical.css; nothing is redefined here. */
 
 .tile {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: 8px;
   background: var(--paper);
   color: var(--ink);
-  border: var(--border-hard);
-  box-shadow: var(--shadow-hard);
-  padding: var(--space-2) var(--space-3);
+  border: 2px solid var(--ink);
+  padding: 8px 16px;
   text-decoration: none;
   font-weight: 700;
-  transition:
-    transform 80ms ease-out,
-    box-shadow 80ms ease-out;
 }
 
 .tile:hover,
 .tile:focus-visible {
-  box-shadow: var(--shadow-hard-strong);
+  background: var(--faint);
   text-decoration: none;
-}
-
-.tile:active {
-  transform: translate(2px, 2px);
-  box-shadow: 0 0 0 0 var(--ink);
 }
 
 .sheet {
   background: var(--paper);
-  border: var(--border-hard);
-  box-shadow: var(--shadow-hard);
-  padding: var(--space-4);
+  border: 2px solid var(--ink);
+  padding: 24px;
 }

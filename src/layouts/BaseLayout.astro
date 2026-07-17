@@ -42,6 +42,29 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`
 const pathname = Astro.url.pathname
 const breadcrumbData =
   showBreadcrumbs && (breadcrumbOverride ?? getAutoBreadcrumbs(pathname, title))
+
+// Document register — every surface files under a section number.
+const docSection = pathname.split('/').filter(Boolean)[0] ?? ''
+const docMap: Record<string, string> = {
+  '': 'MX-001',
+  journal: 'MX-010',
+  archive: 'MX-020',
+  writing: 'MX-030',
+  publishing: 'MX-040',
+  projects: 'MX-050',
+  art: 'MX-060',
+  lists: 'MX-070',
+  links: 'MX-080',
+  haleanbar: 'MX-085',
+  cv: 'MX-090',
+  consulting: 'MX-091',
+  privacy: 'MX-095',
+  disclaimer: 'MX-096',
+  offline: 'MX-098',
+  '404': 'MX-099',
+}
+const docNo = docMap[docSection] ?? 'MX-000'
+const docRev = 'REV 2026-07-17'
 ---
 
 <!DOCTYPE html>
@@ -51,7 +74,8 @@ const breadcrumbData =
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Theme: must run synchronously before first paint to prevent flash -->
     <script is:inline>
-      const t = localStorage.getItem('theme') ?? 'light';
+      const t = localStorage.getItem('theme') ??
+        (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
       if (t === 'dark') document.documentElement.classList.add('dark');
     </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -93,8 +117,8 @@ const breadcrumbData =
     <meta name="apple-mobile-web-app-title" content={siteName} />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="msapplication-config" content="/browserconfig.xml" />
-    <meta name="msapplication-TileColor" content="#ffffff" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="msapplication-TileColor" content="#f4f4f2" />
+    <meta name="theme-color" content="#f4f4f2" />
     
     <!-- Apple Touch Icons — root paths by convention (and outside the /icons/* edge cleanup rule) -->
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -203,14 +227,13 @@ const breadcrumbData =
       href="https://ishtar.numetal.xyz/blog/not-raising-a-preseed/"
       aria-label="We are not raising — read the raise dispatch"
     >
-      <span class="nrbar-dot" aria-hidden="true"></span><span>WE ARE NOT RAISING</span><sup
+      <span>NOTICE — WE ARE NOT RAISING</span><sup
         class="nrbar-live">LIVE</sup
       ><span class="nrbar-arw" aria-hidden="true">→</span>
     </a>
     <ThemeProvider />
     <div class="site-sheet relative flex min-h-screen flex-col">
-      <Navigation />
-      <div class="dither" aria-hidden="true"></div>
+      <Navigation docNo={docNo} docRev={docRev} />
 
       <main class="flex-1">
         {breadcrumbData && (
@@ -222,7 +245,6 @@ const breadcrumbData =
       </main>
       
       <!-- Footer -->
-      <div class="dither" aria-hidden="true"></div>
       <footer class="mt-auto px-6 py-8">
         <div class="mx-auto max-w-2xl">
           {
@@ -236,6 +258,11 @@ const breadcrumbData =
               <a href="/disclaimer" class="raw-link">Disclaimer</a>
             </div>
           </div>
+          <div class="perforation" style="margin-top:1.4rem" aria-hidden="true"></div>
+          <div class="colophon" style="margin-top:0.6rem">
+            <span>GT MEMEX · DOC {docNo} · {docRev}</span>
+            <span>PERSONAL RECORD — CONTENTS AS FILED</span>
+          </div>
         </div>
       </footer>
     </div>
@@ -247,9 +274,9 @@ const breadcrumbData =
     <OfflineStatus />
     
     <!-- Lightbox for images - click to enlarge -->
-    <div id="lightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;cursor:zoom-out;overflow:auto" onclick="this.style.display='none'">
-      <img id="lightbox-img" style="max-width:95%;max-height:95%;margin:auto;display:block;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)" />
-      <span style="position:fixed;top:20px;right:30px;color:#fff;font-size:40px;cursor:pointer">&times;</span>
+    <div id="lightbox" style="display:none;position:fixed;inset:0;background:var(--paper);z-index:9999;cursor:zoom-out;overflow:auto" onclick="this.style.display='none'">
+      <img id="lightbox-img" style="max-width:95%;max-height:95%;margin:auto;display:block;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border:2px solid var(--ink)" />
+      <span style="position:fixed;top:20px;right:30px;color:var(--ink);font-size:40px;cursor:pointer">&times;</span>
     </div>
     <script is:inline>
       document.addEventListener('DOMContentLoaded', () => {
@@ -277,26 +304,19 @@ const breadcrumbData =
   .nrbar {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 8px;
-    background: #141414;
-    color: #fff;
+    background: var(--paper);
+    color: var(--ink);
     text-decoration: none;
     font-family: var(--font-mono);
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
     padding: 6px 12px;
-    border-bottom: 1px solid #000;
+    border-bottom: 2px solid var(--ink);
   }
-  .nrbar:hover { background: #000; }
-  .nrbar-dot { width: 6px; height: 6px; border-radius: 50%; background: #fff; animation: nrpulse 1.8s infinite; }
-  .nrbar-live { font-size: 8px; letter-spacing: 0.16em; vertical-align: super; border: 1px solid rgba(255,255,255,0.75); padding: 1px 4px; border-radius: 2px; margin-left: 1px; }
+  .nrbar:hover span:first-child { text-decoration: underline; }
+  .nrbar-live { font-size: 8px; letter-spacing: 0.16em; vertical-align: super; border: 1px solid var(--ink); padding: 1px 4px; margin-left: 1px; }
   .nrbar-arw { opacity: 0.8; }
-  @keyframes nrpulse {
-    0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.55); }
-    70% { box-shadow: 0 0 0 6px rgba(255,255,255,0); }
-    100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
-  }
-  @media (prefers-reduced-motion: reduce) { .nrbar-dot { animation: none; } }
 </style>

@@ -13,12 +13,12 @@
 
   var css =
     '.hcoll{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;' +
-    'width:1.25em;height:1.25em;margin-right:.32em;vertical-align:baseline;color:var(--red,#e10600);font-size:.66em;' +
+    'width:1.25em;height:1.25em;margin-right:.32em;vertical-align:baseline;color:var(--ink,#0a0a0a);font-size:.66em;' +
     'line-height:1;position:relative;opacity:.5;transition:opacity .12s}' +
     'h1:hover>.hcoll,h2:hover>.hcoll,h3:hover>.hcoll,.hcoll:hover,.hcoll:focus-visible{opacity:1}' +
     '.hcoll::after{content:attr(data-tip);position:absolute;left:0;top:135%;white-space:nowrap;' +
-    'background:#141414;color:#fff;font:500 10px/1.4 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.03em;' +
-    'padding:3px 7px;border-radius:3px;opacity:0;pointer-events:none;transition:opacity .1s;z-index:9999}' +
+    'background:var(--ink,#0a0a0a);color:var(--paper,#f4f4f2);font:500 10px/1.4 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.03em;' +
+    'padding:3px 7px;border-radius:0;opacity:0;pointer-events:none;transition:opacity .1s;z-index:9999}' +
     '.hcoll:hover::after,.hcoll:focus-visible::after{opacity:1}' +
     '.hcoll-h{cursor:pointer}';
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);

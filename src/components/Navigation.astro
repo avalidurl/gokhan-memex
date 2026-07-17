@@ -1,7 +1,13 @@
 ---
-import { Menu, X, Search } from 'lucide-astro'
 import ThemeToggle from './ThemeToggle.astro'
 import SearchComponent from './Search.astro'
+
+interface Props {
+  docNo?: string
+  docRev?: string
+}
+
+const { docNo = 'MX-000', docRev = 'REV 2026-07-17' } = Astro.props
 
 const currentPath = Astro.url.pathname
 const isArticle = currentPath.startsWith('/journal/') && currentPath !== '/journal/' && currentPath !== '/journal'
@@ -16,25 +22,27 @@ const navigation = [
 ]
 ---
 
-<header class="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/80">
-  <div class="mx-auto max-w-5xl px-6 lg:px-8">
-    <div class="flex h-14 items-center justify-between">
+<header class="masthead">
+  <div class="mh-meta" aria-hidden="true">
+    <span class="mh-cell">GT MEMEX — FILING OFFICE</span>
+    <span class="mh-cell">DOC {docNo} · {docRev}</span>
+    <span class="mh-cell">FILED FOR REFERENCE</span>
+  </div>
+  <div class="mh-main">
+    <div class="flex h-14 items-center justify-between px-4">
       <!-- Left side: Logo/Name or Back button -->
       <div class="flex items-center">
         {isArticle ? (
-          <a 
-            href="/journal" 
-            class="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+          <a
+            href="/journal"
+            class="mh-close text-muted-foreground hover:text-foreground"
             aria-label="Back to Journal"
           >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-            <span class="text-sm font-medium hidden sm:inline">Close</span>
+            Close ×
           </a>
         ) : (
-          <a 
-            class="font-sans text-lg tracking-tight text-foreground hover:text-foreground/80 transition-colors" 
+          <a
+            class="mh-name text-foreground"
             href="/"
           >
             Gökhan Turhan
@@ -50,7 +58,7 @@ const navigation = [
               href={item.href}
               target={item.external ? '_blank' : undefined}
               rel={item.external ? 'noopener noreferrer' : undefined}
-              class={`nav-link text-[11px] uppercase tracking-[0.14em] transition-colors ${
+              class={`nav-link text-[11px] uppercase tracking-[0.14em] ${
                 !item.external && (currentPath === item.href || currentPath.startsWith(item.href + '/'))
                   ? 'text-foreground font-semibold'
                   : 'text-muted-foreground hover:text-foreground'
@@ -63,16 +71,16 @@ const navigation = [
       )}
 
       <!-- Right side: Actions -->
-      <div class="flex items-center gap-1">
+      <div class="flex items-center gap-2">
         <!-- Search Button -->
-        <button 
+        <button
           id="search-button"
-          class="p-2 text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted/50"
+          class="mh-btn"
           aria-label="Search"
         >
-          <Search class="h-4 w-4" />
+          Search
         </button>
-        
+
         <!-- Theme Toggle -->
         <ThemeToggle />
 
@@ -80,14 +88,14 @@ const navigation = [
         {!isArticle && (
           <button
             id="mobile-menu-button"
-            class="inline-flex rounded-md p-2 text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground md:hidden"
+            class="mh-btn md:hidden"
             aria-label="Toggle menu"
             aria-controls="mobile-menu"
             aria-expanded="false"
             type="button"
           >
-            <Menu id="menu-icon" class="h-5 w-5" />
-            <X id="close-icon" class="hidden h-5 w-5" />
+            <span id="menu-icon">Menu</span>
+            <span id="close-icon" class="hidden">Close</span>
           </button>
         )}
       </div>
@@ -98,16 +106,16 @@ const navigation = [
 {!isArticle && (
   <div
     id="mobile-menu"
-    class="fixed inset-x-0 top-14 bottom-0 z-50 hidden overflow-y-auto bg-background md:hidden"
+    class="fixed inset-0 z-50 hidden overflow-y-auto bg-background md:hidden"
     aria-hidden="true"
   >
-    <nav class="flex flex-col px-6 py-6">
+    <nav class="mm-nav flex flex-col px-6 py-6">
       {navigation.map((item) => (
         <a
           href={item.href}
           target={item.external ? '_blank' : undefined}
           rel={item.external ? 'noopener noreferrer' : undefined}
-          class={`mobile-menu-link border-b border-border/30 py-4 text-lg uppercase tracking-wide transition-colors ${
+          class={`mobile-menu-link border-b border-border/30 py-4 text-lg uppercase tracking-wide ${
             !item.external && (currentPath === item.href || currentPath.startsWith(item.href + '/'))
               ? 'text-foreground font-medium'
               : 'text-muted-foreground hover:text-foreground'
@@ -118,7 +126,7 @@ const navigation = [
       ))}
       <a
         href="/rss.xml"
-        class="mobile-menu-link py-4 text-xl text-muted-foreground transition-colors hover:text-foreground"
+        class="mobile-menu-link py-4 text-xl text-muted-foreground hover:text-foreground"
       >
         RSS Feed
       </a>
@@ -179,14 +187,90 @@ const navigation = [
 </script>
 
 <style>
-  /* "live" superscript badge on the Ishtar nav item — B&W chip */
+  /* Masthead — a 2px ruled box of stacked rows; the document's letterhead. */
+  .masthead {
+    position: relative;
+    z-index: 60;
+    margin: 1.1rem 1.1rem 0;
+    border: 2px solid var(--ink);
+    background: var(--paper);
+  }
+
+  .mh-meta {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .mh-cell {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--dim);
+    padding: 0.35rem 0.7rem;
+    border-right: 1px solid var(--ink);
+  }
+
+  .mh-cell:last-child {
+    border-right: 0;
+  }
+
+  .mh-name {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+
+  .mh-name:hover {
+    text-decoration: underline;
+  }
+
+  .mh-close {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    text-decoration: none;
+    border: 1px solid var(--ink);
+    padding: 0.25rem 0.6rem;
+  }
+
+  .mh-close:hover {
+    background: var(--faint);
+  }
+
+  .mh-btn {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--ink);
+    padding: 0.25rem 0.55rem;
+    cursor: pointer;
+  }
+
+  .mh-btn:hover {
+    background: var(--faint);
+  }
+
+  .mm-nav {
+    padding-top: 9rem;
+  }
+
+  /* "live" superscript badge on the Ishtar nav item — ruled chip */
   .nav-live{
     display:inline-block; font-size:8px; font-weight:700; letter-spacing:.1em;
     text-transform:uppercase; vertical-align:super; margin-left:3px;
-    border:1px solid currentColor; border-radius:2px; padding:1px 3px; line-height:1;
+    border:1px solid currentColor; padding:1px 3px; line-height:1;
   }
   .nav-ext{ margin-left:3px; font-size:.8em; opacity:.55; }
 </style>
 
-<!-- Site-wide Gwern-style hover link popups (B&W) -->
+<!-- Site-wide hover link popups (monochrome) -->
 <script src="/popups.js" defer></script>

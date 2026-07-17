@@ -194,12 +194,12 @@ const cantoStartLines = new Map(ebook.toc.map((entry) => [entry.startLine, entry
 
 <style>
   .reader-document {
-    color: #171717;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    font-family: "SF Mono", "IBM Plex Mono", "JetBrains Mono", ui-monospace, Menlo, monospace;
   }
 
   .reader-document .doc-eyebrow {
-    color: #666;
+    color: var(--dim);
     font-family: "Courier New", monospace;
     font-size: 0.78rem;
     letter-spacing: 0.18em;
@@ -211,18 +211,18 @@ const cantoStartLines = new Map(ebook.toc.map((entry) => [entry.startLine, entry
   }
 
   .reader-document .doc-link {
-    color: #141414;
+    color: var(--ink);
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.12em;
   }
 
   .reader-document .doc-link:visited {
-    color: #444444;
+    color: var(--dim);
   }
 
   .reader-document .doc-line-number {
-    color: #6f6f6f;
+    color: var(--dim);
     font-family: "Courier New", monospace;
     font-size: 0.88rem;
     min-width: 3.75rem;
@@ -240,7 +240,7 @@ const cantoStartLines = new Map(ebook.toc.map((entry) => [entry.startLine, entry
     font-size: 34px;
     line-height: 1.55;
     letter-spacing: 0.06em;
-    color: #171717;
+    color: var(--ink);
     font-feature-settings: 'liga' 0, 'clig' 0;
     font-variant-numeric: lining-nums;
   }

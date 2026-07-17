@@ -15,46 +15,46 @@ export async function GET({ props }) {
   const svg = `
     <svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
       <!-- Background -->
-      <rect width="1200" height="630" fill="#1e293b"/>
+      <rect width="1200" height="630" fill="#f4f4f2"/>
       
       <!-- Grid pattern -->
       <defs>
         <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-          <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#334155" stroke-width="1" opacity="0.1"/>
+          <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#d8d8d4" stroke-width="1" opacity="0.35"/>
         </pattern>
       </defs>
       <rect width="1200" height="630" fill="url(#grid)"/>
       
       <!-- Content area -->
-      <rect x="80" y="80" width="1040" height="470" fill="#334155" rx="16" opacity="0.3"/>
+      <rect x="80" y="80" width="1040" height="470" fill="none" stroke="#0a0a0a" stroke-width="2"/>
       
       <!-- Category badge -->
-      <rect x="100" y="120" width="200" height="32" fill="#4f46e5" rx="16"/>
-      <text x="200" y="140" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="600">${post.data.category}</text>
+      <rect x="100" y="120" width="200" height="32" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+      <text x="200" y="140" text-anchor="middle" fill="#0a0a0a" font-family="Menlo, monospace" font-size="14" font-weight="600">${post.data.category}</text>
       
       <!-- Title -->
-      <text x="100" y="220" fill="white" font-family="Arial, sans-serif" font-size="48" font-weight="bold">
+      <text x="100" y="220" fill="#0a0a0a" font-family="Menlo, monospace" font-size="48" font-weight="bold">
         <tspan x="100" dy="0">${title.length > 40 ? title.substring(0, 37) + '...' : title}</tspan>
       </text>
       
       <!-- Description -->
-      <text x="100" y="280" fill="#94a3b8" font-family="Arial, sans-serif" font-size="24">
+      <text x="100" y="280" fill="#5c5c5c" font-family="Menlo, monospace" font-size="24">
         <tspan x="100" dy="0">${post.data.description.length > 80 ? post.data.description.substring(0, 77) + '...' : post.data.description}</tspan>
         <tspan x="100" dy="35">${post.data.description.length > 80 ? post.data.description.substring(77, 154) + '...' : ''}</tspan>
       </text>
       
       <!-- Author and date -->
-      <text x="100" y="420" fill="#64748b" font-family="Arial, sans-serif" font-size="18">
+      <text x="100" y="420" fill="#5c5c5c" font-family="Menlo, monospace" font-size="18">
         ${post.data.author} • ${new Date(post.data.publishDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
       </text>
       
       <!-- Site branding -->
-      <text x="1100" y="580" text-anchor="end" fill="#64748b" font-family="Arial, sans-serif" font-size="16">
+      <text x="1100" y="580" text-anchor="end" fill="#5c5c5c" font-family="Menlo, monospace" font-size="16">
         gokhanturhan.com
       </text>
       
       <!-- Accent line -->
-      <rect x="100" y="450" width="1000" height="2" fill="#4f46e5"/>
+      <rect x="100" y="450" width="1000" height="2" fill="#0a0a0a"/>
     </svg>
   `
   

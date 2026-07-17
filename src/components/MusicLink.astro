@@ -15,50 +15,50 @@ function getPlatformInfo(url: string) {
   if (domain.includes('sound.xyz')) {
     return {
       name: 'Sound.xyz',
-      icon: '🎵',
-      color: 'bg-purple-100 border-purple-300 text-purple-800'
+      icon: '',
+      color: 'bg-background border-border text-foreground'
     };
   }
   if (domain.includes('catalog.works')) {
     return {
       name: 'Catalog',
-      icon: '📀',
-      color: 'bg-blue-100 border-blue-300 text-blue-800'
+      icon: '',
+      color: 'bg-background border-border text-foreground'
     };
   }
   if (domain.includes('bandcamp.com')) {
     return {
       name: 'Bandcamp',
-      icon: '🎼',
-      color: 'bg-cyan-100 border-cyan-300 text-cyan-800'
+      icon: '',
+      color: 'bg-background border-border text-foreground'
     };
   }
   if (domain.includes('spotify.com')) {
     return {
       name: 'Spotify',
-      icon: '🎧',
-      color: 'bg-green-100 border-green-300 text-green-800'
+      icon: '',
+      color: 'bg-background border-border text-foreground'
     };
   }
   if (domain.includes('apple.com') || domain.includes('music.apple.com')) {
     return {
       name: 'Apple Music',
-      icon: '🍎',
-      color: 'bg-gray-100 border-gray-300 text-gray-800'
+      icon: '',
+      color: 'bg-background border-border text-foreground'
     };
   }
   if (domain.includes('youtube.com') || domain.includes('youtu.be')) {
     return {
       name: 'YouTube',
-      icon: '📺',
-      color: 'bg-red-100 border-red-300 text-red-800'
+      icon: '',
+      color: 'bg-background border-border text-foreground'
     };
   }
   
   return {
     name: 'Music Link',
-    icon: '🎶',
-    color: 'bg-gray-100 border-gray-300 text-gray-800'
+    icon: '',
+    color: 'bg-background border-border text-foreground'
   };
 }
 
@@ -69,16 +69,13 @@ const platform = getPlatformInfo(url);
   href={url} 
   target="_blank" 
   rel="noopener noreferrer"
-  class={`inline-flex items-center gap-3 p-4 rounded-lg border-2 no-underline hover:no-underline ${platform.color} ${className}`}
+  class={`inline-flex items-center gap-3 p-4 border-2 no-underline hover:no-underline ${platform.color} ${className}`}
   style="text-decoration: none !important;"
 >
-  <span class="text-2xl">{platform.icon}</span>
-  <div class="flex-1">
+    <div class="flex-1">
     <div class="flex items-center gap-2 text-sm font-medium opacity-75">
       <span>{platform.name}</span>
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-      </svg>
+<span aria-hidden="true">↗</span>
     </div>
     {(artist || title) && (
       <div class="mt-1">

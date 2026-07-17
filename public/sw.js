@@ -301,12 +301,13 @@ function createOfflineResponse() {
       <title>Offline - Gökhan Turhan</title>
       <style>
         body {
-          font-family: system-ui, -apple-system, sans-serif;
+          font-family: "SF Mono", "IBM Plex Mono", "JetBrains Mono", ui-monospace, Menlo, monospace;
           max-width: 600px;
           margin: 50px auto;
           padding: 20px;
-          text-align: center;
-          color: #333;
+          text-align: left;
+          color: #0a0a0a;
+          background: #f4f4f2;
         }
         .offline-icon {
           font-size: 4rem;
@@ -316,15 +317,16 @@ function createOfflineResponse() {
           display: inline-block;
           padding: 10px 20px;
           margin: 10px;
-          background: #007acc;
-          color: white;
+          background: transparent;
+          color: #0a0a0a;
+          border: 2px solid #0a0a0a;
           text-decoration: none;
-          border-radius: 5px;
+          border-radius: 0;
         }
       </style>
     </head>
     <body>
-      <div class="offline-icon">📱</div>
+      <div class="offline-icon" aria-hidden="true">OFFLINE</div>
       <h1>You're Offline</h1>
       <p>This page isn't available offline yet, but you can:</p>
       <a href="/" class="btn">Go Home</a>

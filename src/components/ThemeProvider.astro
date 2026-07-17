@@ -3,10 +3,13 @@
 ---
 
 <script>
-  // Check for saved theme or default to 'light'
+  // Saved choice wins; otherwise follow the system (prefers-color-scheme).
   const theme = (() => {
     if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
       return localStorage.getItem('theme') ?? 'light';
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
     }
     return 'light';
   })();
@@ -17,7 +20,4 @@
   } else {
     document.documentElement.classList.add('dark');
   }
-
-  // Save theme to localStorage
-  window.localStorage.setItem('theme', theme);
 </script>

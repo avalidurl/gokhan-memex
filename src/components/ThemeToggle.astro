@@ -1,47 +1,53 @@
 ---
 ---
 
-<button 
-  id="theme-toggle" 
-  class="p-2 text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted/50"
+<button
+  id="theme-toggle"
+  class="mh-btn"
   aria-label="Toggle theme"
 >
-  <svg 
-    class="h-4 w-4 sun-icon" 
-    fill="none" 
-    stroke="currentColor" 
-    viewBox="0 0 24 24"
-  >
-    <circle cx="12" cy="12" r="4" stroke-width="1.5" />
-    <path stroke-linecap="round" stroke-width="1.5" d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
-  </svg>
-  <svg 
-    class="h-4 w-4 moon-icon hidden" 
-    fill="none" 
-    stroke="currentColor" 
-    viewBox="0 0 24 24"
-  >
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-  </svg>
+  <span class="sun-icon">Light</span>
+  <span class="moon-icon">Dark</span>
 </button>
 
 <style>
-  .dark .sun-icon {
+  .mh-btn {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--ink);
+    padding: 0.25rem 0.55rem;
+    cursor: pointer;
+  }
+
+  .mh-btn:hover {
+    background: var(--faint);
+  }
+
+  .moon-icon {
     display: none;
   }
-  .dark .moon-icon {
-    display: block;
+
+  :global(.dark) .sun-icon {
+    display: none;
+  }
+
+  :global(.dark) .moon-icon {
+    display: inline;
   }
 </style>
 
 <script>
   function initThemeToggle() {
     const toggle = document.getElementById('theme-toggle')
-    
+
     function handleToggle() {
       const element = document.documentElement
       const isDark = element.classList.contains('dark')
-      
+
       if (isDark) {
         element.classList.remove('dark')
         localStorage.setItem('theme', 'light')
@@ -56,7 +62,7 @@
 
   // Run on initial load
   initThemeToggle()
-  
+
   // Re-run on Astro page transitions
   document.addEventListener('astro:after-swap', initThemeToggle)
 </script>
