@@ -19,7 +19,7 @@
 - This site’s production deploys use Cloudflare Pages project name `gokhan-memex` (e.g. `wrangler pages deploy` with `--project-name=gokhan-memex`).
 - The `gokhan-memex` repo keeps draft or unpublished blog MDX outside the Astro collection in `draft-posts/` at the repo root; publishing means moving files back into `src/content/blog/` and adjusting frontmatter.
 - The apex domain can still serve **cached HTML** after a Pages deploy (edge `cf-cache-status: HIT`, ~2h TTL is common). **Wrangler does not purge zone/edge cache**; use Cloudflare **Dashboard → Caching → Purge Everything**, the **Zone: Cache Purge** API, or check the latest `*.pages.dev` deployment URL to verify what just shipped.
-- Public site contact, RSS channel fields, and repo `mailto` lines should use **`contact@gokhan.vc`**, not the legacy **`info@gokhanturhan.com`**.
+- ⛔ **NEVER publish any personal `@gokhanturhan.com` mailbox anywhere on the site or in repo files** (pages, RSS channel fields, `mailto` lines, llms.txt, security.txt — anywhere). The one public contact address is **`contact@gokhan.vc`**. (Founder directive 2026-07-17; overrides the earlier note here that recommended a personal mailbox — that note was wrong.)
 - Public Telegram links on the site should use `https://t.me/goekhanturhan`.
 - When mirroring a published memex journal post into the zettelkasten vault, long-form mirrors have lived under **`writing/essays/`** with a **`canonical`** URL to the live journal post.
 - The OpenSea Studio “Numbers” generative pipeline (metadata, media, logo exports) lives in `/Users/gokhanturhan/Projects/numbers`; `gokhan-memex` hosts the public publishing page and copies assets (e.g. logo) from that project’s output when needed.
