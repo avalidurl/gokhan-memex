@@ -5,12 +5,12 @@
 
 export const cvMeta = {
   name: 'Gökhan Turhan',
-  title: 'Full-spectrum growth operator & founder-technologist',
+  title: 'Full-stack builder & solopreneur',
   tagline:
-    'Full-spectrum growth operator and founder-technologist across fintech infrastructure, AI-native tooling, and tokenized markets. Ships full-stack apps end-to-end across AI, crypto, and startup verticals — code, prototypes, content, and growth engines, not just slide decks.',
+    'Full-stack builder and solopreneur — one person, a fleet of agents. Ships agent-native products end to end (venue, payment rail, benchmark, open standard, security program) across fintech infrastructure, AI-native tooling, and tokenized markets — live, in production, taking real machine payments.',
   pdfUrl: '/cv/Gokhan_Turhan_CV.pdf',
   pdfFileName: 'Gokhan_Turhan_CV.pdf',
-  lastUpdated: '2026-06-21',
+  lastUpdated: '2026-07-17',
 } as const
 
 export type ContactLine = { label: string; value: string; url?: string }

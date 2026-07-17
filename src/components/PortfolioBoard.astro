@@ -28,7 +28,7 @@ const tiles: Tile[] = [
     domain: 'gokhanturhan.com',
     owner: 'fullstack autodidact · solopreneur · generalist',
     blurb:
-      'Fullstack, autodidact developer and solopreneur — a generalist shipping across fintech, culture, and frontier AI. Code first: products, prototypes, and the growth engines around them.',
+      'Fullstack, autodidact developer and solopreneur — a generalist shipping across fintech, culture, and frontier AI. Code first: products, prototypes, and the rails they run on.',
     tools: [
       { platform: 'CV', note: 'the long version', href: '/cv/' },
       { platform: 'Journal', note: 'essays & notes', href: '/journal/' },
@@ -294,6 +294,8 @@ function leafAttrs(leaf: Leaf) {
     min-width: 0;
   }
 
+  /* Bordered plate, no resting shadow — the agentbounty index-plate read.
+     Depth arrives only on hover, as a flat blue underlay (no blur, no ink). */
   .board-details {
     margin: 0;
     padding: 0;
@@ -301,7 +303,12 @@ function leafAttrs(leaf: Leaf) {
     flex-direction: column;
     border: 2px solid hsl(var(--foreground));
     background: hsl(var(--card));
-    box-shadow: 2px 2px 0 hsl(var(--foreground));
+    transition: box-shadow 80ms ease-out;
+  }
+
+  .board-details:hover,
+  .board-details:focus-within {
+    box-shadow: 5px 5px 0 hsl(var(--accent-blue-soft));
   }
 
   .board-header {
@@ -326,7 +333,7 @@ function leafAttrs(leaf: Leaf) {
   }
 
   .board-header:hover {
-    background: hsl(var(--muted));
+    background: hsl(var(--accent-blue-wash));
   }
 
   .board-header:focus-visible {
@@ -346,7 +353,7 @@ function leafAttrs(leaf: Leaf) {
   }
 
   .board-index {
-    color: hsl(var(--foreground));
+    color: hsl(var(--accent-blue));
     font-weight: 700;
   }
 
@@ -439,7 +446,7 @@ function leafAttrs(leaf: Leaf) {
     font-size: 13.5px;
     line-height: 1.55;
     color: hsl(var(--foreground));
-    border-left: 2px solid hsl(var(--foreground));
+    border-left: 2px solid hsl(var(--accent-blue));
     padding-left: 12px;
   }
 
@@ -530,9 +537,9 @@ function leafAttrs(leaf: Leaf) {
 
   .leaf-link:hover,
   .leaf-link:focus-visible {
-    background: hsl(var(--background));
-    border-color: hsl(var(--foreground));
-    box-shadow: 2px 2px 0 hsl(var(--foreground));
+    background: hsl(var(--accent-blue-wash));
+    border-color: hsl(var(--accent-blue));
+    box-shadow: 2px 2px 0 hsl(var(--accent-blue-soft));
   }
 
   .leaf-link:hover .leaf-platform,

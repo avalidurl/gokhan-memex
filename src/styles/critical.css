@@ -1,7 +1,14 @@
-/* Monochrome palette — the house style is strictly black & white. Hierarchy is
-   carried by weight, case, and value; never hue. Var names unchanged so every
+/* Monochrome palette — the house style is black & white. Hierarchy is carried
+   by weight, case, and value. One hue is licensed: the Bureau blue below, with
+   exactly three jobs — primary CTA fill, hover wash, index/chrome stamps
+   (the blue analog of agentbounty.dev's yellow). Var names unchanged so every
    component keeps working. --backdrop is the gray desk the white sheet sits on. */
 :root {
+  --accent-blue: 221 71% 45%;
+  --accent-blue-strong: 221 78% 52%;
+  --accent-blue-soft: 221 64% 84%;
+  --accent-blue-wash: 221 76% 96%;
+  --accent-blue-foreground: 0 0% 100%;
   --backdrop: 0 0% 91%;
   --background: 0 0% 100%;
   --foreground: 0 0% 8%;
@@ -27,6 +34,11 @@
 }
 
 .dark {
+  --accent-blue: 221 92% 68%;
+  --accent-blue-strong: 221 95% 74%;
+  --accent-blue-soft: 221 45% 28%;
+  --accent-blue-wash: 221 42% 14%;
+  --accent-blue-foreground: 0 0% 8%;
   --backdrop: 0 0% 4%;
   --background: 0 0% 8%;
   --foreground: 0 0% 91%;
