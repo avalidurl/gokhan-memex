@@ -37,8 +37,23 @@
   --destructive: 0 0% 3.92%;
   --destructive-foreground: 60 8% 95.3%;
 
-  --font-mono: "SF Mono", "IBM Plex Mono", "JetBrains Mono", ui-monospace, Menlo, monospace;
-  --font-sans: "SF Mono", "IBM Plex Mono", "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", "SF Mono", "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --font-sans: "JetBrains Mono Variable", "JetBrains Mono", "SF Mono", "IBM Plex Mono", ui-monospace, Menlo, monospace;
+
+  /* Code-highlighter register — the highlighter emits var(--astro-code-*)
+     references (no color literals), pinned here to the four tokens. They
+     resolve per-element, so blocks invert with the sheet in both themes. */
+  --astro-code-foreground: var(--ink);
+  --astro-code-background: var(--faint);
+  --astro-code-token-constant: var(--ink);
+  --astro-code-token-string: var(--dim);
+  --astro-code-token-comment: var(--dim);
+  --astro-code-token-keyword: var(--ink);
+  --astro-code-token-parameter: var(--ink);
+  --astro-code-token-function: var(--ink);
+  --astro-code-token-string-expression: var(--dim);
+  --astro-code-token-punctuation: var(--dim);
+  --astro-code-token-link: var(--ink);
 
   color-scheme: light;
 }
@@ -77,6 +92,47 @@
   --destructive-foreground: 0 0% 5.49%;
 
   color-scheme: dark;
+}
+
+/* Dark theme ships in CSS: the OS preference applies it with no JavaScript
+   and before any script runs. An explicit stored choice still wins — the
+   init script stamps .light or .dark on <html>, and .light re-asserts the
+   paper tokens over this media block. Token-for-token identical to .dark. */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --ink: #e8e8e6;
+    --paper: #0e0e0e;
+    --dim: #9a9a9a;
+    --faint: #2a2a2a;
+
+    --accent-blue: 60 4% 90.59%;
+    --accent-blue-strong: 60 4% 90.59%;
+    --accent-blue-soft: 0 0% 16.47%;
+    --accent-blue-wash: 0 0% 16.47%;
+    --accent-blue-foreground: 0 0% 5.49%;
+    --backdrop: 0 0% 5.49%;
+    --background: 0 0% 5.49%;
+    --foreground: 60 4% 90.59%;
+    --card: 0 0% 5.49%;
+    --card-foreground: 60 4% 90.59%;
+    --primary: 60 4% 90.59%;
+    --primary-foreground: 0 0% 5.49%;
+    --secondary: 0 0% 16.47%;
+    --secondary-foreground: 60 4% 90.59%;
+    --muted: 0 0% 16.47%;
+    --muted-foreground: 0 0% 60.39%;
+    --accent: 0 0% 16.47%;
+    --accent-foreground: 60 4% 90.59%;
+    --border: 60 4% 90.59%;
+    --input: 60 4% 90.59%;
+    --ring: 60 4% 90.59%;
+    --popover: 0 0% 5.49%;
+    --popover-foreground: 60 4% 90.59%;
+    --destructive: 60 4% 90.59%;
+    --destructive-foreground: 0 0% 5.49%;
+
+    color-scheme: dark;
+  }
 }
 
 *,
@@ -143,6 +199,13 @@ body {
   margin-top: 2.2rem;
   border-top: 2px solid var(--ink);
   background-image: none;
+}
+
+/* Ledger-table container — every content table sits in one (wrapped at build
+   time by the markdown pipeline); wide tables scroll inside it, never the body. */
+.table-wrap {
+  max-width: 100%;
+  overflow-x: auto;
 }
 
 /* Perforation/tally bar — the single permitted graphic; divider before the colophon. */

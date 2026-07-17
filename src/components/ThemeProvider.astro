@@ -3,21 +3,18 @@
 ---
 
 <script>
-  // Saved choice wins; otherwise follow the system (prefers-color-scheme).
-  const theme = (() => {
-    if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-      return localStorage.getItem('theme') ?? 'light';
-    }
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
-    }
-    return 'light';
-  })();
-
-  // Set theme on document
-  if (theme === 'light') {
-    document.documentElement.classList.remove('dark');
+  // Saved choice is stamped as a class; with no saved choice, no class —
+  // the OS preference applies through CSS (prefers-color-scheme) alone.
+  const theme = typeof localStorage !== 'undefined' ? localStorage.getItem('theme') : null;
+  const el = document.documentElement;
+  if (theme === 'dark') {
+    el.classList.add('dark');
+    el.classList.remove('light');
+  } else if (theme === 'light') {
+    el.classList.add('light');
+    el.classList.remove('dark');
   } else {
-    document.documentElement.classList.add('dark');
+    el.classList.remove('dark');
+    el.classList.remove('light');
   }
 </script>

@@ -147,21 +147,10 @@
     background: transparent;
   }
 
-  /* Syntax-highlighted blocks: remap the highlighter's inline token literals
-     onto the theme variables so code inverts with the rest of the sheet. */
-  .astro-code {
-    background-color: var(--faint) !important;
-    border: 1px solid var(--ink);
-  }
-
-  .astro-code,
-  .astro-code span {
-    color: var(--ink) !important;
-  }
-
-  .astro-code span[style*="#5c5c5c"] {
-    color: var(--dim) !important;
-  }
+  /* Syntax-highlighted blocks need no remap here: the highlighter emits
+     var(--astro-code-*) references, pinned to the four tokens in critical.css.
+     (Custom class rules in these Tailwind layers are tree-shaken unless the
+     class appears under src/ — keep non-content selectors in critical.css.) */
 
   a {
     color: var(--ink);

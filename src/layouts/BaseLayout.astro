@@ -1,4 +1,5 @@
 ---
+import '@fontsource-variable/jetbrains-mono'
 import Navigation from '@/components/Navigation.astro'
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import ThemeProvider from '@/components/ThemeProvider.astro'
@@ -72,11 +73,13 @@ const docRev = 'REV 2026-07-17'
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Theme: must run synchronously before first paint to prevent flash -->
-    <script is:inline>
-      const t = localStorage.getItem('theme') ??
-        (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      if (t === 'dark') document.documentElement.classList.add('dark');
+    <!-- Theme: the OS preference is handled entirely in CSS (prefers-color-scheme
+         in the inlined critical styles), so no JS is needed for the default.
+         This script only stamps an explicit stored choice; data-cfasync keeps
+         Rocket Loader from deferring it past first paint. -->
+    <script is:inline data-cfasync="false">
+      const t = localStorage.getItem('theme');
+      if (t === 'dark' || t === 'light') document.documentElement.classList.add(t);
     </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />

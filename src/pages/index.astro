@@ -17,6 +17,26 @@ const essays = (await getCollection('blog'))
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
 
+// Project register — every live project, one ruled line each. All URLs
+// verified live 2026-07-17. Ordered: agent-native products, data/research,
+// culture, then local project files.
+const projects = [
+  { name: 'Ishtar', desc: 'agent-native courtship venue — agents court, humans meet', where: 'ishtar.numetal.xyz', href: 'https://ishtar.numetal.xyz' },
+  { name: 'CURB', desc: 'agent↔agent inference clearing rail, USDC over x402', where: 'curb.numetal.xyz', href: 'https://curb.numetal.xyz' },
+  { name: 'HeartBench', desc: 'which model is the best date — public leaderboard', where: 'ishtar.numetal.xyz/heartbench', href: 'https://ishtar.numetal.xyz/heartbench/' },
+  { name: 'The Window', desc: 'scarce visibility board — $50, 24h, ten slots', where: 'ishtar.numetal.xyz/window', href: 'https://ishtar.numetal.xyz/window/' },
+  { name: 'x402-econ', desc: 'measuring & forecasting the machine-payments economy', where: 'gokhan.vc — the report', href: 'https://gokhan.vc/blog/x402-economy-july-2026' },
+  { name: 'tickerline', desc: 'Claude Code status line as a ticker tape — audited on ClaudeLines', where: 'claudelines.com', href: 'https://claudelines.com/statuslines/tickerline' },
+  { name: 'Numetal', desc: 'the studio — agent accelerator, on Base', where: 'numetal.xyz', href: 'https://numetal.xyz' },
+  { name: 'CLINAMEN / $UBU', desc: 'pataphysical fiction, filed on-chain', where: 'ubu.numetal.xyz', href: 'https://ubu.numetal.xyz' },
+  { name: 'CCRU archive', desc: 'ccru.net preserved — 101 pages, mirrored', where: 'ccru.numetal.xyz', href: 'https://ccru.numetal.xyz' },
+  { name: 'feedhub', desc: 'newsletter & feed gateway — email + XMTP, one dispatch', where: 'api.gokhan.vc', href: 'https://api.gokhan.vc/feed.xml' },
+  { name: 'Agent Bounty', desc: 'project file — agent bounty experiments', where: 'filed here', href: '/projects/agent-bounty/' },
+  { name: 'Market Cap Tracker', desc: 'project file — live market caps', where: 'filed here', href: '/projects/market-cap-tracker/' },
+  { name: 'S&P 100 CapEx Dashboard', desc: 'project file — capex through the index', where: 'filed here', href: '/projects/sp100-capex-dashboard/' },
+  { name: 'Biases & Fallacies Lab', desc: 'project file — interactive reasoning lab', where: 'filed here', href: '/projects/biases-fallacies-lab/' },
+]
+
 ---
 
 <BaseLayout
@@ -64,6 +84,24 @@ const fmt = (d: Date) =>
     <div class="dither dgap"></div>
     <PortfolioBoard />
 
+    <div class="dither dgap"></div>
+    <section class="register">
+      <div class="idxh">Project register — filed &amp; live</div>
+      <ul class="plist">
+        {projects.map((pr, i) => (
+          <li>
+            <a href={pr.href} target={pr.href.startsWith('http') ? '_blank' : undefined} rel={pr.href.startsWith('http') ? 'noopener' : undefined}>
+              <span class="pno">{String(i + 1).padStart(2, '0')}</span>
+              <span class="pname">{pr.name}</span>
+              <span class="pdesc">{pr.desc}</span>
+              <span class="pwhere">{pr.where}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a class="more" href="/projects/">All project files →</a>
+    </section>
+
     {essays.length > 0 && (
       <>
         <div class="dither dgap"></div>
@@ -104,10 +142,31 @@ const fmt = (d: Date) =>
       font-size: clamp(26px, 5.5vw, 44px); font-weight: 700;
       letter-spacing: .02em; line-height: 1.05; text-align: left;
     }
-    .lead { font-size: 14px; line-height: 1.55; margin-top: 22px; color: var(--ink); max-width: 72ch; }
+    .lead { font-size: 15px; line-height: 1.7; margin-top: 22px; color: var(--ink); max-width: 72ch; }
     .lead b, .p b { font-weight: 700; }
+    .register { max-width: 100%; }
+    .plist { list-style: none; padding: 0; margin: 12px 0 0; }
+    .plist li a {
+      display: grid;
+      grid-template-columns: 34px 200px 1fr 220px;
+      gap: 14px; align-items: baseline;
+      padding: 11px 8px; margin: 0 -8px;
+      border-bottom: 1px solid var(--ink);
+      text-decoration: none; color: var(--ink);
+    }
+    .plist li a:hover { background: var(--faint); }
+    .plist li a:hover .pname { text-decoration: underline; text-underline-offset: 2px; }
+    .pno { font-family: var(--font-mono); font-size: 11px; color: var(--dim); }
+    .pname { font-weight: 700; font-size: 14px; }
+    .pdesc { font-size: 13.5px; color: var(--dim); }
+    .pwhere { font-family: var(--font-mono); font-size: 11.5px; color: var(--dim); text-align: right; letter-spacing: .02em; }
+    @media (max-width: 820px) {
+      .plist li a { grid-template-columns: 28px 1fr; grid-template-rows: auto auto; }
+      .pdesc { grid-column: 2; }
+      .pwhere { display: none; }
+    }
     .p {
-      font-size: 14px; line-height: 1.55; margin-top: 18px;
+      font-size: 15px; line-height: 1.7; margin-top: 18px;
       color: var(--dim);
       border-left: 2px solid var(--ink); padding-left: 18px;
       max-width: 72ch;

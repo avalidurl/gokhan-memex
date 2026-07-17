@@ -38,6 +38,18 @@
   :global(.dark) .moon-icon {
     display: inline;
   }
+
+  /* With no stored choice the dark sheet comes from the OS via CSS alone —
+     mirror that state on the control's label. */
+  @media (prefers-color-scheme: dark) {
+    :global(html:not(.light)) .sun-icon {
+      display: none;
+    }
+
+    :global(html:not(.light)) .moon-icon {
+      display: inline;
+    }
+  }
 </style>
 
 <script>
@@ -46,12 +58,17 @@
 
     function handleToggle() {
       const element = document.documentElement
-      const isDark = element.classList.contains('dark')
+      // No stored choice + OS dark = dark sheet via CSS, with no class present.
+      const isDark = element.classList.contains('dark') ||
+        (!element.classList.contains('light') &&
+          window.matchMedia('(prefers-color-scheme: dark)').matches)
 
       if (isDark) {
         element.classList.remove('dark')
+        element.classList.add('light')
         localStorage.setItem('theme', 'light')
       } else {
+        element.classList.remove('light')
         element.classList.add('dark')
         localStorage.setItem('theme', 'dark')
       }

@@ -275,7 +275,7 @@ function leafAttrs(leaf: Leaf) {
     display: grid;
     grid-template-columns: 1fr;
     gap: 22px;
-    align-items: start;
+    align-items: stretch;
   }
 
   @media (min-width: 640px) {
@@ -292,6 +292,8 @@ function leafAttrs(leaf: Leaf) {
 
   .kanban-col {
     min-width: 0;
+    display: flex;
+    flex-direction: column;
   }
 
   /* Bordered plate, no resting shadow — the agentbounty index-plate read.
@@ -299,6 +301,7 @@ function leafAttrs(leaf: Leaf) {
   .board-details {
     margin: 0;
     padding: 0;
+    flex: 1;
     display: flex;
     flex-direction: column;
     border: 2px solid hsl(var(--foreground));
@@ -321,6 +324,11 @@ function leafAttrs(leaf: Leaf) {
     flex-direction: column;
     align-items: stretch;
     gap: 10px;
+    flex: 1;
+  }
+
+  .board-details:not([open]) .board-header > :last-child {
+    margin-top: auto;
   }
 
   .board-details[open] > .board-header {

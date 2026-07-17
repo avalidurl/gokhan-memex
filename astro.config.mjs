@@ -38,6 +38,34 @@ function rehypeCdnImages() {
   };
 }
 
+/**
+ * Wrap every markdown/MDX table in a div.table-wrap (overflow-x: auto, styled
+ * in critical.css) so wide ledger tables scroll inside their own container and
+ * the page body never scrolls horizontally.
+ */
+function rehypeTableWrap() {
+  return (tree) => {
+    visit(tree, 'element', (node, index, parent) => {
+      if (
+        node.tagName === 'table' &&
+        parent &&
+        typeof index === 'number' &&
+        !(parent.type === 'element' && parent.tagName === 'div' &&
+          Array.isArray(parent.properties?.className) &&
+          parent.properties.className.includes('table-wrap'))
+      ) {
+        parent.children[index] = {
+          type: 'element',
+          tagName: 'div',
+          properties: { className: ['table-wrap'] },
+          children: [node],
+        };
+        return 'skip';
+      }
+    });
+  };
+}
+
 export default defineConfig({
   site: 'https://gokhanturhan.com',
   output: 'static',
@@ -67,36 +95,17 @@ export default defineConfig({
   ],
   markdown: {
     shikiConfig: {
-      // House code theme — the four register tokens only. Hierarchy is carried
-      // by weight and style (bold advances, italic recedes), never hue. CSS in
-      // globals.css remaps these literals onto the theme variables so the
-      // blocks invert correctly in dark mode.
-      theme: {
-        name: 'mono-sheet',
-        type: 'light',
-        colors: {
-          'editor.background': '#d8d8d4',
-          'editor.foreground': '#0a0a0a',
-        },
-        tokenColors: [
-          { scope: ['comment', 'punctuation.definition.comment'], settings: { foreground: '#5c5c5c', fontStyle: 'italic' } },
-          { scope: ['keyword', 'storage.type', 'storage.modifier'], settings: { foreground: '#0a0a0a', fontStyle: 'bold' } },
-          { scope: ['string', 'string.quoted', 'punctuation.definition.string'], settings: { foreground: '#5c5c5c' } },
-          { scope: ['constant', 'constant.numeric', 'constant.language'], settings: { foreground: '#0a0a0a' } },
-          { scope: ['variable', 'meta.definition.variable'], settings: { foreground: '#0a0a0a' } },
-          { scope: ['entity.name.function', 'support.function'], settings: { foreground: '#0a0a0a', fontStyle: 'bold' } },
-          { scope: ['entity.name.type', 'entity.name.class', 'support.type', 'support.class'], settings: { foreground: '#0a0a0a', fontStyle: 'bold' } },
-          { scope: ['entity.name.tag', 'punctuation.definition.tag'], settings: { foreground: '#0a0a0a' } },
-          { scope: ['entity.other.attribute-name'], settings: { foreground: '#5c5c5c', fontStyle: 'italic' } },
-          { scope: ['punctuation', 'meta.brace'], settings: { foreground: '#5c5c5c' } },
-          { scope: ['markup.inserted'], settings: { foreground: '#0a0a0a' } },
-          { scope: ['markup.deleted'], settings: { foreground: '#5c5c5c', fontStyle: 'strikethrough' } },
-        ],
-      },
+      // House code register — no color literals in the emitted HTML. The
+      // css-variables theme makes the highlighter emit var(--astro-code-*)
+      // references; those variables are pinned to the four house tokens in
+      // critical.css (inlined on every page), so code blocks invert with the
+      // sheet in both themes without any post-hoc remapping.
+      theme: 'css-variables',
       wrap: true
     },
     rehypePlugins: [
       rehypeCdnImages,
+      rehypeTableWrap,
       rehypeSlug,
       [rehypeAutolinkHeadings, {
         behavior: 'wrap',
