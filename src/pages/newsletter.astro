@@ -1,0 +1,138 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+
+const subscribeAction = 'https://api.gokhan.vc/newsletter/subscribe'
+---
+
+<BaseLayout
+  title="Newsletter"
+  description="Subscribe to the Numetal / Ishtar / CURB / studio estate newsletter. One list, signal only."
+  hideFooterSubscribe
+>
+  <div class="nl mx-auto max-w-2xl px-6 py-12 lg:py-16">
+    <p class="doc-eyebrow mb-3">Doc MX-090 · Open list</p>
+    <h1 class="mb-3 text-4xl font-semibold tracking-tight">Newsletter</h1>
+    <p class="mb-8 max-w-2xl text-lg text-foreground/90">
+      One estate list across Numetal / Ishtar / CURB / the studio. Signal only. Double opt-in.
+    </p>
+
+    <form class="nl-form" method="POST" action={subscribeAction}>
+      <input type="hidden" name="site" value="memex" />
+      <label class="nl-label" for="email">Email</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        required
+        placeholder="you@example.com"
+        autocomplete="email"
+        class="nl-input"
+      />
+      <button type="submit" class="nl-btn" title="Subscribe via api.gokhan.vc (site=memex)">Subscribe</button>
+    </form>
+
+    <p class="nl-more mt-8 text-sm text-muted-foreground">
+      Latest: <a href="/journal/x402-economy-july-2026/" class="doc-link">The x402 economy — July 2026</a>
+      · <a href="/journal/" class="doc-link">All posts</a>.
+      Public contact: <a href="mailto:contact@gokhan.vc" class="doc-link">contact@gokhan.vc</a>.
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  .nl {
+    color: var(--ink);
+    font-family: "SF Mono", "IBM Plex Mono", "JetBrains Mono", ui-monospace, Menlo, monospace;
+  }
+
+  :global(.dark) .nl {
+    color: hsl(var(--foreground));
+  }
+
+  .nl .doc-eyebrow {
+    color: var(--dim);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  :global(.dark) .nl .doc-eyebrow {
+    color: hsl(var(--muted-foreground));
+  }
+
+  .nl-form {
+    max-width: 520px;
+    border: 1px solid var(--ink);
+    padding: 1.25rem;
+  }
+
+  :global(.dark) .nl-form {
+    border-color: hsl(var(--foreground) / 0.6);
+  }
+
+  .nl-label {
+    display: block;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin: 0 0 0.5rem;
+  }
+
+  :global(.dark) .nl-label {
+    color: hsl(var(--muted-foreground));
+  }
+
+  .nl-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--ink);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    margin-bottom: 0.9rem;
+  }
+
+  :global(.dark) .nl-input {
+    border-color: hsl(var(--foreground) / 0.6);
+  }
+
+  .nl-input:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+
+  .nl-btn {
+    padding: 10px 20px;
+    border: 1px solid var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  :global(.dark) .nl-btn {
+    background: hsl(var(--foreground));
+    color: hsl(var(--background));
+    border-color: hsl(var(--foreground));
+  }
+
+  .nl-btn:hover,
+  .nl-btn:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .nl .doc-link {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.12em;
+  }
+
+  :global(.dark) .nl .doc-link {
+    color: hsl(var(--primary));
+  }
+</style>
