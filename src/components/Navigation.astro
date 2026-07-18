@@ -41,23 +41,12 @@ const navigation = [
             Close ×
           </a>
         ) : (
-          <span class="mh-name-wrap">
-            <a
-              class="mh-name text-foreground"
-              href="/"
-              id="mh-name"
-              data-full="Gökhan Turhan"
-              data-compact="GT"
-            >
-              Gökhan Turhan
-            </a>
-            <button
-              id="mh-name-toggle"
-              class="mh-name-toggle"
-              type="button"
-              aria-label="Collapse name"
-            >−</button>
-          </span>
+          <a
+            class="mh-name text-foreground"
+            href="/"
+          >
+            Gökhan Turhan
+          </a>
         )}
       </div>
 
@@ -186,44 +175,13 @@ const navigation = [
       window.addEventListener('pageshow', () => setOpen(false))
     }
 
-    function initNameToggle() {
-      const nameLink = document.getElementById('mh-name')
-      const nameToggle = document.getElementById('mh-name-toggle')
-      if (!(nameLink instanceof HTMLElement) || !(nameToggle instanceof HTMLButtonElement)) return
-      if (nameToggle.dataset.initialized === 'true') return
-      nameToggle.dataset.initialized = 'true'
-
-      const compact = nameLink.dataset.compact ?? 'GT'
-      const full = nameLink.dataset.full ?? 'Gökhan Turhan'
-
-      const setCollapsed = (collapsed) => {
-        nameLink.textContent = collapsed ? compact : full
-        nameToggle.textContent = collapsed ? '+' : '−'
-        nameToggle.setAttribute('aria-label', collapsed ? 'Expand name' : 'Collapse name')
-        try { localStorage.setItem('mhNameCollapsed', collapsed ? '1' : '0') } catch {}
-      }
-
-      let initial = false
-      try { initial = localStorage.getItem('mhNameCollapsed') === '1' } catch {}
-      setCollapsed(initial)
-
-      nameToggle.addEventListener('click', () => {
-        setCollapsed(nameLink.textContent.trim() !== compact)
-      })
-    }
-
-    function initAll() {
-      initNameToggle()
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initNavigation, { once: true })
+    } else {
       initNavigation()
     }
 
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initAll, { once: true })
-    } else {
-      initAll()
-    }
-
-    document.addEventListener('astro:page-load', initAll)
+    document.addEventListener('astro:page-load', initNavigation)
   })()
 </script>
 
@@ -310,15 +268,6 @@ const navigation = [
   .mh-btn--sym{
     font-size:14px; letter-spacing:0; line-height:1; padding:0.22rem 0.5rem;
   }
-
-  /* Collapsible site name — the toggle files the name down to its initials */
-  .mh-name-wrap{ display:inline-flex; align-items:center; gap:0.45rem; }
-  .mh-name-toggle{
-    font-family:var(--font-mono); font-size:11px; line-height:1;
-    color:var(--dim); background:transparent; border:1px solid var(--ink);
-    padding:0.12rem 0.35rem; cursor:pointer;
-  }
-  .mh-name-toggle:hover{ background:var(--faint); color:var(--ink); }
 </style>
 
 <!-- Site-wide hover link popups (monochrome) -->

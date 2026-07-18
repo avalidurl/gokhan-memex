@@ -1,10 +1,11 @@
-/* Collapsible headings for blog/newsletter articles — click a heading (or its
-   chevron mark) to fold everything under it down to the next same-or-higher
-   heading. The mark carries a hover tooltip: "Collapse this heading" when open,
-   "Expand this heading" when collapsed. Scoped to the article container, so it
-   no-ops on non-article pages. External file so it satisfies script-src 'self'. */
+/* Collapsible headings for blog/newsletter articles and the homepage hero —
+   click a heading (or its chevron mark) to fold everything under it down to
+   the next same-or-higher heading. The mark carries a hover tooltip:
+   "Collapse this heading" when open, "Expand this heading" when collapsed.
+   Scoped to the first matching container, so it no-ops elsewhere. External
+   file so it satisfies script-src 'self'. */
 (function () {
-  var SEL = ['.post-body', '.article', '.art', '.prose', 'main article', 'article .content'];
+  var SEL = ['.post-body', '.article', '.art', '.prose', 'main article', 'article .content', '.hero'];
   var root = null;
   for (var i = 0; i < SEL.length; i++) { root = document.querySelector(SEL[i]); if (root) break; }
   if (!root) return;
