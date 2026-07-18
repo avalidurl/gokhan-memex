@@ -205,47 +205,34 @@ export const skillGroups = [
     ],
   },
   {
-    name: 'Technical literacy',
+    name: 'Stack',
     items: [
-      'Languages (read / review / pair): Solidity · Rust · Python · JavaScript · TypeScript · Ruby on Rails · PineScript',
-      'Frameworks & Runtimes: Node.js · React · Next.js · Jupyter Notebook',
-      'VMs & Chains: EVM · SVM · BTC Core',
-      'Web & Infrastructure: Cloudflare · Vercel · WordPress',
+      'Solidity · Rust · Python · TypeScript — read, review, pair; the fleet types, I sign off',
+      'EVM · SVM · BTC Core — from bytecode to block data',
+      'Edge-first: the whole estate runs on Cloudflare Workers, DNS to deploy',
     ],
   },
   {
-    name: 'Creative & production',
+    name: 'Studio practice',
     items: [
-      'Adobe Creative Suite · Figma · Final Cut Pro · CapCut · Logic Pro · Ableton Live',
-      'Podcast & Video Production · Conceptual Art Practice',
+      'Identity, motion, and sound produced in-house — brand system to shipped film to score',
+      'Exhibited conceptual artist; the taste is load-bearing',
     ],
   },
   {
-    name: 'Growth & operations',
+    name: 'Growth engine',
     items: [
-      'CRM: HubSpot · Salesforce · Pipedrive · Close · Zoho CRM',
-      'Ops & Productivity: Notion · Airtable · Office 365 · Linear',
-      'Project Management: Jira · Asana · Monday · Trello · Basecamp',
-      'Analytics & Measurement: Mixpanel · Google Analytics · PostHog',
-      'Knowledge Systems: Obsidian · Roam Research',
+      'The full revenue loop, solo: CRM, pipeline, analytics, retention — agent-orchestrated, portable to whatever stack is already paid for',
+      'Instrumentation before intuition: events and funnels wired at launch, not after',
+      'Knowledge is plumbed, not stored — a working memex feeds the fleet',
     ],
   },
   {
-    name: 'Social & distribution',
+    name: 'Distribution',
     items: [
-      'Mainstream: LinkedIn · X · TikTok · Facebook · Instagram',
-      'Social Analytics: Circleboom · Sprout',
-      'Web3 & Decentralized: Farcaster · Lens · Bluesky',
-      'Publishing & Newsletters: Substack · Ghost · Beehiiv · Paragraph',
-      'Alt Networks: Truth Social · Gab',
-      'Messaging & Email: Telegram · E-mail Marketing',
-    ],
-  },
-  {
-    name: 'Writing & content',
-    items: [
-      'Technical Copywriting · Documentation & API Specs',
-      'Newsletters · Blogging · Website Content & SEO',
+      'Every rail that moves attention: mainstream, decentralized, alt, and agent-only networks',
+      'Memetic engineering — message architecture, platform-native storytelling, feedback-scaled',
+      'Technical prose that ships product: docs, specs, dispatches, newsletters — search-optimized without smelling of it',
     ],
   },
 ] as const
