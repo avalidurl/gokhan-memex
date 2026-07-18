@@ -225,15 +225,13 @@ const docRev = 'REV 2026-07-17'
   </head>
 
   <body class="min-h-screen font-sans">
-    <a
-      class="nrbar"
-      href="https://ishtar.numetal.xyz/blog/not-raising-a-preseed/"
-      aria-label="We are not raising — read the raise dispatch"
-    >
-      <span>NOTICE — WE ARE NOT RAISING</span><sup
-        class="nrbar-live">LIVE</sup
-      ><span class="nrbar-arw" aria-hidden="true">→</span>
-    </a>
+    <p class="nrbar">
+      <span class="nrbar-flag">We are raising</span>
+      <span class="nrbar-note">— check our decks:</span>
+      <a class="nrbar-link" href="https://ishtar.numetal.xyz/deck/not-raising-a-preseed/">Ishtar deck</a>
+      <span class="nrbar-note" aria-hidden="true">·</span>
+      <a class="nrbar-link" href="https://curb.numetal.xyz/deck">Curb deck</a>
+    </p>
     <ThemeProvider />
     <div class="site-sheet relative flex min-h-screen flex-col">
       <Navigation docNo={docNo} docRev={docRev} />
@@ -304,22 +302,23 @@ const docRev = 'REV 2026-07-17'
 </html>
 
 <style>
+  /* Raise notice — same ruled row as the gokhan.vc masthead treatment. */
   .nrbar {
     display: flex;
-    align-items: center;
-    gap: 8px;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 0.6ch;
+    margin: 0;
     background: var(--paper);
     color: var(--ink);
-    text-decoration: none;
     font-family: var(--font-mono);
     font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     padding: 6px 12px;
     border-bottom: 2px solid var(--ink);
   }
-  .nrbar:hover span:first-child { text-decoration: underline; }
-  .nrbar-live { font-size: 8px; letter-spacing: 0.16em; vertical-align: super; border: 1px solid var(--ink); padding: 1px 4px; margin-left: 1px; }
-  .nrbar-arw { opacity: 0.8; }
+  .nrbar-flag { font-weight: 700; }
+  .nrbar-note { color: var(--dim); }
+  .nrbar-link { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 </style>
