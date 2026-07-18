@@ -5,7 +5,7 @@
    Scoped to the first matching container, so it no-ops elsewhere. External
    file so it satisfies script-src 'self'. */
 (function () {
-  var SEL = ['.post-body', '.article', '.art', '.prose', 'main article', 'article .content', '.hero'];
+  var SEL = ['.post-body', '.article', '.art', '.prose', '.hero', 'main article', 'article .content'];
   var root = null;
   for (var i = 0; i < SEL.length; i++) { root = document.querySelector(SEL[i]); if (root) break; }
   if (!root) return;
