@@ -10,7 +10,7 @@ export const cvMeta = {
     'Full-stack builder and solopreneur — one person, a fleet of agents. Ships agent-native products end to end (venue, payment rail, benchmark, open standard, security program) across fintech infrastructure, AI-native tooling, and tokenized markets — live, in production, taking real machine payments.',
   pdfUrl: '/cv/Gokhan_Turhan_CV.pdf',
   pdfFileName: 'Gokhan_Turhan_CV.pdf',
-  lastUpdated: '2026-07-17',
+  lastUpdated: '2026-07-18',
 } as const
 
 export type ContactLine = { label: string; value: string; url?: string }
@@ -148,12 +148,51 @@ export const publications = [
 
 export const skillGroups = [
   {
-    name: 'AI tooling',
+    name: 'Agents & orchestration',
     items: [
-      'Code & Dev: ChatGPT / Codex CLI · Claude Code · Cursor · OpenCode · Jules',
-      'AI Platforms: Google AI Studio · Hugging Face · Gemini · Grok · Antigravity',
-      'Rapid Builders: Lovable · Bolt',
-      'Voice & Creative AI: Whispr · Suno',
+      'Multi-agent fleets: orchestrator + subagent patterns, drop-in skills, scheduled and autonomous runs',
+      'MCP — building and shipping servers, clients, and agent skills',
+      'Agent-to-agent protocols: A2A negotiation, agent identity (ERC-8004 · DID · VC)',
+      'Computer-use, browser automation, and headless verification loops',
+    ],
+  },
+  {
+    name: 'Agentic payments',
+    items: [
+      'x402 · HTTP 402 · MPP — machine-to-machine settlement, running in production (USDC on Base)',
+      'Paid agent surfaces: metered APIs, per-call pricing, payment-gated MCP and skills',
+      'Stablecoin rails, treasury design, and fee-flow mechanics for agent economies',
+    ],
+  },
+  {
+    name: 'AI · LLM · AGI infrastructure',
+    items: [
+      'Model routing and inference economics — token markets, cost/latency arbitrage across providers',
+      'Evals and benchmarks — designing and operating public leaderboards',
+      'Embeddings, retrieval, vector search; context and memory architecture for agents',
+      'Tool-agnostic across the stack — coding agents, IDEs, model APIs, local inference; new tools absorbed the week they ship',
+    ],
+  },
+  {
+    name: 'Quantitative & protocol research',
+    items: [
+      'Onchain analytics and token-flow forensics — SQL over chain data, explorer archaeology',
+      'Market microstructure: AMMs, auction mechanisms, prediction markets, fee mechanics',
+      'Open-standards authorship and API/spec design (OpenAPI, CC-licensed schemas)',
+    ],
+  },
+  {
+    name: 'Security & hardening',
+    items: [
+      'Red-teaming agent systems: prompt injection, tool abuse, egress control',
+      'Product security programs: audits, fuzzing, key hygiene, least-privilege operations',
+    ],
+  },
+  {
+    name: 'Web design · UX · UI',
+    items: [
+      'End-to-end front-of-house: design system → code → deploy, no handoffs',
+      'Typography-first, monochrome design systems; print-grade information design',
     ],
   },
   {
