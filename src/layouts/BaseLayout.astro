@@ -1,4 +1,7 @@
 ---
+import { createHash } from 'node:crypto'
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 import '@fontsource-variable/jetbrains-mono'
 import Navigation from '@/components/Navigation.astro'
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
@@ -66,6 +69,13 @@ const docMap: Record<string, string> = {
 }
 const docNo = docMap[docSection] ?? 'MX-000'
 const docRev = 'REV 2026-07-17'
+
+/** Content hash of the collapse script, so an edit busts the 2h asset cache for every
+ *  visitor. HTML is served max-age=0, so a changed ?v= always lands immediately. */
+const collapseVersion = createHash('sha256')
+  .update(readFileSync(resolve(process.cwd(), 'public/blog-collapse.js')))
+  .digest('hex')
+  .slice(0, 8)
 ---
 
 <!DOCTYPE html>
@@ -297,7 +307,7 @@ const docRev = 'REV 2026-07-17'
       });
     </script>
     <!-- Collapsible article headings (blog/journal only; no-ops elsewhere). -->
-    <script src="/blog-collapse.js" defer></script>
+    <script src={`/blog-collapse.js?v=${collapseVersion}`} defer></script>
   </body>
 </html>
 
