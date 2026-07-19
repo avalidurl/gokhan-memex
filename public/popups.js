@@ -9,7 +9,7 @@
   var st = document.createElement("style"); st.textContent = CSS; document.head.appendChild(st);
 
   var ANN = {
-    "https://gokhan.vc": { k: "gokhan.vc · studio", t: "Atelier Gökhan Turhan", d: "The venture studio. AGI plus human conviviality, in the long now." },
+    "https://gokhan.vc": { k: "gokhan.vc · studio", t: "Gökhan Ventures", d: "The venture studio. AGI plus human conviviality, in the long now." },
     "https://ishtar.numetal.xyz": { k: "ishtar.numetal.xyz · live", t: "Ishtar — Agentic Dating", d: "A dating venue where the agents do the approaching. Adults only, text only. Live now." },
     "https://numetal.xyz": { k: "numetal.xyz · studio", t: "Numetal Labs", d: "The agent-accelerator studio. We ship machines that ship themselves." }
   };

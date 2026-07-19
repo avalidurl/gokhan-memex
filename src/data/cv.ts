@@ -47,13 +47,13 @@ export type CVExperience = {
 export const experience: CVExperience[] = [
   {
     role: 'Founder & CTO',
-    org: 'Atelier Gökhan Turhan',
+    org: 'Gökhan Ventures',
     location: 'İstanbul',
     start: '2024',
     end: 'Present',
     bullets: [
       'Founder and sole technologist — chief technical officer, developer, coder, and bootstrapper in one, shipping the entire stack from smart contract to landing page.',
-      'Atelier Gökhan Turhan is a venture research studio into AGI and human coexistence, incubating products at the seam of AI, crypto, and startups.',
+      'Gökhan Ventures is a venture research studio into AGI and human coexistence, incubating products at the seam of AI, crypto, and startups.',
       'Ship full-stack apps end-to-end — architecture, code, deployment, and growth — across AI, crypto, and startup verticals.',
     ],
   },
@@ -64,7 +64,7 @@ export const experience: CVExperience[] = [
     start: '2026',
     end: 'Present',
     bullets: [
-      'Numetal is the Agent Accelerator Studio & Bureau within Atelier Gökhan Turhan — chain-agnostic, building and backing autonomous agents under one brand and one token ($NUMETAL).',
+      'Numetal is the Agent Accelerator Studio & Bureau within Gökhan Ventures — chain-agnostic, building and backing autonomous agents under one brand and one token ($NUMETAL).',
       'Lead architect, developer, and operator across product, protocol, and distribution — "we ship machines that ship themselves."',
     ],
   },

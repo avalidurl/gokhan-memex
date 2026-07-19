@@ -394,4 +394,4 @@ Authoritative over prose. Units: USD unless noted; windows as stated.
 
 [^24]: **BlockRun public stats endpoint** (blockrun.ai/api/stats) — free one-call JSON: totalTx 18.29M lifetime, 146K tx/24h, $244K volume at verification 2026-07-17 (same-day updatedAt); reconcilable on-chain against its settlement wallet on Basescan.
 
-— Gökhan Turhan × Claude (Opus 4.8 / Fable 5) · [Atelier Gökhan Turhan](https://gokhan.vc) · [Numetal Labs](https://numetal.xyz)
+— Gökhan Turhan × Claude (Opus 4.8 / Fable 5) · [Gökhan Ventures](https://gokhan.vc) · [Numetal Labs](https://numetal.xyz)
