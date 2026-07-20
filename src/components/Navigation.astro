@@ -17,6 +17,10 @@ const navigation = [
   { name: 'Publishing', href: '/publishing/' },
   { name: 'Venture', href: 'https://gokhan.vc', external: true },
   { name: 'Ishtar', href: 'https://ishtar.numetal.xyz', external: true },
+  { name: 'CURB', href: 'https://curb.numetal.xyz', external: true },
+  { name: 'CLINAMEN', href: 'https://ubu.numetal.xyz', external: true },
+  { name: 'Plaintext', href: 'https://plaintext.numetal.xyz', external: true },
+  { name: 'Reclaim', href: 'https://reclaim.numetal.xyz', external: true },
   { name: 'Numetal Lab', href: 'https://numetal.xyz', external: true },
   { name: 'CV', href: '/cv/' }
 ]
@@ -29,7 +33,7 @@ const navigation = [
     <span class="mh-cell">FILED FOR REFERENCE</span>
   </div>
   <div class="mh-main">
-    <div class="flex h-14 items-center justify-between px-4">
+    <div class="flex min-h-14 items-center justify-between gap-x-4 px-4 py-2">
       <!-- Left side: Logo/Name or Back button -->
       <div class="flex items-center">
         {isArticle ? (
@@ -52,7 +56,7 @@ const navigation = [
 
       <!-- Center: Navigation Links (Desktop only, not on article pages) -->
       {!isArticle && (
-        <nav class="hidden md:flex items-center gap-x-5 lg:gap-x-6">
+        <nav class="hidden md:flex flex-1 flex-wrap items-center justify-center gap-x-3 gap-y-1 lg:gap-x-4 min-w-0">
           {navigation.map((item) => (
             <a
               href={item.href}
@@ -222,6 +226,12 @@ const navigation = [
     font-weight: 700;
     letter-spacing: 0.02em;
     text-decoration: none;
+    white-space: nowrap;
+  }
+
+  /* Keep nav stamps on one line each so wrapping happens between items. */
+  .mh-main nav .nav-link {
+    white-space: nowrap;
   }
 
   .mh-name:hover {
