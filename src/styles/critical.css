@@ -37,8 +37,8 @@
   --destructive: 0 0% 3.92%;
   --destructive-foreground: 60 8% 95.3%;
 
-  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", "SF Mono", "IBM Plex Mono", ui-monospace, Menlo, monospace;
-  --font-sans: "JetBrains Mono Variable", "JetBrains Mono", "SF Mono", "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --font-mono: "SF Mono", "IBM Plex Mono", "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --font-sans: "SF Mono", "IBM Plex Mono", "JetBrains Mono", ui-monospace, Menlo, monospace;
 
   /* Code-highlighter register — the highlighter emits var(--astro-code-*)
      references (no color literals), pinned here to the four tokens. They
