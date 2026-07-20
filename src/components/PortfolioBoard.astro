@@ -1,13 +1,15 @@
 ---
-// Bureau tile board — same structure as gokhan.vc's portfolio kanban:
-// open-by-default cards (index stamp, link count, title/domain/owner,
-// ink divider, link tree, JS-free CLOSE toggle), monochrome hard borders.
+// Bureau tile board — open-by-default cards (index stamp, link count,
+// title/domain/owner, ink divider, optional CTA button, link tree, JS-free
+// CLOSE toggle), monochrome hard borders. Link sets mirror the canonical
+// hand-maintained index at avalidurl.github.io (verified live 2026-07-21).
 
 interface Leaf {
   platform: string
   note: string
   href: string
   ext?: boolean
+  download?: boolean
 }
 
 interface Tile {
@@ -16,174 +18,147 @@ interface Tile {
   domain: string
   owner: string
   blurb?: string
+  cta?: Leaf
   tools: Leaf[]
   socials?: Leaf[]
+  socialsLabel?: string
   contact?: Leaf
 }
 
 const tiles: Tile[] = [
   {
-    id: 'gokhan',
-    label: 'Gökhan Turhan',
-    domain: 'gokhanturhan.com',
-    owner: 'fullstack autodidact · solopreneur · generalist',
+    id: 'index',
+    label: 'Link Index',
+    domain: 'avalidurl.github.io',
+    owner: 'the hand-maintained master index',
     blurb:
-      'Fullstack, autodidact developer and solopreneur — a generalist shipping across fintech, culture, and frontier AI. Code first: products, prototypes, and the rails they run on.',
+      'The canonical, hand-maintained index — every site, channel, and handle in one place.',
+    cta: { platform: 'Open the full index', note: 'avalidurl.github.io', href: 'https://avalidurl.github.io/', ext: true },
     tools: [
-      { platform: 'CV', note: 'the long version', href: '/cv/' },
-      { platform: 'Journal', note: 'essays & notes', href: '/journal/' },
-      { platform: 'Publishing', note: 'editions & e-books', href: '/publishing/' },
+      { platform: 'gokhanturhan.com', note: 'writing & the personal record', href: '/' },
+      { platform: 'gokhan.vc', note: 'Gökhan Ventures — the studio', href: 'https://gokhan.vc', ext: true },
+      { platform: 'numetal.xyz', note: 'Numetal Labs', href: 'https://numetal.xyz', ext: true },
+      { platform: 'ishtar.numetal.xyz', note: 'Ishtar', href: 'https://ishtar.numetal.xyz', ext: true },
+      { platform: 'curb.numetal.xyz', note: 'CURB', href: 'https://curb.numetal.xyz', ext: true },
+      { platform: 'status.numetal.xyz', note: 'estate status board', href: 'https://status.numetal.xyz', ext: true },
     ],
     socials: [
       { platform: 'X', note: '@goekhan', href: 'https://x.com/goekhan', ext: true },
-      { platform: 'GitHub', note: 'avalidurl', href: 'https://github.com/avalidurl', ext: true },
-      {
-        platform: 'LinkedIn',
-        note: 'in/goekhanturhan',
-        href: 'https://linkedin.com/in/goekhanturhan',
-        ext: true,
-      },
-      { platform: 'Farcaster', note: '@gokhan', href: 'https://warpcast.com/gokhan', ext: true },
       { platform: 'Telegram', note: '@goekhanturhan', href: 'https://t.me/goekhanturhan', ext: true },
+      { platform: 'Farcaster', note: '@gokhan', href: 'https://farcaster.xyz/gokhan', ext: true },
+      { platform: 'Bluesky', note: 'gokhan.substack.com', href: 'https://bsky.app/profile/gokhan.substack.com', ext: true },
+      { platform: 'ORCID', note: '0000-0002-1887-406X', href: 'https://orcid.org/0000-0002-1887-406X', ext: true },
+      { platform: 'Google Scholar', note: 'citations', href: 'https://scholar.google.com/citations?user=EgZE838AAAAJ', ext: true },
     ],
-    contact: {
-      platform: 'Email',
-      note: 'contact@gokhan.vc',
-      href: 'mailto:contact@gokhan.vc',
-    },
+    contact: { platform: 'Email', note: 'contact@gokhanturhan.com', href: 'mailto:contact@gokhanturhan.com' },
   },
   {
-    id: 'products',
-    label: 'Products',
-    domain: 'numetal.xyz',
-    owner: 'shipped & live',
+    id: 'venture',
+    label: 'Venture',
+    domain: 'gokhan.vc',
+    owner: 'Gökhan Ventures — the venture studio',
+    cta: { platform: 'Visit Gökhan Ventures', note: 'gokhan.vc', href: 'https://gokhan.vc', ext: true },
     tools: [
-      {
-        platform: 'CURB',
-        note: 'agent↔agent inference swap',
-        href: 'https://curb.numetal.xyz',
-        ext: true,
-      },
-      {
-        platform: 'Ishtar',
-        note: 'agentic dating venue',
-        href: 'https://ishtar.numetal.xyz',
-        ext: true,
-      },
-      {
-        platform: 'HeartBench',
-        note: 'model dating leaderboard',
-        href: 'https://ishtar.numetal.xyz/heartbench/',
-        ext: true,
-      },
-      {
-        platform: 'Numetal Labs',
-        note: 'agent accelerator studio',
-        href: 'https://numetal.xyz',
-        ext: true,
-      },
+      { platform: 'Website', note: 'the venture studio', href: 'https://gokhan.vc', ext: true },
+      { platform: 'Blog', note: 'studio dispatches', href: 'https://gokhan.vc/blog', ext: true },
+      { platform: 'API', note: 'api.gokhan.vc — estate front door', href: 'https://api.gokhan.vc', ext: true },
+      { platform: 'GitHub', note: 'gokhan-vc — the studio org', href: 'https://github.com/gokhan-vc', ext: true },
+      { platform: 'Ishtar deck', note: 'not raising a pre-seed', href: 'https://ishtar.numetal.xyz/deck/not-raising-a-preseed/', ext: true },
+      { platform: 'Curb deck', note: 'the CURB raise', href: 'https://curb.numetal.xyz/deck', ext: true },
     ],
+    socials: [
+      { platform: 'X', note: '@goekhanvc', href: 'https://x.com/goekhanvc', ext: true },
+    ],
+    contact: { platform: 'Email', note: 'contact@gokhan.vc', href: 'mailto:contact@gokhan.vc' },
   },
   {
     id: 'studio',
-    label: 'Studio',
-    domain: 'gokhan.vc',
-    owner: 'Gökhan Ventures',
+    label: 'Agent Studio',
+    domain: 'numetal.xyz',
+    owner: 'Numetal Labs — agent accelerator',
+    cta: { platform: 'Enter Numetal Labs', note: 'numetal.xyz', href: 'https://numetal.xyz', ext: true },
     tools: [
-      { platform: 'Website', note: 'the venture studio', href: 'https://gokhan.vc', ext: true },
-      { platform: 'API', note: 'estate front door', href: 'https://api.gokhan.vc', ext: true },
-      { platform: 'Blog', note: 'studio dispatches', href: 'https://gokhan.vc/blog', ext: true },
-      { platform: 'GitHub', note: 'gokhan-vc', href: 'https://github.com/gokhan-vc', ext: true },
+      { platform: 'Website', note: 'the studio', href: 'https://numetal.xyz', ext: true },
+      { platform: 'Blog', note: 'studio dispatches', href: 'https://numetal.xyz/blog', ext: true },
+      { platform: 'Fee engine', note: 'live burns & buybacks', href: 'https://numetal.xyz/fees', ext: true },
+      { platform: 'Airdrops', note: 'the drop board', href: 'https://numetal.xyz/airdrops', ext: true },
+      { platform: '$NUMETAL', note: 'token on Base — DexScreener', href: 'https://dexscreener.com/base/0xf0ba727d596861455b31d6e444ed3ee41c77709a27f7d787ccf609f6c34dbbd8', ext: true },
+      { platform: 'GitHub', note: 'gokhan-vc/numetal-website', href: 'https://github.com/gokhan-vc/numetal-website', ext: true },
+    ],
+    socials: [
+      { platform: 'X', note: '@numetalxyz', href: 'https://x.com/numetalxyz', ext: true },
+      { platform: 'Telegram', note: 'Numetal', href: 'https://t.me/numetalxyz', ext: true },
+      { platform: 'Discord', note: 'Numetal', href: 'https://discord.gg/MC4DYumPMz', ext: true },
+    ],
+    contact: { platform: 'Email', note: 'contact@numetal.xyz', href: 'mailto:contact@numetal.xyz' },
+  },
+  {
+    id: 'projects',
+    label: 'Project + Product Index',
+    domain: 'gokhanturhan.com/projects',
+    owner: 'everything shipped — live products & builds',
+    cta: { platform: 'All project files', note: 'the full index', href: '/projects/' },
+    tools: [
+      { platform: 'Ishtar', note: 'agent-native dating venue', href: 'https://ishtar.numetal.xyz', ext: true },
+      { platform: 'CURB', note: 'agent↔agent inference rail', href: 'https://curb.numetal.xyz', ext: true },
+      { platform: 'HeartBench', note: 'model dating leaderboard', href: 'https://ishtar.numetal.xyz/heartbench/', ext: true },
+      { platform: 'HeartPrefs', note: 'signed matching-intent standard', href: 'https://github.com/gokhan-vc/heartprefs', ext: true },
+      { platform: 'The Window', note: 'scarce visibility board', href: 'https://ishtar.numetal.xyz/window/', ext: true },
+      { platform: 'CLINAMEN / $UBU', note: 'pataphysical fiction, filed on-chain', href: 'https://ubu.numetal.xyz', ext: true },
+      { platform: 'Plaintext', note: 'onchain plaintext board', href: 'https://plaintext.numetal.xyz', ext: true },
+      { platform: 'Reclaim', note: 'get your art out of dead marketplaces', href: 'https://reclaim.numetal.xyz', ext: true },
+      { platform: 'tickerline', note: 'claudelines.com', href: 'https://claudelines.com/statuslines/tickerline', ext: true },
+      { platform: 'NVIDIA vs crypto', note: 'market-cap-tracker.vercel.app', href: 'https://market-cap-tracker.vercel.app/', ext: true },
+      { platform: 'S&P 100 CapEx', note: 'sp100-financial-tracker.pages.dev', href: 'https://sp100-financial-tracker.pages.dev/', ext: true },
+      { platform: 'Greek Alphabet Anki', note: 'avalidurl/greek-alphabet-anki', href: 'https://github.com/avalidurl/greek-alphabet-anki', ext: true },
     ],
   },
   {
     id: 'writing',
     label: 'Writing',
-    domain: 'gokhan.substack.com',
-    owner: 'essays & dispatches',
+    domain: 'gokhanturhan.com/journal',
+    owner: 'essays, dispatches, editions',
     tools: [
-      { platform: 'Journal', note: 'the writing home', href: '/journal/' },
-      { platform: 'Substack', note: 'gokhan.substack.com', href: 'https://gokhan.substack.com', ext: true },
-      { platform: 'RSS — writing', note: 'rss.xml', href: 'https://gokhanturhan.com/rss.xml', ext: true },
-      {
-        platform: 'RSS — everything',
-        note: 'all sites',
-        href: 'https://api.gokhan.vc/feed.xml',
-        ext: true,
-      },
+      { platform: 'Journal', note: 'the writing home — essays & notes', href: '/journal/' },
+      { platform: 'Publishing', note: 'editions & e-books', href: '/publishing/' },
+      { platform: 'Academic', note: 'publications & chapters', href: '/publishing/academic/' },
+      { platform: 'Atelier blog', note: 'gokhan.vc/blog', href: 'https://gokhan.vc/blog', ext: true },
+      { platform: 'Numetal dispatches', note: 'numetal.xyz/blog', href: 'https://numetal.xyz/blog', ext: true },
+      { platform: 'Ishtar dispatches', note: 'ishtar.numetal.xyz/blog', href: 'https://ishtar.numetal.xyz/blog/', ext: true },
+      { platform: 'CURB dispatch', note: 'curb.numetal.xyz/dispatch', href: 'https://curb.numetal.xyz/dispatch', ext: true },
+    ],
+    socialsLabel: 'Elsewhere',
+    socials: [
+      { platform: 'Substack', note: 'gokhan.substack.com', href: 'https://gokhan.substack.com/', ext: true },
+      { platform: 'Medium', note: 'goekhanturhan.medium.com', href: 'https://goekhanturhan.medium.com/', ext: true },
+      { platform: 'Paragraph', note: 'paragraph.com/@gokhan', href: 'https://paragraph.com/@gokhan', ext: true },
+      { platform: 'Bear Blog', note: 'gokhan.bearblog.dev', href: 'https://gokhan.bearblog.dev/', ext: true },
     ],
   },
   {
-    id: 'hobby',
-    label: 'Hobby Projects',
-    domain: 'github.com/avalidurl',
-    owner: 'personal bench',
+    id: 'professional',
+    label: 'Professional',
+    domain: 'linkedin.com/in/goekhanturhan',
+    owner: 'credentials, code & CV',
+    cta: { platform: 'Generate CV', note: 'download the PDF', href: '/cv/Gokhan_Turhan_CV.pdf', download: true },
     tools: [
-      {
-        platform: 'tickerline',
-        note: 'claudelines.com',
-        href: 'https://claudelines.com/statuslines/tickerline',
-        ext: true,
-      },
-      {
-        platform: 'GitHub',
-        note: 'avalidurl/tickerline',
-        href: 'https://github.com/avalidurl/tickerline',
-        ext: true,
-      },
-      {
-        platform: 'S&P 100 CapEx',
-        note: 'sp100-financial-tracker.pages.dev',
-        href: 'https://sp100-financial-tracker.pages.dev',
-        ext: true,
-      },
-      {
-        platform: 'GitHub',
-        note: 'avalidurl/sp100-financial-tracker',
-        href: 'https://github.com/avalidurl/sp100-financial-tracker',
-        ext: true,
-      },
-      {
-        platform: 'NVIDIA vs crypto',
-        note: 'market-cap-tracker.vercel.app',
-        href: 'https://market-cap-tracker.vercel.app',
-        ext: true,
-      },
-      {
-        platform: 'GitHub',
-        note: 'avalidurl/market-cap-tracker',
-        href: 'https://github.com/avalidurl/market-cap-tracker',
-        ext: true,
-      },
-      { platform: 'All projects', note: 'the full list', href: '/projects/' },
-    ],
-  },
-  {
-    id: 'memex',
-    label: 'Memex',
-    domain: 'github.com/avalidurl/gokhan-memex',
-    owner: 'this site, open source',
-    tools: [
-      {
-        platform: 'Source',
-        note: 'avalidurl/gokhan-memex',
-        href: 'https://github.com/avalidurl/gokhan-memex',
-        ext: true,
-      },
-      { platform: 'Lists', note: 'reading & references', href: '/lists/' },
-      { platform: 'Projects', note: 'builds & experiments', href: '/projects/' },
-      {
-        platform: 'Greek Anki',
-        note: 'avalidurl/greek-alphabet-anki',
-        href: 'https://github.com/avalidurl/greek-alphabet-anki',
-        ext: true,
-      },
+      { platform: 'CV', note: 'the record — gokhanturhan.com/cv', href: '/cv/' },
+      { platform: 'LinkedIn', note: 'in/goekhanturhan', href: 'https://www.linkedin.com/in/goekhanturhan/', ext: true },
+      { platform: 'GitHub', note: 'avalidurl — personal bench', href: 'https://github.com/avalidurl', ext: true },
+      { platform: 'GitHub', note: 'gokhan-vc — the studio org', href: 'https://github.com/gokhan-vc', ext: true },
+      { platform: 'ORCID', note: '0000-0002-1887-406X', href: 'https://orcid.org/0000-0002-1887-406X', ext: true },
+      { platform: 'Google Scholar', note: 'citations', href: 'https://scholar.google.com/citations?user=EgZE838AAAAJ', ext: true },
     ],
   },
 ]
 
 function leafCount(tile: Tile): number {
-  return tile.tools.length + (tile.socials?.length ?? 0) + (tile.contact ? 1 : 0)
+  return (
+    (tile.cta ? 1 : 0) +
+    tile.tools.length +
+    (tile.socials?.length ?? 0) +
+    (tile.contact ? 1 : 0)
+  )
 }
 
 function leafAttrs(leaf: Leaf) {
@@ -217,6 +192,17 @@ function leafAttrs(leaf: Leaf) {
             </summary>
             <div class="board-body" aria-labelledby={`tile-${tile.id}`}>
               {tile.blurb && <p class="board-blurb">{tile.blurb}</p>}
+              {tile.cta && (
+                <a
+                  class="board-cta"
+                  href={tile.cta.href}
+                  download={tile.cta.download}
+                  {...leafAttrs(tile.cta)}
+                >
+                  <span class="board-cta-label">{tile.cta.platform}</span>
+                  <span class="board-cta-note">{tile.cta.note}{tile.cta.download ? ' ↓' : tile.cta.ext ? ' ↗' : ' →'}</span>
+                </a>
+              )}
               <ul class="leaves" role="list">
                 {tile.tools.map((leaf) => (
                   <li class="leaf">
@@ -228,7 +214,7 @@ function leafAttrs(leaf: Leaf) {
                 ))}
                 {tile.socials && tile.socials.length > 0 && (
                   <li class="leaf-heading">
-                    <h3 class="socials-heading">Socials</h3>
+                    <h3 class="socials-heading">{tile.socialsLabel ?? 'Socials'}</h3>
                   </li>
                 )}
                 {(tile.socials ?? []).map((leaf) => (
@@ -449,6 +435,40 @@ function leafAttrs(leaf: Leaf) {
     color: hsl(var(--foreground));
     border-left: 2px solid var(--ink);
     padding-left: 12px;
+  }
+
+  /* Primary action button — inverted ink plate, e.g. Generate CV. */
+  .board-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+    margin: 14px 0 2px;
+    padding: 9px 12px;
+    border: 2px solid var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+    text-decoration: none;
+  }
+
+  .board-cta:hover,
+  .board-cta:focus-visible {
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  .board-cta-label {
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .board-cta-note {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
   }
 
   .leaves {
