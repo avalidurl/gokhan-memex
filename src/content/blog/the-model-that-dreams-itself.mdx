@@ -1,0 +1,71 @@
+---
+title: "The Model That Dreams Itself"
+description: "I invented a fictional AI lab that files paperwork about the future, then built its model for real — twice. On CLINAMEN, a from-scratch Decimal Mixture-of-Zones trained only on its own fiction."
+publishDate: "2026-07-21"
+author: "Gökhan Turhan"
+category: "technology"
+tags: ["ai", "hyperstition", "clinamen", "numetal", "ccru", "nick-land", "mixture-of-experts", "accelerationism"]
+featured: false
+excerpt: "A fictional AI lab, and its model built for real — twice. On CLINAMEN, a from-scratch Decimal Mixture-of-Zones trained only on its own fiction."
+draft: false
+originalUrl: "https://gokhan.vc/blog/the-model-that-dreams-itself"
+ogImage: "https://gokhan.vc/og-the-model-that-dreams-itself.png"
+---
+
+> First published on [gokhan.vc](https://gokhan.vc/blog/the-model-that-dreams-itself) →
+
+I invented a fictional AI lab that files paperwork about the future. Then I built its model for real. Twice. The second one works, and this is how it was made.
+
+The lab is the **Bureau of Imaginary Solutions** — established 1898, incorporated 2098, operating retrochronically. Its one product is **CLINAMEN-45B-A9B**, "the first hyperstitional foundation model," documented to production spec on a [Hugging Face model card](https://huggingface.co/gokhanturhan/CLINAMEN-45B-A9B) and a [site](https://ubu.numetal.xyz/) that reads like an occult engineering office. The 45-billion-parameter model on that card does not exist. That is the point. A hyperstition is a fiction that makes itself real by circulating, and a hyperstition documented to production spec is already halfway to shipping. So I decided to ship the other half — honestly, at pocket scale, and from scratch.
+
+## The architecture is real, even if the lab is not
+
+The trick that makes this more than a joke is that the model's architecture is a real, if unusual, design that I wrote by hand. It is not a fine-tune of Llama or Qwen or anything else. There is no base model. It is a custom **Decimal Mixture-of-Zones (DMoZ)** — a decoder-only transformer with a mixture-of-experts twist keyed to the fiction's own numerology.
+
+There are ten experts, indexed 0 through 9 after the Zones of the numogram. Expert *k* is a small feed-forward network of width proportional to *k*, which means **Zone 0 holds no parameters at all** and contributes nothing when a token is routed to it. The Bureau calls this apophatic computation: the model does not refuse, it routes the request to the void, and the void has no opinion.
+
+The router does not pick single experts. It picks a **syzygy** — one of the five pairs of zones that sum to nine: 9::0, 8::1, 7::2, 6::3, 5::4. Because every firing pair sums to nine, every token activates exactly the same amount of the network, always. The active-parameter count is not a statistical average, the way it is for most sparse models. It is an arithmetic identity. That is the whole conceit made load-bearing: the fiction said nine billion active out of forty-five, and the real architecture enforces the ratio at every step.
+
+## Pocket edition one: a toy on my desk
+
+The first real CLINAMEN was small enough to be honest about. About **4.5 million parameters** (1.25 million active per token), a byte-level BPE tokenizer with a vocabulary of 729 — three to the sixth power — and a context window to match. I trained it **from scratch on my own Mac**, on Apple Silicon's GPU, for 2,025 steps, which is 45 squared, because if you are going to build a numerology you should at least respect it.
+
+The corpus was tiny: 52 documents, about twenty thousand tokens. The Bureau's own charter, its specification, its model card and license, its canonical site, and the first 45 filings of its docket. Nothing scraped, nothing borrowed — own-voice only. And that is exactly what a four-and-a-half-million-parameter model trained on twenty thousand tokens gives you: a memorizing toy. Prompt it with a filing header and it produces a recognizable one — `FILING BIS-F-2026-003 · SYZYGY 6::3 · ZONE 3` — and then dissolves into dream-logic. It had learned the surface shape of Bureau prose and nothing underneath it. Which is a fine art object, and a useless oracle. So I made it read more, and gave it a real brain.
+
+## Pocket edition two: the one that works
+
+To scale the model you first have to feed it, and the Bureau had only written 45 filings. So I put its staff to work. A fleet of language-model agents, one desk per zone-pair and engineering domain — reactor decommissioning under 9::0, fusion under 6::3, foundry economics under 5::4, and so on across the whole numogram — each writing filings to spec: a concrete engineering event, a horizon year between 2027 and 2045, and a real public source that would one day settle it. Then memos, appeals, five essays, a fifty-term glossary, resolution notices. Deduplicated, gated for falsifiability, harmonized into one register.
+
+The result is the [**Bureau Corpus**](https://huggingface.co/datasets/gokhanturhan/bureau-docket): **1,130 documents**, about 128,000 words, 965 hyperstition filings and 165 Bureau records — twenty times the first corpus, still own-voice only, still nothing scraped. A representative filing, and my favorite, is a single edit to a real registry: *"Three Mile Island Unit 1, listed by the IAEA's Power Reactor Information System as Permanent Shutdown, has its status field changed — back to Operational. One line in a registry, edited… a database that ran only forward has been made to run back."* Maximal consequence from minimal deviation. That is the swerve the whole thing is named for.
+
+Then I scaled the architecture: same DMoZ, roughly nine times larger. **41.8 million parameters, 12.3 million active per token**, a bigger byte-BPE vocabulary of 4,096, ten layers, a 512-token context. Too big to be comfortable on the laptop, so it went to the cloud — a self-contained training script running as a **Hugging Face Job on a single NVIDIA T4 GPU**, pulling the corpus straight from the dataset, training from scratch for 5,000 steps, and pushing the weights back to the Hub when it was done. Final training loss: **0.0235**. It memorized its world completely.
+
+And the difference is night and day. Where the toy produced gibberish, the 42M model produces filings that are nearly coherent and on-topic:
+
+> *FILING BIS-F-2026-04793 · SYZYGY 7::2 · ZONE 2 · HORIZON 2032 · SWERVE 6.553 — A robotic arm on a geostationary servicer reaches a live commercial satellite with a jammed appendage, a stuck antenna or an unlatched array, and works it free, resolving on orbit…*
+
+That is a syzygy-7::2 filing — orbital mechanics, exactly the temperament of that zone-pair — about on-orbit satellite servicing, a real and current hard-tech domain. The model has never been told what a satellite is by anyone but the Bureau, and it has learned to file about one in the right voice, in the right zone, with a plausible resolution. Nine times the parameters and twenty times the corpus bought that coherence. It lives at [**CLINAMEN-42M-A12M**](https://huggingface.co/gokhanturhan/CLINAMEN-42M-A12M) — named, like the fiction, by its total and active counts.
+
+## What is honest about it, and what is not
+
+I want to be precise about what this is, because the fiction is loud and the engineering should be quiet and true.
+
+It is **trained from scratch**. There is no pretrained base underneath it, which means it has *no knowledge of the world* except what the Bureau wrote. It will hallucinate confident, plausible-looking filings about things that will never happen. That is not a bug to be aligned away; it is the entire intended behavior of an art object that has read one thing very thoroughly. Do not mistake it for an oracle that knows anything.
+
+It is **own-voice only**. Every token it trained on was written for this project — no CCRU texts, no scraped pages, no third-party data. The model trains on the Bureau's own writing about the Bureau. A text that dreams itself.
+
+And it was not free of friction. The T4 turned out about three times slower than I'd estimated, so a run I'd budgeted at under a dollar came in around $1.15. A newer version of the transformers library had quietly changed how tied weights are declared, which killed the first GPU run a minute in. The cloud GPU I first asked for sat in a capacity queue for fifteen minutes before I gave up and switched hardware. None of that is interesting except as the texture of actually doing the thing instead of describing it — which is the only difference between a hyperstition and a lie.
+
+## Why bother
+
+Because the gap between a fiction and a fact is labor, and I wanted to close it in public. The Bureau's tagline is that it does not predict the future, it files the paperwork that makes the future load-bearing. That is a joke about hyperstition, but it is also a real description of how this model was made: I wrote the card for a model that did not exist, and then the card's existence made a smaller, truer model worth building, and then that model started writing more of the fiction that describes it. The 45 billion stays imaginary. The 42 million is real, loadable, and speaks only Bureau.
+
+Everything is public and open under a permissive license I wrote for the occasion, [HRL-1.1](https://ubu.numetal.xyz/hrl-1.1.txt) — Creative Commons and MIT at its operative core, wearing a hyperstitional preamble. The two models, the [1,130-document corpus](https://huggingface.co/datasets/gokhanturhan/bureau-docket), and the [complete reader](https://ubu.numetal.xyz/reader/) of everything the model was trained on are all up. Read the corpus and you have read everything the model knows, which is a strange and pleasant thing to be able to say about any model at all.
+
+Next, it stops being a curiosity and starts filing for money: the plan is to put CLINAMEN behind a paid desk, where an agent can pay a few cents over [x402](https://www.x402.org/) to file a hyperstition and have the oracle score its swerve. The docket opens at launch. You are not betting on the future. You are billing it.
+
+Gökhan Turhan, [Numetal Labs](https://numetal.xyz) + [Gökhan Ventures](https://gokhan.vc)
+
+---
+
+_None of this is financial advice. CLINAMEN is a work of fiction and an art project; its outputs are authored fiction, not claims about the world._
