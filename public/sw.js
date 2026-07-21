@@ -4,6 +4,9 @@
  * Privacy-conscious offline functionality respecting existing consent system
  */
 
+// Stamped per-deploy by scripts/stamp-sw.mjs (a content hash of the build) so
+// every deploy gets fresh cache names and `activate` purges the previous ones.
+// The 'v1' default is only used in dev.
 const CACHE_VERSION = 'v1';
 const STATIC_CACHE_NAME = `gokhan-memex-static-${CACHE_VERSION}`;
 const DYNAMIC_CACHE_NAME = `gokhan-memex-dynamic-${CACHE_VERSION}`;
@@ -30,19 +33,24 @@ const BLOG_POST_PATTERNS = [
   /\/projects\/.+/
 ];
 
-// Cache-first resources
+// Cache-first resources. Only content-addressed, hashed build assets belong
+// here — a given /_astro/<hash>.css URL never changes content, so serving it
+// from cache is both fast and correct. Content images are NOT cache-first (see
+// below), so an edited image is never served stale while online.
 const CACHE_FIRST_PATTERNS = [
   /\/_astro\/.+\.(css|js|woff2?|png|jpg|jpeg|svg|gif|webp)$/,
-  /\/images\/.+\.(png|jpg|jpeg|svg|gif|webp)$/,
-  /\/blog\/images\/.+\.(png|jpg|jpeg|svg|gif|webp)$/,
   /\/favicon\.svg$/
 ];
 
-// Network-first resources
+// Network-first resources. Content images live at stable URLs but their bytes
+// can change (re-uploads, Cloudflare Images), so fetch them fresh when online
+// and fall back to cache only when offline — no more stale media.
 const NETWORK_FIRST_PATTERNS = [
   /\/api\/.+/,
   /\/rss\.xml$/,
-  /\/sitemap.*\.xml$/
+  /\/sitemap.*\.xml$/,
+  /\/images\/.+\.(png|jpg|jpeg|svg|gif|webp)$/,
+  /\/blog\/images\/.+\.(png|jpg|jpeg|svg|gif|webp)$/
 ];
 
 // Resources to never cache
