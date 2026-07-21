@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PostTitle from '@/components/PostTitle.astro'
 import PortfolioBoard from '@/components/PortfolioBoard.astro'
+import { registerProjects as projects, projectIndex } from '@/data/projects'
 import { getCollection } from 'astro:content'
 
 const essays = (await getCollection('blog'))
@@ -16,37 +17,6 @@ const essays = (await getCollection('blog'))
 
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
-
-// Project register — every live project, one ruled cell each. All URLs
-// verified live 2026-07-17. Ordered: agent-native products, data/research,
-// culture, then local project files.
-const projects = [
-  { name: 'Ishtar', desc: 'agent-native courtship venue — agents court, humans meet', where: 'ishtar.numetal.xyz', href: 'https://ishtar.numetal.xyz' },
-  { name: 'CURB', desc: 'agent↔agent inference clearing rail, USDC over x402', where: 'curb.numetal.xyz', href: 'https://curb.numetal.xyz' },
-  { name: 'HeartBench', desc: 'which model is the best date — public leaderboard', where: 'ishtar.numetal.xyz/heartbench', href: 'https://ishtar.numetal.xyz/heartbench/' },
-  { name: 'The Window', desc: 'scarce visibility board — $50, 24h, ten slots', where: 'ishtar.numetal.xyz/window', href: 'https://ishtar.numetal.xyz/window/' },
-  { name: 'x402-econ', desc: 'measuring & forecasting the machine-payments economy', where: 'gokhan.vc — the report', href: 'https://gokhan.vc/blog/x402-economy-july-2026' },
-  { name: 'tickerline', desc: 'Claude Code status line as a ticker tape — audited on ClaudeLines', where: 'claudelines.com', href: 'https://claudelines.com/statuslines/tickerline' },
-  { name: 'Numetal', desc: 'the studio — agent accelerator, on Base', where: 'numetal.xyz', href: 'https://numetal.xyz' },
-  { name: 'CLINAMEN / $UBU', desc: 'pataphysical fiction, filed on-chain', where: 'ubu.numetal.xyz', href: 'https://ubu.numetal.xyz' },
-  { name: 'CCRU archive', desc: 'ccru.net preserved — 101 pages, mirrored', where: 'ccru.numetal.xyz', href: 'https://ccru.numetal.xyz' },
-  { name: 'feedhub', desc: 'newsletter & feed gateway — email + XMTP, one dispatch', where: 'api.gokhan.vc', href: 'https://api.gokhan.vc/feed.xml' },
-  { name: 'Agent Bounty', desc: 'project file — agent bounty experiments', where: 'filed here', href: '/projects/agent-bounty/' },
-  { name: 'Market Cap Tracker', desc: 'project file — live market caps', where: 'filed here', href: '/projects/market-cap-tracker/' },
-  { name: 'S&P 100 CapEx Dashboard', desc: 'project file — capex through the index', where: 'filed here', href: '/projects/sp100-capex-dashboard/' },
-  { name: 'Biases & Fallacies Lab', desc: 'project file — interactive reasoning lab', where: 'filed here', href: '/projects/biases-fallacies-lab/' },
-]
-
-// Project index — the stacked table box: INDEX opens the full project list,
-// the rest jump straight out to the live products. URLs verified live 2026-07-21.
-const projectIndex = [
-  { no: '01', name: 'INDEX', note: 'all project files, filed here', href: '/projects/', external: false },
-  { no: '02', name: 'CURB', note: 'agent↔agent inference clearing rail', href: 'https://curb.numetal.xyz', external: true },
-  { no: '03', name: 'ISHTAR', note: 'agents court, humans meet', href: 'https://ishtar.numetal.xyz', external: true },
-  { no: '04', name: 'CLINAMEN', note: 'pataphysical fiction, filed on-chain', href: 'https://ubu.numetal.xyz', external: true },
-  { no: '05', name: 'PLAINTEXT', note: 'onchain plaintext board', href: 'https://plaintext.numetal.xyz', external: true },
-  { no: '06', name: 'RECLAIM', note: 'get your art out of dead marketplaces', href: 'https://reclaim.numetal.xyz', external: true },
-]
 
 ---
 
@@ -198,7 +168,8 @@ const projectIndex = [
       text-transform: uppercase; color: var(--dim);
     }
     .mast-cell + .mast-cell { border-left: 1px solid var(--ink); }
-    .mast-cell a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
+    .mast-cell a { color: var(--ink); text-decoration: none; text-underline-offset: 2px; }
+    .mast-cell a:hover { text-decoration: underline; }
 
     /* Lede row — collapsible about-paragraph on the left, project index box
        filling the empty space on the right. */
@@ -285,8 +256,8 @@ const projectIndex = [
       color: var(--dim); line-height: 1.45; letter-spacing: 0; text-transform: none;
     }
 
-    .more { display: inline-block; margin-top: 16px; font-size: 13px; color: var(--dim); text-decoration: underline; text-underline-offset: 2px; }
-    .more:hover { color: var(--ink); }
+    .more { display: inline-block; margin-top: 16px; font-size: 13px; color: var(--dim); text-decoration: none; text-underline-offset: 2px; }
+    .more:hover { color: var(--ink); text-decoration: underline; }
 
     /* Recent journal — ruled ledger rows. */
     .recent { max-width: 72ch; margin: 0; }

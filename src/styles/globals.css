@@ -152,19 +152,18 @@
      (Custom class rules in these Tailwind layers are tree-shaken unless the
      class appears under src/ — keep non-content selectors in critical.css.) */
 
+  /* No standing underlines. Links carry no rule at rest — hierarchy is weight,
+     case, and borders. Reading contexts (article/prose body) re-enable them
+     below, where a monochrome inline link needs the affordance. */
   a {
     color: var(--ink);
-    text-decoration: underline;
+    text-decoration: none;
     text-underline-offset: 0.12em;
     text-decoration-thickness: 1px;
   }
 
   a:visited {
     color: var(--ink);
-  }
-
-  a:hover {
-    text-decoration-thickness: 2px;
   }
 
   .dark a:visited {
@@ -222,9 +221,19 @@
 }
 
 @layer components {
+  /* Article/prose body keeps underlined links — inline links in monochrome
+     running text need the affordance. Chrome (nav, cards, mastheads) does not. */
+  .prose a,
+  .post-body a,
+  .dispatch-prose a {
+    text-decoration: underline;
+    text-underline-offset: 0.12em;
+    text-decoration-thickness: 1px;
+  }
+
   .raw-link {
     color: var(--ink);
-    text-decoration: underline;
+    text-decoration: none;
     text-underline-offset: 0.12em;
     text-decoration-thickness: 1px;
   }
@@ -238,6 +247,7 @@
   }
 
   .raw-link:hover {
+    text-decoration: underline;
     text-decoration-thickness: 2px;
   }
 

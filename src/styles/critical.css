@@ -230,6 +230,10 @@ body {
 
 .colophon a {
   color: var(--ink);
+  text-decoration: none;
+}
+
+.colophon a:hover {
   text-decoration: underline;
 }
 
@@ -245,6 +249,10 @@ body {
 
 .foot-sub a {
   color: var(--ink);
+  text-decoration: none;
+}
+
+.foot-sub a:hover {
   text-decoration: underline;
 }
 
