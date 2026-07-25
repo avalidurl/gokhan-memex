@@ -22,12 +22,28 @@ const monoScale = {
   950: ink,
 }
 
-const monoStack = [
-  '"SF Mono"',
-  '"IBM Plex Mono"',
-  '"JetBrains Mono"',
+// Two faces, five roles — the same contract as src/styles/critical.css.
+// R1 display · R2 running prose · R3 quantities  -> textStack  (--font-text)
+// R4 identifiers & controls · R5 machine strings -> dataStack  (--font-data)
+// System fallbacks only; the self-hosted faces are phase 3 and get prepended
+// to these two lists. This file previously aliased sans, serif AND mono to one
+// monospace stack, which is why an 11,000-word essay read as terminal output.
+const textStack = [
+  '-apple-system',
+  'BlinkMacSystemFont',
+  '"Segoe UI"',
+  'Roboto',
+  '"Helvetica Neue"',
+  'Arial',
+  'sans-serif',
+]
+
+const dataStack = [
   'ui-monospace',
+  'SFMono-Regular',
+  '"SF Mono"',
   'Menlo',
+  'Consolas',
   'monospace',
 ]
 
@@ -123,9 +139,14 @@ export default {
         sm: "0",
       },
       fontFamily: {
-        sans: monoStack,
-        serif: monoStack,
-        mono: monoStack,
+        sans: textStack,
+        mono: dataStack,
+        // `serif` is kept and re-pointed at the text face rather than dropped.
+        // Dropping the key does not make `font-serif` fail loudly — Tailwind's
+        // own default (ui-serif, Georgia, Cambria, "Times New Roman", …) takes
+        // over, so a stray utility would silently import a third face. Nothing
+        // in src/ uses font-serif today; this keeps it honest if anything does.
+        serif: textStack,
       },
       typography: {
         DEFAULT: {
@@ -167,22 +188,28 @@ export default {
             '--tw-prose-invert-th-borders': 'hsl(var(--foreground))',
             '--tw-prose-invert-td-borders': 'hsl(var(--foreground))',
 
-            maxWidth: '72ch',
+            // Measure converted by number, not by unit: 1ch is the advance of
+            // "0", which in the old mono face was every glyph. See globals.css.
+            maxWidth: '64ch',
             color: 'hsl(var(--foreground))',
-            fontFamily: '"SF Mono", "IBM Plex Mono", "JetBrains Mono", ui-monospace, Menlo, monospace',
+            // R2 — running prose.
+            fontFamily: 'var(--font-text)',
             fontSize: '14px',
             lineHeight: '1.55',
             'h1, h2, h3, h4, h5, h6': {
-              fontFamily: '"SF Mono", "IBM Plex Mono", "JetBrains Mono", ui-monospace, Menlo, monospace',
               fontWeight: '700',
               letterSpacing: '0.02em',
             },
+            // R1 — the page title is language; it takes the text face.
             h1: {
+              fontFamily: 'var(--font-text)',
               fontSize: 'clamp(26px, 5.5vw, 44px)',
               lineHeight: '1.05',
               fontWeight: '700',
             },
+            // R4 — section heads are identifiers: tiny, uppercase, tracked.
             h2: {
+              fontFamily: 'var(--font-data)',
               fontSize: '12px',
               lineHeight: '1.4',
               textTransform: 'uppercase',
@@ -192,10 +219,14 @@ export default {
               paddingBottom: '0.35rem',
             },
             h3: {
+              fontFamily: 'var(--font-data)',
               fontSize: '12px',
               lineHeight: '1.4',
               textTransform: 'uppercase',
               letterSpacing: '0.14em',
+            },
+            'h4, h5, h6': {
+              fontFamily: 'var(--font-data)',
             },
             p: {
               marginTop: '1rem',
@@ -215,15 +246,16 @@ export default {
             '[data-rehype-pretty-code-fragment]': {
               position: 'relative',
             },
+            // R5 — machine strings.
             pre: {
               padding: '1rem',
-              fontFamily: '"SF Mono", "IBM Plex Mono", "JetBrains Mono", ui-monospace, Menlo, monospace',
+              fontFamily: 'var(--font-data)',
             },
             code: {
               border: '1px solid hsl(var(--foreground))',
               position: 'relative',
               borderRadius: '0',
-              fontFamily: '"SF Mono", "IBM Plex Mono", "JetBrains Mono", ui-monospace, Menlo, monospace',
+              fontFamily: 'var(--font-data)',
             }
           },
         },

@@ -42,7 +42,9 @@ const subscribeAction = 'https://api.gokhan.vc/newsletter/subscribe'
 <style>
   .nl {
     color: var(--ink);
-    font-family: "SF Mono", "IBM Plex Mono", "JetBrains Mono", ui-monospace, Menlo, monospace;
+    /* R2 — running prose. The R4 identifiers inside (eyebrows, doc numbers,
+       line numbers, labels) re-assert the data face themselves. */
+    font-family: var(--font-text);
   }
 
   :global(.dark) .nl {
@@ -71,8 +73,10 @@ const subscribeAction = 'https://api.gokhan.vc/newsletter/subscribe'
     border-color: hsl(var(--foreground) / 0.6);
   }
 
+  /* R4 — a field label is a control identifier. */
   .nl-label {
     display: block;
+    font-family: var(--font-data);
     font-size: 10.5px;
     letter-spacing: 0.14em;
     text-transform: uppercase;

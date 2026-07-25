@@ -110,13 +110,30 @@ import {
   .cv-sheet {
     background: var(--paper);
     color: var(--ink);
-    font-family: "SF Mono", "IBM Plex Mono", "JetBrains Mono", ui-monospace, Menlo, monospace;
+    /* R4/R5 — this is the print sheet, and it is a register: dates, roles,
+       employers, one-line entries, set at 6.8pt to fit one A4 page. It keeps
+       the data face DELIBERATELY, so the literal is only de-duplicated here
+       and the PDF does not repaginate in this pass. Moving the sheet onto
+       --font-text is phase 3, where the spec requires a human to check the
+       pagination of the generated PDF. The web CV at src/pages/cv/index.astro
+       has no such constraint and is already on the text face. */
+    font-family: var(--font-data);
     font-size: 6.8pt;
     line-height: 1.22;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
   .cv-sheet * { box-sizing: border-box; }
+  /* The site-wide h1/.heading rule (R1 -> --font-text) is an element selector
+     and reaches inside this sheet, which would set the name in the text face
+     while the register around it stayed in the data face. One artifact, one
+     face: pin the headings until the whole sheet moves in phase 3. */
+  .cv-sheet h1,
+  .cv-sheet h2,
+  .cv-sheet h3,
+  .cv-sheet h4,
+  .cv-sheet h5,
+  .cv-sheet h6 { font-family: var(--font-data); }
   .cv-sheet .page { width: 210mm; padding: 9mm 11mm; }
 
   .cv-sheet .head h1 {

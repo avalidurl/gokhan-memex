@@ -180,7 +180,7 @@ const fmt = (d: Date) =>
       align-items: start;
       margin: 1.7rem 0 0;
     }
-    .lede { max-width: 72ch; margin: 0; }
+    .lede { max-width: 64ch; margin: 0; }
     .lede-summary {
       list-style: none; cursor: pointer;
       display: flex; align-items: baseline; justify-content: space-between; gap: 14px;
@@ -194,11 +194,11 @@ const fmt = (d: Date) =>
     .lede-toggle::after { content: '[ − ]'; letter-spacing: 0; }
     .lede:not([open]) .lede-toggle::after { content: '[ + ]'; }
     .lede-body { padding-top: 1rem; }
-    .lead { font-size: 15px; line-height: 1.7; margin: 0; color: var(--ink); max-width: 72ch; }
+    .lead { font-size: 15px; line-height: 1.7; margin: 0; color: var(--ink); max-width: 64ch; }
     .lead b, .p b { font-weight: 700; }
     .p {
       font-size: 15px; line-height: 1.7; margin-top: 18px; color: var(--dim);
-      border-left: 2px solid var(--ink); padding-left: 18px; max-width: 72ch;
+      border-left: 2px solid var(--ink); padding-left: 18px; max-width: 64ch;
     }
 
     .dither {
@@ -260,7 +260,7 @@ const fmt = (d: Date) =>
     .more:hover { color: var(--ink); text-decoration: underline; }
 
     /* Recent journal — ruled ledger rows. */
-    .recent { max-width: 72ch; margin: 0; }
+    .recent { max-width: 64ch; margin: 0; }
     .recent .rlist { list-style: none; padding: 0; margin: 4px 0 0; }
     .recent li a {
       display: flex; justify-content: space-between; align-items: baseline; gap: 16px;

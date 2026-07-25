@@ -282,7 +282,9 @@ const deckJson = JSON.stringify(studyDeck)
   <style is:global>
     .lab-document {
       color: var(--ink);
-      font-family: "SF Mono", "IBM Plex Mono", "JetBrains Mono", ui-monospace, Menlo, monospace;
+      /* R2 — running prose. The R4 identifiers inside (eyebrows, doc numbers,
+         line numbers, labels) re-assert the data face themselves. */
+      font-family: var(--font-text);
     }
 
     .lab-document .lab-copy { line-height: 1.5; }
@@ -314,7 +316,7 @@ const deckJson = JSON.stringify(studyDeck)
     .lab-document .lab-scenario {
       font-size: 1.4rem;
       line-height: 1.28;
-      max-width: 44ch;
+      max-width: 40ch;
     }
     @media (min-width: 1024px) {
       .lab-document .lab-scenario { font-size: 1.65rem; }

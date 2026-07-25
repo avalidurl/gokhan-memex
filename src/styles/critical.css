@@ -1,7 +1,8 @@
 /* House register — filed technical document. Strict monochrome, four tokens
-   per theme, monospace only. Hierarchy is carried by border weight, casing,
-   letter-spacing, size, and weight — never by color. Legacy variable names are
-   kept and remapped onto the four tokens so every component keeps working. */
+   per theme, two type faces in five roles. Hierarchy is carried by border
+   weight, casing, letter-spacing, size, and weight — never by color. Legacy
+   variable names are kept and remapped onto the four tokens so every
+   component keeps working. */
 :root {
   /* The four tokens (light — "paper") */
   --ink: #0a0a0a;
@@ -37,8 +38,24 @@
   --destructive: 0 0% 3.92%;
   --destructive-foreground: 60 8% 95.3%;
 
-  --font-mono: "SF Mono", "IBM Plex Mono", "JetBrains Mono", ui-monospace, Menlo, monospace;
-  --font-sans: "SF Mono", "IBM Plex Mono", "JetBrains Mono", ui-monospace, Menlo, monospace;
+  /* ── Two faces, five roles ──────────────────────────────────────────────
+     R1 display · R2 running prose · R3 quantities  → --font-text
+     R4 identifiers & controls · R5 machine strings → --font-data
+
+     A number that is a QUANTITY is text-face + tabular figures. A number
+     that is an IDENTIFIER (§, doc no, rev, address, hash) is the data face,
+     and takes no tabular declaration — the data face is already tabular.
+
+     System fallbacks only. The self-hosted faces are phase 3; when they land
+     they are prepended to these two lists and nothing else changes. */
+  --font-text: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-data: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Compatibility aliases, one release only. The old names are what got
+     aliased to each other in the first place; every call site is being moved
+     onto --font-text / --font-data, and these two lines then go. */
+  --font-mono: var(--font-data);
+  --font-sans: var(--font-text);
 
   /* Code-highlighter register — the highlighter emits var(--astro-code-*)
      references (no color literals), pinned here to the four tokens. They
@@ -160,7 +177,6 @@ html {
   line-height: 1.55;
   -webkit-text-size-adjust: 100%;
   tab-size: 4;
-  font-variant-numeric: tabular-nums;
 }
 
 body {
@@ -168,7 +184,8 @@ body {
   margin: 0;
   background-color: var(--paper);
   color: var(--ink);
-  font-family: var(--font-mono);
+  /* R2 — running prose. Identifiers below re-assert --font-data explicitly. */
+  font-family: var(--font-text);
   font-size: 14px;
   line-height: 1.55;
   font-feature-settings: "kern" 1, "liga" 1;
@@ -214,7 +231,8 @@ body {
   background-image: repeating-linear-gradient(90deg, var(--ink) 0 6px, transparent 6px 12px);
 }
 
-/* Colophon — 2px top rule, two tiny uppercase dim strings pushed apart. */
+/* Colophon — 2px top rule, two tiny uppercase dim strings pushed apart.
+   R4: it carries the doc number and the revision, so it is the data face. */
 .colophon {
   border-top: 2px solid var(--ink);
   padding-top: 0.6rem;
@@ -222,6 +240,7 @@ body {
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
+  font-family: var(--font-data);
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.18em;
@@ -290,6 +309,7 @@ body {
   align-items: stretch;
 }
 
+/* R4 — control labels. */
 .foot-sub-btn {
   padding: 10px 18px;
   border: 1px solid var(--ink);
@@ -299,6 +319,7 @@ body {
   cursor: pointer;
   white-space: nowrap;
   text-transform: uppercase;
+  font-family: var(--font-data);
   font-size: 11px;
   letter-spacing: 0.14em;
 }
@@ -311,7 +332,7 @@ body {
 }
 
 .foot-sub-btn--xmtp {
-  font-family: var(--font-mono);
+  font-family: var(--font-data);
   font-size: 11px;
 }
 
@@ -343,9 +364,11 @@ body {
   }
 }
 
-/* Header nav reads as uppercase index stamps; purely presentational. */
+/* Header nav reads as uppercase index stamps — R4, so it keeps the data face
+   while the sheet body around it runs in the text face. */
 .site-sheet header nav a {
   text-transform: uppercase;
+  font-family: var(--font-data);
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   font-weight: 600;

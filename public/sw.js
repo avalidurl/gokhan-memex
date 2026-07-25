@@ -309,7 +309,11 @@ function createOfflineResponse() {
       <title>Offline - Gökhan Turhan</title>
       <style>
         body {
-          font-family: "SF Mono", "IBM Plex Mono", "JetBrains Mono", ui-monospace, Menlo, monospace;
+          /* R2 — running prose. This page is synthesised by the worker and
+             never loads the site stylesheet, so the text stack is written out
+             in full rather than referenced as var(--font-text). Keep it in
+             step with critical.css and tailwind.config.mjs. */
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
           max-width: 600px;
           margin: 50px auto;
           padding: 20px;

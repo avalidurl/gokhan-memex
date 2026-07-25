@@ -14,27 +14,44 @@
     --tw-ring-offset-color: hsl(var(--background));
   }
 
+  /* Tabular figures used to sit here, on `html`, where they applied to every
+     glyph on the page. That is correct for a monospaced sheet and wrong for a
+     proportional one: it forces prose digits onto the wide tabular advance.
+     Quantities keep it — the ledger `table` rule below already declares it,
+     and every register on the site is a table. */
   html {
-    font-family: var(--font-mono);
+    font-family: var(--font-text);
     background: var(--paper);
-    font-variant-numeric: tabular-nums;
   }
 
   body {
-    font-family: var(--font-mono);
+    font-family: var(--font-text);
     font-feature-settings: "kern" 1, "liga" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
+  /* R1 — display. The page title is the only large type on the sheet, and a
+     title is language, so it is set in the text face. */
   h1,
+  .heading {
+    font-family: var(--font-text);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1.05;
+  }
+
+  /* R4 — section heads are identifiers, not prose. Each is 12px, uppercase and
+     tracked, and h2 carries the flush-right §n counter below, so they keep the
+     data face while the sheet around them runs in the text face. A long-form
+     surface that wants a display sub-head (the journal dispatch h2) re-asserts
+     --font-text explicitly. */
   h2,
   h3,
   h4,
   h5,
-  h6,
-  .heading {
-    font-family: var(--font-mono);
+  h6 {
+    font-family: var(--font-data);
     font-weight: 700;
     letter-spacing: 0.02em;
     line-height: 1.05;
@@ -100,8 +117,12 @@
     margin-bottom: 1rem;
   }
 
+  /* Measure. 1ch is the advance of "0"; in the mono face that was every glyph,
+     so 72ch was 72 characters. In a proportional face "0" is wider than average
+     lowercase, so the same 72ch would render 80–90 characters. Convert the
+     number, keep the unit. */
   p {
-    max-width: 72ch;
+    max-width: 64ch;
   }
 
   h1,
@@ -127,10 +148,11 @@
     font-weight: 700;
   }
 
+  /* R5 — machine strings. */
   code {
     border: 1px solid var(--ink);
     background: var(--faint);
-    font-family: var(--font-mono);
+    font-family: var(--font-data);
     font-size: 12.5px;
   }
 
@@ -194,8 +216,10 @@
     padding: 0.35rem 0.6rem;
   }
 
+  /* R4 — a column head is an identifier for the column, not a quantity. */
   th {
     background: var(--faint);
+    font-family: var(--font-data);
     font-size: 10.5px;
     text-transform: uppercase;
     letter-spacing: 0.14em;
@@ -251,9 +275,10 @@
     text-decoration-thickness: 2px;
   }
 
+  /* R4 — eyebrow stamp. */
   .raw-kicker {
     color: var(--dim);
-    font-family: var(--font-mono);
+    font-family: var(--font-data);
     font-size: 0.78rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;

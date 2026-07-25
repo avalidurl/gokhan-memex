@@ -1,6 +1,6 @@
 /* House register primitives — filed-document chrome shared across surfaces.
-   No webfonts: system monospace only (stack defined in critical.css).
-   Tokens live in critical.css; nothing is redefined here. */
+   No webfonts: two system stacks, --font-text and --font-data, defined in
+   critical.css. Tokens live there; nothing is redefined here. */
 
 .tile {
   display: inline-flex;

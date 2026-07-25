@@ -203,8 +203,10 @@ const showToc = tocHeadings.length >= 2
 
 <style>
   /* Dispatch layout — datasheet register, strictly monochrome. Hierarchy is
-     carried by weight, case, value, and rules; never hue. Mono = house Courier
-     stack (matches globals.css / index.astro); body = house monospace via BaseLayout. */
+     carried by weight, case, value, and rules; never hue. Two faces: the
+     running essay is --font-text via BaseLayout, and every identifier below
+     (doc strip, eyebrow, contents label and counters, epigraph cite, deck
+     controls, tldr key, h3 stamps) holds --font-data. */
 
   /* (a) DOC-STRIP */
   .docstrip {
@@ -255,7 +257,7 @@ const showToc = tocHeadings.length >= 2
     line-height: 1.6;
     color: hsl(var(--muted-foreground));
     margin: 0.6rem 0 0;
-    max-width: 62ch;
+    max-width: 56ch;
   }
 
   .deck-links {
@@ -301,7 +303,7 @@ const showToc = tocHeadings.length >= 2
     border-left: 3px solid hsl(var(--foreground));
     padding: 0.15rem 0 0.15rem 1.1rem;
     margin: 1.1rem 0 0;
-    max-width: 52ch;
+    max-width: 48ch;
   }
   .epigraph p {
     font-size: 17px;
@@ -323,7 +325,7 @@ const showToc = tocHeadings.length >= 2
     border-left: 3px solid hsl(var(--foreground));
     padding: 0.15rem 0 0.15rem 1.1rem;
     margin: 0 0 1.25rem;
-    max-width: 52ch;
+    max-width: 48ch;
   }
   .dispatch-prose :global(.epigraph p) {
     font-size: 17px;
@@ -467,8 +469,13 @@ const showToc = tocHeadings.length >= 2
     color: hsl(var(--foreground));
   }
 
-  /* (e) section h2 headings — top border-rule + numetal 21px scale */
+  /* (e) section h2 headings — top border-rule + numetal 21px scale.
+     R1, not R4: at 21px with negative tracking and mixed case this is a
+     display sub-title in an essay, not a section stamp, so it overrides the
+     site-wide h2 (which IS a stamp: 12px, uppercase, §n counter) and takes
+     the text face. The h3 below is the stamp on this page and keeps mono. */
   .dispatch-prose :global(h2) {
+    font-family: var(--font-text);
     font-size: 21px;
     font-weight: 700;
     letter-spacing: -0.01em;
@@ -483,13 +490,13 @@ const showToc = tocHeadings.length >= 2
     border-top: 0;
   }
 
-  /* (f) sub-head h3 — numetal mono uppercase label */
+  /* (f) sub-head h3 — R4, an uppercase label stamp */
   .dispatch-prose :global(h3) {
     font-size: 16px;
     font-weight: 700;
     letter-spacing: 0.02em;
     text-transform: uppercase;
-    font-family: var(--font-mono);
+    font-family: var(--font-data);
     color: hsl(var(--foreground));
     margin: 26px 0 8px;
   }
