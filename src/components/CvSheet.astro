@@ -33,7 +33,10 @@ import {
           <h2 class="sec">Contact</h2>
           <ul class="contact">
             {contact.map((c) => (
-              <li><span class="lbl">{c.label}:</span> {c.value}</li>
+              <li>
+                <span class="lbl">{c.label}:</span>{' '}
+                {c.url ? <a href={c.url}>{c.value}</a> : c.value}
+              </li>
             ))}
           </ul>
         </section>
@@ -108,32 +111,41 @@ import {
 
 <style>
   .cv-sheet {
+    /* Print artifact is strict black-on-white, independent of site theme
+       (guards Cmd+P from dark mode too). Local token overrides, not new names,
+       so every var() below stays untouched. */
+    --paper: #ffffff;
+    --ink: #000000;
+    --dim: #4a4a4a;
+    --faint: #c8c8c8;
     background: var(--paper);
     color: var(--ink);
-    /* R4/R5 — this is the print sheet, and it is a register: dates, roles,
-       employers, one-line entries, set at 6.8pt to fit one A4 page. It keeps
-       the data face DELIBERATELY, so the literal is only de-duplicated here
-       and the PDF does not repaginate in this pass. Moving the sheet onto
-       --font-text is phase 3, where the spec requires a human to check the
-       pagination of the generated PDF. The web CV at src/pages/cv/index.astro
-       has no such constraint and is already on the text face. */
-    font-family: var(--font-data);
+    /* San Francisco (SF Pro) per founder request 2026-07-29. The PDF is
+       printed on macOS, so -apple-system resolves to SF; the named SF Pro
+       faces are installed on the build machine. Pagination is re-verified on
+       every build by scripts/generate-cv-pdf.mjs output. */
+    font-family: 'SF Pro Text', 'SF Pro Display', 'SF Pro', -apple-system,
+      BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue',
+      Arial, sans-serif;
     font-size: 6.8pt;
     line-height: 1.22;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
   .cv-sheet * { box-sizing: border-box; }
-  /* The site-wide h1/.heading rule (R1 -> --font-text) is an element selector
-     and reaches inside this sheet, which would set the name in the text face
-     while the register around it stayed in the data face. One artifact, one
-     face: pin the headings until the whole sheet moves in phase 3. */
+  /* Site-wide h1/h2 element rules reach inside the sheet (other faces, the
+     bureau §n counter padding). One artifact, one face: pin the headings to
+     the sheet's own stack. */
   .cv-sheet h1,
   .cv-sheet h2,
   .cv-sheet h3,
   .cv-sheet h4,
   .cv-sheet h5,
-  .cv-sheet h6 { font-family: var(--font-data); }
+  .cv-sheet h6 {
+    font-family: 'SF Pro Display', 'SF Pro Text', 'SF Pro', -apple-system,
+      BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue',
+      Arial, sans-serif;
+  }
   .cv-sheet .page { width: 210mm; padding: 9mm 11mm; }
 
   .cv-sheet .head h1 {
@@ -147,7 +159,9 @@ import {
   .cv-sheet .rule { border-top: 1.4px solid var(--ink); margin: 5px 0 6px; }
 
   .cv-sheet .cols { display: grid; grid-template-columns: 33% 1fr; gap: 12px; }
-  .cv-sheet .sidebar { font-size: 6.4pt; }
+  /* Sidebar is the longest column; slightly tighter type so Skills,
+     Distribution, and Languages all land on the single fixed A4 page. */
+  .cv-sheet .sidebar { font-size: 6.1pt; line-height: 1.16; }
 
   .cv-sheet h2.sec {
     margin: 0 0 2.5px;
@@ -168,7 +182,7 @@ import {
   .cv-sheet .contact { list-style: none; margin: 0; padding: 0; }
   .cv-sheet .contact li { margin: 1.4px 0; }
   .cv-sheet .contact .lbl { color: var(--dim); }
-  .cv-sheet .sg { margin-bottom: 5px; }
+  .cv-sheet .sg { margin-bottom: 3.5px; }
   .cv-sheet .sg h3 {
     margin: 0 0 1px;
     font-size: 6.2pt;
@@ -198,4 +212,11 @@ import {
   .cv-sheet .edu .deg { font-weight: bold; }
   .cv-sheet .edu .meta { color: var(--dim); }
   .cv-sheet a { color: inherit; text-decoration: none; }
+  /* Contact links are live in the PDF (Chrome print keeps link annotations);
+     a hairline underline signals it without breaking the monochrome register. */
+  .cv-sheet .contact a {
+    text-decoration: underline;
+    text-decoration-thickness: 0.5px;
+    text-underline-offset: 1.5px;
+  }
 </style>

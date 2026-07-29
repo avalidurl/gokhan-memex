@@ -10,7 +10,7 @@ export const cvMeta = {
     'Full-stack builder and solopreneur — one person, a fleet of agents. Ships agent-native products end to end (venue, payment rail, benchmark, open standard, security program) across fintech infrastructure, AI-native tooling, and tokenized markets — live, in production, taking real machine payments.',
   pdfUrl: '/cv/Gokhan_Turhan_CV.pdf',
   pdfFileName: 'Gokhan_Turhan_CV.pdf',
-  lastUpdated: '2026-07-18',
+  lastUpdated: '2026-07-29',
 } as const
 
 export type ContactLine = { label: string; value: string; url?: string }
@@ -29,10 +29,9 @@ export const contact: ContactLine[] = [
 ]
 
 export const profile = [
-  `Growth and business development operator focused on building growth engines that compound distribution, conversion, and revenue. I run end-to-end systems across performance marketing, partnership development, CRM orchestration, and experimentation to move quickly from strategy to measurable outcomes.`,
-  `As a founder-technologist I ship full-stack apps end-to-end — architecture, code, deployment, and distribution — across AI, crypto, and startup verticals, from smart contracts to landing pages.`,
-  `My operating model blends AI-native execution with channel-specific creative, analytics instrumentation, and rapid iteration loops across paid, owned, and earned media. I specialize in memetic viral social engineering: message architecture, platform-native storytelling, and feedback-driven campaign scaling that improves both reach and unit economics.`,
-  `I am proactive by default, with taste in art, classical and jazz music, a serious home-chef practice, and a consistent training-and-sports discipline.`,
+  `Growth and business development operator building engines that compound distribution, conversion, and revenue — performance marketing, partnerships, CRM orchestration, and experimentation, from strategy to measurable outcome.`,
+  `Founder-technologist shipping full-stack apps end to end — architecture, code, deployment, distribution — across AI, crypto, and startup verticals, from smart contracts to landing pages.`,
+  `AI-native execution with memetic engineering: message architecture, platform-native storytelling, feedback-scaled campaigns. Taste in art, classical and jazz music, a serious home-chef practice, a consistent training discipline.`,
 ]
 
 export type CVExperience = {
