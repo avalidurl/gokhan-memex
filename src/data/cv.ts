@@ -10,7 +10,7 @@ export const cvMeta = {
     'Full-stack builder and solopreneur — one person, a fleet of agents. Ships agent-native products end to end (venue, payment rail, benchmark, open standard, security program) across fintech infrastructure, AI-native tooling, and tokenized markets — live, in production, taking real machine payments.',
   pdfUrl: '/cv/Gokhan_Turhan_CV.pdf',
   pdfFileName: 'Gokhan_Turhan_CV.pdf',
-  lastUpdated: '2026-07-29',
+  lastUpdated: '2026-07-30',
 } as const
 
 export type ContactLine = { label: string; value: string; url?: string }
@@ -74,9 +74,9 @@ export const experience: CVExperience[] = [
     end: 'Aug 2025',
     bullets: [
       'Led growth strategy across a hybrid fintech product spanning custodial RWA issuance and DeFi-native perpetual markets.',
-      'Built GTM positioning, CRM pipelines (HubSpot), partnership funnels, and content-driven acquisition using AI-assisted workflows.',
+      'Built GTM positioning, CRM pipelines, partnership funnels, and content-driven acquisition using AI-assisted workflows.',
       'Operated across product, BD, marketing, and social media, connective tissue between technical teams and market execution.',
-      'Prototyped internal tools, landing pages, and documentation using Claude Code, Cursor, and Figma.',
+      'Prototyped internal tools, landing pages, and documentation.',
     ],
   },
   {
@@ -200,7 +200,6 @@ export const skillGroups = [
       'RWA Tokenization (Custodial & Non-Custodial)',
       'Perpetuals · AMMs · Stablecoins',
       'Hybrid Fintech Architecture',
-      'TradingView · PineScript',
     ],
   },
   {
