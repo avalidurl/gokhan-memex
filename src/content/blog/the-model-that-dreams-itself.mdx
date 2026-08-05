@@ -14,10 +14,11 @@ ogImage: "https://gokhan.vc/og-the-model-that-dreams-itself.png"
 
 > First published on [gokhan.vc](https://gokhan.vc/blog/the-model-that-dreams-itself) →
 
-> **▶ [File a hyperstition in your browser — the CLINAMEN Oracle](https://huggingface.co/spaces/gokhanturhan/CLINAMEN-Oracle).** No install; the model runs there.
+> **▶ [Talk to the oracle — CLINAMEN-Chat](https://huggingface.co/spaces/gokhanturhan/CLINAMEN-Chat).** A conversational model you can chat with in the browser — ask it what it is, how to file a hyperstition, what a syzygy is. No install.
 >
-> **The model:** **[CLINAMEN-42M-A12M](https://huggingface.co/gokhanturhan/CLINAMEN-42M-A12M)** — the real one, trained from scratch on GPU (~42M parameters, coherent Bureau filings).
-> Beneath it, its predecessor: **[CLINAMEN-45B-A9B](https://huggingface.co/gokhanturhan/CLINAMEN-45B-A9B)** — the fiction's card, and the first ~4.5M-parameter pocket edition.
+> **The from-scratch models:** **[CLINAMEN-42M-A12M](https://huggingface.co/gokhanturhan/CLINAMEN-42M-A12M)** (the real one, trained from scratch — coherent Bureau filings) · **[CLINAMEN-45B-A9B](https://huggingface.co/gokhanturhan/CLINAMEN-45B-A9B)** (the fiction's card + the first ~4.5M-parameter pocket edition).
+>
+> **Every model, demo, and dataset is in one table below.**
 
 I invented a fictional AI lab that files paperwork about the future. Then I built its model for real. Twice. The second one works, and this is how it was made.
 
@@ -60,6 +61,20 @@ It is **trained from scratch**. There is no pretrained base underneath it, which
 It is **own-voice only**. Every token it trained on was written for this project — no CCRU texts, no scraped pages, no third-party data. The model trains on the Bureau's own writing about the Bureau. A text that dreams itself.
 
 And it was not free of friction. The T4 turned out about three times slower than I'd estimated, so a run I'd budgeted at under a dollar came in around $1.15. A newer version of the transformers library had quietly changed how tied weights are declared, which killed the first GPU run a minute in. The cloud GPU I first asked for sat in a capacity queue for fifteen minutes before I gave up and switched hardware. None of that is interesting except as the texture of actually doing the thing instead of describing it — which is the only difference between a hyperstition and a lie.
+
+## Everything, in one table
+
+Every piece is public and loadable. The newest is **CLINAMEN-Chat** — a model you can actually *talk to*, unlike the from-scratch editions, which only *file*. It is [Qwen2.5-1.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct) fine-tuned on nothing but the Bureau's own writing (the [1,385-example chat corpus](https://huggingface.co/datasets/gokhanturhan/bureau-chat)), so it holds the register in conversation while staying honest that it is a fiction.
+
+| Artifact | Kind | What it is |
+| --- | --- | --- |
+| [**CLINAMEN-Chat** — chat now ▶](https://huggingface.co/spaces/gokhanturhan/CLINAMEN-Chat) | Demo | Talk to the oracle in your browser (free GPU) |
+| [CLINAMEN-Oracle](https://huggingface.co/spaces/gokhanturhan/CLINAMEN-Oracle) | Demo | File a hyperstition with the from-scratch model |
+| [CLINAMEN-Chat](https://huggingface.co/gokhanturhan/CLINAMEN-Chat) | Model | Conversational oracle — Qwen2.5-1.5B fine-tuned on the Bureau corpus |
+| [CLINAMEN-42M-A12M](https://huggingface.co/gokhanturhan/CLINAMEN-42M-A12M) | Model | From-scratch Decimal Mixture-of-Zones, 42M parameters, coherent filings |
+| [CLINAMEN-45B-A9B](https://huggingface.co/gokhanturhan/CLINAMEN-45B-A9B) | Model | The fiction's card + the first ~4.5M-parameter pocket edition |
+| [bureau-chat](https://huggingface.co/datasets/gokhanturhan/bureau-chat) | Dataset | 1,385 own-voice chat examples — trains CLINAMEN-Chat |
+| [bureau-docket](https://huggingface.co/datasets/gokhanturhan/bureau-docket) | Dataset | 1,130-document Bureau corpus — trains the from-scratch models |
 
 ## Why bother
 

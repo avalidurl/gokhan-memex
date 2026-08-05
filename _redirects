@@ -5,9 +5,9 @@
 /blog/images/* /blog/images/:splat 200
 /blog/* /journal/:splat 301
 
-# Newsletter redirect (permanent)
-/newsletter /subscribe 301
-/links /subscribe 301
+# /newsletter is a real page (src/pages/newsletter.astro, Doc MX-090). It used to
+# 301 to /subscribe, which does not exist — the estate subscribe CTA dead-ended.
+/links /newsletter 301
 
 # Favicon: redirect .ico requests to existing SVG
 /favicon.ico /favicon.svg 301

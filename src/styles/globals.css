@@ -1,6 +1,16 @@
 /* Non-critical CSS - Critical CSS is inlined in BaseLayout.astro */
 /* This file contains the full Tailwind CSS build for non-critical styles */
 
+/* R1/R2/R3 text face — Newsreader, self-hosted. The `opsz` cuts carry the
+   optical-size axis, so the same file draws running prose and the display
+   sizes correctly instead of scaling one master; the italic is a real italic,
+   not a slant. Family name is 'Newsreader Variable' and is prepended to BOTH
+   --font-text (critical.css) and textStack (tailwind.config.mjs) — those two
+   must stay in step. --font-data keeps the mono; identifiers, doc numbers and
+   machine strings do not move. */
+@import '@fontsource-variable/newsreader/opsz.css';
+@import '@fontsource-variable/newsreader/opsz-italic.css';
+
 @import './bureau.css';
 
 @tailwind base;

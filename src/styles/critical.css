@@ -46,9 +46,13 @@
      that is an IDENTIFIER (§, doc no, rev, address, hash) is the data face,
      and takes no tabular declaration — the data face is already tabular.
 
-     System fallbacks only. The self-hosted faces are phase 3; when they land
-     they are prepended to these two lists and nothing else changes. */
-  --font-text: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+     Phase 3 landed 2026-08-01: the text face is self-hosted Newsreader
+     (variable, with the optical-size axis — see the @font-face imports at the
+     top of globals.css), prepended to the text list. The data list is
+     unchanged: identifiers, doc numbers, addresses and hashes stay mono.
+     Anything prepended here must be prepended to textStack/dataStack in
+     tailwind.config.mjs too, or the two stacks drift. */
+  --font-text: "Newsreader Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-data: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
   /* Compatibility aliases, one release only. The old names are what got

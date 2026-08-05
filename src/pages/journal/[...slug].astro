@@ -92,7 +92,9 @@ const showToc = tocHeadings.length >= 2
     <meta name="keywords" content={post.data.seoKeywords.join(', ')} slot="head" />
   )}
 
-  <div class="dispatch mx-auto max-w-2xl px-6 py-8 lg:py-12">
+  {/* max-w-3xl, not 2xl: at the 18px reading scale a 42rem sheet measures ~61ch,
+      under the 65ch floor for comfortable long-form. 48rem lands it near 75ch. */}
+  <div class="dispatch mx-auto max-w-3xl px-6 py-8 lg:py-12">
     <article>
       <!-- (a) DOC-STRIP -->
       <div class="docstrip">
@@ -455,17 +457,20 @@ const showToc = tocHeadings.length >= 2
     scroll-margin-top: 5rem;
   }
 
-  /* Body paragraphs — numetal type-scale (16px / 1.62), translated to black.
+  /* Body paragraphs — reading scale, calibrated 2026-08-01 against a LessWrong
+     post body (18.2px / 26px / 682px / 81ch). Long-form wants ~18px and a
+     65–80ch measure; the old 16px in a 523px column read at 69ch but too small.
      Overrides the Tailwind `prose-lg` sizes so the rendered article matches. */
   .dispatch-prose :global(:where(p)) {
-    font-size: 16px;
-    line-height: 1.62;
-    margin: 0 0 18px;
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 0 0 1em;
     color: hsl(var(--foreground));
   }
   .dispatch-prose :global(:where(li)) {
-    font-size: 16px;
-    line-height: 1.62;
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 0 0 0.7em;
     color: hsl(var(--foreground));
   }
 

@@ -29,6 +29,7 @@ const monoScale = {
 // to these two lists. This file previously aliased sans, serif AND mono to one
 // monospace stack, which is why an 11,000-word essay read as terminal output.
 const textStack = [
+  '"Newsreader Variable"',
   '-apple-system',
   'BlinkMacSystemFont',
   '"Segoe UI"',

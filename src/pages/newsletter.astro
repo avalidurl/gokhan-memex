@@ -28,14 +28,25 @@ const subscribeAction = 'https://api.gokhan.vc/newsletter/subscribe'
         autocomplete="email"
         class="nl-input"
       />
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAAEG8CWZN8yq8G3kt" data-theme="auto" data-size="flexible"></div>
       <button type="submit" class="nl-btn" title="Subscribe via api.gokhan.vc (site=memex)">Subscribe</button>
     </form>
+      <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline></script>
 
     <p class="nl-more mt-8 text-sm text-muted-foreground">
-      Latest: <a href="/journal/x402-economy-july-2026/" class="doc-link">The x402 economy — July 2026</a>
+      Latest: <a
+        href="/journal/complementary-substitutions/"
+        class="doc-link"
+        data-latest-post>Complementary Substitutions</a>
       · <a href="/journal/" class="doc-link">All posts</a>.
       Public contact: <a href="mailto:contact@gokhan.vc" class="doc-link">contact@gokhan.vc</a>.
     </p>
+
+    <p class="nl-more mt-3 text-sm text-muted-foreground">
+      Feeds: <a href="/rss.xml" class="doc-link">this site</a>
+      · <a href="https://api.gokhan.vc/feed.xml" class="doc-link">everything</a>.
+    </p>
+    <script src="/newsletter-latest.js" defer is:inline></script>
   </div>
 </BaseLayout>
 
