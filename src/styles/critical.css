@@ -290,15 +290,19 @@ body {
   margin: 0;
 }
 
+/* Stacked ruled rows: email input, then the Turnstile widget on its own
+   line (its flexible iframe fills the row instead of crushing siblings),
+   then the action buttons. */
 .foot-sub-row {
   display: flex;
+  flex-direction: column;
   align-items: stretch;
   gap: 8px;
   width: 100%;
 }
 
 .foot-sub-input {
-  flex: 1;
+  width: 100%;
   min-width: 0;
   padding: 12px 14px;
   border: 2px solid var(--ink);
@@ -315,7 +319,7 @@ body {
 
 .foot-sub-actions {
   display: flex;
-  flex-shrink: 0;
+  flex-wrap: wrap;
   gap: 8px;
   align-items: stretch;
 }
