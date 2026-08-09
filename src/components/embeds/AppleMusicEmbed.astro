@@ -60,7 +60,7 @@ const embedHeight = appleMusicData ? getHeightForType(appleMusicData.type) : '17
     <iframe 
       allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
       height={embedHeight}
-      style="width: 100%; max-width: 660px; overflow: hidden; border-radius: 10px; border: none;"
+      style="width: 100%; max-width: 660px; overflow: hidden; border: none;"
       sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
       src={embedUrl}
       loading="lazy"
@@ -68,16 +68,16 @@ const embedHeight = appleMusicData ? getHeightForType(appleMusicData.type) : '17
     >
     </iframe>
   ) : (
-    <div class="rounded-lg overflow-hidden border bg-card">
+    <div class="overflow-hidden border-2 bg-card">
       <div class="p-6 text-center">
         <p class="text-muted-foreground mb-4">
           Unable to embed Apple Music player
         </p>
-        <a 
-          href={url} 
-          target="_blank" 
+        <a
+          href={url}
+          target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
+          class="inline-flex items-center px-4 py-2 border-2 bg-background text-foreground font-mono text-[15px] tracking-[0.06em] hover:bg-foreground hover:text-background"
         >
           Open in Apple Music
         </a>
@@ -90,7 +90,7 @@ const embedHeight = appleMusicData ? getHeightForType(appleMusicData.type) : '17
       href={url} 
       target="_blank" 
       rel="noopener noreferrer"
-      class="text-xs text-muted-foreground hover:text-foreground transition-colors"
+      class="text-xs text-muted-foreground hover:text-foreground"
     >
       Open in Apple Music ↗
     </a>

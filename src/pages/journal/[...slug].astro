@@ -185,13 +185,13 @@ const showToc = tocHeadings.length >= 2
           <div class="flex items-center gap-6">
             <a
               href="/journal"
-              class="hover:text-foreground transition-colors"
+              class="hover:text-foreground"
             >
               ← All posts
             </a>
             <a
               href="/rss.xml"
-              class="hover:text-foreground transition-colors"
+              class="hover:text-foreground"
             >
               RSS
             </a>
@@ -220,10 +220,10 @@ const showToc = tocHeadings.length >= 2
     padding-bottom: 0.55rem;
     border-bottom: 1px solid hsl(var(--border));
     font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.14em;
+    font-size: 12.5px;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: hsl(var(--muted-foreground));
+    color: var(--dim);
   }
   .docstrip-id { color: hsl(var(--foreground)); }
   .docstrip .tick { color: hsl(var(--foreground)); }
@@ -234,28 +234,26 @@ const showToc = tocHeadings.length >= 2
     margin: 1.8rem 0 0;
   }
 
-  /* (b) mono uppercase eyebrow */
+  /* (b) mono uppercase eyebrow — booster kicker: red is the one place hue
+     appears on this sheet */
   .eyebrow {
     font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.16em;
+    font-size: 14px;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: hsl(var(--muted-foreground));
+    color: var(--red);
     margin-bottom: 0.55rem;
   }
 
-  /* (c) big bold H1 title — numetal type-scale, translated to black */
+  /* (c) big bold H1 title — global display h1 rules the size; only spacing
+     and color live here */
   .dispatch-title {
-    font-size: 32px;
-    font-weight: 700;
-    line-height: 1.06;
-    letter-spacing: -0.02em;
     color: hsl(var(--foreground));
     margin: 0 0 0.6rem;
   }
 
   .dispatch-lede {
-    font-size: 16px;
+    font-size: 21px;
     line-height: 1.6;
     color: hsl(var(--muted-foreground));
     margin: 0.6rem 0 0;
@@ -271,8 +269,8 @@ const showToc = tocHeadings.length >= 2
   }
   .deck-pdf {
     font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.12em;
+    font-size: 12.5px;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     text-decoration: none;
     color: hsl(var(--foreground));
@@ -281,19 +279,24 @@ const showToc = tocHeadings.length >= 2
     background: hsl(var(--card));
     font-weight: 700;
   }
+  .deck-pdf:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
   .deck-view {
     color: hsl(var(--foreground));
     border-bottom: 1px solid hsl(var(--border));
     font-family: var(--font-mono);
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    font-size: 11px;
+    font-size: 12.5px;
     text-decoration: none;
   }
   .deck-md {
     color: hsl(var(--muted-foreground));
     border-bottom: 1px solid hsl(var(--border));
-    font-size: 13px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
     text-decoration: none;
   }
   .deck-sep {
@@ -308,15 +311,13 @@ const showToc = tocHeadings.length >= 2
     max-width: 48ch;
   }
   .epigraph p {
-    font-size: 17px;
-    line-height: 1.55;
     font-style: italic;
     margin: 0 0 0.35rem;
   }
   .epigraph cite,
   .epigraph .epigraph-cite {
     font-family: var(--font-mono);
-    font-size: 12px;
+    font-size: 12.5px;
     letter-spacing: 0.06em;
     color: hsl(var(--muted-foreground));
     font-style: normal;
@@ -330,15 +331,13 @@ const showToc = tocHeadings.length >= 2
     max-width: 48ch;
   }
   .dispatch-prose :global(.epigraph p) {
-    font-size: 17px;
-    line-height: 1.55;
     font-style: italic;
     margin: 0 0 0.35rem;
   }
   .dispatch-prose :global(.epigraph .epigraph-cite),
   .dispatch-prose :global(.epigraph cite) {
     font-family: var(--font-mono);
-    font-size: 12px;
+    font-size: 12.5px;
     letter-spacing: 0.06em;
     color: hsl(var(--muted-foreground));
     font-style: normal;
@@ -351,8 +350,8 @@ const showToc = tocHeadings.length >= 2
     gap: 0.9rem;
     margin-top: 0.9rem;
     font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.08em;
+    font-size: 12.5px;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
   }
   .dispatch-tag {
@@ -371,8 +370,8 @@ const showToc = tocHeadings.length >= 2
   }
   .contents-label {
     font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.16em;
+    font-size: 12.5px;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: hsl(var(--muted-foreground));
     padding: 0.6rem 0.9rem;
@@ -390,7 +389,7 @@ const showToc = tocHeadings.length >= 2
     counter-reset: contents;
     margin: 0;
     padding: 0.7rem 0.9rem 0.85rem;
-    font-size: 0.9rem;
+    font-size: 16.5px;
   }
   .contents-item {
     counter-increment: contents;
@@ -402,7 +401,7 @@ const showToc = tocHeadings.length >= 2
   .contents-item::before {
     content: counter(contents, decimal-leading-zero);
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 12.5px;
     color: hsl(var(--muted-foreground));
     flex: 0 0 auto;
     padding-top: 0.12em;
@@ -429,25 +428,24 @@ const showToc = tocHeadings.length >= 2
     margin-top: 2rem;
   }
 
-  /* SS1 TL;DR box — bordered, offset shadow, mono label. Monochrome house style. */
+  /* SS1 TL;DR box — bordered, mono label. Monochrome house style. */
   .dispatch-prose :global(.tldr) {
-    border: 1.5px solid hsl(var(--foreground));
+    border: 2px solid hsl(var(--foreground));
     background: hsl(var(--card));
     padding: 14px 18px;
     margin: 0 0 26px;
-    box-shadow: 5px 5px 0 hsl(var(--foreground));
   }
   .dispatch-prose :global(.tldr .tldr-k) {
     display: block;
     font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.16em;
+    font-size: 12.5px;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: hsl(var(--muted-foreground));
     margin-bottom: 8px;
   }
   .dispatch-prose :global(.tldr ul) { margin: 0; padding-left: 18px; }
-  .dispatch-prose :global(.tldr li) { margin: 6px 0; font-size: 15px; line-height: 1.5; }
+  .dispatch-prose :global(.tldr li) { margin: 6px 0; font-size: 16.5px; line-height: 1.5; }
   .dispatch-prose :global(h1),
   .dispatch-prose :global(h2),
   .dispatch-prose :global(h3),
@@ -474,16 +472,17 @@ const showToc = tocHeadings.length >= 2
     color: hsl(var(--foreground));
   }
 
-  /* (e) section h2 headings — top border-rule + numetal 21px scale.
-     R1, not R4: at 21px with negative tracking and mixed case this is a
-     display sub-title in an essay, not a section stamp, so it overrides the
-     site-wide h2 (which IS a stamp: 12px, uppercase, §n counter) and takes
-     the text face. The h3 below is the stamp on this page and keeps mono. */
+  /* (e) section h2 headings — top border-rule + the 22px sub-head register.
+     Restated here (not left to the site-wide h2, which carries the same
+     scale plus the §n stamp and bottom rule) because the Tailwind `prose`
+     wrapper would otherwise out-specify the bare global h2; this essay keeps
+     the top rule. The h3 below is the stamp on this page and keeps mono. */
   .dispatch-prose :global(h2) {
     font-family: var(--font-text);
-    font-size: 21px;
+    font-size: 22px;
     font-weight: 700;
-    letter-spacing: -0.01em;
+    line-height: 1.25;
+    letter-spacing: 0;
     margin: 34px 0 12px;
     padding-top: 14px;
     border-top: 1px solid hsl(var(--border));
@@ -497,9 +496,9 @@ const showToc = tocHeadings.length >= 2
 
   /* (f) sub-head h3 — R4, an uppercase label stamp */
   .dispatch-prose :global(h3) {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 700;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     font-family: var(--font-data);
     color: hsl(var(--foreground));
@@ -530,13 +529,11 @@ const showToc = tocHeadings.length >= 2
     text-decoration-color: color-mix(in srgb, var(--muted-foreground) 50%, transparent);
   }
 
-  /* Responsive: tighter padding on mobile + numetal small-screen scale */
+  /* Responsive: tighter padding on mobile */
   @media (max-width: 640px) {
-    .docstrip { font-size: 10px; letter-spacing: 0.08em; }
     .contents-list { padding: 0.6rem 0.7rem 0.7rem; }
     .contents-label { padding: 0.55rem 0.7rem; }
-    .dispatch-title { font-size: 26px; }
     .dispatch-prose :global(:where(p)),
-    .dispatch-prose :global(:where(li)) { font-size: 15px; margin-bottom: 15px; }
+    .dispatch-prose :global(:where(li)) { margin-bottom: 15px; }
   }
 </style>

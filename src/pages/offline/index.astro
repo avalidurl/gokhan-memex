@@ -8,15 +8,15 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
   robots="noindex, follow"
 >
   <div class="mx-auto max-w-2xl px-6 py-24 lg:py-32 text-center">
-    <p class="mb-8 border-2 border-border inline-block px-4 py-2 font-mono text-sm uppercase tracking-[0.22em]">Offline</p>
-    <h1 class="text-2xl font-semibold tracking-tight mb-4">You're offline</h1>
+    <p class="mb-8 border-2 border-border inline-block px-4 py-2 font-mono text-sm uppercase tracking-[0.06em]">Offline</p>
+    <h1 class="mb-4">You're offline</h1>
     <p class="text-muted-foreground mb-8">
       Check your internet connection and try again.
     </p>
     
     <button 
       onclick="window.location.reload()"
-      class="inline-block px-6 py-3 bg-foreground text-background font-medium rounded-md hover:bg-foreground/90 transition-colors"
+      class="inline-block px-6 py-3 border-2 border-border font-mono text-[15px] tracking-[0.06em] hover:bg-foreground hover:text-background"
     >
       Try again
     </button>

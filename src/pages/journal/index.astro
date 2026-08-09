@@ -28,7 +28,7 @@ const years = Object.keys(postsByYear).map(Number).sort((a, b) => b - a)
   <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
     <!-- Header -->
     <header class="mb-12">
-      <h1 class="text-3xl font-semibold tracking-tight mb-4">Journal</h1>
+      <h1 class="mb-4">Journal</h1>
       <p class="text-muted-foreground">
         {allPosts.length} posts on stablecoins, tokenization, AGI, and more.
       </p>
@@ -38,13 +38,13 @@ const years = Object.keys(postsByYear).map(Number).sort((a, b) => b - a)
       <div class="mt-4 flex items-center gap-6 text-sm">
         <a 
           href="/archive" 
-          class="text-muted-foreground hover:text-foreground transition-colors"
+          class="text-muted-foreground hover:text-foreground"
         >
           Browse by category →
         </a>
         <a 
           href="/rss.xml" 
-          class="text-muted-foreground hover:text-foreground transition-colors"
+          class="text-muted-foreground hover:text-foreground"
         >
           RSS
         </a>

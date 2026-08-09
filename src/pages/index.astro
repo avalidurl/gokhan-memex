@@ -28,7 +28,7 @@ const fmt = (d: Date) =>
     <!-- Masthead — the filed title block, boxed like a bureau document. -->
     <header class="mast">
       <div class="mast-title">
-        <h1 class="h">Gökhan Turhan</h1>
+        <h1 class="h">Gökhan Turhan<span class="ikb-dot" aria-hidden="true">.</span></h1>
         <div class="sub">Full-stack builder · fintech × AI × agent-native markets</div>
         <div class="stamp">Live in production — taking real machine payments</div>
       </div>
@@ -142,21 +142,25 @@ const fmt = (d: Date) =>
   <style>
     .ds { padding: 24px 34px 48px; color: var(--ink); }
 
-    /* Masthead — boxed filed title block, ubu register. */
+    /* Masthead — boxed filed title block, booster register. */
     .mast { border: 2px solid var(--ink); padding: 0; }
     .mast-title { padding: 1.5rem 1.1rem 1.2rem; }
     .mast-title .h {
-      font-size: clamp(26px, 5.5vw, 44px); font-weight: 700;
-      letter-spacing: .02em; line-height: 1.05; margin: 0; text-align: left;
+      font-family: var(--font-text);
+      font-size: clamp(64px, 12vw, 128px); font-weight: 900;
+      letter-spacing: -0.02em; line-height: 1.05; margin: 0; text-align: left;
     }
+    .mast-title .h .ikb-dot { color: var(--ikb); }
+    /* Kicker under the word — booster runs it in signal red. */
     .mast-title .sub {
-      margin-top: .6rem; font-size: 12px; letter-spacing: .18em;
-      text-transform: uppercase; color: var(--dim);
+      margin-top: .6rem; font-family: var(--font-data); font-size: 14px;
+      letter-spacing: .08em; text-transform: uppercase; color: var(--red);
     }
     .stamp {
       display: inline-block; border: 2px solid var(--ink);
       padding: .32rem .7rem; margin-top: 1rem;
-      font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+      font-family: var(--font-data); font-size: 12.5px; letter-spacing: .06em;
+      text-transform: uppercase;
       transform: rotate(-1.4deg);
     }
     .mast-row {
@@ -164,8 +168,8 @@ const fmt = (d: Date) =>
       border-top: 1px solid var(--ink);
     }
     .mast-cell {
-      padding: .6rem 1.1rem; font-size: 11px; letter-spacing: .12em;
-      text-transform: uppercase; color: var(--dim);
+      padding: .6rem 1.1rem; font-family: var(--font-data); font-size: 12.5px;
+      letter-spacing: .04em; text-transform: uppercase; color: var(--dim);
     }
     .mast-cell + .mast-cell { border-left: 1px solid var(--ink); }
     .mast-cell a { color: var(--ink); text-decoration: none; text-underline-offset: 2px; }
@@ -184,7 +188,7 @@ const fmt = (d: Date) =>
     .lede-summary {
       list-style: none; cursor: pointer;
       display: flex; align-items: baseline; justify-content: space-between; gap: 14px;
-      font-size: 12px; text-transform: uppercase; letter-spacing: .18em; font-weight: 700;
+      font-family: var(--font-data); font-size: 14px; text-transform: uppercase; letter-spacing: .08em; font-weight: 700;
       color: var(--dim);
       border-bottom: 2px solid var(--ink); padding-bottom: .4rem;
     }
@@ -194,10 +198,10 @@ const fmt = (d: Date) =>
     .lede-toggle::after { content: '[ − ]'; letter-spacing: 0; }
     .lede:not([open]) .lede-toggle::after { content: '[ + ]'; }
     .lede-body { padding-top: 1rem; }
-    .lead { font-size: 15px; line-height: 1.7; margin: 0; color: var(--ink); max-width: 64ch; }
+    .lead { font-size: 21px; margin: 0; color: var(--ink); max-width: 64ch; }
     .lead b, .p b { font-weight: 700; }
     .p {
-      font-size: 15px; line-height: 1.7; margin-top: 18px; color: var(--dim);
+      margin-top: 18px; color: var(--dim);
       border-left: 2px solid var(--ink); padding-left: 18px; max-width: 64ch;
     }
 
@@ -209,8 +213,8 @@ const fmt = (d: Date) =>
     .dgap { margin: 36px 0 22px; }
 
     .idxh {
-      font-size: 12px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: .22em; margin-bottom: 10px; text-align: left;
+      font-family: var(--font-data); font-size: 14px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .08em; margin-bottom: 10px; text-align: left;
       border-bottom: 2px solid var(--ink); padding-bottom: .35rem;
     }
 
@@ -228,11 +232,11 @@ const fmt = (d: Date) =>
     .pirow:last-child { border-bottom: 0; }
     .pirow:hover { background: var(--faint); }
     .pirow:hover .pi-name { text-decoration: underline; text-underline-offset: 2px; }
-    .pi-no { font-family: var(--font-mono); font-size: 11px; color: var(--dim); letter-spacing: .06em; }
+    .pi-no { font-family: var(--font-mono); font-size: 12.5px; color: var(--dim); letter-spacing: .06em; }
     .pi-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-    .pi-name { font-weight: 700; font-size: 12.5px; text-transform: uppercase; letter-spacing: .08em; }
-    .pi-note { font-size: 11.5px; color: var(--dim); line-height: 1.35; }
-    .pi-arrow { text-align: right; color: var(--dim); font-size: 13px; }
+    .pi-name { font-family: var(--font-data); font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: .08em; }
+    .pi-note { font-family: var(--font-data); font-size: 12.5px; letter-spacing: .04em; color: var(--dim); line-height: 1.35; }
+    .pi-arrow { text-align: right; color: var(--dim); font-size: 12.5px; }
 
     /* Project register — fully-boxed ledger grid, ubu §1 spec style. */
     .register { max-width: 100%; }
@@ -247,16 +251,16 @@ const fmt = (d: Date) =>
     .cell:hover { background: var(--faint); }
     .cell:hover .v { text-decoration: underline; text-underline-offset: 2px; }
     .cell .k {
-      font-family: var(--font-mono); font-size: 10px; letter-spacing: .14em;
+      font-family: var(--font-mono); font-size: 12.5px; letter-spacing: .06em;
       text-transform: uppercase; color: var(--dim); margin-bottom: .45rem;
     }
-    .cell .v { font-size: 15px; font-weight: 700; line-height: 1.25; }
+    .cell .v { font-size: 22px; font-weight: 700; line-height: 1.25; }
     .cell .v small {
-      display: block; margin-top: .35rem; font-size: 11.5px; font-weight: 400;
+      display: block; margin-top: .35rem; font-size: 16.5px; font-weight: 400;
       color: var(--dim); line-height: 1.45; letter-spacing: 0; text-transform: none;
     }
 
-    .more { display: inline-block; margin-top: 16px; font-size: 13px; color: var(--dim); text-decoration: none; text-underline-offset: 2px; }
+    .more { display: inline-block; margin-top: 16px; color: var(--dim); text-decoration: none; text-underline-offset: 2px; }
     .more:hover { color: var(--ink); text-decoration: underline; }
 
     /* Recent journal — ruled ledger rows. */
@@ -269,7 +273,7 @@ const fmt = (d: Date) =>
     }
     .recent li a:hover { background: var(--faint); }
     .recent li a:hover .rt { text-decoration: underline; text-underline-offset: 2px; }
-    .recent .rd { font-family: var(--font-mono); font-size: 12px; color: var(--dim); white-space: nowrap; }
+    .recent .rd { font-family: var(--font-mono); font-size: 12.5px; letter-spacing: .06em; color: var(--dim); white-space: nowrap; }
 
     /* Stack the lede row before the 340px sidebar gets too tight. */
     @media (max-width: 920px) {

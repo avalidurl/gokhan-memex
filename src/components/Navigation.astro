@@ -63,7 +63,7 @@ const navigation = [
               href={item.href}
               target={item.external ? '_blank' : undefined}
               rel={item.external ? 'noopener noreferrer' : undefined}
-              class={`nav-link text-[11px] uppercase tracking-[0.14em] ${
+              class={`nav-link text-[12.5px] uppercase tracking-[0.04em] ${
                 !item.external && (currentPath === item.href || currentPath.startsWith(item.href + '/'))
                   ? 'text-foreground font-semibold'
                   : 'text-muted-foreground hover:text-foreground'
@@ -209,11 +209,11 @@ const navigation = [
 
   .mh-cell {
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 12.5px;
     text-transform: uppercase;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.04em;
     color: var(--dim);
-    padding: 0.35rem 0.7rem;
+    padding: 8px 0.7rem;
     border-right: 1px solid var(--ink);
   }
 
@@ -241,32 +241,34 @@ const navigation = [
 
   .mh-close {
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 12.5px;
     text-transform: uppercase;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.06em;
     text-decoration: none;
-    border: 1px solid var(--ink);
+    border: 2px solid var(--ink);
     padding: 0.25rem 0.6rem;
   }
 
   .mh-close:hover {
-    background: var(--faint);
+    background: var(--ink);
+    color: var(--paper);
   }
 
   .mh-btn {
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 12.5px;
     text-transform: uppercase;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.06em;
     color: var(--ink);
     background: transparent;
-    border: 1px solid var(--ink);
+    border: 2px solid var(--ink);
     padding: 0.25rem 0.55rem;
     cursor: pointer;
   }
 
   .mh-btn:hover {
-    background: var(--faint);
+    background: var(--ink);
+    color: var(--paper);
   }
 
   .mm-nav {

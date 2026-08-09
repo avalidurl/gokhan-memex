@@ -9,14 +9,18 @@
   background: var(--paper);
   color: var(--ink);
   border: 2px solid var(--ink);
-  padding: 8px 16px;
+  padding: 12px 26px;
   text-decoration: none;
+  font-family: var(--font-data);
+  font-size: 15px;
+  letter-spacing: 0.06em;
   font-weight: 700;
 }
 
 .tile:hover,
 .tile:focus-visible {
-  background: var(--faint);
+  background: var(--ink);
+  color: var(--paper);
   text-decoration: none;
 }
 

@@ -249,8 +249,8 @@ function leafAttrs(leaf: Leaf) {
 
   .board-stamp {
     font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.14em;
+    font-size: 12.5px;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: hsl(var(--muted-foreground));
     margin: 0 0 18px;
@@ -292,7 +292,6 @@ function leafAttrs(leaf: Leaf) {
     flex-direction: column;
     border: 2px solid hsl(var(--foreground));
     background: hsl(var(--card));
-    transition: box-shadow 80ms ease-out;
   }
 
   .board-details:hover,
@@ -340,9 +339,9 @@ function leafAttrs(leaf: Leaf) {
     justify-content: space-between;
     align-items: baseline;
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 12.5px;
     font-weight: 500;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
   }
 
@@ -367,12 +366,13 @@ function leafAttrs(leaf: Leaf) {
     letter-spacing: 0.01em;
     color: hsl(var(--foreground));
     overflow-wrap: anywhere;
-    font-size: 19px;
+    font-size: 22px;
+    line-height: 1.25;
   }
 
   .board-domain {
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 12.5px;
     font-weight: 700;
     letter-spacing: 0.04em;
     color: hsl(var(--foreground));
@@ -381,9 +381,9 @@ function leafAttrs(leaf: Leaf) {
 
   .board-owner {
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 12.5px;
     font-weight: 400;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.04em;
     color: hsl(var(--muted-foreground));
     line-height: 1.5;
     /* reserve two lines so collapsed faces stay equal across the row */
@@ -396,9 +396,9 @@ function leafAttrs(leaf: Leaf) {
     align-items: center;
     gap: 8px;
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 12.5px;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: hsl(var(--foreground));
   }
@@ -430,7 +430,7 @@ function leafAttrs(leaf: Leaf) {
 
   .board-blurb {
     margin: 12px 0 0;
-    font-size: 13.5px;
+    font-size: 16.5px;
     line-height: 1.55;
     color: hsl(var(--foreground));
     border-left: 2px solid var(--ink);
@@ -458,16 +458,17 @@ function leafAttrs(leaf: Leaf) {
   }
 
   .board-cta-label {
+    font-family: var(--font-data);
     font-weight: 700;
-    font-size: 12px;
+    font-size: 12.5px;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.06em;
   }
 
   .board-cta-note {
     font-family: var(--font-mono);
-    font-size: 10.5px;
-    letter-spacing: 0.03em;
+    font-size: 12.5px;
+    letter-spacing: 0.04em;
     white-space: nowrap;
   }
 
@@ -510,7 +511,6 @@ function leafAttrs(leaf: Leaf) {
 
   .socials-heading {
     margin: 0;
-    font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -536,21 +536,18 @@ function leafAttrs(leaf: Leaf) {
     padding: 3px 8px;
     border: 2px solid transparent;
     text-decoration: none;
-    transition:
-      box-shadow 80ms ease-out,
-      border-color 80ms ease-out,
-      background 80ms ease-out;
   }
 
   .leaf-platform {
     font-weight: 700;
-    font-size: 13px;
+    font-size: 16.5px;
     color: hsl(var(--foreground));
   }
 
   .leaf-note {
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 12.5px;
+    letter-spacing: 0.04em;
     color: hsl(var(--muted-foreground));
     overflow-wrap: anywhere;
     line-height: 1.35;

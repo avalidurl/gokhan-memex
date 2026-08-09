@@ -1,16 +1,11 @@
 /* Non-critical CSS - Critical CSS is inlined in BaseLayout.astro */
 /* This file contains the full Tailwind CSS build for non-critical styles */
 
-/* R1/R2/R3 text face — Newsreader, self-hosted. The `opsz` cuts carry the
-   optical-size axis, so the same file draws running prose and the display
-   sizes correctly instead of scaling one master; the italic is a real italic,
-   not a slant. Family name is 'Newsreader Variable' and is prepended to BOTH
-   --font-text (critical.css) and textStack (tailwind.config.mjs) — those two
-   must stay in step. --font-data keeps the mono; identifiers, doc numbers and
-   machine strings do not move. */
-@import '@fontsource-variable/newsreader/opsz.css';
-@import '@fontsource-variable/newsreader/opsz-italic.css';
-
+/* R1/R2/R3 text face — the Helvetica Neue system stack (Bureau register,
+   adopted 2026-08-09 from booster.numetal.xyz). No webfonts ship: booster
+   serves its faces straight from the OS, and this sheet now does the same.
+   The stacks live in critical.css (--font-text / --font-data) and must stay
+   in step with textStack/dataStack in tailwind.config.mjs. */
 @import './bureau.css';
 
 @tailwind base;
@@ -41,50 +36,38 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* R1 — display. The page title is the only large type on the sheet, and a
-     title is language, so it is set in the text face. */
+  /* R1 — display, booster's .word: black weight, tight negative track. The
+     page title is the only large type on the sheet, and a title is language,
+     so it is set in the text face. */
   h1,
   .heading {
     font-family: var(--font-text);
-    font-weight: 700;
-    letter-spacing: 0.02em;
+    font-weight: 900;
+    letter-spacing: -0.02em;
     line-height: 1.05;
   }
 
-  /* R4 — section heads are identifiers, not prose. Each is 12px, uppercase and
-     tracked, and h2 carries the flush-right §n counter below, so they keep the
-     data face while the sheet around them runs in the text face. A long-form
-     surface that wants a display sub-head (the journal dispatch h2) re-asserts
-     --font-text explicitly. */
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: var(--font-data);
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    line-height: 1.05;
-  }
-
-  /* Page title — the only large type on the sheet. */
+  /* Page title — booster's display scale, tamed just enough that a
+     sentence-length title still fits the 980px column. */
   h1 {
-    font-size: clamp(26px, 5.5vw, 44px);
+    font-size: clamp(40px, 8vw, 84px);
     line-height: 1.05;
-    font-weight: 700;
+    font-weight: 900;
+    overflow-wrap: break-word;
   }
 
-  /* Section headings — tiny, uppercase, ruled; a flush-right section number
-     is set by the counter below. Hierarchy by rule weight, not size. */
+  /* R2 sub-heads — booster's tile h2: 22px on the text face, sentence case.
+     The hairline rule and the flush-right §n stamp (data face, 12.5px) keep
+     the filing-office accounting. */
   h2 {
     position: relative;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.22em;
+    font-family: var(--font-text);
+    font-size: 22px;
+    letter-spacing: 0;
     font-weight: 700;
-    line-height: 1.4;
-    border-bottom: 2px solid var(--ink);
-    padding: 0 3.5rem 0.35rem 0;
+    line-height: 1.25;
+    border-bottom: 1px solid var(--ink);
+    padding: 0 3.5rem 8px 0;
   }
 
   main {
@@ -96,43 +79,49 @@
     content: "§" counter(docsec);
     position: absolute;
     right: 0;
-    bottom: 0.35rem;
+    bottom: 8px;
+    font-family: var(--font-data);
+    font-size: 12.5px;
     color: var(--dim);
     font-weight: 400;
     letter-spacing: 0.06em;
   }
 
-  h3 {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    font-weight: 700;
+  /* R4 — minor heads are identifiers: booster's kicker/№ metrics on the data
+     face. */
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-data);
     line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  h3 {
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    font-weight: 700;
   }
 
   h4,
   h5,
   h6 {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
+    font-size: 12.5px;
+    letter-spacing: 0.06em;
     font-weight: 400;
-    line-height: 1.4;
   }
 
   p,
   article,
   .prose {
-    line-height: 1.55;
+    line-height: 1.6;
     margin-bottom: 1rem;
   }
 
-  /* Measure. 1ch is the advance of "0"; in the mono face that was every glyph,
-     so 72ch was 72 characters. In a proportional face "0" is wider than average
-     lowercase, so the same 72ch would render 80–90 characters. Convert the
-     number, keep the unit. */
+  /* Measure — booster's lead runs 72ch on the sans face. */
   p {
-    max-width: 64ch;
+    max-width: 72ch;
   }
 
   h1,
@@ -158,18 +147,18 @@
     font-weight: 700;
   }
 
-  /* R5 — machine strings. */
+  /* R5 — machine strings, booster's content-mono size. */
   code {
     border: 1px solid var(--ink);
     background: var(--faint);
     font-family: var(--font-data);
-    font-size: 12.5px;
+    font-size: 15px;
   }
 
   pre {
     border: 1px solid var(--ink);
     background: var(--faint);
-    font-size: 12.5px;
+    font-size: 15px;
     line-height: 1.6;
     overflow-x: auto;
   }
@@ -230,9 +219,9 @@
   th {
     background: var(--faint);
     font-family: var(--font-data);
-    font-size: 10.5px;
+    font-size: 12.5px;
     text-transform: uppercase;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.06em;
     font-weight: 700;
     text-align: left;
   }
@@ -285,12 +274,12 @@
     text-decoration-thickness: 2px;
   }
 
-  /* R4 — eyebrow stamp. */
+  /* R4 — eyebrow stamp; booster's .kicker: signal red, mono 14px. */
   .raw-kicker {
-    color: var(--dim);
+    color: var(--red);
     font-family: var(--font-data);
-    font-size: 0.78rem;
-    letter-spacing: 0.18em;
+    font-size: 14px;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 }

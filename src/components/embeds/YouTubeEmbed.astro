@@ -56,19 +56,19 @@ const uniqueId = `youtube-${Math.random().toString(36).substring(2, 11)}`
       data-aspect={aspectHeight}
     >
       <!-- Loading Placeholder -->
-      <div class={`youtube-placeholder bg-gray-100 dark:bg-gray-800 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 flex items-center justify-center transition-all duration-300 ${aspectHeight}`} style={height !== 'auto' ? `height: ${height}px` : ''}>
+      <div class={`youtube-placeholder bg-muted border-2 border-dashed flex items-center justify-center ${aspectHeight}`} style={height !== 'auto' ? `height: ${height}px` : ''}>
         <div class="text-center">
-          <div class="animate-pulse mb-3">
+          <div class="mb-3">
             <!-- YouTube Play Button Icon -->
-            <div class="w-16 h-16 bg-red-600 rounded-full mx-auto mb-3 flex items-center justify-center relative">
-              <div class="w-0 h-0 border-l-6 border-r-0 border-t-4 border-b-4 border-l-white border-t-transparent border-b-transparent ml-1"></div>
+            <div class="w-16 h-16 bg-foreground mx-auto mb-3 flex items-center justify-center relative">
+              <div class="w-0 h-0 border-l-6 border-r-0 border-t-4 border-b-4 border-l-background border-t-transparent border-b-transparent ml-1"></div>
             </div>
             <!-- Video Title Placeholder -->
-            <div class="h-4 bg-gray-300 dark:bg-gray-600 rounded w-48 mx-auto mb-2"></div>
-            <div class="h-3 bg-gray-300 dark:bg-gray-600 rounded w-32 mx-auto"></div>
+            <div class="h-4 bg-muted-foreground w-48 mx-auto mb-2"></div>
+            <div class="h-3 bg-muted-foreground w-32 mx-auto"></div>
           </div>
-          <button 
-            class="mt-4 px-6 py-2 bg-red-600 hover:bg-red-700 text-white text-sm rounded-md transition-colors font-medium"
+          <button
+            class="mt-4 px-6 py-2 border-2 bg-background text-foreground font-mono text-[15px] tracking-[0.06em] hover:bg-foreground hover:text-background"
             onclick="this.parentElement.parentElement.parentElement.querySelector('.youtube-loader').click()"
           >
             Load YouTube Player
@@ -80,21 +80,21 @@ const uniqueId = `youtube-${Math.random().toString(36).substring(2, 11)}`
       <button class="youtube-loader hidden" data-target={uniqueId}></button>
       
       <!-- Iframe container (initially hidden) -->
-      <div class="youtube-iframe-container hidden rounded-lg overflow-hidden border bg-card">
+      <div class="youtube-iframe-container hidden overflow-hidden border-2 bg-card">
         <!-- Iframe will be inserted here -->
       </div>
     </div>
   ) : (
-    <div class="rounded-lg overflow-hidden border bg-card">
+    <div class="overflow-hidden border-2 bg-card">
       <div class="p-6 text-center">
         <p class="text-muted-foreground mb-4">
           Unable to embed YouTube video
         </p>
-        <a 
-          href={url} 
-          target="_blank" 
+        <a
+          href={url}
+          target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+          class="inline-flex items-center px-4 py-2 border-2 bg-background text-foreground font-mono text-[15px] tracking-[0.06em] hover:bg-foreground hover:text-background"
         >
           Watch on YouTube
         </a>
@@ -107,7 +107,7 @@ const uniqueId = `youtube-${Math.random().toString(36).substring(2, 11)}`
       href={url} 
       target="_blank" 
       rel="noopener noreferrer"
-      class="text-xs text-muted-foreground hover:text-foreground transition-colors"
+      class="text-xs text-muted-foreground hover:text-foreground"
     >
       Watch on YouTube ↗
     </a>

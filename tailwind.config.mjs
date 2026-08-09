@@ -25,26 +25,21 @@ const monoScale = {
 // Two faces, five roles — the same contract as src/styles/critical.css.
 // R1 display · R2 running prose · R3 quantities  -> textStack  (--font-text)
 // R4 identifiers & controls · R5 machine strings -> dataStack  (--font-data)
-// System fallbacks only; the self-hosted faces are phase 3 and get prepended
-// to these two lists. This file previously aliased sans, serif AND mono to one
-// monospace stack, which is why an 11,000-word essay read as terminal output.
+// Bureau register (booster.numetal.xyz, 2026-08-09): Helvetica Neue text face,
+// JetBrains Mono-led data face — booster's exact lists, straight from the OS,
+// no webfonts. Must stay in step with --font-text/--font-data in critical.css.
 const textStack = [
-  '"Newsreader Variable"',
-  '-apple-system',
-  'BlinkMacSystemFont',
-  '"Segoe UI"',
-  'Roboto',
   '"Helvetica Neue"',
+  'Helvetica',
   'Arial',
   'sans-serif',
 ]
 
 const dataStack = [
+  '"JetBrains Mono"',
   'ui-monospace',
-  'SFMono-Regular',
   '"SF Mono"',
   'Menlo',
-  'Consolas',
   'monospace',
 ]
 

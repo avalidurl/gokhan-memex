@@ -83,36 +83,6 @@ import Button from './ui/Button.astro'
 </script>
 
 <style>
-  @keyframes slide-in-from-bottom {
-    from {
-      transform: translateY(100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-  
-  @keyframes slide-out-to-bottom {
-    from {
-      transform: translateY(0);
-      opacity: 1;
-    }
-    to {
-      transform: translateY(100%);
-      opacity: 0;
-    }
-  }
-  
-  .animate-in.slide-in-from-bottom-2 {
-    animation: slide-in-from-bottom 0.3s ease-out;
-  }
-  
-  .animate-out.slide-out-to-bottom-2 {
-    animation: slide-out-to-bottom 0.3s ease-in;
-  }
-
   @media (max-width: 640px) {
     #privacy-notice {
       bottom: 0.75rem;
@@ -123,8 +93,6 @@ import Button from './ui/Button.astro'
     }
 
     #privacy-notice p {
-      font-size: 0.82rem;
-      line-height: 1.45;
       margin-bottom: 0.75rem;
     }
 
