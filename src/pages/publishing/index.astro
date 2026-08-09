@@ -11,7 +11,7 @@ import { academicPublications, experimentalWorks } from '@/data/publishing'
   <div class="publishing-document mx-auto max-w-4xl px-6 py-12 lg:py-16">
     <header class="mb-12">
       <p class="doc-eyebrow mb-3">Publishing</p>
-      <h1 class="mb-4 text-3xl font-semibold tracking-tight">Publishing</h1>
+      <h1 class="mb-4">Publishing</h1>
       <p class="doc-copy max-w-2xl text-foreground/80">
         Digital editions, browser-readable texts, and downloadable books prepared as quiet web documents.
       </p>
@@ -21,14 +21,14 @@ import { academicPublications, experimentalWorks } from '@/data/publishing'
       <details class="group" open>
         <summary class="flex items-center justify-between cursor-pointer list-none border-b border-foreground/10 pb-5">
           <div>
-            <h2 class="text-2xl font-semibold tracking-tight">
+            <h2>
               <a href="/publishing/ebooks/" class="doc-link">E-books</a>
             </h2>
             <p class="doc-copy mt-2 max-w-xl text-base text-foreground/75">
               Screen-native editions with EPUB downloads, browser reading, and cover art preserved as first-class web assets.
             </p>
           </div>
-          <span class="text-foreground/60 transition-transform group-open:rotate-180">▲</span>
+          <span class="text-foreground/60 group-open:rotate-180">▲</span>
         </summary>
 
         <div class="pt-5">
@@ -51,7 +51,7 @@ import { academicPublications, experimentalWorks } from '@/data/publishing'
                 </a>
                 <div class="border-b border-foreground/10 pb-4">
                   <p class="doc-eyebrow mb-2">E-book {String(index + 1).padStart(2, '0')}</p>
-                  <h3 class="mt-0 text-xl font-semibold">
+                  <h3 class="mt-0 font-sans normal-case tracking-normal text-[22px] font-bold leading-[1.25]">
                     <a href={`/publishing/ebooks/${ebook.slug}/`} class="doc-link">
                       {ebook.title}
                     </a>
@@ -83,21 +83,21 @@ import { academicPublications, experimentalWorks } from '@/data/publishing'
       <details class="group" open>
         <summary class="flex items-center justify-between cursor-pointer list-none border-b border-foreground/10 pb-5">
           <div>
-            <h2 class="text-2xl font-semibold tracking-tight">
+            <h2>
               <a href="/publishing/academic/" class="doc-link">Academic</a>
             </h2>
             <p class="doc-copy mt-2 max-w-xl text-base text-foreground/75">
               Selected publications, chapters, and graduate work.
             </p>
           </div>
-          <span class="text-foreground/60 transition-transform group-open:rotate-180">▲</span>
+          <span class="text-foreground/60 group-open:rotate-180">▲</span>
         </summary>
 
         <ul class="pt-6 space-y-6">
           {academicPublications.map((item) => (
             <li class="border-b border-foreground/10 pb-5">
               <p class="doc-eyebrow mb-2">{item.type}</p>
-              <h3 class="mt-0 text-xl font-semibold leading-tight">
+              <h3 class="mt-0 font-sans normal-case tracking-normal text-[22px] font-bold leading-[1.25]">
                 <a href={item.href} class="doc-link" target="_blank" rel="noopener noreferrer">
                   {item.title}
                 </a>
@@ -121,14 +121,14 @@ import { academicPublications, experimentalWorks } from '@/data/publishing'
       <details class="group" open>
         <summary class="flex items-center justify-between cursor-pointer list-none border-b border-foreground/10 pb-5">
           <div>
-            <h2 class="text-2xl font-semibold tracking-tight">
+            <h2>
               <a href="/publishing/experimental/" class="doc-link">Experimental</a>
             </h2>
             <p class="doc-copy mt-2 max-w-xl text-base text-foreground/75">
               Sound-led and hybrid experiments across writing, recording, and networked media.
             </p>
           </div>
-          <span class="text-foreground/60 transition-transform group-open:rotate-180">▲</span>
+          <span class="text-foreground/60 group-open:rotate-180">▲</span>
         </summary>
 
         <ul class="pt-6 space-y-6">
@@ -144,7 +144,7 @@ import { academicPublications, experimentalWorks } from '@/data/publishing'
               </a>
               <div class="border-b border-foreground/10 pb-4">
                 <p class="doc-eyebrow mb-2">{work.type.toUpperCase()}</p>
-                <h3 class="mt-0 text-xl font-semibold leading-tight">
+                <h3 class="mt-0 font-sans normal-case tracking-normal text-[22px] font-bold leading-[1.25]">
                   <a href={work.detailHref} class="doc-link">
                     {work.title}
                   </a>
@@ -209,14 +209,10 @@ import { academicPublications, experimentalWorks } from '@/data/publishing'
 
   .publishing-document .doc-eyebrow {
     color: var(--dim);
-    font-family: "Courier New", monospace;
-    font-size: 0.78rem;
-    letter-spacing: 0.18em;
+    font-family: var(--font-data);
+    font-size: 12.5px;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-  }
-
-  .publishing-document .doc-copy {
-    line-height: 1.38;
   }
 
   .publishing-document .doc-link {
@@ -238,16 +234,8 @@ import { academicPublications, experimentalWorks } from '@/data/publishing'
     display: none;
   }
 
-  .publishing-document .ebook-item > summary .ebook-caret {
-    transition: transform 160ms ease;
-  }
-
   .publishing-document .ebook-item[open] > summary .ebook-caret {
     transform: rotate(180deg);
-  }
-
-  .publishing-document .experimental-item > summary .experimental-caret {
-    transition: transform 160ms ease;
   }
 
   .publishing-document .experimental-item[open] > summary .experimental-caret {

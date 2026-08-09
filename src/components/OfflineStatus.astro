@@ -57,7 +57,7 @@
       <div class="ml-2 flex space-x-1">
         <button 
           onclick="offlineStatus.applyUpdate()" 
-          class="px-2 py-1 border border-border text-xs hover:bg-muted"
+          class="px-2 py-1 border-2 border-border font-mono text-[12.5px] tracking-[0.06em] hover:bg-foreground hover:text-background"
         >
           Update
         </button>
@@ -75,7 +75,7 @@
   <div id="offline-reading-btn" class="hidden">
     <a 
       href="/offline/" 
-      class="flex items-center border-2 border-border bg-background text-foreground p-3 hover:bg-muted"
+      class="flex items-center border-2 border-border bg-background text-foreground p-3 hover:bg-foreground hover:text-background"
     >
       
       <div>
@@ -251,36 +251,3 @@
     window.offlineStatus = offlineStatus;
   });
 </script>
-
-<style>
-  /* Custom animations for notifications */
-  #offline-status > div {
-    animation: slideInRight 0.3s ease-out forwards;
-  }
-
-  #offline-status > div.hidden {
-    animation: slideOutRight 0.3s ease-in forwards;
-  }
-
-  @keyframes slideInRight {
-    from {
-      transform: translateX(100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideOutRight {
-    from {
-      transform: translateX(0);
-      opacity: 1;
-    }
-    to {
-      transform: translateX(100%);
-      opacity: 0;
-    }
-  }
-</style>

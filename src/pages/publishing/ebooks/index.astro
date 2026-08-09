@@ -10,7 +10,7 @@ import { ebooks } from '@/data/ebooks'
   <div class="publishing-document mx-auto max-w-4xl px-6 py-12 lg:py-16">
     <header class="mb-12">
       <p class="doc-eyebrow mb-3">Publishing / E-books</p>
-      <h1 class="mb-4 text-3xl font-semibold tracking-tight">E-books</h1>
+      <h1 class="mb-4">E-books</h1>
       <p class="doc-copy max-w-2xl text-foreground/80">
         Browser-readable editions and downloadable EPUB files prepared as readable, printable web documents.
       </p>
@@ -34,7 +34,7 @@ import { ebooks } from '@/data/ebooks'
               <span>{ebook.pageCount} pages</span>
               <span>{new Date(ebook.publishedOn).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
             </div>
-            <h2 class="mt-0 text-2xl font-semibold tracking-tight">
+            <h2 class="mt-0">
               <a href={`/publishing/ebooks/${ebook.slug}/`} class="doc-link">
                 {ebook.title}
               </a>
@@ -86,14 +86,10 @@ import { ebooks } from '@/data/ebooks'
 
   .publishing-document .doc-eyebrow {
     color: var(--dim);
-    font-family: "Courier New", monospace;
-    font-size: 0.78rem;
-    letter-spacing: 0.18em;
+    font-family: var(--font-data);
+    font-size: 12.5px;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-  }
-
-  .publishing-document .doc-copy {
-    line-height: 1.38;
   }
 
   .publishing-document .doc-link {
@@ -105,10 +101,6 @@ import { ebooks } from '@/data/ebooks'
 
   .publishing-document .doc-link:visited {
     color: var(--dim);
-  }
-
-  .publishing-document .ebook-item > summary .ebook-caret {
-    transition: transform 160ms ease;
   }
 
   .publishing-document .ebook-item[open] > summary .ebook-caret {

@@ -8,6 +8,6 @@ interface Props {
 const { class: className, ...props } = Astro.props
 ---
 
-<div class={cn("border rounded-lg", className)} {...props}>
+<div class={cn("border-2", className)} {...props}>
   <slot />
 </div>

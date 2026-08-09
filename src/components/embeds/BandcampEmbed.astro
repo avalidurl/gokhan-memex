@@ -59,15 +59,15 @@ const uniqueId = `bandcamp-${Math.random().toString(36).substring(2, 11)}`
       data-id={uniqueId}
     >
       <!-- Loading Placeholder -->
-      <div class="bandcamp-placeholder bg-gray-100 dark:bg-gray-800 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 flex items-center justify-center transition-all duration-300" style="height: 120px;">
+      <div class="bandcamp-placeholder bg-muted border-2 border-dashed flex items-center justify-center" style="height: 120px;">
         <div class="text-center">
-          <div class="animate-pulse mb-2">
-            <div class="w-12 h-12 bg-gray-300 dark:bg-gray-600 rounded-lg mx-auto mb-2"></div>
-            <div class="h-3 bg-gray-300 dark:bg-gray-600 rounded w-24 mx-auto mb-1"></div>
-            <div class="h-2 bg-gray-300 dark:bg-gray-600 rounded w-16 mx-auto"></div>
+          <div class="mb-2">
+            <div class="w-12 h-12 bg-muted-foreground mx-auto mb-2"></div>
+            <div class="h-3 bg-muted-foreground w-24 mx-auto mb-1"></div>
+            <div class="h-2 bg-muted-foreground w-16 mx-auto"></div>
           </div>
-          <button 
-            class="mt-3 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded-md transition-colors"
+          <button
+            class="mt-3 px-4 py-2 border-2 bg-background text-foreground font-mono text-[15px] tracking-[0.06em] hover:bg-foreground hover:text-background"
             onclick="this.parentElement.parentElement.parentElement.querySelector('.bandcamp-loader').click()"
           >
             Load Bandcamp Player
@@ -84,16 +84,16 @@ const uniqueId = `bandcamp-${Math.random().toString(36).substring(2, 11)}`
       </div>
     </div>
   ) : (
-    <div class="rounded-lg overflow-hidden border bg-card">
+    <div class="overflow-hidden border-2 bg-card">
       <div class="p-6 text-center">
         <p class="text-muted-foreground mb-4">
           Unable to embed Bandcamp player
         </p>
-        <a 
-          href={url} 
-          target="_blank" 
+        <a
+          href={url}
+          target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
+          class="inline-flex items-center px-4 py-2 border-2 bg-background text-foreground font-mono text-[15px] tracking-[0.06em] hover:bg-foreground hover:text-background"
         >
           Listen on Bandcamp
         </a>
@@ -106,7 +106,7 @@ const uniqueId = `bandcamp-${Math.random().toString(36).substring(2, 11)}`
       href={url} 
       target="_blank" 
       rel="noopener noreferrer"
-      class="text-xs text-muted-foreground hover:text-foreground transition-colors"
+      class="text-xs text-muted-foreground hover:text-foreground"
     >
       Open in Bandcamp ↗
     </a>

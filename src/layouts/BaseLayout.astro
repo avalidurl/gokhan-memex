@@ -129,8 +129,8 @@ const collapseVersion = createHash('sha256')
     <meta name="apple-mobile-web-app-title" content={siteName} />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="msapplication-config" content="/browserconfig.xml" />
-    <meta name="msapplication-TileColor" content="#f4f4f2" />
-    <meta name="theme-color" content="#f4f4f2" />
+    <meta name="msapplication-TileColor" content="#FAFAF8" />
+    <meta name="theme-color" content="#FAFAF8" />
     
     <!-- Apple Touch Icons — root paths by convention (and outside the /icons/* edge cleanup rule) -->
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -312,7 +312,7 @@ const collapseVersion = createHash('sha256')
 </html>
 
 <style>
-  /* Raise notice — same ruled row as the gokhan.vc masthead treatment. */
+  /* Raise notice — booster docstrip metrics: mono 12.5px, 3px/1px rules. */
   .nrbar {
     display: flex;
     flex-wrap: wrap;
@@ -323,11 +323,12 @@ const collapseVersion = createHash('sha256')
     background: var(--paper);
     color: var(--ink);
     font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.16em;
+    font-size: 12.5px;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
-    padding: 6px 12px;
-    border-bottom: 2px solid var(--ink);
+    padding: 8px 12px;
+    border-top: 3px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
   }
   .nrbar-flag { font-weight: 700; }
   .nrbar-note { color: var(--dim); }

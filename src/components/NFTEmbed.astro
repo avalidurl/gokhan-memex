@@ -121,14 +121,14 @@ const primaryUrl = url || zoraUrl || openSeaUrl || etherscanUrl
 ---
 
 <div class="my-6 not-prose">
-  <div class="bg-white rounded-lg border border-gray-200 p-4 mx-auto max-w-full overflow-hidden">
+  <div class="bg-card border-2 p-4 mx-auto max-w-full overflow-hidden">
     <div class="flex flex-col gap-4">
       <!-- NFT Image -->
       {displayImage && (
         <img 
           src={displayImage} 
           alt={displayTitle}
-          class="w-full max-w-full rounded-lg"
+          class="w-full max-w-full"
           style="height: auto;"
           loading="lazy"
         />
@@ -136,14 +136,14 @@ const primaryUrl = url || zoraUrl || openSeaUrl || etherscanUrl
       
       <!-- NFT Info -->
       <div class="space-y-2">
-        <h4 class="text-lg font-semibold text-gray-900">{displayTitle}</h4>
-        
+        <h4 class="font-sans text-[22px] font-bold leading-[1.25] normal-case tracking-normal text-foreground">{displayTitle}</h4>
+
         {displayCreator && (
-          <p class="text-sm text-gray-500">By {displayCreator}</p>
+          <p class="text-sm text-muted-foreground">By {displayCreator}</p>
         )}
-        
+
         {displayDescription && (
-          <p class="text-sm text-gray-600 leading-relaxed">{displayDescription}</p>
+          <p class="text-sm text-muted-foreground leading-relaxed">{displayDescription}</p>
         )}
       </div>
       
@@ -153,7 +153,7 @@ const primaryUrl = url || zoraUrl || openSeaUrl || etherscanUrl
           href={primaryUrl}
           target="_blank"
           rel="noopener noreferrer"
-          class="w-full inline-flex items-center justify-center px-4 py-2.5 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-sm font-medium"
+          class="w-full inline-flex items-center justify-center px-4 py-2.5 border-2 bg-background text-foreground font-mono text-[15px] tracking-[0.06em] hover:bg-foreground hover:text-background"
         >
           {nftInfo.action}
         </a>
@@ -163,7 +163,7 @@ const primaryUrl = url || zoraUrl || openSeaUrl || etherscanUrl
               href={zoraUrl}
               target="_blank"
               rel="noopener noreferrer"
-              class="flex-1 inline-flex items-center justify-center px-3 py-2 border border-gray-300 bg-white text-gray-700 rounded-md hover:bg-gray-50 transition-colors text-xs"
+              class="flex-1 inline-flex items-center justify-center px-3 py-2 border-2 bg-background text-foreground font-mono text-[12.5px] tracking-[0.06em] hover:bg-foreground hover:text-background"
             >
               Zora
             </a>
@@ -173,7 +173,7 @@ const primaryUrl = url || zoraUrl || openSeaUrl || etherscanUrl
               href={openSeaUrl}
               target="_blank"
               rel="noopener noreferrer"
-              class="flex-1 inline-flex items-center justify-center px-3 py-2 border border-gray-300 bg-white text-gray-700 rounded-md hover:bg-gray-50 transition-colors text-xs"
+              class="flex-1 inline-flex items-center justify-center px-3 py-2 border-2 bg-background text-foreground font-mono text-[12.5px] tracking-[0.06em] hover:bg-foreground hover:text-background"
             >
               OpenSea
             </a>
@@ -182,7 +182,7 @@ const primaryUrl = url || zoraUrl || openSeaUrl || etherscanUrl
             href={etherscanUrl}
             target="_blank"
             rel="noopener noreferrer"
-            class="flex-1 inline-flex items-center justify-center px-3 py-2 border border-gray-300 bg-white text-gray-700 rounded-md hover:bg-gray-50 transition-colors text-xs"
+            class="flex-1 inline-flex items-center justify-center px-3 py-2 border-2 bg-background text-foreground font-mono text-[12.5px] tracking-[0.06em] hover:bg-foreground hover:text-background"
           >
             Etherscan
           </a>

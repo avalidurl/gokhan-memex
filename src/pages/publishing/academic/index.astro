@@ -10,7 +10,7 @@ import { academicPublications } from '@/data/publishing'
   <div class="publishing-document mx-auto max-w-4xl px-6 py-12 lg:py-16">
     <header class="mb-12">
       <p class="doc-eyebrow mb-3">Publishing / Academic</p>
-      <h1 class="mb-4 text-3xl font-semibold tracking-tight">Academic</h1>
+      <h1 class="mb-4">Academic</h1>
       <p class="doc-copy max-w-2xl text-foreground/80">
         Selected publications, chapters, and graduate work.
       </p>
@@ -20,7 +20,7 @@ import { academicPublications } from '@/data/publishing'
       {academicPublications.map((item) => (
         <article class="border-t border-foreground/15 pt-8">
           <p class="doc-eyebrow mb-3">{item.type}</p>
-          <h2 class="mt-0 text-2xl font-semibold tracking-tight leading-tight">
+          <h2 class="mt-0">
             <a href={item.href} class="doc-link" target="_blank" rel="noopener noreferrer">
               {item.title}
             </a>
@@ -50,14 +50,10 @@ import { academicPublications } from '@/data/publishing'
 
   .publishing-document .doc-eyebrow {
     color: var(--dim);
-    font-family: "Courier New", monospace;
-    font-size: 0.78rem;
-    letter-spacing: 0.18em;
+    font-family: var(--font-data);
+    font-size: 12.5px;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-  }
-
-  .publishing-document .doc-copy {
-    line-height: 1.38;
   }
 
   .publishing-document .doc-link {

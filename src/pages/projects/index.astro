@@ -63,22 +63,20 @@ import { registerProjects as projects, projectIndex } from '@/data/projects'
     .ds { padding: 24px 34px 48px; color: var(--ink); }
     .meta {
       font-family: var(--font-mono);
-      font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+      font-size: 12.5px; letter-spacing: .04em; text-transform: uppercase;
       color: var(--dim); text-align: left;
     }
     .dither { height: 0; margin: 14px 0; border-top: 1px solid var(--ink); }
     .dgap { margin: 36px 0 22px; }
 
     .pintro { max-width: 64ch; margin: 0; padding-top: 14px; }
-    .h {
-      font-size: clamp(26px, 5.5vw, 44px); font-weight: 700;
-      letter-spacing: .02em; line-height: 1.05; text-align: left; margin: 0;
-    }
-    .lead { font-size: 15px; line-height: 1.7; margin: 18px 0 0; color: var(--ink); max-width: 64ch; }
+    .h { text-align: left; margin: 0; }
+    .lead { font-size: 21px; line-height: 1.6; margin: 18px 0 0; color: var(--ink); max-width: 64ch; }
 
     .idxh {
-      font-size: 12px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: .22em; margin-bottom: 10px; text-align: left;
+      font-family: var(--font-data);
+      font-size: 14px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .08em; margin-bottom: 10px; text-align: left;
       border-bottom: 2px solid var(--ink); padding-bottom: .35rem;
     }
 
@@ -96,10 +94,10 @@ import { registerProjects as projects, projectIndex } from '@/data/projects'
     .pirow:last-child { border-bottom: 0; }
     .pirow:hover { background: var(--faint); }
     .pirow:hover .pi-name { text-decoration: underline; text-underline-offset: 2px; }
-    .pi-no { font-family: var(--font-mono); font-size: 11px; color: var(--dim); letter-spacing: .06em; }
-    .pi-name { font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: .1em; }
-    .pi-note { font-size: 13px; color: var(--dim); }
-    .pi-arrow { text-align: right; color: var(--dim); font-size: 13px; }
+    .pi-no { font-family: var(--font-mono); font-size: 12.5px; color: var(--dim); letter-spacing: .06em; }
+    .pi-name { font-family: var(--font-data); font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: .08em; }
+    .pi-note { font-size: 16.5px; color: var(--dim); }
+    .pi-arrow { text-align: right; color: var(--dim); font-size: 16.5px; }
 
     /* Project register — fully-boxed ledger grid, ubu §1 spec style. */
     .register { max-width: 100%; }
@@ -114,12 +112,12 @@ import { registerProjects as projects, projectIndex } from '@/data/projects'
     .cell:hover { background: var(--faint); }
     .cell:hover .v { text-decoration: underline; text-underline-offset: 2px; }
     .cell .k {
-      font-family: var(--font-mono); font-size: 10px; letter-spacing: .14em;
+      font-family: var(--font-mono); font-size: 12.5px; letter-spacing: .06em;
       text-transform: uppercase; color: var(--dim); margin-bottom: .45rem;
     }
-    .cell .v { font-size: 15px; font-weight: 700; line-height: 1.25; }
+    .cell .v { font-size: 22px; font-weight: 700; line-height: 1.25; }
     .cell .v small {
-      display: block; margin-top: .35rem; font-size: 11.5px; font-weight: 400;
+      display: block; margin-top: .35rem; font-size: 16.5px; font-weight: 400;
       color: var(--dim); line-height: 1.45; letter-spacing: 0; text-transform: none;
     }
 
