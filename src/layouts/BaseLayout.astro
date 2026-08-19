@@ -75,6 +75,10 @@ const collapseVersion = createHash('sha256')
   .update(readFileSync(resolve(process.cwd(), 'public/blog-collapse.js')))
   .digest('hex')
   .slice(0, 8)
+const tableDeskVersion = createHash('sha256')
+  .update(readFileSync(resolve(process.cwd(), 'public/table-desk.js')))
+  .digest('hex')
+  .slice(0, 8)
 ---
 
 <!DOCTYPE html>
@@ -308,6 +312,7 @@ const collapseVersion = createHash('sha256')
     </script>
     <!-- Collapsible article headings (blog/journal only; no-ops elsewhere). -->
     <script src={`/blog-collapse.js?v=${collapseVersion}`} defer></script>
+    <script src={`/table-desk.js?v=${tableDeskVersion}`} defer></script>
   </body>
 </html>
 
