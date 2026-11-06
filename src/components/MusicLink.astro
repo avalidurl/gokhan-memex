@@ -8,58 +8,15 @@ export interface Props {
 
 const { url, artist, title, className = "" } = Astro.props;
 
-// Detect platform from URL
 function getPlatformInfo(url: string) {
   const domain = new URL(url).hostname.toLowerCase();
-  
-  if (domain.includes('sound.xyz')) {
-    return {
-      name: 'Sound.xyz',
-      icon: '',
-      color: 'bg-background border-border text-foreground'
-    };
-  }
-  if (domain.includes('catalog.works')) {
-    return {
-      name: 'Catalog',
-      icon: '',
-      color: 'bg-background border-border text-foreground'
-    };
-  }
-  if (domain.includes('bandcamp.com')) {
-    return {
-      name: 'Bandcamp',
-      icon: '',
-      color: 'bg-background border-border text-foreground'
-    };
-  }
-  if (domain.includes('spotify.com')) {
-    return {
-      name: 'Spotify',
-      icon: '',
-      color: 'bg-background border-border text-foreground'
-    };
-  }
-  if (domain.includes('apple.com') || domain.includes('music.apple.com')) {
-    return {
-      name: 'Apple Music',
-      icon: '',
-      color: 'bg-background border-border text-foreground'
-    };
-  }
-  if (domain.includes('youtube.com') || domain.includes('youtu.be')) {
-    return {
-      name: 'YouTube',
-      icon: '',
-      color: 'bg-background border-border text-foreground'
-    };
-  }
-  
-  return {
-    name: 'Music Link',
-    icon: '',
-    color: 'bg-background border-border text-foreground'
-  };
+  if (domain.includes('sound.xyz')) return { name: 'Sound.xyz' };
+  if (domain.includes('catalog.works')) return { name: 'Catalog' };
+  if (domain.includes('bandcamp.com')) return { name: 'Bandcamp' };
+  if (domain.includes('spotify.com')) return { name: 'Spotify' };
+  if (domain.includes('apple.com') || domain.includes('music.apple.com')) return { name: 'Apple Music' };
+  if (domain.includes('youtube.com') || domain.includes('youtu.be')) return { name: 'YouTube' };
+  return { name: 'Music Link' };
 }
 
 const platform = getPlatformInfo(url);
@@ -69,23 +26,23 @@ const platform = getPlatformInfo(url);
   href={url} 
   target="_blank" 
   rel="noopener noreferrer"
-  class={`inline-flex items-center gap-3 p-4 border-2 no-underline hover:no-underline ${platform.color} ${className}`}
+  class={`inline-flex items-center gap-3 rounded-2xl border border-border bg-card px-5 py-4 text-foreground no-underline hover:border-primary transition-colors ${className}`}
   style="text-decoration: none !important;"
 >
-    <div class="flex-1">
-    <div class="flex items-center gap-2 text-sm font-medium opacity-75">
+  <div class="flex-1">
+    <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.07em] text-primary">
       <span>{platform.name}</span>
-<span aria-hidden="true">↗</span>
+      <span aria-hidden="true">↗</span>
     </div>
     {(artist || title) && (
-      <div class="mt-1">
-        {artist && <span class="font-semibold">{artist}</span>}
-        {artist && title && <span class="mx-2">—</span>}
+      <div class="mt-1 font-serif text-[17px]">
+        {artist && <span class="font-bold">{artist}</span>}
+        {artist && title && <span class="mx-2 text-muted-foreground">—</span>}
         {title && <span>"{title}"</span>}
       </div>
     )}
     {!artist && !title && (
-      <div class="text-sm opacity-75 mt-1 font-mono truncate">
+      <div class="text-sm text-muted-foreground mt-1 font-mono truncate">
         {url.replace(/^https?:\/\//, '')}
       </div>
     )}

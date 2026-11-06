@@ -25,44 +25,44 @@ const description =
   robots="index, follow, max-image-preview:large, max-snippet:-1"
   breadcrumbOverride={{ items: [], currentPage: 'CV' }}
 >
-  <div class="cv-document cv-screen mx-auto max-w-3xl px-6 py-12 lg:py-16">
+  <div class="cv-document cv-screen mx-auto max-w-3xl px-5 py-10 lg:py-14">
     <article itemscope itemtype="https://schema.org/Person">
       <meta itemprop="name" content={cvMeta.name} />
       <meta itemprop="email" content="contact@gokhan.vc" />
 
-      <p class="doc-eyebrow mb-3">Curriculum vitae</p>
-      <h1 class="mb-2" itemprop="name">
-        {cvMeta.name}
-      </h1>
-      <p class="mb-1 text-lg text-foreground/80" itemprop="jobTitle">{cvMeta.title}</p>
-      <p class="mb-6 max-w-2xl text-lg text-foreground/90" itemprop="description">
-        {cvMeta.tagline}
-      </p>
+      <header class="cv-hero mb-10">
+        <div class="kicker-pill mb-3">Curriculum vitae</div>
+        <h1 class="mb-2" itemprop="name">
+          {cvMeta.name}
+        </h1>
+        <p class="mb-2 font-serif text-[20px] text-primary font-semibold" itemprop="jobTitle">{cvMeta.title}</p>
+        <p class="mb-5 max-w-2xl font-serif text-[17.5px] leading-relaxed text-foreground/90" itemprop="description">
+          {cvMeta.tagline}
+        </p>
 
-      <p class="mb-8 text-sm text-muted-foreground no-print">
-        Updated {cvMeta.lastUpdated} · Machine-readable:
-        <a href="/cv.json" class="doc-link ml-1">JSON</a>
-        <span class="mx-1">·</span>
-        <a href="/cv/plain.txt" class="doc-link">Plain text</a>
-        <span class="mx-1">·</span>
-        <a href="/cv/raw.html" class="doc-link">Raw HTML</a>
-      </p>
+        <div class="flex flex-wrap items-center gap-2.5 no-print mb-4">
+          <a href={cvMeta.pdfUrl} class="cv-btn primary" download={cvMeta.pdfFileName}>
+            Download PDF ↓
+          </a>
+          <a href="/cv.json" class="cv-btn">JSON</a>
+          <a href="/cv/plain.txt" class="cv-btn">Plain text</a>
+          <a href="/cv/raw.html" class="cv-btn">Raw HTML</a>
+        </div>
 
-      <div class="mb-10 flex flex-wrap gap-x-5 gap-y-2 text-base no-print">
-        <a href={cvMeta.pdfUrl} class="doc-link" download={cvMeta.pdfFileName}>
-          Download PDF
-        </a>
-      </div>
+        <p class="m-0 text-xs text-muted-foreground no-print">
+          Updated {cvMeta.lastUpdated}
+        </p>
+      </header>
 
-      <section class="border-t border-foreground/15 pt-8" aria-labelledby="contact-heading">
-        <h2 id="contact-heading" class="mb-4">
+      <section class="cv-card" aria-labelledby="contact-heading">
+        <h2 id="contact-heading" class="cv-sec-title">
           Contact
         </h2>
         <address class="not-italic text-foreground/90">
-          <ul class="space-y-2">
+          <ul class="grid gap-2.5 sm:grid-cols-2 list-none p-0 m-0 text-[15px]">
             {contact.map((c) => (
-              <li>
-                <span class="text-muted-foreground">{c.label}:</span>{' '}
+              <li class="m-0">
+                <span class="text-muted-foreground font-medium">{c.label}:</span>{' '}
                 {c.url ? (
                   <a href={c.url} class="doc-link" rel="noopener noreferrer">
                     {c.value}
@@ -76,62 +76,66 @@ const description =
         </address>
       </section>
 
-      <section class="mt-10 border-t border-foreground/15 pt-8" aria-labelledby="profile-heading">
-        <h2 id="profile-heading" class="mb-4">
+      <section class="cv-card" aria-labelledby="profile-heading">
+        <h2 id="profile-heading" class="cv-sec-title">
           Profile
         </h2>
-        <div class="space-y-4 text-lg text-foreground/90">
+        <div class="space-y-4 font-serif text-[17.5px] leading-relaxed text-foreground/90">
           {profile.map((p) => (
-            <p>{p}</p>
+            <p class="m-0">{p}</p>
           ))}
         </div>
       </section>
 
-      <section class="mt-10 border-t border-foreground/15 pt-8" aria-labelledby="exp-heading">
-        <h2 id="exp-heading" class="mb-4">
+      <section class="cv-card" aria-labelledby="exp-heading">
+        <h2 id="exp-heading" class="cv-sec-title">
           Experience
         </h2>
-        <div class="space-y-10">
+        <div class="space-y-7">
           {experience.map((job) => (
-            <section>
-              <h3>
-                {job.role}
-                <span class="font-normal text-foreground/70"> — {job.org}</span>
-                {job.location && (
-                  <span class="block font-normal text-muted-foreground">{job.location}</span>
-                )}
-              </h3>
-              <p class="mt-1 text-sm text-muted-foreground">
-                <time datetime={job.start}>{job.start}</time>
-                {' – '}
-                <time datetime={job.end}>{job.end}</time>
-              </p>
-              <ul class="mt-3 list-disc space-y-2 pl-6 text-foreground/90">
+            <div class="cv-job">
+              <div class="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 class="m-0 font-serif text-[19px] font-bold text-foreground">
+                  {job.role}
+                  <span class="font-normal text-muted-foreground"> — {job.org}</span>
+                </h3>
+                <span class="rounded-full border border-border bg-muted px-3 py-0.5 text-xs font-semibold text-primary">
+                  <time datetime={job.start}>{job.start}</time>
+                  {' – '}
+                  <time datetime={job.end}>{job.end}</time>
+                </span>
+              </div>
+              {job.location && (
+                <p class="mt-1 mb-0 text-xs uppercase tracking-[0.06em] text-muted-foreground">{job.location}</p>
+              )}
+              <ul class="mt-3 list-disc space-y-1.5 pl-5 text-[15.5px] leading-relaxed text-foreground/90 mb-0">
                 {job.bullets.map((b) => (
                   <li>{b}</li>
                 ))}
               </ul>
-            </section>
+            </div>
           ))}
         </div>
       </section>
 
-      <section class="mt-10 border-t border-foreground/15 pt-8" aria-labelledby="edu-heading">
-        <h2 id="edu-heading" class="mb-4">
+      <section class="cv-card" aria-labelledby="edu-heading">
+        <h2 id="edu-heading" class="cv-sec-title">
           Education
         </h2>
-        <ul class="space-y-6">
+        <ul class="space-y-5 list-none p-0 m-0">
           {education.map((ed) => (
-            <li>
-              <p class="font-semibold text-foreground">
-                {ed.degree}
-                {'honors' in ed && ed.honors ? ` — ${ed.honors}` : ''}
-              </p>
-              <p class="text-foreground/90">{ed.school}</p>
-              <p class="text-sm text-muted-foreground">{ed.years}</p>
-              {'detail' in ed && ed.detail && <p class="mt-2 text-foreground/90">{ed.detail}</p>}
+            <li class="m-0 pb-4 border-b border-border last:border-b-0 last:pb-0">
+              <div class="flex flex-wrap items-baseline justify-between gap-2">
+                <p class="m-0 font-serif text-[18px] font-bold text-foreground">
+                  {ed.degree}
+                  {'honors' in ed && ed.honors ? ` — ${ed.honors}` : ''}
+                </p>
+                <span class="text-xs font-semibold text-primary">{ed.years}</span>
+              </div>
+              <p class="m-0 mt-0.5 text-[15px] text-muted-foreground">{ed.school}</p>
+              {'detail' in ed && ed.detail && <p class="mt-2 mb-0 text-[15px] text-foreground/90">{ed.detail}</p>}
               {'link' in ed && ed.link && (
-                <p class="mt-1">
+                <p class="mt-1.5 mb-0 text-sm">
                   <a href={ed.link} class="doc-link" rel="noopener noreferrer">
                     {ed.linkLabel ?? 'Link'}
                   </a>
@@ -142,48 +146,49 @@ const description =
         </ul>
       </section>
 
-      <section class="mt-10 border-t border-foreground/15 pt-8" aria-labelledby="pub-heading">
-        <h2 id="pub-heading" class="mb-4">
-          Publications & exhibitions
+      <section class="cv-card" aria-labelledby="pub-heading">
+        <h2 id="pub-heading" class="cv-sec-title">
+          Publications &amp; exhibitions
         </h2>
-        <ul class="list-disc space-y-2 pl-6 text-foreground/90">
+        <ul class="list-disc space-y-2 pl-5 text-[15.5px] text-foreground/90 m-0">
           {publications.map((p) => (
             <li>{p}</li>
           ))}
         </ul>
       </section>
 
-      <section class="mt-10 border-t border-foreground/15 pt-8" aria-labelledby="skills-heading">
-        <h2 id="skills-heading" class="mb-4">
-          Skills & tooling
+      <section class="cv-card" aria-labelledby="skills-heading">
+        <h2 id="skills-heading" class="cv-sec-title">
+          Skills &amp; tooling
         </h2>
-        <div class="space-y-8">
+        <div class="grid gap-5 md:grid-cols-2">
           {skillGroups.map((g) => (
-            <section>
-              <h3 class="mb-2 text-muted-foreground">
+            <div class="rounded-xl border border-border bg-background p-4">
+              <h3 class="mt-0 mb-2 font-sans text-xs font-bold uppercase tracking-[0.07em] text-primary">
                 {g.name}
               </h3>
-              <ul class="space-y-2 text-foreground/90">
+              <ul class="space-y-1.5 text-[14px] leading-snug text-foreground/90 list-disc pl-4 m-0">
                 {g.items.map((item) => (
                   <li>{item}</li>
                 ))}
               </ul>
-            </section>
+            </div>
           ))}
         </div>
       </section>
 
-      <section class="mt-10 border-t border-foreground/15 pt-8" aria-labelledby="lang-heading">
-        <h2 id="lang-heading" class="mb-4">
+      <section class="cv-card" aria-labelledby="lang-heading">
+        <h2 id="lang-heading" class="cv-sec-title">
           Languages
         </h2>
-        <ul class="space-y-2 text-foreground/90">
+        <div class="flex flex-wrap gap-3">
           {languages.map((l) => (
-            <li>
-              <strong>{l.name}</strong>: {l.level}
-            </li>
+            <div class="rounded-full border border-border bg-muted px-4 py-1.5 text-sm">
+              <strong class="text-foreground">{l.name}</strong>
+              <span class="text-muted-foreground"> · {l.level}</span>
+            </div>
           ))}
-        </ul>
+        </div>
       </section>
     </article>
 
@@ -197,69 +202,105 @@ const description =
 <style>
   .cv-document {
     color: var(--ink);
-    /* R2 — running prose. The R4 identifiers inside (eyebrows, doc numbers,
-       line numbers, labels) re-assert the data face themselves. */
-    font-family: var(--font-text);
   }
 
-  :global(.dark) .cv-document {
-    color: hsl(var(--foreground));
+  .cv-hero {
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-left: 5px solid var(--acc);
+    border-radius: 20px;
+    padding: 26px 28px;
   }
 
-  .cv-document .doc-eyebrow {
-    color: var(--dim);
-    font-family: var(--font-mono);
-    font-size: 14px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+  .cv-btn {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--bg);
+    color: var(--acc);
+    padding: 7px 15px;
+    font-family: var(--font-sans);
+    font-size: 13.5px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
   }
 
-  :global(.dark) .cv-document .doc-eyebrow {
-    color: hsl(var(--muted-foreground));
+  .cv-btn:hover {
+    border-color: var(--acc);
+    background: var(--soft-hover);
+  }
+
+  .cv-btn.primary {
+    background: var(--acc);
+    border-color: var(--acc);
+    color: #ffffff;
+  }
+
+  .cv-btn.primary:hover {
+    background: var(--acc-dark);
+    border-color: var(--acc-dark);
+    color: #ffffff;
+  }
+
+  .cv-card {
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 24px 26px;
+    margin-bottom: 18px;
+  }
+
+  .cv-sec-title {
+    margin: 0 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-serif);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .cv-job + .cv-job {
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
   }
 
   .cv-document .doc-link {
-    color: var(--ink);
+    color: var(--acc);
     text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.12em;
+    text-underline-offset: 3px;
   }
 
-  .cv-document .doc-link:visited {
-    color: var(--dim);
+  .cv-document .doc-link:hover {
+    color: var(--acc-dark);
   }
 
-  :global(.dark) .cv-document .doc-link {
-    color: hsl(var(--primary));
-  }
-
-  :global(.dark) .cv-document .doc-link:visited {
-    color: var(--dim);
+  @media (max-width: 640px) {
+    .cv-hero,
+    .cv-card {
+      padding: 20px;
+    }
   }
 </style>
 
 <style is:global>
-  /* The print sheet is a copy of the downloadable PDF layout; hidden on screen. */
   .cv-print { display: none; }
 
   @media print {
     @page { margin: 0; }
-    html, body { margin: 0 !important; padding: 0 !important; background: var(--paper) !important; }
+    html, body { margin: 0 !important; padding: 0 !important; background: #ffffff !important; }
 
-    /* Hide everything except the embedded print sheet:
-       - body-level overlays (theme/cookie/offline/lightbox) that aren't the layout wrapper
-       - site chrome (nav/footer) and the on-screen CV */
     body > *:not(.relative):not(.cv-print) { display: none !important; }
     nav, header, footer, .cv-screen, .no-print { display: none !important; }
 
-    /* Lift the sheet to the page origin, independent of layout wrappers.
-       The downloadable PDF is generated by printing this same page. */
     .cv-print {
       display: block !important;
       position: fixed !important;
       inset: 0 !important;
       margin: 0 !important;
-      background: var(--paper) !important;
+      background: #ffffff !important;
       z-index: 2147483647 !important;
     }
   }

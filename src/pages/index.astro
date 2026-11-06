@@ -17,34 +17,46 @@ const essays = (await getCollection('blog'))
 
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
-
 ---
 
 <BaseLayout
   title="Gökhan Turhan"
   description="Full-stack builder — one person, a fleet of agents. Agent-native venues, rails, and benchmarks live in production on x402: Ishtar, CURB, HeartBench. Journal, CV, publishing."
 >
-  <div class="ds">
-    <!-- Masthead — the filed title block, boxed like a bureau document. -->
-    <header class="mast">
-      <div class="mast-title">
-        <h1 class="h">Gökhan Turhan<span class="ikb-dot" aria-hidden="true">.</span></h1>
-        <div class="sub">Full-stack builder · fintech × AI × agent-native markets</div>
-        <div class="stamp">Live in production — taking real machine payments</div>
-      </div>
-      <div class="mast-row">
-        <div class="mast-cell"><a href="/journal/">Read the journal →</a></div>
-        <div class="mast-cell">Contact:
-          <a href="https://x.com/goekhan" target="_blank" rel="noopener">X</a> ·
-          <a href="https://t.me/goekhanturhan" target="_blank" rel="noopener">Telegram</a> ·
-          <a href="https://linkedin.com/in/goekhanturhan" target="_blank" rel="noopener">LinkedIn</a> ·
+  <div class="home-wrap">
+    <!-- Hero — editorial split with subtle static rose orb accent -->
+    <header class="hero-card">
+      <div class="hero-copy">
+        <div class="kicker-pill">Full-stack builder · fintech × AI × agent-native markets</div>
+        <h1 class="hero-title">Gökhan Turhan<span class="rose-dot" aria-hidden="true">.</span></h1>
+        <p class="hero-stamp">Live in production — taking real machine payments</p>
+        <div class="hero-actions">
+          <a class="btn-pill primary" href="/journal/">Read the journal →</a>
+          <a class="btn-pill" href="/projects/">Project files</a>
+          <a class="btn-pill" href="/cv/">CV</a>
+        </div>
+        <div class="hero-contacts">
+          <span>Contact:</span>
+          <a href="https://x.com/goekhan" target="_blank" rel="noopener">X</a>
+          <span aria-hidden="true">·</span>
+          <a href="https://t.me/goekhanturhan" target="_blank" rel="noopener">Telegram</a>
+          <span aria-hidden="true">·</span>
+          <a href="https://linkedin.com/in/goekhanturhan" target="_blank" rel="noopener">LinkedIn</a>
+          <span aria-hidden="true">·</span>
           <a href="mailto:contact@gokhan.vc">Email</a>
+        </div>
+      </div>
+
+      <div class="orb-panel" aria-hidden="true">
+        <div class="orb-stage">
+          <div class="rose-orb"></div>
         </div>
       </div>
     </header>
 
+    <!-- Lede & Project Index -->
     <div class="lede-row">
-      <details class="lede" open>
+      <details class="lede-card" open>
         <summary class="lede-summary">
           <span class="lede-summary-t">One person, a fleet of agents</span>
           <span class="lede-toggle" aria-hidden="true"></span>
@@ -61,7 +73,7 @@ const fmt = (d: Date) =>
             explaining it in decks and started clearing it in prod. I also make conceptual
             art; it keeps me honest about naming and compression.
           </p>
-          <p class="p">
+          <p class="p-sub">
             What I want more of is <b>acceleration you can weigh</b>: gigawatts, foundries,
             compute, mass to orbit. Hard tech, deep tech, manufacturing, spaceflight —
             capacity, not adjectives; the base the big problems don't get solved without.
@@ -96,16 +108,16 @@ const fmt = (d: Date) =>
       </section>
     </div>
 
-    <div class="dither dgap"></div>
+    <div class="section-rule"></div>
     <PortfolioBoard />
 
-    <div class="dither dgap"></div>
+    <div class="section-rule"></div>
     <section class="register">
       <div class="idxh">Project register — filed &amp; live</div>
-      <div class="grid">
+      <div class="reg-grid">
         {projects.map((pr, i) => (
           <a
-            class="cell"
+            class="reg-card"
             href={pr.href}
             target={pr.href.startsWith('http') ? '_blank' : undefined}
             rel={pr.href.startsWith('http') ? 'noopener' : undefined}
@@ -115,174 +127,428 @@ const fmt = (d: Date) =>
           </a>
         ))}
       </div>
-      <a class="more" href="/projects/">All project files →</a>
+      <a class="more-link" href="/projects/">All project files →</a>
     </section>
 
     {essays.length > 0 && (
       <>
-        <div class="dither dgap"></div>
+        <div class="section-rule"></div>
         <section class="recent">
           <div class="idxh">Recent from the journal</div>
-          <ul class="rlist">
-            {essays.map((post) => (
-              <li>
-                <a href={`/journal/${post.slug}/`}>
-                  <PostTitle title={post.data.title} class="rt" />
-                  <span class="rd">{fmt(post.data.publishDate)}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-          <a class="more" href="/journal/">All essays →</a>
+          <div class="rlist-card">
+            <ul class="rlist">
+              {essays.map((post) => (
+                <li>
+                  <a href={`/journal/${post.slug}/`}>
+                    <PostTitle title={post.data.title} class="rt" />
+                    <span class="rd">{fmt(post.data.publishDate)}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <a class="more-link" href="/journal/">All essays →</a>
         </section>
       </>
     )}
   </div>
 
   <style>
-    .ds { padding: 24px 34px 48px; color: var(--ink); }
+    .home-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 34px 20px 64px;
+      color: var(--ink);
+    }
 
-    /* Masthead — boxed filed title block, booster register. */
-    .mast { border: 2px solid var(--ink); padding: 0; }
-    .mast-title { padding: 1.5rem 1.1rem 1.2rem; }
-    .mast-title .h {
-      font-family: var(--font-text);
-      font-size: clamp(64px, 12vw, 128px); font-weight: 900;
-      letter-spacing: -0.02em; line-height: 1.05; margin: 0; text-align: left;
+    /* Hero section matching Turkish Art Blob layout */
+    .hero-card {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 32px;
+      align-items: center;
+      padding-bottom: 36px;
+      border-bottom: 1px solid var(--line);
     }
-    .mast-title .h .ikb-dot { color: var(--ikb); }
-    /* Kicker under the word — booster runs it in signal red. */
-    .mast-title .sub {
-      margin-top: .6rem; font-family: var(--font-data); font-size: 14px;
-      letter-spacing: .08em; text-transform: uppercase; color: var(--red);
-    }
-    .stamp {
-      display: inline-block; border: 2px solid var(--ink);
-      padding: .32rem .7rem; margin-top: 1rem;
-      font-family: var(--font-data); font-size: 12.5px; letter-spacing: .06em;
-      text-transform: uppercase;
-      transform: rotate(-1.4deg);
-    }
-    .mast-row {
-      display: flex; justify-content: space-between; flex-wrap: wrap;
-      border-top: 1px solid var(--ink);
-    }
-    .mast-cell {
-      padding: .6rem 1.1rem; font-family: var(--font-data); font-size: 12.5px;
-      letter-spacing: .04em; text-transform: uppercase; color: var(--dim);
-    }
-    .mast-cell + .mast-cell { border-left: 1px solid var(--ink); }
-    .mast-cell a { color: var(--ink); text-decoration: none; text-underline-offset: 2px; }
-    .mast-cell a:hover { text-decoration: underline; }
 
-    /* Lede row — collapsible about-paragraph on the left, project index box
-       filling the empty space on the right. */
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(44px, 6.5vw, 66px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.06;
+      margin: 14px 0 12px;
+      color: var(--ink);
+    }
+
+    .rose-dot {
+      color: var(--acc);
+    }
+
+    .hero-stamp {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      line-height: 1.52;
+      color: var(--lead-ink);
+      margin: 0 0 20px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .btn-pill {
+      display: inline-block;
+      border: 1px solid var(--acc);
+      color: var(--acc);
+      background: var(--card-bg);
+      border-radius: 999px;
+      padding: 9px 18px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+
+    .btn-pill:hover {
+      background: var(--acc);
+      color: #ffffff;
+    }
+
+    .btn-pill.primary {
+      background: var(--acc);
+      color: #ffffff;
+    }
+
+    .btn-pill.primary:hover {
+      background: var(--acc-dark);
+      border-color: var(--acc-dark);
+      color: #ffffff;
+    }
+
+    .hero-contacts {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px 8px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      color: var(--mut);
+    }
+
+    .hero-contacts a {
+      color: var(--acc);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-weight: 500;
+    }
+
+    .hero-contacts a:hover {
+      color: var(--acc-dark);
+    }
+
+    /* Static subtle rose orb accent matching Turkish Art Blob fallback orb */
+    .orb-panel {
+      display: flex;
+      justify-content: center;
+    }
+
+    .orb-stage {
+      width: 100%;
+      max-width: 340px;
+      height: 260px;
+      border-radius: 24px;
+      background: radial-gradient(circle at 50% 44%, var(--card-bg) 0%, var(--soft) 62%, var(--line) 100%);
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .rose-orb {
+      width: 156px;
+      height: 146px;
+      border-radius: 54% 46% 49% 51% / 47% 55% 45% 53%;
+      background: radial-gradient(circle at 36% 32%, #ffe9e6 0%, #ef9ba0 38%, #cf5b6e 76%, #8f2d3e 100%);
+      box-shadow: inset -14px -18px 30px rgba(102, 22, 38, 0.34),
+                  inset 12px 12px 22px rgba(255, 255, 255, 0.62),
+                  0 22px 44px rgba(168, 70, 86, 0.24);
+    }
+
+    /* Lede row */
     .lede-row {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 340px;
-      gap: 34px;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 28px;
       align-items: start;
-      margin: 1.7rem 0 0;
-    }
-    .lede { max-width: 64ch; margin: 0; }
-    .lede-summary {
-      list-style: none; cursor: pointer;
-      display: flex; align-items: baseline; justify-content: space-between; gap: 14px;
-      font-family: var(--font-data); font-size: 14px; text-transform: uppercase; letter-spacing: .08em; font-weight: 700;
-      color: var(--dim);
-      border-bottom: 2px solid var(--ink); padding-bottom: .4rem;
-    }
-    .lede-summary::-webkit-details-marker { display: none; }
-    .lede-summary:hover .lede-summary-t { color: var(--ink); }
-    .lede-toggle { color: var(--ink); font-family: var(--font-mono); white-space: nowrap; flex-shrink: 0; }
-    .lede-toggle::after { content: '[ − ]'; letter-spacing: 0; }
-    .lede:not([open]) .lede-toggle::after { content: '[ + ]'; }
-    .lede-body { padding-top: 1rem; }
-    .lead { font-size: 21px; margin: 0; color: var(--ink); max-width: 64ch; }
-    .lead b, .p b { font-weight: 700; }
-    .p {
-      margin-top: 18px; color: var(--dim);
-      border-left: 2px solid var(--ink); padding-left: 18px; max-width: 64ch;
+      margin-top: 34px;
     }
 
-    .dither {
-      height: 0; margin: 14px 0;
-      border-top: 1px solid var(--ink);
-      background-image: none; opacity: 1;
+    .lede-card {
+      background: var(--card-bg);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px 26px;
+      margin: 0;
     }
-    .dgap { margin: 36px 0 22px; }
+
+    .lede-summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .lede-summary::-webkit-details-marker { display: none; }
+    .lede-summary:hover .lede-summary-t { color: var(--acc); }
+
+    .lede-toggle {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--acc);
+      background: var(--soft);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 3px 11px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .lede-toggle::after { content: 'Collapse'; }
+    .lede-card:not([open]) .lede-toggle::after { content: 'Expand'; }
+
+    .lede-body {
+      padding-top: 16px;
+      margin-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    .lead {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      line-height: 1.66;
+      margin: 0;
+      color: var(--ink);
+      max-width: 65ch;
+    }
+
+    .lead b, .p-sub b { font-weight: 700; }
+
+    .p-sub {
+      margin: 18px 0 0;
+      font-size: 16px;
+      line-height: 1.62;
+      color: var(--lead-ink);
+      border-left: 4px solid var(--acc);
+      background: var(--soft);
+      border-radius: 0 12px 12px 0;
+      padding: 13px 16px;
+      max-width: 65ch;
+    }
+
+    .section-rule {
+      height: 0;
+      margin: 42px 0;
+      border-top: 1px solid var(--line);
+    }
 
     .idxh {
-      font-family: var(--font-data); font-size: 14px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: .08em; margin-bottom: 10px; text-align: left;
-      border-bottom: 2px solid var(--ink); padding-bottom: .35rem;
+      font-family: var(--font-serif);
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 14px;
     }
 
-    /* Project index — compact stacked ledger table beside the paragraph. */
+    /* Project index card */
     .pindex-section { max-width: 100%; min-width: 0; }
-    .pindex { border: 2px solid var(--ink); margin-top: 2px; }
+    .pindex {
+      background: var(--card-bg);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
     .pirow {
       display: grid;
       grid-template-columns: 2.1rem 1fr 1.2rem;
-      gap: 11px; align-items: baseline;
-      padding: .62rem .8rem;
-      border-bottom: 1px solid var(--ink);
-      text-decoration: none; color: var(--ink);
+      gap: 10px;
+      align-items: baseline;
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--line);
+      text-decoration: none;
+      color: var(--ink);
+      transition: background 0.15s;
     }
+
     .pirow:last-child { border-bottom: 0; }
-    .pirow:hover { background: var(--faint); }
-    .pirow:hover .pi-name { text-decoration: underline; text-underline-offset: 2px; }
-    .pi-no { font-family: var(--font-mono); font-size: 12.5px; color: var(--dim); letter-spacing: .06em; }
+    .pirow:hover { background: var(--soft-hover); }
+    .pirow:hover .pi-name { color: var(--acc); }
+
+    .pi-no {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--acc);
+      font-variant-numeric: tabular-nums;
+    }
+
     .pi-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-    .pi-name { font-family: var(--font-data); font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: .08em; }
-    .pi-note { font-family: var(--font-data); font-size: 12.5px; letter-spacing: .04em; color: var(--dim); line-height: 1.35; }
-    .pi-arrow { text-align: right; color: var(--dim); font-size: 12.5px; }
+    .pi-name { font-family: var(--font-sans); font-weight: 700; font-size: 14.5px; color: var(--ink); }
+    .pi-note { font-family: var(--font-sans); font-size: 12.5px; color: var(--mut); line-height: 1.38; }
+    .pi-arrow { text-align: right; color: var(--mut); font-size: 13px; }
 
-    /* Project register — fully-boxed ledger grid, ubu §1 spec style. */
+    /* Project register cards */
     .register { max-width: 100%; }
-    .grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      border: 2px solid var(--ink); margin-top: 2px;
-    }
-    .cell {
-      border: 1px solid var(--ink); padding: .8rem .85rem; min-height: 5.6rem;
-      display: block; text-decoration: none; color: var(--ink);
-    }
-    .cell:hover { background: var(--faint); }
-    .cell:hover .v { text-decoration: underline; text-underline-offset: 2px; }
-    .cell .k {
-      font-family: var(--font-mono); font-size: 12.5px; letter-spacing: .06em;
-      text-transform: uppercase; color: var(--dim); margin-bottom: .45rem;
-    }
-    .cell .v { font-size: 22px; font-weight: 700; line-height: 1.25; }
-    .cell .v small {
-      display: block; margin-top: .35rem; font-size: 16.5px; font-weight: 400;
-      color: var(--dim); line-height: 1.45; letter-spacing: 0; text-transform: none;
+    .reg-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
     }
 
-    .more { display: inline-block; margin-top: 16px; color: var(--dim); text-decoration: none; text-underline-offset: 2px; }
-    .more:hover { color: var(--ink); text-decoration: underline; }
+    .reg-card {
+      background: var(--card-bg);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px 20px;
+      display: block;
+      text-decoration: none;
+      color: var(--ink);
+      transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+    }
 
-    /* Recent journal — ruled ledger rows. */
-    .recent { max-width: 64ch; margin: 0; }
-    .recent .rlist { list-style: none; padding: 0; margin: 4px 0 0; }
+    .reg-card:hover {
+      border-color: var(--acc);
+      box-shadow: 0 8px 24px rgba(42, 26, 30, 0.06);
+    }
+
+    .reg-card:hover .v {
+      color: var(--acc);
+    }
+
+    .reg-card .k {
+      font-family: var(--font-sans);
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--acc);
+      margin-bottom: 6px;
+    }
+
+    .reg-card .v {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--ink);
+    }
+
+    .reg-card .v small {
+      display: block;
+      margin-top: 6px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--mut);
+      line-height: 1.48;
+    }
+
+    .more-link {
+      display: inline-block;
+      margin-top: 18px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--acc);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .more-link:hover {
+      color: var(--acc-dark);
+    }
+
+    /* Recent journal */
+    .recent { max-width: 780px; }
+    .rlist-card {
+      background: var(--card-bg);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .recent .rlist { list-style: none; padding: 0; margin: 0; }
+    .recent li + li { border-top: 1px solid var(--line); }
+
     .recent li a {
-      display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
-      padding: 10px 8px; margin: 0 -8px; border-bottom: 1px solid var(--ink);
-      text-decoration: none; color: var(--ink);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      padding: 14px 20px;
+      text-decoration: none;
+      color: var(--ink);
+      transition: background 0.15s;
     }
-    .recent li a:hover { background: var(--faint); }
-    .recent li a:hover .rt { text-decoration: underline; text-underline-offset: 2px; }
-    .recent .rd { font-family: var(--font-mono); font-size: 12.5px; letter-spacing: .06em; color: var(--dim); white-space: nowrap; }
 
-    /* Stack the lede row before the 340px sidebar gets too tight. */
-    @media (max-width: 920px) {
-      .lede-row { grid-template-columns: 1fr; gap: 24px; }
-      .lede { max-width: none; }
+    .recent li a:hover { background: var(--soft-hover); }
+    .recent li a:hover .rt { color: var(--acc); }
+
+    .recent .rt {
+      font-family: var(--font-serif);
+      font-size: 17.5px;
+      font-weight: 600;
+      line-height: 1.38;
     }
-    @media (max-width: 820px) {
-      .ds { padding: 16px 20px 40px; }
-      .grid { grid-template-columns: 1fr; }
+
+    .recent .rd {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      color: var(--mut);
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+
+    @media (max-width: 920px) {
+      .hero-card {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .orb-stage {
+        max-width: 100%;
+        height: 200px;
+      }
+      .lede-row {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .home-wrap {
+        padding: 24px 16px 48px;
+      }
+      .lede-card {
+        padding: 18px 20px;
+      }
+      .reg-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </BaseLayout>

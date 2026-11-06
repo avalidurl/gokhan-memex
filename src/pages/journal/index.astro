@@ -4,12 +4,10 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 import PostTitle from '@/components/PostTitle.astro'
 import SubscribeBlock from '@/components/SubscribeBlock.astro'
 
-// Get all published blog posts, sorted by date (newest first)
 const allPosts = (await getCollection('blog'))
   .filter(post => !post.data.draft)
   .sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf())
 
-// Group posts by year
 const postsByYear = allPosts.reduce((acc, post) => {
   const year = new Date(post.data.publishDate).getFullYear()
   if (!acc[year]) acc[year] = []
@@ -25,26 +23,27 @@ const years = Object.keys(postsByYear).map(Number).sort((a, b) => b - a)
   description="Latest thoughts on stablecoins, tokenization, AGI, investment strategies, and global systemic challenges."
   hideFooterSubscribe
 >
-  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
+  <div class="mx-auto max-w-3xl px-5 py-10 lg:py-14">
     <!-- Header -->
-    <header class="mb-12">
-      <h1 class="mb-4">Journal</h1>
-      <p class="text-muted-foreground">
+    <header class="mb-10 pb-8 border-b border-border">
+      <div class="kicker-pill mb-3">Essays &amp; Dispatches</div>
+      <h1 class="mb-3">Journal</h1>
+      <p class="font-serif text-[19px] text-muted-foreground mb-4">
         {allPosts.length} posts on stablecoins, tokenization, AGI, and more.
       </p>
-      <p class="mt-3 text-sm text-muted-foreground">
-        Read them here or → <a href="/newsletter" class="text-foreground underline decoration-1 underline-offset-2">subscribe</a> · <a href="/rss.xml" class="text-foreground underline decoration-1 underline-offset-2">RSS</a>
+      <p class="text-sm text-muted-foreground mb-5">
+        Read them here or → <a href="/newsletter" class="text-primary underline underline-offset-2 font-medium">subscribe</a> · <a href="/rss.xml" class="text-primary underline underline-offset-2 font-medium">RSS</a>
       </p>
-      <div class="mt-4 flex items-center gap-6 text-sm">
+      <div class="flex flex-wrap items-center gap-2.5">
         <a 
           href="/archive" 
-          class="text-muted-foreground hover:text-foreground"
+          class="tile"
         >
           Browse by category →
         </a>
         <a 
           href="/rss.xml" 
-          class="text-muted-foreground hover:text-foreground"
+          class="inline-flex items-center rounded-full border border-border bg-card px-4 py-2 text-[13.5px] font-semibold text-muted-foreground no-underline hover:border-primary hover:text-primary transition-colors"
         >
           RSS
         </a>
@@ -52,36 +51,42 @@ const years = Object.keys(postsByYear).map(Number).sort((a, b) => b - a)
     </header>
 
     <!-- Posts by Year -->
-    <div class="space-y-12">
+    <div class="space-y-10">
       {years.map(year => (
         <section>
-          <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
-            {year}
-          </h2>
-          <ul class="space-y-1">
-            {postsByYear[year].map(post => (
-              <li>
-                <a 
-                  href={`/journal/${post.slug}/`}
-                  class="group flex items-baseline gap-4 py-2"
-                >
-                  <PostTitle title={post.data.title} class="text-foreground group-hover:underline decoration-1 underline-offset-2 flex-1" />
-                  <span class="text-sm text-muted-foreground shrink-0 tabular-nums">
-                    {new Date(post.data.publishDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
+          <div class="flex items-center justify-between mb-3">
+            <h2 class="font-serif text-[24px] font-bold text-foreground m-0">
+              {year}
+            </h2>
+            <span class="rounded-full border border-border bg-muted px-3 py-0.5 text-xs font-semibold text-primary">
+              {postsByYear[year].length} {postsByYear[year].length === 1 ? 'post' : 'posts'}
+            </span>
+          </div>
+          <div class="rounded-2xl border border-border bg-card overflow-hidden">
+            <ul class="divide-y divide-border list-none p-0 m-0">
+              {postsByYear[year].map(post => (
+                <li class="m-0">
+                  <a 
+                    href={`/journal/${post.slug}/`}
+                    class="group flex items-baseline justify-between gap-4 px-5 py-3.5 no-underline hover:bg-muted/50 transition-colors"
+                  >
+                    <PostTitle title={post.data.title} class="font-serif text-[17.5px] font-semibold text-foreground group-hover:text-primary transition-colors flex-1" />
+                    <span class="text-[13px] font-sans text-muted-foreground shrink-0 tabular-nums">
+                      {new Date(post.data.publishDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
       ))}
     </div>
 
-    <!-- Empty State -->
     {allPosts.length === 0 && (
-      <div class="text-center py-12">
-        <p class="text-lg text-muted-foreground mb-4">No posts found.</p>
-        <p class="text-sm text-muted-foreground">
+      <div class="rounded-2xl border border-border bg-card p-10 text-center">
+        <p class="text-lg text-muted-foreground mb-2">No posts found.</p>
+        <p class="text-sm text-muted-foreground m-0">
           Content is being migrated. Check back soon!
         </p>
       </div>

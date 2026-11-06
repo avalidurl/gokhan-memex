@@ -46,7 +46,6 @@ const pathname = Astro.url.pathname
 const breadcrumbData =
   showBreadcrumbs && (breadcrumbOverride ?? getAutoBreadcrumbs(pathname, title))
 
-// Document register — every surface files under a section number.
 const docSection = pathname.split('/').filter(Boolean)[0] ?? ''
 const docMap: Record<string, string> = {
   '': 'MX-001',
@@ -69,8 +68,6 @@ const docMap: Record<string, string> = {
 const docNo = docMap[docSection] ?? 'MX-000'
 const docRev = 'REV 2026-07-17'
 
-/** Content hash of the collapse script, so an edit busts the 2h asset cache for every
- *  visitor. HTML is served max-age=0, so a changed ?v= always lands immediately. */
 const collapseVersion = createHash('sha256')
   .update(readFileSync(resolve(process.cwd(), 'public/blog-collapse.js')))
   .digest('hex')
@@ -86,10 +83,6 @@ const tableDeskVersion = createHash('sha256')
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Theme: the OS preference is handled entirely in CSS (prefers-color-scheme
-         in the inlined critical styles), so no JS is needed for the default.
-         This script only stamps an explicit stored choice; data-cfasync keeps
-         Rocket Loader from deferring it past first paint. -->
     <script is:inline data-cfasync="false">
       const t = localStorage.getItem('theme');
       if (t === 'dark' || t === 'light') document.documentElement.classList.add(t);
@@ -133,36 +126,32 @@ const tableDeskVersion = createHash('sha256')
     <meta name="apple-mobile-web-app-title" content={siteName} />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="msapplication-config" content="/browserconfig.xml" />
-    <meta name="msapplication-TileColor" content="#FAFAF8" />
-    <meta name="theme-color" content="#FAFAF8" />
+    <meta name="msapplication-TileColor" content="#fbf6f3" />
+    <meta name="theme-color" content="#fbf6f3" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#191013" media="(prefers-color-scheme: dark)" />
     
-    <!-- Apple Touch Icons — root paths by convention (and outside the /icons/* edge cleanup rule) -->
+    <!-- Apple Touch Icons -->
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     
-    <!-- Substack DNS prefetch for faster iframe loading -->
+    <!-- Substack DNS prefetch -->
     <link rel="dns-prefetch" href="https://gokhan.substack.com" />
     <link rel="preconnect" href="https://gokhan.substack.com" />
     
-    <!-- Critical CSS - Inlined for First Contentful Paint Optimization -->
+    <!-- Critical CSS -->
     <style is:inline set:html={criticalStyles}></style>
     
-    <!-- Google Analytics - Load by Default -->
+    <!-- Google Analytics -->
     <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-TSMR6G8LLL"></script>
     <script is:inline>
-      // Initialize dataLayer and gtag function
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      
-      // Initialize GA with timestamp
       gtag('js', new Date());
       
-      // Check if user has opted out
       const privacyChoice = localStorage.getItem('privacy-choice');
       
       if (privacyChoice === 'declined') {
-        // User has opted out - disable tracking
         gtag('config', 'G-TSMR6G8LLL', {
           'anonymize_ip': true,
           'allow_google_signals': false,
@@ -170,7 +159,6 @@ const tableDeskVersion = createHash('sha256')
           'send_page_view': false
         });
       } else {
-        // Default behavior - track all users
         gtag('config', 'G-TSMR6G8LLL', {
           'anonymize_ip': true,
           'allow_google_signals': false,
@@ -178,14 +166,12 @@ const tableDeskVersion = createHash('sha256')
         });
       }
       
-      // Expose functions globally for privacy notice component
       window.enableGoogleAnalytics = function() {
         gtag('config', 'G-TSMR6G8LLL', {
           'anonymize_ip': true,
           'allow_google_signals': false,
           'allow_ad_personalization_signals': false
         });
-        // Send current page view if it was disabled
         gtag('event', 'page_view', {
           page_title: document.title,
           page_location: window.location.href
@@ -233,25 +219,26 @@ const tableDeskVersion = createHash('sha256')
       }
     })} />
 
-    <!-- Per-page head content passed via slot="head" (Article JSON-LD, custom schemas, seoKeywords meta). -->
     <slot name="head" />
   </head>
 
   <body class="min-h-screen font-sans">
-    <p class="nrbar">
-      <span class="nrbar-flag">We are raising</span>
-      <span class="nrbar-note">— check our decks:</span>
-      <a class="nrbar-link" href="https://ishtar.numetal.xyz/deck/not-raising-a-preseed/">Ishtar deck</a>
-      <span class="nrbar-note" aria-hidden="true">·</span>
-      <a class="nrbar-link" href="https://curb.numetal.xyz/deck">Curb deck</a>
-    </p>
+    <div class="nrbar">
+      <div class="nrbar-inner">
+        <span class="nrbar-flag">We are raising</span>
+        <span class="nrbar-note">— check our decks:</span>
+        <a class="nrbar-link" href="https://ishtar.numetal.xyz/deck/not-raising-a-preseed/">Ishtar deck</a>
+        <span class="nrbar-note" aria-hidden="true">·</span>
+        <a class="nrbar-link" href="https://curb.numetal.xyz/deck">Curb deck</a>
+      </div>
+    </div>
     <ThemeProvider />
     <div class="site-sheet relative flex min-h-screen flex-col">
       <Navigation docNo={docNo} docRev={docRev} />
 
       <main class="flex-1">
         {breadcrumbData && (
-          <div class="mx-auto max-w-5xl px-6 pt-6 lg:px-8">
+          <div class="mx-auto max-w-[1100px] px-5 pt-6">
             <Breadcrumbs items={breadcrumbData.items} currentPage={breadcrumbData.currentPage} />
           </div>
         )}
@@ -259,13 +246,13 @@ const tableDeskVersion = createHash('sha256')
       </main>
       
       <!-- Footer -->
-      <footer class="mt-auto px-6 py-8">
-        <div class="mx-auto max-w-2xl">
+      <footer class="site-footer mt-auto">
+        <div class="mx-auto max-w-[900px] px-5 pt-10 pb-12">
           {
             !hideFooterSubscribe && <FooterSubscribe />
           }
           <div class="flex flex-col gap-3 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-            <span>© {new Date().getFullYear()} Gökhan Turhan</span>
+            <span>© {new Date().getFullYear()} Gökhan Turhan · <a href="mailto:contact@gokhan.vc" class="raw-link">contact@gokhan.vc</a></span>
             <div class="flex flex-wrap items-center gap-x-5 gap-y-1">
               <a href="/newsletter/" class="raw-link">Newsletter</a>
               <a href="/rss.xml" class="raw-link">RSS</a>
@@ -273,8 +260,8 @@ const tableDeskVersion = createHash('sha256')
               <a href="/disclaimer" class="raw-link">Disclaimer</a>
             </div>
           </div>
-          <div class="perforation" style="margin-top:1.4rem" aria-hidden="true"></div>
-          <div class="colophon" style="margin-top:0.6rem">
+          <div class="perforation" style="margin-top:1.2rem" aria-hidden="true"></div>
+          <div class="colophon">
             <span>GT MEMEX · DOC {docNo} · {docRev}</span>
             <span>PERSONAL RECORD — CONTENTS AS FILED</span>
           </div>
@@ -289,9 +276,9 @@ const tableDeskVersion = createHash('sha256')
     <OfflineStatus />
     
     <!-- Lightbox for images - click to enlarge -->
-    <div id="lightbox" style="display:none;position:fixed;inset:0;background:var(--paper);z-index:9999;cursor:zoom-out;overflow:auto" onclick="this.style.display='none'">
-      <img id="lightbox-img" style="max-width:95%;max-height:95%;margin:auto;display:block;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border:2px solid var(--ink)" />
-      <span style="position:fixed;top:20px;right:30px;color:var(--ink);font-size:40px;cursor:pointer">&times;</span>
+    <div id="lightbox" style="display:none;position:fixed;inset:0;background:rgba(25,16,19,0.88);backdrop-filter:blur(8px);z-index:9999;cursor:zoom-out;overflow:auto" onclick="this.style.display='none'">
+      <img id="lightbox-img" style="max-width:94%;max-height:92%;margin:auto;display:block;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border:1px solid var(--line);border-radius:16px;box-shadow:0 24px 60px rgba(0,0,0,0.4)" />
+      <span style="position:fixed;top:20px;right:28px;color:#fff;font-size:36px;cursor:pointer;line-height:1">&times;</span>
     </div>
     <script is:inline>
       document.addEventListener('DOMContentLoaded', () => {
@@ -310,33 +297,51 @@ const tableDeskVersion = createHash('sha256')
         });
       });
     </script>
-    <!-- Collapsible article headings (blog/journal only; no-ops elsewhere). -->
     <script src={`/blog-collapse.js?v=${collapseVersion}`} defer></script>
     <script src={`/table-desk.js?v=${tableDeskVersion}`} defer></script>
   </body>
 </html>
 
 <style>
-  /* Raise notice — booster docstrip metrics: mono 12.5px, 3px/1px rules. */
   .nrbar {
+    background: var(--soft);
+    border-bottom: 1px solid var(--line);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    padding: 7px 20px;
+  }
+  .nrbar-inner {
+    max-width: 1100px;
+    margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0 0.6ch;
-    margin: 0;
-    max-width: none;
-    background: var(--paper);
-    color: var(--ink);
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    padding: 8px 12px;
-    border-top: 3px solid var(--ink);
-    border-bottom: 1px solid var(--ink);
+    align-items: center;
+    gap: 4px 7px;
   }
-  .nrbar-flag { font-weight: 700; }
-  .nrbar-note { color: var(--dim); }
-  .nrbar-link { color: var(--ink); text-decoration: none; text-underline-offset: 3px; }
-  .nrbar-link:hover { text-decoration: underline; }
+  .nrbar-flag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--acc);
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 2px 9px;
+  }
+  .nrbar-note { color: var(--mut); }
+  .nrbar-link {
+    color: var(--acc);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .nrbar-link:hover { color: var(--acc-dark); }
+
+  .site-footer {
+    border-top: 1px solid var(--line);
+    background: var(--bg);
+  }
 </style>

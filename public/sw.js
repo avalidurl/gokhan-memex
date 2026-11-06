@@ -309,31 +309,39 @@ function createOfflineResponse() {
       <title>Offline - Gökhan Turhan</title>
       <style>
         body {
-          /* R2 — running prose. This page is synthesised by the worker and
-             never loads the site stylesheet, so the text stack is written out
-             in full rather than referenced as var(--font-text). Keep it in
-             step with critical.css and tailwind.config.mjs. */
-          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+          font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Inter, Arial, sans-serif;
           max-width: 600px;
-          margin: 50px auto;
-          padding: 20px;
-          text-align: left;
-          color: #0a0a0a;
-          background: #f4f4f2;
+          margin: 60px auto;
+          padding: 32px;
+          text-align: center;
+          color: #2a1a1e;
+          background: #fbf6f3;
+        }
+        h1 {
+          font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
         }
         .offline-icon {
-          font-size: 4rem;
+          display: inline-block;
+          font-size: 0.78rem;
+          font-weight: 700;
+          letter-spacing: 0.08em;
+          color: #c94f62;
+          background: #f6e6e2;
+          border: 1px solid #ecdcd8;
+          border-radius: 999px;
+          padding: 4px 12px;
           margin-bottom: 1rem;
         }
         .btn {
           display: inline-block;
-          padding: 10px 20px;
-          margin: 10px;
-          background: transparent;
-          color: #0a0a0a;
-          border: 2px solid #0a0a0a;
+          padding: 9px 20px;
+          margin: 8px;
+          background: #c94f62;
+          color: #ffffff;
+          border: 1px solid #c94f62;
           text-decoration: none;
-          border-radius: 0;
+          border-radius: 999px;
+          font-weight: 600;
         }
       </style>
     </head>

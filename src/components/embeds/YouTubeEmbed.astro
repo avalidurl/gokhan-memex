@@ -16,7 +16,6 @@ const {
   start = 0
 } = Astro.props
 
-// Extract YouTube video ID from various URL formats
 function extractYouTubeId(url: string): string | null {
   try {
     const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/
@@ -29,19 +28,17 @@ function extractYouTubeId(url: string): string | null {
 
 const videoId = extractYouTubeId(url)
 
-// Build embed URL parameters
 const params = new URLSearchParams()
 if (!autoplay) params.append('autoplay', '0')
 if (!controls) params.append('controls', '0')
 if (start > 0) params.append('start', start.toString())
-params.append('rel', '0') // Don't show related videos from other channels
-params.append('modestbranding', '1') // Minimal YouTube branding
+params.append('rel', '0')
+params.append('modestbranding', '1')
 
 const embedUrl = videoId ? 
   `https://www.youtube-nocookie.com/embed/${videoId}?${params.toString()}` : 
   null
 
-// Calculate responsive height (16:9 aspect ratio)
 const aspectHeight = height === 'auto' ? 'aspect-video' : ''
 const uniqueId = `youtube-${Math.random().toString(36).substring(2, 11)}`
 ---
@@ -55,20 +52,13 @@ const uniqueId = `youtube-${Math.random().toString(36).substring(2, 11)}`
       data-height={height !== 'auto' ? height : ''}
       data-aspect={aspectHeight}
     >
-      <!-- Loading Placeholder -->
-      <div class={`youtube-placeholder bg-muted border-2 border-dashed flex items-center justify-center ${aspectHeight}`} style={height !== 'auto' ? `height: ${height}px` : ''}>
-        <div class="text-center">
-          <div class="mb-3">
-            <!-- YouTube Play Button Icon -->
-            <div class="w-16 h-16 bg-foreground mx-auto mb-3 flex items-center justify-center relative">
-              <div class="w-0 h-0 border-l-6 border-r-0 border-t-4 border-b-4 border-l-background border-t-transparent border-b-transparent ml-1"></div>
-            </div>
-            <!-- Video Title Placeholder -->
-            <div class="h-4 bg-muted-foreground w-48 mx-auto mb-2"></div>
-            <div class="h-3 bg-muted-foreground w-32 mx-auto"></div>
+      <div class={`youtube-placeholder rounded-2xl bg-muted border border-border flex items-center justify-center ${aspectHeight}`} style={height !== 'auto' ? `height: ${height}px` : ''}>
+        <div class="text-center p-6">
+          <div class="w-14 h-14 rounded-full bg-primary mx-auto mb-3 flex items-center justify-center shadow-md">
+            <div class="w-0 h-0 border-l-[10px] border-r-0 border-t-[6px] border-b-[6px] border-l-white border-t-transparent border-b-transparent ml-1"></div>
           </div>
           <button
-            class="mt-4 px-6 py-2 border-2 bg-background text-foreground font-mono text-[15px] tracking-[0.06em] hover:bg-foreground hover:text-background"
+            class="mt-2 rounded-full border border-primary bg-card px-5 py-2 font-sans text-[14px] font-semibold text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
             onclick="this.parentElement.parentElement.parentElement.querySelector('.youtube-loader').click()"
           >
             Load YouTube Player
@@ -76,16 +66,13 @@ const uniqueId = `youtube-${Math.random().toString(36).substring(2, 11)}`
         </div>
       </div>
       
-      <!-- Hidden load trigger -->
       <button class="youtube-loader hidden" data-target={uniqueId}></button>
       
-      <!-- Iframe container (initially hidden) -->
-      <div class="youtube-iframe-container hidden overflow-hidden border-2 bg-card">
-        <!-- Iframe will be inserted here -->
+      <div class="youtube-iframe-container hidden overflow-hidden rounded-2xl border border-border bg-card">
       </div>
     </div>
   ) : (
-    <div class="overflow-hidden border-2 bg-card">
+    <div class="overflow-hidden rounded-2xl border border-border bg-card">
       <div class="p-6 text-center">
         <p class="text-muted-foreground mb-4">
           Unable to embed YouTube video
@@ -94,7 +81,7 @@ const uniqueId = `youtube-${Math.random().toString(36).substring(2, 11)}`
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center px-4 py-2 border-2 bg-background text-foreground font-mono text-[15px] tracking-[0.06em] hover:bg-foreground hover:text-background"
+          class="inline-flex items-center rounded-full border border-primary bg-primary px-5 py-2 font-sans text-[14px] font-semibold text-primary-foreground no-underline hover:opacity-90"
         >
           Watch on YouTube
         </a>
@@ -102,12 +89,12 @@ const uniqueId = `youtube-${Math.random().toString(36).substring(2, 11)}`
     </div>
   )}
   
-  <div class="mt-2 text-center">
+  <div class="mt-2">
     <a 
       href={url} 
       target="_blank" 
       rel="noopener noreferrer"
-      class="text-xs text-muted-foreground hover:text-foreground"
+      class="text-xs text-muted-foreground hover:text-primary no-underline"
     >
       Watch on YouTube ↗
     </a>
@@ -116,7 +103,6 @@ const uniqueId = `youtube-${Math.random().toString(36).substring(2, 11)}`
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Intersection Observer for lazy loading
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -124,15 +110,10 @@ const uniqueId = `youtube-${Math.random().toString(36).substring(2, 11)}`
           observer.unobserve(entry.target);
         }
       });
-    }, {
-      rootMargin: '50px' // Start loading 50px before the element comes into view
-    });
+    }, { rootMargin: '50px' });
 
-    // Observe all YouTube containers
     document.querySelectorAll('.youtube-lazy-container').forEach(container => {
       observer.observe(container);
-      
-      // Also set up manual loading for the button
       const loader = container.querySelector('.youtube-loader');
       if (loader) {
         loader.addEventListener('click', () => {
@@ -148,10 +129,8 @@ const uniqueId = `youtube-${Math.random().toString(36).substring(2, 11)}`
       const aspectHeight = (container as HTMLElement).dataset.aspect;
       const placeholder = container.querySelector('.youtube-placeholder');
       const iframeContainer = container.querySelector('.youtube-iframe-container');
-      
       if (!src || !placeholder || !iframeContainer) return;
 
-      // Create iframe wrapper div
       const iframeWrapper = document.createElement('div');
       if (aspectHeight) {
         iframeWrapper.className = `w-full ${aspectHeight}`;
@@ -162,7 +141,6 @@ const uniqueId = `youtube-${Math.random().toString(36).substring(2, 11)}`
         iframeWrapper.className = 'w-full aspect-video';
       }
 
-      // Create and insert iframe
       const iframe = document.createElement('iframe');
       iframe.className = 'w-full h-full';
       iframe.src = src;
@@ -171,27 +149,22 @@ const uniqueId = `youtube-${Math.random().toString(36).substring(2, 11)}`
       iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
       iframe.setAttribute('allowfullscreen', 'true');
       iframe.title = 'YouTube video player';
-      iframe.loading = 'eager'; // Load immediately once triggered
+      iframe.loading = 'eager';
       
-      // Show loading state
       placeholder.innerHTML = `
-        <div class="text-center">
-          <div class="animate-spin w-8 h-8 border-2 border-red-600 border-t-transparent rounded-full mx-auto mb-3"></div>
-          <div class="text-sm text-gray-600 dark:text-gray-400">Loading YouTube player...</div>
+        <div class="text-center p-6">
+          <div class="animate-spin w-8 h-8 border-2 border-primary border-t-transparent rounded-full mx-auto mb-3"></div>
+          <div class="text-sm text-muted-foreground">Loading YouTube player...</div>
         </div>
       `;
       
-      // Insert iframe into wrapper and wrapper into container
       iframeWrapper.appendChild(iframe);
       iframeContainer.appendChild(iframeWrapper);
       
-      // Handle iframe load
       iframe.onload = () => {
         placeholder.classList.add('hidden');
         iframeContainer.classList.remove('hidden');
       };
-      
-      // Fallback timeout
       setTimeout(() => {
         placeholder.classList.add('hidden');
         iframeContainer.classList.remove('hidden');

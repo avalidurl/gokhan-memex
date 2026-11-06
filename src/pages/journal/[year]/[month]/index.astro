@@ -7,7 +7,6 @@ export async function getStaticPaths() {
   const posts = await getCollection('blog')
   const publishedPosts = posts.filter(post => !post.data.draft)
   
-  // Get unique year-month combinations
   const yearMonthSet = new Set<string>()
   publishedPosts.forEach(post => {
     const date = new Date(post.data.publishDate)
@@ -40,7 +39,6 @@ interface Props {
 
 const { year, month, posts } = Astro.props
 
-// Filter posts for this year and month
 const monthPosts = posts.filter(post => {
   const date = new Date(post.data.publishDate)
   return date.getFullYear() === year && (date.getMonth() + 1) === month
@@ -57,47 +55,44 @@ const monthName = monthNames[month - 1]
   description={`${monthPosts.length} posts published in ${monthName} ${year}`}
   robots="noindex, follow"
 >
-  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
-    <!-- Header -->
-    <header class="mb-12">
-      <h1 class="mb-4">{monthName} {year}</h1>
-      <p class="text-muted-foreground">
+  <div class="mx-auto max-w-3xl px-5 py-10 lg:py-14">
+    <header class="mb-10 pb-8 border-b border-border">
+      <div class="kicker-pill mb-3">Monthly Archive</div>
+      <h1 class="mb-2">{monthName} {year}</h1>
+      <p class="font-serif text-[18px] text-muted-foreground m-0">
         {monthPosts.length} post{monthPosts.length !== 1 ? 's' : ''} published
       </p>
     </header>
 
     {monthPosts.length > 0 ? (
-      <ul class="space-y-3">
+      <div class="space-y-4">
         {monthPosts.map(post => (
-          <li>
-            <a 
-              href={`/journal/${post.slug}/`}
-              class="group block"
-            >
-              <PostTitle title={post.data.title} class="text-foreground group-hover:underline decoration-1 underline-offset-2" />
-              <span class="block text-sm text-muted-foreground mt-0.5">
-                {post.data.description}
-              </span>
-            </a>
-          </li>
+          <a 
+            href={`/journal/${post.slug}/`}
+            class="group block rounded-2xl border border-border bg-card p-5 no-underline hover:border-primary transition-colors"
+          >
+            <PostTitle title={post.data.title} class="font-serif text-[20px] font-bold text-foreground group-hover:text-primary transition-colors" />
+            <span class="block text-sm text-muted-foreground mt-1.5 leading-relaxed">
+              {post.data.description}
+            </span>
+          </a>
         ))}
-      </ul>
+      </div>
     ) : (
       <p class="text-muted-foreground">No posts found for {monthName} {year}.</p>
     )}
 
-    <!-- Navigation -->
-    <footer class="mt-12 pt-8 border-t border-border">
-      <div class="flex justify-between">
+    <footer class="mt-10 pt-6 border-t border-border">
+      <div class="flex flex-wrap justify-between gap-3">
         <a 
           href={`/journal/${year}/`}
-          class="text-sm text-muted-foreground hover:text-foreground"
+          class="tile"
         >
           ← {year}
         </a>
         <a 
           href="/archive"
-          class="text-sm text-muted-foreground hover:text-foreground"
+          class="inline-flex items-center rounded-full border border-border bg-card px-5 py-2 text-sm font-semibold text-muted-foreground no-underline hover:border-primary hover:text-primary transition-colors"
         >
           Archive
         </a>

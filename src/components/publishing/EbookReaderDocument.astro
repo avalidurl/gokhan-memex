@@ -44,81 +44,83 @@ const cantoStartLines = new Map(ebook.toc.map((entry) => [entry.startLine, entry
     `} />
   )}
 
-  <div id="top" class="reader-document mx-auto max-w-5xl px-6 py-12 lg:py-16">
-    <section class="border-t border-foreground/15 pt-8">
-      <div class="grid gap-8 lg:grid-cols-[240px_1fr]">
+  <div id="top" class="reader-document mx-auto max-w-5xl px-5 py-10 lg:py-14">
+    <section class="rounded-2xl border border-border bg-card p-6 sm:p-8">
+      <div class="grid gap-8 lg:grid-cols-[220px_1fr]">
         <img
           src={ebook.coverImage}
           alt={`Cover art for ${ebook.title}`}
-          class="w-full border border-foreground/10 object-cover"
+          class="w-full rounded-xl border border-border object-cover shadow-sm"
         />
 
         <div>
-          <p class="doc-eyebrow mb-3">Online Reader</p>
-          <h1 class="mb-4">{ebook.title}</h1>
-          <p class="mb-4 max-w-2xl text-lg text-foreground/70">{ebook.subtitle}</p>
-          <p class="doc-copy mb-6 text-lg text-foreground/90">{ebook.blurb}</p>
+          <div class="kicker-pill mb-3">Online Reader</div>
+          <h1 class="mb-3">{ebook.title}</h1>
+          <p class="mb-3 max-w-2xl font-serif text-[19px] text-muted-foreground">{ebook.subtitle}</p>
+          <p class="font-serif mb-5 text-[17.5px] leading-relaxed text-foreground/90">{ebook.blurb}</p>
 
-          <div class="mb-8 flex flex-wrap gap-x-5 gap-y-2 text-sm text-foreground/60">
-            <span>By {ebook.author}</span>
-            <span>{ebook.pageCount} pages</span>
-            <span>{ebook.lineCount} numbered lines</span>
+          <div class="mb-6 flex flex-wrap gap-2 text-xs">
+            <span class="rounded-full border border-border bg-muted px-3 py-1 font-medium text-foreground">By {ebook.author}</span>
+            <span class="rounded-full border border-border bg-muted px-3 py-1 text-muted-foreground">{ebook.pageCount} pages</span>
+            <span class="rounded-full border border-border bg-muted px-3 py-1 text-muted-foreground">{ebook.lineCount} numbered lines</span>
           </div>
 
-          <div class="border-t border-foreground/15 py-5">
-            <p class="doc-eyebrow mb-2">Inside cover</p>
-            <p class="mb-1 text-xl font-semibold text-foreground">{ebook.title}</p>
-            <p class="mb-1 text-foreground/70">{ebook.subtitle}</p>
+          <div class="rounded-xl border border-border bg-muted/50 p-4 mb-6">
+            <p class="doc-eyebrow mb-1.5">Inside cover</p>
+            <p class="mb-0.5 font-serif text-lg font-bold text-foreground">{ebook.title}</p>
+            <p class="mb-1 text-sm text-muted-foreground">{ebook.subtitle}</p>
             <p class="mb-0 text-sm text-foreground/90">{ebook.author}</p>
-            {ebook.website ? <p class="mb-0 text-sm text-foreground/90">{ebook.website}</p> : null}
+            {ebook.website ? <p class="mb-0 text-sm text-muted-foreground">{ebook.website}</p> : null}
           </div>
 
-          <div class="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-base">
-            <a href={ebook.epubUrl} class="doc-link" download>Download EPUB</a>
-            <a href={ebook.staticHtmlUrl} class="doc-link" target="_blank" rel="noopener">Raw HTML export</a>
+          <div class="flex flex-wrap gap-2.5">
+            <a href={ebook.epubUrl} class="tile" download>Download EPUB</a>
+            <a href={ebook.staticHtmlUrl} class="inline-flex items-center rounded-full border border-border bg-background px-4 py-2 text-[13.5px] font-semibold text-muted-foreground no-underline hover:border-primary hover:text-primary transition-colors" target="_blank" rel="noopener">Raw HTML export ↗</a>
             {ebook.sourceTextUrl ? (
-              <a href={ebook.sourceTextUrl} class="doc-link" download>Download source text</a>
+              <a href={ebook.sourceTextUrl} class="inline-flex items-center rounded-full border border-border bg-background px-4 py-2 text-[13.5px] font-semibold text-muted-foreground no-underline hover:border-primary hover:text-primary transition-colors" download>Download source text</a>
             ) : null}
             {ebook.fontUrl ? (
-              <a href={ebook.fontUrl} class="doc-link" download>Download font</a>
+              <a href={ebook.fontUrl} class="inline-flex items-center rounded-full border border-border bg-background px-4 py-2 text-[13.5px] font-semibold text-muted-foreground no-underline hover:border-primary hover:text-primary transition-colors" download>Download font</a>
             ) : null}
           </div>
         </div>
       </div>
     </section>
 
-    <nav class="mt-10 border-t border-foreground/15 pt-6">
-      <p class="doc-eyebrow mb-3">Page numbers</p>
-      <div class="flex flex-wrap gap-x-4 gap-y-2 text-base">
-        {pageJumpLinks.map((page) => (
-          <a href={`#page-${page.pageNumber}`} class="doc-link">Page {page.pageNumber}</a>
-        ))}
-      </div>
-    </nav>
+    <div class="mt-6 grid gap-6 lg:grid-cols-2">
+      <nav class="rounded-2xl border border-border bg-card p-6">
+        <p class="doc-eyebrow mb-3">Page numbers</p>
+        <div class="flex flex-wrap gap-2">
+          {pageJumpLinks.map((page) => (
+            <a href={`#page-${page.pageNumber}`} class="rounded-full border border-border bg-background px-3 py-1 text-xs font-semibold text-muted-foreground no-underline hover:border-primary hover:text-primary transition-colors">Page {page.pageNumber}</a>
+          ))}
+        </div>
+      </nav>
 
-    <nav class="mt-8 border-t border-foreground/15 pt-6">
-      <h2 class="mb-4">Table of Contents</h2>
-      <ol class="space-y-2 pl-6 text-base leading-7 text-foreground/90">
-        {ebook.toc.map((entry) => (
-          <li>
-            <a href={`#${entry.anchor}`} class="doc-link">{entry.number}. {entry.title}</a>
-          </li>
-        ))}
-      </ol>
-    </nav>
+      <nav class="rounded-2xl border border-border bg-card p-6">
+        <h2 class="mb-3 font-serif text-[22px] font-bold">Table of Contents</h2>
+        <ol class="space-y-1.5 pl-5 text-[15px] leading-6 text-foreground/90 m-0">
+          {ebook.toc.map((entry) => (
+            <li>
+              <a href={`#${entry.anchor}`} class="doc-link">{entry.number}. {entry.title}</a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    </div>
 
-    <div class="mt-10 space-y-8">
+    <div class="mt-8 space-y-6">
       {isVerseMode ? (
         versePages!.map((page) => (
-          <section id={`page-${page.pageNumber}`} class="border-t border-foreground/15 py-8">
-            <div class="flex items-center justify-between gap-4 border-b border-foreground/10 pb-4">
+          <section id={`page-${page.pageNumber}`} class="rounded-2xl border border-border bg-card p-6 sm:p-8">
+            <div class="flex items-center justify-between gap-4 border-b border-border pb-4">
               <div>
                 <p class="doc-eyebrow mb-1">Page {page.pageNumber}</p>
-                <p class="text-sm text-foreground/60">
+                <p class="text-xs text-muted-foreground m-0">
                   Lines {String(page.verses[0]?.lines[0]?.number ?? 0).padStart(4, '0')} to {String(page.verses[page.verses.length - 1]?.lines.at(-1)?.number ?? 0).padStart(4, '0')}
                 </p>
               </div>
-              <a href="#top" class="doc-link text-sm">Back to top</a>
+              <a href="#top" class="doc-link text-sm">Back to top ↑</a>
             </div>
 
             <div class="mt-6 space-y-8">
@@ -129,18 +131,18 @@ const cantoStartLines = new Map(ebook.toc.map((entry) => [entry.startLine, entry
                 return (
                   <div>
                     {cantoEntry ? (
-                      <div id={cantoEntry.anchor} class="mb-4 scroll-mt-24 border-b border-foreground/10 pb-3">
+                      <div id={cantoEntry.anchor} class="mb-4 scroll-mt-24 border-b border-border pb-3">
                         <p class="doc-eyebrow mb-1">Canto {cantoEntry.number}</p>
-                        <h2>{cantoEntry.title}</h2>
+                        <h2 class="m-0">{cantoEntry.title}</h2>
                       </div>
                     ) : null}
                     <article class="verse-spread">
                       <div class="verse-asemic">
                         {verse.asemic?.map((row) => <div>{row}</div>)}
                       </div>
-                      <div class="verse-english">
+                      <div class="verse-english font-serif">
                         {verse.lines.map((line) => (
-                          <p class="grid grid-cols-[3.75rem_1fr] gap-4 text-base">
+                          <p class="grid grid-cols-[3.75rem_1fr] gap-4 text-[16.5px] mb-1.5">
                             <span class="doc-line-number">{String(line.number).padStart(4, '0')}</span>
                             <span>{line.text}</span>
                           </p>
@@ -155,29 +157,29 @@ const cantoStartLines = new Map(ebook.toc.map((entry) => [entry.startLine, entry
         ))
       ) : (
         pages!.map((page) => (
-          <section id={`page-${page.pageNumber}`} class="border-t border-foreground/15 py-8">
-            <div class="flex items-center justify-between gap-4 border-b border-foreground/10 pb-4">
+          <section id={`page-${page.pageNumber}`} class="rounded-2xl border border-border bg-card p-6 sm:p-8">
+            <div class="flex items-center justify-between gap-4 border-b border-border pb-4">
               <div>
                 <p class="doc-eyebrow mb-1">Page {page.pageNumber}</p>
-                <p class="text-sm text-foreground/60">
+                <p class="text-xs text-muted-foreground m-0">
                   Lines {String(page.lines[0]?.number ?? 0).padStart(4, '0')} to {String(page.lines[page.lines.length - 1]?.number ?? 0).padStart(4, '0')}
                 </p>
               </div>
-              <a href="#top" class="doc-link text-sm">Back to top</a>
+              <a href="#top" class="doc-link text-sm">Back to top ↑</a>
             </div>
 
-            <div class="mt-6 space-y-3">
+            <div class="mt-6 space-y-2.5 font-serif">
               {page.lines.map((line) => {
                 const cantoEntry = cantoStartLines.get(line.number)
                 return (
-                  <div class="space-y-3">
+                  <div class="space-y-2.5">
                     {cantoEntry ? (
-                      <div id={cantoEntry.anchor} class="mb-1 scroll-mt-24 border-b border-foreground/10 pb-3">
+                      <div id={cantoEntry.anchor} class="mb-2 mt-4 scroll-mt-24 border-b border-border pb-3">
                         <p class="doc-eyebrow mb-1">Canto {cantoEntry.number}</p>
-                        <h2>{cantoEntry.title}</h2>
+                        <h2 class="m-0">{cantoEntry.title}</h2>
                       </div>
                     ) : null}
-                    <p class="grid grid-cols-[3.75rem_1fr] gap-4 text-base">
+                    <p class="grid grid-cols-[3.75rem_1fr] gap-4 text-[17px] mb-0">
                       <span class="doc-line-number">{String(line.number).padStart(4, '0')}</span>
                       <span>{line.text}</span>
                     </p>
@@ -193,47 +195,35 @@ const cantoStartLines = new Map(ebook.toc.map((entry) => [entry.startLine, entry
 </BaseLayout>
 
 <style>
-  .reader-document {
-    color: var(--ink);
-    /* R2 — running prose. The R4 identifiers inside (eyebrows, doc numbers,
-       line numbers, labels) re-assert the data face themselves. */
-    font-family: var(--font-text);
-  }
-
+  .reader-document { color: var(--ink); }
   .reader-document .doc-eyebrow {
-    color: var(--dim);
-    font-family: var(--font-data);
-    font-size: 14px;
-    letter-spacing: 0.08em;
+    color: var(--acc);
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
     text-transform: uppercase;
   }
-
   .reader-document .doc-link {
-    color: var(--ink);
+    color: var(--acc);
     text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.12em;
+    text-underline-offset: 3px;
   }
-
-  .reader-document .doc-link:visited {
-    color: var(--dim);
-  }
-
+  .reader-document .doc-link:hover { color: var(--acc-dark); }
   .reader-document .doc-line-number {
-    color: var(--dim);
+    color: var(--mut);
     font-family: var(--font-data);
-    font-size: 12.5px;
-    letter-spacing: 0.06em;
+    font-size: 12px;
+    letter-spacing: 0.04em;
     min-width: 3.75rem;
+    padding-top: 0.2em;
   }
-
   .verse-spread {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 36px;
     align-items: start;
   }
-
   .verse-asemic {
     font-family: 'TheGuyWithComputeRaga', var(--font-data);
     font-size: 34px;
@@ -243,16 +233,8 @@ const cantoStartLines = new Map(ebook.toc.map((entry) => [entry.startLine, entry
     font-feature-settings: 'liga' 0, 'clig' 0;
     font-variant-numeric: lining-nums;
   }
-
-  .verse-asemic div {
-    margin: 0.05em 0;
-  }
-
+  .verse-asemic div { margin: 0.05em 0; }
   @media (max-width: 760px) {
-    .verse-spread {
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
+    .verse-spread { grid-template-columns: 1fr; gap: 14px; }
   }
-
 </style>

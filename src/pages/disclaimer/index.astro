@@ -6,49 +6,52 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
   title="Disclaimer"
   description="Important disclaimers regarding financial advice and content."
 >
-  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
-    <header class="mb-12">
-      <h1 class="mb-4">Disclaimer</h1>
-      <p class="text-muted-foreground">
+  <div class="mx-auto max-w-3xl px-5 py-10 lg:py-14">
+    <header class="mb-10 pb-8 border-b border-border">
+      <div class="kicker-pill mb-3">Legal Notice</div>
+      <h1 class="mb-2">Disclaimer</h1>
+      <p class="font-serif text-[18px] text-muted-foreground m-0">
         Important information regarding content on this website.
       </p>
     </header>
 
-    <div class="prose dark:prose-invert max-w-none">
-      <div class="bg-muted border-l-2 border-border pl-4 py-4 mb-8">
-        <p class="text-lg m-0">
-          <strong>None of the content on this website constitutes financial advice.</strong> All content is for research and educational purposes only.
+    <div class="rounded-2xl border border-border bg-card p-6 sm:p-9">
+      <div class="prose dark:prose-invert max-w-none">
+        <div class="rounded-2xl border border-border border-l-[5px] border-l-primary bg-muted p-5 mb-8 not-prose">
+          <p class="font-serif text-[18px] text-foreground m-0">
+            <strong>None of the content on this website constitutes financial advice.</strong> All content is for research and educational purposes only.
+          </p>
+        </div>
+
+        <h2>Research Purpose</h2>
+        <p>
+          This website shares research findings and insights on stablecoins, tokenization, AI, and emerging technologies. Content is intended for academic discourse, not actionable investment guidance.
+        </p>
+
+        <h2>Affiliate Links</h2>
+        <p>
+          This website may contain affiliate links. When present, they are clearly disclosed. I may receive compensation from purchases through these links at no additional cost to you.
+        </p>
+
+        <h2>No Warranties</h2>
+        <p>
+          While I strive for accuracy, no warranties are made regarding completeness or reliability of any content. Information may become outdated without notice.
+        </p>
+
+        <h2>Personal Opinions</h2>
+        <p>
+          All content represents personal opinions and analysis. Views expressed do not necessarily reflect positions of any organizations I may be affiliated with.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+          Questions? Email <a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a>
+        </p>
+
+        <p class="text-sm text-muted-foreground mt-8">
+          Last updated: January 2026
         </p>
       </div>
-
-      <h2>Research Purpose</h2>
-      <p>
-        This website shares research findings and insights on stablecoins, tokenization, AI, and emerging technologies. Content is intended for academic discourse, not actionable investment guidance.
-      </p>
-
-      <h2>Affiliate Links</h2>
-      <p>
-        This website may contain affiliate links. When present, they are clearly disclosed. I may receive compensation from purchases through these links at no additional cost to you.
-      </p>
-
-      <h2>No Warranties</h2>
-      <p>
-        While I strive for accuracy, no warranties are made regarding completeness or reliability of any content. Information may become outdated without notice.
-      </p>
-
-      <h2>Personal Opinions</h2>
-      <p>
-        All content represents personal opinions and analysis. Views expressed do not necessarily reflect positions of any organizations I may be affiliated with.
-      </p>
-
-      <h2>Contact</h2>
-      <p>
-        Questions? Email <a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a>
-      </p>
-
-      <p class="text-sm text-muted-foreground mt-8">
-        Last updated: January 2026
-      </p>
     </div>
   </div>
 </BaseLayout>

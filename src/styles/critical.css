@@ -1,164 +1,208 @@
-/* House register — filed technical document. Strict monochrome, four tokens
-   per theme, two type faces in five roles. Hierarchy is carried by border
-   weight, casing, letter-spacing, size, and weight — never by color. Legacy
-   variable names are kept and remapped onto the four tokens so every
-   component keeps working. */
+/* Turkish Art Blob editorial register — warm cream paper, deep plum-ink,
+   rose accent, Georgia-style serif display & prose paired with clean system
+   sans UI/controls, generous whitespace, and soft rounded cards.
+   Dark mode inverts onto a deep plum-ink ground with warm cream ink and a
+   luminous rose accent. Legacy variable names are mapped cleanly so every
+   Astro/Tailwind component works across both themes. */
 :root {
-  /* The four tokens (light — Bureau register paper, per booster.numetal.xyz).
-     Two accent stamps ride along: signal red and IKB. Accents mark kickers
-     and signal labels only — running ink stays monochrome. */
-  --ink: #141414;
-  --paper: #FAFAF8;
-  --dim: #6f6f6f;
-  --faint: #d8d8d4;
-  --red: #e10600;
-  --ikb: #002FA7;
+  /* Primary Turkish Art Blob tokens (light) */
+  --bg: #fbf6f3;
+  --ink: #2a1a1e;
+  --mut: #7a6268;
+  --acc: #c94f62;
+  --acc-dark: #9c3345;
+  --card-bg: #ffffff;
+  --line: #ecdcd8;
+  --soft: #f6e6e2;
+  --soft-hover: #fff8f6;
+  --lead-ink: #4a3539;
+  --store: #4f9a7a;
+  --live: #d08a2c;
+  --header-bg: rgba(251, 246, 243, 0.92);
 
-  /* Legacy HSL triplets, remapped onto the four tokens */
-  --accent-blue: 0 0% 7.84%;
-  --accent-blue-strong: 0 0% 7.84%;
-  --accent-blue-soft: 60 5% 83.9%;
-  --accent-blue-wash: 60 5% 83.9%;
-  --accent-blue-foreground: 60 17% 97.6%;
-  --backdrop: 60 17% 97.6%;
-  --background: 60 17% 97.6%;
-  --foreground: 0 0% 7.84%;
-  --card: 60 17% 97.6%;
-  --card-foreground: 0 0% 7.84%;
-  --primary: 0 0% 7.84%;
-  --primary-foreground: 60 17% 97.6%;
-  --secondary: 60 5% 83.9%;
-  --secondary-foreground: 0 0% 7.84%;
-  --muted: 60 5% 83.9%;
-  --muted-foreground: 0 0% 43.53%;
-  --accent: 60 5% 83.9%;
-  --accent-foreground: 0 0% 7.84%;
-  --border: 0 0% 7.84%;
-  --input: 0 0% 7.84%;
-  --ring: 0 0% 7.84%;
-  --radius: 0;
-  --popover: 60 17% 97.6%;
-  --popover-foreground: 0 0% 7.84%;
-  --destructive: 0 0% 7.84%;
-  --destructive-foreground: 60 17% 97.6%;
+  /* Compatibility house tokens */
+  --paper: #fbf6f3;
+  --dim: #7a6268;
+  --faint: #f6e6e2;
+  --red: #c94f62;
+  --ikb: #c94f62;
 
-  /* ── Two faces, five roles ──────────────────────────────────────────────
-     R1 display · R2 running prose · R3 quantities  → --font-text
-     R4 identifiers & controls · R5 machine strings → --font-data
+  /* HSL triplets for Tailwind semantic utilities */
+  --accent-blue: 351 53% 55%;
+  --accent-blue-strong: 350 51% 41%;
+  --accent-blue-soft: 12 48% 93%;
+  --accent-blue-wash: 12 48% 93%;
+  --accent-blue-foreground: 0 0% 100%;
+  --backdrop: 23 44% 97%;
+  --background: 23 44% 97%;
+  --foreground: 345 24% 13%;
+  --card: 0 0% 100%;
+  --card-foreground: 345 24% 13%;
+  --primary: 351 53% 55%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 12 48% 93%;
+  --secondary-foreground: 345 24% 13%;
+  --muted: 12 48% 93%;
+  --muted-foreground: 345 11% 43%;
+  --accent: 12 48% 93%;
+  --accent-foreground: 351 53% 55%;
+  --border: 12 31% 89%;
+  --input: 12 31% 89%;
+  --ring: 351 53% 55%;
+  --radius: 16px;
+  --popover: 0 0% 100%;
+  --popover-foreground: 345 24% 13%;
+  --destructive: 350 51% 41%;
+  --destructive-foreground: 0 0% 100%;
 
-     A number that is a QUANTITY is text-face + tabular figures. A number
-     that is an IDENTIFIER (§, doc no, rev, address, hash) is the data face,
-     and takes no tabular declaration — the data face is already tabular.
-
-     2026-08-09 — Bureau register adopted from booster.numetal.xyz (BST-001
-     lineage): the text face is the Helvetica Neue stack, the data face leads
-     with JetBrains Mono. Both are booster's exact lists — no webfonts shipped;
-     visitors without JetBrains Mono installed fall back to ui-monospace just
-     as they do on booster. Anything changed here must change in
-     textStack/dataStack in tailwind.config.mjs too, or the two stacks drift. */
-  --font-text: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /* Typography stacks:
+     --font-serif : Georgia-style editorial serif for headings & long-form reading
+     --font-sans  : Clean system sans for body UI, labels, controls, tables, metadata
+     --font-data  : Clean monospace for code blocks, hashes, and technical tokens */
+  --font-serif: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Inter, Arial, sans-serif;
+  --font-text: var(--font-sans);
   --font-data: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
-
-  /* Compatibility aliases, one release only. The old names are what got
-     aliased to each other in the first place; every call site is being moved
-     onto --font-text / --font-data, and these two lines then go. */
   --font-mono: var(--font-data);
-  --font-sans: var(--font-text);
 
-  /* Code-highlighter register — the highlighter emits var(--astro-code-*)
-     references (no color literals), pinned here to the four tokens. They
-     resolve per-element, so blocks invert with the sheet in both themes. */
-  --astro-code-foreground: var(--ink);
-  --astro-code-background: var(--faint);
-  --astro-code-token-constant: var(--ink);
-  --astro-code-token-string: var(--dim);
-  --astro-code-token-comment: var(--dim);
-  --astro-code-token-keyword: var(--ink);
-  --astro-code-token-parameter: var(--ink);
-  --astro-code-token-function: var(--ink);
-  --astro-code-token-string-expression: var(--dim);
-  --astro-code-token-punctuation: var(--dim);
-  --astro-code-token-link: var(--ink);
+  /* Shiki css-variables syntax highlighter palette */
+  --astro-code-foreground: #2a1a1e;
+  --astro-code-background: #f6e6e2;
+  --astro-code-token-constant: #9c3345;
+  --astro-code-token-string: #246b4c;
+  --astro-code-token-comment: #7a6268;
+  --astro-code-token-keyword: #c94f62;
+  --astro-code-token-parameter: #2a1a1e;
+  --astro-code-token-function: #8a4b5c;
+  --astro-code-token-string-expression: #246b4c;
+  --astro-code-token-punctuation: #7a6268;
+  --astro-code-token-link: #c94f62;
 
   color-scheme: light;
 }
 
 .dark {
-  /* The four tokens (dark — the same Bureau palette, paper and ink swapped) */
-  --ink: #FAFAF8;
-  --paper: #141414;
-  --dim: #9a9a9a;
-  --faint: #2a2a2a;
-  --red: #e10600;
-  --ikb: #4d6fd0; /* IKB lifted for dark paper; light theme keeps the true #002FA7 */
+  /* Dark plum-ink variant of the Turkish Art Blob palette */
+  --bg: #191013;
+  --ink: #f7ece8;
+  --mut: #b99fa5;
+  --acc: #e06c7e;
+  --acc-dark: #f08b9b;
+  --card-bg: #23161b;
+  --line: #3b262d;
+  --soft: #2d1c22;
+  --soft-hover: #352128;
+  --lead-ink: #e4d2d6;
+  --store: #65b592;
+  --live: #e09f46;
+  --header-bg: rgba(25, 16, 19, 0.9);
 
-  --accent-blue: 60 17% 97.6%;
-  --accent-blue-strong: 60 17% 97.6%;
-  --accent-blue-soft: 0 0% 16.47%;
-  --accent-blue-wash: 0 0% 16.47%;
-  --accent-blue-foreground: 0 0% 7.84%;
-  --backdrop: 0 0% 7.84%;
-  --background: 0 0% 7.84%;
-  --foreground: 60 17% 97.6%;
-  --card: 0 0% 7.84%;
-  --card-foreground: 60 17% 97.6%;
-  --primary: 60 17% 97.6%;
-  --primary-foreground: 0 0% 7.84%;
-  --secondary: 0 0% 16.47%;
-  --secondary-foreground: 60 17% 97.6%;
-  --muted: 0 0% 16.47%;
-  --muted-foreground: 0 0% 60.39%;
-  --accent: 0 0% 16.47%;
-  --accent-foreground: 60 17% 97.6%;
-  --border: 60 17% 97.6%;
-  --input: 60 17% 97.6%;
-  --ring: 60 17% 97.6%;
-  --popover: 0 0% 7.84%;
-  --popover-foreground: 60 17% 97.6%;
-  --destructive: 60 17% 97.6%;
-  --destructive-foreground: 0 0% 7.84%;
+  --paper: #191013;
+  --dim: #b99fa5;
+  --faint: #2d1c22;
+  --red: #e06c7e;
+  --ikb: #e06c7e;
+
+  --accent-blue: 351 65% 65%;
+  --accent-blue-strong: 351 77% 74%;
+  --accent-blue-soft: 339 23% 14%;
+  --accent-blue-wash: 339 23% 14%;
+  --accent-blue-foreground: 340 22% 8%;
+  --backdrop: 340 22% 8%;
+  --background: 340 22% 8%;
+  --foreground: 16 45% 94%;
+  --card: 337 23% 11%;
+  --card-foreground: 16 45% 94%;
+  --primary: 351 65% 65%;
+  --primary-foreground: 340 22% 8%;
+  --secondary: 339 23% 14%;
+  --secondary-foreground: 16 45% 94%;
+  --muted: 339 23% 14%;
+  --muted-foreground: 346 16% 67%;
+  --accent: 339 23% 14%;
+  --accent-foreground: 351 65% 65%;
+  --border: 340 22% 19%;
+  --input: 340 22% 19%;
+  --ring: 351 65% 65%;
+  --popover: 337 23% 11%;
+  --popover-foreground: 16 45% 94%;
+  --destructive: 351 65% 65%;
+  --destructive-foreground: 340 22% 8%;
+
+  --astro-code-foreground: #f7ece8;
+  --astro-code-background: #26181d;
+  --astro-code-token-constant: #f08b9b;
+  --astro-code-token-string: #8ad4b2;
+  --astro-code-token-comment: #b99fa5;
+  --astro-code-token-keyword: #e06c7e;
+  --astro-code-token-parameter: #f7ece8;
+  --astro-code-token-function: #f2b5c0;
+  --astro-code-token-string-expression: #8ad4b2;
+  --astro-code-token-punctuation: #b99fa5;
+  --astro-code-token-link: #e06c7e;
 
   color-scheme: dark;
 }
 
-/* Dark theme ships in CSS: the OS preference applies it with no JavaScript
-   and before any script runs. An explicit stored choice still wins — the
-   init script stamps .light or .dark on <html>, and .light re-asserts the
-   paper tokens over this media block. Token-for-token identical to .dark. */
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-    --ink: #FAFAF8;
-    --paper: #141414;
-    --dim: #9a9a9a;
-    --faint: #2a2a2a;
-    --red: #e10600;
-    --ikb: #4d6fd0;
+    --bg: #191013;
+    --ink: #f7ece8;
+    --mut: #b99fa5;
+    --acc: #e06c7e;
+    --acc-dark: #f08b9b;
+    --card-bg: #23161b;
+    --line: #3b262d;
+    --soft: #2d1c22;
+    --soft-hover: #352128;
+    --lead-ink: #e4d2d6;
+    --store: #65b592;
+    --live: #e09f46;
+    --header-bg: rgba(25, 16, 19, 0.9);
 
-    --accent-blue: 60 17% 97.6%;
-    --accent-blue-strong: 60 17% 97.6%;
-    --accent-blue-soft: 0 0% 16.47%;
-    --accent-blue-wash: 0 0% 16.47%;
-    --accent-blue-foreground: 0 0% 7.84%;
-    --backdrop: 0 0% 7.84%;
-    --background: 0 0% 7.84%;
-    --foreground: 60 17% 97.6%;
-    --card: 0 0% 7.84%;
-    --card-foreground: 60 17% 97.6%;
-    --primary: 60 17% 97.6%;
-    --primary-foreground: 0 0% 7.84%;
-    --secondary: 0 0% 16.47%;
-    --secondary-foreground: 60 17% 97.6%;
-    --muted: 0 0% 16.47%;
-    --muted-foreground: 0 0% 60.39%;
-    --accent: 0 0% 16.47%;
-    --accent-foreground: 60 17% 97.6%;
-    --border: 60 17% 97.6%;
-    --input: 60 17% 97.6%;
-    --ring: 60 17% 97.6%;
-    --popover: 0 0% 7.84%;
-    --popover-foreground: 60 17% 97.6%;
-    --destructive: 60 17% 97.6%;
-    --destructive-foreground: 0 0% 7.84%;
+    --paper: #191013;
+    --dim: #b99fa5;
+    --faint: #2d1c22;
+    --red: #e06c7e;
+    --ikb: #e06c7e;
+
+    --accent-blue: 351 65% 65%;
+    --accent-blue-strong: 351 77% 74%;
+    --accent-blue-soft: 339 23% 14%;
+    --accent-blue-wash: 339 23% 14%;
+    --accent-blue-foreground: 340 22% 8%;
+    --backdrop: 340 22% 8%;
+    --background: 340 22% 8%;
+    --foreground: 16 45% 94%;
+    --card: 337 23% 11%;
+    --card-foreground: 16 45% 94%;
+    --primary: 351 65% 65%;
+    --primary-foreground: 340 22% 8%;
+    --secondary: 339 23% 14%;
+    --secondary-foreground: 16 45% 94%;
+    --muted: 339 23% 14%;
+    --muted-foreground: 346 16% 67%;
+    --accent: 339 23% 14%;
+    --accent-foreground: 351 65% 65%;
+    --border: 340 22% 19%;
+    --input: 340 22% 19%;
+    --ring: 351 65% 65%;
+    --popover: 337 23% 11%;
+    --popover-foreground: 16 45% 94%;
+    --destructive: 351 65% 65%;
+    --destructive-foreground: 340 22% 8%;
+
+    --astro-code-foreground: #f7ece8;
+    --astro-code-background: #26181d;
+    --astro-code-token-constant: #f08b9b;
+    --astro-code-token-string: #8ad4b2;
+    --astro-code-token-comment: #b99fa5;
+    --astro-code-token-keyword: #e06c7e;
+    --astro-code-token-parameter: #f7ece8;
+    --astro-code-token-function: #f2b5c0;
+    --astro-code-token-string-expression: #8ad4b2;
+    --astro-code-token-punctuation: #b99fa5;
+    --astro-code-token-link: #e06c7e;
 
     color-scheme: dark;
   }
@@ -168,25 +212,18 @@
 *::before,
 *::after {
   box-sizing: border-box;
-  border-color: var(--ink);
+  border-color: var(--line);
   text-rendering: optimizeLegibility;
   -webkit-font-feature-settings: "kern" 1;
   font-feature-settings: "kern" 1;
-  /* Filed documents do not move, cast shadows, or round their corners. */
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  text-shadow: none !important;
-  transition: none !important;
-  animation: none !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
 }
 
 html {
   height: 100%;
-  background-color: var(--paper);
-  font-size: 18px;
-  line-height: 1.6;
+  scroll-behavior: smooth;
+  background-color: var(--bg);
+  font-size: 17px;
+  line-height: 1.65;
   -webkit-text-size-adjust: 100%;
   tab-size: 4;
 }
@@ -194,51 +231,54 @@ html {
 body {
   min-height: 100vh;
   margin: 0;
-  background-color: var(--paper);
+  background-color: var(--bg);
   color: var(--ink);
-  /* R2 — running prose. Booster body: 18px/1.6 on the sans stack. */
-  font-family: var(--font-text);
-  font-size: 18px;
-  line-height: 1.6;
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.65;
   font-feature-settings: "kern" 1, "liga" 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: left;
 }
 
-/* The filed sheet — booster's .wrap: one 980px column, ruled horizontally
-   (docstrips and foot rules), never at the sides. */
 .site-sheet {
-  max-width: 980px;
-  margin: 0 auto;
-  background: var(--paper);
+  width: 100%;
+  min-height: 100vh;
+  background: var(--bg);
 }
 
-/* Legacy divider classes, demoted to plain rules (no halftone, no caution
-   colors). The one permitted graphic is .perforation below. */
+/* Soft hairline section dividers */
 .dither {
   height: 0;
-  border-top: 1px solid var(--ink);
+  border-top: 1px solid var(--line);
   opacity: 1;
 }
 
 .stripe {
   height: 0;
-  margin-top: 2.2rem;
-  border-top: 3px solid var(--ink);
+  margin-top: 2.4rem;
+  border-top: 1px solid var(--line);
   background-image: none;
 }
 
-/* Ledger-table container — every content table sits in one (wrapped at build
-   time by the markdown pipeline); wide tables scroll inside it, never the body. */
+/* Rounded table container matching Turkish Art Blob */
 .table-wrap {
   max-width: 100%;
   overflow-x: auto;
+  margin: 14px 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--card-bg);
 }
 
 .table-desk {
-  margin: 0 0 1.25rem;
+  margin: 1rem 0 1.5rem;
   width: 100%;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--card-bg);
 }
 
 .table-desk.is-wide {
@@ -250,66 +290,71 @@ body {
 .table-desk-bar {
   display: flex;
   flex-wrap: wrap;
-  align-items: stretch;
+  align-items: center;
   gap: 8px;
-  margin: 0 0 8px;
-  font-family: var(--font-data);
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  margin: 0 0 10px;
+  font-family: var(--font-sans);
+  font-size: 12.5px;
 }
 
 .table-desk-filter {
   flex: 1 1 12rem;
   min-width: 12rem;
-  padding: 8px 10px;
-  border: 2px solid var(--ink);
-  background: transparent;
+  padding: 7px 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg);
   color: var(--ink);
   font: inherit;
-  font-family: var(--font-data);
-  letter-spacing: 0;
-  text-transform: none;
+  font-size: 13px;
 }
 
 .table-desk-filter:focus-visible {
-  outline: 2px solid var(--ink);
+  outline: 2px solid var(--acc);
   outline-offset: 2px;
+  border-color: var(--acc);
 }
 
 .table-desk-count {
   display: flex;
   align-items: center;
-  color: var(--dim);
+  color: var(--mut);
+  font-size: 12.5px;
+  padding: 0 6px;
   white-space: nowrap;
 }
 
 .table-desk-btn {
-  padding: 8px 12px;
-  border: 2px solid var(--ink);
-  background: transparent;
-  color: var(--ink);
-  font: inherit;
-  font-family: var(--font-data);
+  padding: 6px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--card-bg);
+  color: var(--mut);
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 600;
   cursor: pointer;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 
 .table-desk-btn:hover,
 .table-desk-btn:focus-visible {
-  background: var(--ink);
-  color: var(--paper);
+  border-color: var(--acc);
+  color: var(--acc);
+  background: var(--soft-hover);
 }
 
 .table-desk-btn[aria-pressed='true'] {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--acc);
+  border-color: var(--acc);
+  color: #ffffff;
 }
 
 .table-desk-scroll {
   overflow-x: auto;
   max-width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--line);
 }
 
 .table-desk table {
@@ -338,15 +383,17 @@ body {
 
 .table-desk-sort:hover,
 .table-desk-sort:focus-visible {
-  text-decoration: underline;
+  color: var(--acc);
 }
 
 .table-desk th[aria-sort='ascending'] .table-desk-sort::after {
   content: ' \25B2';
+  color: var(--acc);
 }
 
 .table-desk th[aria-sort='descending'] .table-desk-sort::after {
   content: ' \25BC';
+  color: var(--acc);
 }
 
 .table-desk-resize {
@@ -358,68 +405,77 @@ body {
   cursor: col-resize;
 }
 
-/* Perforation/tally bar — the single permitted graphic; divider before the colophon. */
+/* Soft divider before footer colophon */
 .perforation {
-  height: 10px;
-  background-image: repeating-linear-gradient(90deg, var(--ink) 0 6px, transparent 6px 12px);
+  height: 1px;
+  background: var(--line);
 }
 
-/* Colophon — booster's foot: 3px top rule, mono 12.5px dim strings pushed
-   apart. R4: it carries the doc number and the revision, so it is the data face. */
 .colophon {
-  border-top: 3px solid var(--ink);
-  padding-top: 0.6rem;
+  padding-top: 0.9rem;
   display: flex;
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
-  font-family: var(--font-data);
+  font-family: var(--font-sans);
   font-size: 12.5px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--dim);
+  letter-spacing: 0.02em;
+  color: var(--mut);
 }
 
 .colophon a {
-  color: var(--ink);
-  text-decoration: none;
+  color: var(--acc);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .colophon a:hover {
-  text-decoration: underline;
+  color: var(--acc-dark);
 }
 
-/* Utility-class overrides: nothing centers, nothing floats. */
-.text-center {
-  text-align: left !important;
-}
-
+/* Subscribe card in footer & articles */
 .foot-sub {
-  padding: 1.2rem 0 0.2rem;
-  color: var(--dim);
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--acc);
+  border-radius: 18px;
+  padding: 22px 26px;
+  margin: 0 0 1.8rem;
+  color: var(--mut);
+}
+
+.foot-sub-copy {
+  margin: 0 0 0.9rem;
+  font-family: var(--font-serif);
+  font-size: 16.5px;
+  line-height: 1.58;
+  color: var(--lead-ink);
+}
+
+.foot-sub-copy strong {
+  color: var(--ink);
+  font-weight: 700;
 }
 
 .foot-sub a {
-  color: var(--ink);
-  text-decoration: none;
+  color: var(--acc);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .foot-sub a:hover {
-  text-decoration: underline;
+  color: var(--acc-dark);
 }
 
 .foot-sub-form {
   margin: 0;
 }
 
-/* Stacked ruled rows: email input, then the Turnstile widget on its own
-   line (its flexible iframe fills the row instead of crushing siblings),
-   then the action buttons. */
 .foot-sub-row {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 8px;
+  gap: 10px;
   width: 100%;
 }
 
@@ -434,52 +490,63 @@ body {
   display: block;
   width: 100%;
   min-width: 12rem;
-  padding: 12px 14px;
-  border: 2px solid var(--ink);
-  background: transparent;
+  padding: 11px 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg);
   color: var(--ink);
-  font: inherit;
+  font-family: var(--font-sans);
+  font-size: 15px;
   box-sizing: border-box;
+  transition: border-color 0.15s;
 }
 
 .foot-sub-input:focus-visible {
-  outline: 2px solid var(--ink);
-  outline-offset: 2px;
+  outline: 2px solid var(--acc);
+  outline-offset: 1px;
+  border-color: var(--acc);
 }
 
 .foot-sub-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  align-items: stretch;
+  gap: 10px;
+  align-items: center;
   width: 100%;
 }
 
-/* R4 — control labels. Booster's .btn: 2px rule, mono 15px, invert on hover. */
 .foot-sub-btn {
-  padding: 12px 26px;
-  border: 2px solid var(--ink);
-  background: transparent;
-  color: var(--ink);
-  font: inherit;
+  padding: 9px 20px;
+  border: 1px solid var(--acc);
+  border-radius: 999px;
+  background: var(--acc);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
-  text-transform: uppercase;
-  font-family: var(--font-data);
-  font-size: 15px;
-  letter-spacing: 0.06em;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 
 .foot-sub-btn:hover,
 .foot-sub-btn:focus-visible {
-  border-color: var(--ink);
-  background: var(--ink);
-  color: var(--paper);
+  border-color: var(--acc-dark);
+  background: var(--acc-dark);
+  color: #ffffff;
 }
 
 .foot-sub-btn--xmtp {
-  font-family: var(--font-data);
-  font-size: 15px;
+  background: var(--card-bg);
+  color: var(--acc);
+  border: 1px solid var(--acc);
+}
+
+.foot-sub-btn--xmtp:hover,
+.foot-sub-btn--xmtp:focus-visible {
+  background: var(--acc);
+  border-color: var(--acc);
+  color: #ffffff;
 }
 
 .foot-sub-btn--xmtp:disabled {
@@ -487,9 +554,16 @@ body {
   cursor: default;
 }
 
+.foot-sub-rss {
+  margin: 0.75rem 0 0;
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  color: var(--mut);
+}
+
 @media (max-width: 640px) {
-  .foot-sub-row {
-    flex-direction: column;
+  .foot-sub {
+    padding: 18px 20px;
   }
 
   .foot-sub-actions {
@@ -501,24 +575,14 @@ body {
   .foot-sub-actions .foot-sub-btn {
     width: 100%;
     white-space: normal;
+    text-align: center;
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 420px) {
   .foot-sub-actions {
     grid-template-columns: 1fr;
   }
-}
-
-/* Header nav reads as uppercase index stamps — R4, so it keeps the data face
-   while the sheet body around it runs in the text face. Booster docstrip
-   metrics: mono 12.5px, 0.04em track. */
-.site-sheet header nav a {
-  text-transform: uppercase;
-  font-family: var(--font-data);
-  font-size: 12.5px;
-  letter-spacing: 0.04em;
-  font-weight: 600;
 }
 
 @media (prefers-reduced-motion: reduce) {

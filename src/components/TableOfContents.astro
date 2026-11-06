@@ -8,15 +8,13 @@ export interface Props {
 }
 
 const { headings } = Astro.props
-
-// Filter to only include h2 and h3 headings for cleaner TOC
 const tocHeadings = headings.filter(h => h.depth === 2 || h.depth === 3)
 ---
 
 {tocHeadings.length > 0 && (
   <nav class="toc-container" aria-label="Table of contents">
     <div class="toc-header">
-      <span class="text-xs font-medium uppercase tracking-wider text-muted-foreground">Contents</span>
+      <span class="text-xs font-semibold uppercase tracking-[0.08em] text-primary">Contents</span>
     </div>
     <ul class="toc-list">
       {tocHeadings.map((heading) => (
@@ -42,26 +40,17 @@ const tocHeadings = headings.filter(h => h.depth === 2 || h.depth === 3)
     top: 5rem;
     max-height: calc(100vh - 6rem);
     overflow-y: auto;
-    padding-right: 1rem;
+    padding: 1rem 1.2rem;
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 16px;
     scrollbar-width: thin;
   }
 
-  .toc-container::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  .toc-container::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .toc-container::-webkit-scrollbar-thumb {
-    background: hsl(var(--border));
-  }
-
   .toc-header {
-    padding-bottom: 0.75rem;
-    margin-bottom: 0.75rem;
-    border-bottom: 1px solid hsl(var(--border));
+    padding-bottom: 0.65rem;
+    margin-bottom: 0.65rem;
+    border-bottom: 1px solid var(--line);
   }
 
   .toc-list {
@@ -74,32 +63,33 @@ const tocHeadings = headings.filter(h => h.depth === 2 || h.depth === 3)
   }
 
   .toc-item {
-    line-height: 1.4;
+    line-height: 1.45;
   }
 
   .toc-item-nested {
-    padding-left: 1rem;
+    padding-left: 0.9rem;
   }
 
   .toc-link {
     display: block;
-    padding: 0.375rem 0;
-    font-size: 16.5px;
-    color: hsl(var(--muted-foreground));
+    padding: 0.3rem 0;
+    font-size: 14.5px;
+    color: var(--mut);
     text-decoration: none;
     border-left: 2px solid transparent;
-    padding-left: 0.75rem;
-    margin-left: -0.75rem;
+    padding-left: 0.65rem;
+    margin-left: -0.65rem;
+    transition: color 0.15s, border-color 0.15s;
   }
 
   .toc-link:hover {
-    color: hsl(var(--foreground));
+    color: var(--acc);
   }
 
   .toc-item.active .toc-link {
-    color: hsl(var(--foreground));
-    border-left-color: hsl(var(--foreground));
-    font-weight: 500;
+    color: var(--acc);
+    border-left-color: var(--acc);
+    font-weight: 600;
   }
 </style>
 
@@ -107,7 +97,6 @@ const tocHeadings = headings.filter(h => h.depth === 2 || h.depth === 3)
   document.addEventListener('DOMContentLoaded', () => {
     const tocItems = document.querySelectorAll('.toc-item')
     const headings = document.querySelectorAll('h2[id], h3[id]')
-    
     if (tocItems.length === 0 || headings.length === 0) return
 
     const observerOptions = {
@@ -116,7 +105,6 @@ const tocHeadings = headings.filter(h => h.depth === 2 || h.depth === 3)
     }
 
     let currentActive: string | null = null
-
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -125,22 +113,15 @@ const tocHeadings = headings.filter(h => h.depth === 2 || h.depth === 3)
             currentActive = id
             tocItems.forEach((item) => {
               const itemHeading = item.getAttribute('data-heading')
-              if (itemHeading === id) {
-                item.classList.add('active')
-              } else {
-                item.classList.remove('active')
-              }
+              item.classList.toggle('active', itemHeading === id)
             })
           }
         }
       })
     }, observerOptions)
 
-    headings.forEach((heading) => {
-      observer.observe(heading)
-    })
+    headings.forEach((heading) => observer.observe(heading))
 
-    // Smooth scroll on click
     tocItems.forEach((item) => {
       const link = item.querySelector('a')
       link?.addEventListener('click', (e) => {
@@ -150,13 +131,9 @@ const tocHeadings = headings.filter(h => h.depth === 2 || h.depth === 3)
         if (target) {
           const offset = 100
           const targetPosition = target.getBoundingClientRect().top + window.scrollY - offset
-          window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
-          })
+          window.scrollTo({ top: targetPosition, behavior: 'smooth' })
         }
       })
     })
   })
 </script>
-

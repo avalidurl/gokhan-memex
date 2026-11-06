@@ -42,41 +42,41 @@ const posts: PostEntry[] = allPosts
   description={`${posts.length} posts in the ${category} category.`}
   robots="noindex, follow"
 >
-  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
-    <header class="mb-12">
-      <p class="text-sm text-muted-foreground mb-2">
-        <a href="/archive" class="hover:underline underline-offset-2">Archive</a> / Categories
-      </p>
+  <div class="mx-auto max-w-3xl px-5 py-10 lg:py-14">
+    <header class="mb-10 pb-8 border-b border-border">
+      <div class="kicker-pill mb-3">Category</div>
       <h1 class="mb-2">{category}</h1>
-      <p class="text-muted-foreground">
+      <p class="font-serif text-[18px] text-muted-foreground m-0">
         {posts.length} post{posts.length !== 1 ? 's' : ''}
       </p>
     </header>
 
     {posts.length > 0 ? (
-      <ul class="space-y-2">
-        {posts.map((post: PostEntry) => (
-          <li>
-            <a 
-              href={`/journal/${post.slug}/`}
-              class="group flex items-baseline gap-3 py-1"
-            >
-              <PostTitle title={post.data.title} class="text-foreground group-hover:underline decoration-1 underline-offset-2" />
-              <span class="text-sm text-muted-foreground shrink-0">
-                {post.data.publishDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
-              </span>
-            </a>
-          </li>
-        ))}
-      </ul>
+      <div class="rounded-2xl border border-border bg-card overflow-hidden">
+        <ul class="divide-y divide-border list-none p-0 m-0">
+          {posts.map((post: PostEntry) => (
+            <li class="m-0">
+              <a 
+                href={`/journal/${post.slug}/`}
+                class="group flex items-baseline justify-between gap-4 px-5 py-3.5 no-underline hover:bg-muted/50 transition-colors"
+              >
+                <PostTitle title={post.data.title} class="font-serif text-[17.5px] font-semibold text-foreground group-hover:text-primary transition-colors flex-1" />
+                <span class="text-sm text-muted-foreground shrink-0 tabular-nums">
+                  {post.data.publishDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
     ) : (
       <p class="text-muted-foreground">No posts in this category.</p>
     )}
 
-    <div class="mt-12 pt-8 border-t border-border">
+    <div class="mt-10 pt-6 border-t border-border">
       <a 
         href="/archive"
-        class="text-muted-foreground hover:text-foreground hover:underline underline-offset-2"
+        class="tile"
       >
         ← Back to archive
       </a>

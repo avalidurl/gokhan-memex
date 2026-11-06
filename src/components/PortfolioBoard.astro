@@ -1,9 +1,4 @@
 ---
-// Bureau tile board — open-by-default cards (index stamp, link count,
-// title/domain/owner, ink divider, optional CTA button, link tree, JS-free
-// CLOSE toggle), monochrome hard borders. Link sets mirror the canonical
-// hand-maintained index at avalidurl.github.io (verified live 2026-07-21).
-
 interface Leaf {
   platform: string
   note: string
@@ -50,7 +45,7 @@ const tiles: Tile[] = [
       { platform: 'ORCID', note: '0000-0002-1887-406X', href: 'https://orcid.org/0000-0002-1887-406X', ext: true },
       { platform: 'Google Scholar', note: 'citations', href: 'https://scholar.google.com/citations?user=EgZE838AAAAJ', ext: true },
     ],
-    contact: { platform: 'Email', note: 'contact@gokhanturhan.com', href: 'mailto:contact@gokhanturhan.com' },
+    contact: { platform: 'Email', note: 'contact@gokhan.vc', href: 'mailto:contact@gokhan.vc' },
   },
   {
     id: 'venture',
@@ -167,7 +162,9 @@ function leafAttrs(leaf: Leaf) {
 ---
 
 <section class="board-section" aria-labelledby="board-title">
-  <p class="board-stamp" id="board-title">Board · six tiles, one person</p>
+  <div class="section-head">
+    <span class="kicker-pill" id="board-title">Board · six tiles, one person</span>
+  </div>
 
   <div class="kanban-board" role="list">
     {
@@ -187,7 +184,6 @@ function leafAttrs(leaf: Leaf) {
               <span class="board-toggle" aria-hidden="true">
                 <span class="board-toggle-open">Open</span>
                 <span class="board-toggle-close">Close</span>
-                <span class="board-chevron" />
               </span>
             </summary>
             <div class="board-body" aria-labelledby={`tile-${tile.id}`}>
@@ -247,20 +243,14 @@ function leafAttrs(leaf: Leaf) {
     width: 100%;
   }
 
-  .board-stamp {
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: hsl(var(--muted-foreground));
-    margin: 0 0 18px;
-    text-align: center;
+  .section-head {
+    margin-bottom: 18px;
   }
 
   .kanban-board {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 22px;
+    gap: 18px;
     align-items: stretch;
   }
 
@@ -270,7 +260,7 @@ function leafAttrs(leaf: Leaf) {
     }
   }
 
-  @media (min-width: 1100px) {
+  @media (min-width: 1020px) {
     .kanban-board {
       grid-template-columns: repeat(3, 1fr);
     }
@@ -282,27 +272,29 @@ function leafAttrs(leaf: Leaf) {
     flex-direction: column;
   }
 
-  /* Bordered plate, no resting shadow — the agentbounty index-plate read.
-     Depth arrives only on hover, as a flat blue underlay (no blur, no ink). */
   .board-details {
     margin: 0;
     padding: 0;
     flex: 1;
     display: flex;
     flex-direction: column;
-    border: 2px solid hsl(var(--foreground));
-    background: hsl(var(--card));
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: var(--card-bg);
+    overflow: hidden;
+    transition: border-color 0.15s, box-shadow 0.15s;
   }
 
   .board-details:hover,
   .board-details:focus-within {
-    background: hsl(var(--card));
+    border-color: var(--acc);
+    box-shadow: 0 10px 26px rgba(42, 26, 30, 0.06);
   }
 
   .board-header {
     position: relative;
     margin: 0;
-    padding: 14px;
+    padding: 18px 20px;
     list-style: none;
     cursor: pointer;
     display: flex;
@@ -310,6 +302,7 @@ function leafAttrs(leaf: Leaf) {
     align-items: stretch;
     gap: 10px;
     flex: 1;
+    transition: background 0.15s;
   }
 
   .board-details:not([open]) .board-header > :last-child {
@@ -317,7 +310,8 @@ function leafAttrs(leaf: Leaf) {
   }
 
   .board-details[open] > .board-header {
-    border-bottom: 2px solid hsl(var(--foreground));
+    border-bottom: 1px solid var(--line);
+    background: var(--soft-hover);
   }
 
   .board-header::-webkit-details-marker,
@@ -326,81 +320,86 @@ function leafAttrs(leaf: Leaf) {
   }
 
   .board-header:hover {
-    background: var(--faint);
+    background: var(--soft-hover);
   }
 
   .board-header:focus-visible {
-    outline: 2px solid hsl(var(--foreground));
-    outline-offset: 2px;
+    outline: 2px solid var(--acc);
+    outline-offset: -2px;
   }
 
   .board-meta {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    font-weight: 500;
+    align-items: center;
+    font-family: var(--font-sans);
+    font-size: 11.5px;
+    font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
   }
 
   .board-index {
-    color: var(--dim);
+    color: var(--acc);
+    background: var(--soft);
+    border: 1px solid var(--line);
+    padding: 2px 8px;
+    border-radius: 999px;
     font-weight: 700;
   }
 
   .board-count {
-    color: hsl(var(--muted-foreground));
+    color: var(--mut);
   }
 
   .board-summary {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 3px;
     min-width: 0;
   }
 
   .board-label {
+    font-family: var(--font-serif);
     font-weight: 700;
-    letter-spacing: 0.01em;
-    color: hsl(var(--foreground));
+    color: var(--ink);
     overflow-wrap: anywhere;
-    font-size: 22px;
-    line-height: 1.25;
+    font-size: 21px;
+    line-height: 1.24;
   }
 
   .board-domain {
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    color: hsl(var(--foreground));
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--acc);
     overflow-wrap: anywhere;
   }
 
   .board-owner {
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    font-weight: 400;
-    letter-spacing: 0.04em;
-    color: hsl(var(--muted-foreground));
-    line-height: 1.5;
-    /* reserve two lines so collapsed faces stay equal across the row */
-    min-height: 3em;
+    font-family: var(--font-sans);
+    font-size: 13.5px;
+    color: var(--mut);
+    line-height: 1.48;
+    min-height: 2.9em;
   }
 
   .board-toggle {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    gap: 8px;
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: hsl(var(--foreground));
+  }
+
+  .board-toggle-open,
+  .board-toggle-close {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--acc);
+    background: var(--soft);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 3px 11px;
   }
 
   .board-toggle-close {
@@ -412,63 +411,55 @@ function leafAttrs(leaf: Leaf) {
   }
 
   .board-details[open] > .board-header .board-toggle-close {
-    display: inline;
-  }
-
-  .board-chevron {
-    display: none;
-  }
-
-  .board-details[open] > .board-header .board-chevron {
-    transform: rotate(-135deg);
-    margin-bottom: -2px;
+    display: inline-block;
   }
 
   .board-body {
-    padding: 0 14px 14px;
+    padding: 4px 20px 18px;
   }
 
   .board-blurb {
     margin: 12px 0 0;
-    font-size: 16.5px;
+    font-size: 15px;
     line-height: 1.55;
-    color: hsl(var(--foreground));
-    border-left: 2px solid var(--ink);
-    padding-left: 12px;
+    color: var(--lead-ink);
+    background: var(--soft);
+    border-radius: 12px;
+    padding: 11px 14px;
   }
 
-  /* Primary action button — inverted ink plate, e.g. Generate CV. */
   .board-cta {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 3px;
-    margin: 14px 0 2px;
-    padding: 9px 12px;
-    border: 2px solid var(--ink);
-    background: var(--ink);
-    color: var(--paper);
+    gap: 2px;
+    margin: 14px 0 6px;
+    padding: 10px 16px;
+    border-radius: 14px;
+    border: 1px solid var(--acc);
+    background: var(--acc);
+    color: #ffffff;
     text-decoration: none;
+    transition: background 0.15s, border-color 0.15s;
   }
 
   .board-cta:hover,
   .board-cta:focus-visible {
-    background: var(--paper);
-    color: var(--ink);
+    background: var(--acc-dark);
+    border-color: var(--acc-dark);
+    color: #ffffff;
   }
 
   .board-cta-label {
-    font-family: var(--font-data);
+    font-family: var(--font-sans);
     font-weight: 700;
-    font-size: 12.5px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+    font-size: 13.5px;
   }
 
   .board-cta-note {
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    letter-spacing: 0.04em;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    opacity: 0.9;
     white-space: nowrap;
   }
 
@@ -477,50 +468,43 @@ function leafAttrs(leaf: Leaf) {
     margin: 10px 0 0;
     padding: 0 0 0 8px;
     position: relative;
-    border-left: 2px solid hsl(var(--border));
+    border-left: 1px solid var(--line);
   }
 
   .leaf {
     position: relative;
-    padding: 4px 0 4px 20px;
+    padding: 3px 0 3px 14px;
   }
 
   .leaf::before {
     content: '';
     position: absolute;
-    left: -2px;
+    left: -1px;
     top: 50%;
-    width: 14px;
-    border-top: 2px solid hsl(var(--border));
+    width: 10px;
+    border-top: 1px solid var(--line);
   }
 
   .leaf-heading {
     list-style: none;
-    padding: 14px 0 4px 20px;
+    padding: 12px 0 4px 14px;
     position: relative;
-  }
-
-  .leaf-heading::before {
-    content: '';
-    position: absolute;
-    left: -2px;
-    top: 50%;
-    width: 14px;
-    border-top: 2px solid hsl(var(--border));
   }
 
   .socials-heading {
     margin: 0;
+    font-family: var(--font-sans);
+    font-size: 11.5px;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: hsl(var(--foreground));
+    color: var(--acc);
   }
 
   .leaf-contact {
     margin-top: 10px;
     padding-top: 10px;
-    border-top: 1px dashed hsl(var(--border));
+    border-top: 1px dashed var(--line);
   }
 
   .leaf-contact::before {
@@ -533,41 +517,34 @@ function leafAttrs(leaf: Leaf) {
     align-items: flex-start;
     gap: 1px;
     max-width: 100%;
-    padding: 3px 8px;
-    border: 2px solid transparent;
+    padding: 4px 9px;
+    border-radius: 10px;
     text-decoration: none;
+    transition: background 0.15s;
   }
 
   .leaf-platform {
-    font-weight: 700;
-    font-size: 16.5px;
-    color: hsl(var(--foreground));
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--ink);
   }
 
   .leaf-note {
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-size: 12.5px;
-    letter-spacing: 0.04em;
-    color: hsl(var(--muted-foreground));
+    color: var(--mut);
     overflow-wrap: anywhere;
-    line-height: 1.35;
+    line-height: 1.38;
   }
 
   .leaf-link:hover,
   .leaf-link:focus-visible {
-    background: var(--faint);
-    border-color: var(--ink);
+    background: var(--soft);
   }
 
   .leaf-link:hover .leaf-platform,
   .leaf-link:focus-visible .leaf-platform {
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 3px;
-  }
-
-  .leaf-link:focus-visible {
-    outline: 2px solid hsl(var(--foreground));
-    outline-offset: 2px;
+    color: var(--acc);
   }
 </style>

@@ -7,22 +7,20 @@ import { registerProjects as projects, projectIndex } from '@/data/projects'
   title="Projects"
   description="Every project, filed & live — one person, a fleet of agents. Agent-native venues, rails, benchmarks, and dashboards: Ishtar, CURB, HeartBench, CLINAMEN/$UBU, Plaintext, Reclaim, and more."
 >
-  <div class="ds">
-    <div class="meta">Project register · everything shipped — live products &amp; builds</div>
-    <div class="dither"></div>
-
-    <div class="pintro">
+  <div class="proj-wrap">
+    <header class="pintro">
+      <div class="kicker-pill mb-3">Project register · live products &amp; builds</div>
       <h1 class="h">Projects</h1>
       <p class="lead">
         Everything filed &amp; live — one person, a fleet of agents. The index below jumps
         straight to the flagship products; the full register lists every build, from the
         agent-native venues and rails to the dashboards and the local project files.
       </p>
-    </div>
+    </header>
 
-    <div class="dither dgap"></div>
+    <div class="section-rule"></div>
     <section class="pindex-section" aria-label="Project index">
-      <div class="idxh">Project index</div>
+      <h2 class="idxh">Project index</h2>
       <nav class="pindex">
         {projectIndex.map((it) => (
           <a
@@ -40,13 +38,13 @@ import { registerProjects as projects, projectIndex } from '@/data/projects'
       </nav>
     </section>
 
-    <div class="dither dgap"></div>
+    <div class="section-rule"></div>
     <section class="register" id="register">
-      <div class="idxh">Project register — filed &amp; live</div>
-      <div class="grid">
+      <h2 class="idxh">Project register — filed &amp; live</h2>
+      <div class="reg-grid">
         {projects.map((pr, i) => (
           <a
-            class="cell"
+            class="reg-card"
             href={pr.href}
             target={pr.href.startsWith('http') ? '_blank' : undefined}
             rel={pr.href.startsWith('http') ? 'noopener' : undefined}
@@ -60,71 +58,153 @@ import { registerProjects as projects, projectIndex } from '@/data/projects'
   </div>
 
   <style>
-    .ds { padding: 24px 34px 48px; color: var(--ink); }
-    .meta {
-      font-family: var(--font-mono);
-      font-size: 12.5px; letter-spacing: .04em; text-transform: uppercase;
-      color: var(--dim); text-align: left;
-    }
-    .dither { height: 0; margin: 14px 0; border-top: 1px solid var(--ink); }
-    .dgap { margin: 36px 0 22px; }
-
-    .pintro { max-width: 64ch; margin: 0; padding-top: 14px; }
-    .h { text-align: left; margin: 0; }
-    .lead { font-size: 21px; line-height: 1.6; margin: 18px 0 0; color: var(--ink); max-width: 64ch; }
-
-    .idxh {
-      font-family: var(--font-data);
-      font-size: 14px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: .08em; margin-bottom: 10px; text-align: left;
-      border-bottom: 2px solid var(--ink); padding-bottom: .35rem;
-    }
-
-    /* Project index — wide stacked ledger table (full-width on this page). */
-    .pindex-section { max-width: 100%; }
-    .pindex { border: 2px solid var(--ink); margin-top: 2px; }
-    .pirow {
-      display: grid;
-      grid-template-columns: 3rem minmax(8rem, max-content) 1fr 1.4rem;
-      gap: 16px; align-items: baseline;
-      padding: .72rem .9rem;
-      border-bottom: 1px solid var(--ink);
+    .proj-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 20px 64px;
       color: var(--ink);
     }
+
+    .pintro {
+      max-width: 68ch;
+    }
+
+    .h {
+      margin: 0 0 14px;
+    }
+
+    .lead {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      line-height: 1.6;
+      margin: 0;
+      color: var(--lead-ink);
+    }
+
+    .section-rule {
+      height: 0;
+      margin: 38px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .idxh {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      font-weight: 700;
+      margin: 0 0 14px;
+      color: var(--ink);
+    }
+
+    .pindex-section { max-width: 100%; }
+    .pindex {
+      background: var(--card-bg);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .pirow {
+      display: grid;
+      grid-template-columns: 3rem minmax(9rem, max-content) 1fr 1.6rem;
+      gap: 16px;
+      align-items: baseline;
+      padding: 13px 20px;
+      border-bottom: 1px solid var(--line);
+      color: var(--ink);
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+
     .pirow:last-child { border-bottom: 0; }
-    .pirow:hover { background: var(--faint); }
-    .pirow:hover .pi-name { text-decoration: underline; text-underline-offset: 2px; }
-    .pi-no { font-family: var(--font-mono); font-size: 12.5px; color: var(--dim); letter-spacing: .06em; }
-    .pi-name { font-family: var(--font-data); font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: .08em; }
-    .pi-note { font-size: 16.5px; color: var(--dim); }
-    .pi-arrow { text-align: right; color: var(--dim); font-size: 16.5px; }
+    .pirow:hover { background: var(--soft-hover); }
+    .pirow:hover .pi-name { color: var(--acc); }
 
-    /* Project register — fully-boxed ledger grid, ubu §1 spec style. */
+    .pi-no {
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--acc);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .pi-name {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--ink);
+    }
+
+    .pi-note {
+      font-family: var(--font-sans);
+      font-size: 14.5px;
+      color: var(--mut);
+    }
+
+    .pi-arrow {
+      text-align: right;
+      color: var(--acc);
+      font-size: 15px;
+    }
+
     .register { max-width: 100%; }
-    .grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      border: 2px solid var(--ink); margin-top: 2px;
-    }
-    .cell {
-      border: 1px solid var(--ink); padding: .8rem .85rem; min-height: 5.6rem;
-      display: block; color: var(--ink);
-    }
-    .cell:hover { background: var(--faint); }
-    .cell:hover .v { text-decoration: underline; text-underline-offset: 2px; }
-    .cell .k {
-      font-family: var(--font-mono); font-size: 12.5px; letter-spacing: .06em;
-      text-transform: uppercase; color: var(--dim); margin-bottom: .45rem;
-    }
-    .cell .v { font-size: 22px; font-weight: 700; line-height: 1.25; }
-    .cell .v small {
-      display: block; margin-top: .35rem; font-size: 16.5px; font-weight: 400;
-      color: var(--dim); line-height: 1.45; letter-spacing: 0; text-transform: none;
+    .reg-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
     }
 
-    @media (max-width: 640px) {
-      .ds { padding: 16px 20px 40px; }
-      .grid { grid-template-columns: 1fr; }
-      .pirow { grid-template-columns: 2.4rem 1fr auto; gap: 12px; }
+    .reg-card {
+      background: var(--card-bg);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px 20px;
+      display: block;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .reg-card:hover {
+      border-color: var(--acc);
+      box-shadow: 0 8px 24px rgba(42, 26, 30, 0.06);
+    }
+
+    .reg-card:hover .v {
+      color: var(--acc);
+    }
+
+    .reg-card .k {
+      font-family: var(--font-sans);
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--acc);
+      margin-bottom: 6px;
+    }
+
+    .reg-card .v {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--ink);
+    }
+
+    .reg-card .v small {
+      display: block;
+      margin-top: 6px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--mut);
+      line-height: 1.48;
+    }
+
+    @media (max-width: 680px) {
+      .proj-wrap { padding: 22px 16px 48px; }
+      .reg-grid { grid-template-columns: 1fr; }
+      .pirow { grid-template-columns: 2.4rem 1fr auto; gap: 12px; padding: 12px 16px; }
       .pi-note { display: none; }
     }
   </style>

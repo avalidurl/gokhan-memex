@@ -1,31 +1,45 @@
-/* House register primitives — filed-document chrome shared across surfaces.
-   No webfonts: two system stacks, --font-text and --font-data, defined in
-   critical.css. Tokens live there; nothing is redefined here. */
+/* Editorial card & pill primitives matching the Turkish Art Blob aesthetic. */
 
 .tile {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--paper);
-  color: var(--ink);
-  border: 2px solid var(--ink);
-  padding: 12px 26px;
+  background: var(--card-bg);
+  color: var(--acc);
+  border: 1px solid var(--acc);
+  border-radius: 999px;
+  padding: 9px 18px;
   text-decoration: none;
-  font-family: var(--font-data);
-  font-size: 15px;
-  letter-spacing: 0.06em;
-  font-weight: 700;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 
 .tile:hover,
 .tile:focus-visible {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--acc);
+  color: #ffffff;
   text-decoration: none;
 }
 
 .sheet {
-  background: var(--paper);
-  border: 2px solid var(--ink);
-  padding: 24px;
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 22px 26px;
+}
+
+.kicker-pill {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--acc);
+  background: var(--soft);
+  border: 1px solid var(--line);
+  padding: 4px 12px;
+  border-radius: 999px;
 }

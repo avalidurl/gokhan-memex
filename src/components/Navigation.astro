@@ -7,7 +7,7 @@ interface Props {
   docRev?: string
 }
 
-const { docNo = 'MX-000', docRev = 'REV 2026-07-17' } = Astro.props
+const { docNo = 'MX-000' } = Astro.props
 
 const currentPath = Astro.url.pathname
 const isArticle = currentPath.startsWith('/journal/') && currentPath !== '/journal/' && currentPath !== '/journal'
@@ -27,82 +27,76 @@ const navigation = [
 ]
 ---
 
-<header class="masthead">
-  <div class="mh-meta" aria-hidden="true">
-    <span class="mh-cell">GT MEMEX — FILING OFFICE</span>
-    <span class="mh-cell">DOC {docNo} · {docRev}</span>
-    <span class="mh-cell">FILED FOR REFERENCE</span>
-  </div>
-  <div class="mh-main">
-    <div class="flex min-h-14 items-center justify-between gap-x-4 px-4 py-2">
-      <!-- Left side: Logo/Name or Back button -->
-      <div class="flex items-center">
-        {isArticle ? (
-          <a
-            href="/journal"
-            class="mh-close text-muted-foreground hover:text-foreground"
-            aria-label="Back to Journal"
-          >
-            Close ×
-          </a>
-        ) : (
-          <a
-            class="mh-name text-foreground"
-            href="/"
-          >
-            Gökhan Turhan
-          </a>
-        )}
-      </div>
+<header class="top-header">
+  <div class="bar">
+    <!-- Left side: Logo/Name or Back button -->
+    <div class="flex items-center gap-2.5">
+      {isArticle ? (
+        <a
+          href="/journal"
+          class="pill-btn"
+          aria-label="Back to Journal"
+        >
+          ← Journal
+        </a>
+      ) : (
+        <a
+          class="logo"
+          href="/"
+        >
+          Gökhan <span>Turhan</span>
+          <small class="hidden sm:inline">{docNo}</small>
+        </a>
+      )}
+    </div>
 
-      <!-- Center: Navigation Links (Desktop only, not on article pages) -->
-      {!isArticle && (
-        <nav class="hidden md:flex flex-1 flex-wrap items-center justify-center gap-x-3 gap-y-1 lg:gap-x-4 min-w-0">
-          {navigation.map((item) => (
+    <!-- Center: Navigation Links (Desktop only, not on article pages) -->
+    {!isArticle && (
+      <nav class="hidden md:flex flex-1 flex-wrap items-center gap-x-3.5 gap-y-1 min-w-0" aria-label="Main navigation">
+        {navigation.map((item) => {
+          const active = !item.external && (currentPath === item.href || currentPath.startsWith(item.href.replace(/\/$/, '') + '/'))
+          return (
             <a
               href={item.href}
               target={item.external ? '_blank' : undefined}
               rel={item.external ? 'noopener noreferrer' : undefined}
-              class={`nav-link text-[12.5px] uppercase tracking-[0.04em] ${
-                !item.external && (currentPath === item.href || currentPath.startsWith(item.href + '/'))
-                  ? 'text-foreground font-semibold'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
+              class={`nav-link ${active ? 'is-active' : ''}`}
             >
               {item.name}{item.external && <span class="nav-ext" aria-hidden="true">↗</span>}
             </a>
-          ))}
-        </nav>
-      )}
+          )
+        })}
+      </nav>
+    )}
 
-      <!-- Right side: Actions -->
-      <div class="flex items-center gap-2">
-        <!-- Search Button -->
+    <!-- Right side: Actions -->
+    <div class="controls">
+      <div class="seg" role="group" aria-label="Site controls">
         <button
           id="search-button"
-          class="mh-btn mh-btn--sym"
+          class="seg-btn"
           aria-label="Search"
-          title="Search"
-        >⌕</button>
-
-        <!-- Theme Toggle -->
+          title="Search (⌘K)"
+          type="button"
+        >
+          Search
+        </button>
         <ThemeToggle />
-
-        <!-- Mobile Menu Button (not on article pages) -->
-        {!isArticle && (
-          <button
-            id="mobile-menu-button"
-            class="mh-btn md:hidden"
-            aria-label="Toggle menu"
-            aria-controls="mobile-menu"
-            aria-expanded="false"
-            type="button"
-          >
-            <span id="menu-icon">Menu</span>
-            <span id="close-icon" class="hidden">Close</span>
-          </button>
-        )}
       </div>
+
+      {!isArticle && (
+        <button
+          id="mobile-menu-button"
+          class="pill-btn mobile-only-btn md:hidden"
+          aria-label="Toggle menu"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+          type="button"
+        >
+          <span id="menu-icon">Menu</span>
+          <span id="close-icon" class="hidden">Close</span>
+        </button>
+      )}
     </div>
   </div>
 </header>
@@ -110,29 +104,40 @@ const navigation = [
 {!isArticle && (
   <div
     id="mobile-menu"
-    class="fixed inset-0 z-50 hidden overflow-y-auto bg-background md:hidden"
+    class="fixed inset-0 z-50 hidden overflow-y-auto md:hidden mobile-sheet"
     aria-hidden="true"
   >
-    <nav class="mm-nav flex flex-col px-6 py-6">
-      {navigation.map((item) => (
-        <a
-          href={item.href}
-          target={item.external ? '_blank' : undefined}
-          rel={item.external ? 'noopener noreferrer' : undefined}
-          class={`mobile-menu-link border-b border-border/30 py-4 text-lg uppercase tracking-wide ${
-            !item.external && (currentPath === item.href || currentPath.startsWith(item.href + '/'))
-              ? 'text-foreground font-medium'
-              : 'text-muted-foreground hover:text-foreground'
-          }`}
-        >
-          {item.name}{item.external && <span class="nav-ext" aria-hidden="true"> ↗</span>}
-        </a>
-      ))}
+    <div class="mobile-sheet-top">
+      <a class="logo" href="/">Gökhan <span>Turhan</span></a>
+      <button
+        id="mobile-menu-close"
+        class="pill-btn"
+        type="button"
+        aria-label="Close menu"
+      >
+        Close ×
+      </button>
+    </div>
+    <nav class="mm-nav flex flex-col px-6 py-4" aria-label="Mobile navigation">
+      {navigation.map((item) => {
+        const active = !item.external && (currentPath === item.href || currentPath.startsWith(item.href.replace(/\/$/, '') + '/'))
+        return (
+          <a
+            href={item.href}
+            target={item.external ? '_blank' : undefined}
+            rel={item.external ? 'noopener noreferrer' : undefined}
+            class={`mobile-menu-link ${active ? 'is-active' : ''}`}
+          >
+            <span>{item.name}</span>
+            {item.external && <span class="nav-ext" aria-hidden="true">↗</span>}
+          </a>
+        )
+      })}
       <a
         href="/rss.xml"
-        class="mobile-menu-link py-4 text-xl text-muted-foreground hover:text-foreground"
+        class="mobile-menu-link"
       >
-        RSS Feed
+        <span>RSS Feed</span>
       </a>
     </nav>
   </div>
@@ -145,6 +150,7 @@ const navigation = [
   (() => {
     function initNavigation() {
       const button = document.getElementById('mobile-menu-button')
+      const closeBtn = document.getElementById('mobile-menu-close')
       const menu = document.getElementById('mobile-menu')
       const menuIcon = document.getElementById('menu-icon')
       const closeIcon = document.getElementById('close-icon')
@@ -169,6 +175,8 @@ const navigation = [
         setOpen(!isOpen)
       })
 
+      closeBtn?.addEventListener('click', () => setOpen(false))
+
       menu.querySelectorAll('.mobile-menu-link').forEach((link) => {
         link.addEventListener('click', () => setOpen(false))
       })
@@ -191,97 +199,168 @@ const navigation = [
 </script>
 
 <style>
-  /* Masthead — a 2px ruled box of stacked rows; the document's letterhead. */
-  .masthead {
-    position: relative;
-    z-index: 60;
-    margin: 1.1rem 1.1rem 0;
-    border: 2px solid var(--ink);
-    background: var(--paper);
+  .top-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--header-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
   }
 
-  .mh-meta {
+  .bar {
+    max-width: 1100px;
+    margin: 0 auto;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    padding: 11px 20px;
     flex-wrap: wrap;
-    border-bottom: 1px solid var(--ink);
   }
 
-  .mh-cell {
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--dim);
-    padding: 8px 0.7rem;
-    border-right: 1px solid var(--ink);
-  }
-
-  .mh-cell:last-child {
-    border-right: 0;
-  }
-
-  .mh-name {
-    font-family: var(--font-mono);
-    font-size: 15px;
+  .logo {
+    font-family: var(--font-sans);
     font-weight: 700;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em;
     text-decoration: none;
-    white-space: nowrap;
-  }
-
-  /* Keep nav stamps on one line each so wrapping happens between items. */
-  .mh-main nav .nav-link {
-    white-space: nowrap;
-  }
-
-  .mh-name:hover {
-    text-decoration: underline;
-  }
-
-  .mh-close {
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    text-decoration: none;
-    border: 2px solid var(--ink);
-    padding: 0.25rem 0.6rem;
-  }
-
-  .mh-close:hover {
-    background: var(--ink);
-    color: var(--paper);
-  }
-
-  .mh-btn {
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
     color: var(--ink);
-    background: transparent;
-    border: 2px solid var(--ink);
-    padding: 0.25rem 0.55rem;
+    font-size: 16px;
+    white-space: nowrap;
+  }
+
+  .logo:hover {
+    color: var(--ink);
+  }
+
+  .logo span {
+    color: var(--acc);
+  }
+
+  .logo small {
+    font-weight: 500;
+    color: var(--mut);
+    font-size: 11.5px;
+    margin-left: 6px;
+    letter-spacing: 0.04em;
+  }
+
+  .nav-link {
+    font-family: var(--font-sans);
+    font-size: 13.5px;
+    color: var(--mut);
+    text-decoration: none;
+    white-space: nowrap;
+    padding: 3px 0;
+    transition: color 0.15s;
+  }
+
+  .nav-link:hover {
+    color: var(--acc);
+  }
+
+  .nav-link.is-active {
+    color: var(--acc);
+    font-weight: 600;
+  }
+
+  .nav-ext {
+    margin-left: 2px;
+    font-size: 0.82em;
+    opacity: 0.65;
+  }
+
+  .controls {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .seg {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    overflow: hidden;
+    font-size: 13px;
+    background: var(--card-bg);
+  }
+
+  .seg-btn {
+    border: 0;
+    border-right: 1px solid var(--line);
+    background: none;
+    padding: 6px 13px;
     cursor: pointer;
+    color: var(--mut);
+    font-family: var(--font-sans);
+    font-size: 12.5px;
+    font-weight: 500;
+    transition: color 0.15s, background 0.15s;
   }
 
-  .mh-btn:hover {
-    background: var(--ink);
-    color: var(--paper);
+  .seg-btn:hover {
+    color: var(--acc);
+    background: var(--soft-hover);
   }
 
-  .mm-nav {
-    padding-top: 9rem;
+  .pill-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--card-bg);
+    color: var(--mut);
+    padding: 6px 14px;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
   }
 
-  .nav-ext{ margin-left:3px; font-size:.8em; opacity:.55; }
+  .pill-btn:hover {
+    border-color: var(--acc);
+    color: var(--acc);
+    background: var(--soft-hover);
+  }
 
-  /* Symbol buttons — glyph controls, same ruled box */
-  .mh-btn--sym{
-    font-size:14px; letter-spacing:0; line-height:1; padding:0.22rem 0.5rem;
+  .mobile-sheet {
+    background: var(--bg);
+  }
+
+  .mobile-sheet-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .mobile-menu-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--line);
+    padding: 14px 4px;
+    font-family: var(--font-serif);
+    font-size: 20px;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .mobile-menu-link:hover,
+  .mobile-menu-link.is-active {
+    color: var(--acc);
+  }
+
+  @media (min-width: 768px) {
+    .mobile-only-btn { display: none !important; }
   }
 </style>
 
-<!-- Site-wide hover link popups (monochrome) -->
+<!-- Site-wide hover link popups -->
 <script src="/popups.js" defer></script>

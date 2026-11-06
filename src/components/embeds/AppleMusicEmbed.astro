@@ -4,33 +4,18 @@ interface Props {
   type?: 'song' | 'album' | 'playlist' | 'music-video'
 }
 
-const { 
-  url
-} = Astro.props
+const { url } = Astro.props
 
-// Extract Apple Music ID and type from URL
 function extractAppleMusicData(url: string): { type: string, id: string, country?: string } | null {
   try {
-    // Handle music.apple.com URLs
     const appleMatch = url.match(/music\.apple\.com\/([a-z]{2})\/(album|song|playlist|music-video)\/[^\/]*\/([0-9]+)/i)
     if (appleMatch) {
-      return { 
-        type: appleMatch[2], 
-        id: appleMatch[3],
-        country: appleMatch[1] 
-      }
+      return { type: appleMatch[2], id: appleMatch[3], country: appleMatch[1] }
     }
-    
-    // Handle embed.music.apple.com URLs (already embed format)
     const embedMatch = url.match(/embed\.music\.apple\.com\/([a-z]{2})\/(album|song|playlist|music-video)\/[^\/]*\/([0-9]+)/i)
     if (embedMatch) {
-      return { 
-        type: embedMatch[2], 
-        id: embedMatch[3],
-        country: embedMatch[1] 
-      }
+      return { type: embedMatch[2], id: embedMatch[3], country: embedMatch[1] }
     }
-    
     return null
   } catch {
     return null
@@ -42,13 +27,12 @@ const embedUrl = appleMusicData ?
   `https://embed.music.apple.com/${appleMusicData.country || 'us'}/${appleMusicData.type}/${appleMusicData.id}` : 
   null
 
-// Determine height based on content type
 const getHeightForType = (type: string) => {
   switch(type) {
     case 'album': return '450'
     case 'playlist': return '400'
     case 'music-video': return '300'
-    default: return '175' // song
+    default: return '175'
   }
 }
 
@@ -60,7 +44,7 @@ const embedHeight = appleMusicData ? getHeightForType(appleMusicData.type) : '17
     <iframe 
       allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
       height={embedHeight}
-      style="width: 100%; max-width: 660px; overflow: hidden; border: none;"
+      style="width: 100%; max-width: 660px; overflow: hidden; border: none; border-radius: 16px;"
       sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
       src={embedUrl}
       loading="lazy"
@@ -68,7 +52,7 @@ const embedHeight = appleMusicData ? getHeightForType(appleMusicData.type) : '17
     >
     </iframe>
   ) : (
-    <div class="overflow-hidden border-2 bg-card">
+    <div class="overflow-hidden rounded-2xl border border-border bg-card">
       <div class="p-6 text-center">
         <p class="text-muted-foreground mb-4">
           Unable to embed Apple Music player
@@ -77,7 +61,7 @@ const embedHeight = appleMusicData ? getHeightForType(appleMusicData.type) : '17
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center px-4 py-2 border-2 bg-background text-foreground font-mono text-[15px] tracking-[0.06em] hover:bg-foreground hover:text-background"
+          class="inline-flex items-center rounded-full border border-primary bg-primary px-5 py-2 font-sans text-[14px] font-semibold text-primary-foreground no-underline hover:opacity-90"
         >
           Open in Apple Music
         </a>
@@ -85,12 +69,12 @@ const embedHeight = appleMusicData ? getHeightForType(appleMusicData.type) : '17
     </div>
   )}
   
-  <div class="mt-2 text-center">
+  <div class="mt-2">
     <a 
       href={url} 
       target="_blank" 
       rel="noopener noreferrer"
-      class="text-xs text-muted-foreground hover:text-foreground"
+      class="text-xs text-muted-foreground hover:text-primary no-underline"
     >
       Open in Apple Music ↗
     </a>

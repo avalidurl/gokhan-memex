@@ -6,11 +6,16 @@
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "theme_color": "#f4f4f2",
-  "background_color": "#f4f4f2",
+  "theme_color": "#fbf6f3",
+  "background_color": "#fbf6f3",
   "lang": "en",
   "dir": "ltr",
-  "categories": ["productivity", "education", "news", "business"],
+  "categories": [
+    "productivity",
+    "education",
+    "news",
+    "business"
+  ],
   "icons": [
     {
       "src": "/favicon.svg",

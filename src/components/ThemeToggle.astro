@@ -3,29 +3,32 @@
 
 <button
   id="theme-toggle"
-  class="mh-btn"
+  class="theme-btn"
   aria-label="Toggle theme"
-  title="Toggle theme"
+  title="Toggle light / dark theme"
+  type="button"
 >
-  <span class="sun-icon">○</span>
-  <span class="moon-icon">●</span>
+  <span class="sun-icon">☀ Light</span>
+  <span class="moon-icon">☾ Dark</span>
 </button>
 
 <style>
-  .mh-btn {
-    font-family: var(--font-data);
-    font-size: 15px;
-    line-height: 1;
-    color: var(--ink);
-    background: transparent;
-    border: 2px solid var(--ink);
-    padding: 0.22rem 0.5rem;
+  .theme-btn {
+    border: 0;
+    background: none;
+    padding: 6px 12px;
     cursor: pointer;
+    color: var(--mut);
+    font-family: var(--font-sans);
+    font-size: 12.5px;
+    font-weight: 500;
+    line-height: 1.2;
+    transition: color 0.15s, background 0.15s;
   }
 
-  .mh-btn:hover {
-    background: var(--ink);
-    color: var(--paper);
+  .theme-btn:hover {
+    color: var(--acc);
+    background: var(--soft-hover);
   }
 
   .moon-icon {
@@ -40,8 +43,6 @@
     display: inline;
   }
 
-  /* With no stored choice the dark sheet comes from the OS via CSS alone —
-     mirror that state on the control's label. */
   @media (prefers-color-scheme: dark) {
     :global(html:not(.light)) .sun-icon {
       display: none;
@@ -59,7 +60,6 @@
 
     function handleToggle() {
       const element = document.documentElement
-      // No stored choice + OS dark = dark sheet via CSS, with no class present.
       const isDark = element.classList.contains('dark') ||
         (!element.classList.contains('light') &&
           window.matchMedia('(prefers-color-scheme: dark)').matches)
@@ -78,9 +78,6 @@
     toggle?.addEventListener('click', handleToggle)
   }
 
-  // Run on initial load
   initThemeToggle()
-
-  // Re-run on Astro page transitions
   document.addEventListener('astro:after-swap', initThemeToggle)
 </script>

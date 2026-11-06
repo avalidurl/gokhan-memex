@@ -1,22 +1,11 @@
 #!/usr/bin/env node
 /**
- * Journal OG cards — real 1200×630 PNGs, house "filed document" register.
- *
- * Replaces the old `src/pages/og/[...slug].png.js` route, which wrote SVG
- * source bytes into a file named `.png`. Cloudflare Pages then served those
- * bytes as `content-type: image/png`, so every card was invalid: X, LinkedIn,
- * Slack, Facebook and iMessage all reject SVG for link previews.
- *
- * Renders one HTML per post and screenshots it with headless Chrome at 2×,
- * then normalises to exactly 1200×630 with sips (supersample → crisp text).
+ * Journal OG cards — real 1200×630 PNGs, warm cream & rose editorial register.
  *
  * Usage:
  *   node scripts/gen-og.mjs              # generate only missing cards
  *   node scripts/gen-og.mjs --force      # regenerate everything
  *   node scripts/gen-og.mjs --only=slug  # one post (implies --force)
- *
- * Runs as a build pre-step. If Chrome is absent it warns and exits 0 so a
- * build never breaks on a missing local browser.
  */
 import { execFile } from 'node:child_process'
 import { readFile, writeFile, mkdir, readdir, rm } from 'node:fs/promises'
@@ -34,19 +23,33 @@ const OUT_DIR = join(ROOT, 'public/og')
 const TMP_DIR = join(ROOT, 'tmp/og')
 const FONT_DIR = join(ROOT, 'node_modules/@fontsource-variable/jetbrains-mono/files')
 
-const CHROME =
-  process.env.CHROME_PATH ||
-  '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+const CHROME_CANDIDATES = [
+  process.env.CHROME_PATH,
+  '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+  '/usr/bin/google-chrome',
+  '/usr/bin/chromium',
+  '/usr/bin/chromium-browser',
+].filter(Boolean)
+
+function findChrome() {
+  for (const c of CHROME_CANDIDATES) {
+    if (existsSync(c)) return c
+  }
+  return null
+}
 
 const args = process.argv.slice(2)
 const ONLY = (args.find((a) => a.startsWith('--only=')) || '').slice('--only='.length)
 const FORCE = args.includes('--force') || Boolean(ONLY)
 
-// House tokens — src/styles/critical.css, light theme.
-const INK = '#0a0a0a'
-const PAPER = '#f4f4f2'
-const DIM = '#5c5c5c'
-const FAINT = '#d8d8d4'
+// Warm editorial tokens matching Turkish Art Blob
+const INK = '#2a1a1e'
+const PAPER = '#fbf6f3'
+const CARD = '#ffffff'
+const DIM = '#7a6268'
+const LINE = '#ecdcd8'
+const SOFT = '#f6e6e2'
+const ACC = '#c94f62'
 
 const esc = (s) =>
   String(s ?? '')
@@ -55,7 +58,6 @@ const esc = (s) =>
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
 
-// Mirrors plainPostTitle() in src/lib/utils.ts — strikethrough is decorative.
 const plainTitle = (t) => String(t ?? '').replace(/~~([^~]+)~~/g, '$1')
 
 async function fontFace(file, weightRange = '100 800') {
@@ -64,10 +66,8 @@ async function fontFace(file, weightRange = '100 800') {
 }
 
 function template({ fonts, docId, category, date, title, description, tags }) {
-  // Title size steps down as the headline grows, so long titles still fit the
-  // plate without clipping. Measured against the 1040px content column.
   const n = title.length
-  const titleSize = n <= 28 ? 76 : n <= 46 ? 62 : n <= 70 ? 52 : n <= 100 ? 44 : 38
+  const titleSize = n <= 28 ? 72 : n <= 46 ? 58 : n <= 70 ? 48 : n <= 100 ? 42 : 36
   const tagLine = tags.slice(0, 4).join(' · ')
   return `<!doctype html><meta charset="utf-8"><style>
 ${fonts}
@@ -75,47 +75,40 @@ ${fonts}
 html,body{width:1200px;height:630px}
 body{
   background:${PAPER};color:${INK};
-  font-family:'JetBrains Mono Variable',ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Inter,Arial,sans-serif;
   -webkit-font-smoothing:antialiased;
   position:relative;overflow:hidden;
 }
-/* Faint ruled ground — the filed-document register, not decoration. */
-.grid{position:absolute;inset:0;
-  background-image:linear-gradient(${FAINT} 1px,transparent 1px),linear-gradient(90deg,${FAINT} 1px,transparent 1px);
-  background-size:40px 40px;opacity:.5}
-.plate{position:absolute;inset:56px;border:2px solid ${INK};
-  display:flex;flex-direction:column;padding:34px 44px 30px}
-.strip{display:flex;justify-content:space-between;align-items:baseline;
-  font-size:19px;font-weight:600;letter-spacing:.09em;text-transform:uppercase}
-.strip .pub{color:${DIM};font-weight:500}
-.rule{height:2px;background:${INK};margin:22px 0 0}
-.body{flex:1;display:flex;flex-direction:column;justify-content:center;padding:6px 0}
-h1{font-size:${titleSize}px;font-weight:700;line-height:1.1;letter-spacing:-.02em;
+.plate{position:absolute;inset:44px;border:1.5px solid ${LINE};border-left:8px solid ${ACC};border-radius:28px;background:${CARD};
+  display:flex;flex-direction:column;padding:38px 48px 34px}
+.strip{display:flex;justify-content:space-between;align-items:center;
+  font-size:17px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:${ACC}}
+.strip .pill{background:${SOFT};border:1px solid ${LINE};border-radius:999px;padding:6px 16px}
+.strip .pub{color:${DIM};font-weight:500;font-size:16px}
+.body{flex:1;display:flex;flex-direction:column;justify-content:center;padding:10px 0}
+h1{font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif;font-size:${titleSize}px;font-weight:700;line-height:1.12;letter-spacing:-.015em;color:${INK};
   display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-p{margin-top:24px;font-size:23px;line-height:1.45;font-weight:400;color:${DIM};
+p{margin-top:20px;font-size:22px;line-height:1.48;font-weight:400;color:${DIM};
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.hair{height:1px;background:${FAINT}}
-.foot{display:flex;justify-content:space-between;align-items:baseline;padding-top:20px;
-  font-size:18px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
-.foot .tags{color:${DIM};font-weight:500;letter-spacing:.05em;
+.hair{height:1px;background:${LINE}}
+.foot{display:flex;justify-content:space-between;align-items:baseline;padding-top:18px;
+  font-size:17px;font-weight:600;color:${INK}}
+.foot .domain span{color:${ACC}}
+.foot .tags{color:${DIM};font-weight:500;font-size:15px;
   max-width:620px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.tick{display:inline-block;width:13px;height:13px;background:${INK};margin-right:12px;
-  transform:translateY(-1px)}
 </style>
-<div class="grid"></div>
 <div class="plate">
   <div class="strip">
-    <span><span class="tick"></span>DOC · ${esc(docId)} · ${esc(category)}</span>
-    <span class="pub">Published · ${esc(date)}</span>
+    <span class="pill">${esc(docId)} · ${esc(category)}</span>
+    <span class="pub">${esc(date)}</span>
   </div>
-  <div class="rule"></div>
   <div class="body">
     <h1>${esc(title)}</h1>
     ${description ? `<p>${esc(description)}</p>` : ''}
   </div>
   <div class="hair"></div>
   <div class="foot">
-    <span>gokhanturhan.com / journal</span>
+    <span class="domain">Gökhan <span>Turhan</span> · gokhanturhan.com/journal</span>
     <span class="tags">${esc(tagLine)}</span>
   </div>
 </div>`
@@ -136,12 +129,9 @@ async function loadPosts() {
       continue
     }
     if (!data || data.draft) continue
-    // Astro derives the slug from the filename.
     const slug = file.replace(/\.mdx?$/, '')
     posts.push({ slug, data })
   }
-  // Doc numbers must match src/pages/journal/[...slug].astro exactly:
-  // published posts ordered by publishDate ascending, slug as tiebreak.
   const ordered = [...posts].sort((a, b) => {
     const d = new Date(a.data.publishDate) - new Date(b.data.publishDate)
     return d !== 0 ? d : a.slug.localeCompare(b.slug)
@@ -151,30 +141,33 @@ async function loadPosts() {
   return posts
 }
 
-async function render(html, out) {
+async function render(chrome, html, out) {
   const tmp = join(TMP_DIR, `og-${Math.random().toString(36).slice(2)}.html`)
   await writeFile(tmp, html)
   try {
-    await execFileP(CHROME, [
+    await execFileP(chrome, [
       '--headless=new',
       '--disable-gpu',
+      '--no-sandbox',
       '--hide-scrollbars',
-      '--force-device-scale-factor=2',
+      '--force-device-scale-factor=1',
       '--window-size=1200,630',
       '--virtual-time-budget=6000',
       `--screenshot=${out}`,
       `file://${tmp}`,
     ])
-    // 2× supersample → normalise to exactly 1200×630.
-    await execFileP('sips', ['-z', '630', '1200', out], { encoding: 'buffer' })
+    if (existsSync('/usr/bin/sips')) {
+      await execFileP('sips', ['-z', '630', '1200', out], { encoding: 'buffer' })
+    }
   } finally {
     await rm(tmp, { force: true })
   }
 }
 
 async function main() {
-  if (!existsSync(CHROME)) {
-    console.warn(`[og] Chrome not found at ${CHROME} — skipping OG generation.`)
+  const chrome = findChrome()
+  if (!chrome) {
+    console.warn(`[og] Chrome not found — skipping OG generation.`)
     console.warn('[og] Set CHROME_PATH to render cards locally.')
     return
   }
@@ -210,7 +203,7 @@ async function main() {
       description: d.excerpt || d.description || '',
       tags: Array.isArray(d.tags) ? d.tags : [],
     })
-    await render(html, out)
+    await render(chrome, html, out)
     made++
     console.log(`[og] ${post.slug}.png`)
   }

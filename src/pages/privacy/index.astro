@@ -6,54 +6,59 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
   title="Privacy Policy"
   description="How we handle your data and protect your privacy."
 >
-  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
-    <header class="mb-12">
-      <h1 class="mb-4">Privacy Policy</h1>
-      <p class="text-muted-foreground">
+  <div class="mx-auto max-w-3xl px-5 py-10 lg:py-14">
+    <header class="mb-10 pb-8 border-b border-border">
+      <div class="kicker-pill mb-3">Legal &amp; Data</div>
+      <h1 class="mb-2">Privacy Policy</h1>
+      <p class="text-sm text-muted-foreground m-0">
         Last updated: January 2026
       </p>
     </header>
 
-    <div class="prose dark:prose-invert max-w-none">
-      <p class="text-lg border-l-2 border-muted pl-4 mb-8">
-        <strong>TL;DR:</strong> This website respects your privacy. We don't track you, collect personal data, or use invasive analytics.
-      </p>
+    <div class="rounded-2xl border border-border bg-card p-6 sm:p-9">
+      <div class="prose dark:prose-invert max-w-none">
+        <div class="rounded-2xl border border-border border-l-[5px] border-l-primary bg-muted p-5 mb-8 not-prose">
+          <p class="font-serif text-[18px] text-foreground m-0">
+            <strong>TL;DR:</strong> This website respects your privacy. We don't track you, collect personal data, or use invasive analytics.
+          </p>
+        </div>
 
-      <h2>What We Don't Collect</h2>
-      <ul>
-        <li>Personal information</li>
-        <li>Email addresses (except through Substack)</li>
-        <li>Browsing behavior or tracking data</li>
-        <li>Cookies for tracking purposes</li>
-      </ul>
+        <h2>What We Don't Collect</h2>
+        <ul>
+          <li>Personal information</li>
+          <li>Email addresses (except through Substack)</li>
+          <li>Browsing behavior or tracking data</li>
+          <li>Cookies for tracking purposes</li>
+        </ul>
 
-      <h2>What We May Collect</h2>
-      <ul>
-        <li><strong>Server logs:</strong> Standard web server logs may temporarily store IP addresses for security</li>
-        <li><strong>Theme preference:</strong> Your dark/light mode preference is stored locally in your browser</li>
-      </ul>
+        <h2>What We May Collect</h2>
+        <ul>
+          <li><strong>Server logs:</strong> Standard web server logs may temporarily store IP addresses for security</li>
+          <li><strong>Theme preference:</strong> Your dark/light mode preference is stored locally in your browser</li>
+        </ul>
 
-      <h2>Third-Party Services</h2>
-      
-      <h3>Newsletter (Substack)</h3>
-      <p>
-        Newsletter subscriptions are managed through Substack. See <a href="https://substack.com/privacy" target="_blank" rel="noopener">Substack's Privacy Policy</a>.
-      </p>
+        <h2>Third-Party Services</h2>
+        
+        <h3>Newsletter (Substack)</h3>
+        <p>
+          Newsletter subscriptions are managed through Substack. See <a href="https://substack.com/privacy" target="_blank" rel="noopener">Substack's Privacy Policy</a>.
+        </p>
 
-      <h3>RSS Feeds</h3>
-      <p>
-        RSS feed subscriptions are anonymous. We cannot track or identify RSS subscribers.
-      </p>
+        <h3>RSS Feeds</h3>
+        <p>
+          RSS feed subscriptions are anonymous. We cannot track or identify RSS subscribers.
+        </p>
 
-      <h2>Hosting</h2>
-      <p>
-        This website is hosted on Cloudflare Pages. No personal data is stored in databases.
-      </p>
+        <h2>Hosting</h2>
+        <p>
+          This website is hosted on Cloudflare Pages. No personal data is stored in databases.
+        </p>
 
-      <h2>Contact</h2>
-      <p>
-        Questions? Email <a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a>
-      </p>
+        <h2>Contact</h2>
+        <p>
+          Questions? Email <a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a>
+        </p>
+      </div>
     </div>
   </div>
 </BaseLayout>

@@ -1,15 +1,11 @@
-/* gokhanturhan.com link popups (Gwern-style, strictly B&W). Hover a link on desktop ->
+/* gokhanturhan.com link popups (warm editorial card). Hover a link on desktop ->
    an annotation card near it (kicker / title / blurb / open-link). Curated cards for the
    nav targets; a lightweight fallback for any external link. Keyed by href + pathname so it
    works everywhere. CSP-clean (no framing, no fetch). Loaded site-wide via <script src="/popups.js">. */
 (function () {
   if (window.matchMedia && window.matchMedia("(hover: none)").matches) return;
 
-  /* The card is R2 (blurb prose); its kicker and open-link are R4 and re-assert
-     the data face. Both faces are referenced through the tokens, with the same
-     literal fallback pattern already used for --ink/--paper, so an injected
-     stylesheet cannot drift from critical.css. */
-  var CSS = '.lp{position:absolute;z-index:9999;max-width:340px;width:max-content;border:2px solid var(--ink,#0a0a0a);background:var(--paper,#f4f4f2);color:var(--ink,#0a0a0a);padding:.7rem .85rem;font-family:var(--font-text,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif);opacity:0;transform:translateY(4px);transition:opacity .12s,transform .12s;pointer-events:none}.lp.show{opacity:1;transform:translateY(0);pointer-events:auto}.lp .lp-k{font-family:var(--font-data,ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim,#5c5c5c)}.lp .lp-t{font-weight:700;font-size:14px;line-height:1.25;margin:.15rem 0 .3rem;color:var(--ink,#0a0a0a)}.lp .lp-d{font-size:12.5px;line-height:1.5;color:var(--dim,#5c5c5c)}.lp a.lp-o{display:inline-block;margin-top:.5rem;font-family:var(--font-data,ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace);font-size:11px;letter-spacing:.04em;color:var(--ink,#0a0a0a);border:0;text-decoration:underline;text-underline-offset:2px}@media (prefers-reduced-motion:reduce){.lp{transition:none}}';
+  var CSS = '.lp{position:absolute;z-index:9999;max-width:340px;width:max-content;border:1px solid var(--line,#ecdcd8);border-radius:16px;background:var(--card-bg,#ffffff);color:var(--ink,#2a1a1e);padding:.8rem 1rem;box-shadow:0 14px 36px rgba(42,26,30,.12);font-family:var(--font-sans,-apple-system,BlinkMacSystemFont,"Helvetica Neue",Inter,Arial,sans-serif);opacity:0;transform:translateY(4px);transition:opacity .14s,transform .14s;pointer-events:none}.lp.show{opacity:1;transform:translateY(0);pointer-events:auto}.lp .lp-k{font-family:var(--font-sans,-apple-system,BlinkMacSystemFont,Arial,sans-serif);font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--acc,#c94f62)}.lp .lp-t{font-family:var(--font-serif,Georgia,serif);font-weight:700;font-size:15.5px;line-height:1.25;margin:.18rem 0 .32rem;color:var(--ink,#2a1a1e)}.lp .lp-d{font-size:13px;line-height:1.5;color:var(--mut,#7a6268)}.lp a.lp-o{display:inline-block;margin-top:.5rem;font-family:var(--font-sans,-apple-system,BlinkMacSystemFont,Arial,sans-serif);font-size:12px;font-weight:600;color:var(--acc,#c94f62);border:0;text-decoration:underline;text-underline-offset:3px}@media (prefers-reduced-motion:reduce){.lp{transition:none}}';
   var st = document.createElement("style"); st.textContent = CSS; document.head.appendChild(st);
 
   var ANN = {

@@ -2,23 +2,23 @@
 import Button from './ui/Button.astro'
 ---
 
-<div id="privacy-notice" class="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 z-50 max-w-sm md:max-w-sm bg-background border-2 border-border p-4 hidden">
+<div id="privacy-notice" class="privacy-card fixed bottom-4 left-4 right-4 md:left-auto md:right-5 z-50 max-w-sm md:max-w-sm p-4 hidden">
   <div class="flex items-start gap-3">
     <div class="flex-1">
-      <p class="text-sm text-foreground mb-3">
+      <p class="text-[13.5px] leading-relaxed text-foreground mb-3">
         This site uses Google Analytics to track usage and improve content. You can opt out anytime. 
-        <a href="/privacy" class="text-primary hover:underline">Learn more</a>
+        <a href="/privacy" class="text-primary underline underline-offset-2">Learn more</a>
       </p>
       <div class="flex gap-2">
-        <Button variant="outline" size="sm" id="decline-privacy" class="text-xs h-7 px-3">
+        <Button variant="outline" size="sm" id="decline-privacy" class="text-xs h-8 px-3.5">
           Opt Out
         </Button>
-        <Button size="sm" id="accept-privacy" class="text-xs h-7 px-3">
+        <Button size="sm" id="accept-privacy" class="text-xs h-8 px-3.5">
           Keep Analytics
         </Button>
       </div>
     </div>
-    <Button variant="ghost" size="sm" id="close-privacy" class="h-6 w-6 p-0 flex-shrink-0">
+    <Button variant="ghost" size="sm" id="close-privacy" class="h-7 w-7 p-0 flex-shrink-0 rounded-full">
       <span aria-hidden="true">×</span>
       <span class="sr-only">Close</span>
     </Button>
@@ -32,64 +32,59 @@ import Button from './ui/Button.astro'
     const declineBtn = document.getElementById('decline-privacy')
     const closeBtn = document.getElementById('close-privacy')
     
-    // Check if user has already made a choice
     const privacyChoice = localStorage.getItem('privacy-choice')
     const isPublishingRoute = window.location.pathname.startsWith('/publishing/')
     const isSmallScreen = window.matchMedia('(max-width: 640px)').matches
     const showDelay = isPublishingRoute || isSmallScreen ? 8000 : 2000
     
-    // Show popup only if no previous choice was made
     if (!privacyChoice) {
-      // Show popup after a brief delay
       setTimeout(() => {
         notice?.classList.remove('hidden')
-        notice?.classList.add('animate-in', 'slide-in-from-bottom-2')
       }, showDelay)
     }
     
-    // Handle accept
     acceptBtn?.addEventListener('click', () => {
       localStorage.setItem('privacy-choice', 'accepted')
       hideNotice()
-      // Enable analytics using the global function
       if (typeof window.enableGoogleAnalytics === 'function') {
         window.enableGoogleAnalytics()
       }
     })
     
-    // Handle decline
     declineBtn?.addEventListener('click', () => {
       localStorage.setItem('privacy-choice', 'declined')
       hideNotice()
-      // Disable analytics using the global function
       if (typeof window.disableGoogleAnalytics === 'function') {
         window.disableGoogleAnalytics()
       }
     })
     
-    // Handle close (keep analytics enabled)
     closeBtn?.addEventListener('click', () => {
       localStorage.setItem('privacy-choice', 'accepted')
       hideNotice()
     })
     
     function hideNotice() {
-      notice?.classList.add('animate-out', 'slide-out-to-bottom-2')
-      setTimeout(() => {
-        notice?.classList.add('hidden')
-      }, 300)
+      notice?.classList.add('hidden')
     }
   })
 </script>
 
 <style>
+  .privacy-card {
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: 0 14px 36px rgba(42, 26, 30, 0.14);
+  }
+
   @media (max-width: 640px) {
     #privacy-notice {
       bottom: 0.75rem;
       left: 0.75rem;
       right: 0.75rem;
       max-width: none;
-      padding: 0.875rem;
+      padding: 0.9rem;
     }
 
     #privacy-notice p {

@@ -11,27 +11,25 @@ interface Props {
 const { items, currentPage } = Astro.props
 ---
 
-<nav aria-label="breadcrumb" class="mb-6 overflow-x-auto pb-2">
-  <ol class="flex min-w-max items-center gap-2 whitespace-nowrap font-mono text-[12.5px] uppercase tracking-[0.06em] text-muted-foreground">
-    <!-- Home -->
+<nav aria-label="breadcrumb" class="mb-4 overflow-x-auto pb-1">
+  <ol class="flex min-w-max items-center gap-2 whitespace-nowrap font-sans text-[13px] text-muted-foreground">
     <li>
       <a
         href="/"
-        class="hover:text-foreground"
+        class="hover:text-primary transition-colors"
         aria-label="Home"
       >
         Index
       </a>
     </li>
 
-    <!-- Breadcrumb items -->
     {items.map((item) => (
       <>
-        <li class="flex-shrink-0" aria-hidden="true">/</li>
+        <li class="flex-shrink-0 opacity-60" aria-hidden="true">/</li>
         <li class="flex-shrink-0">
           <a
             href={item.href}
-            class="hover:text-foreground"
+            class="hover:text-primary transition-colors"
           >
             {item.label}
           </a>
@@ -39,11 +37,10 @@ const { items, currentPage } = Astro.props
       </>
     ))}
 
-    <!-- Current page -->
     {currentPage && (
       <>
-        <li class="flex-shrink-0" aria-hidden="true">/</li>
-        <li class="max-w-[12rem] truncate text-foreground font-medium sm:max-w-none" title={currentPage}>
+        <li class="flex-shrink-0 opacity-60" aria-hidden="true">/</li>
+        <li class="max-w-[14rem] truncate text-foreground font-medium sm:max-w-none" title={currentPage}>
           {currentPage}
         </li>
       </>

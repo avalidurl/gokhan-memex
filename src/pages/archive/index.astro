@@ -3,19 +3,16 @@ import { getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { humanizeKebab } from '@/lib/utils'
 
-// Get all published blog posts
 const allPosts = (await getCollection('blog'))
   .filter(post => !post.data.draft)
   .sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf())
 
-// Extract categories and their counts
 const categoryMap = new Map<string, number>()
 allPosts.forEach(post => {
   const category = post.data.category
   categoryMap.set(category, (categoryMap.get(category) ?? 0) + 1)
 })
 
-// Extract tags and their counts
 const tagMap = new Map<string, number>()
 allPosts.forEach(post => {
   post.data.tags?.forEach(tag => {
@@ -23,11 +20,9 @@ allPosts.forEach(post => {
   })
 })
 
-// Sort categories by count (descending) and tags by count
 const sortedCategories = Array.from(categoryMap.entries()).sort((a, b) => b[1] - a[1])
 const sortedTags = Array.from(tagMap.entries()).sort((a, b) => b[1] - a[1])
 
-// Group posts by year
 const postsByYear = new Map<number, typeof allPosts>()
 allPosts.forEach(post => {
   const year = new Date(post.data.publishDate).getFullYear()
@@ -42,87 +37,88 @@ const sortedYears = Array.from(postsByYear.keys()).sort((a, b) => b - a)
   description="Browse all content by categories, tags, and years."
   robots="noindex, follow"
 >
-  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
-    <!-- Header -->
-    <header class="mb-12">
-      <h1 class="mb-4">Archive</h1>
-      <p class="text-muted-foreground">
+  <div class="mx-auto max-w-3xl px-5 py-10 lg:py-14">
+    <header class="mb-10 pb-8 border-b border-border">
+      <div class="kicker-pill mb-3">Index &amp; Taxonomy</div>
+      <h1 class="mb-3">Archive</h1>
+      <p class="font-serif text-[19px] text-muted-foreground m-0">
         {allPosts.length} posts across {sortedCategories.length} categories and {sortedTags.length} tags.
       </p>
     </header>
 
-    <div class="space-y-12">
+    <div class="space-y-10">
       <!-- Categories Section -->
       <section id="categories">
-        <h2 class="mb-4">
-          Categories
-        </h2>
-        <ul class="space-y-1">
-          {sortedCategories.map(([category, count]) => (
-            <li>
-              <a 
-                href={`/archive/categories/${category.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and')}`}
-                class="group flex items-baseline justify-between py-2"
-              >
-                <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
-                  {category}
-                </span>
-                <span class="text-sm text-muted-foreground tabular-nums">
-                  {count}
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
+        <h2 class="mb-4">Categories</h2>
+        <div class="rounded-2xl border border-border bg-card overflow-hidden">
+          <ul class="divide-y divide-border list-none p-0 m-0">
+            {sortedCategories.map(([category, count]) => (
+              <li class="m-0">
+                <a 
+                  href={`/archive/categories/${category.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and')}`}
+                  class="group flex items-center justify-between px-5 py-3.5 no-underline hover:bg-muted/50 transition-colors"
+                >
+                  <span class="font-serif text-[18px] font-semibold text-foreground group-hover:text-primary transition-colors">
+                    {category}
+                  </span>
+                  <span class="rounded-full border border-border bg-muted px-3 py-0.5 text-xs font-semibold text-primary tabular-nums">
+                    {count}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
 
       <!-- Tags Section -->
       <section id="tags">
-        <h2 class="mb-4">
-          Tags
-        </h2>
-        <div class="flex flex-wrap gap-2">
-          {sortedTags.slice(0, 40).map(([tag, count]) => (
-            <a 
-              href={`/archive/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
-              class="text-sm text-muted-foreground hover:text-foreground"
-            >
-              {humanizeKebab(tag)} <span class="text-xs opacity-60">({count})</span>
-            </a>
-          ))}
-          {sortedTags.length > 40 && (
-            <a 
-              href="/archive/tags"
-              class="text-sm text-muted-foreground hover:text-foreground"
-            >
-              +{sortedTags.length - 40} more
-            </a>
-          )}
+        <h2 class="mb-4">Tags</h2>
+        <div class="rounded-2xl border border-border bg-card p-5">
+          <div class="flex flex-wrap gap-2">
+            {sortedTags.slice(0, 40).map(([tag, count]) => (
+              <a 
+                href={`/archive/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+                class="inline-flex items-center gap-1 rounded-full border border-border bg-background px-3 py-1 text-[13px] font-medium text-muted-foreground no-underline hover:border-primary hover:text-primary transition-colors"
+              >
+                <span>{humanizeKebab(tag)}</span>
+                <span class="text-[11px] opacity-70">({count})</span>
+              </a>
+            ))}
+            {sortedTags.length > 40 && (
+              <a 
+                href="/archive/tags"
+                class="inline-flex items-center rounded-full border border-primary bg-muted px-3.5 py-1 text-[13px] font-semibold text-primary no-underline hover:bg-primary hover:text-primary-foreground transition-colors"
+              >
+                +{sortedTags.length - 40} more
+              </a>
+            )}
+          </div>
         </div>
       </section>
 
       <!-- Years Section -->
       <section id="years">
-        <h2 class="mb-4">
-          Years
-        </h2>
-        <ul class="space-y-1">
-          {sortedYears.map(year => (
-            <li>
-              <a 
-                href={`/journal/${year}`}
-                class="group flex items-baseline justify-between py-2"
-              >
-                <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
-                  {year}
-                </span>
-                <span class="text-sm text-muted-foreground tabular-nums">
-                  {postsByYear.get(year)?.length} posts
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
+        <h2 class="mb-4">Years</h2>
+        <div class="rounded-2xl border border-border bg-card overflow-hidden">
+          <ul class="divide-y divide-border list-none p-0 m-0">
+            {sortedYears.map(year => (
+              <li class="m-0">
+                <a 
+                  href={`/journal/${year}`}
+                  class="group flex items-center justify-between px-5 py-3.5 no-underline hover:bg-muted/50 transition-colors"
+                >
+                  <span class="font-serif text-[18px] font-semibold text-foreground group-hover:text-primary transition-colors">
+                    {year}
+                  </span>
+                  <span class="text-sm text-muted-foreground tabular-nums">
+                    {postsByYear.get(year)?.length} posts
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
     </div>
   </div>

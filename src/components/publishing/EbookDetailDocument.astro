@@ -25,56 +25,56 @@ const summarySentences = ebook.summarySentences?.length ? ebook.summarySentences
     currentPage: ebook.title,
   }}
 >
-  <div class="ebook-document mx-auto max-w-5xl px-6 py-12 lg:py-16">
-    <section class="grid gap-8 lg:grid-cols-[320px_1fr] lg:items-start">
+  <div class="ebook-document mx-auto max-w-5xl px-5 py-10 lg:py-14">
+    <section class="grid gap-8 rounded-2xl border border-border bg-card p-6 sm:p-8 lg:grid-cols-[300px_1fr] lg:items-start">
       <div class="lg:sticky lg:top-24">
         <img
           src={ebook.coverImage}
           alt={`Cover art for ${ebook.title}`}
-          class="w-full border border-foreground/10 object-cover"
+          class="w-full rounded-xl border border-border object-cover shadow-sm"
         />
       </div>
 
       <div>
-        <p class="doc-eyebrow mb-3">Publishing / E-books</p>
-        <h1 class="mb-4">{ebook.title}</h1>
-        <p class="mb-5 max-w-2xl text-lg text-foreground/70">{ebook.subtitle}</p>
+        <div class="kicker-pill mb-3">Publishing / E-books</div>
+        <h1 class="mb-3">{ebook.title}</h1>
+        <p class="mb-4 max-w-2xl font-serif text-[19px] text-muted-foreground">{ebook.subtitle}</p>
 
-        <div class="mb-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-foreground/60">
-          <span>{ebook.author}</span>
-          <span>{publishedLabel}</span>
-          <span>{ebook.pageCount} pages</span>
-          <span>{ebook.lineCount} lines</span>
+        <div class="mb-5 flex flex-wrap gap-2 text-xs">
+          <span class="rounded-full border border-border bg-muted px-3 py-1 font-medium text-foreground">{ebook.author}</span>
+          <span class="rounded-full border border-border bg-muted px-3 py-1 text-muted-foreground">{publishedLabel}</span>
+          <span class="rounded-full border border-border bg-muted px-3 py-1 text-muted-foreground">{ebook.pageCount} pages</span>
+          <span class="rounded-full border border-border bg-muted px-3 py-1 text-muted-foreground">{ebook.lineCount} lines</span>
         </div>
 
-        <p class="doc-copy max-w-3xl text-lg text-foreground/90">{ebook.blurb}</p>
+        <p class="font-serif max-w-3xl text-[18px] leading-relaxed text-foreground/90">{ebook.blurb}</p>
 
-        <div class="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-base">
+        <div class="mt-7 flex flex-wrap gap-2.5">
           <a
             href={ebook.browserEditionUrl}
-            class="doc-link"
+            class="inline-flex items-center rounded-full border border-primary bg-primary px-5 py-2.5 text-[14px] font-semibold text-primary-foreground no-underline hover:opacity-90 transition-opacity"
           >
             Open HTML edition
           </a>
           <a
             href={ebook.epubUrl}
-            class="doc-link"
+            class="tile"
             download
           >
             Download EPUB
           </a>
           <a
             href={ebook.staticHtmlUrl}
-            class="doc-link"
+            class="inline-flex items-center rounded-full border border-border bg-background px-4 py-2 text-[13.5px] font-semibold text-muted-foreground no-underline hover:border-primary hover:text-primary transition-colors"
             target="_blank"
             rel="noopener"
           >
-            Raw HTML export
+            Raw HTML export ↗
           </a>
           {ebook.sourceTextUrl ? (
             <a
               href={ebook.sourceTextUrl}
-              class="doc-link"
+              class="inline-flex items-center rounded-full border border-border bg-background px-4 py-2 text-[13.5px] font-semibold text-muted-foreground no-underline hover:border-primary hover:text-primary transition-colors"
               download
             >
               Download source text
@@ -83,7 +83,7 @@ const summarySentences = ebook.summarySentences?.length ? ebook.summarySentences
           {ebook.fontUrl ? (
             <a
               href={ebook.fontUrl}
-              class="doc-link"
+              class="inline-flex items-center rounded-full border border-border bg-background px-4 py-2 text-[13.5px] font-semibold text-muted-foreground no-underline hover:border-primary hover:text-primary transition-colors"
               download
             >
               Download font
@@ -93,19 +93,19 @@ const summarySentences = ebook.summarySentences?.length ? ebook.summarySentences
       </div>
     </section>
 
-    <section class="mt-14 grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
-      <div class="border-t border-foreground/15 pt-6">
+    <section class="mt-8 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+      <div class="rounded-2xl border border-border bg-card p-6 sm:p-7">
         <p class="doc-eyebrow mb-3">Info</p>
         <div class="space-y-4">
           {summarySentences.map((sentence) => (
-            <p class="doc-copy mb-0 text-lg text-foreground/90">{sentence}</p>
+            <p class="font-serif mb-0 text-[17.5px] leading-relaxed text-foreground/90">{sentence}</p>
           ))}
         </div>
       </div>
 
-      <div class="border-t border-foreground/15 pt-6">
-        <h2 class="mb-4">Table of Contents</h2>
-        <ol class="space-y-2 text-base leading-7">
+      <div class="rounded-2xl border border-border bg-card p-6 sm:p-7">
+        <h2 class="mb-4 font-serif text-[23px] font-bold">Table of Contents</h2>
+        <ol class="space-y-2 text-[15.5px] leading-7 pl-5 m-0">
           {ebook.toc.map((entry) => (
             <li>
               <a href={`${ebook.browserEditionUrl}#${entry.anchor}`} class="doc-link">
@@ -120,29 +120,19 @@ const summarySentences = ebook.summarySentences?.length ? ebook.summarySentences
 </BaseLayout>
 
 <style>
-  .ebook-document {
-    color: var(--ink);
-    /* R2 — running prose. The R4 identifiers inside (eyebrows, doc numbers,
-       line numbers, labels) re-assert the data face themselves. */
-    font-family: var(--font-text);
-  }
-
+  .ebook-document { color: var(--ink); }
   .ebook-document .doc-eyebrow {
-    color: var(--dim);
-    font-family: var(--font-data);
-    font-size: 14px;
-    letter-spacing: 0.08em;
+    color: var(--acc);
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
     text-transform: uppercase;
   }
-
   .ebook-document .doc-link {
-    color: var(--ink);
+    color: var(--acc);
     text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.12em;
+    text-underline-offset: 3px;
   }
-
-  .ebook-document .doc-link:visited {
-    color: var(--dim);
-  }
+  .ebook-document .doc-link:hover { color: var(--acc-dark); }
 </style>

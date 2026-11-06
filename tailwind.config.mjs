@@ -1,18 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 
-// Strict monochrome: every palette name collapses onto the four house tokens
-// (ink / paper / dim / faint) via the theme-aware CSS variables, so stray
-// literal utilities (bg-red-600, text-white, …) cannot introduce color.
 const ink = "hsl(var(--foreground))"
 const paper = "hsl(var(--background))"
 const dim = "hsl(var(--muted-foreground))"
 const faint = "hsl(var(--muted))"
+const roseAcc = "hsl(var(--primary))"
 
-const monoScale = {
+const warmScale = {
   50: paper,
   100: faint,
-  200: faint,
-  300: faint,
+  200: "hsl(var(--border))",
+  300: "hsl(var(--border))",
   400: dim,
   500: dim,
   600: dim,
@@ -22,17 +20,21 @@ const monoScale = {
   950: ink,
 }
 
-// Two faces, five roles — the same contract as src/styles/critical.css.
-// R1 display · R2 running prose · R3 quantities  -> textStack  (--font-text)
-// R4 identifiers & controls · R5 machine strings -> dataStack  (--font-data)
-// Bureau register (booster.numetal.xyz, 2026-08-09): Helvetica Neue text face,
-// JetBrains Mono-led data face — booster's exact lists, straight from the OS,
-// no webfonts. Must stay in step with --font-text/--font-data in critical.css.
-const textStack = [
+const sansStack = [
+  '-apple-system',
+  'BlinkMacSystemFont',
   '"Helvetica Neue"',
-  'Helvetica',
+  'Inter',
   'Arial',
   'sans-serif',
+]
+
+const serifStack = [
+  'Georgia',
+  '"Iowan Old Style"',
+  '"Palatino Linotype"',
+  'Palatino',
+  'serif',
 ]
 
 const dataStack = [
@@ -55,46 +57,30 @@ export default {
       },
     },
     extend: {
-      // Shadows do not exist in the house register; keep the utilities inert
-      // so content-embedded classes cannot ship colored shadow values.
       boxShadow: {
-        sm: '0 0 #0000',
-        DEFAULT: '0 0 #0000',
-        md: '0 0 #0000',
-        lg: '0 0 #0000',
-        xl: '0 0 #0000',
-        '2xl': '0 0 #0000',
-        inner: '0 0 #0000',
+        sm: '0 2px 8px rgba(42, 26, 30, 0.04)',
+        DEFAULT: '0 4px 16px rgba(42, 26, 30, 0.06)',
+        md: '0 8px 24px rgba(42, 26, 30, 0.07)',
+        lg: '0 14px 34px rgba(42, 26, 30, 0.09)',
+        xl: '0 20px 44px rgba(42, 26, 30, 0.11)',
+        '2xl': '0 28px 55px rgba(168, 70, 86, 0.16)',
+        inner: 'inset 0 2px 4px rgba(42, 26, 30, 0.04)',
         none: '0 0 #0000',
       },
       ringOffsetColor: {
         DEFAULT: 'hsl(var(--background))',
       },
       colors: {
-        white: paper,
+        white: "hsl(var(--card))",
         black: ink,
-        gray: monoScale,
-        slate: monoScale,
-        zinc: monoScale,
-        neutral: monoScale,
-        stone: monoScale,
-        red: monoScale,
-        orange: monoScale,
-        amber: monoScale,
-        yellow: monoScale,
-        lime: monoScale,
-        green: monoScale,
-        emerald: monoScale,
-        teal: monoScale,
-        cyan: monoScale,
-        sky: monoScale,
-        blue: monoScale,
-        indigo: monoScale,
-        violet: monoScale,
-        purple: monoScale,
-        fuchsia: monoScale,
-        pink: monoScale,
-        rose: monoScale,
+        gray: warmScale,
+        slate: warmScale,
+        zinc: warmScale,
+        neutral: warmScale,
+        stone: warmScale,
+        red: { ...warmScale, 500: roseAcc, 600: roseAcc },
+        rose: { ...warmScale, 500: roseAcc, 600: roseAcc },
+        pink: { ...warmScale, 500: roseAcc, 600: roseAcc },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -130,129 +116,124 @@ export default {
         },
       },
       borderRadius: {
-        lg: "0",
-        md: "0",
-        sm: "0",
+        xl: "20px",
+        lg: "16px",
+        md: "12px",
+        sm: "8px",
       },
       fontFamily: {
-        sans: textStack,
+        sans: sansStack,
+        serif: serifStack,
         mono: dataStack,
-        // `serif` is kept and re-pointed at the text face rather than dropped.
-        // Dropping the key does not make `font-serif` fail loudly — Tailwind's
-        // own default (ui-serif, Georgia, Cambria, "Times New Roman", …) takes
-        // over, so a stray utility would silently import a third face. Nothing
-        // in src/ uses font-serif today; this keeps it honest if anything does.
-        serif: textStack,
       },
       typography: {
         DEFAULT: {
           css: {
             '--tw-prose-body': 'hsl(var(--foreground))',
             '--tw-prose-headings': 'hsl(var(--foreground))',
-            '--tw-prose-lead': 'hsl(var(--muted-foreground))',
-            '--tw-prose-links': 'hsl(var(--foreground))',
+            '--tw-prose-lead': 'var(--lead-ink)',
+            '--tw-prose-links': 'var(--acc)',
             '--tw-prose-bold': 'hsl(var(--foreground))',
             '--tw-prose-counters': 'hsl(var(--muted-foreground))',
-            '--tw-prose-bullets': 'hsl(var(--muted-foreground))',
-            '--tw-prose-hr': 'hsl(var(--foreground))',
-            '--tw-prose-quotes': 'hsl(var(--foreground))',
-            '--tw-prose-quote-borders': 'hsl(var(--foreground))',
+            '--tw-prose-bullets': 'var(--acc)',
+            '--tw-prose-hr': 'hsl(var(--border))',
+            '--tw-prose-quotes': 'var(--lead-ink)',
+            '--tw-prose-quote-borders': 'var(--acc)',
             '--tw-prose-captions': 'hsl(var(--muted-foreground))',
             '--tw-prose-code': 'hsl(var(--foreground))',
             '--tw-prose-pre-code': 'hsl(var(--foreground))',
             '--tw-prose-pre-bg': 'hsl(var(--muted))',
-            '--tw-prose-th-borders': 'hsl(var(--foreground))',
-            '--tw-prose-td-borders': 'hsl(var(--foreground))',
+            '--tw-prose-th-borders': 'hsl(var(--border))',
+            '--tw-prose-td-borders': 'hsl(var(--border))',
             '--tw-prose-invert-body': 'hsl(var(--foreground))',
             '--tw-prose-invert-headings': 'hsl(var(--foreground))',
-            '--tw-prose-invert-links': 'hsl(var(--foreground))',
+            '--tw-prose-invert-links': 'var(--acc)',
             '--tw-prose-invert-bold': 'hsl(var(--foreground))',
             '--tw-prose-invert-code': 'hsl(var(--foreground))',
             '--tw-prose-kbd': 'hsl(var(--foreground))',
-            '--tw-prose-kbd-shadows': '10 10 10',
-            '--tw-prose-invert-lead': 'hsl(var(--muted-foreground))',
+            '--tw-prose-kbd-shadows': '42 26 30',
+            '--tw-prose-invert-lead': 'var(--lead-ink)',
             '--tw-prose-invert-counters': 'hsl(var(--muted-foreground))',
-            '--tw-prose-invert-bullets': 'hsl(var(--muted-foreground))',
-            '--tw-prose-invert-hr': 'hsl(var(--foreground))',
-            '--tw-prose-invert-quotes': 'hsl(var(--foreground))',
-            '--tw-prose-invert-quote-borders': 'hsl(var(--foreground))',
+            '--tw-prose-invert-bullets': 'var(--acc)',
+            '--tw-prose-invert-hr': 'hsl(var(--border))',
+            '--tw-prose-invert-quotes': 'var(--lead-ink)',
+            '--tw-prose-invert-quote-borders': 'var(--acc)',
             '--tw-prose-invert-captions': 'hsl(var(--muted-foreground))',
             '--tw-prose-invert-kbd': 'hsl(var(--foreground))',
-            '--tw-prose-invert-kbd-shadows': '230 230 230',
+            '--tw-prose-invert-kbd-shadows': '247 236 232',
             '--tw-prose-invert-pre-code': 'hsl(var(--foreground))',
             '--tw-prose-invert-pre-bg': 'hsl(var(--muted))',
-            '--tw-prose-invert-th-borders': 'hsl(var(--foreground))',
-            '--tw-prose-invert-td-borders': 'hsl(var(--foreground))',
+            '--tw-prose-invert-th-borders': 'hsl(var(--border))',
+            '--tw-prose-invert-td-borders': 'hsl(var(--border))',
 
-            // Measure converted by number, not by unit: 1ch is the advance of
-            // "0", which in the old mono face was every glyph. See globals.css.
-            maxWidth: '64ch',
+            maxWidth: '68ch',
             color: 'hsl(var(--foreground))',
-            // R2 — running prose.
-            fontFamily: 'var(--font-text)',
-            fontSize: '14px',
-            lineHeight: '1.55',
-            'h1, h2, h3, h4, h5, h6': {
+            fontFamily: 'var(--font-sans)',
+            fontSize: '17px',
+            lineHeight: '1.68',
+            'h1, h2, h3': {
+              fontFamily: 'var(--font-serif)',
               fontWeight: '700',
-              letterSpacing: '0.02em',
+              letterSpacing: '-0.01em',
             },
-            // R1 — the page title is language; it takes the text face.
             h1: {
-              fontFamily: 'var(--font-text)',
-              fontSize: 'clamp(26px, 5.5vw, 44px)',
-              lineHeight: '1.05',
-              fontWeight: '700',
+              fontSize: 'clamp(30px, 5vw, 44px)',
+              lineHeight: '1.12',
             },
-            // R4 — section heads are identifiers: tiny, uppercase, tracked.
             h2: {
-              fontFamily: 'var(--font-data)',
-              fontSize: '12px',
-              lineHeight: '1.4',
-              textTransform: 'uppercase',
-              letterSpacing: '0.22em',
-              borderBottomWidth: '2px',
-              borderBottomColor: 'hsl(var(--foreground))',
-              paddingBottom: '0.35rem',
+              fontSize: '26px',
+              lineHeight: '1.24',
+              borderBottomWidth: '1px',
+              borderBottomColor: 'hsl(var(--border))',
+              paddingBottom: '0.45rem',
             },
             h3: {
-              fontFamily: 'var(--font-data)',
-              fontSize: '12px',
-              lineHeight: '1.4',
-              textTransform: 'uppercase',
-              letterSpacing: '0.14em',
+              fontSize: '19px',
+              lineHeight: '1.32',
             },
             'h4, h5, h6': {
-              fontFamily: 'var(--font-data)',
+              fontFamily: 'var(--font-sans)',
+              fontWeight: '600',
             },
             p: {
               marginTop: '1rem',
               marginBottom: '1rem',
-              lineHeight: '1.55',
+              lineHeight: '1.68',
             },
             a: {
-              color: 'hsl(var(--foreground))',
+              color: 'var(--acc)',
               textDecoration: 'underline',
               fontWeight: '400',
-              textUnderlineOffset: '0.12em',
+              textUnderlineOffset: '3px',
               textDecorationThickness: '1px',
+            },
+            'a:hover': {
+              color: 'var(--acc-dark)',
+            },
+            blockquote: {
+              borderLeftWidth: '4px',
+              borderLeftColor: 'var(--acc)',
+              backgroundColor: 'var(--soft)',
+              borderRadius: '0 12px 12px 0',
+              padding: '0.75rem 1.15rem',
+              fontStyle: 'italic',
             },
             strong: {
               fontWeight: '700',
             },
-            '[data-rehype-pretty-code-fragment]': {
-              position: 'relative',
-            },
-            // R5 — machine strings.
             pre: {
-              padding: '1rem',
+              padding: '1rem 1.2rem',
+              borderRadius: '14px',
+              border: '1px solid hsl(var(--border))',
               fontFamily: 'var(--font-data)',
             },
             code: {
-              border: '1px solid hsl(var(--foreground))',
-              position: 'relative',
-              borderRadius: '0',
+              backgroundColor: 'var(--soft)',
+              borderRadius: '6px',
+              padding: '2px 6px',
+              fontWeight: '400',
               fontFamily: 'var(--font-data)',
-            }
+            },
           },
         },
       },

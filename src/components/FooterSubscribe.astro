@@ -1,5 +1,5 @@
 ---
-/** Site-wide footer subscribe — Ishtar dispatches foot-sub pattern. */
+/** Site-wide footer subscribe — warm editorial card with Turnstile + XMTP. */
 const subscribeAction = 'https://api.gokhan.vc/newsletter/subscribe';
 const localFeed = '/rss.xml';
 const unifiedFeed = 'https://api.gokhan.vc/feed.xml';
@@ -36,12 +36,10 @@ const unifiedFeed = 'https://api.gokhan.vc/feed.xml';
       </div>
     </div>
   </form>
-        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline></script>
   <p class="foot-sub-status" data-xmtp-status role="status" aria-live="polite"></p>
   <p class="foot-sub-rss">
-    <strong>Two RSS feeds</strong> — <a href={localFeed}>this&nbsp;site</a> · <a href={unifiedFeed}
-      >everything</a
-    > (all studio sites).
+    <strong>Two RSS feeds</strong> — <a href={localFeed}>this&nbsp;site</a> · <a href={unifiedFeed}>everything</a> (all studio sites).
   </p>
 </div>
 
@@ -49,18 +47,20 @@ const unifiedFeed = 'https://api.gokhan.vc/feed.xml';
 
 <style>
   .foot-sub-status {
-    font-family: var(--font-data);
-    font-size: 12.5px;
-    letter-spacing: 0.04em;
-    margin: 0.35rem 0 0;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: var(--mut);
+    margin: 0.45rem 0 0;
     min-height: 1.2em;
   }
 
   .foot-sub-status.is-ok {
-    color: hsl(var(--foreground));
+    color: var(--store);
+    font-weight: 600;
   }
 
   .foot-sub-status.is-err {
-    color: var(--ink);
+    color: var(--acc);
+    font-weight: 600;
   }
 </style>

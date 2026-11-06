@@ -8,237 +8,282 @@ import { academicPublications, experimentalWorks } from '@/data/publishing'
   title="Publishing"
   description="Digital editions, browser-readable texts, and downloadable e-books by Gökhan Turhan."
 >
-  <div class="publishing-document mx-auto max-w-4xl px-6 py-12 lg:py-16">
-    <header class="mb-12">
-      <p class="doc-eyebrow mb-3">Publishing</p>
-      <h1 class="mb-4">Publishing</h1>
-      <p class="doc-copy max-w-2xl text-foreground/80">
+  <div class="publishing-document mx-auto max-w-4xl px-5 py-10 lg:py-14">
+    <header class="mb-10 pb-8 border-b border-border">
+      <div class="kicker-pill mb-3">Publishing</div>
+      <h1 class="mb-3">Publishing</h1>
+      <p class="font-serif text-[19px] max-w-2xl text-muted-foreground m-0">
         Digital editions, browser-readable texts, and downloadable books prepared as quiet web documents.
       </p>
     </header>
 
-    <section id="ebooks" class="border-t border-foreground/15 pt-8">
-      <details class="group" open>
-        <summary class="flex items-center justify-between cursor-pointer list-none border-b border-foreground/10 pb-5">
-          <div>
-            <h2>
-              <a href="/publishing/ebooks/" class="doc-link">E-books</a>
-            </h2>
-            <p class="doc-copy mt-2 max-w-xl text-base text-foreground/75">
-              Screen-native editions with EPUB downloads, browser reading, and cover art preserved as first-class web assets.
-            </p>
-          </div>
-          <span class="text-foreground/60 group-open:rotate-180">▲</span>
-        </summary>
+    <div class="space-y-8">
+      <!-- E-books -->
+      <section id="ebooks" class="pub-card">
+        <details class="group" open>
+          <summary class="pub-summary">
+            <div>
+              <h2 class="m-0">
+                <a href="/publishing/ebooks/" class="doc-heading-link">E-books</a>
+              </h2>
+              <p class="mt-1.5 mb-0 max-w-xl text-[15.5px] text-muted-foreground">
+                Screen-native editions with EPUB downloads, browser reading, and cover art preserved as first-class web assets.
+              </p>
+            </div>
+            <span class="pub-caret group-open:rotate-180">▲</span>
+          </summary>
 
-        <div class="pt-5">
-          <div class="mb-5">
-            <a href="/publishing/ebooks/" class="doc-link text-base">
-              View library
-            </a>
-          </div>
+          <div class="pt-6 border-t border-border mt-5">
+            <div class="mb-5">
+              <a href="/publishing/ebooks/" class="tile">
+                View library →
+              </a>
+            </div>
 
-          <ul class="space-y-6">
-            {ebooks.map((ebook, index) => (
-              <li class="grid gap-5 py-2 md:grid-cols-[140px_1fr]">
-                <a href={`/publishing/ebooks/${ebook.slug}/`} class="block">
+            <ul class="space-y-6 list-none p-0 m-0">
+              {ebooks.map((ebook, index) => (
+                <li class="grid gap-5 rounded-2xl border border-border bg-background p-5 md:grid-cols-[140px_1fr] m-0">
+                  <a href={`/publishing/ebooks/${ebook.slug}/`} class="block">
+                    <img
+                      src={ebook.coverImage}
+                      alt={`Cover art for ${ebook.title}`}
+                      class="w-full rounded-xl border border-border object-cover"
+                      loading="lazy"
+                    />
+                  </a>
+                  <div>
+                    <p class="doc-eyebrow mb-1.5">E-book {String(index + 1).padStart(2, '0')}</p>
+                    <h3 class="mt-0 mb-1.5 font-serif text-[22px] font-bold leading-[1.25]">
+                      <a href={`/publishing/ebooks/${ebook.slug}/`} class="doc-heading-link">
+                        {ebook.title}
+                      </a>
+                    </h3>
+                    <p class="mb-2 text-[15.5px] text-muted-foreground">{ebook.subtitle}</p>
+                    <details class="ebook-item group">
+                      <summary class="list-none cursor-pointer mt-1 inline-flex items-center gap-1.5 text-xs font-semibold text-primary">
+                        <span>Details</span>
+                        <span class="ebook-caret inline-block transition-transform">▼</span>
+                      </summary>
+                      <div class="pt-3">
+                        <p class="font-serif text-[17px] text-foreground/90 mb-3">{ebook.blurb}</p>
+                        <div class="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                          <span>{ebook.author}</span>
+                          <span>{ebook.pageCount} pages</span>
+                          <span>{ebook.lineCount} lines</span>
+                          <a href={`/publishing/ebooks/${ebook.slug}/`} class="doc-link">View details</a>
+                        </div>
+                      </div>
+                    </details>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </details>
+      </section>
+
+      <!-- Academic -->
+      <section id="academic" class="pub-card">
+        <details class="group" open>
+          <summary class="pub-summary">
+            <div>
+              <h2 class="m-0">
+                <a href="/publishing/academic/" class="doc-heading-link">Academic</a>
+              </h2>
+              <p class="mt-1.5 mb-0 max-w-xl text-[15.5px] text-muted-foreground">
+                Selected publications, chapters, and graduate work.
+              </p>
+            </div>
+            <span class="pub-caret group-open:rotate-180">▲</span>
+          </summary>
+
+          <ul class="pt-6 mt-5 border-t border-border space-y-5 list-none p-0 m-0">
+            {academicPublications.map((item) => (
+              <li class="rounded-2xl border border-border bg-background p-5 m-0">
+                <p class="doc-eyebrow mb-1.5">{item.type}</p>
+                <h3 class="mt-0 mb-2 font-serif text-[21px] font-bold leading-[1.28]">
+                  <a href={item.href} class="doc-heading-link" target="_blank" rel="noopener noreferrer">
+                    {item.title}
+                  </a>
+                </h3>
+                <p class="mb-3 text-[15px] text-muted-foreground">
+                  {item.venue} · {item.year}
+                </p>
+                <div class="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                  <span>{item.author}</span>
+                  <a href={item.href} class="doc-link" target="_blank" rel="noopener noreferrer">
+                    {item.linkLabel} ↗
+                  </a>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </details>
+      </section>
+
+      <!-- Experimental -->
+      <section id="experimental" class="pub-card">
+        <details class="group" open>
+          <summary class="pub-summary">
+            <div>
+              <h2 class="m-0">
+                <a href="/publishing/experimental/" class="doc-heading-link">Experimental</a>
+              </h2>
+              <p class="mt-1.5 mb-0 max-w-xl text-[15.5px] text-muted-foreground">
+                Sound-led and hybrid experiments across writing, recording, and networked media.
+              </p>
+            </div>
+            <span class="pub-caret group-open:rotate-180">▲</span>
+          </summary>
+
+          <ul class="pt-6 mt-5 border-t border-border space-y-6 list-none p-0 m-0">
+            {experimentalWorks.map((work) => (
+              <li class="grid gap-5 rounded-2xl border border-border bg-background p-5 md:grid-cols-[140px_1fr] m-0">
+                <a href={work.detailHref} class="block">
                   <img
-                    src={ebook.coverImage}
-                    alt={`Cover art for ${ebook.title}`}
-                    class="w-full border border-foreground/10 object-cover"
+                    src={work.coverImage}
+                    alt={work.coverAlt}
+                    class="w-full rounded-xl border border-border object-cover"
                     loading="lazy"
                   />
                 </a>
-                <div class="border-b border-foreground/10 pb-4">
-                  <p class="doc-eyebrow mb-2">E-book {String(index + 1).padStart(2, '0')}</p>
-                  <h3 class="mt-0 font-sans normal-case tracking-normal text-[22px] font-bold leading-[1.25]">
-                    <a href={`/publishing/ebooks/${ebook.slug}/`} class="doc-link">
-                      {ebook.title}
+                <div>
+                  <p class="doc-eyebrow mb-1.5">{work.type}</p>
+                  <h3 class="mt-0 mb-1.5 font-serif text-[22px] font-bold leading-[1.25]">
+                    <a href={work.detailHref} class="doc-heading-link">
+                      {work.title}
                     </a>
                   </h3>
-                  <p class="mb-2 text-base text-foreground/70">{ebook.subtitle}</p>
-                  <details class="ebook-item group">
-                    <summary class="list-none cursor-pointer mt-1">
-                      <span class="ebook-caret text-foreground/60 inline-block">▲</span>
+                  <p class="mb-3 text-[15px] text-muted-foreground">
+                    {work.creators} · {work.year}
+                  </p>
+                  <details class="experimental-item group">
+                    <summary class="list-none cursor-pointer mt-1 inline-flex items-center gap-1.5 text-xs font-semibold text-primary">
+                      <span>Notes &amp; Audio</span>
+                      <span class="experimental-caret inline-block transition-transform">▼</span>
                     </summary>
-                  <div class="pt-3">
-                    <p class="doc-copy text-lg text-foreground/90">{ebook.blurb}</p>
-                    <div class="mt-4 flex flex-wrap gap-4 text-sm text-foreground/60">
-                      <span>{ebook.author}</span>
-                      <span>{ebook.pageCount} pages</span>
-                      <span>{ebook.lineCount} lines</span>
-                      <a href={`/publishing/ebooks/${ebook.slug}/`} class="doc-link">View details</a>
+                    <div class="pt-3">
+                      {work.commissionedByName && work.commissionedByHref && (
+                        <p class="mb-3 text-[15px] text-muted-foreground">
+                          Commissioned by <a href={work.commissionedByHref} class="doc-link" target="_blank" rel="noopener noreferrer">{work.commissionedByName}</a>.
+                        </p>
+                      )}
+                      {work.statusNote && (
+                        <p class="mb-4 rounded-xl bg-muted px-4 py-2.5 text-sm text-muted-foreground">
+                          {work.statusNote}
+                        </p>
+                      )}
+                      <p class="font-serif text-[16.5px] text-foreground/90">
+                        {work.accompanyingText}
+                      </p>
+                      {work.audioHref && work.audioMimeType && (
+                        <audio controls preload="none" class="mt-4 w-full max-w-xl">
+                          <source src={work.audioHref} type={work.audioMimeType} />
+                        </audio>
+                      )}
+                      <div class="mt-4 flex flex-wrap gap-4 text-sm text-muted-foreground">
+                        <a href={work.detailHref} class="doc-link">View details</a>
+                        {work.sourceHref && (
+                          <a href={work.sourceHref} class="doc-link" target="_blank" rel="noopener noreferrer">
+                            {work.sourceLabel ?? 'View source'}
+                          </a>
+                        )}
+                        {work.originalAudioHref && (
+                          <a href={work.originalAudioHref} class="doc-link" target="_blank" rel="noopener noreferrer">
+                            {work.originalAudioLabel ?? 'Original source'}
+                          </a>
+                        )}
+                      </div>
                     </div>
-                  </div>
                   </details>
                 </div>
               </li>
             ))}
           </ul>
-        </div>
-      </details>
-    </section>
-
-    <section id="academic" class="border-t border-foreground/15 pt-10">
-      <details class="group" open>
-        <summary class="flex items-center justify-between cursor-pointer list-none border-b border-foreground/10 pb-5">
-          <div>
-            <h2>
-              <a href="/publishing/academic/" class="doc-link">Academic</a>
-            </h2>
-            <p class="doc-copy mt-2 max-w-xl text-base text-foreground/75">
-              Selected publications, chapters, and graduate work.
-            </p>
-          </div>
-          <span class="text-foreground/60 group-open:rotate-180">▲</span>
-        </summary>
-
-        <ul class="pt-6 space-y-6">
-          {academicPublications.map((item) => (
-            <li class="border-b border-foreground/10 pb-5">
-              <p class="doc-eyebrow mb-2">{item.type}</p>
-              <h3 class="mt-0 font-sans normal-case tracking-normal text-[22px] font-bold leading-[1.25]">
-                <a href={item.href} class="doc-link" target="_blank" rel="noopener noreferrer">
-                  {item.title}
-                </a>
-              </h3>
-              <p class="mb-3 text-base text-foreground/70">
-                {item.venue} · {item.year}
-              </p>
-              <div class="flex flex-wrap items-center gap-4 text-sm text-foreground/60">
-                <span>{item.author}</span>
-                <a href={item.href} class="doc-link" target="_blank" rel="noopener noreferrer">
-                  {item.linkLabel}
-                </a>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </details>
-    </section>
-
-    <section id="experimental" class="border-t border-foreground/15 pt-10">
-      <details class="group" open>
-        <summary class="flex items-center justify-between cursor-pointer list-none border-b border-foreground/10 pb-5">
-          <div>
-            <h2>
-              <a href="/publishing/experimental/" class="doc-link">Experimental</a>
-            </h2>
-            <p class="doc-copy mt-2 max-w-xl text-base text-foreground/75">
-              Sound-led and hybrid experiments across writing, recording, and networked media.
-            </p>
-          </div>
-          <span class="text-foreground/60 group-open:rotate-180">▲</span>
-        </summary>
-
-        <ul class="pt-6 space-y-6">
-          {experimentalWorks.map((work) => (
-            <li class="grid gap-5 py-2 md:grid-cols-[140px_1fr]">
-              <a href={work.detailHref} class="block">
-                <img
-                  src={work.coverImage}
-                  alt={work.coverAlt}
-                  class="w-full border border-foreground/10 object-cover"
-                  loading="lazy"
-                />
-              </a>
-              <div class="border-b border-foreground/10 pb-4">
-                <p class="doc-eyebrow mb-2">{work.type.toUpperCase()}</p>
-                <h3 class="mt-0 font-sans normal-case tracking-normal text-[22px] font-bold leading-[1.25]">
-                  <a href={work.detailHref} class="doc-link">
-                    {work.title}
-                  </a>
-                </h3>
-                <p class="mb-3 text-base text-foreground/70">
-                  {work.creators} · {work.year}
-                </p>
-                <details class="experimental-item group">
-                  <summary class="list-none cursor-pointer mt-1">
-                    <span class="experimental-caret text-foreground/60 inline-block">▲</span>
-                  </summary>
-                  <div class="pt-3">
-                    {work.commissionedByName && work.commissionedByHref && (
-                      <p class="mb-3 text-base text-foreground/75">
-                        Commissioned by <a href={work.commissionedByHref} class="doc-link" target="_blank" rel="noopener noreferrer">{work.commissionedByName}</a>.
-                      </p>
-                    )}
-                    {work.statusNote && (
-                      <p class="doc-copy mb-4 text-sm text-foreground/65">
-                        {work.statusNote}
-                      </p>
-                    )}
-                    <p class="doc-copy text-lg text-foreground/90">
-                      {work.accompanyingText}
-                    </p>
-                    {work.audioHref && work.audioMimeType && (
-                      <audio controls preload="none" class="mt-4 w-full max-w-xl">
-                        <source src={work.audioHref} type={work.audioMimeType} />
-                      </audio>
-                    )}
-                    <div class="mt-4 flex flex-wrap gap-4 text-sm text-foreground/60">
-                      <a href={work.detailHref} class="doc-link">View details</a>
-                      {work.sourceHref && (
-                        <a href={work.sourceHref} class="doc-link" target="_blank" rel="noopener noreferrer">
-                          {work.sourceLabel ?? 'View source'}
-                        </a>
-                      )}
-                      {work.originalAudioHref && (
-                        <a href={work.originalAudioHref} class="doc-link" target="_blank" rel="noopener noreferrer">
-                          {work.originalAudioLabel ?? 'Original source'}
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </details>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </details>
-    </section>
+        </details>
+      </section>
+    </div>
   </div>
 </BaseLayout>
 
 <style>
   .publishing-document {
     color: var(--ink);
-    /* R2 — running prose. The R4 identifiers inside (eyebrows, doc numbers,
-       line numbers, labels) re-assert the data face themselves. */
-    font-family: var(--font-text);
+  }
+
+  .pub-card {
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 24px 26px;
+  }
+
+  .pub-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .pub-caret {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 999px;
+    background: var(--soft);
+    border: 1px solid var(--line);
+    color: var(--acc);
+    font-size: 11px;
+    flex-shrink: 0;
+    transition: transform 0.15s;
   }
 
   .publishing-document .doc-eyebrow {
-    color: var(--dim);
-    font-family: var(--font-data);
-    font-size: 12.5px;
+    color: var(--acc);
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 700;
     letter-spacing: 0.06em;
-    text-transform: uppercase;
+  }
+
+  .publishing-document .doc-heading-link {
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .publishing-document .doc-heading-link:hover {
+    color: var(--acc);
   }
 
   .publishing-document .doc-link {
-    color: var(--ink);
+    color: var(--acc);
+    font-weight: 500;
     text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.12em;
+    text-underline-offset: 3px;
   }
 
-  .publishing-document .doc-link:visited {
-    color: var(--dim);
+  .publishing-document .doc-link:hover {
+    color: var(--acc-dark);
   }
 
-  .publishing-document details summary::-webkit-details-marker {
-    display: none;
-  }
-
+  .publishing-document details summary::-webkit-details-marker,
   .publishing-document details summary::marker {
     display: none;
   }
 
-  .publishing-document .ebook-item[open] > summary .ebook-caret {
+  .publishing-document .ebook-item[open] > summary .ebook-caret,
+  .publishing-document .experimental-item[open] > summary .experimental-caret {
     transform: rotate(180deg);
   }
 
-  .publishing-document .experimental-item[open] > summary .experimental-caret {
-    transform: rotate(180deg);
+  @media (max-width: 640px) {
+    .pub-card {
+      padding: 20px;
+    }
   }
 </style>

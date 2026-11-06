@@ -6,39 +6,41 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
   title="Consulting"
   description="Strategic innovation and technology advisory."
 >
-  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
-    <header class="mb-12">
-      <h1 class="mb-4">Consulting</h1>
-      <p class="text-muted-foreground">
+  <div class="mx-auto max-w-3xl px-5 py-10 lg:py-14">
+    <header class="mb-10 pb-8 border-b border-border">
+      <div class="kicker-pill mb-3">Advisory</div>
+      <h1 class="mb-3">Consulting</h1>
+      <p class="font-serif text-[19px] text-muted-foreground m-0">
         Strategic innovation and technology advisory.
       </p>
     </header>
 
-    <div class="space-y-12">
-      <section>
-        <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+    <div class="grid gap-6 md:grid-cols-2">
+      <section class="rounded-2xl border border-border bg-card p-6 border-l-[5px] border-l-primary">
+        <h2 class="font-serif text-[22px] font-bold text-foreground mb-4">
           Services
         </h2>
-        <ul class="space-y-2 text-muted-foreground">
-          <li>DevOps & Infrastructure Architecture</li>
+        <ul class="space-y-2.5 text-foreground/90 pl-5 m-0">
+          <li>DevOps &amp; Infrastructure Architecture</li>
           <li>Developer Relations Strategy</li>
           <li>Business Development</li>
           <li>Strategic Technology Advisory</li>
         </ul>
       </section>
 
-      <section>
-        <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+      <section class="rounded-2xl border border-border bg-card p-6">
+        <h2 class="font-serif text-[22px] font-bold text-foreground mb-4">
           Contact
         </h2>
-        <p class="mb-4">
-          <a 
-            href="mailto:contact@gokhan.vc"
-            class="text-foreground hover:underline decoration-1 underline-offset-2"
-          >
-            contact@gokhan.vc
-          </a>
+        <p class="text-muted-foreground mb-5">
+          Direct inquiries:
         </p>
+        <a 
+          href="mailto:contact@gokhan.vc"
+          class="tile"
+        >
+          contact@gokhan.vc
+        </a>
       </section>
     </div>
   </div>

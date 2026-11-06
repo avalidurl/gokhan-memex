@@ -9,10 +9,10 @@ const subscribeAction = 'https://api.gokhan.vc/newsletter/subscribe'
   description="Subscribe to the Numetal / Ishtar / CURB / studio estate newsletter. One list, signal only."
   hideFooterSubscribe
 >
-  <div class="nl mx-auto max-w-2xl px-6 py-12 lg:py-16">
-    <p class="doc-eyebrow mb-3">Doc MX-090 · Open list</p>
+  <div class="nl mx-auto max-w-3xl px-5 py-10 lg:py-14">
+    <div class="kicker-pill mb-3">Doc MX-090 · Open list</div>
     <h1 class="mb-3">Newsletter</h1>
-    <p class="mb-8 max-w-2xl text-lg text-foreground/90">
+    <p class="mb-8 max-w-2xl font-serif text-[19px] text-muted-foreground">
       One estate list across Numetal / Ishtar / CURB / the studio. Signal only. Double opt-in.
     </p>
 
@@ -31,21 +31,23 @@ const subscribeAction = 'https://api.gokhan.vc/newsletter/subscribe'
       <div class="cf-turnstile" data-sitekey="0x4AAAAAAEG8CWZN8yq8G3kt" data-theme="auto" data-size="flexible"></div>
       <button type="submit" class="nl-btn" title="Subscribe via api.gokhan.vc (site=memex)">Subscribe</button>
     </form>
-      <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline></script>
 
-    <p class="nl-more mt-8 text-sm text-muted-foreground">
-      Latest: <a
-        href="/journal/complementary-substitutions/"
-        class="doc-link"
-        data-latest-post>Complementary Substitutions</a>
-      · <a href="/journal/" class="doc-link">All posts</a>.
-      Public contact: <a href="mailto:contact@gokhan.vc" class="doc-link">contact@gokhan.vc</a>.
-    </p>
+    <div class="nl-note mt-8">
+      <p class="m-0 text-sm text-muted-foreground">
+        Latest: <a
+          href="/journal/complementary-substitutions/"
+          class="doc-link"
+          data-latest-post>Complementary Substitutions</a>
+        · <a href="/journal/" class="doc-link">All posts</a>.
+        Public contact: <a href="mailto:contact@gokhan.vc" class="doc-link">contact@gokhan.vc</a>.
+      </p>
 
-    <p class="nl-more mt-3 text-sm text-muted-foreground">
-      Feeds: <a href="/rss.xml" class="doc-link">this site</a>
-      · <a href="https://api.gokhan.vc/feed.xml" class="doc-link">everything</a>.
-    </p>
+      <p class="mt-2 mb-0 text-sm text-muted-foreground">
+        Feeds: <a href="/rss.xml" class="doc-link">this site</a>
+        · <a href="https://api.gokhan.vc/feed.xml" class="doc-link">everything</a>.
+      </p>
+    </div>
     <script src="/newsletter-latest.js" defer is:inline></script>
   </div>
 </BaseLayout>
@@ -53,46 +55,26 @@ const subscribeAction = 'https://api.gokhan.vc/newsletter/subscribe'
 <style>
   .nl {
     color: var(--ink);
-    /* R2 — running prose. The R4 identifiers inside (eyebrows, doc numbers,
-       line numbers, labels) re-assert the data face themselves. */
-    font-family: var(--font-text);
-  }
-
-  :global(.dark) .nl {
-    color: hsl(var(--foreground));
-  }
-
-  .nl .doc-eyebrow {
-    color: var(--dim);
-    font-family: var(--font-mono);
-    font-size: 14px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  :global(.dark) .nl .doc-eyebrow {
-    color: hsl(var(--muted-foreground));
   }
 
   .nl-form {
-    max-width: 520px;
-    border: 2px solid var(--ink);
-    padding: 1.25rem;
+    max-width: 540px;
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-left: 5px solid var(--acc);
+    border-radius: 18px;
+    padding: 24px 26px;
   }
 
-  /* R4 — a field label is a control identifier. */
   .nl-label {
     display: block;
-    font-family: var(--font-data);
-    font-size: 12.5px;
-    letter-spacing: 0.06em;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
     text-transform: uppercase;
-    color: var(--dim);
+    color: var(--acc);
     margin: 0 0 0.5rem;
-  }
-
-  :global(.dark) .nl-label {
-    color: hsl(var(--muted-foreground));
   }
 
   .nl-form :global(.cf-turnstile),
@@ -105,47 +87,55 @@ const subscribeAction = 'https://api.gokhan.vc/newsletter/subscribe'
 
   .nl-input {
     width: 100%;
-    padding: 10px 12px;
-    border: 2px solid var(--ink);
-    background: transparent;
-    color: inherit;
-    font-family: var(--font-data);
+    padding: 11px 16px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
     font-size: 15px;
-    letter-spacing: 0.06em;
     margin-bottom: 0.9rem;
   }
 
   .nl-input:focus-visible {
-    outline: 2px solid var(--ink);
-    outline-offset: 2px;
+    outline: 2px solid var(--acc);
+    outline-offset: 1px;
+    border-color: var(--acc);
   }
 
   .nl-btn {
-    padding: 12px 26px;
-    border: 2px solid var(--ink);
-    background: transparent;
-    color: var(--ink);
-    font-family: var(--font-data);
-    font-size: 15px;
-    letter-spacing: 0.06em;
-    font-weight: 700;
+    padding: 10px 24px;
+    border: 1px solid var(--acc);
+    border-radius: 999px;
+    background: var(--acc);
+    color: #ffffff;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
   }
 
   .nl-btn:hover,
   .nl-btn:focus-visible {
-    background: var(--ink);
-    color: var(--paper);
+    background: var(--acc-dark);
+    border-color: var(--acc-dark);
+  }
+
+  .nl-note {
+    max-width: 540px;
+    background: var(--soft);
+    border-radius: 14px;
+    padding: 14px 18px;
   }
 
   .nl .doc-link {
-    color: var(--ink);
+    color: var(--acc);
     text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.12em;
+    text-underline-offset: 3px;
   }
 
-  :global(.dark) .nl .doc-link {
-    color: hsl(var(--primary));
+  .nl .doc-link:hover {
+    color: var(--acc-dark);
   }
 </style>

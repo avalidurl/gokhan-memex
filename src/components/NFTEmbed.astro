@@ -11,10 +11,8 @@ interface Props {
 
 const { url, title, creator, description, image, contractAddress, tokenId } = Astro.props
 
-// Fetch NFT metadata
 async function fetchNFTMetadata(contractAddress: string, tokenId: string) {
   try {
-    // Try OpenSea API first
     const openSeaResponse = await fetch(`https://api.opensea.io/api/v2/chain/ethereum/contract/${contractAddress}/nfts/${tokenId}`, {
       headers: {
         'Accept': 'application/json'
@@ -23,7 +21,6 @@ async function fetchNFTMetadata(contractAddress: string, tokenId: string) {
     
     if (openSeaResponse.ok) {
       const data = await openSeaResponse.json();
-      // Try multiple image sources in priority order
       const imageUrl = data.nft?.image_url || 
                       data.nft?.animation_url || 
                       data.nft?.image_original_url ||
@@ -42,7 +39,6 @@ async function fetchNFTMetadata(contractAddress: string, tokenId: string) {
   }
 
   try {
-    // Fallback to Alchemy API (if available)
     const alchemyResponse = await fetch(`https://eth-mainnet.g.alchemy.com/v2/demo/getNFTMetadata?contractAddress=${contractAddress}&tokenId=${tokenId}`);
     
     if (alchemyResponse.ok) {
@@ -66,13 +62,11 @@ async function fetchNFTMetadata(contractAddress: string, tokenId: string) {
   };
 }
 
-// Fetch metadata if we have contractAddress and tokenId but no title/image
 let nftMetadata = null;
 if (contractAddress && tokenId && (!title || !image)) {
   nftMetadata = await fetchNFTMetadata(contractAddress, tokenId);
 }
 
-// Extract platform and basic info from URL
 function parseNFTUrl(url: string) {
   try {
     if (url.includes('zora.co')) {
@@ -97,13 +91,11 @@ const nftInfo = url ? parseNFTUrl(url) : { platform: 'NFT', displayUrl: '', acti
 const displayTitle = title || nftMetadata?.name || 'Untitled'
 const displayDescription = description || nftMetadata?.description || ''
 const rawImage = image || nftMetadata?.image_url || ''
-// Local content images serve from Cloudflare Images (ids mirror site paths).
 const displayImage = /^\/(images|blog\/images)\//.test(rawImage) && !/\.svg$/i.test(rawImage)
   ? `https://imagedelivery.net/6y1i3FNnwnl61Xv3wGE82g/${rawImage.slice(1)}/w=800,format=auto`
   : rawImage
 const displayCreator = creator || nftMetadata?.creator || ''
 
-// Generate URLs from contract address and token ID
 const etherscanUrl = contractAddress && tokenId 
   ? `https://etherscan.io/nft/${contractAddress}/${tokenId}`
   : url ? url.replace('zora.co', 'etherscan.io') : ''
@@ -116,54 +108,50 @@ const zoraUrl = contractAddress && tokenId
   ? `https://zora.co/collect/eth:${contractAddress}/${tokenId}`
   : null
 
-// Use the most appropriate primary action URL
 const primaryUrl = url || zoraUrl || openSeaUrl || etherscanUrl
 ---
 
-<div class="my-6 not-prose">
-  <div class="bg-card border-2 p-4 mx-auto max-w-full overflow-hidden">
+<div class="my-7 not-prose">
+  <div class="rounded-2xl border border-border bg-card p-5 mx-auto max-w-full overflow-hidden shadow-sm">
     <div class="flex flex-col gap-4">
-      <!-- NFT Image -->
       {displayImage && (
         <img 
           src={displayImage} 
           alt={displayTitle}
-          class="w-full max-w-full"
+          class="w-full max-w-full rounded-xl border border-border"
           style="height: auto;"
           loading="lazy"
         />
       )}
       
-      <!-- NFT Info -->
-      <div class="space-y-2">
-        <h4 class="font-sans text-[22px] font-bold leading-[1.25] normal-case tracking-normal text-foreground">{displayTitle}</h4>
+      <div class="space-y-1.5">
+        <h4 class="font-serif text-[21px] font-bold leading-[1.25] text-foreground m-0">{displayTitle}</h4>
 
         {displayCreator && (
-          <p class="text-sm text-muted-foreground">By {displayCreator}</p>
+          <p class="text-sm text-muted-foreground m-0">By {displayCreator}</p>
         )}
 
         {displayDescription && (
-          <p class="text-sm text-muted-foreground leading-relaxed">{displayDescription}</p>
+          <p class="text-sm text-muted-foreground leading-relaxed m-0 pt-1">{displayDescription}</p>
         )}
       </div>
       
-      <!-- Action Buttons -->
-      <div class="flex flex-col gap-2">
+      <div class="flex flex-col gap-2.5 pt-1">
         <a
           href={primaryUrl}
           target="_blank"
           rel="noopener noreferrer"
-          class="w-full inline-flex items-center justify-center px-4 py-2.5 border-2 bg-background text-foreground font-mono text-[15px] tracking-[0.06em] hover:bg-foreground hover:text-background"
+          class="w-full inline-flex items-center justify-center rounded-full border border-primary bg-primary px-5 py-2.5 font-sans text-[14px] font-semibold text-primary-foreground no-underline hover:opacity-90 transition-opacity"
         >
           {nftInfo.action}
         </a>
-        <div class="flex gap-2">
+        <div class="flex flex-wrap gap-2">
           {zoraUrl && (
             <a
               href={zoraUrl}
               target="_blank"
               rel="noopener noreferrer"
-              class="flex-1 inline-flex items-center justify-center px-3 py-2 border-2 bg-background text-foreground font-mono text-[12.5px] tracking-[0.06em] hover:bg-foreground hover:text-background"
+              class="flex-1 inline-flex items-center justify-center rounded-full border border-border bg-background px-3.5 py-1.5 font-sans text-[13px] font-medium text-muted-foreground no-underline hover:border-primary hover:text-primary transition-colors"
             >
               Zora
             </a>
@@ -173,7 +161,7 @@ const primaryUrl = url || zoraUrl || openSeaUrl || etherscanUrl
               href={openSeaUrl}
               target="_blank"
               rel="noopener noreferrer"
-              class="flex-1 inline-flex items-center justify-center px-3 py-2 border-2 bg-background text-foreground font-mono text-[12.5px] tracking-[0.06em] hover:bg-foreground hover:text-background"
+              class="flex-1 inline-flex items-center justify-center rounded-full border border-border bg-background px-3.5 py-1.5 font-sans text-[13px] font-medium text-muted-foreground no-underline hover:border-primary hover:text-primary transition-colors"
             >
               OpenSea
             </a>
@@ -182,7 +170,7 @@ const primaryUrl = url || zoraUrl || openSeaUrl || etherscanUrl
             href={etherscanUrl}
             target="_blank"
             rel="noopener noreferrer"
-            class="flex-1 inline-flex items-center justify-center px-3 py-2 border-2 bg-background text-foreground font-mono text-[12.5px] tracking-[0.06em] hover:bg-foreground hover:text-background"
+            class="flex-1 inline-flex items-center justify-center rounded-full border border-border bg-background px-3.5 py-1.5 font-sans text-[13px] font-medium text-muted-foreground no-underline hover:border-primary hover:text-primary transition-colors"
           >
             Etherscan
           </a>

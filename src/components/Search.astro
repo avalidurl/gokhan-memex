@@ -4,30 +4,30 @@
 <!-- Search Modal -->
 <div id="search-modal" class="fixed inset-0 z-[100] hidden" role="dialog" aria-modal="true" aria-label="Search posts">
   <!-- Backdrop -->
-  <div class="fixed inset-0 bg-background/90" id="search-backdrop"></div>
+  <div class="fixed inset-0 bg-black/35 backdrop-blur-sm" id="search-backdrop"></div>
 
   <!-- Modal Content -->
-  <div class="fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border-2 bg-background p-6">
+  <div class="search-dialog fixed left-[50%] top-[50%] z-50 grid w-[calc(100%-2rem)] max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 p-5">
     <!-- Search Input -->
-    <div class="flex items-center border-2 px-3">
-      <span class="mr-2 shrink-0 font-mono text-[12.5px] uppercase tracking-[0.06em] text-muted-foreground" aria-hidden="true">Find</span>
+    <div class="search-input-wrap flex items-center px-4">
+      <span class="mr-2.5 shrink-0 font-sans text-xs font-semibold uppercase tracking-[0.08em] text-primary" aria-hidden="true">Find</span>
       <input
         id="search-input"
-        class="flex h-11 w-full bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
-        placeholder="Search posts..."
+        class="flex h-11 w-full bg-transparent py-2.5 text-[15px] outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+        placeholder="Search essays, notes, and projects..."
         type="search"
         autocomplete="off"
         spellcheck="false"
       />
-      <kbd class="pointer-events-none inline-flex h-5 select-none items-center gap-1 border bg-muted px-1.5 font-mono text-[12.5px] font-medium text-muted-foreground opacity-100">
-        <span class="text-xs">ESC</span>
+      <kbd class="pointer-events-none inline-flex h-6 select-none items-center gap-1 rounded-full border border-border bg-muted px-2.5 font-sans text-[11px] font-semibold text-muted-foreground">
+        ESC
       </kbd>
     </div>
     
     <!-- Search Results -->
-    <div class="max-h-[300px] overflow-y-auto" id="search-results">
-      <div class="px-1 py-2">
-        <p class="text-sm text-muted-foreground">Start typing to search posts...</p>
+    <div class="max-h-[320px] overflow-y-auto space-y-1" id="search-results">
+      <div class="px-2 py-3">
+        <p class="text-sm text-muted-foreground m-0">Start typing to search posts...</p>
       </div>
     </div>
   </div>
@@ -54,14 +54,12 @@
     }
     
     async init() {
-      // Bind UI first so the button works even if RSS is slow or fails
       this.bindEvents()
       await this.loadPosts()
     }
     
     async loadPosts() {
       try {
-        // Fetch posts from your RSS feed or API
         const response = await fetch('/rss.xml')
         const text = await response.text()
         const parser = new DOMParser()
@@ -80,7 +78,6 @@
     }
     
     bindEvents() {
-      // Open search with Cmd+K / Ctrl+K
       document.addEventListener('keydown', (e) => {
         if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
           e.preventDefault()
@@ -91,7 +88,6 @@
         }
       })
       
-      // Handle keyboard navigation in search input
       this.input?.addEventListener('keydown', (e: KeyboardEvent) => {
         if (!this.results) return
         const resultItems = this.results.querySelectorAll('a')
@@ -113,16 +109,13 @@
         }
       })
       
-      // Close on backdrop click
       this.backdrop?.addEventListener('click', () => this.close())
       
-      // Search input handler
       this.input?.addEventListener('input', (e: Event) => {
         const target = e.target as HTMLInputElement
         this.search(target.value)
       })
       
-      // Handle search button clicks
       document.getElementById('search-button')?.addEventListener('click', () => this.open())
       document.getElementById('mobile-search-button')?.addEventListener('click', () => this.open())
     }
@@ -159,8 +152,8 @@
       
       if (posts.length === 0) {
         this.results.innerHTML = `
-          <div class="px-1 py-2">
-            <p class="text-sm text-muted-foreground">No results found for "${query}"</p>
+          <div class="px-2 py-3">
+            <p class="text-sm text-muted-foreground m-0">No results found for "${this.escapeHTML(query)}"</p>
           </div>
         `
         return
@@ -169,11 +162,11 @@
       this.results.innerHTML = posts.map((post, index) => {
         const safeLink = this.escapeAttribute(post.link)
         const safeTitle = this.highlight(this.escapeHTML(post.title), query)
-        const safeDesc = this.highlight(this.escapeHTML(post.description.substring(0, 100) + '...'), query)
+        const safeDesc = this.highlight(this.escapeHTML(post.description.substring(0, 110) + '...'), query)
         return `
-          <a href="${safeLink}" class="search-result flex items-center gap-2 px-2 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground" data-index="${index}">
+          <a href="${safeLink}" class="search-result flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm no-underline hover:bg-muted transition-colors" data-index="${index}">
             <div class="flex flex-col gap-1">
-              <span class="font-medium">${safeTitle}</span>
+              <span class="font-serif text-[16px] font-bold text-foreground">${safeTitle}</span>
               <span class="text-xs text-muted-foreground line-clamp-2">${safeDesc}</span>
             </div>
           </a>
@@ -185,7 +178,7 @@
       if (!query) return text
       const safeQuery = this.escapeRegExp(query)
       const regex = new RegExp(`(${safeQuery})`, 'gi')
-      return text.replace(regex, '<mark class="bg-muted text-foreground underline">$1</mark>')
+      return text.replace(regex, '<mark class="rounded bg-accent px-1 text-accent-foreground">$1</mark>')
     }
 
     escapeHTML(text: string) {
@@ -198,7 +191,6 @@
     }
 
     escapeAttribute(text: string) {
-      // Conservative attribute escaping
       return this.escapeHTML(text).replace(/`/g, '&#96;')
     }
 
@@ -210,8 +202,8 @@
       if (!this.results) return
       this.selectedIndex = -1
       this.results.innerHTML = `
-        <div class="px-1 py-2">
-          <p class="text-sm text-muted-foreground">Start typing to search posts...</p>
+        <div class="px-2 py-3">
+          <p class="text-sm text-muted-foreground m-0">Start typing to search posts...</p>
         </div>
       `
     }
@@ -219,9 +211,9 @@
     updateSelection(resultItems: NodeListOf<HTMLAnchorElement>) {
       resultItems.forEach((item, index) => {
         if (index === this.selectedIndex) {
-          item.classList.add('bg-accent', 'text-accent-foreground')
+          item.classList.add('bg-accent')
         } else {
-          item.classList.remove('bg-accent', 'text-accent-foreground')
+          item.classList.remove('bg-accent')
         }
       })
     }
@@ -230,7 +222,6 @@
   function initSearch() {
     new SearchManager()
   }
-  // Bundled scripts may run after DOMContentLoaded; handle both cases
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initSearch)
   } else {
@@ -239,6 +230,24 @@
 </script>
 
 <style>
+  .search-dialog {
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    box-shadow: 0 24px 60px rgba(42, 26, 30, 0.18);
+    color: var(--ink);
+  }
+
+  .search-input-wrap {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+  }
+
+  .search-input-wrap:focus-within {
+    border-color: var(--acc);
+  }
+
   .line-clamp-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;
