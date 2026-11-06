@@ -1,22 +1,49 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PostTitle from '@/components/PostTitle.astro'
+import ResponsiveImage from '@/components/ResponsiveImage.astro'
 import PortfolioBoard from '@/components/PortfolioBoard.astro'
 import { registerProjects as projects, projectIndex } from '@/data/projects'
+import { plainPostTitle } from '@/lib/utils'
 import { getCollection } from 'astro:content'
 
-const essays = (await getCollection('blog'))
+const allPublished = (await getCollection('blog'))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+
+const latestPost = allPublished[0]
+
+const essays = allPublished
   .filter(
     (p) =>
-      !p.data.draft &&
       p.data.category.toLowerCase() !== 'interviews' &&
       p.data.category !== 'Links'
   )
-  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
   .slice(0, 6)
 
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+
+const fmtFull = (d: Date) =>
+  d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+
+function getReadingMinutes(post: (typeof allPublished)[number]): number {
+  if (typeof post.data.readingTime === 'number' && post.data.readingTime > 0) {
+    return post.data.readingTime
+  }
+  const clean = (post.body ?? '')
+    .replace(/^import\s.+$/gm, ' ')
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .trim()
+  const words = clean.split(/\s+/).filter(Boolean).length
+  return Math.max(1, Math.round(words / 220))
+}
+
+const latestReadMins = latestPost ? getReadingMinutes(latestPost) : null
+const latestSummary = latestPost
+  ? (latestPost.data.excerpt || latestPost.data.description)
+  : ''
 ---
 
 <BaseLayout
@@ -24,11 +51,11 @@ const fmt = (d: Date) =>
   description="Full-stack builder — one person, a fleet of agents. Agent-native venues, rails, and benchmarks live in production on x402: Ishtar, CURB, HeartBench. Journal, CV, publishing."
 >
   <div class="home-wrap">
-    <!-- Hero — editorial split with subtle static International Klein Blue orb accent -->
+    <!-- Hero — editorial split with Latest from the Journal card -->
     <header class="hero-card">
       <div class="hero-copy">
         <div class="kicker-pill">Full-stack builder · fintech × AI × agent-native markets</div>
-        <h1 class="hero-title">Gökhan Turhan<span class="ikb-dot" aria-hidden="true">.</span></h1>
+        <h1 class="hero-title">Gökhan Turhan</h1>
         <p class="hero-stamp">Live in production — taking real machine payments</p>
         <div class="hero-actions">
           <a class="btn-pill primary" href="/journal/">Read the journal →</a>
@@ -47,11 +74,48 @@ const fmt = (d: Date) =>
         </div>
       </div>
 
-      <div class="orb-panel" aria-hidden="true">
-        <div class="orb-stage">
-          <div class="ikb-orb"></div>
-        </div>
-      </div>
+      {latestPost && (
+        <aside class="latest-panel" aria-label="Latest from the Journal">
+          <a
+            class="latest-card"
+            href={`/journal/${latestPost.slug}/`}
+            aria-label={`Latest from the Journal: ${plainPostTitle(latestPost.data.title)}`}
+          >
+            {latestPost.data.heroImage && (
+              <div class="latest-cover">
+                <ResponsiveImage
+                  src={latestPost.data.heroImage}
+                  alt={latestPost.data.heroImageAlt || plainPostTitle(latestPost.data.title)}
+                  class="latest-cover-img"
+                  sizes="(max-width: 920px) 100vw, 420px"
+                  loading="eager"
+                />
+              </div>
+            )}
+            <div class="latest-body">
+              <div class="latest-top">
+                <span class="latest-kicker">Latest from the Journal</span>
+              </div>
+              <PostTitle title={latestPost.data.title} class="latest-title" />
+              <div class="latest-meta">
+                <time datetime={latestPost.data.publishDate.toISOString()}>
+                  {fmtFull(latestPost.data.publishDate)}
+                </time>
+                {latestReadMins && (
+                  <>
+                    <span aria-hidden="true">·</span>
+                    <span>{latestReadMins} min read</span>
+                  </>
+                )}
+              </div>
+              {latestSummary && (
+                <p class="latest-excerpt">{latestSummary}</p>
+              )}
+              <span class="latest-cta">Read →</span>
+            </div>
+          </a>
+        </aside>
+      )}
     </header>
 
     <!-- Lede & Project Index -->
@@ -161,10 +225,10 @@ const fmt = (d: Date) =>
       color: var(--ink);
     }
 
-    /* Hero section matching Turkish Art Blob layout */
+    /* Hero section */
     .hero-card {
       display: grid;
-      grid-template-columns: 1.25fr 0.75fr;
+      grid-template-columns: minmax(0, 1.18fr) minmax(300px, 0.82fr);
       gap: 32px;
       align-items: center;
       padding-bottom: 36px;
@@ -179,10 +243,6 @@ const fmt = (d: Date) =>
       line-height: 1.06;
       margin: 14px 0 12px;
       color: var(--ink);
-    }
-
-    .ikb-dot {
-      color: var(--acc);
     }
 
     .hero-stamp {
@@ -254,33 +314,132 @@ const fmt = (d: Date) =>
       color: var(--acc-dark);
     }
 
-    /* Static subtle International Klein Blue (#002FA7) orb accent */
-    .orb-panel {
-      display: flex;
-      justify-content: center;
+    /* Latest from the Journal hero card */
+    .latest-panel {
+      min-width: 0;
     }
 
-    .orb-stage {
-      width: 100%;
-      max-width: 340px;
-      height: 260px;
-      border-radius: 24px;
-      background: radial-gradient(circle at 50% 44%, var(--card-bg) 0%, var(--soft) 62%, var(--line) 100%);
-      border: 1px solid var(--line);
+    .latest-card {
       display: flex;
-      align-items: center;
-      justify-content: center;
+      flex-direction: column;
+      background: var(--card-bg);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--acc);
+      border-radius: 20px;
+      overflow: hidden;
+      text-decoration: none;
+      color: var(--ink);
+      box-shadow: 0 6px 22px rgba(15, 23, 48, 0.05);
+      transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+    }
+
+    .latest-card:hover,
+    .latest-card:focus-visible {
+      border-color: var(--acc);
+      box-shadow: 0 12px 32px rgba(15, 23, 48, 0.09);
+      transform: translateY(-1px);
+    }
+
+    .latest-card:focus-visible {
+      outline: 2px solid var(--acc);
+      outline-offset: 2px;
+    }
+
+    .latest-cover {
+      border-bottom: 1px solid var(--line);
+      background: var(--soft);
       overflow: hidden;
     }
 
-    .ikb-orb {
-      width: 156px;
-      height: 146px;
-      border-radius: 54% 46% 49% 51% / 47% 55% 45% 53%;
-      background: radial-gradient(circle at 35% 30%, #dce6ff 0%, #4b74ef 34%, #002FA7 72%, #001861 100%);
-      box-shadow: inset -14px -18px 32px rgba(0, 14, 66, 0.48),
-                  inset 12px 12px 24px rgba(255, 255, 255, 0.58),
-                  0 24px 48px rgba(0, 47, 167, 0.28);
+    .latest-cover :global(img) {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    .latest-body {
+      padding: 20px 22px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .latest-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .latest-kicker {
+      display: inline-block;
+      font-family: var(--font-sans);
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--acc);
+      background: var(--soft);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 3px 11px;
+    }
+
+    .latest-title {
+      display: block;
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.24;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-top: 2px;
+      transition: color 0.15s;
+    }
+
+    .latest-card:hover .latest-title,
+    .latest-card:focus-visible .latest-title {
+      color: var(--acc);
+    }
+
+    .latest-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      color: var(--mut);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .latest-excerpt {
+      margin: 2px 0 4px;
+      font-family: var(--font-sans);
+      font-size: 14.5px;
+      line-height: 1.54;
+      color: var(--lead-ink);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .latest-cta {
+      margin-top: 2px;
+      align-self: flex-start;
+      font-family: var(--font-sans);
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--acc);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.15s;
+    }
+
+    .latest-card:hover .latest-cta,
+    .latest-card:focus-visible .latest-cta {
+      color: var(--acc-dark);
     }
 
     /* Lede row */
@@ -531,10 +690,6 @@ const fmt = (d: Date) =>
         grid-template-columns: 1fr;
         gap: 24px;
       }
-      .orb-stage {
-        max-width: 100%;
-        height: 200px;
-      }
       .lede-row {
         grid-template-columns: 1fr;
         gap: 22px;
@@ -544,6 +699,9 @@ const fmt = (d: Date) =>
     @media (max-width: 640px) {
       .home-wrap {
         padding: 24px 16px 48px;
+      }
+      .latest-body {
+        padding: 18px 20px 20px;
       }
       .lede-card {
         padding: 18px 20px;
