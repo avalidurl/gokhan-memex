@@ -19,5 +19,8 @@
 /projects/biases-fallacies/ /projects/biases-fallacies-lab/ 301
 /projects/biases-fallacies /projects/biases-fallacies-lab/ 301
 
+# Ethereum Doomsday Tracker (static mount from avalidurl/ethereum-doomsday-tracker)
+/ethereum-doomsday /ethereum-doomsday/ 301
+
 # Fallback for SPA-like behavior (not needed for static Astro but good to have)
 /* /404.html 404
