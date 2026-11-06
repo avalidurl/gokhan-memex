@@ -5,12 +5,18 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Turkish Art Blob — Living Sculpture &amp; Installation Proposal · Gökhan Turhan</title>
   <meta name="description" content="Turkish Art Blob is a bilingual (Turkish &amp; English), tissue-like talking AI sculpture about Turkish and global contemporary art — private by design, respectful of museum data rules, now moving from software prototype to physical installation.">
-  <link rel="canonical" href="https://gokhanturhan.com/turkish-art-blob">
+  <link rel="canonical" href="https://gokhanturhan.com/turkish-art-blob/">
+  <link rel="alternate" hreflang="en" href="https://gokhanturhan.com/turkish-art-blob/">
+  <link rel="alternate" hreflang="tr" href="https://gokhanturhan.com/turkish-art-blob/tr/">
+  <link rel="alternate" hreflang="x-default" href="https://gokhanturhan.com/turkish-art-blob/">
   <meta property="og:title" content="Turkish Art Blob — Installation Proposal by Gökhan Turhan">
   <meta property="og:description" content="A realistic, flesh-toned talking 'ball of knowledge' conversing in Turkish and English about contemporary art. Seeking $5,000 upfront for a 6-month build into a physical gallery and public-space installation.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://gokhanturhan.com/turkish-art-blob">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="tr_TR">
+  <meta property="og:url" content="https://gokhanturhan.com/turkish-art-blob/">
   <meta property="og:image" content="https://gokhanturhan.com/turkish-art-blob/img/mockup-istanbul-courtyard.jpg">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="art">
@@ -33,8 +39,9 @@
         <button type="button" data-mode="art" aria-pressed="true">For art people</button>
         <button type="button" data-mode="tech" aria-pressed="false">For technical people</button>
       </div>
-      <div class="seg">
-        <button type="button" id="trbtn" title="Show Turkish headings" aria-pressed="false">TR</button>
+      <div class="seg" role="group" aria-label="Language">
+        <a href="./" class="on" aria-current="page" lang="en" title="English">EN</a>
+        <a href="tr/" lang="tr" hreflang="tr" title="Türkçe tam metin">TR</a>
       </div>
     </div>
   </div>

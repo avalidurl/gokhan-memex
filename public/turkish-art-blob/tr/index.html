@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Turkish Art Blob — Yaşayan Heykel ve Enstalasyon Önerisi · Gökhan Turhan</title>
+  <meta name="description" content="Turkish Art Blob, Türkiye ve dünya çağdaş sanatı üzerine Türkçe ve İngilizce sohbet eden, insan dokusunu andıran sesli bir yapay zekâ heykeli — tasarımı gereği mahrem, kültür kurumlarının veri sınırlarına saygılı; şimdi yazılım prototipinden fiziksel enstalasyona taşınıyor.">
+  <link rel="canonical" href="https://gokhanturhan.com/turkish-art-blob/tr/">
+  <link rel="alternate" hreflang="en" href="https://gokhanturhan.com/turkish-art-blob/">
+  <link rel="alternate" hreflang="tr" href="https://gokhanturhan.com/turkish-art-blob/tr/">
+  <link rel="alternate" hreflang="x-default" href="https://gokhanturhan.com/turkish-art-blob/">
+  <meta property="og:title" content="Turkish Art Blob — Enstalasyon Önerisi · Gökhan Turhan">
+  <meta property="og:description" content="Çağdaş sanat üzerine Türkçe ve İngilizce konuşan, sıcak doku tonlarında yaşayan bir 'bilgi kütlesi'. Fiziksel galeri ve kamusal mekân enstalasyonuna dönüşecek 6 aylık üretim süreci için $5,000 peşin üretim bütçesi aranıyor.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="tr_TR">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:url" content="https://gokhanturhan.com/turkish-art-blob/tr/">
+  <meta property="og:image" content="https://gokhanturhan.com/turkish-art-blob/img/mockup-istanbul-courtyard.jpg">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="art">
+<a class="skip" href="#main">İçeriğe geç</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="logo" href="https://gokhanturhan.com">Turkish Art <span>Blob</span> <small>Gökhan Turhan</small></a>
+    <nav aria-label="Sayfa bölümleri">
+      <a href="#concept">Kavram</a>
+      <a href="#how">Nasıl çalışır</a>
+      <a href="#data">Veri etiği</a>
+      <a href="#privacy">Mahremiyet</a>
+      <a href="#installation">Enstalasyon</a>
+      <a href="#funding">$5,000 ve 6 Ay</a>
+      <a href="#support">Destek</a>
+    </nav>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="Anlatım derinliği">
+        <button type="button" data-mode="art" aria-pressed="true">Sanat dünyası için</button>
+        <button type="button" data-mode="tech" aria-pressed="false">Teknik okurlar için</button>
+      </div>
+      <div class="seg" role="group" aria-label="Dil seçimi">
+        <a href="../" lang="en" hreflang="en" title="English full text">EN</a>
+        <a href="./" class="on" aria-current="page" lang="tr" title="Türkçe">TR</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="hero">
+  <div>
+    <div class="kicker">Açık kaynak sanat prototipi → Fiziksel heykel</div>
+    <h1>Çağdaş sanat üzerine konuşan, yaşayan bir bilgi kütlesi</h1>
+    <p class="lead art-only">Yanına yaklaşıp başta Türkiye olmak üzere dünyadaki çağdaş sanat üzerine — <b>Türkçe ya da İngilizce</b> — karşılıklı konuşabileceğiniz, insan dokusunu andıran yumuşak bir heykel. Sizi gerçek zamanlı dinliyor, bilgisini nereden aldığını açıkça söylüyor; sohbetin tonuna ve konusuna göre nabzını, rengini ve yüzey gerilimini değiştiriyor.</p>
+    <p class="lead tech-only">Gerçek zamanlı, iki dilli (TR/EN) sesli heykel: canlı ses ve anlamsal duygu durumuyla sürülen prosedürel three.js yüzey-altı ışık saçılımlı (subsurface-scattering) doku shader'ı → akışlı konuşma tanıma (<code>faster-whisper</code>) → kaynak gösteren iki şeritli erişim (<code>BGE-M3</code> + geçici canlı okumalar) → donanım tabanlı güvenli enklav (TEE) veya yerel GPU üzerinde yerel parametreleriyle çalışan açık modeller → açık sinirsel ses sentezi. Bütünüyle açık kaynaklı ve düşük maliyetli araçlarla kuruldu.</p>
+    <div class="hero-actions">
+      <a class="btn primary" href="#funding">Neden peşin $5,000 · 6 aylık plan</a>
+      <button type="button" class="btn" id="mic">Mikrofonunuza tepki versin</button>
+    </div>
+    <p class="note" style="margin-top:16px">Sağdaki kütle şu an tarayıcınızda prosedürel kodla canlı olarak çalışıyor — önceden alınmış bir video kaydı ya da hazır 3B modelleme yazılımı yok; mikrofonunuzdan gelen hiçbir ses cihazınızdan dışarı çıkmaz.</p>
+  </div>
+
+  <div class="blob-wrap">
+    <div id="blob" role="img" aria-label="Sesle nefes alıp dalgalanan, pembe insan dokusu görünümünde etkileşimli 3B kütle">
+      <div class="blob-fallback" aria-hidden="true"><div class="blob-orb"></div></div>
+    </div>
+    <div class="mood-bar" aria-label="Sohbet konularının kütlenin formunu ve tonunu nasıl değiştirdiğini deneyin">
+      <span class="mood-label">Konu tonu geçişi:</span>
+      <button type="button" class="pill on" data-mood-color="#e7988f" data-mood-shape="1.0">Nötr</button>
+      <button type="button" class="pill" data-mood-color="#d98aa0" data-mood-shape="1.15">Bienal / Sergi</button>
+      <button type="button" class="pill" data-mood-color="#e8a37c" data-mood-shape="1.0">Resim ve Renk</button>
+      <button type="button" class="pill" data-mood-color="#b493c9" data-mood-shape="1.25">Medya ve Veri Sanatı</button>
+      <button type="button" class="pill" data-mood-color="#a8575f" data-mood-shape="0.85">Politika ve Ağıt</button>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+
+  <section id="concept">
+    <h2>Kavram: Bir müze kiosku değil, sanat belleği için canlı bir organ</h2>
+    <div class="art-only">
+      <p>Müze sesli rehberleri ders anlatır; sohbet botları düz cam ekranların ardına saklanıp her şeyi biliyormuş gibi davranır. <b>Turkish Art Blob</b> tam tersi bir yoldan gidiyor. Yüzü, gözleri ya da düğmelerle dolu bir ekranı yok — yalnızca siz konuşurken ürperen, yüksek sesle yanıt verirken kabaran, tekinsiz, etsi ve nefes alan sıcak bir doku kütlesi var.</p>
+      <p>Ona Türkçe ya da İngilizce olarak 1987'den bu yana İstanbul Bienali'nin tarihini, 1990'lar Beyoğlu'sundaki kavramsal pratiklerin soykütüğünü, bir resim kuşağını ya da şu sıralar bağımsız bir mekânda hangi serginin açık olduğunu sorabilirsiniz. İş, Türkiye çağdaş sanatını basmakalıp küresel özetlere indirgemek yerine yerel sergi tarihlerini, sanatçı inisiyatiflerini, eleştiri metinlerini ve kurumsal arşivleri birincil malzeme olarak ele alıyor.</p>
+      <p>Sohbet yön değiştirdikçe — neşeli bir renk kuramından arşiv politikalarına, video sanatına ya da kayıp ve yasa doğru evrildikçe — kütlenin yüzey gerilimi, soluk alıp veriş ritmi ve deri altı rengi incelikle dönüşüyor. Bilmediği bir şey olduğunda ise yanıt uydurmak yerine bunu açıkça söylüyor.</p>
+    </div>
+    <div class="tech-only">
+      <p>Diyaloğa dayalı yapay zekâ yerleştirmelerinin çoğu, hazır bir avatar iskeletinin üzerine bulut tabanlı bir API katmanı eklemekle yetinir. Burada ise hem estetik kısıtlar hem de altyapı tercihleri bizzat işin kendisini oluşturur:</p>
+      <ul>
+        <li><b>Prosedürel bedenleşme (Blender yok, hazır iskelet yok):</b> özel bir <code>MeshPhysicalMaterial</code> içinde (<code>clearcoat</code>, <code>sheen</code>, <code>transmission</code> ve dermal yüzey-altı saçılımı yakalayan kızıla kaydırılmış <code>attenuationColor</code>) çok oktavlı 3B simplex gürültüsüyle GPU üzerinde deforme edilen bir ikosfer.</li>
+        <li><b>Ses ve anlam eşleşmesi:</b> Web Audio <code>AnalyserNode</code> üzerinden alınan gerçek zamanlı FFT genliği tepe noktası (vertex) deplasmanını sürerken, konu ve duygu sınıflandırıcılar dinlenme rengini ve deformasyon kazancını kaydırır (örneğin politik/ağıtsal başlıklarda daha sakin bir büzülme, medya/veri sanatında daha yüksek frekanslı dalgalanmalar).</li>
+        <li><b>Halüsinasyonsuz iki dilli temellendirme:</b> sistem istemleri (prompt), konuşmacının dilinde (Türkçe veya İngilizce) kısa, konuşma ritmine uygun yanıtları (2–5 cümle, sıfır markdown) zorunlu tutar; her yanıt numaralı kaynak pasajlarına dayanır ve erişim yetersiz kaldığında belirsizliği açıkça dile getirir.</li>
+        <li><b>Açık kaynaklı ve düşük maliyetli yığın:</b> kapalı kutu ticari avatar platformları yerine, incelenebilir açık ağırlıklı modeller ve özgür lisanslı kütüphanelerle inşa edildi.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="how">
+    <h2>Nasıl çalışır?</h2>
+    <div class="art-only">
+      <p>Yalın haliyle her diyalog, yaklaşık bir saniye içinde dört adımdan geçer:</p>
+      <ol>
+        <li><b>Kulaklar (Dinleme)</b> — Yönlü mikrofonlar mekândaki sesinizi yakalar, hangi dilde konuştuğunuzu kendiliğinden fark ederek Türkçe ya da İngilizce konuşmayı anında metne döker.</li>
+        <li><b>Bellek (Kaynak tarama)</b> — Kütle bir düşünce kurmadan önce açık sanat yazılarından oluşan kendi iç kitaplığını (bienal tarihçeleri, müze koleksiyonları, açık erişimli akademik dergiler) tarar; gerekirse o anda bir müze ya da galerinin güncel web sayfasını canlı olarak okur.</li>
+        <li><b>Zihin (Kestirmesiz düşünme)</b> — Açık ağırlıklı bir dil modeli, bu pasajlara dayanan özlü bir sözlü yanıt kurar ve kaynaklarını yüksek sesle ya da küçük bir eşlikçi etikette belirtir. Modelleri kendi doğal (native) parametreleriyle çalıştırıyoruz — kaliteyi düşüren sıkıştırma kestirmeleri veya tek tip çoklu yönlendirici (router) API'ler kullanmıyoruz.</li>
+        <li><b>Ses ve Doku (Konuşma)</b> — Açık konuşma sentezi yanıtı Türkçe veya İngilizce seslendirirken, ses dalgasının kendisi kütlenin iç ışığını ve yüzey dalgalanmasını doğrudan harekete geçirir.</li>
+      </ol>
+      <p>İster kaidenin içine gizlenmiş yerel bir makinede ister kriptografik olarak mühürlenmiş bir bulut enklavında çalışsın, dışarıdan hiçbir şirket odadaki konuşmaya kulak kabartamaz.</p>
+    </div>
+    <div class="tech-only">
+      <ul>
+        <li><b>STT (Konuşmadan metne):</b> Türkçe ve İngilizce düşük gecikmeli söz alma için ses etkinliği algılama (VAD) destekli <code>faster-whisper</code> (yerel enstalasyon GPU'sunda <code>large-v3-turbo</code>; CPU prototiplerinde <code>small</code>/<code>medium</code>).</li>
+        <li><b>Diller arası RAG:</b> ~500 token'lık sergi ve sanatçı metin parçaları üzerinde <code>BGE-M3</code> yoğun + seyrek (dense + sparse) çok dilli gömmeler (embeddings). Kullanıcı sorgularının dış vektör servislerine sızmaması için yerel düğüm veya enklav içindeki RAM'de (LanceDB / NumPy / FAISS) tutulur.</li>
+        <li><b>LLM (doğal parametreler, kalite bozucu kuantizasyon yok):</b> tam duyarlıklı / doğal parametreli açık modeller — <code>Gemma 4 31B</code> veya <code>Qwen3</code> serisi — vLLM / Ollama üzerinden doğrudan yerel donanımda ya da doğrulanabilir (attested) Phala TEE (Intel TDX + NVIDIA Confidential Computing) içinde sunulur. Doğal örnekleme parametrelerini kırpan veya arka planda sessizce düşük kaliteli kuantize modellere geçen düzleştirilmiş tek-router API'ler kullanılmaz.</li>
+        <li><b>TTS (Metinden sese):</b> hızlı CPU yanıtı için <code>Piper</code> Türkçe ve İngilizce ONNX sesleri; yerel enstalasyon düğümünde daha sıcak bir ses tınısı için GPU tabanlı sinirsel ses senteziyle eşleştirilir.</li>
+        <li><b>Statik sunum:</b> Cloudflare Pages yalnızca statik HTML/JS/shader kodunu sunar; canlı ses ve metin trafiği ya galeri kaidesinin içindeki yerel geri döngüde (loopback) kalır ya da doğrudan doğrulanmış enklav içinde sonlanan TLS üzerinden akar.</li>
+      </ul>
+    </div>
+
+    <svg class="diagram" viewBox="0 0 820 300" width="100%" role="img" aria-label="Ziyaretçi sesinin mahrem bir sınır içinde Kulaklar, Bellek, Zihin ve Ses adımlarından geçişini, Arşiv şeridi ve Canlı şeritten beslenmesini gösteren sistem akış şeması">
+      <defs>
+        <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0 0L10 5L0 10z" fill="#c94f62"/>
+        </marker>
+      </defs>
+      <rect x="10" y="110" width="150" height="80" rx="14" fill="#fff" stroke="#ecdcd8"/>
+      <text x="85" y="143" text-anchor="middle" font-weight="700" font-size="14">Ziyaretçi / Kaide</text>
+      <text x="85" y="164" text-anchor="middle" font-size="12" fill="#7a6268">mikrofon · kütle · hoparlör</text>
+
+      <rect x="10" y="12" width="150" height="60" rx="14" fill="#f6e6e2"/>
+      <text x="85" y="37" text-anchor="middle" font-weight="700" font-size="14">Statik web katmanı</text>
+      <text x="85" y="55" text-anchor="middle" font-size="12" fill="#7a6268">yalnızca sayfa ve shader</text>
+      <line x1="85" y1="72" x2="85" y2="108" stroke="#aaa" stroke-dasharray="4" marker-end="url(#a)"/>
+
+      <rect x="230" y="36" width="380" height="224" rx="18" fill="#fff4f2" stroke="#c94f62" stroke-width="2"/>
+      <text x="420" y="62" text-anchor="middle" font-weight="700" font-size="14" fill="#c94f62">🔒 Mahrem düğüm (Yerel GPU kaidesi veya doğrulanmış TEE)</text>
+
+      <rect x="250" y="80" width="105" height="60" rx="10" fill="#fff" stroke="#ecdcd8"/>
+      <text x="302" y="106" text-anchor="middle" font-size="13" font-weight="700">Kulaklar</text>
+      <text x="302" y="124" text-anchor="middle" font-size="11" fill="#7a6268">Whisper STT</text>
+
+      <rect x="368" y="80" width="105" height="60" rx="10" fill="#fff" stroke="#ecdcd8"/>
+      <text x="420" y="106" text-anchor="middle" font-size="13" font-weight="700">Bellek</text>
+      <text x="420" y="124" text-anchor="middle" font-size="11" fill="#7a6268">BGE-M3 RAG</text>
+
+      <rect x="486" y="80" width="105" height="60" rx="10" fill="#fff" stroke="#ecdcd8"/>
+      <text x="538" y="106" text-anchor="middle" font-size="13" font-weight="700">Zihin</text>
+      <text x="538" y="124" text-anchor="middle" font-size="11" fill="#7a6268">Doğal açık LLM</text>
+
+      <rect x="368" y="175" width="105" height="60" rx="10" fill="#fff" stroke="#ecdcd8"/>
+      <text x="420" y="201" text-anchor="middle" font-size="13" font-weight="700">Ses ve Ton</text>
+      <text x="420" y="219" text-anchor="middle" font-size="11" fill="#7a6268">Açık TTS + renk</text>
+
+      <line x1="355" y1="110" x2="366" y2="110" stroke="#c94f62" marker-end="url(#a)"/>
+      <line x1="473" y1="110" x2="484" y2="110" stroke="#c94f62" marker-end="url(#a)"/>
+      <path d="M538 140 Q538 205 475 205" fill="none" stroke="#c94f62" marker-end="url(#a)"/>
+      <line x1="160" y1="140" x2="248" y2="110" stroke="#c94f62" stroke-width="2" marker-end="url(#a)"/>
+      <path d="M366 205 L162 165" fill="none" stroke="#c94f62" stroke-width="2" marker-end="url(#a)"/>
+
+      <rect x="660" y="40" width="150" height="80" rx="14" fill="#fff" stroke="#4f9a7a" stroke-width="2"/>
+      <text x="735" y="68" text-anchor="middle" font-weight="700" font-size="13" fill="#246b4c">Arşiv şeridi</text>
+      <text x="735" y="88" text-anchor="middle" font-size="11" fill="#7a6268">açık / CC0 sanat metinleri</text>
+      <text x="735" y="104" text-anchor="middle" font-size="11" fill="#7a6268">önceden dizinlenmiş</text>
+
+      <rect x="660" y="170" width="150" height="80" rx="14" fill="#fff" stroke="#d08a2c" stroke-width="2"/>
+      <text x="735" y="198" text-anchor="middle" font-weight="700" font-size="13" fill="#8a5a0c">Canlı şerit</text>
+      <text x="735" y="218" text-anchor="middle" font-size="11" fill="#7a6268">ai-train=no kurumları</text>
+      <text x="735" y="234" text-anchor="middle" font-size="11" fill="#7a6268">anlık okunur, saklanmaz</text>
+
+      <line x1="658" y1="85" x2="475" y2="105" stroke="#4f9a7a" marker-end="url(#a)"/>
+      <line x1="658" y1="205" x2="475" y2="120" stroke="#d08a2c" marker-end="url(#a)"/>
+      <text x="410" y="286" text-anchor="middle" font-size="11.5" fill="#7a6268">Ses ve dökümler mahrem düğümün içinde kalır; ziyaretçi açıkça onay vermedikçe hiçbir sohbet kaydedilmez.</text>
+    </svg>
+  </section>
+
+  <section id="data">
+    <h2>Veri etiği: İki şeritli kaynak politikası</h2>
+    <p class="art-only">Kültürel bellek üzerine düşünen bir sanat işi, işe sanat kurumlarının arşivlerini onların iradesine rağmen kazıyarak başlamamalı. Türkiye'deki pek çok müze, arşiv ve bağımsız galeri, makinelerin okuyabileceği açık bildirimlerle <i>"arşivlerimizle yapay zekâ eğitmeyin"</i> diyor. Bu sınırları bağlayıcı ilke kabul ediyor ve kütlenin bilgi dağarcığını iki kesin şeride ayırıyoruz:</p>
+    <p class="tech-only">İçeri aktarımdan önce her alan adı <code>robots.txt</code>, Cloudflare Content-Signal başlıkları (<code>ai-train=no, use=reference</code>), <code>/llms.txt</code> ve kullanım koşullarına göre denetlenir. Kaynaklar iki ayrı iş hattına bölünür:</p>
+
+    <div class="grid">
+      <div class="card lane-store">
+        <h3>📚 Arşiv şeridi (Açık ve dizinlenmiş)</h3>
+        <p class="art-only">Açık lisanslarla veya açık tarama politikalarıyla yayımlanan içerikler — örneğin Wikidata sanatçı ilişkileri, Türkçe/İngilizce Vikipedi biyografileri, DergiPark'taki açık erişimli sanat dergileri, MoMA/Tate/Met CC0 veri setleri ve taramaya açık müze sayfaları — kaynakları eksiksiz belirtilerek kütlenin yerel dizinine özenle dahil edilir.</p>
+        <p class="tech-only">CC0 / CC BY-SA veri setleri (Wikidata SPARQL Türkiye sanatçı grafı, Vikipedi TR/EN, DergiPark OAI-PMH sanat dergileri, MoMA/Tate/Met CC0) ile <code>robots.txt</code> dosyası <code>ai-train=no</code> sinyali taşımadan taramaya izin veren siteler (ör. İKSV Bienal site haritaları, İstanbul Modern, Sakıp Sabancı Müzesi, Arter, Argonotlar, e-skop). URL ve lisans üstverisiyle parçalanıp (chunking) yerel olarak <code>BGE-M3</code> ile gömülür.</p>
+      </div>
+      <div class="card lane-live">
+        <h3>🔎 Canlı şerit (Anlık okunur, kaynak gösterilir, asla saklanmaz)</h3>
+        <p class="art-only">Yapay zekâ eğitimini ya da toplu arşivlemeyi reddeden kurum ve galeriler — örneğin SALT Araştırma, Pera Müzesi ya da yapay zekâ botlarını engelleyen galeriler — <b>veritabanımıza asla kaydedilmez ve hiçbir eğitim sürecinde kullanılmaz</b>. Bir ziyaretçi bu kurumlarla ilgili soru sorduğunda sistem, kamuya açık sayfayı tıpkı bir insan okur gibi o anda okur, kısa bir bilgiyi sözlü olarak kaynağını belirterek aktarır ve sohbet biter bitmez sayfayı unutur.</p>
+        <p class="tech-only"><code>Content-Signal: ai-train=no</code> sinyali veren (SALT Araştırma, Pera Müzesi) veya yapay zekâ kullanıcı ajanlarını (user-agent) engelleyen alan adları (Galerist, Dirimart, Pi Artworks, Zilberman, Unlimited). Yalnızca soru geldiğinde dürüst bir user-agent ile, <code>Crawl-delay</code> ve HTTP 403 yanıtlarına saygı göstererek çağrılır; en fazla 2 kısa kesit geçici RAM bağlamına girer, URL kaynak gösterilir ve diske sıfır metin, vektör veya günlük kaydı yazılır.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="privacy">
+    <h2>Mahremiyet ve bağımsız altyapı</h2>
+    <div class="art-only">
+      <p>Galeri ziyaretçileri bir işin karşısında çoğu zaman içtenlikle konuşur — çekinmeden soru sorar, sesli düşünür ya da bir yapıtı okurken kendi kişisel anılarını işin içine katar. Bir heykeli gizli bir gözetim mikrofonuna çevirmek, sohbeti mümkün kılan bu güveni baştan yıkardı.</p>
+      <ul>
+        <li><b>İlk kelimeden itibaren mahrem:</b> Konuşma tanıma, kaynak tarama ve dil üretiminin tamamı ya doğrudan enstalasyonun içindeki yerel donanımda ya da mühürlü bir donanım enklavında gerçekleşir. Hiçbir büyük teknoloji şirketinin yönlendiricisi konuşma dökümünüzü görmez.</li>
+        <li><b>Varsayılan olarak sıfır kayıt:</b> Ses yalnızca yanıt üretmek için gereken birkaç saniye boyunca bellekte durur ve hemen ardından silinir.</li>
+        <li><b>İmha edilebilir anahtarla açık rıza (opt-in):</b> Bir ziyaretçi sohbetini arşive bağışlamak için açıkça onay verirse, o tekil kayıt yalnızca kendisine ait kriptografik bir anahtarla kilitlenir. Onay geri çekildiğinde bu anahtar imha edilir ("kripto-imha" / crypto-shredding) ve kayıt çevrimdışı yedekler dahil her yerde kalıcı olarak okunamaz hale gelir.</li>
+        <li><b>Çok ülkeli şifreli yedekler:</b> Proje derlemi ve şifreli çıktılar yalnızca AB veya ABD bulutlarında değil; İsviçre ve İzlanda dahil bağımsız hukuk alanlarına dağıtılmış biçimde yedeklenir.</li>
+      </ul>
+    </div>
+    <div class="tech-only">
+      <ul>
+        <li><b>İlk günden mahrem çıkarım (private inference):</b> Enstalasyon ünitesi içinde yerel GPU çıkarımı; bant genişliği veya hesaplama gerektirdiğinde doğrulanabilir uzaktan yedek olarak Phala Cloud TEE (Intel TDX + NVIDIA H100/H200 Confidential Computing, istek başına doğrulanabilir dstack kanıtı) veya AB merkezli Edgeless Privatemode.</li>
+        <li><b>Sıfır saklamalı oturum belleği:</b> Ses tamponları RAM'de (<code>io.BytesIO</code>) çözülür ve metne döküldükten hemen sonra atılır; istek gövdesi günlüğü tutulmaz, Cloudflare AI Gateway üzerinde düz metin sonlandırması yapılmaz.</li>
+        <li><b>Zarf şifreleme ve kripto-imha (crypto-shredding):</b> Açık rızayla kaydedilen her oturum, enklav/sahip anahtarlığında sarılı benzersiz bir <code>AES-256-GCM</code> veri anahtarı alır; silme talebi oturum anahtarını imha eder, böylece değiştirilemez (WORM) yedekler bile çözülemez şifreli veriye dönüşür.</li>
+        <li><b>3-2-1 çoklu yargı alanı yedekleri:</b> İstemci tarafında <code>restic</code> ile şifrelenmiş yedekler Cloudflare R2 + Infomaniak Swiss Backup (İsviçre, FADP) + 1984.is / Storj (İzlanda / dağıtık uçtan uca şifreleme) arasında aynalanır — tek tedarikçi bağımlılığından kaçınılır ve Hetzner kullanılmaz.</li>
+      </ul>
+    </div>
+    <p class="note">⚖️ Kişisel verilerin korunması notu: Türkiye'deki ziyaretçilerin herhangi bir kayda açık rıza verdiği durumlarda, GDPR ve İsviçre FADP ilkeleriyle birlikte 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) hükümleri uygulanır; iki dilli açık bir <i>aydınlatma metni</i> ve açık rıza şarttır.</p>
+  </section>
+
+  <section id="installation">
+    <h2>Fiziksel enstalasyon vizyonu</h2>
+    <p>Turkish Art Blob şu an çalışan bir yazılım ve yerel ses prototipi olarak mevcut. Önümüzdeki altı ayın hedefi, işi düz tarayıcı penceresinden çıkarıp kendi kendine yeten heykelsi bir nesne olarak fiziksel mekâna taşımak — bir galeride, bağımsız proje mekânında ya da korunaklı bir avluda beden ölçeğinde karşılaşacağınız bir varlığa dönüştürmek.</p>
+
+    <div class="grid">
+      <div class="card lane-accent">
+        <h3>Heykelsi doku ve ışık</h3>
+        <p class="art-only">İki üretim yöntemi yan yana test edilecek: içeriden projeksiyon ve adreslenebilir LED'lerle deri altı ışıması veren, organik loblar halinde dökülmüş yarı saydam platin kürlü silikon; diğeri ise canlı akışkan shader'ı kavisli üç boyutlu bir gövdeye taşıyan arkadan projeksiyonlu kubbe/membran yüzeyler.</p>
+        <p class="tech-only">İki fiziksel bedenleşme prototipi: (1) yüksek CRI değerine sahip adreslenebilir LED'ler ve yüzey titreşim sürücüleriyle (transducer) beslenen bir iç difüzör çekirdek üzerinde Shore-00 yarı saydam platin silikon kabuk; (2) canlı WebGL/GLSL shader'ın 60 fps'te özel ısıyla şekillendirilmiş akrilik/silikon bir membrana kesintisiz arkadan projeksiyonla (rear-projection) eşlenmesi.</p>
+      </div>
+      <div class="card lane-accent">
+        <h3>Mekân akustiği ve yerel zihin</h3>
+        <p class="art-only">Yönlü bir mikrofon dizisi, odadaki arka plan uğultusunu dışarıda bırakıp doğrudan kaidenin önünde duran kişiye odaklanır. Kaidenin içine gizlenen hoparlör ve dokunsal bas sürücüsü, sesin doğrudan doku kütlesinin içinden yankılandığı hissini verir.</p>
+        <p class="tech-only">Yankılı galeri mekânlarında ziyaretçinin söz keserek araya girmesini (barge-in) temiz biçimde çalıştıran akustik yankı gidermeli (AEC) hüzmeleme (beamforming) mikrofon dizisi; kaide içinde gizli koaksiyel sürücü + dokunsal uyarıcı (tactile exciter) ve tüm TR/EN hattını çevrimdışı öncelikli çalıştıran sessiz, küçük form faktörlü yerel GPU ünitesi.</p>
+      </div>
+    </div>
+
+    <div class="wide">
+      <div class="mockup-grid">
+        <figure class="mockup">
+          <img src="../img/mockup-white-cube.jpg" alt="Gün ışığı alan çağdaş bir galeride beyaz bir kaide üzerinde duran yarı saydam gül pembesi kütle heykelinin maket görseli" width="1024" height="768">
+          <figcaption><span class="mockup-badge">Maket / Mock-up</span> <b>Beyaz küp kaide etüdü</b> — Döküm yarı saydam silikon gövdenin (~80 cm) gizli akustik sürücüleri ve yerel bilgisayarı kaide içinde barındırdığı, gün ışıklı galeri kurgusu.</figcaption>
+        </figure>
+        <figure class="mockup">
+          <img src="../img/mockup-dark-room.jpg" alt="Karanlık bir akustik odada yönlü mikrofon ayağının yanında havada asılı duran, içten aydınlatmalı ten pembesi organik heykel maketi" width="1024" height="768">
+          <figcaption><span class="mockup-badge">Maket / Mock-up</span> <b>Karanlık dinleme odası</b> — Akustik yalıtımlı karanlık odada (black-box) göz hizasında asılı kurgu; yüzey-altı iç ışık doğrudan Türkçe ve İngilizce yanıtlarla birlikte nabız gibi atar.</figcaption>
+        </figure>
+        <figure class="mockup">
+          <img src="../img/mockup-istanbul-courtyard.jpg" alt="Alacakaranlıkta tarihi bir İstanbul taş avlusunda taş kaide üzerinde parlayan gül pembesi organik kütle heykelinin maket görseli" width="1024" height="768">
+          <figcaption><span class="mockup-badge">Maket / Mock-up</span> <b>İstanbul avlusu etüdü</b> — Alacakaranlıkta kemerli bir taş revak altında yarı açık kamusal mekân etüdü; yaşayan bir çağdaş sanat arşivini kentsel mimariyle diyaloğa sokar.</figcaption>
+        </figure>
+        <figure class="mockup">
+          <img src="../img/mockup-visitor-conversation.jpg" alt="Bir galeri ziyaretçisinin kaide üzerindeki içten aydınlatmalı pembe organik kütle heykeliyle konuşmak üzere yaklaştığı maket görseli" width="1024" height="768">
+          <figcaption><span class="mockup-badge">Maket / Mock-up</span> <b>Bire bir karşılaşma</b> — Yakın sohbet ölçeği: yönlü mikrofonlar tam kaidenin önündeki konuşmacıyı ayrıştırırken, konu açıldıkça kütlenin rengi ve yüzey ritmi dönüşür.</figcaption>
+        </figure>
+      </div>
+    </div>
+    <p class="note">Yukarıdaki dört görselin tamamı, 6 aylık üretim sürecinin hedeflediği ölçek, ışık ve mekânsal kurguları gösteren <b>kavramsal maket (mock-up) çalışmalarıdır</b> — tamamlanmış bir serginin fotoğrafları değildir.</p>
+  </section>
+
+  <section id="funding">
+    <h2>6 aylık üretim için neden peşin $5,000 gerekiyor?</h2>
+
+    <div class="funding-banner">
+      <p style="margin-bottom:10px"><b>Tek cümleyle çağrı:</b> Turkish Art Blob'u ekran üzerindeki bir prototipten güvenilir, kendi kendine yeten fiziksel bir heykele taşımak için odaklı bir <b>6 aylık üretim dönemini</b> finanse edecek <b>peşin USD $5,000</b> bütçeye ihtiyaç var.</p>
+      <p style="margin-bottom:0;color:#4a3539">Neden peşin? Fiziksel bilgisayar donanımı, silikon döküm malzemeleri, optik/projeksiyon parçaları ve akustik ekipmanın tamamı, nihai üretime geçilmeden önce 1–3. aylarda satın alınıp tezgâhta test edilmek zorunda — salt bulut kredileri gibi sonradan faturalandırılmaları mümkün değil. Yazılım katmanının %100 açık kaynak kalması sayesinde bütçenin neredeyse tamamı doğrudan fiziksel malzemeye, mahrem çıkarım donanımına ve üretim mesaisine gidiyor.</p>
+      <div class="stat-row">
+        <div class="stat">
+          <strong>USD $5,000</strong>
+          <span>Peşin üretim bütçesi</span>
+        </div>
+        <div class="stat">
+          <strong>6 Ay</strong>
+          <span>Prototipten sergiye hazır üniteye</span>
+        </div>
+        <div class="stat">
+          <strong>%100 Açık Yığın</strong>
+          <span>Kapalı avatar veya router bağımlılığı yok</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>Önerilen kalem kalem bütçe dağılımı (USD $5,000)</h3>
+    <p style="color:var(--mut);font-size:15px">Aşağıdaki rakamlar güncel bileşen, malzeme ve enklav/yedekleme maliyetlerine dayanan <b>öneri niteliğinde bir dağılımdır</b>. 2. aydaki atölye testleri tamamlandığında donanım ile yüzey üretimi kalemleri arasında küçük kaydırmalar yapılabilir.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Kalem</th>
+            <th>Kapsamı</th>
+            <th class="n">Önerilen (USD)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>1. Yerel mahrem çıkarım donanımı</b></td>
+            <td>Doğal parametreli açık modelleri, <code>faster-whisper</code>, <code>BGE-M3</code> ve TTS hattını saniyenin altında gecikmeyle yerinde çalıştırmak üzere kaide içine yerleştirilecek sessiz, küçük form faktörlü GPU ünitesi (24 GB VRAM sınıfı; ör. ikinci el/yenilenmiş RTX 3090/4090 sınıfı SFF sistem veya yüksek birleşik bellekli mini düğüm).</td>
+            <td class="n">$1,550</td>
+          </tr>
+          <tr>
+            <td><b>2. Heykelsi doku ve optik prototipleme</b></td>
+            <td>Platin kürlü yarı saydam silikon (Shore 00), pigmentler, 3B baskı kalıp pozitifleri, iç akrilik difüzör kabuklar, yüzey-altı aydınlatma testleri için yüksek CRI adreslenebilir LED ve kısa atım projeksiyon optikleri.</td>
+            <td class="n">$950</td>
+          </tr>
+          <tr>
+            <td><b>3. Akustik dizi ve dokunsal ses</b></td>
+            <td>Yönlü hüzmeleme (beamforming) mikrofon dizisi (uzak alan galeri alımı + yankı giderme), gizli tam aralık hoparlör, konuşurken heykelin fiziksel olarak titreşmesini sağlayan bas yüzey sürücüsü (exciter), ses kartı ve kablolama.</td>
+            <td class="n">$550</td>
+          </tr>
+          <tr>
+            <td><b>4. Kaide üretimi ve termal kabin</b></td>
+            <td>Havalandırmalı galeri kaidesi ve montaj donanımı, sessiz soğutma için akustik yönlendirme bölmeleri, güç regülasyonu ve güvenli kurulum için taşıma kasası (flight/transport crate).</td>
+            <td class="n">$600</td>
+          </tr>
+          <tr>
+            <td><b>5. Mahrem enklav kapasitesi ve çok ülkeli yedekler (6 ay)</b></td>
+            <td>Çevrimiçi/uzaktan ayna oturumlar için 6 aylık doğrulanmış Phala TEE hesaplama kapasitesi; İsviçre (Infomaniak), İzlanda (1984.is) / Storj ve Cloudflare R2 üzerinde şifreli 3-2-1 yedekler ve alan adı işletimi.</td>
+            <td class="n">$450</td>
+          </tr>
+          <tr>
+            <td><b>6. Sanatçı Ar-Ge'si, derlem kürasyonu ve beklenmeyen gider payı</b></td>
+            <td>6 aylık kaynak derlemi temizliği, Türkçe/İngilizce iki dilli değerlendirme testleri, kalıp revizyonları, Türkiye içi kargo/gümrük payı ve açık kaynak dokümantasyon için mütevazı bütçe.</td>
+            <td class="n">$900</td>
+          </tr>
+          <tr class="total-row">
+            <th>Toplam peşin bütçe</th>
+            <th>Önerilen 6 aylık enstalasyon üretimi</th>
+            <th class="n">$5,000</th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>6 aylık yol haritası ve çıktılar</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-month">1. Ay</div>
+        <h4>Yerel mahrem düğüm ve iki dilli derlem v1</h4>
+        <p>Yerel mahrem çıkarım bilgisayarının kurulumu ve hız testleri; iki şeritli veri hattının tamamlanması (açık Türkiye/dünya sanatı arşiv şeridi dizini + sıfır kayıtlı canlı şerit kaynak okuyucusu).</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-month">2. Ay</div>
+        <h4>Ses gecikmesi, söz kesme ve duygu eşleşmesi</h4>
+        <p>Yankı gidermeyle birlikte uçtan uca Türkçe ve İngilizce karşılıklı konuşma süresinin ~1,2 saniyenin altına indirilmesi; sanat başlıkları, ses ritmi, renk ve yüzey deformasyonu arasındaki anlamsal eşleşmenin kalibrasyonu.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-month">3. Ay</div>
+        <h4>Malzeme ve doku atölye testleri</h4>
+        <p>Küçük ölçekli yarı saydam silikon doku dökümlerinin yapılması; içten LED yüzey-altı ışık saçılımı ile kavisli arkadan projeksiyonun karşılaştırılması; nihai fiziksel üretim yönteminin seçilip test notlarının yayımlanması.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-month">4. Ay</div>
+        <h4>Tam ölçekli gövde ve havalandırmalı kaide</h4>
+        <p>Tam ölçekli (~70–85 cm) heykel gövdesinin üretimi, akustik yalıtımlı kaide kabininin inşası ve gizli hoparlörler, dokunsal uyarıcılar ile yönlü mikrofon donanımının entegrasyonu.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-month">5. Ay</div>
+        <h4>Dayanıklılık testleri ve iki dilli değerlendirme</h4>
+        <p>Yankılı mekânlarda saatler süren kesintisiz termal ve akustik stres testleri; kaynak doğruluğunu ve uç durumları denetlemek üzere sanatçı ve eleştirmenlerle Türkçe ve İngilizce kapalı atölye sohbetleri.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-month">6. Ay</div>
+        <h4>Sergiye hazır ünite ve açık dokümantasyon</h4>
+        <p>Galeri veya kamusal mekân kurulumuna hazır, kasalanmış, tak-çalıştır fiziksel heykel ünitesinin; video dokümantasyon, mimari-teknik şartname (tech rider) ve açık kaynak kod yayınıyla birlikte teslimi.</p>
+      </div>
+    </div>
+
+    <details style="margin-top:18px">
+      <summary style="cursor:pointer;font-family:-apple-system,BlinkMacSystemFont,Inter,Arial,sans-serif;font-weight:600;color:var(--acc)">Üretim sonrası süregelen işletme maliyeti (yazılım / bulut aynası referansı)</summary>
+      <p style="margin-top:10px;font-size:15px">Fiziksel ünite tamamlandığında kendi kaide donanımı üzerinde çevrimdışı çalışmasının tek gideri priz elektriğidir. Çevrimiçi ayna / doğrulanmış enklav modu içinse (ayda ~20 saat aktif sohbet varsayımıyla) süregelen bulut gideri ayda yaklaşık <b>$55–60</b> düzeyindedir (Cloudflare Pages statik barındırma $0, zamanlanmış Phala gizli sanal makinesi ~$46, doğal Gemma 4 31B doğrulanmış API ~$7, 100 GB altı çok ülkeli şifreli yedekler ~$2–5).</p>
+    </details>
+  </section>
+
+  <section id="glossary">
+    <h2>Kısa sözlük</h2>
+    <dl>
+      <dt>Yüzey-altı ışık saçılımı — Subsurface scattering (SSS)</dt>
+      <dd>Işığın insan derisi, balmumu ya da silikon gibi yarı saydam yüzeylerin altına nüfuz edip dışarı çıkmadan önce içeride sıcak biçimde dağılması — kütlenin plastik değil yaşayan bir doku gibi algılanmasını sağlayan optik etki.</dd>
+      <dt>RAG (Erişim Destekli Üretim / Retrieval-Augmented Generation)</dt>
+      <dd>"Konuşmadan önce kaynağa bakmak." Sistem, modelin bulanık ezberine güvenmek yerine önce gerçek metin pasajlarını bulup getirir ve her iddianın nereden geldiğini kaynak gösterir.</dd>
+      <dt>ai-train=no / İki şeritli politika</dt>
+      <dd>Kurumların arşivlerinin yapay zekâ eğitiminde kullanılamayacağını belirten, makinece okunabilir sinyal. Canlı şeridimiz kamuya açık sayfaları yalnızca o anda kısa bir atıf için okur ve asla kaydetmez.</dd>
+      <dt>TEE (Güvenilir Yürütme Ortamı / Trusted Execution Environment)</dt>
+      <dd>İşlemcinin içinde kodun ve belleğin donanım düzeyinde şifrelenerek mühürlendiği, sunucu barındırıcısının bile içerideki sohbeti göremediği güvenli bölge.</dd>
+      <dt>Kripto-imha (Crypto-shredding)</dt>
+      <dd>İsteğe bağlı bir kaydın yalnızca kendisine ait tekil bir anahtarla şifrelenmesi; böylece anahtar silindiğinde kayda erişimin tüm yedeklerde aynı anda ve kalıcı olarak ortadan kalkması.</dd>
+    </dl>
+  </section>
+
+  <section id="support">
+    <h2>Enstalasyonu destekleyin, üretim ortağı olun veya sergileyin</h2>
+    <div class="cta-card">
+      <p><b>USD $5,000 tutarındaki peşin üretim bütçesini</b> — doğrudan hamî/fon desteği, aşamalı ödül (milestone bounty) fonlaması, sanat-teknoloji siparişi (commission) ya da 6 aylık üretimin sonunda fiziksel heykeli ilk kez izleyiciyle buluşturmak isteyen bir ev sahibi mekân ortaklığı yoluyla — bir araya getirmeyi arıyorum.</p>
+      <p style="margin-bottom:0">6 aylık üretimi finanse etmek, fiziksel üniteye ortak yapımcı olmak, İstanbul'da veya yurt dışında bir sergi mekânı önermek ya da teknik/küratöryel sorular sormak için doğrudan ulaşabilirsiniz:</p>
+      <div class="cta-links">
+        <a class="btn primary" href="mailto:contact@gokhan.vc?subject=Turkish%20Art%20Blob%20%E2%80%94%20Enstalasyon">E-posta: contact@gokhan.vc</a>
+        <a class="btn" href="https://x.com/goekhan" target="_blank" rel="noopener noreferrer">X · @goekhan</a>
+        <a class="btn" href="https://gokhanturhan.com" target="_blank" rel="noopener noreferrer">gokhanturhan.com</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Turkish Art Blob · Gökhan Turhan (<a href="https://gokhanturhan.com">gokhanturhan.com</a> · <a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a> · <a href="https://x.com/goekhan">@goekhan</a>) · Açık araçlarla üretilmiş, kendi kendine yeten statik sayfa
+</footer>
+
+<script src="../js/blob.bundle.js"></script>
+<script src="../js/app.js"></script>
+</body>
+</html>
