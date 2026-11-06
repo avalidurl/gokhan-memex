@@ -325,9 +325,9 @@ function createOfflineResponse() {
           font-size: 0.78rem;
           font-weight: 700;
           letter-spacing: 0.08em;
-          color: #c94f62;
-          background: #f6e6e2;
-          border: 1px solid #ecdcd8;
+          color: #002FA7;
+          background: #eef1fa;
+          border: 1px solid #dfe2ec;
           border-radius: 999px;
           padding: 4px 12px;
           margin-bottom: 1rem;
@@ -336,9 +336,9 @@ function createOfflineResponse() {
           display: inline-block;
           padding: 9px 20px;
           margin: 8px;
-          background: #c94f62;
+          background: #002FA7;
           color: #ffffff;
-          border: 1px solid #c94f62;
+          border: 1px solid #002FA7;
           text-decoration: none;
           border-radius: 999px;
           font-weight: 600;

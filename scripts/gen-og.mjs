@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Journal OG cards — real 1200×630 PNGs, warm cream & rose editorial register.
+ * Journal OG cards — real 1200×630 PNGs, warm cream & International Klein Blue editorial register.
  *
  * Usage:
  *   node scripts/gen-og.mjs              # generate only missing cards
@@ -46,10 +46,10 @@ const FORCE = args.includes('--force') || Boolean(ONLY)
 const INK = '#2a1a1e'
 const PAPER = '#fbf6f3'
 const CARD = '#ffffff'
-const DIM = '#7a6268'
-const LINE = '#ecdcd8'
-const SOFT = '#f6e6e2'
-const ACC = '#c94f62'
+const DIM = '#5d5a66'
+const LINE = '#dfe2ec'
+const SOFT = '#eef1fa'
+const ACC = '#002FA7'
 
 const esc = (s) =>
   String(s ?? '')

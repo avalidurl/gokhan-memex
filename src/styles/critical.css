@@ -1,64 +1,66 @@
-/* Turkish Art Blob editorial register — warm cream paper, deep plum-ink,
-   rose accent, Georgia-style serif display & prose paired with clean system
-   sans UI/controls, generous whitespace, and soft rounded cards.
-   Dark mode inverts onto a deep plum-ink ground with warm cream ink and a
-   luminous rose accent. Legacy variable names are mapped cleanly so every
-   Astro/Tailwind component works across both themes. */
+/* Editorial register with International Klein Blue (#002FA7) — warm cream
+   paper (#fbf6f3), deep ink (#2a1a1e), International Klein Blue accent,
+   Georgia-style serif display & prose paired with clean system sans UI/controls,
+   generous whitespace, and soft rounded cards.
+   Dark mode shifts onto a harmonious deep blue-black ground (#0c101a) with
+   warm cream text (#f4f1ec) and a luminous WCAG AA IKB accent (#6b8aff for
+   text/links/borders, #2450e8 for solid CTA fills). */
 :root {
-  /* Primary Turkish Art Blob tokens (light) */
+  /* Primary tokens (light) */
   --bg: #fbf6f3;
   --ink: #2a1a1e;
-  --mut: #7a6268;
-  --acc: #c94f62;
-  --acc-dark: #9c3345;
+  --mut: #5d5a66;
+  --acc: #002FA7;
+  --acc-dark: #00227a;
+  --btn-bg: #002FA7;
+  --btn-hover: #00227a;
+  --btn-fg: #ffffff;
   --card-bg: #ffffff;
-  --line: #ecdcd8;
-  --soft: #f6e6e2;
-  --soft-hover: #fff8f6;
-  --lead-ink: #4a3539;
-  --store: #4f9a7a;
-  --live: #d08a2c;
+  --line: #dfe2ec;
+  --soft: #eef1fa;
+  --soft-hover: #f4f6fc;
+  --lead-ink: #43383c;
+  --store: #246b4c;
+  --live: #9a5d10;
   --header-bg: rgba(251, 246, 243, 0.92);
+  --shadow-tint: 15, 23, 48;
 
   /* Compatibility house tokens */
   --paper: #fbf6f3;
-  --dim: #7a6268;
-  --faint: #f6e6e2;
-  --red: #c94f62;
-  --ikb: #c94f62;
+  --dim: #5d5a66;
+  --faint: #eef1fa;
+  --red: #002FA7;
+  --ikb: #002FA7;
 
   /* HSL triplets for Tailwind semantic utilities */
-  --accent-blue: 351 53% 55%;
-  --accent-blue-strong: 350 51% 41%;
-  --accent-blue-soft: 12 48% 93%;
-  --accent-blue-wash: 12 48% 93%;
+  --accent-blue: 223 100% 32.7%;
+  --accent-blue-strong: 223 100% 23.9%;
+  --accent-blue-soft: 225 54.5% 95.7%;
+  --accent-blue-wash: 225 54.5% 95.7%;
   --accent-blue-foreground: 0 0% 100%;
-  --backdrop: 23 44% 97%;
-  --background: 23 44% 97%;
-  --foreground: 345 24% 13%;
+  --backdrop: 23 50% 96.9%;
+  --background: 23 50% 96.9%;
+  --foreground: 345 23.5% 13.3%;
   --card: 0 0% 100%;
-  --card-foreground: 345 24% 13%;
-  --primary: 351 53% 55%;
+  --card-foreground: 345 23.5% 13.3%;
+  --primary: 223 100% 32.7%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 12 48% 93%;
-  --secondary-foreground: 345 24% 13%;
-  --muted: 12 48% 93%;
-  --muted-foreground: 345 11% 43%;
-  --accent: 12 48% 93%;
-  --accent-foreground: 351 53% 55%;
-  --border: 12 31% 89%;
-  --input: 12 31% 89%;
-  --ring: 351 53% 55%;
+  --secondary: 225 54.5% 95.7%;
+  --secondary-foreground: 345 23.5% 13.3%;
+  --muted: 225 54.5% 95.7%;
+  --muted-foreground: 255 6.3% 37.6%;
+  --accent: 225 54.5% 95.7%;
+  --accent-foreground: 223 100% 32.7%;
+  --border: 226 25.5% 90%;
+  --input: 226 25.5% 90%;
+  --ring: 223 100% 32.7%;
   --radius: 16px;
   --popover: 0 0% 100%;
-  --popover-foreground: 345 24% 13%;
-  --destructive: 350 51% 41%;
+  --popover-foreground: 345 23.5% 13.3%;
+  --destructive: 223 100% 23.9%;
   --destructive-foreground: 0 0% 100%;
 
-  /* Typography stacks:
-     --font-serif : Georgia-style editorial serif for headings & long-form reading
-     --font-sans  : Clean system sans for body UI, labels, controls, tables, metadata
-     --font-data  : Clean monospace for code blocks, hashes, and technical tokens */
+  /* Typography stacks */
   --font-serif: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif;
   --font-sans: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Inter, Arial, sans-serif;
   --font-text: var(--font-sans);
@@ -67,142 +69,150 @@
 
   /* Shiki css-variables syntax highlighter palette */
   --astro-code-foreground: #2a1a1e;
-  --astro-code-background: #f6e6e2;
-  --astro-code-token-constant: #9c3345;
+  --astro-code-background: #eef1fa;
+  --astro-code-token-constant: #00227a;
   --astro-code-token-string: #246b4c;
-  --astro-code-token-comment: #7a6268;
-  --astro-code-token-keyword: #c94f62;
+  --astro-code-token-comment: #5d5a66;
+  --astro-code-token-keyword: #002FA7;
   --astro-code-token-parameter: #2a1a1e;
-  --astro-code-token-function: #8a4b5c;
+  --astro-code-token-function: #1e429f;
   --astro-code-token-string-expression: #246b4c;
-  --astro-code-token-punctuation: #7a6268;
-  --astro-code-token-link: #c94f62;
+  --astro-code-token-punctuation: #5d5a66;
+  --astro-code-token-link: #002FA7;
 
   color-scheme: light;
 }
 
 .dark {
-  /* Dark plum-ink variant of the Turkish Art Blob palette */
-  --bg: #191013;
-  --ink: #f7ece8;
-  --mut: #b99fa5;
-  --acc: #e06c7e;
-  --acc-dark: #f08b9b;
-  --card-bg: #23161b;
-  --line: #3b262d;
-  --soft: #2d1c22;
-  --soft-hover: #352128;
-  --lead-ink: #e4d2d6;
+  /* Deep neutral/blue-black dark variant with WCAG AA luminous IKB accent */
+  --bg: #0c101a;
+  --ink: #f4f1ec;
+  --mut: #9aa4bd;
+  --acc: #6b8aff;
+  --acc-dark: #8da6ff;
+  --btn-bg: #2450e8;
+  --btn-hover: #1b43d4;
+  --btn-fg: #ffffff;
+  --card-bg: #131926;
+  --line: #27324a;
+  --soft: #192236;
+  --soft-hover: #202b44;
+  --lead-ink: #dad6cf;
   --store: #65b592;
   --live: #e09f46;
-  --header-bg: rgba(25, 16, 19, 0.9);
+  --header-bg: rgba(12, 16, 26, 0.9);
+  --shadow-tint: 3, 6, 15;
 
-  --paper: #191013;
-  --dim: #b99fa5;
-  --faint: #2d1c22;
-  --red: #e06c7e;
-  --ikb: #e06c7e;
+  --paper: #0c101a;
+  --dim: #9aa4bd;
+  --faint: #192236;
+  --red: #6b8aff;
+  --ikb: #6b8aff;
 
-  --accent-blue: 351 65% 65%;
-  --accent-blue-strong: 351 77% 74%;
-  --accent-blue-soft: 339 23% 14%;
-  --accent-blue-wash: 339 23% 14%;
-  --accent-blue-foreground: 340 22% 8%;
-  --backdrop: 340 22% 8%;
-  --background: 340 22% 8%;
-  --foreground: 16 45% 94%;
-  --card: 337 23% 11%;
-  --card-foreground: 16 45% 94%;
-  --primary: 351 65% 65%;
-  --primary-foreground: 340 22% 8%;
-  --secondary: 339 23% 14%;
-  --secondary-foreground: 16 45% 94%;
-  --muted: 339 23% 14%;
-  --muted-foreground: 346 16% 67%;
-  --accent: 339 23% 14%;
-  --accent-foreground: 351 65% 65%;
-  --border: 340 22% 19%;
-  --input: 340 22% 19%;
-  --ring: 351 65% 65%;
-  --popover: 337 23% 11%;
-  --popover-foreground: 16 45% 94%;
-  --destructive: 351 65% 65%;
-  --destructive-foreground: 340 22% 8%;
+  --accent-blue: 227 100% 71%;
+  --accent-blue-strong: 227 100% 77.6%;
+  --accent-blue-soft: 221 36.7% 15.5%;
+  --accent-blue-wash: 221 36.7% 15.5%;
+  --accent-blue-foreground: 223 36.8% 7.5%;
+  --backdrop: 223 36.8% 7.5%;
+  --background: 223 36.8% 7.5%;
+  --foreground: 37 26.7% 94.1%;
+  --card: 221 33.3% 11.2%;
+  --card-foreground: 37 26.7% 94.1%;
+  --primary: 227 100% 71%;
+  --primary-foreground: 223 36.8% 7.5%;
+  --secondary: 221 36.7% 15.5%;
+  --secondary-foreground: 37 26.7% 94.1%;
+  --muted: 221 36.7% 15.5%;
+  --muted-foreground: 223 21% 67.3%;
+  --accent: 221 36.7% 15.5%;
+  --accent-foreground: 227 100% 71%;
+  --border: 221 31% 22.2%;
+  --input: 221 31% 22.2%;
+  --ring: 227 100% 71%;
+  --popover: 221 33.3% 11.2%;
+  --popover-foreground: 37 26.7% 94.1%;
+  --destructive: 227 100% 71%;
+  --destructive-foreground: 223 36.8% 7.5%;
 
-  --astro-code-foreground: #f7ece8;
-  --astro-code-background: #26181d;
-  --astro-code-token-constant: #f08b9b;
+  --astro-code-foreground: #f4f1ec;
+  --astro-code-background: #151d2e;
+  --astro-code-token-constant: #8da6ff;
   --astro-code-token-string: #8ad4b2;
-  --astro-code-token-comment: #b99fa5;
-  --astro-code-token-keyword: #e06c7e;
-  --astro-code-token-parameter: #f7ece8;
-  --astro-code-token-function: #f2b5c0;
+  --astro-code-token-comment: #9aa4bd;
+  --astro-code-token-keyword: #6b8aff;
+  --astro-code-token-parameter: #f4f1ec;
+  --astro-code-token-function: #9eb5ff;
   --astro-code-token-string-expression: #8ad4b2;
-  --astro-code-token-punctuation: #b99fa5;
-  --astro-code-token-link: #e06c7e;
+  --astro-code-token-punctuation: #9aa4bd;
+  --astro-code-token-link: #6b8aff;
 
   color-scheme: dark;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-    --bg: #191013;
-    --ink: #f7ece8;
-    --mut: #b99fa5;
-    --acc: #e06c7e;
-    --acc-dark: #f08b9b;
-    --card-bg: #23161b;
-    --line: #3b262d;
-    --soft: #2d1c22;
-    --soft-hover: #352128;
-    --lead-ink: #e4d2d6;
+    --bg: #0c101a;
+    --ink: #f4f1ec;
+    --mut: #9aa4bd;
+    --acc: #6b8aff;
+    --acc-dark: #8da6ff;
+    --btn-bg: #2450e8;
+    --btn-hover: #1b43d4;
+    --btn-fg: #ffffff;
+    --card-bg: #131926;
+    --line: #27324a;
+    --soft: #192236;
+    --soft-hover: #202b44;
+    --lead-ink: #dad6cf;
     --store: #65b592;
     --live: #e09f46;
-    --header-bg: rgba(25, 16, 19, 0.9);
+    --header-bg: rgba(12, 16, 26, 0.9);
+    --shadow-tint: 3, 6, 15;
 
-    --paper: #191013;
-    --dim: #b99fa5;
-    --faint: #2d1c22;
-    --red: #e06c7e;
-    --ikb: #e06c7e;
+    --paper: #0c101a;
+    --dim: #9aa4bd;
+    --faint: #192236;
+    --red: #6b8aff;
+    --ikb: #6b8aff;
 
-    --accent-blue: 351 65% 65%;
-    --accent-blue-strong: 351 77% 74%;
-    --accent-blue-soft: 339 23% 14%;
-    --accent-blue-wash: 339 23% 14%;
-    --accent-blue-foreground: 340 22% 8%;
-    --backdrop: 340 22% 8%;
-    --background: 340 22% 8%;
-    --foreground: 16 45% 94%;
-    --card: 337 23% 11%;
-    --card-foreground: 16 45% 94%;
-    --primary: 351 65% 65%;
-    --primary-foreground: 340 22% 8%;
-    --secondary: 339 23% 14%;
-    --secondary-foreground: 16 45% 94%;
-    --muted: 339 23% 14%;
-    --muted-foreground: 346 16% 67%;
-    --accent: 339 23% 14%;
-    --accent-foreground: 351 65% 65%;
-    --border: 340 22% 19%;
-    --input: 340 22% 19%;
-    --ring: 351 65% 65%;
-    --popover: 337 23% 11%;
-    --popover-foreground: 16 45% 94%;
-    --destructive: 351 65% 65%;
-    --destructive-foreground: 340 22% 8%;
+    --accent-blue: 227 100% 71%;
+    --accent-blue-strong: 227 100% 77.6%;
+    --accent-blue-soft: 221 36.7% 15.5%;
+    --accent-blue-wash: 221 36.7% 15.5%;
+    --accent-blue-foreground: 223 36.8% 7.5%;
+    --backdrop: 223 36.8% 7.5%;
+    --background: 223 36.8% 7.5%;
+    --foreground: 37 26.7% 94.1%;
+    --card: 221 33.3% 11.2%;
+    --card-foreground: 37 26.7% 94.1%;
+    --primary: 227 100% 71%;
+    --primary-foreground: 223 36.8% 7.5%;
+    --secondary: 221 36.7% 15.5%;
+    --secondary-foreground: 37 26.7% 94.1%;
+    --muted: 221 36.7% 15.5%;
+    --muted-foreground: 223 21% 67.3%;
+    --accent: 221 36.7% 15.5%;
+    --accent-foreground: 227 100% 71%;
+    --border: 221 31% 22.2%;
+    --input: 221 31% 22.2%;
+    --ring: 227 100% 71%;
+    --popover: 221 33.3% 11.2%;
+    --popover-foreground: 37 26.7% 94.1%;
+    --destructive: 227 100% 71%;
+    --destructive-foreground: 223 36.8% 7.5%;
 
-    --astro-code-foreground: #f7ece8;
-    --astro-code-background: #26181d;
-    --astro-code-token-constant: #f08b9b;
+    --astro-code-foreground: #f4f1ec;
+    --astro-code-background: #151d2e;
+    --astro-code-token-constant: #8da6ff;
     --astro-code-token-string: #8ad4b2;
-    --astro-code-token-comment: #b99fa5;
-    --astro-code-token-keyword: #e06c7e;
-    --astro-code-token-parameter: #f7ece8;
-    --astro-code-token-function: #f2b5c0;
+    --astro-code-token-comment: #9aa4bd;
+    --astro-code-token-keyword: #6b8aff;
+    --astro-code-token-parameter: #f4f1ec;
+    --astro-code-token-function: #9eb5ff;
     --astro-code-token-string-expression: #8ad4b2;
-    --astro-code-token-punctuation: #b99fa5;
-    --astro-code-token-link: #e06c7e;
+    --astro-code-token-punctuation: #9aa4bd;
+    --astro-code-token-link: #6b8aff;
 
     color-scheme: dark;
   }
@@ -262,7 +272,7 @@ body {
   background-image: none;
 }
 
-/* Rounded table container matching Turkish Art Blob */
+/* Rounded table container */
 .table-wrap {
   max-width: 100%;
   overflow-x: auto;
@@ -345,9 +355,9 @@ body {
 }
 
 .table-desk-btn[aria-pressed='true'] {
-  background: var(--acc);
-  border-color: var(--acc);
-  color: #ffffff;
+  background: var(--btn-bg);
+  border-color: var(--btn-bg);
+  color: var(--btn-fg);
 }
 
 .table-desk-scroll {
@@ -517,10 +527,10 @@ body {
 
 .foot-sub-btn {
   padding: 9px 20px;
-  border: 1px solid var(--acc);
+  border: 1px solid var(--btn-bg);
   border-radius: 999px;
-  background: var(--acc);
-  color: #ffffff;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
   font-family: var(--font-sans);
   font-size: 14px;
   font-weight: 600;
@@ -531,9 +541,9 @@ body {
 
 .foot-sub-btn:hover,
 .foot-sub-btn:focus-visible {
-  border-color: var(--acc-dark);
-  background: var(--acc-dark);
-  color: #ffffff;
+  border-color: var(--btn-hover);
+  background: var(--btn-hover);
+  color: var(--btn-fg);
 }
 
 .foot-sub-btn--xmtp {
@@ -544,9 +554,9 @@ body {
 
 .foot-sub-btn--xmtp:hover,
 .foot-sub-btn--xmtp:focus-visible {
-  background: var(--acc);
-  border-color: var(--acc);
-  color: #ffffff;
+  background: var(--btn-bg);
+  border-color: var(--btn-bg);
+  color: var(--btn-fg);
 }
 
 .foot-sub-btn--xmtp:disabled {

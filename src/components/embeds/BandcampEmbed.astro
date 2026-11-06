@@ -30,7 +30,7 @@ function processBandcampUrl(url: string): { embedUrl: string, isValid: boolean }
       id = pathParts[pathParts.indexOf('album') + 1]
     }
     if (type && id) {
-      const embedUrl = `https://bandcamp.com/EmbeddedPlayer/${type}=${id}/size=${size}/bgcol=ffffff/linkcol=c94f62/artwork=${artwork}/transparent=${transparent}/`
+      const embedUrl = `https://bandcamp.com/EmbeddedPlayer/${type}=${id}/size=${size}/bgcol=ffffff/linkcol=002FA7/artwork=${artwork}/transparent=${transparent}/`
       return { embedUrl, isValid: true }
     }
     return { embedUrl: '', isValid: false }
@@ -76,7 +76,7 @@ const uniqueId = `bandcamp-${Math.random().toString(36).substring(2, 11)}`
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center rounded-full border border-primary bg-primary px-5 py-2 font-sans text-[14px] font-semibold text-primary-foreground no-underline hover:opacity-90"
+          class="inline-flex items-center rounded-full border border-[var(--btn-bg)] bg-[var(--btn-bg)] px-5 py-2 font-sans text-[14px] font-semibold text-[var(--btn-fg)] hover:bg-[var(--btn-hover)] hover:border-[var(--btn-hover)] no-underline hover:opacity-90"
         >
           Listen on Bandcamp
         </a>

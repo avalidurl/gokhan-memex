@@ -24,11 +24,11 @@ const fmt = (d: Date) =>
   description="Full-stack builder — one person, a fleet of agents. Agent-native venues, rails, and benchmarks live in production on x402: Ishtar, CURB, HeartBench. Journal, CV, publishing."
 >
   <div class="home-wrap">
-    <!-- Hero — editorial split with subtle static rose orb accent -->
+    <!-- Hero — editorial split with subtle static International Klein Blue orb accent -->
     <header class="hero-card">
       <div class="hero-copy">
         <div class="kicker-pill">Full-stack builder · fintech × AI × agent-native markets</div>
-        <h1 class="hero-title">Gökhan Turhan<span class="rose-dot" aria-hidden="true">.</span></h1>
+        <h1 class="hero-title">Gökhan Turhan<span class="ikb-dot" aria-hidden="true">.</span></h1>
         <p class="hero-stamp">Live in production — taking real machine payments</p>
         <div class="hero-actions">
           <a class="btn-pill primary" href="/journal/">Read the journal →</a>
@@ -49,7 +49,7 @@ const fmt = (d: Date) =>
 
       <div class="orb-panel" aria-hidden="true">
         <div class="orb-stage">
-          <div class="rose-orb"></div>
+          <div class="ikb-orb"></div>
         </div>
       </div>
     </header>
@@ -181,7 +181,7 @@ const fmt = (d: Date) =>
       color: var(--ink);
     }
 
-    .rose-dot {
+    .ikb-dot {
       color: var(--acc);
     }
 
@@ -216,19 +216,21 @@ const fmt = (d: Date) =>
     }
 
     .btn-pill:hover {
-      background: var(--acc);
-      color: #ffffff;
+      background: var(--btn-bg);
+      border-color: var(--btn-bg);
+      color: var(--btn-fg);
     }
 
     .btn-pill.primary {
-      background: var(--acc);
-      color: #ffffff;
+      background: var(--btn-bg);
+      border-color: var(--btn-bg);
+      color: var(--btn-fg);
     }
 
     .btn-pill.primary:hover {
-      background: var(--acc-dark);
-      border-color: var(--acc-dark);
-      color: #ffffff;
+      background: var(--btn-hover);
+      border-color: var(--btn-hover);
+      color: var(--btn-fg);
     }
 
     .hero-contacts {
@@ -252,7 +254,7 @@ const fmt = (d: Date) =>
       color: var(--acc-dark);
     }
 
-    /* Static subtle rose orb accent matching Turkish Art Blob fallback orb */
+    /* Static subtle International Klein Blue (#002FA7) orb accent */
     .orb-panel {
       display: flex;
       justify-content: center;
@@ -271,14 +273,14 @@ const fmt = (d: Date) =>
       overflow: hidden;
     }
 
-    .rose-orb {
+    .ikb-orb {
       width: 156px;
       height: 146px;
       border-radius: 54% 46% 49% 51% / 47% 55% 45% 53%;
-      background: radial-gradient(circle at 36% 32%, #ffe9e6 0%, #ef9ba0 38%, #cf5b6e 76%, #8f2d3e 100%);
-      box-shadow: inset -14px -18px 30px rgba(102, 22, 38, 0.34),
-                  inset 12px 12px 22px rgba(255, 255, 255, 0.62),
-                  0 22px 44px rgba(168, 70, 86, 0.24);
+      background: radial-gradient(circle at 35% 30%, #dce6ff 0%, #4b74ef 34%, #002FA7 72%, #001861 100%);
+      box-shadow: inset -14px -18px 32px rgba(0, 14, 66, 0.48),
+                  inset 12px 12px 24px rgba(255, 255, 255, 0.58),
+                  0 24px 48px rgba(0, 47, 167, 0.28);
     }
 
     /* Lede row */
@@ -433,7 +435,7 @@ const fmt = (d: Date) =>
 
     .reg-card:hover {
       border-color: var(--acc);
-      box-shadow: 0 8px 24px rgba(42, 26, 30, 0.06);
+      box-shadow: 0 8px 24px rgba(15, 23, 48, 0.07);
     }
 
     .reg-card:hover .v {

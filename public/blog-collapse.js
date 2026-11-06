@@ -11,7 +11,7 @@
 
   var css =
     '.hcoll{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;' +
-    'width:1.25em;height:1.25em;margin-right:.32em;vertical-align:baseline;color:var(--acc,#c94f62);font-size:.66em;' +
+    'width:1.25em;height:1.25em;margin-right:.32em;vertical-align:baseline;color:var(--acc,#002FA7);font-size:.66em;' +
     'line-height:1;position:relative;opacity:.65;transition:opacity .12s}' +
     'h1:hover>.hcoll,h2:hover>.hcoll,h3:hover>.hcoll,.hcoll:hover,.hcoll:focus-visible{opacity:1}' +
     '.hcoll::after{content:attr(data-tip);position:absolute;left:0;top:135%;white-space:nowrap;' +

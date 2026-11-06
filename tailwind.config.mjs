@@ -4,9 +4,9 @@ const ink = "hsl(var(--foreground))"
 const paper = "hsl(var(--background))"
 const dim = "hsl(var(--muted-foreground))"
 const faint = "hsl(var(--muted))"
-const roseAcc = "hsl(var(--primary))"
+const ikbAcc = "hsl(var(--primary))"
 
-const warmScale = {
+const editorialScale = {
   50: paper,
   100: faint,
   200: "hsl(var(--border))",
@@ -58,13 +58,13 @@ export default {
     },
     extend: {
       boxShadow: {
-        sm: '0 2px 8px rgba(42, 26, 30, 0.04)',
-        DEFAULT: '0 4px 16px rgba(42, 26, 30, 0.06)',
-        md: '0 8px 24px rgba(42, 26, 30, 0.07)',
-        lg: '0 14px 34px rgba(42, 26, 30, 0.09)',
-        xl: '0 20px 44px rgba(42, 26, 30, 0.11)',
-        '2xl': '0 28px 55px rgba(168, 70, 86, 0.16)',
-        inner: 'inset 0 2px 4px rgba(42, 26, 30, 0.04)',
+        sm: '0 2px 8px rgba(15, 23, 48, 0.04)',
+        DEFAULT: '0 4px 16px rgba(15, 23, 48, 0.06)',
+        md: '0 8px 24px rgba(15, 23, 48, 0.07)',
+        lg: '0 14px 34px rgba(15, 23, 48, 0.09)',
+        xl: '0 20px 44px rgba(15, 23, 48, 0.11)',
+        '2xl': '0 28px 55px rgba(0, 47, 167, 0.18)',
+        inner: 'inset 0 2px 4px rgba(15, 23, 48, 0.04)',
         none: '0 0 #0000',
       },
       ringOffsetColor: {
@@ -73,14 +73,14 @@ export default {
       colors: {
         white: "hsl(var(--card))",
         black: ink,
-        gray: warmScale,
-        slate: warmScale,
-        zinc: warmScale,
-        neutral: warmScale,
-        stone: warmScale,
-        red: { ...warmScale, 500: roseAcc, 600: roseAcc },
-        rose: { ...warmScale, 500: roseAcc, 600: roseAcc },
-        pink: { ...warmScale, 500: roseAcc, 600: roseAcc },
+        gray: editorialScale,
+        slate: editorialScale,
+        zinc: editorialScale,
+        neutral: editorialScale,
+        stone: editorialScale,
+        blue: { ...editorialScale, 500: ikbAcc, 600: ikbAcc, 700: ikbAcc },
+        indigo: { ...editorialScale, 500: ikbAcc, 600: ikbAcc, 700: ikbAcc },
+        red: { ...editorialScale, 500: ikbAcc, 600: ikbAcc },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -151,7 +151,7 @@ export default {
             '--tw-prose-invert-bold': 'hsl(var(--foreground))',
             '--tw-prose-invert-code': 'hsl(var(--foreground))',
             '--tw-prose-kbd': 'hsl(var(--foreground))',
-            '--tw-prose-kbd-shadows': '42 26 30',
+            '--tw-prose-kbd-shadows': '15 23 48',
             '--tw-prose-invert-lead': 'var(--lead-ink)',
             '--tw-prose-invert-counters': 'hsl(var(--muted-foreground))',
             '--tw-prose-invert-bullets': 'var(--acc)',
@@ -160,7 +160,7 @@ export default {
             '--tw-prose-invert-quote-borders': 'var(--acc)',
             '--tw-prose-invert-captions': 'hsl(var(--muted-foreground))',
             '--tw-prose-invert-kbd': 'hsl(var(--foreground))',
-            '--tw-prose-invert-kbd-shadows': '247 236 232',
+            '--tw-prose-invert-kbd-shadows': '244 241 236',
             '--tw-prose-invert-pre-code': 'hsl(var(--foreground))',
             '--tw-prose-invert-pre-bg': 'hsl(var(--muted))',
             '--tw-prose-invert-th-borders': 'hsl(var(--border))',
