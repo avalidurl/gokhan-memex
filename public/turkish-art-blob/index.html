@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Turkish Art Blob — Living Sculpture &amp; Installation Proposal · Gökhan Turhan</title>
+  <meta name="description" content="Turkish Art Blob is a bilingual (Turkish &amp; English), tissue-like talking AI sculpture about Turkish and global contemporary art — private by design, respectful of museum data rules, now moving from software prototype to physical installation.">
+  <link rel="canonical" href="https://gokhanturhan.com/turkish-art-blob">
+  <meta property="og:title" content="Turkish Art Blob — Installation Proposal by Gökhan Turhan">
+  <meta property="og:description" content="A realistic, flesh-toned talking 'ball of knowledge' conversing in Turkish and English about contemporary art. Seeking $5,000 upfront for a 6-month build into a physical gallery and public-space installation.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gokhanturhan.com/turkish-art-blob">
+  <meta property="og:image" content="https://gokhanturhan.com/turkish-art-blob/img/mockup-istanbul-courtyard.jpg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="art">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="logo" href="https://gokhanturhan.com">Turkish Art <span>Blob</span> <small>by Gökhan Turhan</small></a>
+    <nav aria-label="Page sections">
+      <a href="#concept">Concept</a>
+      <a href="#how">How it works</a>
+      <a href="#data">Data ethics</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#installation">Installation</a>
+      <a href="#funding">$5K &amp; 6-Month Plan</a>
+      <a href="#support">Support</a>
+    </nav>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="Explanation depth">
+        <button type="button" data-mode="art" aria-pressed="true">For art people</button>
+        <button type="button" data-mode="tech" aria-pressed="false">For technical people</button>
+      </div>
+      <div class="seg">
+        <button type="button" id="trbtn" title="Show Turkish headings" aria-pressed="false">TR</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="hero">
+  <div>
+    <div class="kicker">Open-source art prototype → Physical sculpture</div>
+    <h1>A talking ball of knowledge about contemporary art<span class="tr">Çağdaş sanat üzerine konuşan, yaşayan bir bilgi topu</span></h1>
+    <p class="lead art-only">A soft, human-tissue-like sculpture you can walk up to and speak with — in <b>Turkish or English</b> — about contemporary art from around the world, and especially from Turkey. It listens in real time, cites where its knowledge comes from, and shifts its pulse, colour, and surface tension with the mood and subject of the conversation.</p>
+    <p class="lead tech-only">Real-time bilingual (TR/EN) voice sculpture: procedural three.js subsurface-scattering flesh shader driven by live audio and semantic mood → streaming speech-to-text (<code>faster-whisper</code>) → two-lane cited retrieval (<code>BGE-M3</code> + live ephemeral fetches) → native-parameter open models in a hardware TEE / local GPU → open neural voice synthesis. Built strictly with open-source and low-cost tools.</p>
+    <div class="hero-actions">
+      <a class="btn primary" href="#funding">Why $5,000 upfront · 6-month plan</a>
+      <button type="button" class="btn" id="mic">Let it react to your microphone</button>
+    </div>
+    <p class="note" style="margin-top:16px">The blob on the right is running live in your browser using procedural code — no pre-rendered video, no 3D modelling software, and nothing from your microphone leaves your device.</p>
+  </div>
+
+  <div class="blob-wrap">
+    <div id="blob" role="img" aria-label="Interactive pink tissue-like 3D blob that breathes and ripples with sound">
+      <div class="blob-fallback" aria-hidden="true"><div class="blob-orb"></div></div>
+    </div>
+    <div class="mood-bar" aria-label="Preview how conversation topics shift the blob's form and tone">
+      <span class="mood-label">Topic mood shift:</span>
+      <button type="button" class="pill on" data-mood-color="#e7988f" data-mood-shape="1.0">Neutral</button>
+      <button type="button" class="pill" data-mood-color="#d98aa0" data-mood-shape="1.15">Biennial / Exhibition</button>
+      <button type="button" class="pill" data-mood-color="#e8a37c" data-mood-shape="1.0">Painting &amp; Colour</button>
+      <button type="button" class="pill" data-mood-color="#b493c9" data-mood-shape="1.25">Media &amp; Data Art</button>
+      <button type="button" class="pill" data-mood-color="#a8575f" data-mood-shape="0.85">Politics &amp; Elegy</button>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+
+  <section id="concept">
+    <h2>Concept: an organ for art memory, not a kiosk<span class="tr">Kavram: Bir müze ekranı değil, sanat belleği için canlı bir organ</span></h2>
+    <div class="art-only">
+      <p>Museum audio guides lecture; chatbots sit behind flat glass and pretend to know everything. <b>Turkish Art Blob</b> takes the opposite route. It has no face, no eyes, and no screen full of buttons — just an uncanny, fleshy, breathing mass of warm tissue that quivers when you speak and swells as it answers aloud.</p>
+      <p>Ask it in Turkish or English about the history of the Istanbul Biennial since 1987, the lineage of conceptual practice in 1990s Beyoğlu, a painting movement, or what is on view at an independent space right now. Rather than flattening Turkish contemporary art into generic global summaries, the work treats local exhibition histories, artist-run initiatives, critical essays, and institutional archives as primary material.</p>
+      <p>As the conversation turns — from joyful colour theory to archival politics, video art, or loss — the blob's surface tension, breathing cadence, and subsurface hue subtly shift. And when it does not know something, it says so plainly instead of inventing an answer.</p>
+    </div>
+    <div class="tech-only">
+      <p>Most conversational AI installations bolt a cloud wrapper onto an avatar rig. Here, both the aesthetic constraints and infrastructure choices are part of the artwork:</p>
+      <ul>
+        <li><b>Procedural embodiment (no Blender, no baked rigs):</b> an icosphere displaced on the GPU by multi-octave 3D simplex noise inside a custom <code>MeshPhysicalMaterial</code> (<code>clearcoat</code>, <code>sheen</code>, <code>transmission</code>, and red-shifted <code>attenuationColor</code> approximating dermal subsurface scattering).</li>
+        <li><b>Audio + semantic coupling:</b> real-time FFT amplitude from Web Audio <code>AnalyserNode</code> drives vertex displacement while topic/sentiment classifiers shift rest colour and deformation gain (e.g. calmer contraction on elegiac/political subjects, higher-frequency ripples on media/data art).</li>
+        <li><b>Bilingual grounding without hallucination:</b> system prompts enforce short spoken-cadence answers (2–5 sentences, zero markdown) in the speaker's language (Turkish or English), grounded in numbered source passages with explicit uncertainty when retrieval falls short.</li>
+        <li><b>Open-source &amp; low-cost stack:</b> built from inspectable open weights and permissive libraries rather than proprietary black-box avatar platforms.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="how">
+    <h2>How it works<span class="tr">Nasıl çalışır?</span></h2>
+    <div class="art-only">
+      <p>In plain words, every exchange passes through four steps in about a second:</p>
+      <ol>
+        <li><b>Ears (Listening)</b> — Directional microphones pick up your voice in the room and turn spoken Turkish or English into text on the spot, automatically noticing which language you used.</li>
+        <li><b>Memory (Looking up)</b> — Before forming a thought, it searches an internal library of open art writing (biennial histories, museum collections, open academic journals) and, if needed, reads a live museum or gallery web page in the moment.</li>
+        <li><b>Brain (Thinking without shortcuts)</b> — An open-weights language model composes a concise spoken reply grounded in those passages and names its sources aloud or on a small companion label. We run models with their native parameters — no flattened multi-provider routers and no quality-degrading compression shortcuts.</li>
+        <li><b>Voice &amp; Skin (Speaking)</b> — Open speech synthesis reads the answer aloud in Turkish or English while the sound wave itself drives the physical light and surface ripple of the blob.</li>
+      </ol>
+      <p>Whether running on a dedicated local machine tucked inside the plinth or inside a cryptographically sealed cloud enclave, no outside company gets to eavesdrop on the room.</p>
+    </div>
+    <div class="tech-only">
+      <ul>
+        <li><b>STT:</b> <code>faster-whisper</code> (<code>large-v3-turbo</code> on local installation GPU; <code>small</code>/<code>medium</code> on CPU prototypes) with voice-activity detection (VAD) for low-latency turn taking in Turkish and English.</li>
+        <li><b>Cross-lingual RAG:</b> <code>BGE-M3</code> dense + sparse multilingual embeddings over ~500-token exhibition/artist chunks. Held in RAM (LanceDB / NumPy / FAISS) inside the local node or enclave so user queries never leak to external vector SaaS.</li>
+        <li><b>LLM (native parameters, no degraded quantization):</b> full-precision / native-parameter open models — <code>Gemma 4 31B</code> or <code>Qwen3</code> series — served directly via vLLM / Ollama locally on dedicated hardware or inside an attested Phala TEE (Intel TDX + NVIDIA Confidential Computing). No flattened single-router APIs that strip native sampling parameters or silently swap quantized backends.</li>
+        <li><b>TTS:</b> <code>Piper</code> Turkish &amp; English ONNX voices for fast CPU response, paired with GPU neural synthesis on the local installation node for richer vocal warmth.</li>
+        <li><b>Static delivery:</b> Cloudflare Pages serves only static HTML/JS/shader code; live audio and text travel either over local loopback inside the gallery plinth or over TLS terminating directly inside the attested enclave.</li>
+      </ul>
+    </div>
+
+    <svg class="diagram" viewBox="0 0 820 300" width="100%" role="img" aria-label="System flow diagram showing visitor voice moving through Ears, Memory, Brain, and Voice inside a private boundary, drawing from the Store lane and Live lane">
+      <defs>
+        <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0 0L10 5L0 10z" fill="#c94f62"/>
+        </marker>
+      </defs>
+      <rect x="10" y="110" width="150" height="80" rx="14" fill="#fff" stroke="#ecdcd8"/>
+      <text x="85" y="143" text-anchor="middle" font-weight="700" font-size="14">Visitor / Plinth</text>
+      <text x="85" y="164" text-anchor="middle" font-size="12" fill="#7a6268">mic · blob · speaker</text>
+
+      <rect x="10" y="12" width="150" height="60" rx="14" fill="#f6e6e2"/>
+      <text x="85" y="37" text-anchor="middle" font-weight="700" font-size="14">Static web layer</text>
+      <text x="85" y="55" text-anchor="middle" font-size="12" fill="#7a6268">page &amp; shader only</text>
+      <line x1="85" y1="72" x2="85" y2="108" stroke="#aaa" stroke-dasharray="4" marker-end="url(#a)"/>
+
+      <rect x="230" y="36" width="380" height="224" rx="18" fill="#fff4f2" stroke="#c94f62" stroke-width="2"/>
+      <text x="420" y="62" text-anchor="middle" font-weight="700" font-size="14" fill="#c94f62">🔒 Private node (Local GPU plinth or attested TEE)</text>
+
+      <rect x="250" y="80" width="105" height="60" rx="10" fill="#fff" stroke="#ecdcd8"/>
+      <text x="302" y="106" text-anchor="middle" font-size="13" font-weight="700">Ears</text>
+      <text x="302" y="124" text-anchor="middle" font-size="11" fill="#7a6268">Whisper STT</text>
+
+      <rect x="368" y="80" width="105" height="60" rx="10" fill="#fff" stroke="#ecdcd8"/>
+      <text x="420" y="106" text-anchor="middle" font-size="13" font-weight="700">Memory</text>
+      <text x="420" y="124" text-anchor="middle" font-size="11" fill="#7a6268">BGE-M3 RAG</text>
+
+      <rect x="486" y="80" width="105" height="60" rx="10" fill="#fff" stroke="#ecdcd8"/>
+      <text x="538" y="106" text-anchor="middle" font-size="13" font-weight="700">Brain</text>
+      <text x="538" y="124" text-anchor="middle" font-size="11" fill="#7a6268">Native open LLM</text>
+
+      <rect x="368" y="175" width="105" height="60" rx="10" fill="#fff" stroke="#ecdcd8"/>
+      <text x="420" y="201" text-anchor="middle" font-size="13" font-weight="700">Voice &amp; Mood</text>
+      <text x="420" y="219" text-anchor="middle" font-size="11" fill="#7a6268">Open TTS + colour</text>
+
+      <line x1="355" y1="110" x2="366" y2="110" stroke="#c94f62" marker-end="url(#a)"/>
+      <line x1="473" y1="110" x2="484" y2="110" stroke="#c94f62" marker-end="url(#a)"/>
+      <path d="M538 140 Q538 205 475 205" fill="none" stroke="#c94f62" marker-end="url(#a)"/>
+      <line x1="160" y1="140" x2="248" y2="110" stroke="#c94f62" stroke-width="2" marker-end="url(#a)"/>
+      <path d="M366 205 L162 165" fill="none" stroke="#c94f62" stroke-width="2" marker-end="url(#a)"/>
+
+      <rect x="660" y="40" width="150" height="80" rx="14" fill="#fff" stroke="#4f9a7a" stroke-width="2"/>
+      <text x="735" y="68" text-anchor="middle" font-weight="700" font-size="13" fill="#246b4c">Store lane</text>
+      <text x="735" y="88" text-anchor="middle" font-size="11" fill="#7a6268">open / CC0 art texts</text>
+      <text x="735" y="104" text-anchor="middle" font-size="11" fill="#7a6268">indexed in advance</text>
+
+      <rect x="660" y="170" width="150" height="80" rx="14" fill="#fff" stroke="#d08a2c" stroke-width="2"/>
+      <text x="735" y="198" text-anchor="middle" font-weight="700" font-size="13" fill="#8a5a0c">Live lane</text>
+      <text x="735" y="218" text-anchor="middle" font-size="11" fill="#7a6268">ai-train=no institutions</text>
+      <text x="735" y="234" text-anchor="middle" font-size="11" fill="#7a6268">read live, cited, not kept</text>
+
+      <line x1="658" y1="85" x2="475" y2="105" stroke="#4f9a7a" marker-end="url(#a)"/>
+      <line x1="658" y1="205" x2="475" y2="120" stroke="#d08a2c" marker-end="url(#a)"/>
+      <text x="410" y="286" text-anchor="middle" font-size="12" fill="#7a6268">Audio and transcripts stay inside the private node; no conversation is saved unless a visitor explicitly opts in.</text>
+    </svg>
+  </section>
+
+  <section id="data">
+    <h2>Data ethics: the two-lane policy<span class="tr">Veri etiği: İki şeritli kaynak politikası</span></h2>
+    <p class="art-only">An art project about cultural memory shouldn't begin by scraping art institutions against their wishes. Many museums, archives, and independent galleries in Turkey publish explicit machine-readable notices saying <i>"do not train AI on our archives."</i> We treat those boundaries as binding rules, splitting the blob's knowledge into two strict lanes:</p>
+    <p class="tech-only">Every domain is checked before ingestion against <code>robots.txt</code>, Cloudflare Content-Signal headers (<code>ai-train=no, use=reference</code>), <code>/llms.txt</code>, and site terms of service. Sources are partitioned into two strict pipelines:</p>
+
+    <div class="grid">
+      <div class="card lane-store">
+        <h3>📚 Store lane (Open &amp; indexed)<span class="tr">Arşiv şeridi (Açık kaynaklar)</span></h3>
+        <p class="art-only">Material released under open licences or open crawl policies — such as Wikidata artist graphs, Wikipedia TR/EN biographies, open-access Turkish art journals on DergiPark, MoMA/Tate/Met CC0 datasets, and openly crawlable museum pages — is gathered politely into the blob's local index with full attribution.</p>
+        <p class="tech-only">CC0 / CC BY-SA datasets (Wikidata SPARQL Turkish artist graph, Wikipedia TR/EN, DergiPark OAI-PMH art journals, MoMA/Tate/Met CC0) plus sites whose <code>robots.txt</code> permits crawling without <code>ai-train=no</code> signals (e.g. İKSV Biennial sitemaps, Istanbul Modern, Sakıp Sabancı Museum, Arter, Argonotlar, e-skop). Chunked with URL + license metadata and embedded locally with <code>BGE-M3</code>.</p>
+      </div>
+      <div class="card lane-live">
+        <h3>🔎 Live lane (Cited on the fly, never stored)<span class="tr">Canlı şerit (Anlık okuma ve kaynak gösterme, kayıt yok)</span></h3>
+        <p class="art-only">Institutions and galleries that bar AI training or bulk archiving — such as SALT Research, Pera Museum, or galleries blocking AI crawlers — are <b>never stored in our database or used to train anything</b>. When a visitor asks about them, the system reads the public page in real time like a human reader, quotes a brief fact with clear spoken credit, and forgets the page as soon as the conversation ends.</p>
+        <p class="tech-only">Domains signalling <code>Content-Signal: ai-train=no</code> (SALT Research, Pera Museum) or disallowing AI user-agents (Galerist, Dirimart, Pi Artworks, Zilberman, Unlimited). Fetched on demand with an honest user-agent, respecting <code>Crawl-delay</code> and HTTP 403s; ≤2 short snippets enter transient RAM context, the URL is cited, and zero text/vectors/logs are written to disk.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="privacy">
+    <h2>Privacy &amp; sovereign infrastructure<span class="tr">Gizlilik ve bağımsız altyapı</span></h2>
+    <div class="art-only">
+      <p>Gallery visitors often speak candidly — asking naive questions, thinking aloud, or bringing personal memories into how they read an artwork. Turning a sculpture into a hidden surveillance microphone would ruin the trust that makes conversation possible.</p>
+      <ul>
+        <li><b>Private from the first word:</b> All speech recognition, retrieval, and language generation happen either on dedicated local hardware inside the installation or inside a sealed hardware enclave. No big-tech AI router sees your transcript.</li>
+        <li><b>Zero recording by default:</b> Audio exists in memory only for the seconds needed to answer, then disappears.</li>
+        <li><b>Opt-in with a destructible key:</b> If a visitor explicitly opts in to donate a conversation to an archive, that single recording is locked with its own cryptographic key. Withdrawing consent destroys that key ("crypto-shredding"), making the recording permanently unreadable everywhere, including offline backups.</li>
+        <li><b>Multi-country encrypted backups:</b> Project corpus and encrypted artefacts are backed up across independent jurisdictions — including Switzerland and Iceland, not solely the EU or US clouds.</li>
+      </ul>
+    </div>
+    <div class="tech-only">
+      <ul>
+        <li><b>Private inference from day one:</b> Local GPU inference inside the installation unit, paired with Phala Cloud TEE (Intel TDX + NVIDIA H100/H200 Confidential Computing, verifiable per-request dstack attestation) or EU-based Edgeless Privatemode as attested remote fallback when bandwidth/compute requires it.</li>
+        <li><b>Zero-retention session memory:</b> Audio buffers are decoded in RAM (<code>io.BytesIO</code>) and discarded post-transcription; no request-body logging, no Cloudflare AI Gateway plaintext termination.</li>
+        <li><b>Envelope encryption &amp; crypto-shredding:</b> Any opt-in recording gets a unique <code>AES-256-GCM</code> data key wrapped inside the enclave/owner keyring; deletion shreds the per-session key so even immutable WORM backups become indecipherable ciphertext.</li>
+        <li><b>3-2-1 multi-jurisdiction backups:</b> Client-side <code>restic</code> encryption mirrored across Cloudflare R2 + Infomaniak Swiss Backup (Switzerland, FADP) + 1984.is / Storj (Iceland / distributed E2EE) — avoiding single-vendor lock-in and avoiding Hetzner.</li>
+      </ul>
+    </div>
+    <p class="note">⚖️ Note on data protection: Where visitors in Türkiye opt in to any recording, Turkish Personal Data Protection Law (KVKK) alongside GDPR and Swiss FADP principles apply — requiring clear bilingual notice (<i>aydınlatma metni</i>) and explicit consent.</p>
+  </section>
+
+  <section id="installation">
+    <h2>The physical installation vision<span class="tr">Fiziksel yerleştirme vizyonu</span></h2>
+    <p>Right now, Turkish Art Blob exists as a working software and local-voice prototype. The goal of the next six months is to bring it off the flat browser window and into physical space as a self-contained sculptural object — something you encounter at body scale in a gallery, project space, or sheltered courtyard.</p>
+
+    <div class="grid">
+      <div class="card lane-accent">
+        <h3>Sculptural skin &amp; light</h3>
+        <p class="art-only">Two fabrication routes will be tested side by side: translucent platinum-cure silicone cast in organic lobes with internal projection / addressable LED subsurface glow, and rear-projected dome/membrane skins that carry the live fluid shader onto a curved three-dimensional body.</p>
+        <p class="tech-only">Prototyping two physical embodiments: (1) shore-00 translucent platinum silicone shell over an inner diffuser core driven by high-CRI addressable LEDs + surface transducers, and (2) seamless rear-projection onto a custom thermoformed acrylic/silicone membrane mapped from the live WebGL/GLSL shader at 60 fps.</p>
+      </div>
+      <div class="card lane-accent">
+        <h3>Room acoustics &amp; local brain</h3>
+        <p class="art-only">A directional microphone array focuses on the person standing in front of the plinth while ignoring background room chatter. A concealed speaker and tactile bass transducer inside the pedestal make the voice feel as though it resonates directly from the tissue mass.</p>
+        <p class="tech-only">Beamforming microphone array with acoustic echo cancellation (AEC) so visitor barge-in works cleanly in reverberant gallery rooms, paired with a concealed coaxial driver + tactile exciter inside the plinth and a quiet small-form-factor local GPU box running the full TR/EN pipeline offline-first.</p>
+      </div>
+    </div>
+
+    <div class="wide">
+      <div class="mockup-grid">
+        <figure class="mockup">
+          <img src="img/mockup-white-cube.jpg" alt="Mock-up of a translucent pinkish-rose blob sculpture resting on a white plinth in a sunlit contemporary gallery" width="1024" height="768">
+          <figcaption><span class="mockup-badge">Mock-up</span> <b>White-cube plinth study</b> — Daylit gallery configuration with a cast translucent silicone body (~80 cm) housing concealed acoustic drivers and local compute inside the pedestal.</figcaption>
+        </figure>
+        <figure class="mockup">
+          <img src="img/mockup-dark-room.jpg" alt="Mock-up of a glowing flesh-pink organic sculpture suspended in a dark acoustic room next to a directional microphone stand" width="1024" height="768">
+          <figcaption><span class="mockup-badge">Mock-up</span> <b>Dark listening room</b> — Suspended eye-level configuration in an acoustically treated black-box room, where internal subsurface light pulses directly with spoken Turkish and English replies.</figcaption>
+        </figure>
+        <figure class="mockup">
+          <img src="img/mockup-istanbul-courtyard.jpg" alt="Mock-up of a glowing rose-pink organic blob sculpture on a stone plinth in a historic Istanbul stone courtyard at dusk" width="1024" height="768">
+          <figcaption><span class="mockup-badge">Mock-up</span> <b>Istanbul courtyard study</b> — Sheltered outdoor public-space study under an arched stone portico at dusk, placing a living contemporary art archive into dialogue with civic architecture.</figcaption>
+        </figure>
+        <figure class="mockup">
+          <img src="img/mockup-visitor-conversation.jpg" alt="Mock-up of a gallery visitor leaning in to speak with an internally lit pink organic blob sculpture on a pedestal" width="1024" height="768">
+          <figcaption><span class="mockup-badge">Mock-up</span> <b>One-to-one encounter</b> — Intimate conversational scale: directional pickup isolates the speaker right in front of the plinth, shifting hue and surface rhythm as the topic unfolds.</figcaption>
+        </figure>
+      </div>
+    </div>
+    <p class="note">All four images above are <b>concept mock-ups</b> illustrating target scale, lighting, and spatial configurations for the 6-month build — not photographs of completed exhibitions.</p>
+  </section>
+
+  <section id="funding">
+    <h2>Why $5,000 upfront for a 6-month build<span class="tr">Neden 6 aylık üretim için peşin 5.000 ABD Doları gerekiyor?</span></h2>
+
+    <div class="funding-banner">
+      <p style="margin-bottom:10px"><b>The ask in one sentence:</b> Moving Turkish Art Blob from a screen-based prototype to a reliable, self-contained physical sculpture requires <b>USD $5,000 upfront</b> to fund a focused <b>6-month build period</b>.</p>
+      <p style="margin-bottom:0;color:#4a3539">Why upfront? Physical hardware, silicone casting compounds, optical/projection parts, and acoustic hardware all have to be bought and tested in Month 1–3 before fabrication can be locked in — they cannot be billed after the fact like pure cloud tokens. Keeping the software stack 100% open-source means almost every dollar goes straight into physical materials, dedicated private-inference hardware, and build time.</p>
+      <div class="stat-row">
+        <div class="stat">
+          <strong>USD $5,000</strong>
+          <span>Upfront production budget</span>
+        </div>
+        <div class="stat">
+          <strong>6 Months</strong>
+          <span>From prototype to exhibition-ready unit</span>
+        </div>
+        <div class="stat">
+          <strong>100% Open Stack</strong>
+          <span>No proprietary avatar or router lock-in</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>Proposed itemized budget breakdown (USD $5,000)<span class="tr">Önerilen bütçe dağılımı (5.000 ABD Doları)</span></h3>
+    <p style="color:var(--mut);font-size:15px">The figures below are a <b>proposed breakdown</b> based on current component, material, and enclave/backup pricing. Minor reallocations between hardware and skin fabrication may happen once bench tests in Month 2 conclude.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>What it covers</th>
+            <th class="n">Proposed (USD)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>1. Local private-inference hardware</b></td>
+            <td>Quiet small-form-factor GPU unit (24 GB VRAM class, e.g. used/refurb RTX 3090/4090-class SFF build or high-unified-memory mini node) housed inside the plinth to run native-parameter open models, <code>faster-whisper</code>, <code>BGE-M3</code>, and TTS on-site with sub-second latency.</td>
+            <td class="n">$1,550</td>
+          </tr>
+          <tr>
+            <td><b>2. Sculptural skin &amp; optical prototyping</b></td>
+            <td>Platinum-cure translucent silicone (Shore 00), pigments, 3D-printed mould positives, inner acrylic diffuser shells, high-CRI addressable LED / short-throw projection optics for subsurface illumination tests.</td>
+            <td class="n">$950</td>
+          </tr>
+          <tr>
+            <td><b>3. Acoustic array &amp; tactile sound</b></td>
+            <td>Directional beamforming microphone array (far-field gallery pickup + echo cancellation), concealed full-range speaker, bass surface transducer/exciter so the sculpture physically vibrates as it speaks, audio interface &amp; cabling.</td>
+            <td class="n">$550</td>
+          </tr>
+          <tr>
+            <td><b>4. Plinth fabrication &amp; thermal enclosure</b></td>
+            <td>Ventilated gallery plinth / mounting hardware, acoustic baffling for silent cooling, power conditioning, transport crate for safe site install.</td>
+            <td class="n">$600</td>
+          </tr>
+          <tr>
+            <td><b>5. Private enclave overflow &amp; multi-jurisdiction backups (6 mo)</b></td>
+            <td>6 months of attested Phala TEE compute for online/remote mirror sessions plus encrypted 3-2-1 backups across Switzerland (Infomaniak), Iceland (1984.is) / Storj, and Cloudflare R2, plus domain Ops.</td>
+            <td class="n">$450</td>
+          </tr>
+          <tr>
+            <td><b>6. Artist R&amp;D, corpus curation &amp; contingency</b></td>
+            <td>Modest allocation toward 6 months of corpus cleaning, bilingual Turkish/English evaluation testing, mould iterations, shipping/customs buffer in Türkiye, and open documentation.</td>
+            <td class="n">$900</td>
+          </tr>
+          <tr class="total-row">
+            <th>Total upfront budget</th>
+            <th>Proposed 6-month installation build</th>
+            <th class="n">$5,000</th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>6-month roadmap &amp; deliverables<span class="tr">6 aylık yol haritası ve çıktılar</span></h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-month">Month 1</div>
+        <h4>Private local node &amp; bilingual corpus v1</h4>
+        <p>Assemble and benchmark the local private-inference box; finalize the two-lane ingestion pipeline (open Turkish/global art store-lane index + verified live-lane citation fetcher with zero retention).</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-month">Month 2</div>
+        <h4>Voice latency, barge-in &amp; mood coupling</h4>
+        <p>Get end-to-end Turkish and English spoken turn-taking under ~1.2 seconds with echo cancellation; calibrate semantic mood mapping between art topics, vocal cadence, colour, and surface deformation.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-month">Month 3</div>
+        <h4>Material &amp; skin bench tests</h4>
+        <p>Cast small-scale translucent silicone skin studies and test internal LED subsurface scattering versus curved rear-projection; select the winning physical fabrication method and publish test notes.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-month">Month 4</div>
+        <h4>Full-scale body &amp; ventilated plinth</h4>
+        <p>Fabricate the full-scale (~70–85 cm) sculptural body, build the acoustically baffled plinth enclosure, and integrate concealed speakers, tactile exciters, and directional mic hardware.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-month">Month 5</div>
+        <h4>Stress testing &amp; bilingual evaluation</h4>
+        <p>Run multi-hour continuous thermal and acoustic stress tests in reverberant rooms; invite artists and critics for closed studio conversations in Turkish and English to audit citations and edge cases.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-month">Month 6</div>
+        <h4>Exhibition-ready unit &amp; open documentation</h4>
+        <p>Deliver the complete, crated, plug-and-play sculptural unit ready for gallery or public-space installation, alongside video documentation, architectural tech rider, and open-source code release.</p>
+      </div>
+    </div>
+
+    <details style="margin-top:18px">
+      <summary style="cursor:pointer;font-family:-apple-system,BlinkMacSystemFont,Inter,Arial,sans-serif;font-weight:600;color:var(--acc)">Ongoing operating cost after the build (software/cloud mirror reference)</summary>
+      <p style="margin-top:10px;font-size:15px">Once the physical unit is built, running it offline on its own plinth hardware costs only wall electricity. For the online mirror / attested enclave mode (~20 hours of active conversation per month), ongoing cloud costs sit around <b>$55–60/month</b> (Cloudflare Pages static hosting $0, scheduled Phala confidential VM ~$46, native Gemma 4 31B attested API ~$7, multi-jurisdiction encrypted backups under 100 GB ~$2–5).</p>
+    </details>
+  </section>
+
+  <section id="glossary">
+    <h2>Quick glossary<span class="tr">Kısa sözlük</span></h2>
+    <dl>
+      <dt>Subsurface scattering (SSS)</dt>
+      <dd>The way light penetrates translucent surfaces like human skin, wax, or silicone and scatters warmly underneath before exiting — what makes the blob read as living tissue rather than plastic.</dd>
+      <dt>RAG (Retrieval-Augmented Generation)</dt>
+      <dd>"Look it up before speaking." Instead of relying on foggy model memory, the system retrieves real passages first and cites where each claim came from.</dd>
+      <dt>ai-train=no / Two-lane policy</dt>
+      <dd>A machine-readable signal published by institutions saying their archives may not be used to train AI. Our Live lane reads public pages only in the moment for short cited reference and never stores them.</dd>
+      <dt>TEE (Trusted Execution Environment)</dt>
+      <dd>A hardware-encrypted enclave inside a processor where code and memory are sealed so not even the server host can inspect the conversation.</dd>
+      <dt>Crypto-shredding</dt>
+      <dd>Encrypting an opt-in recording with its own unique key so that deleting the key permanently destroys access to the recording everywhere at once.</dd>
+    </dl>
+  </section>
+
+  <section id="support">
+    <h2>Support, commission, or host the installation<span class="tr">Projeyi destekleyin, üretim ortağı olun veya sergileyin</span></h2>
+    <div class="cta-card">
+      <p>I am looking to raise the <b>USD $5,000 upfront production budget</b> — through an upfront patron/grant contribution, milestone bounty funding, an art-and-technology commission, or a hosting space that wants to premiere the physical sculpture at the end of the 6-month build.</p>
+      <p style="margin-bottom:0">If you want to fund the 6-month build, co-produce the physical unit, propose a venue in Istanbul or abroad, or ask technical/curatorial questions, reach out directly:</p>
+      <div class="cta-links">
+        <a class="btn primary" href="mailto:contact@gokhan.vc?subject=Turkish%20Art%20Blob%20%E2%80%94%20Installation">Email contact@gokhan.vc</a>
+        <a class="btn" href="https://x.com/goekhan" target="_blank" rel="noopener noreferrer">X · @goekhan</a>
+        <a class="btn" href="https://gokhanturhan.com" target="_blank" rel="noopener noreferrer">gokhanturhan.com</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Turkish Art Blob · Gökhan Turhan (<a href="https://gokhanturhan.com">gokhanturhan.com</a> · <a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a> · <a href="https://x.com/goekhan">@goekhan</a>) · Self-contained static page, built with open tools
+</footer>
+
+<script src="js/blob.bundle.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
