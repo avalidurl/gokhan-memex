@@ -1,5 +1,5 @@
 Source: https://github.com/avalidurl/ethereum-doomsday-tracker
-Commit: 806469007ea89455c2853fc1643e735d90dc3e45
-Built: 2026-11-06T19:47:36Z
+Commit: b580ee810b32054fe9f2233cc767b1073cef8a3d
+Built: 2026-11-06T19:49:49Z
 Mount: static copy under Cloudflare Pages project gokhan-memex (GitHub → Pages).
 Do not edit files here by hand; rebuild from the tracker repo and re-sync.
