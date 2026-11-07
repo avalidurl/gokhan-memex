@@ -1,5 +1,5 @@
 {
-  "name": "Gökhan Turhan - Strategic Innovation & Writing",
+  "name": "Gökhan Turhan",
   "short_name": "Gökhan Turhan",
   "description": "Strategic Innovation Architect, researcher, and conceptual artist. T-shaped generalist operating across fintech, deep tech, competitive governance, art markets, and investment strategies.",
   "start_url": "/",
@@ -10,73 +10,34 @@
   "background_color": "#f4f4f2",
   "lang": "en",
   "dir": "ltr",
-  "categories": ["productivity", "education", "news", "business"],
+  "categories": [
+    "productivity",
+    "education",
+    "news",
+    "business"
+  ],
   "icons": [
     {
-      "src": "/favicon.svg",
-      "type": "image/svg+xml",
-      "sizes": "any",
-      "purpose": "any maskable"
+      "src": "/favicon-avatar.jpg",
+      "sizes": "460x460",
+      "type": "image/jpeg"
     },
     {
-      "src": "/icons/icon-72x72.png",
-      "type": "image/png",
-      "sizes": "72x72",
-      "purpose": "any"
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
     },
     {
-      "src": "/icons/icon-96x96.png",
-      "type": "image/png",
-      "sizes": "96x96",
-      "purpose": "any"
-    },
-    {
-      "src": "/icons/icon-128x128.png",
-      "type": "image/png",
-      "sizes": "128x128",
-      "purpose": "any"
-    },
-    {
-      "src": "/icons/icon-144x144.png",
-      "type": "image/png",
-      "sizes": "144x144",
-      "purpose": "any"
-    },
-    {
-      "src": "/icons/icon-152x152.png",
-      "type": "image/png",
-      "sizes": "152x152",
-      "purpose": "any"
-    },
-    {
-      "src": "/icons/icon-192x192.png",
-      "type": "image/png",
+      "src": "/avatar-icon-192.png",
       "sizes": "192x192",
+      "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icons/icon-384x384.png",
-      "type": "image/png",
-      "sizes": "384x384",
-      "purpose": "any"
-    },
-    {
-      "src": "/icons/icon-512x512.png",
-      "type": "image/png",
+      "src": "/avatar-icon-512.png",
       "sizes": "512x512",
+      "type": "image/png",
       "purpose": "any"
-    },
-    {
-      "src": "/icons/icon-maskable-192x192.png",
-      "type": "image/png",
-      "sizes": "192x192",
-      "purpose": "maskable"
-    },
-    {
-      "src": "/icons/icon-maskable-512x512.png",
-      "type": "image/png",
-      "sizes": "512x512",
-      "purpose": "maskable"
     }
   ],
   "screenshots": [
