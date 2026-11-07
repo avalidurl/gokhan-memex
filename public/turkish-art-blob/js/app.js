@@ -1,5 +1,19 @@
 (function () {
   var b = document.body;
+  var lang = (document.documentElement.getAttribute('lang') || 'en').toLowerCase().indexOf('tr') === 0 ? 'tr' : 'en';
+
+  var i18n = {
+    en: {
+      noShader: '3D shader unavailable in this browser',
+      listening: 'Listening — speak to move it',
+      micBlocked: 'Microphone blocked (breathing animation stays active)'
+    },
+    tr: {
+      noShader: '3B shader bu tarayıcıda kullanılamıyor',
+      listening: 'Dinliyor — hareket ettirmek için konuşun',
+      micBlocked: 'Mikrofon izni kapalı (nefes animasyonu aktif kalır)'
+    }
+  };
 
   function mode(m) {
     b.classList.remove('art', 'tech');
@@ -28,14 +42,13 @@
   var mic = document.getElementById('mic');
   if (mic) {
     mic.addEventListener('click', function () {
+      var t = i18n[lang];
       if (!window.blobMic) {
-        mic.textContent = '3D shader unavailable in this browser';
+        mic.textContent = t.noShader;
         return;
       }
       window.blobMic().then(function (ok) {
-        mic.textContent = ok
-          ? 'Listening — speak to move it'
-          : 'Microphone blocked (breathing animation stays active)';
+        mic.textContent = ok ? t.listening : t.micBlocked;
       });
     });
   }
