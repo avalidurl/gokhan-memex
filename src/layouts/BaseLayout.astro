@@ -30,7 +30,7 @@ export interface Props {
 const {
   title,
   description,
-  image = '/og-default.png',
+  image = '/og/gokhan-turhan-v2.png',
   canonicalURL = new URL(Astro.url.pathname, Astro.site),
   type = 'website',
   robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
@@ -94,7 +94,8 @@ const tableDeskVersion = createHash('sha256')
       const t = localStorage.getItem('theme');
       if (t === 'dark' || t === 'light') document.documentElement.classList.add(t);
     </script>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/jpeg" href="/favicon-avatar.jpg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <meta name="generator" content={Astro.generator} />
     
     <!-- SEO -->
@@ -111,6 +112,13 @@ const tableDeskVersion = createHash('sha256')
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(image, Astro.site)} />
     <meta property="og:site_name" content={siteName} />
+    <meta name="author" content={siteName} />
+    <meta property="og:image:alt" content={fullTitle} />
+    {image === "/og/gokhan-turhan-v2.png" && <>
+      <meta property="og:image:type" content="image/png" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+    </>}
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -119,6 +127,7 @@ const tableDeskVersion = createHash('sha256')
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL(image, Astro.site)} />
+    <meta name="twitter:image:alt" content={fullTitle} />
     
     <!-- RSS -->
     <link rel="alternate" type="application/rss+xml" title={siteName} href="/rss.xml" />
