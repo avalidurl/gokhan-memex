@@ -55,7 +55,7 @@ const defaultArticleSchema = {
     "@type": "WebPage",
     "@id": `https://gokhanturhan.com/journal/${post.slug}/`
   },
-  "image": post.data.heroImage ? `https://gokhanturhan.com${post.data.heroImage}` : "https://gokhanturhan.com/og-default.png",
+  "image": post.data.heroImage ? `https://gokhanturhan.com${post.data.heroImage}` : "https://gokhanturhan.com/og/gokhan-turhan-v2.png",
   "articleSection": post.data.category,
   "keywords": post.data.tags?.join(', ') || ''
 }
