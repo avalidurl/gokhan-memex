@@ -1,4 +1,6 @@
 ---
+import { existsSync } from 'node:fs'
+import { resolve } from 'node:path'
 import { type CollectionEntry, getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import SocialShare from '@/components/SocialShare.astro'
@@ -27,6 +29,11 @@ type Props = CollectionEntry<'blog'> & { docNumber: number }
 
 const post = Astro.props
 const { Content, headings } = await post.render()
+// Preserve real custom artwork; a missing local file must not yield a 404 social
+// preview. This selection does not change the visible article hero below.
+const heroImage = post.data.heroImage
+const socialImage = heroImage && (/^https?:\/\//.test(heroImage) || existsSync(resolve('public', `.${heroImage}`)))
+  ? heroImage : `/og/${post.slug}.png`
 
 // Doc-strip identifiers — plain mono labels in the datasheet register.
 const docId = `JOURNAL-${String(post.docNumber).padStart(3, '0')}`
@@ -55,7 +62,7 @@ const defaultArticleSchema = {
     "@type": "WebPage",
     "@id": `https://gokhanturhan.com/journal/${post.slug}/`
   },
-  "image": post.data.heroImage ? `https://gokhanturhan.com${post.data.heroImage}` : "https://gokhanturhan.com/og/gokhan-turhan-v2.png",
+  "image": new URL(socialImage, 'https://gokhanturhan.com').href,
   "articleSection": post.data.category,
   "keywords": post.data.tags?.join(', ') || ''
 }
@@ -72,7 +79,7 @@ const showToc = tocHeadings.length >= 2
   title={plainPostTitle(post.data.title)}
   description={post.data.description}
   type="article"
-  image={post.data.heroImage || `/og/${post.slug}.png`}
+  image={socialImage}
   canonicalURL={post.data.originalUrl}
   hideFooterSubscribe
 >
