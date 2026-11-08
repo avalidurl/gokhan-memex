@@ -1,0 +1,365 @@
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url("/fonts/home/f01.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url("/fonts/home/f02.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Newsreader";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/home/f03.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Newsreader";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/home/f04.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Newsreader";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/home/f05.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Newsreader";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/home/f06.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  --ink: #141414;
+  --paper: #f6f5f1;
+  --dim: #4a4a46;
+  --faint: #d2d0c8;
+  --hair: #d2d0c8;
+  --ikb: #002fa7;
+  --red: #e10600;
+  --wash: rgba(20, 20, 20, 0.045);
+  --serif: "Newsreader", "Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif;
+  --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --read: var(--serif);
+  --font-text: var(--serif);
+  --font-sans: var(--serif);
+  --font-data: var(--mono);
+  --font-mono: var(--mono);
+  color-scheme: light;
+}
+html.ink {
+  --ink: #f3f2ec;
+  --paper: #141414;
+  --dim: #b4b3ab;
+  --faint: #2e2e2c;
+  --hair: #2e2e2c;
+  --ikb: #8eb0ff;
+  --red: #ff4d3a;
+  --wash: rgba(243, 242, 236, 0.06);
+  color-scheme: dark;
+}
+html.sans { --read: var(--sans); --font-text: var(--sans); --font-sans: var(--sans); }
+
+body.register {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--read);
+  font-size: 18px;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  border-top: 1px solid var(--ink);
+}
+body.register a { color: var(--ikb); text-underline-offset: 0.14em; }
+body.register :focus-visible { outline: 2px solid var(--ikb); outline-offset: 2px; }
+body.register ::selection { background: var(--ikb); color: var(--paper); }
+
+.reg-sheet {
+  width: min(44rem, calc(100% - 2.5rem));
+  margin: 0 auto;
+  padding: 1.35rem 0 3.5rem;
+}
+.reg-id {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+.reg-id h1 {
+  font-family: var(--read);
+  font-size: 1.35rem;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  margin: 0;
+}
+.reg-id h1 a { color: inherit; text-decoration: none; }
+.reg-id h1 a:hover { color: var(--ikb); }
+.reg-role, .reg-doc {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--dim);
+}
+.reg-role { margin-top: 0.15rem; }
+.reg-doc { font-size: 11px; text-align: right; white-space: nowrap; }
+.reg-doc b { color: var(--ink); font-weight: 500; }
+.reg-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-top: 0.85rem;
+  border-bottom: 2px solid var(--ink);
+}
+.reg-bar nav { display: flex; flex-wrap: wrap; }
+.reg-bar nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 0.95rem 0 0;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink);
+  text-decoration: none;
+}
+.reg-bar nav a[aria-current="page"] { box-shadow: inset 0 -2px 0 var(--red); }
+.reg-bar nav a:hover { color: var(--ikb); }
+.reg-modes { display: flex; gap: 0.35rem; padding-bottom: 0.45rem; }
+.reg-modes button {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--dim);
+  background: transparent;
+  border: 1px solid var(--hair);
+  padding: 0.35rem 0.5rem;
+  min-height: 32px;
+  cursor: pointer;
+}
+.reg-modes button:hover { color: var(--ink); border-color: var(--ink); }
+
+body.register main {
+  font-family: var(--read);
+  color: var(--ink);
+}
+body.register main h1,
+body.register .dispatch-title,
+body.register .prose :where(h1) {
+  font-family: var(--read) !important;
+  font-weight: 500 !important;
+  font-size: 1.7rem !important;
+  letter-spacing: -0.02em !important;
+  line-height: 1.15 !important;
+  margin: 1.15rem 0 0.55rem !important;
+  text-transform: none !important;
+  color: var(--ink) !important;
+}
+body.register main h2,
+body.register .prose :where(h2) {
+  font-family: var(--read) !important;
+  font-weight: 500 !important;
+  font-size: 1.28rem !important;
+  letter-spacing: -0.015em !important;
+  text-transform: none !important;
+  color: var(--ink) !important;
+  margin: 1.6rem 0 0.4rem !important;
+}
+body.register main h3,
+body.register .prose :where(h3) {
+  font-family: var(--read) !important;
+  font-weight: 500 !important;
+  font-size: 1.12rem !important;
+  text-transform: none !important;
+  color: var(--ink) !important;
+}
+body.register .prose,
+body.register .prose :where(p, li, blockquote, figcaption),
+body.register .dispatch-lede,
+body.register main p {
+  font-family: var(--read);
+  color: var(--ink);
+}
+body.register .prose :where(p) { margin: 0.85em 0; text-wrap: pretty; }
+body.register .prose :where(a),
+body.register main a { color: var(--ikb); }
+body.register .prose :where(a) { text-decoration-thickness: 1px; }
+body.register .prose :where(code) {
+  font-family: var(--mono) !important;
+  font-size: 0.84em !important;
+  background: var(--wash) !important;
+  color: var(--ink) !important;
+  border-radius: 0 !important;
+}
+body.register .prose :where(pre) {
+  font-family: var(--mono) !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-top: 1px solid var(--hair) !important;
+  border-radius: 0 !important;
+  color: var(--ink) !important;
+}
+body.register .prose :where(blockquote) {
+  border-left: 1px solid var(--hair) !important;
+  color: var(--dim) !important;
+  font-style: italic;
+}
+body.register .prose :where(img),
+body.register article img {
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+
+body.register .docstrip,
+body.register .eyebrow,
+body.register .dispatch-tags,
+body.register .contents-label,
+body.register .kicker {
+  font-family: var(--mono) !important;
+  font-size: 12px !important;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--dim) !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+body.register .docstrip {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 1.15rem 0 0.35rem;
+  padding: 0;
+}
+body.register .dispatch,
+body.register .dispatch-header,
+body.register .contents-box,
+body.register article > footer,
+body.register .site-sheet {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  max-width: none !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+body.register .contents-box {
+  border-top: 1px solid var(--hair) !important;
+  margin: 1rem 0 1.4rem;
+  padding-top: 0.4rem;
+}
+body.register .contents-list { font-family: var(--read); }
+body.register .contents-link { color: var(--ink); text-decoration: none; }
+body.register .contents-link:hover { color: var(--ikb); }
+
+body.register main ul.space-y-1,
+body.register main .space-y-12 ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+body.register main a.group,
+body.register main li > a.flex {
+  display: grid !important;
+  grid-template-columns: 1fr auto;
+  gap: 0.75rem 1rem;
+  align-items: baseline;
+  padding: 0.42rem 0.2rem !important;
+  border-top: 1px solid var(--hair);
+  color: inherit !important;
+  text-decoration: none !important;
+}
+body.register main a.group:hover,
+body.register main li > a.flex:hover { background: var(--wash); }
+body.register main a.group:hover :where(span, p),
+body.register main li > a.flex:hover { color: var(--ikb); }
+body.register main a.group span,
+body.register main li > a.flex span:last-child {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--dim) !important;
+}
+
+body.register .reg-foot { margin-top: 2.2rem; }
+body.register .reg-rule {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin: 1.65rem 0 0.35rem;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+body.register .reg-rule::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid var(--hair);
+  transform: translateY(-0.28em);
+}
+body.register .reg-channels,
+body.register .reg-fine {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.7;
+  margin: 0.35rem 0 0;
+}
+body.register .reg-channels a,
+body.register .reg-fine a { color: var(--ink); text-decoration: none; }
+body.register .reg-channels a:hover,
+body.register .reg-fine a:hover { color: var(--ikb); }
+body.register .reg-dot { color: var(--dim); padding: 0 0.3rem; }
+
+body.register table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+body.register th, body.register td {
+  border-top: 1px solid var(--hair);
+  padding: 0.4rem 0.35rem;
+  text-align: left;
+  vertical-align: baseline;
+}
+body.register th { font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--dim); }
+body.register input, body.register textarea, body.register select {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--ink);
+  border-radius: 0;
+  padding: 0.35rem 0;
+}
+body.register button, body.register .tile {
+  font-family: var(--mono);
+  border-radius: 0;
+}
+
+@media (max-width: 680px) {
+  body.register { font-size: 17px; }
+  .reg-sheet { width: min(44rem, calc(100% - 1.5rem)); }
+  .reg-id { flex-direction: column; gap: 0.25rem; }
+  .reg-doc { text-align: left; white-space: normal; }
+  body.register main h1, body.register .dispatch-title { font-size: 1.45rem !important; }
+}

@@ -2,15 +2,10 @@
 import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
-import Navigation from '@/components/Navigation.astro'
-import Breadcrumbs from '@/components/Breadcrumbs.astro'
-import ThemeProvider from '@/components/ThemeProvider.astro'
 import PrivacyNotice from '@/components/PrivacyNotice.astro'
 import OfflineStatus from '@/components/OfflineStatus.astro'
-import FooterSubscribe from '@/components/FooterSubscribe.astro'
-import { getAutoBreadcrumbs, type BreadcrumbItem } from '@/lib/breadcrumbs'
-import '@/styles/globals.css'
 import criticalStyles from '@/styles/critical.css?inline'
+import '@/styles/globals.css'
 
 export interface Props {
   title: string
@@ -19,10 +14,10 @@ export interface Props {
   canonicalURL?: string
   type?: 'website' | 'article'
   robots?: string
-  /** Hide breadcrumbs (default: show on all pages except home). */
+  /** Hide breadcrumbs (kept so existing pages still typecheck). */
   showBreadcrumbs?: boolean
-  /** Full breadcrumb trail; overrides auto-detection from URL + title. */
-  breadcrumbOverride?: { items: BreadcrumbItem[]; currentPage: string }
+  /** Full breadcrumb trail; unused in the register chrome. */
+  breadcrumbOverride?: { items: { href?: string; label: string }[]; currentPage: string }
   /** Hide footer subscribe when journal in-flow block is shown. */
   hideFooterSubscribe?: boolean
 }
@@ -34,19 +29,23 @@ const {
   canonicalURL = new URL(Astro.url.pathname, Astro.site),
   type = 'website',
   robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
-  showBreadcrumbs = true,
-  breadcrumbOverride,
-  hideFooterSubscribe = false,
 } = Astro.props
 
 const siteName = 'Gökhan Turhan'
 const fullTitle = title === siteName ? title : `${title} | ${siteName}`
 
 const pathname = Astro.url.pathname
-const breadcrumbData =
-  showBreadcrumbs && (breadcrumbOverride ?? getAutoBreadcrumbs(pathname, title))
+const path = pathname.endsWith('/') ? pathname : `${pathname}/`
+const nav = [
+  { name: 'Index', href: '/', on: path === '/' },
+  { name: 'Journal', href: '/journal/', on: path.startsWith('/journal') || path.startsWith('/archive') || path.startsWith('/writing') },
+  { name: 'Projects', href: '/projects/', on: path.startsWith('/projects') },
+  { name: 'Publishing', href: '/publishing/', on: path.startsWith('/publishing') },
+  { name: 'CV', href: '/cv/', on: path.startsWith('/cv') },
+  { name: 'Raises', href: '/#raises', on: false },
+  { name: 'Agents', href: '/#agents', on: false },
+]
 
-// Document register — every surface files under a section number.
 const docSection = pathname.split('/').filter(Boolean)[0] ?? ''
 const docMap: Record<string, string> = {
   '': 'MX-001',
@@ -58,6 +57,7 @@ const docMap: Record<string, string> = {
   art: 'MX-060',
   lists: 'MX-070',
   links: 'MX-080',
+  newsletter: 'MX-081',
   haleanbar: 'MX-085',
   cv: 'MX-090',
   consulting: 'MX-091',
@@ -90,10 +90,7 @@ const tableDeskVersion = createHash('sha256')
          in the inlined critical styles), so no JS is needed for the default.
          This script only stamps an explicit stored choice; data-cfasync keeps
          Rocket Loader from deferring it past first paint. -->
-    <script is:inline data-cfasync="false">
-      const t = localStorage.getItem('theme');
-      if (t === 'dark' || t === 'light') document.documentElement.classList.add(t);
-    </script>
+    <script is:inline src="/register-boot.js"></script>
     <link rel="icon" type="image/jpeg" href="/favicon-avatar.jpg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <meta name="generator" content={Astro.generator} />
@@ -244,50 +241,53 @@ const tableDeskVersion = createHash('sha256')
 
     <!-- Per-page head content passed via slot="head" (Article JSON-LD, custom schemas, seoKeywords meta). -->
     <slot name="head" />
+    <link rel="stylesheet" href="/register.css" />
   </head>
 
-  <body class="min-h-screen font-sans">
-    <p class="nrbar">
-      <span class="nrbar-flag">We are raising</span>
-      <span class="nrbar-note">— check our decks:</span>
-      <a class="nrbar-link" href="https://ishtar.numetal.xyz/deck/not-raising-a-preseed/">Ishtar deck</a>
-      <span class="nrbar-note" aria-hidden="true">·</span>
-      <a class="nrbar-link" href="https://curb.numetal.xyz/deck">Curb deck</a>
-    </p>
-    <ThemeProvider />
-    <div class="site-sheet relative flex min-h-screen flex-col">
-      <Navigation docNo={docNo} docRev={docRev} />
-
-      <main class="flex-1">
-        {breadcrumbData && (
-          <div class="mx-auto max-w-5xl px-6 pt-6 lg:px-8">
-            <Breadcrumbs items={breadcrumbData.items} currentPage={breadcrumbData.currentPage} />
+  <body class="register">
+    <div class="reg-sheet">
+      <header class="mast">
+        <div class="reg-id">
+          <div>
+            <h1><a href="/">Gökhan Turhan</a></h1>
+            <p class="reg-role">Full-stack builder · generalist solopreneur · conceptual artist</p>
           </div>
-        )}
-        <slot />
-      </main>
-      
-      <!-- Footer -->
-      <footer class="mt-auto px-6 py-8">
-        <div class="mx-auto max-w-2xl">
-          {
-            !hideFooterSubscribe && <FooterSubscribe />
-          }
-          <div class="flex flex-col gap-3 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-            <span>© {new Date().getFullYear()} Gökhan Turhan</span>
-            <div class="flex flex-wrap items-center gap-x-5 gap-y-1">
-              <a href="/newsletter/" class="raw-link">Newsletter</a>
-              <a href="/rss.xml" class="raw-link">RSS</a>
-              <a href="/privacy" class="raw-link">Privacy</a>
-              <a href="/disclaimer" class="raw-link">Disclaimer</a>
-            </div>
-          </div>
-          <div class="perforation" style="margin-top:1.4rem" aria-hidden="true"></div>
-          <div class="colophon" style="margin-top:0.6rem">
-            <span>GT MEMEX · DOC {docNo} · {docRev}</span>
-            <span>PERSONAL RECORD — CONTENTS AS FILED</span>
+          <p class="reg-doc"><b>{docNo}</b><span> · {docRev}</span></p>
+        </div>
+        <div class="reg-bar">
+          <nav aria-label="Sections">
+            {nav.map((item) => (
+              <a href={item.href} aria-current={item.on ? 'page' : 'false'}>{item.name}</a>
+            ))}
+          </nav>
+          <div class="reg-modes">
+            <button type="button" id="theme" aria-pressed="false">Ink</button>
+            <button type="button" id="face" aria-pressed="false">Sans</button>
           </div>
         </div>
+      </header>
+
+      <main>
+        <slot />
+      </main>
+
+      <footer class="reg-foot">
+        <div class="reg-rule"><span>Reach</span></div>
+        <p class="reg-channels">
+          <a href="https://x.com/goekhan">X</a><span class="reg-dot">/</span>
+          <a href="https://t.me/goekhanturhan">Telegram</a><span class="reg-dot">/</span>
+          <a href="https://www.linkedin.com/in/goekhanturhan/">LinkedIn</a><span class="reg-dot">/</span>
+          <a href="https://github.com/avalidurl">GitHub</a><span class="reg-dot">/</span>
+          <a href="https://gokhan.substack.com/">Substack</a><span class="reg-dot">/</span>
+          <a href="/rss.xml">RSS</a><span class="reg-dot">/</span>
+          <a href="/newsletter/">Newsletter</a>
+        </p>
+        <p class="reg-fine">
+          <a href="https://gokhan.vc">Gökhan Ventures</a><span class="reg-dot">/</span>
+          <a href="https://numetal.xyz">Numetal</a><span class="reg-dot">/</span>
+          <a href="/privacy/">Privacy</a><span class="reg-dot">/</span>
+          <a href="/disclaimer/">Disclaimer</a>
+        </p>
       </footer>
     </div>
     
@@ -320,8 +320,9 @@ const tableDeskVersion = createHash('sha256')
       });
     </script>
     <!-- Collapsible article headings (blog/journal only; no-ops elsewhere). -->
-    <script src={`/blog-collapse.js?v=${collapseVersion}`} defer></script>
-    <script src={`/table-desk.js?v=${tableDeskVersion}`} defer></script>
+    <script is:inline src="/register.js" defer></script>
+    <script is:inline src={`/blog-collapse.js?v=${collapseVersion}`} defer></script>
+    <script is:inline src={`/table-desk.js?v=${tableDeskVersion}`} defer></script>
   </body>
 </html>
 
