@@ -78,11 +78,12 @@ export default defineConfig({
       changefreq: 'weekly',
       priority: 0.7,
       lastmod: new Date(),
+      customPages: ['https://gokhanturhan.com/'],
       serialize(item) {
         // Update lastmod to current time for better indexing
         item.lastmod = new Date();
         // Set higher priority for important pages
-        if (item.url === '' || item.url === '/' || item.url.includes('/journal/')) {
+        if (item.url === '' || item.url === '/' || item.url === 'https://gokhanturhan.com/' || item.url.includes('/journal/')) {
           item.priority = 1.0;
         }
         // Ensure canonical trailing slash format
