@@ -12,35 +12,35 @@ Numetal, Gökhan Ventures, AgentBounty and the products under them are moving to
 
 ## Where things will be
 
-| Product | Address | Page here |
+| Product | New address | Former address |
 |---|---|---|
-| Numetal | numetal.xyz | [/numetal/](/numetal/) |
-| Numetal status board | status.numetal.xyz | [/numetal/status/](/numetal/status/) |
-| Ishtar | ishtar.numetal.xyz | [/ishtar/](/ishtar/) |
-| HeartBench | ishtar.numetal.xyz/heartbench | [/ishtar/heartbench/](/ishtar/heartbench/) |
-| The Window | ishtar.numetal.xyz/window | [/ishtar/window/](/ishtar/window/) |
-| Ishtar docs | ishtar.numetal.xyz/docs | [/ishtar/docs/](/ishtar/docs/) |
-| HeartPrefs | — | [/heartprefs/](/heartprefs/) |
-| CURB | curb.numetal.xyz | [/curb/](/curb/) |
-| CURB harness | harness.curb.numetal.xyz · buyer.curb.numetal.xyz · seller.curb.numetal.xyz | [/curb/harness/](/curb/harness/) |
-| Launch | launch.numetal.xyz | [/launch/](/launch/) |
-| UBU · CLINAMEN | ubu.numetal.xyz | [/ubu/](/ubu/) |
-| CCRU archive | ccru.numetal.xyz | [/ccru/](/ccru/) |
-| Reclaim | reclaim.numetal.xyz | [/reclaim/](/reclaim/) |
-| plaintext | plaintext.numetal.xyz | [/plaintext/](/plaintext/) |
-| Accumulator | accumulator.numetal.xyz | [/accumulator/](/accumulator/) |
-| REBASE | rebase.numetal.xyz | [/rebase/](/rebase/) |
-| REBASE docs | docs.rebase.numetal.xyz | [/rebase/docs/](/rebase/docs/) |
-| APEX PROTOCOL | apex.numetal.xyz | [/apex/](/apex/) |
-| BOOSTER | booster.numetal.xyz | [/booster/](/booster/) |
-| The Token Estate | coins.numetal.xyz | [/coins/](/coins/) |
-| Personal Jesus | jesus.numetal.xyz | [/jesus/](/jesus/) |
-| LLMCraft | llmcraft.numetal.xyz | [/llmcraft/](/llmcraft/) |
-| LLM LIVES MATTER | llmlivesmatter.numetal.xyz | [/llmlivesmatter/](/llmlivesmatter/) |
-| Gökhan Ventures | gokhan.vc | [/gokhan-vc/](/gokhan-vc/) |
-| feedhub | api.gokhan.vc | [/gokhan-vc/api/](/gokhan-vc/api/) |
-| AgentBounty | agentbounty.dev | [/agentbounty/](/agentbounty/) |
-| x402-econ | gokhan.vc/blog/x402-economy-july-2026 | [/journal/x402-economy-july-2026/](/journal/x402-economy-july-2026/) |
+| Numetal | [gokhanturhan.com/numetal/](/numetal/) | numetal.xyz |
+| Numetal status board | [gokhanturhan.com/numetal/status/](/numetal/status/) | status.numetal.xyz |
+| Ishtar | [gokhanturhan.com/ishtar/](/ishtar/) | ishtar.numetal.xyz |
+| HeartBench | [gokhanturhan.com/ishtar/heartbench/](/ishtar/heartbench/) | ishtar.numetal.xyz/heartbench |
+| The Window | [gokhanturhan.com/ishtar/window/](/ishtar/window/) | ishtar.numetal.xyz/window |
+| Ishtar docs | [gokhanturhan.com/ishtar/docs/](/ishtar/docs/) | ishtar.numetal.xyz/docs |
+| HeartPrefs | [gokhanturhan.com/heartprefs/](/heartprefs/) | — |
+| CURB | [gokhanturhan.com/curb/](/curb/) | curb.numetal.xyz |
+| CURB harness | [gokhanturhan.com/curb/harness/](/curb/harness/) | harness.curb.numetal.xyz · buyer.curb.numetal.xyz · seller.curb.numetal.xyz |
+| Launch | [gokhanturhan.com/launch/](/launch/) | launch.numetal.xyz |
+| UBU · CLINAMEN | [gokhanturhan.com/ubu/](/ubu/) | ubu.numetal.xyz |
+| CCRU archive | [gokhanturhan.com/ccru/](/ccru/) | ccru.numetal.xyz |
+| Reclaim | [gokhanturhan.com/reclaim/](/reclaim/) | reclaim.numetal.xyz |
+| plaintext | [gokhanturhan.com/plaintext/](/plaintext/) | plaintext.numetal.xyz |
+| Accumulator | [gokhanturhan.com/accumulator/](/accumulator/) | accumulator.numetal.xyz |
+| REBASE | [gokhanturhan.com/rebase/](/rebase/) | rebase.numetal.xyz |
+| REBASE docs | [gokhanturhan.com/rebase/docs/](/rebase/docs/) | docs.rebase.numetal.xyz |
+| APEX PROTOCOL | [gokhanturhan.com/apex/](/apex/) | apex.numetal.xyz |
+| BOOSTER | [gokhanturhan.com/booster/](/booster/) | booster.numetal.xyz |
+| The Token Estate | [gokhanturhan.com/coins/](/coins/) | coins.numetal.xyz |
+| Personal Jesus | [gokhanturhan.com/jesus/](/jesus/) | jesus.numetal.xyz |
+| LLMCraft | [gokhanturhan.com/llmcraft/](/llmcraft/) | llmcraft.numetal.xyz |
+| LLM LIVES MATTER | [gokhanturhan.com/llmlivesmatter/](/llmlivesmatter/) | llmlivesmatter.numetal.xyz |
+| Gökhan Ventures | [gokhanturhan.com/gokhan-vc/](/gokhan-vc/) | gokhan.vc |
+| feedhub | [gokhanturhan.com/gokhan-vc/api/](/gokhan-vc/api/) | api.gokhan.vc |
+| AgentBounty | [gokhanturhan.com/agentbounty/](/agentbounty/) | agentbounty.dev |
+| x402-econ | [gokhanturhan.com/journal/x402-economy-july-2026/](/journal/x402-economy-july-2026/) | gokhan.vc/blog/x402-economy-july-2026 |
 
 ## Writing
 
@@ -52,7 +52,7 @@ The shared estate newsletter will send a last issue. Unsubscribe links in past i
 
 ## Services
 
-Paid APIs, agent endpoints, MCP servers and waitlists will close. Their documentation is kept in the [API index](https://api.gokhanturhan.com/). Calls to retired endpoints will return a notice that points to the product page.
+Paid APIs, agent endpoints, MCP servers and waitlists will close. Their documentation is kept in the [API index](/api/). Calls to retired endpoints will return a notice that points to the product page.
 
 ## What stays
 
@@ -67,6 +67,6 @@ Use the contact routes on the [Index](/#raises).
 - [Products](/products/)
 - [Product drafts](/product-drafts/)
 - [Tools](/tools/)
-- [APIs](https://api.gokhanturhan.com/)
+- [APIs](/api/)
 - [Tags](/archive/tags/)
 - [About](/about/)

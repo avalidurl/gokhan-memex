@@ -35,7 +35,7 @@ const subs = (slug: string) => products.filter((p) => p.slug.startsWith(`${slug}
       </div>
       {lead.map((p) => (
         <div class="cx-r">
-          <span>{p.former ?? p.family}</span>
+          <span><a href={`/${p.slug}/`}>gokhanturhan.com/{p.slug}/</a>{p.former && <><br /><i>formerly {p.former}</i></>}</span>
           <span>
             <a class="nm" href={`/${p.slug}/`}>{p.name}</a> — {p.line}
             {subs(p.slug).length > 0 && (
@@ -54,7 +54,7 @@ const subs = (slug: string) => products.filter((p) => p.slug.startsWith(`${slug}
           <div class="cx-h"><b>{fam}</b><span>{TAXONOMY[famSlug(fam)] ? <a class="tg" href={`/archive/tags/${famSlug(fam)}/`}>tag page</a> : 'family'}</span><em>{String(list.length).padStart(2, '0')}</em></div>
           {list.map((p) => (
             <div class="cx-r">
-              <span>{p.former ?? 'no host'}</span>
+              <span><a href={`/${p.slug}/`}>gokhanturhan.com/{p.slug}/</a>{p.former && <><br /><i>formerly {p.former}</i></>}</span>
               <span>
                 <a class="nm" href={`/${p.slug}/`}>{p.name}</a> — {p.line}
                 {subs(p.slug).length > 0 && (
@@ -75,7 +75,7 @@ const subs = (slug: string) => products.filter((p) => p.slug.startsWith(`${slug}
       <div class="cx-h"><b>Hobby and personal</b><span>small tools and side projects</span><em>{String(hobbies.length).padStart(2, '0')}</em></div>
       {hobbies.map((p) => (
         <div class="cx-r">
-          <span>{p.former ?? p.family}</span>
+          <span><a href={`/${p.slug}/`}>gokhanturhan.com/{p.slug}/</a>{p.former && <><br /><i>formerly {p.former}</i></>}</span>
           <span>
             <a class="nm" href={`/${p.slug}/`}>{p.name}</a> — {p.line}
             {subs(p.slug).length > 0 && (

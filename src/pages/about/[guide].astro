@@ -1,0 +1,62 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHead from '@/components/PageHead.astro'
+import Tags from '@/components/Tags.astro'
+import { guides, QUADS, type Guide } from '@/data/guides'
+
+export function getStaticPaths() {
+  return guides.map((g) => ({ params: { guide: g.slug }, props: { g } }))
+}
+const { g } = Astro.props as { g: Guide }
+const q = QUADS.find((x) => x.key === g.quad)!
+const numbered = g.quad === 'tutorials' || g.quad === 'how-to'
+const siblings = guides.filter((x) => x.quad === g.quad && x.slug !== g.slug)
+---
+
+<BaseLayout title={`${g.title} · About`} description={g.lead}>
+  <div class="es">
+    <PageHead crumbs={[{ label: 'About', href: '/about/' }, { label: q.title, href: `/about/#${q.key}` }]} title={g.title} lead={g.lead} tags={g.tags} />
+    <div class="pgrid">
+      <div class="pmain">
+        {g.steps && (
+          <section class="cx guide" aria-label={numbered ? 'Steps' : 'Explanation'}>
+            <div class="cx-h"><b>{numbered ? 'Steps' : q.title}</b><span>{q.mode}</span><em>{String(g.steps.length).padStart(2, '0')}</em></div>
+            {numbered
+              ? g.steps.map((s, i) => <div class="cx-r gstep"><span>{String(i + 1).padStart(2, '0')}</span><span set:html={s} /></div>)
+              : <div class="cx-b prose">{g.steps.map((s) => <p set:html={s} />)}</div>}
+          </section>
+        )}
+        {g.rows && (
+          <section class="cx guide" aria-label="Facts">
+            <div class="cx-h"><b>{g.quad === 'reference' ? 'Reference' : 'Paths'}</b><em>{String(g.rows.length).padStart(2, '0')}</em></div>
+            {g.rows.map(([k, v]) => <div class="cx-r"><span>{k}</span><span set:html={v} /></div>)}
+          </section>
+        )}
+        {g.notes && (
+          <section class="cx arch" aria-label="Notes">
+            <div class="cx-h"><b>If something goes wrong</b></div>
+            {g.notes.map((n) => <div class="cx-r" style="grid-template-columns:1fr"><span style="font-family:inherit;font-size:inherit" set:html={n} /></div>)}
+          </section>
+        )}
+      </div>
+      <aside class="pside">
+        <section class="cx" aria-label="Next">
+          <div class="cx-h"><b>Next</b></div>
+          {g.next.map((n) => <div class="cx-r" style="grid-template-columns:1fr"><span style="font-family:inherit;font-size:inherit"><a href={n.href}>{n.label} →</a></span></div>)}
+        </section>
+        <section class="cx" aria-label={q.title}>
+          <div class="cx-h"><b>{q.title}</b><span>more</span></div>
+          {siblings.map((s) => <div class="cx-r" style="grid-template-columns:1fr"><span style="font-family:inherit;font-size:inherit"><a href={`/about/${s.slug}/`}>{s.title}</a></span></div>)}
+          <div class="cx-r" style="grid-template-columns:1fr"><span style="font-family:inherit;font-size:inherit"><a href="/about/">All guides</a></span></div>
+        </section>
+        {g.tags && g.tags.length > 0 && (
+          <section class="cx" aria-label="Tags"><div class="cx-h"><b>Tags</b></div><div class="cx-b"><Tags tags={g.tags} /></div></section>
+        )}
+      </aside>
+    </div>
+  </div>
+</BaseLayout>
+<style>
+  .gstep { grid-template-columns: 2.5rem 1fr; }
+  .guide code { font-size: 12.5px; overflow-wrap: anywhere; }
+</style>

@@ -1,0 +1,102 @@
+{
+ "title": "Clank Tape \u00b7 top Clanker tokens by market cap on Base",
+ "source": "clanker.world API via avalidurl.github.io/clank-tape",
+ "retrieved": "2026-11-09",
+ "data": {
+  "generated_at": "2026-11-06T14:57:59Z",
+  "tokens_deployed_total": 729370,
+  "trending_24h_vol_usd": 1667338.0,
+  "top_mcap": [
+   {
+    "name": "BankrCoin",
+    "symbol": "BNKR",
+    "market_cap_usd": 25984265.22,
+    "volume_24h_usd": 58079.0,
+    "chg_24h_pct": -3.64,
+    "deployed_at": "2024-12-03T04:44:53Z",
+    "contract_address": "0x22aF33FE49fD1Fa80c7149773dDe5890D3c76F3b"
+   },
+   {
+    "name": "tokenbot",
+    "symbol": "CLANKER",
+    "market_cap_usd": 16306684.41,
+    "volume_24h_usd": 923100.0,
+    "chg_24h_pct": -3.71,
+    "deployed_at": "2024-11-08T20:43:33Z",
+    "contract_address": "0x1bc0c42215582d5A085795f4baDbaC3ff36d1Bcb"
+   },
+   {
+    "name": "WYDE: End Hunger",
+    "symbol": "EAT",
+    "market_cap_usd": 13293166.22,
+    "volume_24h_usd": 7203.0,
+    "chg_24h_pct": -7.79,
+    "deployed_at": "2025-12-10T23:12:45Z",
+    "contract_address": "0x680BC6ed5c7222E2f29bdBc87f8E8f3400D8Ce04"
+   },
+   {
+    "name": "DebtReliefBot",
+    "symbol": "DRB",
+    "market_cap_usd": 10085865.59,
+    "volume_24h_usd": 56741.0,
+    "chg_24h_pct": -4.6,
+    "deployed_at": "2025-03-07T09:58:57Z",
+    "contract_address": "0x3ec2156D4c0A9CBdAB4a016633b7BcF6a8d68Ea2"
+   },
+   {
+    "name": "Dimes",
+    "symbol": "DIME",
+    "market_cap_usd": 966786.11,
+    "volume_24h_usd": 281.0,
+    "chg_24h_pct": -7.4,
+    "deployed_at": "2025-02-19T07:52:29Z",
+    "contract_address": "0x17d70172C7C4205bd39ce80F7f0ee660B7Dc5A23"
+   },
+   {
+    "name": "noice",
+    "symbol": "noice",
+    "market_cap_usd": 904323.14,
+    "volume_24h_usd": 6184.0,
+    "chg_24h_pct": -0.91,
+    "deployed_at": "2025-05-21T17:47:59Z",
+    "contract_address": "0x9Cb41FD9dC6891BAe8187029461bfAADF6CC0C69"
+   },
+   {
+    "name": "OpenZaps",
+    "symbol": "0xZAPS",
+    "market_cap_usd": 755477.35,
+    "volume_24h_usd": 85031.0,
+    "chg_24h_pct": 24.29,
+    "deployed_at": "2026-07-21T14:30:57Z",
+    "contract_address": "0xDd90bFa4adC7F4401E611AbaC692D939F9F4CB07"
+   },
+   {
+    "name": "ClawBank",
+    "symbol": "ClawBank",
+    "market_cap_usd": 721550.89,
+    "volume_24h_usd": 13369.0,
+    "chg_24h_pct": -10.74,
+    "deployed_at": "2026-02-09T16:39:29Z",
+    "contract_address": "0x16332535E2c27da578bC2e82bEb09Ce9d3C8EB07"
+   },
+   {
+    "name": "ERC20",
+    "symbol": "ERC20",
+    "market_cap_usd": 537066.54,
+    "volume_24h_usd": 608.0,
+    "chg_24h_pct": -5.55,
+    "deployed_at": "2025-03-24T09:11:43Z",
+    "contract_address": "0x64427af0A334d3FDA1B00020B83654599Ae7A964"
+   },
+   {
+    "name": "Regent",
+    "symbol": "REGENT",
+    "market_cap_usd": 486665.98,
+    "volume_24h_usd": 735.0,
+    "chg_24h_pct": -9.77,
+    "deployed_at": "2025-11-06T16:01:07Z",
+    "contract_address": "0x6f89bcA4eA5931EdFCB09786267b251DeE752b07"
+   }
+  ]
+ }
+}

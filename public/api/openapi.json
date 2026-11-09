@@ -1,0 +1,41 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "API index (documentation only)",
+    "version": "2026-11-09",
+    "description": "Static index of the archived estate APIs. Frozen copies of each original specification are listed in x-archived-specs."
+  },
+  "servers": [
+    {
+      "url": "https://api.gokhanturhan.com"
+    }
+  ],
+  "paths": {
+    "/apis.json": {
+      "get": {
+        "summary": "Register of archived APIs",
+        "responses": {
+          "200": {
+            "description": "JSON register"
+          }
+        }
+      }
+    },
+    "/llms.txt": {
+      "get": {
+        "summary": "Agent notes",
+        "responses": {
+          "200": {
+            "description": "text"
+          }
+        }
+      }
+    }
+  },
+  "x-archived-specs": {
+    "feedhub": "https://api.gokhanturhan.com/feedhub/openapi.json",
+    "ishtar": "https://api.gokhanturhan.com/ishtar/openapi.json",
+    "curb": "https://api.gokhanturhan.com/curb/openapi.json",
+    "launch": "https://api.gokhanturhan.com/launch/openapi.json"
+  }
+}

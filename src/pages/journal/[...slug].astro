@@ -5,7 +5,7 @@ import Tags from '@/components/Tags.astro'
 import SocialShare from '@/components/SocialShare.astro'
 import PostTitle from '@/components/PostTitle.astro'
 import ResponsiveImage from '@/components/ResponsiveImage.astro'
-import SubscribeBlock from '@/components/SubscribeBlock.astro'
+import JournalSubscribe from '@/components/JournalSubscribe.astro'
 import { formatDate, plainPostTitle } from '@/lib/utils'
 
 export async function getStaticPaths() {
@@ -195,7 +195,7 @@ const showToc = tocHeadings.length >= 2
       </footer>
     </article>
   </div>
-  <SubscribeBlock />
+  <div class="mx-auto max-w-2xl px-6 pb-12"><JournalSubscribe where="post" /></div>
 </BaseLayout>
 
 <style>

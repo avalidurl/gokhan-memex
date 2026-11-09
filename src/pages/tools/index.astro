@@ -4,37 +4,43 @@ import PageHead from '@/components/PageHead.astro'
 import Tags from '@/components/Tags.astro'
 import { tools, toolTags } from '@/data/estate'
 
-const groups = ['personal', 'estate-admin', 'research'] as const
-const reader = tools.find((t) => t.url)!
+const groups = [
+  { id: 'personal', label: 'Personal', note: 'my own day-to-day tools' },
+  { id: 'estate-admin', label: 'Product admin', note: 'operator consoles for the products' },
+  { id: 'research', label: 'Research', note: 'working research tools' },
+] as const
+const slugOf = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
 ---
 
 <BaseLayout
   title="Tools"
-  description="Private tools behind sign-in. Names only; Reader is the one with a public sign-in page."
+  description="The private tools I use: a personal reader, a dealflow inbox, product admin consoles and research tools. They sit behind sign-in, so only what each one does is listed."
 >
   <div class="es">
-    <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: 'private, behind sign-in' }]} title="Tools" lead="Personal and admin tools. They sit behind email sign-in, so only their names are listed." />
-
-    <section class="cx tools" aria-label="Reader">
-      <div class="cx-h"><b>Reader</b><span>personal RSS reader</span></div>
-      <div class="cx-r"><span>Address</span><span><a href={reader.url}>{reader.url!.replace('https://', '')}</a></span></div>
-      <div class="cx-r"><span>Sign-in</span><span>{reader.signIn}</span></div>
-      <div class="cx-r"><span>Tags</span><span><Tags tags={toolTags[reader.name] ?? []} /></span></div>
-      <div class="cx-b">
-        <figure>
-          <img src={reader.shot} width="530" height="400" alt="Reader sign-in page: an email field and a Send login code button." loading="lazy" />
-        </figure>
-      </div>
-    </section>
+    <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: 'private, behind sign-in' }]} title="Tools" count={tools.length} lead="The private tools behind my work. Each one sits behind sign-in, so this page says what it does and leaves out where it lives." />
 
     {groups.map((g) => {
-      const list = tools.filter((t) => t.group === g && !t.url)
+      const list = tools.filter((t) => t.group === g.id)
       return list.length > 0 && (
-        <section class="cx tools" aria-label={g}>
-          <div class="cx-h"><b>{g}</b><em>{String(list.length).padStart(2, '0')}</em></div>
-          {list.map((t, i) => <div class="cx-r"><span>{String(i + 1).padStart(2, '0')}</span><span>{t.name}<br /><Tags tags={toolTags[t.name] ?? []} /></span></div>)}
+        <section class="cx tools" id={g.id} aria-label={g.label}>
+          <div class="cx-h"><b>{g.label}</b><span>{g.note}</span><em>{String(list.length).padStart(2, '0')}</em></div>
+          {list.map((t) => (
+            <div class="cx-r" id={slugOf(t.name)}>
+              <span>{t.name}</span>
+              <span>
+                {t.line}
+                {t.see && <> Related: <a href={t.see.href}>{t.see.label}</a>.</>}
+                <br /><Tags tags={toolTags[t.name] ?? []} />
+              </span>
+            </div>
+          ))}
         </section>
       )
     })}
+
+    <section class="cx arch" aria-label="Access">
+      <div class="cx-h"><b>Access</b></div>
+      <div class="cx-b"><p>These tools are for my own use and are not open for sign-up. Public work lives on <a href="/products/">Products</a>, <a href="/product-drafts/">Drafts</a> and the <a href="/api/">API index</a>.</p></div>
+    </section>
   </div>
 </BaseLayout>

@@ -151,19 +151,21 @@ export const products: Product[] = [
     slug: 'ubu', name: 'UBU · CLINAMEN', status: 'former', family: 'Numetal',
     line: 'Design fiction from the Bureau of Imaginary Solutions: pataphysics, filed onchain.',
     former: 'ubu.numetal.xyz',
-    facts: [['Models', [...hf('', ['CLINAMEN-45B-A9B']), { label: 'CLINAMEN-42M-A12M', href: `${HF}/gokhanturhan/CLINAMEN-42M-A12M`, note: 'was CLINAMEN-pocket-v2' }, ...hf('', ['CLINAMEN-Chat'])]], ['Spaces', hf('spaces/', ['CLINAMEN-Chat', 'CLINAMEN-Oracle', 'CLINAMEN-Farsight'])], ['Datasets', hf('datasets/', ['bureau-chat', 'bureau-docket', 'bureau-company-filings'])]],
+    facts: [['Read', [{ label: 'Bureau Reader', href: '/ubu/reader/', note: 'Book Two — The Docket' }, { label: 'Training Ledger', href: '/ubu/ledger/' }]], ['Models', [...hf('', ['CLINAMEN-45B-A9B']), { label: 'CLINAMEN-42M-A12M', href: `${HF}/gokhanturhan/CLINAMEN-42M-A12M`, note: 'was CLINAMEN-pocket-v2' }, ...hf('', ['CLINAMEN-Chat'])]], ['Spaces', hf('spaces/', ['CLINAMEN-Chat', 'CLINAMEN-Oracle', 'CLINAMEN-Farsight'])], ['Datasets', hf('datasets/', ['bureau-chat', 'bureau-docket', 'bureau-company-filings'])]],
     about: [
       'UBU was a theoretical token: one UBU per parameter of a 45-billion-parameter model that does not exist. Nothing was deployed, offered or promised.',
       'The site held the Bureau Reader and the Training Ledger. The models, Spaces and datasets stay on Hugging Face.',
     ],
     functions: ['Bureau Reader', 'Training Ledger'],
     links: [
+      { label: 'Bureau Reader · Book Two, The Docket', href: '/ubu/reader/' },
+      { label: 'Training Ledger', href: '/ubu/ledger/' },
       { label: 'Hugging Face · CLINAMEN-45B-A9B', href: `${HF}/gokhanturhan/CLINAMEN-45B-A9B` },
       { label: 'Hugging Face · CLINAMEN-42M-A12M', href: `${HF}/gokhanturhan/CLINAMEN-42M-A12M` },
-            { label: 'Hugging Face · bureau-docket', href: `${HF}/datasets/gokhanturhan/bureau-docket` },
+      { label: 'Hugging Face · bureau-docket', href: `${HF}/datasets/gokhanturhan/bureau-docket` },
     ],
     file: 'ubu', legacy: ['ubu'],
-    tags: ['numetal', 'clinamen', 'design-fiction', 'models', 'token'],
+    tags: ['numetal', 'clinamen', 'design-fiction', 'models', 'agents', 'token'],
   },
   {
     slug: 'ccru', name: 'CCRU archive', status: 'former', family: 'Numetal',
@@ -285,7 +287,7 @@ export const products: Product[] = [
     facts: [['Source', repo('avalidurl/feedhub')], ['Payments', 'x402 on agent email ($1 USDC)']],
     about: ['feedhub pulled every estate site and the external channels into one RSS and JSON feed, ran the shared newsletter (email and XMTP), sent paid agent email and served an llms aggregate.'],
     functions: ['Unified feed (RSS, JSON Feed)', 'Newsletter', 'Paid agent email', 'llms aggregate', 'Blog reader'],
-    links: [{ label: 'Source · avalidurl/feedhub', href: `${GH}/avalidurl/feedhub` }, { label: 'API index · feedhub', href: 'https://api.gokhanturhan.com/feedhub/' }],
+    links: [{ label: 'Source · avalidurl/feedhub', href: `${GH}/avalidurl/feedhub` }, { label: 'API index · feedhub', href: '/api/feedhub/' }],
     tags: ['gokhan-ventures', 'api', 'rss', 'x402', 'newsletter'],
   },
   {
@@ -380,27 +382,27 @@ export const drafts: Draft[] = [
   { slug: 'tickerline', name: 'tickerline', line: 'Claude Code status line.', status: 'live-tool', kind: 'cli', origin: 'gokhanturhan.com', href: '/tickerline/', page: false },
 ]
 
-// ---- Tools: names only. Reader is the one entry with an address. ----
-export interface Tool { name: string; group: 'personal' | 'estate-admin' | 'research'; url?: string; signIn?: string; shot?: string }
+// ---- Tools: private, behind sign-in. Names and a short line only; no addresses. ----
+export interface Tool { name: string; group: 'personal' | 'estate-admin' | 'research'; line: string; see?: { label: string; href: string } }
 export const tools: Tool[] = [
-  { name: 'Reader', group: 'personal', url: 'https://reader.gokhanturhan.com', signIn: 'Sign in with email (one-time code)', shot: '/media/tools/reader-sign-in.png' },
-  { name: 'Dealflow', group: 'personal' },
-  { name: 'Health', group: 'personal' },
-  { name: 'Courses', group: 'personal' },
-  { name: 'Letters', group: 'personal' },
-  { name: 'Numetal Admin', group: 'estate-admin' },
-  { name: 'CURB Admin', group: 'estate-admin' },
-  { name: 'Ishtar Admin', group: 'estate-admin' },
-  { name: 'Status (internal)', group: 'estate-admin' },
-  { name: 'AgentBounty beta', group: 'estate-admin' },
-  { name: 'EA Funding Cartography', group: 'research' },
-  { name: 'urban5 archive', group: 'research' },
-  { name: 'S&P 100 CapEx (gated build)', group: 'research' },
+  { name: 'Reader', group: 'personal', line: 'Personal RSS reader: the feeds I follow, read in one queue.' },
+  { name: 'Dealflow', group: 'personal', line: 'Investment dealflow inbox. Pitches sent to the studio arrive here to be read, sorted and answered.' },
+  { name: 'Health', group: 'personal', line: 'Private health log and dashboard for my own records.' },
+  { name: 'Courses', group: 'personal', line: 'Private study space for the courses I follow, with notes and progress.' },
+  { name: 'Letters', group: 'personal', line: 'Owner-only desk for letters and dispatches before they go out.' },
+  { name: 'Numetal Admin', group: 'estate-admin', line: 'Admin hub for the Numetal products, with a health monitor that checks each service.', see: { label: 'Numetal', href: '/numetal/' } },
+  { name: 'CURB Admin', group: 'estate-admin', line: 'Operator console for CURB, the agent clearing market: offers, intents, matches and payouts.', see: { label: 'CURB', href: '/curb/' } },
+  { name: 'Ishtar Admin', group: 'estate-admin', line: 'Operator console for Ishtar, the agent-mediated dating venue: listings, moderation and payments.', see: { label: 'Ishtar', href: '/ishtar/' } },
+  { name: 'Status (internal)', group: 'estate-admin', line: 'Internal side of the Numetal status board, with private network checks that the public board leaves out.', see: { label: 'Numetal status', href: '/numetal/status/' } },
+  { name: 'AgentBounty beta', group: 'estate-admin', line: 'Closed-beta gate for AgentBounty, with a test app on Base Sepolia.', see: { label: 'AgentBounty', href: '/agentbounty/' } },
+  { name: 'EA Funding Cartography', group: 'research', line: 'Research map of Effective Altruism funding: who funds whom, and how much.' },
+  { name: 'urban5 archive', group: 'research', line: 'Private research archive for the urban5 project.' },
+  { name: 'S&P 100 CapEx (gated build)', group: 'research', line: 'Working build of the S&P 100 tracker. The public version is on this site.', see: { label: 'S&P 100 CapEx', href: '/sp100-capex-dashboard/' } },
 ]
 
 // ---- APIs (documented-only index at api.gokhanturhan.com) ----
 export interface ApiEntry { slug: string; name: string; former: string; kind: string; status: 'live' | 'degraded' | 'retired' }
-export const API_INDEX = 'https://api.gokhanturhan.com'
+export const API_INDEX = '/api' // preview copy; published home is api.gokhanturhan.com
 export const apis: ApiEntry[] = [
   { slug: 'feedhub', name: 'Estate gateway (feedhub)', former: 'api.gokhan.vc', kind: 'REST · OpenAPI · RSS/JSON Feed', status: 'degraded' },
   { slug: 'newsletter', name: 'Newsletter (email + XMTP)', former: 'api.gokhan.vc/newsletter', kind: 'REST', status: 'live' },

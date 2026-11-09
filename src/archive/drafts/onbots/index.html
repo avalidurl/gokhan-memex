@@ -1,0 +1,41 @@
+<pre>+----------------------------------------------+
+|  ONCHAIN AGENT BOT SERVICES                  |
+|  ticker: $ONBOTS                             |
++----------------------------------------------+</pre>
+<p><span>$</span> ticker <strong>$ONBOTS</strong> <span># coming soon</span></p>
+<p>
+          Onchain agent bots as services — spin up agents that deploy, watch, and act
+          onchain without babysitting a laptop process.
+        </p>
+<section>
+<h2><span>##</span> services</h2>
+<div>
+<div>
+<span>onbots@chain:~</span>
+</div>
+<pre><span># agent bot CLI — sample surface</span>
+<span>$</span> onbots deploy  --agent trader --chain base
+<span>  ok</span>  bot_id=0xagent… deployed
+<span>$</span> onbots monitor --bot 0xagent… --alerts webhook
+<span>  ok</span>  watching slots · heartbeat 12s
+<span>$</span> onbots execute --bot 0xagent… --job swap
+<span>  ok</span>  queued · waiting confirmation
+<span>$</span> onbots fees    --bot 0xagent… --report
+<span>  ok</span>  gas · tips · service fee summary
+<span>$</span> onbots <span>█</span></pre>
+</div>
+<ul>
+<li><code>deploy</code> — stand up an agent bot onchain</li>
+<li><code>monitor</code> — heartbeats, alerts, run health</li>
+<li><code>execute</code> — trade / job execution hooks</li>
+<li><code>fees</code> — fee + tx tooling and reports</li>
+</ul>
+</section>
+<section>
+<h2><span>##</span> roadmap</h2>
+<pre>[x] phase 0  site + ticker signal
+[ ] phase 1  public CLI surface
+[ ] phase 2  deploy + monitor live
+[ ] phase 3  execute + fee rails
+[ ] phase 4  $ONBOTS launch</pre>
+</section>

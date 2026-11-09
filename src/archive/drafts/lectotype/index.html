@@ -1,0 +1,239 @@
+<section>
+<p>Settlement layer · type specimens</p>
+<p>
+        A registry of primary specimens on Ethereum L1.
+        Identity and lineage live in contract state.
+        Everything else is decoration.
+      </p>
+<dl>
+<div><dt>Codename</dt><dd>Lectotype</dd></div>
+<div><dt>Layer</dt><dd>Ethereum L1</dd></div>
+<div><dt>Form</dt><dd>ERC-721 + skinny storage</dd></div>
+<div><dt>Status</dt><dd>draft — not shipping</dd></div>
+</dl>
+</section>
+<section>
+<h2>00 · pepe sees the stack</h2>
+<pre>
+        .--.
+       |o_o |   pepe: "where is truth"
+       |:_/ |
+      //   \ \
+     (|     | )
+    /'\_   _/`\
+    \___)=(___/
+           |
+           v
+   ┌───────────────────┐
+   │   website / ui    │  ← feels
+   │   (not canon)     │
+   └─────────┬─────────┘
+             │ reads
+             v
+   ┌───────────────────┐
+   │  L1 Lectotype     │  ← IS canon
+   │  ERC-721 specimen │
+   │  + events         │
+   └─────────┬─────────┘
+             │ points at
+             v
+   ┌───────────────────┐
+   │ existing ERC-20   │
+   │ + Uni pair        │
+   └───────────────────┘
+   pepe rule: if not on L1, it didn't happen
+</pre>
+</section>
+<section>
+<h2>01 · Doctrine</h2>
+<ul>
+<li>If it is not in L1 state or events, it is not canon.</li>
+<li>No strings in storage — only <code>bytes32</code> contenthashes.</li>
+<li>No AMM. No launcher. Pairs are pointers, not products.</li>
+<li>One specimen per token address. Parent edge optional.</li>
+</ul>
+</section>
+<section>
+<h2>02 · register flow (pepe path)</h2>
+<pre>
+  pepe finds token on L1
+           |
+           v
+  ┌────────────────────┐
+  │ does Uni pair exist│
+  │ + liq floor ok?    │
+  └─────────┬──────────┘
+        no / \ yes
+          /   \
+         v     v
+   ┌────────┐  ┌─────────────────┐
+   │  sad   │  │ post bond       │
+   │  pepe  │  │ register(...)   │
+   │  exit  │  │ mint specimen   │
+   └────────┘  └────────┬────────┘
+                        |
+                        v
+              ┌─────────────────┐
+              │ challenge window│
+              │ (N days)        │
+              └────────┬────────┘
+                   /        \
+            nobody         someone
+            disputes       disputes
+                 |              |
+                 v              v
+        ┌────────────┐   ┌─────────────┐
+        │ bond back  │   │ arb writes  │
+        │ card final │   │ winning     │
+        │            │   │ contenthash │
+        └────────────┘   └─────────────┘
+   rare pepe: one specimen per token. forever.
+</pre>
+</section>
+<section>
+<h2>03 · On-chain shape</h2>
+<div>
+<article>
+<h3>Specimen (ERC-721)</h3>
+<p>Registers an existing ERC-20 as a type card.</p>
+<pre>token        address
+pair         address
+contenthash  bytes32
+templateId   uint32
+parentId     uint256
+bornBlock    uint64</pre>
+</article>
+<article>
+<h3>Templates</h3>
+<p>Archetype IDs. Thin enum, not lore.</p>
+<pre>id → labelHash
+permissionless or gated</pre>
+</article>
+<article>
+<h3>Relations</h3>
+<p>Genealogy as state + events.</p>
+<pre>Forked(child, parent)
+Migrated(from, to)
+parentId on specimen</pre>
+</article>
+<article>
+<h3>Caught <span>(later)</span></h3>
+<p>Proof of historical balance → stamp.</p>
+<pre>storage / Merkle proof
+verify on L1
+soulbound or 1155</pre>
+</article>
+</div>
+</section>
+<section>
+<h2>04 · lineage brain (big brain pepe)</h2>
+<pre>
+                    ┌──────────┐
+                    │ template │
+                    │  #0001   │
+                    └────┬─────┘
+                         │
+            ┌────────────┼────────────┐
+            v            v            v
+      ┌──────────┐ ┌──────────┐ ┌──────────┐
+      │ specimen │ │ specimen │ │ specimen │
+      │  α       │ │  β       │ │  γ       │
+      │ parent:0 │ │ parent:α │ │ parent:α │
+      └────┬─────┘ └──────────┘ └──────────┘
+           │
+           v
+      ┌──────────┐
+      │ specimen │
+      │  δ       │
+      │ parent:α │   ← fork / rename / migrate
+      └──────────┘
+   galactus pepe: the graph IS the product
+   chart sites decorate. we own the edges.
+</pre>
+</section>
+<section>
+<h2>05 · Anti-spam</h2>
+<p>Permissionless mint without friction fills the shelf with noise. Draft gate:</p>
+<ol>
+<li><strong>Bond</strong> — posted at register; returned if unchallenged after <em>N</em> days.</li>
+<li><strong>Liquidity floor</strong> — primary pair must clear a minimum at register time.</li>
+<li><strong>Challenge window</strong> — contested <code>contenthash</code> / parent / template can be disputed; winner written back on L1.</li>
+</ol>
+<pre>
+  spam pepe ──post──► [register]
+                         |
+                    liq too smol?
+                     /         \
+                   yes          no
+                    |            |
+                    v            v
+              REVERT        bond locked
+                                 |
+                            wait N days
+                                 |
+                          challenged?
+                           /        \
+                         yes         no
+                          |           |
+                          v           v
+                     resolve      bond → pepe
+                     on L1        card stays
+</pre>
+</section>
+<section>
+<h2>06 · Cost posture</h2>
+<p>Expect roughly 200–400k gas per register. Pack structs. Fat events for indexers; skinny <code>SSTORE</code>. Multicall for curator backfill of historical specimens. Immutable v1 preferred; if upgradeable, UUPS + timelock.</p>
+<pre>
+  ┌─────────────────────────────────────┐
+  │  fat EVENT logs     cheap to emit   │
+  │  skinny SSTORE      expensive, rare │
+  │  bytes32 only       no strings fren │
+  │  multicall backfill curator pays    │
+  └─────────────────────────────────────┘
+         |
+         v
+   pepe pays gas once → canon forever
+</pre>
+</section>
+<section>
+<h2>07 · Ship ladder</h2>
+<ol>
+<li>Specimen NFT + one-per-token + contenthash + parentId</li>
+<li>Curator-funded backfill of the historical set (so the shelf isn’t empty)</li>
+<li>Permissionless register with bond + liquidity floor</li>
+<li>Read-only explorer (state + logs only)</li>
+<li>Caught proofs, if collection gameplay is wanted</li>
+</ol>
+<pre>
+  [1 NFT] → [2 backfill] → [3 open mint]
+                                |
+                                v
+                         [4 explorer]
+                                |
+                                v
+                         [5 caught?]
+  apu: "we ship when pepe can read a card on-chain"
+</pre>
+</section>
+<section>
+<h2>08 · Explicit non-goals</h2>
+<ul>
+<li>Basket / index token</li>
+<li>Off-chain “source of truth” with a decorative registry</li>
+<li>Trading UI, bonding curves, launch pads</li>
+<li>Discoverable public name in this draft</li>
+</ul>
+<pre>
+   ┌─────────┐     ┌─────────┐     ┌─────────┐
+   │  basket │     │  launch │     │  trade  │
+   │  token  │     │  pad    │     │  ui     │
+   └────┬────┘     └────┬────┘     └────┬────┘
+        │               │               │
+        └───────────────┴───────────────┘
+                        |
+                        v
+                 NO.  (clueless pepe leaves)
+</pre>
+</section>
+<p>Lectotype · internal plan draft · Ethereum L1</p>
+<p>Codename only. No contract. No token. No promises.</p>

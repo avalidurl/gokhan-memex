@@ -53,3 +53,7 @@
 
 # Fallback for SPA-like behavior (not needed for static Astro but good to have)
 /* /404.html 404
+
+# "On Work" was published under the slug "ai̇" (a stray combining dot from its Paragraph import)
+/journal/ai%CC%87/ /journal/on-work/ 301
+/journal/ai%CC%87 /journal/on-work/ 301

@@ -6,6 +6,8 @@ import Tags from '@/components/Tags.astro'
 import Snapshot from '@/components/Snapshot.astro'
 import { pageProducts, drafts, draftTags, bySlug, products, type Product, type Draft } from '@/data/estate'
 import manifest from '@/archive/manifest.json'
+import draftManifest from '@/archive/drafts/manifest.json'
+const DM = draftManifest as Record<string, { description?: string }>
 
 type Page = { host: string; former: string; title: string; doc_title: string; description: string; forms: string[] }
 const MAN = manifest as Record<string, Page>
@@ -90,6 +92,10 @@ const isProduct = props.kind === 'product'
 const sectionKids = props.kind === 'page' && !html ? siteMap.filter((k) => k !== path && k.startsWith(path) && k.slice(path.length).split('/').filter(Boolean).length === 1) : []
 const title = d ? d.name : isProduct ? p!.name : (page?.title || page?.doc_title || segName(path))
 const description = d ? d.line : isProduct ? p!.line : (page?.description || `${title} — ${p!.name}`)
+const DHTML = import.meta.glob('/src/archive/drafts/*/index.html', { query: '?raw', import: 'default', eager: true }) as Record<string, string>
+const DSNAP = import.meta.glob('/src/archive/drafts/*/snapshot.json', { import: 'default', eager: true }) as Record<string, any>
+const dHtml = d ? DHTML[`/src/archive/drafts/${d.slug}/index.html`]?.trim() : undefined
+const dSnap = d ? DSNAP[`/src/archive/drafts/${d.slug}/snapshot.json`] : undefined
 const legal = p && isProduct
   ? Object.entries(LEGAL)
       .filter(([f]) => f.split('/')[3] === p.slug)
@@ -108,7 +114,7 @@ const children = p && isProduct ? products.filter((c) => c.slug.startsWith(`${p.
           <div class="pmain">
             {html && (
               <section class="cx" aria-label="Page">
-                <div class="cx-h"><b>{isProduct ? p.name : title}</b><span>{page?.former}</span></div>
+                <div class="cx-h"><b>{isProduct ? p.name : title}</b><span>gokhanturhan.com{path}</span></div>
                 <div class="cx-b prose ported" set:html={html} />
               </section>
             )}
@@ -141,7 +147,8 @@ const children = p && isProduct ? products.filter((c) => c.slug.startsWith(`${p.
             {isProduct && (
               <section class="cx" aria-label="Facts">
                 <div class="cx-h"><b>Facts</b><span>{p.family}</span></div>
-                {p.former && <div class="cx-r"><span>Address</span><span>{p.former}</span></div>}
+                <div class="cx-r"><span>Address</span><span><a href={`/${p.slug}/`}>gokhanturhan.com/{p.slug}/</a></span></div>
+                {p.former && <div class="cx-r"><span>Former address</span><span class="former">{p.former}</span></div>}
                 {(p.facts ?? []).map(([k, v]) => (
                   <div class="cx-r"><span>{k}</span><span>{typeof v === 'string' ? v : (
                     <ul class="flinks">{v.map((l) => <li>{l.href ? <a href={l.href}>{l.label}</a> : l.label}{l.note && <small> {l.note}</small>}</li>)}</ul>
@@ -189,14 +196,33 @@ const children = p && isProduct ? products.filter((c) => c.slug.startsWith(`${p.
 
     {d && (
       <>
-        <PageHead crumbs={[{ label: 'Product drafts', href: '/product-drafts/' }, { label: d.status }]} title={d.name} lead={d.line} tags={draftTags[d.slug] ?? []} variant="draft" />
-        <section class="cx draft" aria-label="Facts">
-          <div class="cx-h"><b>Draft</b><span>published at {d.origin}</span></div>
-          <div class="cx-r"><span>Status</span><span>{d.status}</span></div>
-          <div class="cx-r"><span>Kind</span><span>{d.kind}</span></div>
-          {d.chain && <div class="cx-r"><span>Chain</span><span>{d.chain}</span></div>}
-          <div class="cx-r"><span>Open</span><span><a href={d.href}>{d.href.replace('https://', '')}</a></span></div>
-        </section>
+        <PageHead crumbs={[{ label: 'Product drafts', href: '/product-drafts/' }, { label: d.status }]} title={d.name} lead={DM[d.slug]?.description || d.line} tags={draftTags[d.slug] ?? []} variant="draft" />
+        <div class="pgrid">
+          <div class="pmain">
+            {dHtml && (
+              <section class="cx draft" aria-label="Page">
+                <div class="cx-h"><b>{d.name}</b><span>gokhanturhan.com/{d.slug}/</span></div>
+                <div class="cx-b prose ported" set:html={dHtml} />
+              </section>
+            )}
+            {dSnap && <Snapshot snap={dSnap} />}
+          </div>
+          <aside class="pside">
+            <section class="cx draft" aria-label="Facts">
+              <div class="cx-h"><b>Facts</b><span>draft</span></div>
+              <div class="cx-r"><span>Address</span><span><a href={`/${d.slug}/`}>gokhanturhan.com/{d.slug}/</a></span></div>
+              {d.origin !== 'gokhanturhan.com' && <div class="cx-r"><span>Original</span><span class="former">{d.href.replace('https://', '')}</span></div>}
+              <div class="cx-r"><span>Status</span><span>{d.status}</span></div>
+              <div class="cx-r"><span>Kind</span><span>{d.kind}</span></div>
+              {d.chain && <div class="cx-r"><span>Chain</span><span>{d.chain}</span></div>}
+              <div class="cx-r"><span>Tags</span><span><Tags tags={draftTags[d.slug] ?? []} /></span></div>
+            </section>
+            <section class="cx draft" aria-label="Other drafts">
+              <div class="cx-h"><b>Drafts</b><span>others</span></div>
+              {drafts.filter((x) => x.page && x.slug !== d.slug).map((x) => <div class="cx-r"><span>{x.kind}</span><span><a href={`/${x.slug}/`}>{x.name}</a></span></div>)}
+            </section>
+          </aside>
+        </div>
       </>
     )}
   </div>

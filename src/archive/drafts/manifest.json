@@ -1,0 +1,76 @@
+{
+ "ai-ipo": {
+  "title": "AI IPO forecasts",
+  "doc_title": "AI IPO forecasts",
+  "description": "",
+  "former": "avalidurl.github.io/ai-ipo",
+  "forms": [],
+  "size": 357
+ },
+ "belief-systems": {
+  "title": "Trust Tax Belief Systems",
+  "doc_title": "Trust Tax Belief Systems · $BELIEF",
+  "description": "Trust Tax Belief Systems ($BELIEF): markets that price trust when AI makes the work cheap.",
+  "former": "avalidurl.github.io/belief-systems",
+  "forms": [
+   "#"
+  ],
+  "size": 3845
+ },
+ "clank-tape": {
+  "title": "CLANK TAPE · Clanker Trader Analytics Board",
+  "doc_title": "CLANK TAPE · Clanker Trader Analytics Board",
+  "description": "Clank Tape: ASCII terminal analytics board for Clanker launches on Base - Daily Tape, Fee Reality Card, Creator PnL Radar, and Launch Cohort Board.",
+  "former": "avalidurl.github.io/clank-tape",
+  "forms": [],
+  "size": 36929
+ },
+ "clankdog": {
+  "title": "fren make meme. agent fill blank.",
+  "doc_title": "Clank Dog · $CLANKDOG — agentic meme template sandbox",
+  "description": "Clank Dog ($CLANKDOG): Apu-dog mascot for an agentic meme-templates sandbox. Agents fill blanks. Frens bark. Clanker energy.",
+  "former": "avalidurl.github.io/clankdog",
+  "forms": [],
+  "size": 3487
+ },
+ "foreguild-fao-plan": {
+  "title": "Foreguild: A Revenue Operating Plan for a Futarchy Autonomous Organization",
+  "doc_title": "Foreguild: A Revenue Operating Plan for a Futarchy Autonomous Organization",
+  "description": "A revenue-first operating plan for Foreguild, an AI job board run as a Futarchy Autonomous Organization on Seer. Submission to the Seer Foreguild FAO contest (Poidh Base bounty 1531) by Gökhan Turhan / avalidurl.",
+  "former": "avalidurl.github.io/foreguild-fao-plan",
+  "forms": [],
+  "size": 60018
+ },
+ "hypersitition": {
+  "title": "hypersitition",
+  "doc_title": "hypersitition",
+  "description": "",
+  "former": "avalidurl.github.io/hypersitition",
+  "forms": [],
+  "size": 57
+ },
+ "lectotype": {
+  "title": "One card per canonical object.",
+  "doc_title": "Lectotype · draft",
+  "description": "Internal plan draft. Settlement-layer type specimens.",
+  "former": "avalidurl.github.io/lectotype",
+  "forms": [],
+  "size": 7237
+ },
+ "onbots": {
+  "title": "Onchain Agent Bot Services",
+  "doc_title": "Onchain Agent Bot Services · $ONBOTS",
+  "description": "Onchain Agent Bot Services ($ONBOTS): deploy, monitor, and run agent bots as onchain services.",
+  "former": "avalidurl.github.io/onbots",
+  "forms": [],
+  "size": 1554
+ },
+ "tape-exchange": {
+  "title": "The Tape Exchange",
+  "doc_title": "The Tape Exchange · $TAPEX",
+  "description": "The Tape Exchange ($TAPEX): transparent creator-fee launches plus an open launch/tax tape. Creators earn from trade one; platform cut buys and burns $TAPEX.",
+  "former": "avalidurl.github.io/tape-exchange",
+  "forms": [],
+  "size": 4360
+ }
+}
