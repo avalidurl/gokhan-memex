@@ -1,3 +1,60 @@
 ---
-return Astro.redirect('/journal', 301)
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHead from '@/components/PageHead.astro'
+
+type Handle = { href: string; label: string; note: string }
+const platforms: { name: string; handles: Handle[] }[] = [
+  { name: 'X', handles: [
+    { href: 'https://x.com/goekhan', label: '@goekhan', note: 'personal' },
+    { href: 'https://x.com/goekhanvc', label: '@goekhanvc', note: 'Gökhan Ventures' },
+    { href: 'https://x.com/numetalxyz', label: '@numetalxyz', note: 'Numetal · Ishtar · CURB' },
+  ] },
+  { name: 'GitHub', handles: [
+    { href: 'https://github.com/avalidurl', label: 'avalidurl', note: 'personal bench' },
+    { href: 'https://github.com/gokhan-vc', label: 'gokhan-vc', note: 'studio org' },
+  ] },
+  { name: 'LinkedIn', handles: [
+    { href: 'https://www.linkedin.com/in/goekhanturhan/', label: 'goekhanturhan', note: 'Gökhan Turhan' },
+  ] },
+  { name: 'Farcaster', handles: [
+    { href: 'https://farcaster.xyz/gokhan', label: '@gokhan', note: 'personal' },
+  ] },
+  { name: 'Discord', handles: [
+    { href: 'https://discord.gg/ZcxcwRPT7R', label: 'Market Research Unit', note: 'server invite' },
+    { href: 'https://discord.gg/MC4DYumPMz', label: 'Numetal', note: 'server invite' },
+  ] },
+  { name: 'Telegram', handles: [
+    { href: 'https://t.me/goekhanturhan', label: '@goekhanturhan', note: 'personal' },
+    { href: 'https://t.me/marketresearchunit', label: '@marketresearchunit', note: 'Market Research Unit' },
+    { href: 'https://t.me/gokhanturhans', label: '@gokhanturhans', note: 'Research Log' },
+    { href: 'https://t.me/numetalxyz', label: '@numetalxyz', note: 'Numetal' },
+  ] },
+  { name: 'Bluesky', handles: [
+    { href: 'https://bsky.app/profile/gokhan.substack.com', label: 'gokhan.substack.com', note: 'personal' },
+  ] },
+]
+const total = platforms.reduce((n, p) => n + p.handles.length, 0)
 ---
+
+<BaseLayout title="Links" description="Where to find Gökhan Turhan: X, GitHub, LinkedIn, Farcaster, Discord, Telegram and Bluesky.">
+  <div class="es">
+    <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: 'Links' }]} title="Links" lead="Where to find Gökhan Turhan elsewhere." count={String(total).padStart(2, '0')} />
+    <section class="cx links" aria-label="Platforms">
+      <div class="cx-h"><b>Platforms</b><span>X · GitHub · LinkedIn · Farcaster · Discord · Telegram · Bluesky</span><em>{String(platforms.length).padStart(2, '0')}</em></div>
+      {platforms.map((p) => (
+        <div class="cx-r">
+          <span>{p.name}</span>
+          <span class="lk">
+            {p.handles.map((h) => (
+              <span class="lk-i"><a href={h.href} rel="me noopener">{h.label}</a> <i>{h.note}</i></span>
+            ))}
+          </span>
+        </div>
+      ))}
+    </section>
+  </div>
+</BaseLayout>
+<style>
+  .lk { display: flex; flex-direction: column; gap: 2px; }
+  .lk-i i { margin-left: 4px; }
+</style>

@@ -7,7 +7,6 @@
 
 # Retired /subscribe (contact/newsletter) page — newsletter now lives in the site footer
 /newsletter /journal 301
-/links /journal 301
 /subscribe /journal 301
 
 # Favicon: redirect .ico requests to existing SVG
