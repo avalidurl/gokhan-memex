@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 428" font-family='IBM Plex Mono,SF Mono,Menlo,monospace'>
+<style>@media(prefers-color-scheme:dark){[fill="#0a0a0a"]{fill:#e8e8e6}[stroke="#0a0a0a"]{stroke:#e8e8e6}[fill="#f4f4f2"]{fill:#0e0e0e}[stroke="#f4f4f2"]{stroke:#0e0e0e}[fill="#5c5c5c"]{fill:#9a9a9a}[stroke="#5c5c5c"]{stroke:#9a9a9a}[fill="#d8d8d4"]{fill:#2a2a2a}[stroke="#d8d8d4"]{stroke:#2a2a2a}}</style>
+<defs><pattern id="hx" patternUnits="userSpaceOnUse" width="5" height="5" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="5" stroke="#5c5c5c" stroke-width="1"/></pattern></defs>
+<rect width="760" height="428" fill="#f4f4f2"/>
+<rect x="0.5" y="0.5" width="759" height="427" fill="none" stroke="#0a0a0a" stroke-width="1"/>
+<text x="16" y="26" font-size="11" fill="#0a0a0a" letter-spacing="1.5">FIG. 02</text>
+<text x="16" y="44" font-size="13" fill="#0a0a0a" letter-spacing="0.5">PAYMENT SIZE DISTRIBUTION — SOLANA, SCRUBBED (TWZRD)</text>
+<line x1="16" y1="54" x2="744" y2="54" stroke="#0a0a0a" stroke-width="1"/>
+<text x="190" y="102" font-size="11" fill="#0a0a0a" text-anchor="end">&lt; $0.01</text>
+<rect x="200" y="86" width="133.9" height="10" fill="#0a0a0a"/><text x="339.9" y="95" font-size="9" fill="#5c5c5c">28.5% CNT</text>
+<rect x="200" y="100" width="0.8" height="10" fill="url(#hx)" stroke="#5c5c5c" stroke-width="0.5"/><text x="206.8" y="109" font-size="9" fill="#5c5c5c">0.2% VAL</text><text x="190" y="154" font-size="11" fill="#0a0a0a" text-anchor="end">$0.01–0.10</text>
+<rect x="200" y="138" width="235.1" height="10" fill="#0a0a0a"/><text x="441.1" y="147" font-size="9" fill="#5c5c5c">50.0% CNT</text>
+<rect x="200" y="152" width="32.2" height="10" fill="url(#hx)" stroke="#5c5c5c" stroke-width="0.5"/><text x="238.2" y="161" font-size="9" fill="#5c5c5c">6.9% VAL</text><text x="190" y="206" font-size="11" fill="#0a0a0a" text-anchor="end">$0.10–1</text>
+<rect x="200" y="190" width="63.5" height="10" fill="#0a0a0a"/><text x="269.5" y="199" font-size="9" fill="#5c5c5c">13.5% CNT</text>
+<rect x="200" y="204" width="96.4" height="10" fill="url(#hx)" stroke="#5c5c5c" stroke-width="0.5"/><text x="302.4" y="213" font-size="9" fill="#5c5c5c">20.5% VAL</text><text x="190" y="258" font-size="11" fill="#0a0a0a" text-anchor="end">$1–10</text>
+<rect x="200" y="242" width="36.9" height="10" fill="#0a0a0a"/><text x="242.9" y="251" font-size="9" fill="#5c5c5c">7.8% CNT</text>
+<rect x="200" y="256" width="252.0" height="10" fill="url(#hx)" stroke="#5c5c5c" stroke-width="0.5"/><text x="458.0" y="265" font-size="9" fill="#5c5c5c">53.6% VAL</text><text x="190" y="310" font-size="11" fill="#0a0a0a" text-anchor="end">$10+</text>
+<rect x="200" y="294" width="0.5" height="10" fill="#0a0a0a"/><text x="206.5" y="303" font-size="9" fill="#5c5c5c">0.1% CNT</text>
+<rect x="200" y="308" width="88.5" height="10" fill="url(#hx)" stroke="#5c5c5c" stroke-width="0.5"/><text x="294.5" y="317" font-size="9" fill="#5c5c5c">18.8% VAL</text><text x="200" y="356" font-size="9" fill="#5c5c5c" letter-spacing="1">SOLID = SHARE OF PAYMENT COUNT · HATCH = SHARE OF USD VALUE</text><text x="200" y="372" font-size="9" fill="#5c5c5c" letter-spacing="1">N = 1,506,245 PAYMENTS / $409,308</text>
+<line x1="16" y1="398" x2="744" y2="398" stroke="#d8d8d4" stroke-width="1"/>
+<text x="16" y="415" font-size="9" fill="#5c5c5c" letter-spacing="1">X402-ECON PIPELINE · 2026-07-17 · G.TURHAN × CLAUDE (OPUS 4.8 / FABLE 5) · LENS: DUNE 8001313</text>
+</svg>

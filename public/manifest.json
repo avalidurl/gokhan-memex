@@ -82,10 +82,10 @@
       ]
     },
     {
-      "name": "Projects",
-      "short_name": "Projects",
-      "description": "Technical projects and demos",
-      "url": "/projects/",
+      "name": "Products",
+      "short_name": "Products",
+      "description": "Products, drafts and tools",
+      "url": "/products/",
       "icons": [
         {
           "src": "/icons/shortcut-projects.png",

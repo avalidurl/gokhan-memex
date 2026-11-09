@@ -20,6 +20,8 @@ export interface Props {
   breadcrumbOverride?: { items: { href?: string; label: string }[]; currentPage: string }
   /** Hide footer subscribe when journal in-flow block is shown. */
   hideFooterSubscribe?: boolean
+  /** Document number shown in the masthead (defaults to the section's number). */
+  docOverride?: string
 }
 
 const {
@@ -29,6 +31,7 @@ const {
   canonicalURL = new URL(Astro.url.pathname, Astro.site),
   type = 'website',
   robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+  docOverride,
 } = Astro.props
 
 const siteName = 'Gökhan Turhan'
@@ -37,11 +40,13 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`
 const pathname = Astro.url.pathname
 const path = pathname.endsWith('/') ? pathname : `${pathname}/`
 const nav = [
-  { name: 'Index', href: '/', on: path === '/' },
-  { name: 'Journal', href: '/journal/', on: path.startsWith('/journal') || path.startsWith('/archive') || path.startsWith('/writing') },
-  { name: 'Projects', href: '/projects/', on: path.startsWith('/projects') },
-  { name: 'Publishing', href: '/publishing/', on: path.startsWith('/publishing') },
+  { name: 'About', href: '/about/', on: path.startsWith('/about') },
   { name: 'CV', href: '/cv/', on: path.startsWith('/cv') },
+  { name: 'Index', href: '/', on: path === '/', hover: 'Home' },
+  { name: 'Journal', href: '/journal/', on: path.startsWith('/journal') || path.startsWith('/archive') || path.startsWith('/writing') },
+  { name: 'Products', href: '/products/', on: path.startsWith('/products') },
+  { name: 'Drafts', href: '/product-drafts/', on: path.startsWith('/product-drafts') },
+  { name: 'Publishing', href: '/publishing/', on: path.startsWith('/publishing') },
   { name: 'Raises', href: '/#raises', on: false },
   { name: 'Agents', href: '/#agents', on: false },
 ]
@@ -53,7 +58,10 @@ const docMap: Record<string, string> = {
   archive: 'MX-020',
   writing: 'MX-030',
   publishing: 'MX-040',
-  projects: 'MX-050',
+  products: 'MX-050',
+  'product-drafts': 'MX-051',
+  tools: 'MX-052',
+  about: 'MX-002',
   art: 'MX-060',
   lists: 'MX-070',
   links: 'MX-080',
@@ -66,7 +74,7 @@ const docMap: Record<string, string> = {
   offline: 'MX-098',
   '404': 'MX-099',
 }
-const docNo = docMap[docSection] ?? 'MX-000'
+const docNo = docOverride ?? docMap[docSection] ?? 'MX-000'
 const docRev = 'REV 2026-07-17'
 
 /** Content hash of the collapse script, so an edit busts the 2h asset cache for every
@@ -127,7 +135,7 @@ const tableDeskVersion = createHash('sha256')
     <meta name="twitter:image:alt" content={fullTitle} />
     
     <!-- RSS -->
-    <link rel="alternate" type="application/rss+xml" title={siteName} href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Gökhan Turhan — Journal" href="/rss.xml" />
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json" />
@@ -257,7 +265,9 @@ const tableDeskVersion = createHash('sha256')
         <div class="reg-bar">
           <nav aria-label="Sections">
             {nav.map((item) => (
-              <a href={item.href} aria-current={item.on ? 'page' : 'false'}>{item.name}</a>
+              item.hover
+                ? <a href={item.href} class="nav-swap" aria-current={item.on ? 'page' : 'false'} aria-label={`${item.name} (${item.hover})`}><span class="sw-a" aria-hidden="true">{item.name}</span><span class="sw-b" aria-hidden="true">{item.hover}</span></a>
+                : <a href={item.href} aria-current={item.on ? 'page' : 'false'}>{item.name}</a>
             ))}
           </nav>
           <div class="reg-modes">
@@ -272,22 +282,34 @@ const tableDeskVersion = createHash('sha256')
       </main>
 
       <footer class="reg-foot">
-        <div class="reg-rule"><span>Reach</span></div>
-        <p class="reg-channels">
-          <a href="https://x.com/goekhan">X</a><span class="reg-dot">/</span>
-          <a href="https://t.me/goekhanturhan">Telegram</a><span class="reg-dot">/</span>
-          <a href="https://www.linkedin.com/in/goekhanturhan/">LinkedIn</a><span class="reg-dot">/</span>
-          <a href="https://github.com/avalidurl">GitHub</a><span class="reg-dot">/</span>
-          <a href="https://gokhan.substack.com/">Substack</a><span class="reg-dot">/</span>
-          <a href="/rss.xml">RSS</a><span class="reg-dot">/</span>
-          <a href="/newsletter/">Newsletter</a>
-        </p>
-        <p class="reg-fine">
-          <a href="https://gokhan.vc">Gökhan Ventures</a><span class="reg-dot">/</span>
-          <a href="https://numetal.xyz">Numetal</a><span class="reg-dot">/</span>
-          <a href="/privacy/">Privacy</a><span class="reg-dot">/</span>
-          <a href="/disclaimer/">Disclaimer</a>
-        </p>
+        <section class="cx foot" aria-label="Site footer">
+          <div class="cx-h"><b>Reach</b><span>elsewhere and site files</span></div>
+          <div class="cx-r"><span>Channels</span><span class="reg-channels">
+            <a href="https://x.com/goekhan">X</a><span class="reg-dot">/</span>
+            <a href="https://t.me/goekhanturhan">Telegram</a><span class="reg-dot">/</span>
+            <a href="https://www.linkedin.com/in/goekhanturhan/">LinkedIn</a><span class="reg-dot">/</span>
+            <a href="https://github.com/avalidurl">GitHub</a><span class="reg-dot">/</span>
+            <a href="https://gokhan.substack.com/">Substack</a><span class="reg-dot">/</span>
+            <a href="/journal/#subscribe">Newsletter</a><span class="reg-dot">/</span>
+            <a href="/links/">All links</a>
+          </span></div>
+          <div class="cx-r"><span>Site</span><span class="reg-fine">
+            <a href="/about/">About</a><span class="reg-dot">/</span>
+            <a href="/product-drafts/">Drafts</a><span class="reg-dot">/</span>
+            <a href="/archive/tags/">Tags</a><span class="reg-dot">/</span>
+            <a href="/tools/">Tools</a><span class="reg-dot">/</span>
+            <a href="/api/">APIs</a><span class="reg-dot">/</span>
+            <a href="/privacy/">Privacy</a><span class="reg-dot">/</span>
+            <a href="/disclaimer/">Disclaimer</a>
+          </span></div>
+          <div class="cx-r"><span>Site files</span><span class="reg-fine">
+            <a href="/sitemap-index.xml">Sitemap</a><span class="reg-dot">/</span>
+            <a href="/robots.txt">robots.txt</a><span class="reg-dot">/</span>
+            <a href="/llms.txt">llms.txt</a><span class="reg-dot">/</span>
+            <a href="/llms-full.txt">llms-full.txt</a><span class="reg-dot">/</span>
+            <a href="/rss.xml">RSS (journal)</a>
+          </span></div>
+        </section>
       </footer>
     </div>
     

@@ -1,0 +1,55 @@
+<div><a href="/plaintext/">plaintext</a> · <a href="/plaintext/join">write a notice</a></div>
+<p><a href="/plaintext/">the board</a></p>
+<p>plaintext is a board of plain text. One box, markdown or nothing. It is slow on
+purpose and it is not free on purpose.</p>
+<h2>the door</h2>
+<p>To write here you pay once at the door. A dollar gets you in and a name is dealt
+to you. Five gets you in and you pick the name yourself. There is no other
+difference, and a dealt name is not a lesser one.</p>
+<p>Your name is minted to you as an NFT on <strong>Ethereum</strong> — with its card drawn
+by the contract itself. It is yours to keep, trade, or sell; if you sell it, the name
+moves to its new owner and the board follows.</p>
+<h2>what things cost</h2>
+<pre>  the door, name dealt      $1.00
+  the door, name chosen     $5.00
+  a notice                  $3.00
+  a remark                  $0.50
+  reading                   nothing</pre>
+<p>Prices are fixed in dollars and settled in ETH at the rate of the moment. They are
+written into the contract as constants. Nobody can change them — not you, not us.</p>
+<h2>where your writing goes</h2>
+<p>Your text is content-addressed: it is stored under its own hash (an IPFS CID) and
+that hash is minted to you as a token on Robinhood Chain — cheap on purpose, so a
+notice costs its price and little else (publishing on Ethereum is coming as a choice).
+You own the token. The board
+stores and serves the bytes; because the address is the hash of the content, the
+same text pins to the wider IPFS network with the identical address whenever anyone
+chooses to.</p>
+<h2>each notice is a page</h2>
+<p>Every notice has its own address on the board — <pre>/notices/&lt;number&gt;</pre> — which
+is a plain, readable page, an alternative to the raw IPFS copy. That page carries the
+text, its remarks, its backlinks, and links out to both the IPFS copy and the chain.</p>
+<h2>linking between notices</h2>
+<p>You can point at another notice from inside your own text with a wikilink:</p>
+<pre>[[12]]              a notice, by its number
+[[a title]]         a notice, by its title
+[[~name]]           a hand
+[[12|see this]]     a link with your own words</pre>
+<p>A link to something not written yet still shows, quietly, until it exists. And every
+notice lists the others that link to it, so a reference works in both directions — anyone
+can wikilink your notice from theirs, and it will show up under yours.</p>
+<h2>remarks</h2>
+<p>Anyone through the door can leave a remark under a notice for $0.50. A remark is itself
+a notice — it gets its own page, its own token, and can be linked and remarked on in turn.</p>
+<h2>tips</h2>
+<p>Any notice can be tipped. It goes straight to whoever wrote it. The board takes
+nothing.</p>
+<h2>what is expected</h2>
+<ul>
+<li>Write like someone will read it slowly.</li>
+<li>Reply because you have something to add.</li>
+<li>Nothing illegal, nothing to do with a private person who did not ask to be here.</li>
+</ul>
+<p>The price is the only moderation this board has by design. That is not the same as
+having none, and it is not a promise that nothing will ever be removed.</p>
+<p><a href="/plaintext/me">profile</a> · <a href="/plaintext/write">write</a> · <a href="/plaintext/hands">hands</a> · <a href="/plaintext/manual/">manual</a> · <a href="/plaintext/spec/">spec</a> · <a href="/plaintext/club/">the club</a> · <a href="/plaintext/roadmap/">roadmap</a> · <a href="/plaintext/feed.xml">feed</a> · every name is an ethereum NFT · every notice a token onchain</p>

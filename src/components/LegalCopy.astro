@@ -1,0 +1,26 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHead from '@/components/PageHead.astro'
+import { bySlug } from '@/data/estate'
+
+interface Props { product: string; title: string; former: string; retrieved: string; others: { slug: string; title: string }[] }
+const { product, title, former, retrieved, others } = Astro.props
+const p = bySlug(product)!
+---
+
+<BaseLayout title={`${title} · ${p.name}`} description={`The ${p.name} ${title}.`} robots="noindex, follow">
+  <div class="es">
+    <PageHead crumbs={[{ label: 'Products', href: '/products/' }, { label: p.name, href: `/${p.slug}/` }, { label: 'Legal' }]} title={title} lead={`Copy retrieved ${retrieved}.`} tags={p.tags} />
+    <section class="cx" aria-label="About this copy">
+      <div class="cx-h"><b>{title}</b><span>{p.name}</span></div>
+      <div class="cx-r"><span>Address</span><span><a href={`/${p.slug}/`}>gokhanturhan.com/{p.slug}/</a></span></div>
+      <div class="cx-r"><span>Former address</span><span>{former}</span></div>
+      <div class="cx-r"><span>Retrieved</span><span>{retrieved}, copied as published</span></div>
+      <div class="cx-r"><span>Other documents</span><span>{others.map((o, i) => <>{i > 0 && ' · '}<a href={`/${p.slug}/legal/${o.slug}/`}>{o.title}</a></>)}</span></div>
+    </section>
+    <section class="cx" aria-label="Document">
+      <div class="cx-h"><b>Document</b><span>as in force while {p.name} ran</span></div>
+      <div class="cx-b prose body"><slot /></div>
+    </section>
+  </div>
+</BaseLayout>

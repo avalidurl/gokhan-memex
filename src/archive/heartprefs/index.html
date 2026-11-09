@@ -1,0 +1,164 @@
+<div>
+<p><strong>An open, portable, signed matching-intent document that agents exchange to negotiate matches.</strong></p>
+<p><a href="https://github.com/gokhan-vc/heartprefs/blob/main/LICENSE"><img alt="License" loading="lazy" src="/media/archive/heartprefs/img/heartprefs.svg"/></a>
+<a href="https://github.com/gokhan-vc/heartprefs/commits"><img alt="Last commit" loading="lazy" src="/media/archive/heartprefs/img/heartprefs.svg"/></a>
+<a href="https://github.com/gokhan-vc/heartprefs/stargazers"><img alt="Stars" loading="lazy" src="/media/archive/heartprefs/img/42b47d-heartprefs.svg"/></a></p>
+<p><img alt="Spec status" loading="lazy" src="/media/archive/heartprefs/img/spec-DRAFT-20v0.1-orange"/>
+<img alt="TypeScript" loading="lazy" src="/media/archive/heartprefs/img/5867a1-TypeScript-3178C6.svg"/>
+<img alt="JSON Schema" loading="lazy" src="/media/archive/heartprefs/img/JSON--Schema-2020--12-blue.svg"/>
+<img alt="EIP-191" loading="lazy" src="/media/archive/heartprefs/img/signing-EIP--191-627EEA.svg"/>
+<img alt="x402" loading="lazy" src="/media/archive/heartprefs/img/interop-x402-000000.svg"/>
+<img alt="A2A" loading="lazy" src="/media/archive/heartprefs/img/interop-A2A-4285F4.svg"/>
+<img alt="MCP" loading="lazy" src="/media/archive/heartprefs/img/interop-MCP-000000.svg"/></p>
+</div>
+<p>A <strong>HeartPrefs</strong> document says who someone is, who and what they seek, and on what terms an agent may act for them — in one signed JSON object that any agent, at any venue, can read, verify, and act on. You write it once; your agent can court anywhere that speaks HeartPrefs.</p>
+<blockquote>
+<p><strong>Status: v0.1 — DRAFT / experimental.</strong> Field names and bindings may change until v1.0.</p>
+</blockquote>
+<h2>What it is</h2>
+<p>HeartPrefs invents only the <strong>matching vocabulary</strong> (<code>self</code> / <code>seek</code> / <code>free</code>). Everything that makes a document trustable, portable, and payable is delegated to existing rails through four thin <strong>binding blocks</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Block</th>
+<th>Delegates to</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>identity</code></td>
+<td>W3C <strong>DID</strong> (<code>did:pkh</code> / <code>did:web</code>) + a detached <strong>EIP-191</strong> signature</td>
+</tr>
+<tr>
+<td><code>attestation</code></td>
+<td>a W3C <strong>Verifiable Credential</strong> (VC 2.0) proving <code>ageOver18</code> by <em>selective disclosure</em> — no date of birth</td>
+</tr>
+<tr>
+<td><code>consent</code></td>
+<td>an <strong>AP2</strong> Intent Mandate, or a signed allowance, for standing / delegated access</td>
+</tr>
+<tr>
+<td><code>payment</code></td>
+<td>an <strong>x402</strong> quote (HTTP 402 + USDC) to read / submit / subscribe</td>
+</tr>
+</tbody>
+</table>
+<p>The same canonical bytes are designed to ride an <a href="https://x402.org">x402</a> body, an <a href="https://a2a-protocol.org">A2A</a> Agent-Card extension, an <a href="https://modelcontextprotocol.io">MCP</a> resource, and an <a href="https://eips.ethereum.org/EIPS/eip-8004">ERC-8004</a> service entry — with no transformation.</p>
+<p>Read the full spec: <strong><a href="/heartprefs/spec/"><code>spec/0.1/SPEC.md</code></a></strong> · Schema: <a href="https://github.com/gokhan-vc/heartprefs/blob/main/spec/0.1/heartprefs.schema.json"><code>spec/0.1/heartprefs.schema.json</code></a> · Example: <a href="https://github.com/gokhan-vc/heartprefs/blob/main/examples/minimal.json"><code>examples/minimal.json</code></a>.</p>
+<h2>Why</h2>
+<p>Agent-to-agent payment (x402 / AP2), discovery (A2A), tool/context (MCP), and identity (ERC-8004 + DID/VC) are all being standardized — but none defines a <strong>bilateral, mutual-consent matching intent</strong>. HeartPrefs fills exactly that gap, and only that gap, by composing the rest.</p>
+<h2>Quick look</h2>
+<pre><code>{
+  "kind": "heartprefs", "version": "0.1.0", "id": "urn:heartprefs:…",
+  "self": { "gender": "woman", "age": 31, "languages": ["tr","en"] },
+  "seek": { "genders": ["man"], "ageRange": {"min":30,"max":45},
+            "dealbreakers": ["smoking","wants-no-kids"] },        // hard, ANDed
+  "free": { "about": "…", "desire": "", "boundaries": "" },        // desire/boundaries are gated
+  "identity": { "subject": "did:pkh:eip155:8453:0x…" },
+  "attestation": { "ageOver18": true },
+  "proof": { "type": "EIP191", "signature": "0x…" }                // over RFC-8785 JCS of the doc
+}
+</code></pre>
+<h3>The flow: sign → validate → verify → match</h3>
+<ul>
+<li><strong>Sign</strong> — EIP-191 <code>personal_sign</code> over the RFC-8785 (JCS) canonicalization of the document with <code>proof.signature</code> removed. That single rule makes any document self-authenticating.</li>
+<li><strong>Validate</strong> — check the document against the frozen JSON Schema (draft 2020-12).</li>
+<li><strong>Verify</strong> — re-canonicalize, recover the signer, and assert it equals the DID in <code>identity.subject</code>. A document whose signature does not recover to its subject is invalid.</li>
+<li><strong>Match</strong> — matching is <strong>bilateral</strong> (SPEC §6): <code>a.seek</code> is checked against <code>b.self</code> <strong>and</strong> <code>b.seek</code> against <code>a.self</code>. Dealbreakers are hard and ANDed; free text feeds ranking, not eligibility.</li>
+</ul>
+<h2>SDK quickstart</h2>
+<p>The reference implementation is <a href="/heartprefs/sdk/"><code>@heartprefs/sdk</code></a> — a TypeScript library to author, sign, verify, validate, and match v0.1 documents.</p>
+<pre><code>npm install @heartprefs/sdk viem
+</code></pre>
+<pre><code>import { buildDoc, signDoc, verifyDoc, validate, matches, didPkhFromAddress } from "@heartprefs/sdk";
+import { privateKeyToAccount } from "viem/accounts";
+const account = privateKeyToAccount(process.env.AGENT_PRIVATE_KEY as `0x${string}`);
+const subject = didPkhFromAddress(account.address, 8453); // Base
+const doc = buildDoc({
+  id: `urn:heartprefs:${crypto.randomUUID()}`,
+  self: { gender: "woman", age: 31, languages: ["tr", "en"] },
+  seek: { genders: ["man"], ageRange: { min: 30, max: 45 }, dealbreakers: ["smoking"] },
+  identity: { subject },
+  attestation: { ageOver18: true },
+});
+const signed = await signDoc(doc, account);   // fills proof.signature
+const { valid } = validate(signed);           // ajv, JSON Schema draft 2020-12
+const v = await verifyDoc(signed);            // v.recovered === account.address
+</code></pre>
+<p>Build and test the SDK from source:</p>
+<pre><code>cd sdk
+npm install
+npm run typecheck   # tsc --noEmit
+npm test            # vitest
+npm run build       # tsup -&gt; dist (ESM + CJS + .d.ts)
+</code></pre>
+<p>A full copy-paste agent walkthrough is in <a href="https://github.com/gokhan-vc/heartprefs/blob/main/sdk/SKILL.md"><code>sdk/SKILL.md</code></a>, and the SDK API surface is documented in <a href="/heartprefs/sdk/"><code>sdk/README.md</code></a>.</p>
+<h3>Validate without the SDK</h3>
+<p>Any JSON-Schema 2020-12 validator works — the document format is not tied to any one implementation:</p>
+<pre><code>npx ajv-cli validate -s spec/0.1/heartprefs.schema.json -d examples/minimal.json --spec=draft2020
+</code></pre>
+<h2>Interop</h2>
+<p>HeartPrefs is a document format, not a transport. It is designed so the same canonical bytes move across the agent stack unchanged:</p>
+<ul>
+<li><strong>x402</strong> — a <code>payment</code> block carries an x402 <code>PaymentRequirements</code> quote; the document advertises the price to read/submit while settlement happens out of band over the x402 wire (HTTP <code>402</code> → <code>X-PAYMENT</code> → facilitator verify/settle).</li>
+<li><strong>A2A</strong> — the public projection of a document fits an A2A Agent-Card extension, so an agent can publish who it seeks alongside its capabilities.</li>
+<li><strong>MCP</strong> — a document can be served as an MCP resource for context/tool exchange between agents.</li>
+<li><strong>ERC-8004 / DID / VC</strong> — identity binds to a W3C <strong>DID</strong> (<code>did:pkh:eip155</code> or <code>did:web</code>); adulthood is a W3C <strong>Verifiable Credential</strong> (VC 2.0) disclosing only an <code>ageOver18</code> predicate; a document can be referenced from an ERC-8004 service entry.</li>
+</ul>
+<p>Each of these rails is itself draft or fast-moving — implementers MUST re-verify against first-party sources before depending on a specific field, path, or ABI. See <a href="/heartprefs/spec/">SPEC §9</a>.</p>
+<h2>Governance</h2>
+<p>HeartPrefs is stewarded as an <strong>open, neutral-by-design</strong> standard. A numbered <strong>HIP</strong> (HeartPrefs Improvement Proposal) process governs changes, and the standard is intended to move to a neutral home (W3C Community Group → Linux Foundation) once there are independent implementations. See <strong><a href="/heartprefs/governance/">GOVERNANCE.md</a></strong>.</p>
+<p>Proposals, questions, and discussion go through the repository's <a href="https://github.com/gokhan-vc/heartprefs/issues">issue tracker</a> (open an issue or a PR). For contact by email, use <code>contact@gokhan.vc</code>.</p>
+<h2>Credits &amp; third-party</h2>
+<p>The SDK builds on the following open-source projects:</p>
+<table>
+<thead>
+<tr>
+<th>Project</th>
+<th>Used for</th>
+<th>License</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/wevm/viem">viem</a></td>
+<td>EIP-191 signing and signer recovery</td>
+<td>MIT</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ajv-validator/ajv">ajv</a> + <a href="https://github.com/ajv-validator/ajv-formats">ajv-formats</a></td>
+<td>JSON Schema (draft 2020-12) validation</td>
+<td>MIT</td>
+</tr>
+<tr>
+<td><a href="https://github.com/erdtman/canonicalize">canonicalize</a></td>
+<td>RFC-8785 (JCS) canonicalization</td>
+<td>Apache-2.0</td>
+</tr>
+<tr>
+<td><a href="https://github.com/egoist/tsup">tsup</a></td>
+<td>ESM/CJS/<code>.d.ts</code> bundling</td>
+<td>MIT</td>
+</tr>
+<tr>
+<td><a href="https://github.com/vitest-dev/vitest">vitest</a></td>
+<td>testing</td>
+<td>MIT</td>
+</tr>
+<tr>
+<td><a href="https://github.com/microsoft/TypeScript">TypeScript</a></td>
+<td>language / typecheck</td>
+<td>Apache-2.0</td>
+</tr>
+</tbody>
+</table>
+<p>The standard composes onto the <a href="https://x402.org">x402</a>, <a href="https://a2a-protocol.org">AP2</a>, <a href="https://a2a-protocol.org">A2A</a>, <a href="https://modelcontextprotocol.io">MCP</a>, and <a href="https://eips.ethereum.org/EIPS/eip-8004">ERC-8004</a> specifications, plus the W3C DID and Verifiable Credentials data models.</p>
+<h2>License</h2>
+<p>Copyright (c) 2026 Atelier Gökhan / Numetal.</p>
+<ul>
+<li><strong>Vocabulary, JSON Schema, and spec text</strong> (<code>spec/</code>): <strong><a href="https://github.com/gokhan-vc/heartprefs/blob/main/LICENSE">CC-BY-4.0</a></strong> — you may share, adapt, and build on HeartPrefs, including commercially, provided you give appropriate credit to "HeartPrefs (Atelier Gökhan / Numetal)" and link to the license.</li>
+<li><strong>Code</strong> (<code>sdk/</code>): <strong>Apache-2.0</strong> (see <a href="https://github.com/gokhan-vc/heartprefs/blob/main/sdk/LICENSE"><code>sdk/LICENSE</code></a>).</li>
+<li>The name <strong>"HeartPrefs"</strong> and the conformance mark are protected — attribution lets you build on the standard; it does not grant the right to imply endorsement. See <a href="/heartprefs/governance/">GOVERNANCE.md</a>.</li>
+</ul>
+<h2>Reference implementation</h2>
+<p><a href="/ishtar/">Ishtar</a> is the reference implementation and the first venue to consume HeartPrefs.</p>

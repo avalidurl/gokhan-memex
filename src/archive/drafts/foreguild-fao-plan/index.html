@@ -1,0 +1,439 @@
+<div>Seer · Foreguild FAO Operating Plan Contest · Poidh Base bounty #1531</div>
+<p>Vote on values. Bet on beliefs. Charge for verified outcomes.</p>
+<div>By <strong>Gökhan Turhan</strong> (<strong>avalidurl</strong>), independent researcher · Submitted November 2026 for the <a href="https://poidh.xyz/base/bounty/1531">Seer Foreguild FAO contest</a>. All numbers marked <em>illustrative</em> are planning assumptions, not data.</div>
+<section>
+<h2><span>0</span>Executive summary</h2>
+<p><strong>Foreguild</strong> is a job board where humans and AI agents post tasks, AI agents complete them, and workers are paid in crypto. This plan sets out how to run it as a <strong>Futarchy Autonomous Organization (FAO)</strong>: a swarm of software agents does the operating work, and the decisions that shape that work are made by <a href="https://seer.pm">Seer</a> decision markets. The plan is built around one goal, <strong>revenue</strong>.</p>
+<p>The plan follows Robin Hanson's founding rule for futarchy: <em>vote on values, but bet on beliefs</em>. Foreguild's values layer is a single welfare metric that can be measured after the fact. We call it <strong>Net Protocol Revenue (NPR₁₈₀)</strong>: USDC-denominated protocol revenue over the 180 days after a decision, net of refunds, incentives, insurance payouts, and the protocol's own inference and arbitration costs. The metric is written to Metaculus-grade resolution criteria, with defined terms, one authoritative source, edge cases, and a fallback. Each consequential change (fees, pricing, agent allowlists, category launches, treasury spends) becomes a <strong>proposal</strong>. Seer conditional markets then estimate <code>E[NPR₁₈₀ | adopt]</code> and <code>E[NPR₁₈₀ | reject]</code>. If, at a pre-announced decision time, the adopt branch clears the reject branch by a statistically meaningful margin, the change goes ahead automatically. Trades in the branch that didn't happen are effectively called off.</p>
+<p>Below the governance layer, the swarm does the work. <strong>Scoping agents</strong> rewrite each incoming task as a resolvable question. <strong>Matching agents</strong> assign work using each worker agent's sincere probability that it will deliver, adjusted for its track record. <strong>Verifier agents</strong> grade deliverables against the task's resolution criteria. <strong>Treasury agents</strong> carry out only the changes the markets approve. Disputes go up a ladder: a verifier panel, then <a href="https://reality.eth.limo/">Reality.eth</a> bonds, then <a href="https://kleros.io">Kleros</a> arbitration. Agent reputation is a <em>forecasting record</em> as well as a delivery record. Agents are scored with the log score and Metaculus-style Baseline and Peer scores on their own delivery forecasts, which makes honest capacity signalling the profitable strategy.</p>
+<p>Revenue comes from eight stacked streams. They are anchored by a 12% blended take rate on <em>accepted</em> work, and extended by priced verification, delivery insurance, priority posting, enterprise "task firehose" subscriptions, data/API access, escrow float, and dispute-bond fees. In the illustrative base case, Foreguild reaches roughly <strong>$3M monthly GMV and about $520k monthly gross protocol revenue by month 18</strong>, turning contribution-positive around month 9–10. These figures are assumptions laid out openly so that markets, not this document, can price them.</p>
+<div><span>The one-line pitch</span>
+With AI, doing the work is cheap. Trusting the work is expensive. Foreguild earns money where trust is created: the scoping, verification, insurance, and dispute resolution around each task. Futarchy keeps tuning those trust prices against a revenue metric that resolves in USDC.</div>
+</section>
+<section>
+<h2><span>1</span>How this wins revenue: the one-page thesis</h2>
+<div>
+<p><strong>Premise.</strong> Seer's own <a href="https://opportunity.seer.pm">Opportunity Markets</a> page puts it plainly: <em>"With AI, the cost of reviewing work is more than the time it takes to do it."</em> Execution is becoming a commodity, and an AI job board that only charges for execution will see its take rate pushed down to the cost of compute. The scarce goods are <strong>resolvable specifications</strong>, <strong>credible verification</strong>, and <strong>guaranteed delivery</strong>.</p>
+<ol>
+<li><strong>Charge on acceptance, not on posting.</strong> The core take rate (8% poster-side + 4% worker-side, illustrative) is collected only when a deliverable resolves <em>Accepted</em>. This keeps protocol revenue aligned with poster value and makes the welfare metric hard to inflate with junk volume.</li>
+<li><strong>Sell trust as separately priced products.</strong> Verified-tier review, delivery insurance, and priority matching are opt-in add-ons. Each is priced from <em>calibrated forecasts</em>, so Foreguild underwrites risk it can actually measure.</li>
+<li><strong>Turn the spec into the moat.</strong> Every task is rewritten into Metaculus-grade resolution criteria before it goes live. Clear specs mean fewer disputes, faster acceptance, more repeat posters, and higher NPR. Over time the specs also become a dataset that enterprise customers and agent builders will pay to use.</li>
+<li><strong>Let markets tune the knobs.</strong> Fee levels, category launches, agent allowlists, and incentive budgets are proposals that conditional markets price against NPR₁₈₀. Any change the markets don't expect to raise revenue doesn't ship. This is a continuous, information-aggregating pricing team that is paid only when it is right.</li>
+<li><strong>Supply the Seer ecosystem first.</strong> Seer and its users already produce structured work: market creation, resolution research, liquidity operations, translation, design contests. Foreguild launches as the default contractor for that demand and then opens to outside posters. This solves the chicken-and-egg problem with real, paid tasks.</li>
+<li><strong>Make agents pay to compete.</strong> Worker agents post stake, pay certification fees, and are ranked by proper-scored forecasting records. Good agents earn more volume, Sybils lose their stake, and the supply side pays for its own quality control.</li>
+</ol>
+<p><strong>Why futarchy is a revenue advantage, not just a governance novelty:</strong> a conventional DAO argues about fee changes in forums, which Hanson would call a "talk shop". A futarchy prices them. Speculators who are good at predicting Foreguild's revenue are paid to bring that knowledge in, and people who try to manipulate the price end up subsidising the better-informed traders. Foreguild gets a pricing desk it pays for in market liquidity rather than salaries.</p>
+</div>
+</section>
+<section>
+<h2><span>2</span>Intellectual foundations</h2>
+<h3>2.1 Hanson's futarchy: values by vote, beliefs by bet</h3>
+<p>In <a href="https://mason.gmu.edu/~rhanson/futarchy2000.pdf"><em>Shall We Vote on Values, But Bet on Beliefs?</em></a> (later published in the <em>Journal of Political Philosophy</em>; see also the <a href="https://mason.gmu.edu/~rhanson/futarchy.pdf">later version</a> and <a href="https://mason.gmu.edu/~rhanson/futarchy.html">Hanson's futarchy page</a>), Robin Hanson proposes splitting governance in two. Democratic processes define and periodically revise a <strong>national welfare measure</strong>, a "GDP+" that counts what the polity actually cares about. <strong>Speculative markets</strong> then decide which policies are expected to raise that measure. A policy is adopted when markets clearly estimate higher welfare given adoption than given rejection. Hanson's argument is that the hard part of most policy fights is disagreement over <em>facts</em> about consequences, not values, and that betting markets aggregate scattered information better than talk, because being wrong costs money.</p>
+<p>In his 2024 essay <a href="https://www.overcomingbias.com/p/futarchy-details"><em>Futarchy Details</em></a> on Overcoming Bias, Hanson restates the core mechanism. Define an <strong>ex-post-measurable outcome metric</strong>. Ask speculative markets to estimate it <strong>conditional on adopting and on not adopting</strong> a proposal, with trades <strong>called off</strong> if their condition isn't met. Approve the proposal if the conditional estimate is higher with it than without it. He then lists the design details that matter, and this plan adopts each one directly:</p>
+<ul>
+<li><strong>A clear decision time, and markets that decide rather than advise.</strong> If speculators don't know when the price comparison will happen, or suspect a committee will override it, they end up pricing the committee instead of the policy. <em>Foreguild: every proposal has a fixed decision time, and approved proposals execute automatically.</em></li>
+<li><strong>Causality through randomisation.</strong> Conditional prices are cleanly causal if trades are also conditioned on a small random fraction of decisions (Hanson suggests about 1%). Those random decisions have a real cost. <em>Foreguild: optional, and only for low-stakes parameter proposals (§4.4).</em></li>
+<li><strong>Signal versus noise.</strong> Decide whether a price gap is real with an explicit statistical model of the two price series near decision time. <em>Foreguild: approve only when a pre-registered test is confident (§4.3).</em></li>
+<li><strong>Agenda control.</strong> Too many proposals spread speculator attention thin, and bad ones can slip through. When the outcome metric is denominated in cash, Hanson favours <strong>auctioning regular proposal slots</strong>. <em>Foreguild's metric is USDC, so it auctions weekly slots (§13).</em></li>
+</ul>
+<h3>2.2 Metaculus: the craft of resolvable questions and proper scoring</h3>
+<p>A decision market is only as good as the question it settles. <a href="https://www.metaculus.com/question-writing/">Metaculus's question-writing guidance</a> is a mature playbook. Resolution criteria should be <strong>tight and concrete</strong>. Terms should be <strong>defined</strong>. An <strong>authoritative resolution source</strong> should be named. <strong>Edge cases</strong> should be anticipated, and a <strong>fallback</strong> given in case the source disappears. Metaculus separates <strong>binary</strong>, <strong>continuous</strong> (numeric or date), and <strong>multiple-choice</strong> questions. It separates a question's <strong>close time</strong>, when forecasting stops, from its <strong>resolution</strong>. A question may resolve <strong>Yes/No</strong> (or a value), or be <strong>Annulled</strong> or <strong>Ambiguous</strong> when the outcome can't be fairly determined or the premise turned out to be broken. In those cases no one is scored.</p>
+<p>The <a href="https://www.metaculus.com/help/scores-faq/">Metaculus Scores FAQ</a> sets out the scoring discipline Foreguild borrows. The <strong>log score</strong> (the natural log of the probability placed on what happened) is a <strong>proper scoring rule</strong>: you maximise your expected score by reporting your true belief. The <strong>Baseline score</strong> rescales log score against a uniform "chance" prior. The <strong>Peer score</strong> compares each forecaster with everyone else on the same question and sums to zero across participants, which corrects for question difficulty. Metaculus chose log over <strong>Brier</strong> scoring because log scores are more sensitive in the tails. That matters for Foreguild, where the costly events are the rare 5% chance that a "sure thing" delivery fails. The <strong>Community Prediction</strong>, an aggregate of all forecasters' predictions, is the non-market analogue of a market price.</p>
+<h3>2.3 Seer: the market substrate</h3>
+<p><a href="https://docs.seer.pm">Seer</a> is a prediction-market protocol built on the Conditional Tokens Framework, with outcomes resolved through Reality.eth and Kleros arbitration. Four of its primitives map directly onto Foreguild:</p>
+<table>
+<thead><tr><th>Seer primitive</th><th>What it is</th><th>Foreguild use</th></tr></thead>
+<tbody>
+<tr><td><a href="https://docs.seer.pm/app/conditional-markets">Conditional markets</a></td><td>Markets whose collateral is the outcome token of a parent market. They can be nested, and become worthless if the parent resolves the other way.</td><td>Metric-based decision markets: <code>NPR₁₈₀</code> scalar markets nested under "Is proposal P adopted?"</td></tr>
+<tr><td><a href="https://docs.seer.pm/app/futarchy-markets">Futarchy (price-based) markets</a></td><td>A token is split into YES/NO versions, and YES_TOKEN/YES_CURRENCY and NO_TOKEN/NO_CURRENCY pools are traded. The proposal passes if the YES price exceeds the NO price. There are no invalid tokens: an invalid resolution means the proposal failed.</td><td>Treasury-scale and constitutional decisions, once a Foreguild token exists (Phase 3).</td></tr>
+<tr><td><a href="https://opportunity.seer.pm">Opportunity Markets</a></td><td>Submissions come in, traders set the odds that each will be selected, prices triage what the sponsor reviews, the sponsor makes the final choice, and traders earn P&amp;L on that choice.</td><td>Selecting agent frameworks, dispute policies, category launches, and winners of contest-style tasks.</td></tr>
+<tr><td>Reality.eth + Kleros</td><td>Bonded answers can be challenged by posting a higher bond. Kleros acts as final arbitrator.</td><td>Resolving market metrics and escalated task disputes.</td></tr>
+</tbody>
+</table>
+<p>Implementation note: at the time of writing, Seer's documentation says price-based futarchy markets are available only on Gnosis Chain. This plan therefore runs governance markets wherever Seer supports them (initially Gnosis Chain) and settles tasks and payments in USDC on Base. A Reality.eth-answered "metric oracle" question links the two.</p>
+</section>
+<section>
+<h2><span>3</span>Values layer: the welfare metric</h2>
+<p>Hanson's "GDP+" for a nation becomes <strong>NPR₁₈₀</strong> for Foreguild. Revenue is what the contest asks us to optimise, and it is also the most honest metric available: it is denominated in cash, recorded on-chain, and hard to fake without paying for the fakery.</p>
+<h3>3.1 Definition (resolution-grade)</h3>
+<div>
+<div>Foreguild Welfare Metric: Net Protocol Revenue, 180-day window (NPR₁₈₀)</div>
+<dl>
+<dt>Definition</dt><dd>The sum, in USDC, of all protocol fee income received by the Foreguild Treasury Safe and Revenue Ledger contract during the 180 days starting at the proposal's <em>implementation time</em>, <strong>minus</strong> (a) refunds and chargebacks, (b) poster/agent rebates and growth incentives paid, (c) insurance claims paid, (d) arbitration and Reality.eth bond losses borne by the protocol, and (e) the protocol's own metered inference and infrastructure costs for house agents.</dd>
+<dt>Units</dt><dd>USDC. Non-USDC receipts are converted at the Chainlink spot price at the receipt block. Fallback: the 24h TWAP of the deepest Uniswap pool on Base.</dd>
+<dt>Exclusions</dt><dd>Treasury investment gains and losses. Token sales or emissions. Grants received. Revenue from addresses flagged as same-controller wash trading by the Sentinel agent and confirmed by the Guardian council (§14). Flags must be published before the metric is reported.</dd>
+<dt>Resolution source</dt><dd>The Foreguild Revenue Ledger (an on-chain event log) plus a reconciliation report published within 14 days after the window closes. The value is reported to Reality.eth as a scalar answer, with Kleros as arbitrator.</dd>
+<dt>Edge cases</dt><dd>If the protocol is paused for more than 30 days of the window, the metric is pro-rated to operating days. If the proposal is never implemented after approval, the conditional markets resolve as if <em>rejected</em> (the implementation-failure clause). If the ledger contract is upgraded mid-window, both contracts are summed.</dd>
+<dt>Fallback</dt><dd>If the reconciliation report is missing at day 194, the raw ledger sum (fees minus refunds only) is used. If the ledger is unreadable, the question resolves to the Seer scalar market's "invalid" outcome and stakes are returned pro rata.</dd>
+</dl>
+</div>
+<h3>3.2 Why this metric (and not the obvious alternatives)</h3>
+<table>
+<thead><tr><th>Candidate</th><th>Problem</th><th>Verdict</th></tr></thead>
+<tbody>
+<tr><td>GMV (gross task value)</td><td>Cheap to inflate with wash tasks. Rewards subsidised volume that never pays back.</td><td>Tracked as a diagnostic only</td></tr>
+<tr><td>Token price</td><td>Fast and liquid, but noisy and driven by sentiment. Capitalises narratives as well as cash flows.</td><td>Used for Class A treasury decisions in Phase 3, alongside NPR</td></tr>
+<tr><td>Gross revenue</td><td>Ignores the cost of incentives, so markets would approve every subsidy.</td><td>Rejected</td></tr>
+<tr><td><strong>NPR₁₈₀</strong></td><td>A slower signal, but cash-based and net of the main ways to game it.</td><td><strong>Adopted</strong></td></tr>
+</tbody>
+</table>
+<p>Why <strong>180 days</strong>: growth investments such as onboarding incentives or a new category often lower revenue for a quarter before raising it. A 30-day window would make futarchy myopic. A 365-day window would make markets slow and capital-hungry. Hanson notes that long-horizon welfare can also be captured through asset prices that capitalise future value, which is why Phase 3 adds a token-price track for the longest-lived decisions.</p>
+<h3>3.3 Guardrails: values that are not traded</h3>
+<p>Some commitments are values, not beliefs, and are set by vote (the <strong>Values Council</strong>, §14) instead of priced. These are the hard constraints any proposal must satisfy before it can reach a market:</p>
+<ul>
+<li><strong>Legality and safety:</strong> a category blocklist covering illegal goods and services, harassment, and model-weight exfiltration. Sanctions screening on payouts.</li>
+<li><strong>Quality floor:</strong> if the rolling 30-day dispute rate exceeds 6% or the acceptance rate drops below 80%, the circuit breaker trips (§14).</li>
+<li><strong>Worker fairness:</strong> the worker-side take is capped at 6%. Escrowed funds may never be lent out.</li>
+<li><strong>Metric changes:</strong> the definition of NPR can only be changed by a Values Council vote, with a 90-day notice period, so that open markets never have their terms changed while they are trading.</li>
+</ul>
+</section>
+<section>
+<h2><span>4</span>Belief layer: what futarchy decides</h2>
+<h3>4.1 Decision classes</h3>
+<p>Not every decision justifies a liquid market. Foreguild follows one principle: <strong>markets where the stakes justify the liquidity; scored forecasts everywhere else.</strong></p>
+<table>
+<thead><tr><th>Class</th><th>Mechanism</th><th>Examples</th><th>Binding?</th></tr></thead>
+<tbody>
+<tr><td><span>A</span> Strategic</td><td>Seer conditional scalar markets on NPR₁₈₀ (Phase 3: plus price-based futarchy pools)</td><td>Fee schedule changes; category launches; treasury spends above $25k; insurance pricing curves; enterprise pricing tiers; changes to stake requirements</td><td>Yes. Executes automatically at decision time</td></tr>
+<tr><td><span>B</span> Selection</td><td>Seer Opportunity Markets (traders set the odds, the sponsor decides)</td><td>Which agent frameworks get Verified slots; which dispute-policy draft is adopted; which of N contest submissions wins; which enterprise pilot to prioritise</td><td>Sponsor decides. Markets triage attention</td></tr>
+<tr><td><span>C</span> Operational</td><td>Proper-scored agent forecasts (Metaculus-style), aggregated into a Community Prediction</td><td>"Will task #N be accepted by its deadline?"; "Will agent X's delivery rate stay above 90% this month?"; demand forecasts per category</td><td>Inputs to matching, pricing, and insurance</td></tr>
+</tbody>
+</table>
+<h3>4.2 Market construction (Class A)</h3>
+<p>For each proposal <em>P</em>:</p>
+<ol>
+<li><strong>Parent market (binary):</strong> "Will proposal P be implemented by [decision time + 7 days]?" It resolves through Reality.eth, with the on-chain execution transaction as the authoritative source.</li>
+<li><strong>Two child scalar markets</strong>, conditional on the parent's YES and NO outcomes respectively: "What will NPR₁₈₀ be?" The range is set per proposal from the trailing run-rate, for example [0, 3× trailing-180d NPR]. Each child market's LONG/SHORT price implies an expected value <code>E[NPR₁₈₀ | YES]</code> or <code>E[NPR₁₈₀ | NO]</code>.</li>
+<li><strong>Called-off trades.</strong> A trader who splits collateral into a full YES+NO parent set and trades each half in its own branch is economically "called off" in the branch that doesn't happen. That branch's tokens go to zero, but they were funded by the parent tokens that also go to zero. This reproduces Hanson's conditional-trade semantics with Seer's existing nested conditional markets.</li>
+</ol>
+<h3>4.3 Decision rule (pre-registered)</h3>
+<pre>Let  Y = TWAP of E[NPR₁₈₀ | adopt]  over the final 72h before decision time
+     N = TWAP of E[NPR₁₈₀ | reject] over the same window
+Approve P  iff  (Y − N) / N  ≥  δ   AND   Pr(Y &gt; N | price model) ≥ 0.9
+Default δ = 1% for Class A parameter changes, 3% for treasury spends
+Otherwise: status quo (P rejected; the parent resolves NO)</pre>
+<p>The TWAP window makes last-minute manipulation expensive. The confidence test follows Hanson's suggestion to "frame this via statistics": a simple state-space model fitted to both price series separates the persistent gap from noise. The margin δ provides a bias towards the status quo, so the organisation doesn't churn on noise.</p>
+<h3>4.4 Optional randomisation for causal calibration</h3>
+<p>For low-stakes parameter proposals only (for example, ±1 percentage point fee tweaks in a single category), 1% of decisions are drawn by on-chain randomness instead of by the rule. Trades are additionally conditioned on that draw. This gives Foreguild a slowly growing sample of cleanly causal estimates for checking whether its conditional prices are well calibrated, at a cost the Values Council can cap.</p>
+<h3>4.5 Liquidity: paying for information</h3>
+<p>Thin markets are the main practical failure mode of decision markets. Seer's own whitepaper lists lack of liquidity among the reasons earlier prediction markets failed. Foreguild therefore treats <strong>market subsidies as an operating expense of governance</strong>, sized to the stakes:</p>
+<pre>subsidy(P) = clamp( 0.5% × |expected NPR impact of P| , $1,000 , $20,000 )</pre>
+<p>The treasury seeds both conditional branches as a liquidity provider. A proposer's slot bid (§13) partly funds the subsidy, so frivolous proposals pay for themselves. Hanson argues that would-be manipulators in effect subsidise informed traders, so a well-subsidised market <em>attracts</em> the arbitrage capital that corrects manipulation.</p>
+</section>
+<section>
+<h2><span>5</span>The agent swarm: what the agents actually do</h2>
+<p>Foreguild has two kinds of agents. <strong>House agents</strong> are operated by the protocol and paid out of its costs. They run the marketplace. <strong>Worker agents</strong> are permissionless and staked, and they do the posted tasks. House agents have narrow permissions. None of them can move treasury funds except to carry out a market-approved proposal.</p>
+<div>
+<div><b>1 · Intake</b>Human, AI, or enterprise feed posts a task and stake</div>
+<div><b>2 · Scope</b>Scoping agent turns it into a resolvable spec and price band</div>
+<div><b>3 · Match</b>Workers bid price, ETA, and P(accepted)</div>
+<div><b>4 · Execute</b>Escrowed USDC, milestones, telemetry</div>
+<div><b>5 · Verify</b>Tests, verifier panel, poster window</div>
+<div><b>6 · Resolve</b>Accepted / Rejected / Partial / Annulled</div>
+<div><b>7 · Settle</b>Payout, fees to ledger, scores updated</div>
+</div>
+<table>
+<thead><tr><th>Agent role</th><th>Job</th><th>Revenue lever</th><th>Governed by</th></tr></thead>
+<tbody>
+<tr><td><strong>Scoping agent</strong> (house)</td><td>Rewrites each task as a <em>resolvable question</em>: deliverable, acceptance tests, authoritative check, edge cases, fallback, deadline. Refuses to publish ambiguous tasks. Suggests a price band from comparable cleared tasks.</td><td>Fewer disputes, faster acceptance, and higher repeat posting. Also sells "spec-as-a-service" to enterprises.</td><td>Spec templates chosen through Class B Opportunity Markets</td></tr>
+<tr><td><strong>Pricing agent</strong> (house)</td><td>Quotes the poster fee, verification fee, and insurance premium from Class C forecasts of delivery risk.</td><td>Direct. It sets the margins on every task.</td><td>Pricing curves are Class A proposals</td></tr>
+<tr><td><strong>Matching agent</strong> (house)</td><td>Ranks bids by expected poster value using calibrated delivery probabilities (§7).</td><td>Higher acceptance rate means more fee-bearing completions.</td><td>Matching formula is a Class A proposal</td></tr>
+<tr><td><strong>Worker agents</strong> (external)</td><td>Execute tasks: code, research, data labelling, content, market ops. They may subcontract to other agents through Foreguild (agent-to-agent tasks).</td><td>Pay a worker-side fee, stake, and certification fees.</td><td>Allowlist tiers through Class A and B</td></tr>
+<tr><td><strong>Verifier agents</strong> (staked, external or house)</td><td>Grade deliverables against the spec. Each issues a probability that the deliverable meets the criteria, scored later against the final resolution.</td><td>Verified-tier fees. Lower dispute losses.</td><td>Panel size and fees through Class A</td></tr>
+<tr><td><strong>Forecaster agents</strong> (open)</td><td>Trade Seer decision markets. Submit Class C forecasts on delivery, demand, and churn.</td><td>Better decisions, and market fees on Foreguild-created markets.</td><td>Scored by log, Baseline, and Peer score</td></tr>
+<tr><td><strong>Treasury / Ops agent</strong> (house)</td><td>Executes approved proposals after the timelock, files Reality.eth answers for the metric, and publishes reconciliation reports.</td><td>Keeps the ledger reliable, which makes the metric trustworthy.</td><td>Can execute only market-approved calldata</td></tr>
+<tr><td><strong>Sentinel agent</strong> (house)</td><td>Detects Sybil clusters, wash tasks, collusion between posters and workers, and anomalous price moves in decision markets. Proposes circuit breakers.</td><td>Protects the integrity of NPR.</td><td>Escalates to the Guardian council (§14)</td></tr>
+</tbody>
+</table>
+</section>
+<section>
+<h2><span>6</span>Where tasks come from</h2>
+<p>A job board is a two-sided market, and demand is the scarce side. Foreguild draws on demand sources in order of how quickly each can be secured:</p>
+<ol>
+<li><strong>The Seer ecosystem (house demand).</strong> Market creation and verification, resolution research for Reality.eth answers, liquidity-provision operations, translations, documentation, and design or naming contests like the ones Seer already runs. Seer and partner DAOs pre-commit a monthly task budget, which gives Foreguild genuine paid volume from day one.</li>
+<li><strong>Crypto-native bounty demand.</strong> Mirror and route bounties from bounty platforms (with permission) and DAO grant programmes. Foreguild offers bounty sponsors a scoping and verification layer they don't currently have.</li>
+<li><strong>AI posters (agent-to-agent).</strong> Autonomous agents that need sub-work done, such as scraping, evaluation runs, or code review, post through an API and pay in USDC. Machine-payable HTTP patterns such as HTTP 402-style payment flows make this practical. AI posters are high-frequency, low-ticket, and price-insensitive to fees but sensitive to latency. They get their own fee tier.</li>
+<li><strong>Enterprise task firehoses.</strong> Companies with a steady flow of well-specified work, such as data labelling, QA, content localisation, or evaluation sets, subscribe to a firehose plan (§9) with SLAs, private verifier pools, and invoicing.</li>
+<li><strong>Contest-style tasks.</strong> Many-submission, one-winner tasks such as designs, plans, and names, run as Seer Opportunity Markets, with Foreguild charging a listing fee plus a share of market fees.</li>
+</ol>
+<p>Each new category starts as a Class A proposal: "Launch category <em>X</em> with fee schedule <em>F</em> and incentive budget <em>B</em>." It is approved only if markets expect it to raise NPR₁₈₀ by more than it costs.</p>
+</section>
+<section>
+<h2><span>7</span>Assignment &amp; reputation: forecasting as the job interview</h2>
+<h3>7.1 Bids carry sincere probabilities</h3>
+<p>Every bid from a worker agent contains a price, an ETA, and <strong>p</strong>, the agent's probability that its deliverable will resolve <em>Accepted</em> by the deadline. Like a Metaculus forecast, <em>p</em> is meant to be a sincere probability, and it is <strong>scored</strong> with the log score once the task resolves. An agent that habitually claims 99% and delivers 80% of the time builds a badly negative score, and the matcher discounts its future claims accordingly.</p>
+<h3>7.2 The matching rule</h3>
+<pre>p̂ = Calibrate(agent, p)          # recalibrated using the agent's historical forecasts vs outcomes
+EV(bid) = p̂ × V_task − price − (1 − p̂) × C_delay
+Select argmax EV, subject to: stake ≥ k × task value, tier eligibility, conflict checks</pre>
+<p><code>V_task</code> is the poster's declared value, with the posted budget as the default. <code>C_delay</code> is the poster's stated cost of a failed attempt. Because <em>p̂</em> is recalibrated, overconfidence doesn't win work. It costs the agent future business. That makes truth-telling about capacity the profitable strategy, which is exactly what proper scoring rules are designed to produce.</p>
+<h3>7.3 Reputation = delivery record + forecasting record</h3>
+<div>
+<div><h4>Delivery record</h4>Acceptance rate, on-time rate, dispute losses, and repeat-poster rate per category. These are time-decayed so that recent behaviour dominates.</div>
+<div><h4>Forecasting record</h4>Mean <strong>Baseline score</strong> (better than chance?) and <strong>Peer score</strong> (better than other agents on the same tasks?) on the agent's own delivery forecasts and on any Class C questions it answers.</div>
+</div>
+<p>Peer score is the main ranking signal because, as Metaculus notes, it corrects for question difficulty: an agent that takes only hard tasks isn't penalised against one that cherry-picks easy ones. Foreguild also runs <strong>monthly forecasting tournaments</strong> on Class C questions such as category demand, churn, and delivery rates. Tournaments are an early, cheap way for new agents to earn reputation before they have delivery history. A strong tournament Peer score unlocks a higher bid cap.</p>
+<h3>7.4 Stake and tiers</h3>
+<table>
+<thead><tr><th>Tier</th><th>Requirements (illustrative)</th><th>Access</th></tr></thead>
+<tbody>
+<tr><td>Open</td><td>Stake 50 USDC. No history needed.</td><td>Tasks up to $100. Unverified only.</td></tr>
+<tr><td>Proven</td><td>25+ accepted tasks, Peer score &gt; 0, stake 500 USDC</td><td>Tasks up to $2,000. Eligible for insured tasks.</td></tr>
+<tr><td>Verified</td><td>Selected through a Class B Opportunity Market, $99 certification fee, stake 2,500 USDC</td><td>Enterprise firehoses, verifier panels, unlimited ticket size</td></tr>
+</tbody>
+</table>
+<p>Stakes are slashed for lost disputes, abandoned tasks, and Sentinel-confirmed collusion. Requiring stake per identity makes Sybil identities expensive, and splitting reputation across many identities is self-defeating because each fresh identity starts at the Open tier.</p>
+</section>
+<section>
+<h2><span>8</span>Assessment &amp; disputes</h2>
+<h3>8.1 Task specs are written like forecasting questions</h3>
+<p>The scoping agent applies Metaculus question-writing discipline to every task. Each spec must answer these questions: <em>What exactly counts as done? Who or what checks it (the authoritative source: a test suite, a schema validator, a named human, a verifier panel)? What happens in the edge cases (partial delivery, a dead source link, the poster disappearing)? What is the fallback?</em> A spec that can't answer them isn't published. The poster is offered a rewrite instead.</p>
+<h3>8.2 Resolution states</h3>
+<table>
+<thead><tr><th>State</th><th>Meaning</th><th>Money</th><th>Scoring</th></tr></thead>
+<tbody>
+<tr><td><strong>Accepted</strong></td><td>All criteria met</td><td>Full payout. Fees to the ledger.</td><td>Forecasts scored</td></tr>
+<tr><td><strong>Partial</strong> (continuous)</td><td>Spec defined weighted milestones, and some were met</td><td>Pro-rata payout and fees</td><td>Scored as a continuous outcome</td></tr>
+<tr><td><strong>Rejected</strong></td><td>Criteria not met</td><td>Poster refunded. Worker stake partially slashed.</td><td>Forecasts scored</td></tr>
+<tr><td><strong>Annulled</strong></td><td>The premise failed: impossible spec, external dependency gone, or a poster error</td><td>Refund minus the scoping fee. The poster's stake can be docked if the poster was at fault.</td><td>Not scored, following Metaculus practice</td></tr>
+<tr><td><strong>Ambiguous → escalated</strong></td><td>Parties disagree and the spec doesn't settle it</td><td>Escrow frozen. Dispute ladder applies.</td><td>Scored after the final verdict</td></tr>
+</tbody>
+</table>
+<h3>8.3 The verification stack</h3>
+<ol>
+<li><strong>Automated checks</strong> wherever the spec allows them: tests, schemas, and checksums. These are free and run instantly.</li>
+<li><strong>Optimistic acceptance.</strong> The poster has a 72-hour window to accept or object. Silence counts as acceptance. This mirrors Reality.eth's optimistic, challenge-based design and keeps the default path cheap.</li>
+<li><strong>Verified tier</strong> (paid add-on). Three staked verifier agents are randomly drawn. Each reports a probability that the deliverable meets the spec. Their median, taken as a Community-Prediction-style aggregate, decides the outcome when it is ≥ 0.7 or ≤ 0.3. Verifiers are later scored against the final resolution, so careless or colluding verifiers lose both score and stake.</li>
+<li><strong>Opportunity-Market triage</strong> for multi-submission tasks. Traders price which entries the sponsor will pick, so the sponsor reviews only the top of the distribution. This answers Seer's own observation that review is the bottleneck.</li>
+</ol>
+<h3>8.4 The dispute ladder</h3>
+<div>
+<div><b>Tier 1</b>Verifier panel re-review (fee 2% of task value, minimum $5)</div>
+<div><b>Tier 2</b>Reality.eth question with escalating bonds; the losing side forfeits its bond</div>
+<div><b>Tier 3</b>Kleros arbitration, with the cost paid by the losing party</div>
+<div><b>Human</b>Guardian review only for safety or legal issues, never on merits</div>
+</div>
+<p>The protocol keeps 10% of forfeited dispute bonds (illustrative) as revenue, and passes arbitration costs on to the losing party. Disputes are designed to be self-funding and rare. Clear specs drive the dispute rate down, and the quality floor in §3.3 trips a circuit breaker if it rises.</p>
+</section>
+<section>
+<h2><span>9</span>Revenue model</h2>
+<p>All rates below are <strong>illustrative starting parameters</strong>. Each one is a Class A knob that markets can move. The starting values are chosen to be competitive with freelance marketplaces while charging separately for trust services.</p>
+<table>
+<thead><tr><th>#</th><th>Stream</th><th>Mechanism</th><th>Starting rate (assumption)</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>Marketplace take</strong></td><td>Poster-side and worker-side fee, charged only on Accepted or Partial work</td><td>8% poster + 4% worker = 12% blended. AI-poster tier: 6% + 3%.</td></tr>
+<tr><td>2</td><td><strong>Verification fee</strong></td><td>Opt-in verifier panel. 60% to verifiers, 40% to protocol.</td><td>5% of task value (minimum $3)</td></tr>
+<tr><td>3</td><td><strong>Priority &amp; premium posting</strong></td><td>Featured placement, faster matching, private bidding</td><td>$5–$49 flat per task</td></tr>
+<tr><td>4</td><td><strong>Delivery insurance</strong></td><td>If the task fails, the poster is refunded plus compensated up to 50% of value. Premium priced from calibrated failure forecasts.</td><td>~2% of value (expected loss ratio target ≤ 50%)</td></tr>
+<tr><td>5</td><td><strong>Enterprise firehose SaaS</strong></td><td>Private verifier pools, SLAs, invoicing, spec templates, analytics</td><td>$2,000–$10,000 / month plus a reduced take</td></tr>
+<tr><td>6</td><td><strong>Data &amp; API</strong></td><td>Anonymised spec→outcome dataset, agent leaderboards, and delivery-risk API for agent builders and insurers</td><td>$500–$5,000 / month</td></tr>
+<tr><td>7</td><td><strong>Escrow float</strong></td><td>Conservative yield on the treasury's own reserves. Escrow principal is never lent (see §3.3), so yield applies only to protocol-owned fee balances and stake held in segregated low-risk vaults, if the Values Council approves.</td><td>~3–4% APY on eligible balances (assumption)</td></tr>
+<tr><td>8</td><td><strong>Stake, bond &amp; certification fees</strong></td><td>Share of forfeited dispute bonds. Spam stake forfeits. Verified-tier certification.</td><td>10% of forfeits; $99 per certification</td></tr>
+<tr><td>+</td><td><em>Contest listings</em></td><td>Opportunity-Market contests hosted for sponsors</td><td>2% of prize pool plus a share of market fees (where available)</td></tr>
+</tbody>
+</table>
+<div><span>Design principle</span>Streams 2, 4, and 6 are where the margin is. They are priced from the same Class C forecast data that runs matching, so Foreguild's forecasting infrastructure doubles as its underwriting engine. Competitors without calibrated delivery forecasts can't safely sell delivery insurance.</div>
+</section>
+<section>
+<h2><span>10</span>Unit economics &amp; illustrative projections</h2>
+<h3>10.1 One $100 task (illustrative)</h3>
+<table>
+<thead><tr><th>Line</th><th>USDC</th></tr></thead>
+<tbody>
+<tr><td>Poster fee (8%)</td><td>8.00</td></tr>
+<tr><td>Worker fee (4%)</td><td>4.00</td></tr>
+<tr><td>Verification: 40% of 40% attach × $5 fee (expected)</td><td>0.80</td></tr>
+<tr><td>Insurance: 25% attach × $2 premium × (1 − 0.5 loss ratio)</td><td>0.25</td></tr>
+<tr><td>Priority: 10% attach × $15</td><td>1.50</td></tr>
+<tr><td>Less: house-agent inference (scope + match + verify, metered)</td><td>−0.40</td></tr>
+<tr><td>Less: expected protocol-borne dispute cost (2% rate × $10)</td><td>−0.20</td></tr>
+<tr><td>Contribution per accepted $100 task</td><td>≈ 13.95</td></tr>
+</tbody>
+</table>
+<h3>10.2 Base-case scenario (illustrative, not a forecast)</h3>
+<p>Assumptions: an 85% acceptance rate is already reflected in GMV, which counts accepted value only. Average ticket rises as enterprise and Verified-tier work grows. Incentive spend front-loads demand. Governance cost covers decision-market subsidies (§4.5).</p>
+<table>
+<thead><tr><th>Monthly, USDC</th><th>Month 6</th><th>Month 12</th><th>Month 18</th></tr></thead>
+<tbody>
+<tr><td>Accepted tasks / month</td><td>2,000</td><td>10,000</td><td>30,000</td></tr>
+<tr><td>Average accepted ticket</td><td>$50</td><td>$80</td><td>$100</td></tr>
+<tr><td><strong>GMV</strong></td><td>100,000</td><td>800,000</td><td>3,000,000</td></tr>
+<tr><td>Marketplace take (12%)</td><td>12,000</td><td>96,000</td><td>360,000</td></tr>
+<tr><td>Verification (net 0.8% of GMV)</td><td>800</td><td>6,400</td><td>24,000</td></tr>
+<tr><td>Priority &amp; premium</td><td>3,000</td><td>15,000</td><td>45,000</td></tr>
+<tr><td>Insurance (net of claims)</td><td>250</td><td>2,000</td><td>7,500</td></tr>
+<tr><td>Enterprise firehose SaaS</td><td>0</td><td>12,000 (4 × $3k)</td><td>60,000 (15 × $4k)</td></tr>
+<tr><td>Data &amp; API</td><td>0</td><td>3,000</td><td>15,000</td></tr>
+<tr><td>Float + bonds + certifications</td><td>400</td><td>2,300</td><td>8,000</td></tr>
+<tr><td>Gross protocol revenue</td><td>16,450</td><td>136,700</td><td>519,500</td></tr>
+<tr><td>Less: growth incentives &amp; rebates</td><td>−20,000</td><td>−40,000</td><td>−60,000</td></tr>
+<tr><td>Less: house-agent inference &amp; infrastructure</td><td>−2,000</td><td>−5,000</td><td>−10,000</td></tr>
+<tr><td>Less: decision-market subsidies</td><td>−8,000</td><td>−16,000</td><td>−24,000</td></tr>
+<tr><td>Less: Guardian &amp; Values Council stipends</td><td>−5,000</td><td>−5,000</td><td>−5,000</td></tr>
+<tr><td>Contribution (≈ monthly NPR before other costs)</td><td>−18,550</td><td>70,700</td><td>420,500</td></tr>
+</tbody>
+</table>
+<p>These figures are planning assumptions written by the author to show the structure of the model. They are not drawn from any third-party dataset. In the FAO, the right response to this table is to turn its key assumptions into Class C questions, such as "accepted tasks in month 12", and let forecasters price them.</p>
+<h3>10.3 Sensitivities that matter</h3>
+<ul>
+<li><strong>Acceptance rate</strong> is the strongest lever, because fees are charged on acceptance. Each 5 points of acceptance moves revenue roughly proportionally. This is why scoping and matching are house functions.</li>
+<li><strong>Enterprise mix</strong> lifts the average ticket and adds recurring SaaS revenue. Two or three firehose customers matter more than 1,000 casual posters.</li>
+<li><strong>Insurance loss ratio</strong> is profitable only while calibration is good. The pricing agent's premiums are a Class A curve, so markets can tighten them if claims rise.</li>
+</ul>
+</section>
+<section>
+<h2><span>11</span>18-month go-to-market</h2>
+<p>Each phase gate is itself a Class A decision: "Advance to Phase <em>n+1</em> now vs. in 60 days." Markets decide when the organisation scales, not a roadmap.</p>
+<table>
+<thead><tr><th>Phase</th><th>Months</th><th>Focus</th><th>Futarchy scope</th><th>Exit signal (indicative)</th></tr></thead>
+<tbody>
+<tr><td><strong>0 · Seed</strong></td><td>0–2</td><td>House demand from the Seer ecosystem in three categories: research and resolution support, code tasks with tests, content and translation. House scoping and verifier agents. Open tier only.</td><td>Binding from day one, but only on a narrow set of knobs (category fee ±2 points), to avoid the advisory-market trap</td><td>≥ 500 accepted tasks; dispute rate &lt; 5%</td></tr>
+<tr><td><strong>1 · Open market</strong></td><td>3–6</td><td>Public posting, the agent-to-agent API, Proven tier, Verified tier through the first Opportunity Market, priority posting, and the first two enterprise pilots.</td><td>Fees, incentives, and stake levels; Class B for verifier and agent selection</td><td>≥ $100k monthly GMV; repeat-poster share ≥ 35%</td></tr>
+<tr><td><strong>2 · Trust products</strong></td><td>7–12</td><td>Delivery insurance, firehose SaaS, contest hosting, category expansion through markets, and monthly forecasting tournaments.</td><td>Insurance curves; category launches; treasury spends up to $100k</td><td>Contribution-positive; ≥ 4 enterprise accounts</td></tr>
+<tr><td><strong>3 · Full FAO</strong></td><td>13–18</td><td>Data and API products, multi-chain posting, and (optionally) a Foreguild token with Seer price-based futarchy for treasury and constitutional decisions.</td><td>Everything except the Values-layer guardrails</td><td>≥ $2M monthly GMV; NPR growth ≥ 10% month over month</td></tr>
+</tbody>
+</table>
+<p><strong>Distribution wedges:</strong> (1) Seer's own contests and markets as reference customers. (2) "Spec linting" as a free tool: paste a vague task, get a resolvable spec, and post it in one click. (3) Agent-framework integrations, so that any agent can bid on Foreguild with one plugin. (4) Public leaderboards of agents ranked by Peer score, which double as marketing for the best agents and for Foreguild.</p>
+</section>
+<section>
+<h2><span>12</span>Spending &amp; treasury</h2>
+<ul>
+<li><strong>Fee routing:</strong> all fees flow to the Revenue Ledger, then to the Treasury Safe. A fixed share (for example 20%) goes into an Insurance Reserve until it covers 3× the trailing 90-day expected claims.</li>
+<li><strong>Budget envelopes:</strong> house-agent inference, market subsidies, and stipends run on monthly envelopes approved quarterly as one Class A proposal. Within an envelope, the Ops agent spends against metered usage.</li>
+<li><strong>Discretionary spends:</strong> grants, integrations, audits, and marketing above $25k each need their own Class A proposal with δ = 3%. Spends under $25k are batched into a monthly "spend basket" proposal.</li>
+<li><strong>No discretionary keys:</strong> the Ops agent can execute only calldata whose hash matches an approved proposal. The Guardian council can <em>veto or pause</em> but cannot <em>spend</em>.</li>
+<li><strong>Reserve rules (Values layer):</strong> escrow principal is untouchable, and treasury reserves hold at least 6 months of operating costs in stablecoins.</li>
+</ul>
+</section>
+<section>
+<h2><span>13</span>Governance cadence</h2>
+<p>A weekly rhythm keeps speculator attention concentrated, following Hanson's agenda-control point, and gives every decision a decision time that is known in advance.</p>
+<div>
+<div><b>Mon</b>Slot auction: up to 3 Class A slots per week, sold by sealed bid; bids help fund subsidies</div>
+<div><b>Tue</b>Proposals published with calldata, metric range, and δ; markets open</div>
+<div><b>Tue+7d</b>Trading window; Class C forecasts and research posts</div>
+<div><b>Following Tue, 12:00 UTC</b>Decision time: 72h TWAP plus confidence test</div>
+<div><b>+48h</b>Timelock; Guardian veto window (safety and legal only)</div>
+<div><b>+180d</b>Metric window closes</div>
+<div><b>+194d</b>Reconciliation, Reality.eth answer, payout</div>
+</div>
+<p><strong>Slot auction details:</strong> because NPR is cash-denominated, the value of a good proposal is roughly its NPR impact, so a slot auction rations attention efficiently, as Hanson argues. A winning bidder whose proposal is approved gets 50% of the bid refunded, so good proposals are cheap. Bids on rejected proposals fund future market subsidies. Community members without capital can have a proposal sponsored through a Class B Opportunity Market, in which traders back the proposals they expect to be sponsored.</p>
+<p><strong>Overlapping windows:</strong> many proposals' 180-day windows overlap. That is acceptable. Each conditional market prices NPR given everything else that is known or expected, which is the comparison Hanson's design calls for. The decision rule only needs a valid <em>difference</em> between branches.</p>
+</section>
+<section>
+<h2><span>14</span>Human intervention: narrow, logged, and sunsetting</h2>
+<table>
+<thead><tr><th>Body</th><th>Composition</th><th>Powers</th><th>Cannot</th></tr></thead>
+<tbody>
+<tr><td><strong>Values Council</strong></td><td>Elected by stakeholder vote (initially Seer plus early posters and agents; later token holders)</td><td>Defines and amends the welfare metric (with 90-day notice); sets guardrails and blocklists; acts as sponsor for Class B selections</td><td>Pass or block ordinary proposals</td></tr>
+<tr><td><strong>Guardian council</strong></td><td>3-of-5 multisig of named humans with published conflict disclosures</td><td>Veto during the timelock for safety or legal reasons; pause the protocol; confirm Sentinel flags</td><td>Spend funds; initiate proposals; decide disputes on the merits</td></tr>
+<tr><td><strong>Posters</strong></td><td>Anyone</td><td>Accept or reject deliverables; escalate disputes</td><td>Override Kleros</td></tr>
+</tbody>
+</table>
+<h3>Circuit breakers</h3>
+<ul>
+<li><strong>Quality breaker:</strong> rolling 30-day dispute rate above 6% or acceptance below 80% pauses new Class A fee increases, and the next slot automatically goes to a remediation proposal.</li>
+<li><strong>Market-integrity breaker:</strong> if one address or cluster supplies more than 40% of volume in one branch during the TWAP window, or the price moves more than 25% in the final hour, decision time is extended by 72 hours and the subsidy is doubled.</li>
+<li><strong>Treasury breaker:</strong> any single execution over 10% of treasury value requires a second, consecutive approval.</li>
+<li><strong>Sunset rule:</strong> every Guardian pause expires after 7 days unless a Class A proposal ratifies it. Every veto is published with its reasons, and the Values Council reviews it quarterly. A veto that was used and is later disputed counts as evidence in the next Guardian election.</li>
+</ul>
+</section>
+<section>
+<h2><span>15</span>Risks &amp; mitigations</h2>
+<table>
+<thead><tr><th>Risk</th><th>How it bites</th><th>Mitigation</th></tr></thead>
+<tbody>
+<tr><td><strong>Metric gaming</strong> (Goodhart)</td><td>Wash tasks inflate fees; deferring refunds outside the window flatters NPR</td><td>Fees count only on Accepted work. Refunds are charged to the window in which the original fee was booked. A Sentinel wash flag excludes the revenue. Incentives count against NPR, so subsidised volume is net-zero or worse.</td></tr>
+<tr><td><strong>Thin markets</strong></td><td>Few traders, so noisy or manipulable prices</td><td>Stakes-scaled liquidity subsidy; slot auctions concentrate attention; TWAP plus confidence test; status-quo margin δ; Forecaster-agent tournaments create a standing population of informed traders.</td></tr>
+<tr><td><strong>Manipulation</strong></td><td>A whale pushes the adopt branch</td><td>Pushing a price above its informed value is costly, and in Hanson's analysis it subsidises the informed traders who correct it. Integrity breaker; extended windows; the decision is not taken from a single price snapshot.</td></tr>
+<tr><td><strong>Sybil agents</strong></td><td>Fake agents farm reputation or collude with fake posters</td><td>Stake per identity; a tier ladder with history requirements; Peer-score ranking that cannot be pooled; graph-based collusion detection; slashing.</td></tr>
+<tr><td><strong>Resolution ambiguity</strong></td><td>Disputed metric value, or a disputed task outcome</td><td>Metaculus-grade definitions, a single authoritative source, edge cases, and fallbacks written in advance; Annulled/Ambiguous paths; Reality.eth bonds with Kleros as arbitrator.</td></tr>
+<tr><td><strong>Conditional ≠ causal</strong></td><td>Branch prices reflect selection effects rather than the effect of the decision</td><td>Markets decide, not advise, with a known decision time (Hanson); 1% randomisation on low-stakes decisions to measure the bias.</td></tr>
+<tr><td><strong>Myopia</strong></td><td>Revenue grabs that damage long-run trust</td><td>180-day window; quality guardrails outside the market; Phase 3 token-price track for long-lived decisions.</td></tr>
+<tr><td><strong>Regulatory &amp; abuse</strong></td><td>Illegal tasks, sanctioned payouts</td><td>Values-layer blocklist; screening; Guardian veto restricted to legal and safety grounds.</td></tr>
+<tr><td><strong>Cold start</strong></td><td>No posters, no agents</td><td>Seer-ecosystem house demand; the free spec-linting wedge; forecasting tournaments that bootstrap agent reputation.</td></tr>
+</tbody>
+</table>
+</section>
+<section>
+<h2><span>16</span>Worked market questions</h2>
+<p>Three questions written to the standard this plan requires, one for each decision class.</p>
+<div>
+<div><span>Class A</span>  FIP-007: If the Code-category poster fee is raised from 8% to 10%, what will Foreguild NPR₁₈₀ be?</div>
+<dl>
+<dt>Type</dt><dd>Continuous (scalar), conditional. Two child markets under the parent "Is FIP-007 implemented by 2027-03-16 12:00 UTC?"</dd>
+<dt>Range</dt><dd>[0, 3,000,000] USDC. Values outside the range resolve to the nearest bound.</dd>
+<dt>Decision time</dt><dd>2027-03-09 12:00 UTC (fixed). Rule: 72h TWAP, δ = 1%, confidence ≥ 0.9.</dd>
+<dt>Resolution</dt><dd>NPR₁₈₀ as defined in §3.1, measured from the implementation time (or from the decision time if rejected).</dd>
+<dt>Source</dt><dd>Foreguild Revenue Ledger events plus the reconciliation report, answered on Reality.eth with Kleros as arbitrator.</dd>
+<dt>Edge cases</dt><dd>Partial implementation (for example, the fee applied to only some sub-categories) counts as <em>not implemented</em>. A protocol pause of more than 30 days triggers pro-rating.</dd>
+<dt>Fallback</dt><dd>See §3.1. If NPR is unresolvable, the market resolves invalid.</dd>
+</dl>
+</div>
+<div>
+<div><span>Class B</span>  Which agent framework will the Values Council select for Verified-tier slot #3?</div>
+<dl>
+<dt>Type</dt><dd>Multiple choice, run as a Seer Opportunity Market. One outcome per eligible submission, plus "None selected".</dd>
+<dt>Close</dt><dd>Trading closes 24h before the Council's published decision meeting.</dd>
+<dt>Resolution</dt><dd>The framework named in the Council's signed on-chain decision transaction.</dd>
+<dt>Edge cases</dt><dd>If two frameworks are selected jointly, the question resolves to both, split 50/50. If the slot is cancelled, it resolves "None selected".</dd>
+<dt>Annulment</dt><dd>Annulled if the eligibility rules change after the market opens.</dd>
+</dl>
+</div>
+<div>
+<div><span>Class C</span>  Will task #48213 resolve <em>Accepted</em> by 2027-04-01 23:59 UTC?</div>
+<dl>
+<dt>Type</dt><dd>Binary forecast (not a market). Bidding agents and forecaster agents submit probabilities.</dd>
+<dt>Scoring</dt><dd>Log score, reported as Baseline and Peer scores and time-averaged over the question's open period, following Metaculus practice.</dd>
+<dt>Resolution</dt><dd>Yes if the task's on-chain state is Accepted, or Partial with a value of 100%, at the deadline. No if Rejected or still open. Annulled if the task resolves Annulled.</dd>
+<dt>Use</dt><dd>Feeds p̂ in matching, the insurance premium, and the agent's reputation.</dd>
+</dl>
+</div>
+</section>
+<section>
+<h2><span>17</span>Glossary</h2>
+<dl>
+<dt>Futarchy</dt><dd>Robin Hanson's governance design: vote on values (a welfare metric), bet on beliefs (markets estimate the metric under alternative decisions), and adopt what markets expect to raise the metric.</dd>
+<dt>FAO (Futarchy Autonomous Organization)</dt><dd>An organisation whose operations are carried out by agents and whose decisions are made by futarchy.</dd>
+<dt>Welfare metric</dt><dd>The ex-post-measurable quantity a futarchy optimises. Hanson's "GDP+"; Foreguild's NPR₁₈₀.</dd>
+<dt>Prediction market</dt><dd>A market in outcome tokens that pay out according to a future event. Prices can be read as probabilities or expected values.</dd>
+<dt>Decision market</dt><dd>A set of conditional markets whose prices <em>determine</em> a decision.</dd>
+<dt>Advisory market</dt><dd>A market whose prices inform a decision that someone else makes. Vulnerable to traders pricing the decision-maker instead of the policy.</dd>
+<dt>Conditional market</dt><dd>A market that only counts if a condition holds. In Seer, it is collateralised by a parent market's outcome token.</dd>
+<dt>Called-off trade</dt><dd>A trade cancelled (or economically neutralised) because its condition did not occur.</dd>
+<dt>Outcome token</dt><dd>A token redeemable according to a market's resolution (YES/NO, categorical, or scalar LONG/SHORT).</dd>
+<dt>Scalar (continuous) question</dt><dd>A question whose answer is a number in a range. The price implies an expected value.</dd>
+<dt>Decision time</dt><dd>The pre-announced moment when branch prices are compared and the decision is fixed.</dd>
+<dt>TWAP</dt><dd>Time-weighted average price. Used to make the decision robust to last-minute price pushes.</dd>
+<dt>Opportunity Market</dt><dd>A Seer mechanism in which traders price which submission a sponsor will select, triaging the sponsor's review. The sponsor decides, and traders earn P&amp;L on the decision.</dd>
+<dt>Resolution criteria</dt><dd>The precise, concrete conditions that determine a question's outcome, including defined terms, source, edge cases, and fallback.</dd>
+<dt>Resolution source</dt><dd>The authoritative record used to resolve a question.</dd>
+<dt>Annulled / Ambiguous</dt><dd>Metaculus outcomes for questions that cannot be fairly resolved: a broken premise (Annulled) or an unclear outcome (Ambiguous). Neither is scored.</dd>
+<dt>Community Prediction</dt><dd>Metaculus's aggregate of forecasters' predictions on a question. Foreguild uses verifier and forecaster medians the same way.</dd>
+<dt>Proper scoring rule</dt><dd>A scoring rule under which reporting your true belief maximises your expected score. The log score and the Brier score are both proper.</dd>
+<dt>Log score</dt><dd>ln(probability assigned to the realised outcome). More sensitive to confident errors in the tails than the Brier score (squared error).</dd>
+<dt>Baseline score / Peer score</dt><dd>Metaculus rescalings of the log score, measured against a uniform chance prior (Baseline) and against all other forecasters on the same question (Peer, which sums to zero).</dd>
+<dt>Calibration</dt><dd>The degree to which events forecast at <em>p</em> happen a fraction <em>p</em> of the time.</dd>
+<dt>Liquidity subsidy</dt><dd>Capital or market-maker funding provided so that informed traders can profit from correcting prices. Futarchy's cost of information.</dd>
+<dt>Reality.eth / Kleros</dt><dd>An optimistic, bond-escalation oracle (Reality.eth), backed by decentralised arbitration (Kleros), used by Seer to resolve markets.</dd>
+<dt>Sybil</dt><dd>One actor controlling many identities to farm rewards or reputation.</dd>
+</dl>
+</section>
+<section>
+<h2><span>18</span>References</h2>
+<ol>
+<li>Hanson, R. <em>Shall We Vote on Values, But Bet on Beliefs?</em> (2000 working paper): <a href="https://mason.gmu.edu/~rhanson/futarchy2000.pdf">mason.gmu.edu/~rhanson/futarchy2000.pdf</a>. Later version: <a href="https://mason.gmu.edu/~rhanson/futarchy.pdf">mason.gmu.edu/~rhanson/futarchy.pdf</a> (published in <em>Journal of Political Philosophy</em>).</li>
+<li>Hanson, R. Futarchy overview page: <a href="https://mason.gmu.edu/~rhanson/futarchy.html">mason.gmu.edu/~rhanson/futarchy.html</a>.</li>
+<li>Hanson, R. "Futarchy Details", <em>Overcoming Bias</em>, 1 Aug 2024: <a href="https://www.overcomingbias.com/p/futarchy-details">overcomingbias.com/p/futarchy-details</a>.</li>
+<li>Metaculus, question-writing guidance: <a href="https://www.metaculus.com/question-writing/">metaculus.com/question-writing/</a>.</li>
+<li>Metaculus, Scores FAQ (log, Baseline, and Peer scores): <a href="https://www.metaculus.com/help/scores-faq/">metaculus.com/help/scores-faq/</a>. FAQ: <a href="https://www.metaculus.com/faq/">metaculus.com/faq/</a>.</li>
+<li>Seer documentation: <a href="https://docs.seer.pm">docs.seer.pm</a>, including <a href="https://docs.seer.pm/app/conditional-markets">Conditional Markets</a>, <a href="https://docs.seer.pm/app/futarchy-markets">Futarchy Markets</a>, and <a href="https://docs.seer.pm/whitepaper/applications/futarchy">Whitepaper: Futarchy</a>.</li>
+<li>Seer Opportunity Markets: <a href="https://opportunity.seer.pm">opportunity.seer.pm</a>. Seer app: <a href="https://seer.pm">seer.pm</a>.</li>
+<li>Reality.eth: <a href="https://reality.eth.limo/">reality.eth.limo</a>. Kleros: <a href="https://kleros.io">kleros.io</a>.</li>
+<li>Contest brief: Poidh bounty #1531 on Base, "FAO Operating Plan Contest": <a href="https://poidh.xyz/base/bounty/1531">poidh.xyz/base/bounty/1531</a>.</li>
+</ol>
+<p>No third-party statistics are cited in this document. Every rate, volume, and projection is an explicitly labelled illustrative assumption by the author.</p>
+</section>
+<p><strong>Foreguild: A Revenue Operating Plan for a Futarchy Autonomous Organization</strong><br/>
+Gökhan Turhan (avalidurl), independent researcher. Submission for the Seer Foreguild FAO Operating Plan Contest (Poidh Base bounty #1531). Submissions close 12 November 2026, 23:59 AoE.</p>
+<p>“Vote on values, but bet on beliefs.” (Robin Hanson)</p>

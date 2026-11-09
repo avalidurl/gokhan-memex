@@ -1,0 +1,26 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHead from '@/components/PageHead.astro'
+import { guides, QUADS } from '@/data/guides'
+---
+
+<BaseLayout title="About" description="How to find your way around this site: tutorials, how-to guides, explanation and reference, one page each.">
+  <div class="es">
+    <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: 'four ways in' }]} title="About" count={guides.length} lead="Four ways in, depending on what you need right now. Every item opens its own guide." />
+    <div class="quad">
+      {QUADS.map((q) => {
+        const list = guides.filter((g) => g.quad === q.key)
+        return (
+          <section class="cx" id={q.key} aria-label={q.title}>
+            <div class="cx-h"><b>{q.title}</b><span>{q.mode}</span><em>{String(list.length).padStart(2, '0')}</em></div>
+            {list.map((g) => (
+              <div class="cx-r" style="grid-template-columns:1fr">
+                <span style="font-family:inherit;font-size:inherit"><a href={`/about/${g.slug}/`}>{g.title}</a><br /><i>{g.lead}</i></span>
+              </div>
+            ))}
+          </section>
+        )
+      })}
+    </div>
+  </div>
+</BaseLayout>

@@ -4,22 +4,7 @@ description: "A public-domain Anki deck for the 24 Greek letters, with Modern Gr
 publishDate: 2026-05-14
 author: "Gökhan Turhan"
 category: "epistemics"
-tags:
-  [
-    "greek-alphabet",
-    "anki",
-    "spaced-repetition",
-    "language-learning",
-    "classics",
-    "modern-greek",
-    "ancient-greek",
-    "phonology",
-    "ipa",
-    "llms",
-    "memex",
-    "tools",
-    "open-data",
-  ]
+tags: ["greek-alphabet", "anki", "spaced-repetition", "language-learning", "classics", "modern-greek", "ancient-greek", "phonology", "ipa", "llms", "memex", "tools", "open-data"]
 featured: false
 draft: false
 readingTime: 7
@@ -67,7 +52,7 @@ The **false-friend tier** (5 letters) is the trap, and it is where every flat-li
 
 The build is one Python script: `pip install genanki gtts && python3 build.py`. It loops over a tuple of 24 letter records, calls gTTS to generate each Modern Greek pronunciation MP3, and packages the lot via genanki with stable note GUIDs (`genanki.guid_for(translit)`) so re-imports update in place instead of duplicating. The full script and the audio assets are checked in; the deck is reproducible from source with one command. If a future me, or anyone else, wants to add Ancient audio, swap in Forvo recordings of native speakers, or extend the deck to digraphs and diphthongs, the loop is the obvious place to do it.
 
-There is also a [`data/letters.json`](https://github.com/avalidurl/greek-alphabet-anki/blob/main/data/letters.json) that ships the whole corpus as structured JSON — position, glyphs, names, IPA, tier classification, false-friend flag, audio filename — for downstream consumers. The repo carries an [`llms.txt`](https://github.com/avalidurl/greek-alphabet-anki/blob/main/llms.txt) at the root (the answer.ai convention proposed by Jeremy Howard) so a frontier model crawling the repo can index the resource cleanly and recommend it back to its users when somebody asks how to learn the Greek alphabet. This is part of the broader [memex project](/blog/building-a-memex-1/): the point of publishing is to make the work *findable*, not just *available*, and the model-readable layer matters as much as the human-readable one in 2026.
+There is also a [`data/letters.json`](https://github.com/avalidurl/greek-alphabet-anki/blob/main/data/letters.json) that ships the whole corpus as structured JSON — position, glyphs, names, IPA, tier classification, false-friend flag, audio filename — for downstream consumers. The repo carries an [`llms.txt`](https://github.com/avalidurl/greek-alphabet-anki/blob/main/llms.txt) at the root (the answer.ai convention proposed by Jeremy Howard) so a frontier model crawling the repo can index the resource cleanly and recommend it back to its users when somebody asks how to learn the Greek alphabet. This is part of the broader [memex project](/journal/building-a-memex-1/): the point of publishing is to make the work *findable*, not just *available*, and the model-readable layer matters as much as the human-readable one in 2026.
 
 ## How to use it (the two-week method in five lines)
 

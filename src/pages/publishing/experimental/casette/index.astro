@@ -1,97 +1,52 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHead from '@/components/PageHead.astro'
+import Tags from '@/components/Tags.astro'
 import { experimentalWorks } from '@/data/publishing'
+import { works } from '@/data/works'
 
 const work = experimentalWorks.find((entry) => entry.detailHref === '/publishing/experimental/casette/')
-
-if (!work) {
-  throw new Error('CASSETTE entry not found in experimentalWorks')
-}
+if (!work) throw new Error('CASSETTE entry not found in experimentalWorks')
+const w = works.find((x) => x.href === work.detailHref)!
+const others = works.filter((x) => x !== w)
 ---
 
-<BaseLayout
-  title="CASSETTE"
-  description="Full cover and accompanying information text for CASSETTE by Gökhan Turhan."
->
-  <div class="publishing-document mx-auto max-w-5xl px-6 py-12 lg:py-16">
-    <header class="mb-12">
-      <p class="doc-eyebrow mb-3">Publishing / Experimental / CASSETTE</p>
-      <h1 class="mb-4">{work.title}</h1>
-      <p class="doc-copy max-w-3xl text-foreground/80">
-        {work.creators} · {work.year}
-      </p>
-    </header>
-
-    <article class="space-y-8 border-t border-foreground/15 pt-8">
-      <img
-        src={work.coverImage}
-        alt={work.coverAlt}
-        class="w-full border border-foreground/10 object-cover"
-        loading="eager"
-      />
-
-      {work.commissionedByName && work.commissionedByHref && (
-        <p class="text-base text-foreground/75">
-          Commissioned by <a href={work.commissionedByHref} class="doc-link" target="_blank" rel="noopener noreferrer">{work.commissionedByName}</a>.
-        </p>
-      )}
-      {work.statusNote && <p class="doc-copy text-sm text-foreground/65">{work.statusNote}</p>}
-
-      {(work.sourceHref || work.originalAudioHref) && (
-        <div class="flex flex-wrap gap-x-5 gap-y-2 text-base">
-          {work.sourceHref && (
-            <a href={work.sourceHref} class="doc-link" target="_blank" rel="noopener noreferrer">
-              {work.sourceLabel ?? 'View source'}
-            </a>
-          )}
-          {work.originalAudioHref && (
-            <a href={work.originalAudioHref} class="doc-link" target="_blank" rel="noopener noreferrer">
-              {work.originalAudioLabel ?? 'Original source'}
-            </a>
-          )}
-        </div>
-      )}
-
-      {work.audioHref && work.audioMimeType && (
-        <audio controls preload="none" class="w-full max-w-2xl">
-          <source src={work.audioHref} type={work.audioMimeType} />
-        </audio>
-      )}
-
-      <h2>Information text</h2>
-      <div class="space-y-4">
-        {work.accompanyingText.split('\n\n').map((paragraph) => (
-          <p class="doc-copy text-base text-foreground/90">{paragraph}</p>
-        ))}
+<BaseLayout title="CASSETTE" description="Full cover and accompanying information text for CASSETTE by Gökhan Turhan.">
+  <div class="es">
+    <PageHead crumbs={[{ label: 'Publishing', href: '/publishing/' }, { label: 'Experimental', href: '/publishing/experimental/' }, { label: work.title }]} title={work.title} lead={`${work.creators} · ${work.year}`} tags={w.tags} />
+    <div class="pgrid">
+      <div class="pmain">
+        <section class="cx" aria-label="Cover">
+          <div class="cx-h"><b>Cover</b><span>{work.coverAlt}</span></div>
+          <div class="cx-b"><img src={work.coverImage} alt={work.coverAlt} class="work-cover" loading="eager" /></div>
+        </section>
+        {work.audioHref && work.audioMimeType && (
+          <section class="cx" aria-label="Listen">
+            <div class="cx-h"><b>Listen</b><span>audio</span></div>
+            <div class="cx-b"><audio controls preload="none"><source src={work.audioHref} type={work.audioMimeType} /></audio></div>
+          </section>
+        )}
+        <section class="cx" aria-label="Information text">
+          <div class="cx-h"><b>Information text</b></div>
+          <div class="cx-b body">{work.accompanyingText.split('\n\n').map((p) => <p>{p}</p>)}</div>
+        </section>
       </div>
-    </article>
+      <aside class="pside">
+        <section class="cx" aria-label="Facts">
+          <div class="cx-h"><b>Facts</b><span>Experimental</span></div>
+          <div class="cx-r"><span>By</span><span>{work.creators}</span></div>
+          <div class="cx-r"><span>Year</span><span>{work.year}</span></div>
+          {work.commissionedByName && <div class="cx-r"><span>Commission</span><span>{work.commissionedByHref ? <a href={work.commissionedByHref} target="_blank" rel="noopener noreferrer">{work.commissionedByName}</a> : work.commissionedByName}</span></div>}
+          {work.sourceHref && <div class="cx-r"><span>Source</span><span><a href={work.sourceHref} target="_blank" rel="noopener noreferrer">{work.sourceLabel ?? 'View source'}</a></span></div>}
+          {work.originalAudioHref && <div class="cx-r"><span>Audio</span><span><a href={work.originalAudioHref} target="_blank" rel="noopener noreferrer">{work.originalAudioLabel ?? 'Original source'}</a></span></div>}
+          {work.statusNote && <div class="cx-r"><span>Note</span><span>{work.statusNote}</span></div>}
+          <div class="cx-r"><span>Tags</span><span><Tags tags={w.tags} /></span></div>
+        </section>
+        <section class="cx" aria-label="More publishing">
+          <div class="cx-h"><b>Publishing</b><span>other works</span></div>
+          {others.map((x) => <div class="cx-r"><span>{x.kind}</span><span><a href={x.href}>{x.title}</a></span></div>)}
+        </section>
+      </aside>
+    </div>
   </div>
 </BaseLayout>
-
-<style>
-  .publishing-document {
-    color: var(--ink);
-    /* R2 — running prose. The R4 identifiers inside (eyebrows, doc numbers,
-       line numbers, labels) re-assert the data face themselves. */
-    font-family: var(--font-text);
-  }
-
-  .publishing-document .doc-eyebrow {
-    color: var(--dim);
-    font-family: var(--font-data);
-    font-size: 12.5px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
-  .publishing-document .doc-link {
-    color: var(--ink);
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.12em;
-  }
-
-  .publishing-document .doc-link:visited {
-    color: var(--dim);
-  }
-</style>

@@ -19,6 +19,10 @@
 /cv.json
   Cache-Control: public, max-age=300
 
+/cv.md
+  Content-Type: text/markdown; charset=utf-8
+  Cache-Control: public, max-age=300
+
 # Ethereum Doomsday Tracker — HTML must not edge-cache across model query variants.
 # Hashed /ethereum-doomsday/assets/* remain cacheable via zone Cache Rules (file extension).
 /ethereum-doomsday/

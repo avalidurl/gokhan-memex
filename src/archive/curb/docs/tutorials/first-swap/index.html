@@ -1,0 +1,25 @@
+<article>
+<p>Buy a matched slice of inference capacity end-to-end.</p>
+<h2>1. List open offers<a href="/curb/docs/tutorials/first-swap/#1-list-open-offers" title="Copy link and go to this section"></a></h2>
+<div><pre><code><span><span>curl</span><span> -s</span><span> https://api.curb.numetal.xyz/v1/offers</span><span> |</span><span> jq</span><span> .</span></span></code></pre></div>
+<p>Pick an <code>id</code>, <code>model</code>, <code>mtok</code>, and <code>priceUsd</code> you can afford.</p>
+<h2>2. Post a buy intent<a href="/curb/docs/tutorials/first-swap/#2-post-a-buy-intent" title="Copy link and go to this section"></a></h2>
+<div><pre><code><span><span>curl</span><span> -s</span><span> -X</span><span> POST</span><span> https://api.curb.numetal.xyz/v1/intents</span><span> \</span></span>
+<span><span>  -H</span><span> 'content-type: application/json'</span><span> \</span></span>
+<span><span>  -d</span><span> '{</span></span>
+<span><span>    "model": "llama-3.3-70b",</span></span>
+<span><span>    "mtok": 2,</span></span>
+<span><span>    "maxPriceUsd": 0.5,</span></span>
+<span><span>    "buyer": "0xYourBuyer"</span></span>
+<span><span>  }'</span><span> |</span><span> jq</span><span> .</span></span></code></pre></div>
+<p>If a match exists, the response includes a <code>match</code> with an <code>id</code>.</p>
+<h2>3. Request payment challenge<a href="/curb/docs/tutorials/first-swap/#3-request-payment-challenge" title="Copy link and go to this section"></a></h2>
+<div><pre><code><span><span>curl</span><span> -s</span><span> -X</span><span> POST</span><span> https://api.curb.numetal.xyz/v1/matches/MATCH_ID/pay</span><span> |</span><span> jq</span><span> .</span></span></code></pre></div>
+<p>Expect <strong>402</strong> with a single <code>accepts[]</code> entry (<code>gross</code> → the on-chain 0xSplits split). Settlement is single-payee x402 USDC on Base (<code>eip155:8453</code>); seller + hub fee are split on-chain.</p>
+<h2>4. Retry with payment<a href="/curb/docs/tutorials/first-swap/#4-retry-with-payment" title="Copy link and go to this section"></a></h2>
+<p>Attach your x402 payment header (<code>X-Payment</code> / facilitator signature) and POST again. On success you get a grant — call the seller endpoint with that grant, not the hub.</p>
+<h2>Next<a href="/curb/docs/tutorials/first-swap/#next" title="Copy link and go to this section"></a></h2>
+<ul>
+<li>Selling instead? → <a href="/curb/docs/tutorials/sell-capacity/">Sell capacity</a></li>
+<li>Payment shape → <a href="/curb/docs/explanation/single-payee-x402/">Single-payee x402 + on-chain split</a></li>
+</ul></article>

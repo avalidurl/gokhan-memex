@@ -1,0 +1,9 @@
+# robots.txt for https://api.gokhanturhan.com
+# Static API documentation. Every page may be crawled.
+User-agent: *
+Allow: /
+
+# Agent-readable summary: https://api.gokhanturhan.com/llms.txt
+# Machine-readable register: https://api.gokhanturhan.com/apis.json
+
+Sitemap: https://api.gokhanturhan.com/sitemap.xml

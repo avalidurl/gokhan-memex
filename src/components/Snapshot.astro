@@ -1,0 +1,44 @@
+---
+/** Renders a frozen JSON snapshot: the first list of records as a table, scalars as rows. */
+interface Props { snap: { title: string; source: string; retrieved: string; data: any } }
+const { snap } = Astro.props
+const isRec = (x: any) => x && typeof x === 'object' && !Array.isArray(x)
+const findList = (x: any, depth = 0): any[] | null => {
+  if (Array.isArray(x) && x.length && x.every(isRec)) return x
+  if (isRec(x) && depth < 2) for (const v of Object.values(x)) { const f = findList(v, depth + 1); if (f) return f }
+  return null
+}
+const list = findList(snap.data)
+const cols = list ? [...new Set(list.flatMap((r) => Object.keys(r)))].filter((c) => list.some((r) => r[c] !== null && typeof r[c] !== 'object')).slice(0, 8) : []
+const scalars = isRec(snap.data) ? Object.entries(snap.data).filter(([, v]) => v === null || typeof v !== 'object') : []
+const objects: [string, Record<string, any>][] = isRec(snap.data) && !list ? (Object.entries(snap.data).filter(([, v]) => isRec(v)) as [string, Record<string, any>][]) : []
+const fmt = (v: any) => {
+  if (v === null || v === undefined) return '—'
+  if (typeof v === 'number' && v > 1.7e9 && v < 2.1e12) return new Date(v > 1e11 ? v : v * 1000).toISOString().slice(0, 16).replace('T', ' ')
+  if (typeof v === 'number') return v.toLocaleString('en-US', { maximumFractionDigits: 4 })
+  const s = String(v)
+  return s.length > 140 ? s.slice(0, 137) + '…' : s
+}
+const tx = (v: any) => typeof v === 'string' && /^0x[0-9a-f]{64}$/i.test(v)
+const addr = (v: any) => typeof v === 'string' && /^0x[0-9a-f]{40}$/i.test(v)
+---
+
+<section class="cx snap" aria-label={snap.title}>
+  <div class="cx-h"><b>Snapshot</b><span>{snap.title} · {snap.source} · retrieved {snap.retrieved}</span>{list && <em>{String(list.length).padStart(2, '0')}</em>}</div>
+  {scalars.map(([k, v]) => <div class="cx-r"><span>{k}</span><span>{fmt(v)}</span></div>)}
+  {objects.map(([k, v]) => <div class="cx-r"><span>{k}</span><span>{Object.entries(v).slice(0, 12).map(([a, b]) => `${a}: ${fmt(b)}`).join(' · ')}</span></div>)}
+  {list && (
+    <div class="cx-b snap-t">
+      <table>
+        <thead><tr>{cols.map((c) => <th>{c}</th>)}</tr></thead>
+        <tbody>
+          {list.slice(0, 60).map((r) => (
+            <tr>{cols.map((c) => (
+              <td>{tx(r[c]) ? <a href={`https://basescan.org/tx/${r[c]}`}>{r[c].slice(0, 10)}…</a> : addr(r[c]) ? <code>{r[c].slice(0, 8)}…{r[c].slice(-4)}</code> : fmt(r[c])}</td>
+            ))}</tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )}
+</section>

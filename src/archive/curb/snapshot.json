@@ -1,0 +1,23 @@
+{
+ "title": "Open offers",
+ "source": "curb.numetal.xyz/v1/offers",
+ "retrieved": "2026-11-09",
+ "data": {
+  "offers": [
+   {
+    "id": "offer_mw4h8a8k_1d0da0ea",
+    "type": "sell",
+    "status": "open",
+    "sellerPayTo": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+    "endpoint": "https://seller.curb.numetal.xyz/fulfill",
+    "model": "demo/llama-3.3-70b",
+    "mtok": 10,
+    "priceUsd": 0.5,
+    "attestation": "demo_seed",
+    "note": "curb-api-cron demo offer",
+    "createdAt": "2026-11-06T04:30:49.556Z",
+    "expiresAt": "2026-11-13T04:30:49.556Z"
+   }
+  ]
+ }
+}
