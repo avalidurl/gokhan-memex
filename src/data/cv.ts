@@ -23,6 +23,8 @@ export const contact: ContactLine[] = [
   { label: 'Lab', value: 'gokhanturhan.com/numetal', url: '/numetal/' },
   { label: 'LinkedIn', value: 'linkedin.com/in/goekhanturhan', url: 'https://linkedin.com/in/goekhanturhan' },
   { label: 'X', value: 'x.com/goekhan', url: 'https://x.com/goekhan' },
+  { label: 'Telegram', value: 't.me/goekhanturhan', url: 'https://t.me/goekhanturhan' },
+  { label: 'DMs', value: 'Open' },
   { label: 'GitHub', value: 'github.com/avalidurl', url: 'https://github.com/avalidurl' },
   { label: 'GitHub (gokhan-vc)', value: 'github.com/gokhan-vc', url: 'https://github.com/gokhan-vc' },
   { label: 'Substack', value: 'gokhan.substack.com', url: 'https://gokhan.substack.com/' },
