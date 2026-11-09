@@ -10,7 +10,7 @@ interface Props { where?: 'index' | 'post' }
 const { where = 'post' } = Astro.props
 const endpoint = 'https://api.gokhan.vc/newsletter/subscribe'
 ---
-<div class="jsub" id="subscribe" data-endpoint={endpoint}>
+<div class={`jsub jsub-${where}`} id="subscribe" data-endpoint={endpoint}>
   <form class="jsub-form" method="POST" action={endpoint} aria-label="Subscribe to the journal by email">
     <label class="jsub-sr" for={`jsub-email-${where}`}>Email</label>
     <input id={`jsub-email-${where}`} class="jsub-in" type="email" name="email" required placeholder="you@email.com" autocomplete="email" />
@@ -45,6 +45,7 @@ const endpoint = 'https://api.gokhan.vc/newsletter/subscribe'
 </script>
 <style>
   .jsub { max-width: 42rem; margin: 1.25rem auto; }
+  .jsub-index { margin: 0 0 1.75rem; max-width: none; }
   .jsub-form { position: relative; display: flex; align-items: stretch; gap: 6px; margin: 0; }
   .jsub-in { flex: 1 1 auto; min-width: 0; padding: 7px 10px; border: 1px solid var(--ink); background: transparent; color: var(--ink); font: inherit; font-size: 15px; }
   .jsub-btn { flex: 0 0 auto; padding: 7px 14px; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); font: 500 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }

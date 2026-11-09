@@ -401,6 +401,13 @@
   .channels a, .fine a { color: var(--ink); text-decoration: none; }
   .channels a:hover, .fine a:hover { color: var(--ikb); }
   .dot { color: var(--dim); padding: 0 0.3rem; }
+  .cx.foot { margin: 1.6rem 0 0; }
+  .cx.foot .cx-r { display: grid; grid-template-columns: 9.5rem 1fr; gap: 0 14px; padding: 7px 10px; line-height: 1.5; }
+  .cx.foot .cx-r + .cx-r { border-top: 1px dotted var(--ink); }
+  .cx.foot .cx-r > :first-child { font: 12px var(--mono); letter-spacing: .02em; color: var(--dim); }
+  .cx.foot .cx-r > * { min-width: 0; overflow-wrap: anywhere; }
+  .cx.foot .channels, .cx.foot .fine { margin: 0; }
+  @media (max-width: 680px) { .cx.foot .cx-r { grid-template-columns: 1fr; } }
 
   @media (max-width: 680px) {
     body { font-size: 17px; }
@@ -761,32 +768,34 @@
   </main>
 
   <footer>
-    <div class="rule"><span>Reach</span></div>
-    <p class="channels">
-      <a href="https://x.com/goekhan">X</a><span class="dot">/</span>
-      <a href="https://t.me/goekhanturhan">Telegram</a><span class="dot">/</span>
-      <a href="https://www.linkedin.com/in/goekhanturhan/">LinkedIn</a><span class="dot">/</span>
-      <a href="https://github.com/avalidurl">GitHub</a><span class="dot">/</span>
-      <a href="https://gokhan.substack.com/">Substack</a><span class="dot">/</span>
-      <a href="/rss.xml">RSS</a><span class="dot">/</span>
-      <a href="/journal/#subscribe">Newsletter</a>
-    </p>
-    <p class="fine">
-      <a href="/about/">About</a><span class="dot">/</span>
-      <a href="/products/">Products</a><span class="dot">/</span>
-      <a href="/product-drafts/">Drafts</a><span class="dot">/</span>
-      <a href="/archive/tags/">Tags</a><span class="dot">/</span>
-      <a href="/tools/">Tools</a><span class="dot">/</span>
-      <a href="/api/">APIs</a>
-    </p>
-    <p class="fine files">
-      <span>Site files</span>
-      <a href="/sitemap-index.xml">Sitemap</a><span class="dot">/</span>
-      <a href="/robots.txt">robots.txt</a><span class="dot">/</span>
-      <a href="/llms.txt">llms.txt</a><span class="dot">/</span>
-      <a href="/llms-full.txt">llms-full.txt</a><span class="dot">/</span>
-      <a href="/rss.xml">RSS (journal)</a>
-    </p>
+    <section class="cx foot" aria-label="Site footer">
+      <div class="cx-h"><b>Reach</b><span>elsewhere and site files</span></div>
+      <div class="cx-r"><span>Channels</span><span class="channels">
+        <a href="https://x.com/goekhan">X</a><span class="dot">/</span>
+        <a href="https://t.me/goekhanturhan">Telegram</a><span class="dot">/</span>
+        <a href="https://www.linkedin.com/in/goekhanturhan/">LinkedIn</a><span class="dot">/</span>
+        <a href="https://github.com/avalidurl">GitHub</a><span class="dot">/</span>
+        <a href="https://gokhan.substack.com/">Substack</a><span class="dot">/</span>
+        <a href="/journal/#subscribe">Newsletter</a>
+      </span></div>
+      <div class="cx-r"><span>Site</span><span class="fine">
+        <a href="/about/">About</a><span class="dot">/</span>
+        <a href="/products/">Products</a><span class="dot">/</span>
+        <a href="/product-drafts/">Drafts</a><span class="dot">/</span>
+        <a href="/archive/tags/">Tags</a><span class="dot">/</span>
+        <a href="/tools/">Tools</a><span class="dot">/</span>
+        <a href="/api/">APIs</a><span class="dot">/</span>
+        <a href="/privacy/">Privacy</a><span class="dot">/</span>
+        <a href="/disclaimer/">Disclaimer</a>
+      </span></div>
+      <div class="cx-r"><span>Site files</span><span class="fine">
+        <a href="/sitemap-index.xml">Sitemap</a><span class="dot">/</span>
+        <a href="/robots.txt">robots.txt</a><span class="dot">/</span>
+        <a href="/llms.txt">llms.txt</a><span class="dot">/</span>
+        <a href="/llms-full.txt">llms-full.txt</a><span class="dot">/</span>
+        <a href="/rss.xml">RSS (journal)</a>
+      </span></div>
+    </section>
   </footer>
 </div>
 <script src="/home.js" defer></script>
