@@ -4,6 +4,8 @@ const navLinks = [...document.querySelectorAll("nav a")];
 
 function show() {
   const raw = (location.hash || "#index").slice(1);
+  // Old bookmarks: the products list lives at /products/ only.
+  if (raw === "projects") { location.replace("/products/"); return; }
   const known = pages.some(p => p.id === raw);
   const id = known ? raw : "index";
   pages.forEach(p => p.classList.toggle("on", p.id === id));

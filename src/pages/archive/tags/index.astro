@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHead from '@/components/PageHead.astro'
 import { tagIndex, total } from '@/lib/tags'
 
 const idx = [...(await tagIndex()).values()]
@@ -11,12 +12,7 @@ const other = idx.filter((b) => !b.def).sort((a, b) => total(b) - total(a))
 
 <BaseLayout title="Tags" description={`All ${idx.length} tags across products, journal posts, drafts, tools and APIs.`} robots="noindex, follow">
   <div class="es">
-    <p class="crumb"><a href="/archive/">Archive</a> / Tags</p>
-    <div class="intro">
-      <h1>Tags</h1>
-      <p class="lead">One set of tags for the whole site. Each opens a page with its products, posts, drafts, tools and APIs.</p>
-    </div>
-    <div class="dither"></div>
+    <PageHead crumbs={[{ label: 'Archive', href: '/archive/' }, { label: 'Tags' }]} title="Tags" lead="One set of tags for the whole site. Each opens a page with its products, posts, drafts, tools and APIs." count={idx.length} />
     {groups.map(([g, label]) => {
       const list = idx.filter((b) => b.def?.group === g).sort((a, b) => total(b) - total(a))
       return list.length > 0 && (

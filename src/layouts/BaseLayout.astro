@@ -42,7 +42,8 @@ const path = pathname.endsWith('/') ? pathname : `${pathname}/`
 const nav = [
   { name: 'Index', href: '/', on: path === '/' },
   { name: 'Journal', href: '/journal/', on: path.startsWith('/journal') || path.startsWith('/archive') || path.startsWith('/writing') },
-  { name: 'Products', href: '/products/', on: path.startsWith('/products') || path.startsWith('/product-drafts') },
+  { name: 'Products', href: '/products/', on: path.startsWith('/products') },
+  { name: 'Drafts', href: '/product-drafts/', on: path.startsWith('/product-drafts') },
   { name: 'Publishing', href: '/publishing/', on: path.startsWith('/publishing') },
   { name: 'CV', href: '/cv/', on: path.startsWith('/cv') },
   { name: 'Raises', href: '/#raises', on: false },
@@ -290,6 +291,7 @@ const tableDeskVersion = createHash('sha256')
         </p>
         <p class="reg-fine">
           <a href="/about/">About</a><span class="reg-dot">/</span>
+          <a href="/product-drafts/">Drafts</a><span class="reg-dot">/</span>
           <a href="/archive/tags/">Tags</a><span class="reg-dot">/</span>
           <a href="/tools/">Tools</a><span class="reg-dot">/</span>
           <a href="https://api.gokhanturhan.com/">APIs</a><span class="reg-dot">/</span>

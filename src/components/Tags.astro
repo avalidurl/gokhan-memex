@@ -7,6 +7,6 @@ const seen = new Set<string>()
 const list = tags.filter((t) => { const s = tagSlug(t); if (seen.has(s)) return false; seen.add(s); return true })
 ---
 
-<span class="tags">{list.map((t) => (
-  <a class="tg" href={tagHref(t)} aria-current={tagSlug(t) === current ? 'true' : undefined}>{tagLabel(t)}</a>
+<span class="tags">{list.map((t, i) => (
+  <>{i > 0 && ' '}<a class="tg" href={tagHref(t)} aria-current={tagSlug(t) === current ? 'true' : undefined}>{tagLabel(t)}</a></>
 ))}</span>

@@ -17,6 +17,9 @@ const site = Astro.site ?? new URL('https://gokhanturhan.com')
 const jsonLd = cvJsonLd(site)
 const description =
   `${cvMeta.name} — ${cvMeta.title}. ${cvMeta.tagline.slice(0, 155)}…`
+import { works, workByTitle } from '@/data/works'
+const ORG_PAGE: Record<string, string> = { 'Gökhan Ventures': '/gokhan-vc/', Numetal: '/numetal/' }
+const thesis = works.find((w) => w.kind === 'Academic' && /Media Laboratories/.test(w.title))
 ---
 
 <BaseLayout
@@ -46,12 +49,15 @@ const description =
         <a href="/cv/plain.txt" class="doc-link">Plain text</a>
         <span class="mx-1">·</span>
         <a href="/cv/raw.html" class="doc-link">Raw HTML</a>
+        <span class="mx-1">·</span>
+        <a href="/cv.md" class="doc-link">Markdown (for agents)</a>
       </p>
 
-      <div class="mb-10 flex flex-wrap gap-x-5 gap-y-2 text-base no-print">
-        <a href={cvMeta.pdfUrl} class="doc-link" download={cvMeta.pdfFileName}>
-          Download PDF
+      <div class="cv-actions mb-10 no-print">
+        <a href={cvMeta.pdfUrl} class="cv-pdf" download={cvMeta.pdfFileName}>
+          <span class="cv-pdf-k">PDF</span><span class="cv-pdf-v">Download CV <small>Gokhan_Turhan_CV.pdf</small></span><span aria-hidden="true">↓</span>
         </a>
+        <a href="/cv.md" class="cv-md">CV as Markdown <small>/cv.md · for agents</small></a>
       </div>
 
       <section class="border-t border-foreground/15 pt-8" aria-labelledby="contact-heading">
@@ -96,7 +102,7 @@ const description =
             <section>
               <h3>
                 {job.role}
-                <span class="font-normal text-foreground/70"> — {job.org}</span>
+                <span class="font-normal text-foreground/70"> — {ORG_PAGE[job.org] ? <a href={ORG_PAGE[job.org]} class="doc-link">{job.org}</a> : job.org}</span>
                 {job.location && (
                   <span class="block font-normal text-muted-foreground">{job.location}</span>
                 )}
@@ -129,7 +135,7 @@ const description =
               </p>
               <p class="text-foreground/90">{ed.school}</p>
               <p class="text-sm text-muted-foreground">{ed.years}</p>
-              {'detail' in ed && ed.detail && <p class="mt-2 text-foreground/90">{ed.detail}</p>}
+              {'detail' in ed && ed.detail && <p class="mt-2 text-foreground/90">{thesis ? <a href={thesis.href} class="doc-link">{ed.detail}</a> : ed.detail}</p>}
               {'link' in ed && ed.link && (
                 <p class="mt-1">
                   <a href={ed.link} class="doc-link" rel="noopener noreferrer">
@@ -147,8 +153,12 @@ const description =
           Publications & exhibitions
         </h2>
         <ul class="list-disc space-y-2 pl-6 text-foreground/90">
-          {publications.map((p) => (
-            <li>{p}</li>
+          {publications.map((p) => {
+            const w = workByTitle(p.replace(/^"|"$/g, ''))
+            return <li>{w ? <a href={w.href} class="doc-link">{p}</a> : p}</li>
+          })}
+          {works.filter((w) => !publications.some((p) => p.includes(w.title))).map((w) => (
+            <li><a href={w.href} class="doc-link">{w.title}</a> — {w.kind}, {w.year}</li>
           ))}
         </ul>
       </section>
@@ -218,6 +228,15 @@ const description =
     color: hsl(var(--muted-foreground));
   }
 
+  .cv-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: stretch; }
+  .cv-pdf { display: inline-flex; align-items: stretch; border: 2px solid var(--ink, currentColor); background: var(--ink, #111); color: var(--paper, #fff) !important; text-decoration: none !important; font: 600 15px/1 var(--mono, ui-monospace, monospace); letter-spacing: .04em; }
+  .cv-pdf > span { display: inline-flex; align-items: center; padding: 12px 14px; }
+  .cv-pdf-k { background: var(--red, #d0021b); color: #fff; }
+  .cv-pdf-v small { font-weight: 400; opacity: .75; margin-left: .6em; font-size: 12px; }
+  .cv-pdf:hover { background: var(--ikb, #002fa7); border-color: var(--ikb, #002fa7); }
+  .cv-md { display: inline-flex; align-items: center; padding: 12px 14px; border: 2px solid var(--ink, currentColor); color: inherit !important; text-decoration: none !important; font: 600 14px/1 var(--mono, ui-monospace, monospace); }
+  .cv-md small { font-weight: 400; opacity: .7; margin-left: .6em; font-size: 12px; }
+  .cv-md:hover { background: var(--ink, #111); color: var(--paper, #fff) !important; }
   .cv-document .doc-link {
     color: var(--ink);
     text-decoration: underline;

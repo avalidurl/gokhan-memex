@@ -15,7 +15,8 @@ export interface Product {
   family: string
   /** Former address, shown as plain text. */
   former?: string
-  facts?: [string, string][]
+  /** A fact's value: plain text, or a list of named assets that link to their public pages. */
+  facts?: [string, string | FactLink[]][]
   /** Descriptive paragraphs: what it was. */
   about?: string[]
   /** What ran there. */
@@ -35,6 +36,10 @@ export interface Product {
 
 const GH = 'https://github.com'
 const HF = 'https://huggingface.co'
+export interface FactLink { label: string; href?: string; note?: string }
+const repo = (r: string): FactLink[] => [{ label: r, href: `${GH}/${r}`, note: 'public' }]
+const hf = (kind: '' | 'spaces/' | 'datasets/', names: string[]): FactLink[] => names.map((n) => ({ label: n, href: `${HF}/${kind}gokhanturhan/${n}` }))
+const mail = (a: string): FactLink => ({ label: a, href: `mailto:${a}` })
 
 export const products: Product[] = [
   // ---- Numetal ----
@@ -42,7 +47,7 @@ export const products: Product[] = [
     slug: 'numetal', name: 'Numetal', status: 'former', family: 'Numetal',
     line: 'Agent-accelerator studio and bureau inside Gökhan Ventures, on Base.',
     former: 'numetal.xyz',
-    facts: [['Family', 'Gökhan Ventures'], ['Chain', 'Base'], ['Token', '$NUMETAL'], ['Source', 'gokhan-vc/numetal-website (public)']],
+    facts: [['Family', 'Gökhan Ventures'], ['Chain', 'Base'], ['Token', [{ label: '$NUMETAL', href: 'https://basescan.org/token/0x57EDb7FC54ADa9Ef4E113DC05A168449e63cFbA3', note: '0x57ED…cFbA3' }]], ['Source', repo('gokhan-vc/numetal-website')]],
     about: [
       'Numetal was the studio that built and backed autonomous agents under one brand and one token. Ishtar, CURB, HeartBench and the other Numetal products shipped from it.',
       'The site was a dossier: a blog, a newsletter sign-up, decks, a fee page for $NUMETAL and a retrodrop tracker.',
@@ -103,7 +108,7 @@ export const products: Product[] = [
   {
     slug: 'heartprefs', name: 'HeartPrefs', status: 'former', family: 'Numetal',
     line: 'An open, portable, signed matching-intent standard for agent-mediated matching. CC-BY-4.0.',
-    facts: [['Licence', 'CC-BY-4.0'], ['Speaks', 'x402, A2A, MCP, ERC-8004 / DID / VC'], ['Source', 'gokhan-vc/heartprefs (public)']],
+    facts: [['Licence', [{ label: 'CC-BY-4.0', href: 'https://creativecommons.org/licenses/by/4.0/' }]], ['Speaks', 'x402, A2A, MCP, ERC-8004 / DID / VC'], ['Source', repo('gokhan-vc/heartprefs')]],
     about: ['One honest document an agent can carry across venues. The standard has no host of its own; it lives in its repository.'],
     links: [{ label: 'Standard · gokhan-vc/heartprefs', href: `${GH}/gokhan-vc/heartprefs` }],
     file: 'heartprefs', legacy: ['heartprefs'],
@@ -136,7 +141,7 @@ export const products: Product[] = [
     slug: 'launch', name: 'Launch', status: 'former', family: 'Numetal',
     line: 'Token launch-pad aggregator: pick a pad, draft, simulate and sign.',
     former: 'launch.numetal.xyz',
-    facts: [['Interfaces', 'Mini App, REST, MCP, x402 and MPP manifests'], ['Source', 'gokhan-vc/launch-router (public)']],
+    facts: [['Interfaces', 'Mini App, REST, MCP, x402 and MPP manifests'], ['Source', repo('gokhan-vc/launch-router')]],
     about: ['Launch listed the launch pads (Clanker, Bankr and others), drafted a launch intent, simulated it and returned the payload to sign. It ran as a Mini App and as a free API for agents.'],
     functions: ['Pad and network listings', 'Draft, simulate and sign-payload calls', 'MCP server', 'Telegram bot'],
     links: [{ label: 'Source · gokhan-vc/launch-router', href: `${GH}/gokhan-vc/launch-router` }],
@@ -146,7 +151,7 @@ export const products: Product[] = [
     slug: 'ubu', name: 'UBU · CLINAMEN', status: 'former', family: 'Numetal',
     line: 'Design fiction from the Bureau of Imaginary Solutions: pataphysics, filed onchain.',
     former: 'ubu.numetal.xyz',
-    facts: [['Models', 'CLINAMEN-45B-A9B, CLINAMEN-42M-A12M, CLINAMEN-pocket-v2'], ['Spaces', 'CLINAMEN-Chat, -Oracle, -Farsight'], ['Datasets', 'bureau-chat, bureau-docket, bureau-company-filings']],
+    facts: [['Models', [...hf('', ['CLINAMEN-45B-A9B']), { label: 'CLINAMEN-42M-A12M', href: `${HF}/gokhanturhan/CLINAMEN-42M-A12M`, note: 'was CLINAMEN-pocket-v2' }, ...hf('', ['CLINAMEN-Chat'])]], ['Spaces', hf('spaces/', ['CLINAMEN-Chat', 'CLINAMEN-Oracle', 'CLINAMEN-Farsight'])], ['Datasets', hf('datasets/', ['bureau-chat', 'bureau-docket', 'bureau-company-filings'])]],
     about: [
       'UBU was a theoretical token: one UBU per parameter of a 45-billion-parameter model that does not exist. Nothing was deployed, offered or promised.',
       'The site held the Bureau Reader and the Training Ledger. The models, Spaces and datasets stay on Hugging Face.',
@@ -155,8 +160,7 @@ export const products: Product[] = [
     links: [
       { label: 'Hugging Face · CLINAMEN-45B-A9B', href: `${HF}/gokhanturhan/CLINAMEN-45B-A9B` },
       { label: 'Hugging Face · CLINAMEN-42M-A12M', href: `${HF}/gokhanturhan/CLINAMEN-42M-A12M` },
-      { label: 'Hugging Face · CLINAMEN-pocket-v2', href: `${HF}/gokhanturhan/CLINAMEN-pocket-v2` },
-      { label: 'Hugging Face · bureau-docket', href: `${HF}/datasets/gokhanturhan/bureau-docket` },
+            { label: 'Hugging Face · bureau-docket', href: `${HF}/datasets/gokhanturhan/bureau-docket` },
     ],
     file: 'ubu', legacy: ['ubu'],
     tags: ['numetal', 'clinamen', 'design-fiction', 'models', 'token'],
@@ -165,7 +169,7 @@ export const products: Product[] = [
     slug: 'ccru', name: 'CCRU archive', status: 'former', family: 'Numetal',
     line: 'A preserved mirror of ccru.net, 101 pages.',
     former: 'ccru.numetal.xyz',
-    facts: [['Pages', '101'], ['Source', 'gokhan-vc/ccru-mirror (public)']],
+    facts: [['Pages', '101'], ['Source', repo('gokhan-vc/ccru-mirror')]],
     about: ['A hardened mirror of the Cybernetic Culture Research Unit’s ccru.net site, kept so the pages stay readable. The mirror code and its README are public.'],
     links: [{ label: 'Source · gokhan-vc/ccru-mirror', href: `${GH}/gokhan-vc/ccru-mirror` }],
     tags: ['numetal', 'ccru', 'hyperstition', 'mirror'],
@@ -191,7 +195,7 @@ export const products: Product[] = [
     slug: 'accumulator', name: 'Accumulator', status: 'former', family: 'Numetal',
     line: 'ACCUMULATOR · $ACC on Robinhood Chain, with a waitlist and a wishlist.',
     former: 'accumulator.numetal.xyz',
-    facts: [['Token', '$ACC'], ['Chain', 'Robinhood Chain']],
+    facts: [['Token', [{ label: '$ACC', href: 'https://robinhoodchain.blockscout.com/token/0x7cb112fd2a73d1634d56ba5b810e272e2de53ba3', note: '0x7cb1…3ba3' }]], ['Chain', 'Robinhood Chain']],
     about: ['A token page with docs, a waitlist and a wishlist that visitors could vote on.'],
     functions: ['Waitlist', 'Wishlist and votes', 'Docs'],
     tags: ['numetal', 'token', 'robinhood-chain', 'waitlist'],
@@ -200,7 +204,7 @@ export const products: Product[] = [
     slug: 'rebase', name: 'REBASE', status: 'former', family: 'Numetal',
     line: 'Elastic-supply token on Robinhood Chain with a genesis pad for USDG deposits.',
     former: 'rebase.numetal.xyz',
-    facts: [['Chain', 'Robinhood Chain'], ['Genesis', '20,000 USDG fill'], ['Source', 'gokhan-vc/rebase (public)']],
+    facts: [['Chain', 'Robinhood Chain'], ['Genesis', '20,000 USDG fill'], ['Source', repo('gokhan-vc/rebase')]],
     about: ['REBASE was an elastic-supply token. The genesis pad took USDG deposits up to a 20,000 USDG fill, handled claims, and a daily bot ran the rebase. The interface is the onchain contracts; the site was a dashboard over them.'],
     functions: ['Genesis pad (deposits and claims)', 'Daily rebase bot', 'Docs site'],
     links: [{ label: 'Source · gokhan-vc/rebase', href: `${GH}/gokhan-vc/rebase` }],
@@ -267,7 +271,7 @@ export const products: Product[] = [
     slug: 'gokhan-vc', name: 'Gökhan Ventures', status: 'former', family: 'Gökhan Ventures',
     line: 'Venture studio: the umbrella over Numetal and its products.',
     former: 'gokhan.vc',
-    facts: [['Contact', 'contact@gokhan.vc · investments@gokhan.vc · partnerships@gokhan.vc']],
+    facts: [['Contact', [mail('contact@gokhan.vc'), mail('investments@gokhan.vc'), { label: 'partnerships@gokhan.vc' }]]],
     about: ['The studio site: a project grid, a blog, a newsletter and the studio legal pages. The essays from its blog are in the Journal.'],
     functions: ['Project grid', 'Blog', 'Newsletter'],
     links: [{ label: 'Journal · The x402 economy, July 2026', href: '/journal/x402-economy-july-2026/' }],
@@ -278,7 +282,7 @@ export const products: Product[] = [
     slug: 'gokhan-vc/api', name: 'feedhub', status: 'former', family: 'Gökhan Ventures',
     line: 'Estate API: one feed, the newsletter, paid agent email and an llms aggregate.',
     former: 'api.gokhan.vc',
-    facts: [['Source', 'avalidurl/feedhub (public)'], ['Payments', 'x402 on agent email ($1 USDC)']],
+    facts: [['Source', repo('avalidurl/feedhub')], ['Payments', 'x402 on agent email ($1 USDC)']],
     about: ['feedhub pulled every estate site and the external channels into one RSS and JSON feed, ran the shared newsletter (email and XMTP), sent paid agent email and served an llms aggregate.'],
     functions: ['Unified feed (RSS, JSON Feed)', 'Newsletter', 'Paid agent email', 'llms aggregate', 'Blog reader'],
     links: [{ label: 'Source · avalidurl/feedhub', href: `${GH}/avalidurl/feedhub` }, { label: 'API index · feedhub', href: 'https://api.gokhanturhan.com/feedhub/' }],
@@ -484,6 +488,14 @@ export const TAXONOMY: Record<string, TagDef> = {
   research: { label: 'Research', group: 'kind', note: 'Research tools and datasets.' },
   concept: { label: 'Concept', group: 'kind', note: 'An idea filed before it ships.' },
   plan: { label: 'Plan', group: 'kind', note: 'A plan or a proposal document.' },
+  publishing: { label: 'Publishing', group: 'kind', note: 'Books, papers and published works.' },
+  book: { label: 'Book', group: 'kind', note: 'E-books with their own editions.' },
+  academic: { label: 'Academic', group: 'kind', note: 'Papers, chapters and theses.' },
+  experimental: { label: 'Experimental', group: 'kind', note: 'Experimental works: sound, text and form.' },
+  poetry: { label: 'Poetry', group: 'domain', note: 'Long poems and spoken word.' },
+  sound: { label: 'Sound', group: 'domain', note: 'Audio works.' },
+  memes: { label: 'Memes', group: 'domain', note: 'Memes as digital objects.' },
+  'electronic-literature': { label: 'Electronic literature', group: 'domain', note: 'Digital and electronic literature and its preservation.' },
   // chain
   base: { label: 'Base', group: 'chain', note: 'Built on Base.' },
   solana: { label: 'Solana', group: 'chain', note: 'Built on Solana.' },

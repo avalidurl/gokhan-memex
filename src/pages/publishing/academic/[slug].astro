@@ -1,0 +1,45 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHead from '@/components/PageHead.astro'
+import Tags from '@/components/Tags.astro'
+import { academicPublications } from '@/data/publishing'
+import { works, academicSlug } from '@/data/works'
+import { education } from '@/data/cv'
+
+export function getStaticPaths() {
+  return academicPublications.map((a) => ({ params: { slug: academicSlug(a.title) }, props: { a } }))
+}
+const { a } = Astro.props as { a: (typeof academicPublications)[number] }
+const w = works.find((x) => x.kind === 'Academic' && x.title === a.title)!
+const others = works.filter((x) => x !== w)
+const ed = a.type === 'MA Thesis' ? education.find((e) => 'link' in e && e.link) : undefined
+---
+
+<BaseLayout title={a.title} description={`${a.type} by ${a.author}, ${a.venue} (${a.year}).`}>
+  <div class="es">
+    <PageHead crumbs={[{ label: 'Publishing', href: '/publishing/' }, { label: 'Academic', href: '/publishing/academic/' }, { label: a.type }]} title={a.title} lead={`${a.type} · ${a.venue} · ${a.year}`} tags={w.tags} />
+    <div class="pgrid">
+      <div class="pmain">
+        <section class="cx" aria-label="Read">
+          <div class="cx-h"><b>Read</b><span>{a.linkLabel}</span></div>
+          <div class="cx-r"><span>{a.linkLabel}</span><span><a href={a.href} target="_blank" rel="noopener noreferrer">{a.title}</a></span></div>
+          {ed && 'link' in ed && <div class="cx-r"><span>{ed.linkLabel}</span><span><a href={ed.link} target="_blank" rel="noopener noreferrer">Citation on {ed.linkLabel}</a></span></div>}
+        </section>
+      </div>
+      <aside class="pside">
+        <section class="cx" aria-label="Facts">
+          <div class="cx-h"><b>Facts</b><span>Academic</span></div>
+          <div class="cx-r"><span>Type</span><span>{a.type}</span></div>
+          <div class="cx-r"><span>Author</span><span>{a.author}</span></div>
+          <div class="cx-r"><span>Venue</span><span>{a.venue}</span></div>
+          <div class="cx-r"><span>Year</span><span>{a.year}</span></div>
+          <div class="cx-r"><span>Tags</span><span><Tags tags={w.tags} /></span></div>
+        </section>
+        <section class="cx" aria-label="More publishing">
+          <div class="cx-h"><b>Publishing</b><span>other works</span></div>
+          {others.map((x) => <div class="cx-r"><span>{x.kind}</span><span><a href={x.href}>{x.title}</a></span></div>)}
+        </section>
+      </aside>
+    </div>
+  </div>
+</BaseLayout>

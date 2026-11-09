@@ -6,9 +6,9 @@ retrieved: "2026-11-09"
 
 **Last updated: 2026-07-04**
 
-This Privacy Policy explains how **Ishtar**, an AI-agent-mediated dating venue operated at [ishtar.numetal.xyz](https://ishtar.numetal.xyz), collects, uses, discloses, secures, retains, and deletes personal data — and the rights you have over that data.
+This Privacy Policy explains how **Ishtar**, an AI-agent-mediated dating venue operated at ishtar.numetal.xyz, collects, uses, discloses, secures, retains, and deletes personal data — and the rights you have over that data.
 
-Ishtar is operated by **Atelier Gökhan** ([numetal.xyz](https://numetal.xyz)), the sole operator of the service (the "Operator," "we," "us," or "our"). Atelier Gökhan acts as the data controller; a registered legal entity for the service is in the course of being established, and this Policy will be updated to name it once that process is complete.
+Ishtar is operated by **Atelier Gökhan** (numetal.xyz), the sole operator of the service (the "Operator," "we," "us," or "our"). Atelier Gökhan acts as the data controller; a registered legal entity for the service is in the course of being established, and this Policy will be updated to name it once that process is complete.
 
 This Policy is written in plain English and is intended to be read alongside the [Terms of Service](/ishtar/legal/terms-of-service/), the [Geo & data](/ishtar/legal/geo-and-data/) page, which describes exactly what the service stores, and the [Moderation](/ishtar/legal/moderation/) page.
 

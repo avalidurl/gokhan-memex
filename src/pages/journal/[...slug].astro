@@ -1,11 +1,12 @@
 ---
 import { type CollectionEntry, getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import Tags from '@/components/Tags.astro'
 import SocialShare from '@/components/SocialShare.astro'
 import PostTitle from '@/components/PostTitle.astro'
 import ResponsiveImage from '@/components/ResponsiveImage.astro'
 import SubscribeBlock from '@/components/SubscribeBlock.astro'
-import { formatDate, humanizeKebab, plainPostTitle } from '@/lib/utils'
+import { formatDate, plainPostTitle } from '@/lib/utils'
 
 export async function getStaticPaths() {
   const posts = (await getCollection('blog')).filter((post) => !post.data.draft)
@@ -135,16 +136,10 @@ const showToc = tocHeadings.length >= 2
         )}
 
         {post.data.tags && post.data.tags.length > 0 && (
-          <div class="dispatch-tags">
-            {post.data.tags.map(tag => (
-              <a
-                href={`/archive/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
-                class="dispatch-tag"
-              >
-                {humanizeKebab(tag)}
-              </a>
-            ))}
-          </div>
+          <section class="cx dispatch-tagbox" aria-label="Tags">
+            <div class="cx-h"><b>Tags</b><span>each opens a shared tag page</span><em>{String(post.data.tags.length).padStart(2, '0')}</em></div>
+            <div class="cx-b"><Tags tags={post.data.tags} /></div>
+          </section>
         )}
       </header>
 
@@ -344,6 +339,7 @@ const showToc = tocHeadings.length >= 2
     margin: 0;
   }
 
+  .dispatch-tagbox { margin: 0.9rem 0 0; }
   .dispatch-tags {
     display: flex;
     flex-wrap: wrap;

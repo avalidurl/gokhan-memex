@@ -451,3 +451,27 @@ body.register main a.tg[aria-current="true"], a.tg[aria-current="true"] { backgr
 .es .snap-t { overflow-x: auto; }
 .es .snap-t table { font: 12px var(--mono); }
 @media (max-width: 900px) { .es .pgrid { grid-template-columns: 1fr; } }
+/* Facts: linked assets one per line; tag chips keep a visible gap */
+.es .flinks { list-style: none; margin: 0; padding: 0; }
+.es .flinks li { margin: 0 0 2px; overflow-wrap: anywhere; }
+.es .flinks small { font: 11px var(--mono); color: var(--dim); }
+.tags { display: inline-flex; flex-wrap: wrap; gap: 4px; }
+.tags .tg { margin: 0; }
+/* Boxed page header (PageHead) */
+.es .cx.hd { margin-top: 6px; }
+.es .cx.hd .cx-h b a, .es .cx.hd .cx-h b a:visited { color: var(--paper); text-decoration: none; }
+.es .cx.hd .cx-h .trail a { color: var(--ink); text-decoration: none; }
+.es .cx.hd .cx-h .trail a:hover { color: var(--ikb); }
+.es .cx.hd .cx-b { padding: 16px 14px 14px; }
+.es .cx.hd h1 { margin: 0 0 6px; }
+.es .cx.hd .lead { margin: 6px 0 0; max-width: 64ch; }
+.es .cx.hd .stamp { margin-top: 10px; }
+.es .cx.hd.draft .cx-h b a { color: var(--ink); }
+/* Tag chips: readable size, always spaced */
+.tg { font-size: 12px; line-height: 1.6; padding: 0 6px; }
+.cx-r .tags { margin-top: 4px; }
+/* Publishing works */
+.es .work-cover { display: block; max-width: 100%; height: auto; border: 1px solid var(--ink); }
+.es .work-thumb { width: 64px; height: auto; border: 1px solid var(--ink); display: block; }
+.es .cx-r.withthumb { grid-template-columns: 72px 1fr; align-items: start; }
+.es .cx-b audio { width: 100%; }

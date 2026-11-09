@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHead from '@/components/PageHead.astro'
 import Tags from '@/components/Tags.astro'
 import { drafts, draftTags, tagLabel } from '@/data/estate'
 
@@ -14,18 +15,13 @@ const allTags = [...new Set(drafts.flatMap((d) => draftTags[d.slug] ?? []))].sor
   description="Drafts, experiments and live tools: one line each, with tags for status, kind, chain and where it is published."
 >
   <div class="es">
-    <div class="meta">Product drafts · one line each</div>
-    <div class="dither"></div>
-    <div class="intro">
-      <h1>Product drafts</h1>
-      <p class="lead">Experiments, concepts and small live tools. One line each, tagged.</p>
-    </div>
+    <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: 'one line each' }]} title="Product drafts" lead="Experiments, concepts and small live tools. One line each, tagged." />
 
     <section class="cx" aria-label="Tags">
       <div class="cx-h"><b>Tags</b><span>each opens a shared tag page</span></div>
       <div class="cx-r"><span>tags</span><span><Tags tags={allTags} /></span></div>
       {facets.map(({ k, v }) => (
-        <div class="cx-r"><span>{k}</span><span>{v.map((t) => <span class="tg">{t}</span>)}</span></div>
+        <div class="cx-r"><span>{k}</span><span>{v.join(' · ')}</span></div>
       ))}
     </section>
 
