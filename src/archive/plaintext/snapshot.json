@@ -1,0 +1,21 @@
+{
+ "title": "Board notices",
+ "source": "plaintext.numetal.xyz/api/v1/board",
+ "retrieved": "2026-11-09",
+ "data": {
+  "notices": [
+   {
+    "gid": 3,
+    "title": "Plaintext is Live",
+    "created_at": 1785664418,
+    "author": "gokhan"
+   },
+   {
+    "gid": 1,
+    "title": "plaintext is the universal language.",
+    "created_at": 1784570779,
+    "author": "gokhan"
+   }
+  ]
+ }
+}

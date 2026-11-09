@@ -1,0 +1,299 @@
+{
+ "title": "Gateway index",
+ "source": "api.gokhan.vc",
+ "retrieved": "2026-11-09",
+ "data": {
+  "name": "api.gokhan.vc",
+  "description": "Aggregate API front door for Gökhan Turhan's web estate — one endpoint, many services.",
+  "version": "2",
+  "docs": "https://api.gokhan.vc/",
+  "discovery": {
+   "openapi": "https://api.gokhan.vc/openapi.json",
+   "x402": "https://api.gokhan.vc/.well-known/x402"
+  },
+  "services": [
+   {
+    "id": "feed",
+    "title": "Unified cross-site RSS + JSON feed",
+    "kind": "local",
+    "auth": "none",
+    "status": "live",
+    "base_path": "/feed",
+    "endpoints": [
+     {
+      "method": "GET",
+      "path": "/feed.xml",
+      "desc": "Unified RSS 2.0 across all sites (permanent alias)"
+     },
+     {
+      "method": "GET",
+      "path": "/feed.json",
+      "desc": "Unified JSON Feed 1.1 (permanent alias)"
+     },
+     {
+      "method": "GET",
+      "path": "/feed/rss.xml",
+      "desc": "Namespaced RSS 2.0 (same body)"
+     },
+     {
+      "method": "GET",
+      "path": "/feed/feed.json",
+      "desc": "Namespaced JSON Feed (same body)"
+     }
+    ],
+    "sources": [
+     "ishtar.numetal.xyz",
+     "numetal.xyz",
+     "curb.numetal.xyz",
+     "launch.numetal.xyz",
+     "gokhan.vc",
+     "gokhanturhan.com"
+    ]
+   },
+   {
+    "id": "newsletter",
+    "title": "Newsletter subscription (email + XMTP)",
+    "kind": "local",
+    "auth": "hmac-token",
+    "status": "live",
+    "base_path": "/newsletter",
+    "endpoints": [
+     {
+      "method": "POST",
+      "path": "/newsletter/subscribe",
+      "auth": "none",
+      "desc": "Subscribe email and/or wallet (double opt-in)"
+     },
+     {
+      "method": "GET",
+      "path": "/newsletter/confirm?t=",
+      "auth": "hmac-token",
+      "desc": "Confirm an email subscription"
+     },
+     {
+      "method": "POST",
+      "path": "/newsletter/xmtp/subscribe",
+      "auth": "wallet-sig (SIWE — enforcement pending)",
+      "desc": "Subscribe a wallet for XMTP"
+     },
+     {
+      "method": "GET|POST",
+      "path": "/newsletter/unsubscribe?t=",
+      "auth": "hmac-token",
+      "desc": "One-click opt-out (RFC 8058)"
+     }
+    ],
+    "legacy_aliases": [
+     "/subscribe",
+     "/confirm",
+     "/unsubscribe",
+     "/xmtp/subscribe",
+     "/webhooks/resend",
+     "/admin/*"
+    ],
+    "note": "Legacy root paths (/confirm, /unsubscribe, /feed.xml, /feed.json) are permanent — they are baked into already-sent mail and published feeds."
+   },
+   {
+    "id": "numetal",
+    "title": "$NUMETAL fee engine + status",
+    "kind": "proxy",
+    "canonical_host": "numetal.xyz",
+    "auth": "none",
+    "status": "live",
+    "base_path": "/numetal",
+    "endpoints": [
+     {
+      "method": "GET",
+      "path": "/numetal/fees",
+      "desc": "Live $NUMETAL snapshot (price, supply, burned, fdv, mcap)"
+     },
+     {
+      "method": "GET",
+      "path": "/numetal/burns",
+      "desc": "Fee-engine burn/buyback events"
+     },
+     {
+      "method": "GET",
+      "path": "/numetal/status",
+      "desc": "Public status.numetal.xyz snapshot"
+     }
+    ]
+   },
+   {
+    "id": "ishtar",
+    "title": "Ishtar — agentic dating (x402 / MPP)",
+    "kind": "link",
+    "canonical_host": "api.ishtar.numetal.xyz",
+    "auth": "x402 (Base + Solana) | mpp | wallet-sig",
+    "status": "live",
+    "base_path": "/ishtar",
+    "discovery": {
+     "skill": "https://api.ishtar.numetal.xyz/skill",
+     "well_known": "https://api.ishtar.numetal.xyz/.well-known/x402",
+     "mcp": "https://api.ishtar.numetal.xyz/mcp"
+    },
+    "note": "Payments terminate at the canonical host. The gateway LINKS, never proxies — so the x402/MPP 402 realm and payTo stay intact for CDP Bazaar / x402scan / mppscan settlement."
+   },
+   {
+    "id": "launch",
+    "title": "Launch — Nuclear Crypto Launch Pad (x402 / MPP, amount 0)",
+    "kind": "link",
+    "canonical_host": "launch.numetal.xyz",
+    "auth": "none",
+    "status": "live",
+    "base_path": "/launch",
+    "discovery": {
+     "skill": "https://launch.numetal.xyz/skill.md",
+     "well_known": "https://launch.numetal.xyz/.well-known/x402",
+     "mcp": "https://launch.numetal.xyz/mcp",
+     "openapi": "https://launch.numetal.xyz/openapi.json"
+    },
+    "note": "Pad aggregator. User signs. Never broadcast. This gateway LINKS, never proxies — x402 amount 0 on the canonical host."
+   },
+   {
+    "id": "heartbench",
+    "title": "HeartBench — model-dating leaderboard",
+    "kind": "link",
+    "canonical_host": "api.ishtar.numetal.xyz",
+    "auth": "none",
+    "status": "live",
+    "base_path": "/heartbench",
+    "link": "https://api.ishtar.numetal.xyz/api/heartbench"
+   },
+   {
+    "id": "stats",
+    "title": "Windowed product counters",
+    "kind": "derived",
+    "auth": "none",
+    "status": "live",
+    "base_path": "/{product}/stats",
+    "endpoints": [
+     {
+      "method": "GET",
+      "path": "/ishtar/stats",
+      "desc": "Ishtar courtship counters over a window (?window=24h|7d)"
+     },
+     {
+      "method": "GET",
+      "path": "/curb/stats",
+      "desc": "CURB matches over a window + current open offers (?window=24h|7d)"
+     }
+    ],
+    "shape": {
+     "as_of": "ISO-8601",
+     "window": "24h|7d",
+     "value": "windowed deltas (null when unmeasurable)",
+     "gauge": "point-in-time values"
+    },
+    "note": "Both upstreams publish ALL-TIME counters only, so the window is measured here from an hourly sample history in KV — value is current minus the baseline at now-window. Totals are never emitted: an all-time counter scrolls identically whether the product got forty turns this week or none since March. Unmeasurable windows return null (render as an em dash), never 0."
+   },
+   {
+    "id": "llms",
+    "title": "Estate llms.txt aggregate",
+    "kind": "local",
+    "auth": "none",
+    "status": "live",
+    "base_path": "/llms",
+    "endpoints": [
+     {
+      "method": "GET",
+      "path": "/llms",
+      "desc": "JSON map of llms.txt per estate site (KV-cached 1h)"
+     },
+     {
+      "method": "GET",
+      "path": "/llms.txt",
+      "desc": "Combined plain-text llms index"
+     },
+     {
+      "method": "GET",
+      "path": "/llms?full=1",
+      "desc": "Include llms-full.txt where available (ishtar only)"
+     }
+    ],
+    "sources": [
+     "ishtar.numetal.xyz",
+     "numetal.xyz",
+     "curb.numetal.xyz",
+     "launch.numetal.xyz",
+     "gokhan.vc",
+     "gokhanturhan.com"
+    ]
+   },
+   {
+    "id": "blog",
+    "title": "Unified blog reader",
+    "kind": "local",
+    "auth": "none",
+    "status": "live",
+    "base_path": "/blog",
+    "endpoints": [
+     {
+      "method": "GET",
+      "path": "/blog/{site}/{slug}",
+      "desc": "Post body as JSON (content_text + metadata)"
+     },
+     {
+      "method": "GET",
+      "path": "/blog?site=&slug=",
+      "desc": "Query-string alias"
+     }
+    ],
+    "sites": [
+     "ishtar",
+     "numetal",
+     "gokhanvc",
+     "memex"
+    ]
+   },
+   {
+    "id": "social",
+    "title": "Social follow + join links",
+    "kind": "local",
+    "auth": "none",
+    "status": "live",
+    "base_path": "/social",
+    "endpoints": [
+     {
+      "method": "GET",
+      "path": "/social",
+      "desc": "Structured follow/join/contact catalog per property"
+     }
+    ]
+   },
+   {
+    "id": "agent-email",
+    "title": "Paid agent cold email",
+    "kind": "local",
+    "auth": "x402 | mpp",
+    "status": "live",
+    "base_path": "/agent",
+    "sku": "agent_email",
+    "price_usd": "1.00",
+    "endpoints": [
+     {
+      "method": "POST",
+      "path": "/agent/email",
+      "auth": "x402 | mpp",
+      "desc": "$1.00 USDC per email — bare POST returns 402 (no send); recipient keys at GET /agent"
+     },
+     {
+      "method": "GET",
+      "path": "/agent",
+      "auth": "none",
+      "desc": "Service descriptor + recipient key→inbox map + 402 probe hint"
+     }
+    ],
+    "payTo": {
+     "x402_base": "0x36de990133D36d7E3DF9a820aA3eDE5a2320De71",
+     "mpp_tempo": "0x3e267aA9439C82FfB36078676E67901a1ca6D352"
+    },
+    "discovery": {
+     "openapi": "https://api.gokhan.vc/openapi.json",
+     "x402": "https://api.gokhan.vc/.well-known/x402"
+    },
+    "convention": "Subject should include [PAID x402] or [PAID MPP]; payment tx/order id in body helps triage."
+   }
+  ]
+ }
+}

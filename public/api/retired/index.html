@@ -1,0 +1,50 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Retired · API index · Gökhan Turhan</title>
+<meta name="description" content="Archived API documentation for the Numetal and Gökhan Ventures estate. Documentation only.">
+<meta name="robots" content="noindex, follow"><link rel="canonical" href="https://api.gokhanturhan.com/retired/"><link rel="alternate" type="application/json" href="https://api.gokhanturhan.com/apis.json">
+<style>:root{--ink:#141414;--paper:#f6f5f1;--dim:#4a4a46;--hair:#d2d0c8;--ikb:#002fa7;--red:#e10600;--bg:#fff;--mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;--serif:"Newsreader","Iowan Old Style",Palatino,Georgia,serif}
+@media (prefers-color-scheme:dark){:root{--ink:#f3f2ec;--paper:#141414;--dim:#b4b3ab;--hair:#2e2e2c;--ikb:#8eb0ff;--red:#ff4d3a;--bg:#1b1b1a}}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.55 var(--serif)}
+.sheet{max-width:980px;margin:0 auto;padding:22px 28px 48px}
+a{color:var(--ikb)}
+.mast{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;border-bottom:2px solid var(--ink);padding-bottom:10px}
+.mast h1{margin:0;font-size:22px}.mast h1 a{color:var(--ink);text-decoration:none}
+.role,.doc{margin:2px 0 0;font:11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--dim)}.doc b{color:var(--ink)}
+nav{display:flex;flex-wrap:wrap;gap:14px;font:12px var(--mono);text-transform:uppercase;letter-spacing:.06em;padding:8px 0 4px;border-bottom:1px solid var(--ink);margin-bottom:18px}
+nav a{color:var(--ink);text-decoration:none}nav a:hover{color:var(--ikb)}
+h2{font-size:24px;margin:8px 0 12px}.lead{font-size:19px;max-width:64ch}
+.crumb{font:12px var(--mono);text-transform:uppercase;letter-spacing:.04em}
+.cx{border:1px solid var(--ink);background:var(--bg);margin:0 0 16px}
+.cx-h{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--ink);font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.cx-h b{background:var(--ink);color:var(--paper);padding:7px 9px;font-weight:500}
+.cx-h span{padding:7px 9px;color:var(--dim);letter-spacing:.02em;text-transform:none}
+.cx-h em{margin-left:auto;padding:7px 9px;border-left:1px solid var(--ink);font-style:normal}
+.cx.api .cx-h b{background:var(--ikb);color:#fff}
+.cx.arch .cx-h b{background:var(--bg);color:var(--ink);border-right:1px solid var(--ink)}
+.cx-r{display:grid;grid-template-columns:13rem 1fr;gap:0 14px;padding:7px 10px;font-size:15px;line-height:1.4}
+.cx-r+.cx-r{border-top:1px dotted var(--ink)}
+.cx-r>:first-child{font:12px var(--mono);overflow-wrap:anywhere;min-width:0;color:var(--dim)}
+.cx-r a.nm{font-weight:600;text-decoration:none}.cx-r a.nm:hover{text-decoration:underline}
+.cx pre{margin:0;padding:10px;font:12.5px var(--mono);overflow:auto}
+code{font:13px var(--mono)}
+.tg{display:inline-block;font:10.5px/1.5 var(--mono);border:1px solid var(--ink);padding:0 4px;margin-left:4px}
+.tg.live{background:var(--ink);color:var(--paper)}.tg.degraded{border-style:dashed}.tg.retired{color:var(--dim)}
+.quad{display:grid;grid-template-columns:1fr 1fr;gap:14px}.quad .cx{margin:0 0 16px}
+footer{margin-top:28px;border-top:1px solid var(--ink);padding-top:10px;font:12px var(--mono);color:var(--dim)}
+@media (max-width:720px){.quad{grid-template-columns:1fr}.cx-r{grid-template-columns:1fr}.mast{flex-direction:column;align-items:flex-start}}
+footer p{margin:4px 0}footer .fl b{display:inline-block;background:var(--ink);color:var(--paper);padding:1px 6px;margin-right:6px;font-weight:500;text-transform:uppercase;letter-spacing:.06em}
+.pv{font:11px var(--mono);border:1px dashed var(--ink);padding:5px 8px;margin:0 0 14px;color:var(--dim)}
+</style></head><body><div class="sheet">
+<header class="mast"><div><h1><a href="/api/">API index</a></h1><p class="role">Gökhan Turhan · archived estate APIs · documentation only</p></div>
+<p class="doc"><b>API-retired</b> · as of 2026-11-09</p></header>
+<nav><a href="/api/">Index</a><a href="/api/x402/">x402</a><a href="/api/mcp/">MCP</a><a href="/api/retired/">Retired</a><a href="/api/apis.json">apis.json</a><a href="/api/llms.txt">llms.txt</a><a href="https://gokhanturhan.com/products/">Products ↗</a></nav>
+<p class="pv">Preview copy for review. The published home of this index is api.gokhanturhan.com.</p><main><h2>Retired endpoints</h2><p class="lead">When an estate API is switched off, its machine endpoints answer <code>410 Gone</code> with a JSON body that points here and to the archive page.</p><section class="cx"><div class="cx-h"><b>Response</b><span>example</span></div><pre>{
+  &quot;error&quot;: &quot;gone&quot;,
+  &quot;status&quot;: 410,
+  &quot;archived_to&quot;: &quot;https://gokhanturhan.com/ishtar/&quot;,
+  &quot;docs&quot;: &quot;https://api.gokhanturhan.com/ishtar/&quot;
+}</pre></section><section class="cx arch"><div class="cx-h"><b>Map</b><span>former base → archive page</span></div><div class="cx-r"><span>api.gokhan.vc</span><span><a class="nm" href="/api/feedhub/">Estate gateway (feedhub)</a> → <a href="https://gokhanturhan.com/gokhan-vc/api/">gokhanturhan.com/gokhan-vc/api/</a></span></div><div class="cx-r"><span>api.gokhan.vc/newsletter</span><span><a class="nm" href="/api/newsletter/">Newsletter (email + XMTP)</a> → <a href="https://gokhanturhan.com/gokhan-vc/api/">gokhanturhan.com/gokhan-vc/api/</a></span></div><div class="cx-r"><span>api.ishtar.numetal.xyz</span><span><a class="nm" href="/api/ishtar/">Ishtar API</a> → <a href="https://gokhanturhan.com/ishtar/">gokhanturhan.com/ishtar/</a></span></div><div class="cx-r"><span>curb.numetal.xyz (+ api.curb.numetal.xyz)</span><span><a class="nm" href="/api/curb/">CURB clearing API</a> → <a href="https://gokhanturhan.com/curb/">gokhanturhan.com/curb/</a></span></div><div class="cx-r"><span>harness.curb · buyer.curb · seller.curb .numetal.xyz</span><span><a class="nm" href="/api/curb-agents/">CURB harness, buyer and seller agents</a> → <a href="https://gokhanturhan.com/curb/harness/">gokhanturhan.com/curb/harness/</a></span></div><div class="cx-r"><span>launch.numetal.xyz</span><span><a class="nm" href="/api/launch/">Launch router</a> → <a href="https://gokhanturhan.com/launch/">gokhanturhan.com/launch/</a></span></div><div class="cx-r"><span>numetal.xyz/fees</span><span><a class="nm" href="/api/numetal-fees/">Numetal fees and burns</a> → <a href="https://gokhanturhan.com/numetal/">gokhanturhan.com/numetal/</a></span></div><div class="cx-r"><span>status.numetal.xyz</span><span><a class="nm" href="/api/status/">Numetal status</a> → <a href="https://gokhanturhan.com/numetal/status/">gokhanturhan.com/numetal/status/</a></span></div><div class="cx-r"><span>plaintext.numetal.xyz</span><span><a class="nm" href="/api/plaintext/">Plaintext board</a> → <a href="https://gokhanturhan.com/plaintext/">gokhanturhan.com/plaintext/</a></span></div><div class="cx-r"><span>accumulator.numetal.xyz</span><span><a class="nm" href="/api/accumulator/">Accumulator waitlist + wishlist</a> → <a href="https://gokhanturhan.com/accumulator/">gokhanturhan.com/accumulator/</a></span></div><div class="cx-r"><span>jesus.numetal.xyz</span><span><a class="nm" href="/api/jesus/">Personal Jesus waitlist</a> → <a href="https://gokhanturhan.com/jesus/">gokhanturhan.com/jesus/</a></span></div><div class="cx-r"><span>llmcraft.numetal.xyz</span><span><a class="nm" href="/api/llmcraft/">LLMCraft waitlist</a> → <a href="https://gokhanturhan.com/llmcraft/">gokhanturhan.com/llmcraft/</a></span></div><div class="cx-r"><span>apex.numetal.xyz</span><span><a class="nm" href="/api/apex/">APEX Protocol</a> → <a href="https://gokhanturhan.com/apex/">gokhanturhan.com/apex/</a></span></div><div class="cx-r"><span>xmtp-bot.gokhan.vc</span><span><a class="nm" href="/api/xmtp/">XMTP bot</a> → <a href="https://gokhanturhan.com/gokhan-vc/api/">gokhanturhan.com/gokhan-vc/api/</a></span></div><div class="cx-r"><span>gokhan.vc/x402-live/</span><span><a class="nm" href="/api/x402-live/">x402 live panel</a> → <a href="https://gokhanturhan.com/gokhan-vc/">gokhanturhan.com/gokhan-vc/</a></span></div><div class="cx-r"><span>assets.numetal.xyz</span><span><a class="nm" href="/api/assets/">Asset host</a> → <a href="https://gokhanturhan.com/numetal/">gokhanturhan.com/numetal/</a></span></div></section></main>
+<footer><p>Documentation only. Nothing on this host proxies a call or accepts a payment. Frozen copies are kept as they were published.</p>
+<p class="fl"><b>Site files</b> <a href="/api/sitemap.xml">Sitemap</a> · <a href="/api/robots.txt">robots.txt</a> · <a href="/api/llms.txt">llms.txt</a> · <a href="/api/apis.json">apis.json</a> · <a href="/api/openapi.json">openapi.json</a></p>
+<p class="fl"><b>gokhanturhan.com</b> <a href="https://gokhanturhan.com/">Home</a> · <a href="https://gokhanturhan.com/products/">Products</a> · <a href="https://gokhanturhan.com/journal/">Journal</a> · <a href="https://gokhanturhan.com/rss.xml">RSS</a> · <a href="https://gokhanturhan.com/about/">About</a> · <a href="https://gokhanturhan.com/sitemap-index.xml">Sitemap</a></p></footer>
+</div></body></html>

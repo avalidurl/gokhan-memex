@@ -1,0 +1,22 @@
+{
+ "title": "MCP manifest",
+ "source": "launch.numetal.xyz/.well-known/mcp.json",
+ "retrieved": "2026-11-09",
+ "data": {
+  "name": "launch-router",
+  "description": "Route a token launch through an existing pad. User signs. Never broadcast. x402 amount 0.",
+  "transport": "streamable-http",
+  "url": "https://launch.numetal.xyz/mcp",
+  "stdio": "npx tsx packages/mcp/src/stdio.ts",
+  "tools": [
+   "list_pads",
+   "list_networks",
+   "get_capabilities",
+   "draft_intent",
+   "simulate_launch",
+   "get_sign_payload",
+   "check_bankr_split"
+  ],
+  "docs": "https://launch.numetal.xyz/llms.txt"
+ }
+}

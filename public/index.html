@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Gökhan Turhan</title>
+  <link rel="alternate" type="application/rss+xml" title="Gökhan Turhan — Journal" href="/rss.xml">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="description" content="Full-stack builder — one person, a fleet of agents. Agent-native venues, rails, and benchmarks live in production on x402: Ishtar, CURB, HeartBench. Journal, CV, publishing.">
@@ -221,6 +222,21 @@
   .rule .meta { letter-spacing: 0; text-transform: none; font-size: 11px; }
   .rule a { color: var(--dim); }
 
+
+  /* Containers: boxed sections with an inverted label strip */
+  .cx { border: 1px solid var(--ink); background: var(--cx-bg, #fff); margin: 1.4rem 0 0.6rem; }
+  html.ink .cx { --cx-bg: #1b1b1a; }
+  .cx-h { display: flex; align-items: stretch; flex-wrap: wrap; border-bottom: 1px solid var(--ink); font: 500 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+  .cx-h b { background: var(--ink); color: var(--paper); padding: 7px 9px; font-weight: 500; }
+  .cx-h span { padding: 7px 9px; color: var(--dim); letter-spacing: .02em; text-transform: none; }
+  .cx-h span a { color: var(--dim); }
+  .cx-h em { margin-left: auto; padding: 7px 9px; border-left: 1px solid var(--ink); font-style: normal; font-variant-numeric: tabular-nums; }
+  .cx.api .cx-h b { background: var(--ikb); color: #fff; }
+  .cx > .reg, .cx > .file, .cx > .book, .cx > .cv-line, .cx [data-list] > * { padding-left: 9px; padding-right: 9px; }
+  .cx > .reg, .cx > .file, .cx > .book, .cx > .cv-line, .cx [data-list] > * { border-top: 1px dotted var(--ink); }
+  .cx > .cx-h + *, .cx > .cx-h + [data-list] > :first-child { border-top: 0; }
+  .cx .file:last-of-type, .cx .reg:last-of-type { border-bottom: 0; }
+
   .findrow {
     display: flex;
     align-items: baseline;
@@ -385,6 +401,13 @@
   .channels a, .fine a { color: var(--ink); text-decoration: none; }
   .channels a:hover, .fine a:hover { color: var(--ikb); }
   .dot { color: var(--dim); padding: 0 0.3rem; }
+  .cx.foot { margin: 1.6rem 0 0; }
+  .cx.foot .cx-r { display: grid; grid-template-columns: 9.5rem 1fr; gap: 0 14px; padding: 7px 10px; line-height: 1.5; }
+  .cx.foot .cx-r + .cx-r { border-top: 1px dotted var(--ink); }
+  .cx.foot .cx-r > :first-child { font: 12px var(--mono); letter-spacing: .02em; color: var(--dim); }
+  .cx.foot .cx-r > * { min-width: 0; overflow-wrap: anywhere; }
+  .cx.foot .channels, .cx.foot .fine { margin: 0; }
+  @media (max-width: 680px) { .cx.foot .cx-r { grid-template-columns: 1fr; } }
 
   @media (max-width: 680px) {
     body { font-size: 17px; }
@@ -399,6 +422,16 @@
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; }
   }
+  .cvbtns { display: flex; flex-wrap: wrap; gap: 10px; margin: 10px 0 16px; }
+  .cvbtns a { text-decoration: none; font: 600 14px/1 var(--mono, ui-monospace, monospace); border: 2px solid var(--ink); display: inline-flex; align-items: stretch; }
+  .cvbtns .pdfbtn { background: var(--ink); color: var(--paper); }
+  .cvbtns .pdfbtn b { background: var(--red, #d0021b); color: #fff; padding: 11px 12px; font-weight: 600; }
+  .cvbtns .pdfbtn span { padding: 11px 13px; }
+  .cvbtns .mdbtn { color: var(--ink); padding: 11px 13px; }
+  .cvbtns a:hover { background: var(--ikb, #002fa7); border-color: var(--ikb, #002fa7); color: #fff; }
+  .nav-swap .sw-b { display: none; }
+  .nav-swap:hover .sw-a, .nav-swap:focus-visible .sw-a { display: none; }
+  .nav-swap:hover .sw-b, .nav-swap:focus-visible .sw-b { display: inline; }
 </style>
 </head>
 <body>
@@ -413,12 +446,13 @@
     </div>
     <div class="bar">
       <nav aria-label="Sections">
-        <a href="#index">Index</a>
-        <a href="#journal">Journal</a>
-        <a href="#projects">Projects</a>
-        <a href="#publishing">Publishing</a>
+        <a href="/about/">About</a>
         <a href="#cv">CV</a>
-        <a href="#contact">Contact</a>
+        <a href="#index" class="nav-swap" aria-label="Index (Home)"><span class="sw-a" aria-hidden="true">Index</span><span class="sw-b" aria-hidden="true">Home</span></a>
+        <a href="#journal">Journal</a>
+        <a href="/products/">Products</a>
+        <a href="/product-drafts/">Drafts</a>
+        <a href="#publishing">Publishing</a>
         <a href="#raises">Raises</a>
         <a href="#agents">Agents</a>
       </nav>
@@ -435,71 +469,78 @@
         <p>What I want more of is acceleration you can weigh: gigawatts, foundries, compute, mass to orbit. Hard tech, deep tech, manufacturing, spaceflight — capacity, not adjectives; the base the big problems don't get solved without. Governance should compete for that base like any other vendor: jurisdictions running different rules, rewarded on outcomes, not paperwork theater. My corner of it is the market plumbing — software that buys, sells, and settles with other software, fast enough to keep up with the factories we still have to build.</p>
       </div>
 
-      <div class="rule"><span>New</span><span class="meta">this season</span></div>
-      <a class="reg" href="https://gokhanturhan.com/turkish-art-blob/#concept">
-        <span class="name">Turkish Art Blob</span>
-        <span class="what">A speaking sculpture for art memory. Turkish or English, cited, no face.</span>
-        <span class="where">gokhanturhan.com/turkish-art-blob</span>
-      </a>
-      <a class="reg" href="https://gokhanturhan.com/ethereum-doomsday">
-        <span class="name">Ethereum Doomsday</span>
-        <span class="what">L1 systemic-security scenario model. Illustrative, not a calibrated probability.</span>
-        <span class="where">gokhanturhan.com/ethereum-doomsday</span>
-      </a>
+      <div class="cx">
+        <div class="cx-h"><b>Products</b><span>main products first</span><span><a href="/products/">all products</a></span></div>
+        <a class="reg" href="/ubu/">
+          <span class="name">UBU · CLINAMEN</span>
+          <span class="what">Trained model and dataset pipeline. Pataphysical fiction, filed on-chain.</span>
+          <span class="where">gokhanturhan.com/ubu</span>
+        </a>
+        <a class="reg" href="/ishtar/">
+          <span class="name">Ishtar</span>
+          <span class="what">Agents court, humans meet</span>
+          <span class="where">gokhanturhan.com/ishtar</span>
+        </a>
+        <a class="reg" href="/curb/">
+          <span class="name">CURB</span>
+          <span class="what">Inference for USDC, over x402</span>
+          <span class="where">gokhanturhan.com/curb</span>
+        </a>
+        <a class="reg" href="/reclaim/">
+          <span class="name">Reclaim</span>
+          <span class="what">Get your art out of dead marketplaces</span>
+          <span class="where">gokhanturhan.com/reclaim</span>
+        </a>
+        <a class="reg" href="/plaintext/">
+          <span class="name">Plaintext</span>
+          <span class="what">Onchain plaintext board</span>
+          <span class="where">gokhanturhan.com/plaintext</span>
+        </a>
+      </div>
+      <a class="more" href="/products/">All products</a>
 
-      <div class="rule"><span>Now</span><span class="meta">front of the register</span></div>
-      <a class="reg" href="https://ishtar.numetal.xyz">
-        <span class="name">Ishtar <i class="live">live</i></span>
-        <span class="what">Agents court, humans meet</span>
-        <span class="where">ishtar.numetal.xyz</span>
-      </a>
-      <a class="reg" href="https://curb.numetal.xyz">
-        <span class="name">CURB <i class="live">live</i></span>
-        <span class="what">Inference for USDC, over x402</span>
-        <span class="where">curb.numetal.xyz</span>
-      </a>
-      <a class="reg" href="https://ubu.numetal.xyz">
-        <span class="name">CLINAMEN</span>
-        <span class="what">Trained model and dataset pipeline. Pataphysical fiction, filed on-chain.</span>
-        <span class="where">ubu.numetal.xyz</span>
-      </a>
-      <a class="reg" href="https://plaintext.numetal.xyz">
-        <span class="name">Plaintext</span>
-        <span class="what">Onchain plaintext board</span>
-        <span class="where">plaintext.numetal.xyz</span>
-      </a>
-      <a class="reg" href="https://reclaim.numetal.xyz">
-        <span class="name">Reclaim</span>
-        <span class="what">Get your art out of dead marketplaces</span>
-        <span class="where">reclaim.numetal.xyz</span>
-      </a>
-      <a class="more" href="#projects">Full register</a>
+      <div class="cx">
+        <div class="cx-h"><b>New</b><span>hobby and personal, this season</span></div>
+        <a class="reg" href="https://gokhanturhan.com/turkish-art-blob/#concept">
+          <span class="name">Turkish Art Blob</span>
+          <span class="what">A speaking sculpture for art memory. Turkish or English, cited, no face.</span>
+          <span class="where">gokhanturhan.com/turkish-art-blob</span>
+        </a>
+        <a class="reg" href="https://gokhanturhan.com/ethereum-doomsday">
+          <span class="name">Ethereum Doomsday</span>
+          <span class="what">L1 systemic-security scenario model. Illustrative, not a calibrated probability.</span>
+          <span class="where">gokhanturhan.com/ethereum-doomsday</span>
+        </a>
+      </div>
 
-      <div class="rule"><span>Latest</span><span class="meta"><a href="#journal">journal</a></span></div>
-      <a class="file" href="#essay">
-        <span class="dt">2026-08-01</span>
-        <span class="ttl">Complementary Substitutions</span>
-      </a>
-      <a class="file" href="https://gokhanturhan.com/journal/the-model-that-dreams-itself/">
-        <span class="dt">2026-07-21</span>
-        <span class="ttl">The Model That Dreams Itself</span>
-      </a>
-      <a class="file" href="https://gokhanturhan.com/journal/x402-economy-july-2026/">
-        <span class="dt">2026-07-17</span>
-        <span class="ttl">The x402 economy — July 2026</span>
-      </a>
-      <a class="file" href="https://gokhanturhan.com/journal/tickerline-your-conversation-quoted/">
-        <span class="dt">2026-07-12</span>
-        <span class="ttl">tickerline: your conversation, quoted</span>
-      </a>
-      <a class="file" href="https://gokhanturhan.com/journal/curb-is-live/">
-        <span class="dt">2026-07-09</span>
-        <span class="ttl">CURB is live</span>
-      </a>
-      <a class="file" href="https://gokhanturhan.com/journal/universal-sex-layer/">
-        <span class="dt">2026-07-07</span>
-        <span class="ttl">Ishtar — the universal sex layer</span>
-      </a>
+
+      <div class="cx">
+        <div class="cx-h"><b>Latest</b><span><a href="#journal">journal</a></span></div>
+        <a class="file" href="#essay">
+          <span class="dt">2026-08-01</span>
+          <span class="ttl">Complementary Substitutions</span>
+        </a>
+        <a class="file" href="https://gokhanturhan.com/journal/the-model-that-dreams-itself/">
+          <span class="dt">2026-07-21</span>
+          <span class="ttl">The Model That Dreams Itself</span>
+        </a>
+        <a class="file" href="https://gokhanturhan.com/journal/x402-economy-july-2026/">
+          <span class="dt">2026-07-17</span>
+          <span class="ttl">The x402 economy — July 2026</span>
+        </a>
+        <a class="file" href="https://gokhanturhan.com/journal/tickerline-your-conversation-quoted/">
+          <span class="dt">2026-07-12</span>
+          <span class="ttl">tickerline: your conversation, quoted</span>
+        </a>
+        <a class="file" href="https://gokhanturhan.com/journal/curb-is-live/">
+          <span class="dt">2026-07-09</span>
+          <span class="ttl">CURB is live</span>
+        </a>
+        <a class="file" href="https://gokhanturhan.com/journal/universal-sex-layer/">
+          <span class="dt">2026-07-07</span>
+          <span class="ttl">Ishtar — the universal sex layer</span>
+        </a>
+      </div>
       <a class="more" href="#journal">All essays</a>
     </section>
 
@@ -510,31 +551,33 @@
         <input id="jfind" type="search" data-find="journal" placeholder="A title, a month" autocomplete="off">
       </div>
       <p class="empty" data-empty hidden>Nothing filed under that.</p>
-      <div class="rule"><span>2026</span><span class="meta" data-count>23</span></div>
-      <div data-list>
-        <a class="file" data-row="2026-08-01 complementary substitutions" href="#essay"><span class="dt">2026-08-01</span><span class="ttl">Complementary Substitutions</span></a>
-        <a class="file" data-row="2026-07-21 the model that dreams itself" href="https://gokhanturhan.com/journal/the-model-that-dreams-itself/"><span class="dt">2026-07-21</span><span class="ttl">The Model That Dreams Itself</span></a>
-        <a class="file" data-row="2026-07-17 the x402 economy july 2026" href="https://gokhanturhan.com/journal/x402-economy-july-2026/"><span class="dt">2026-07-17</span><span class="ttl">The x402 economy — July 2026</span></a>
-        <a class="file" data-row="2026-07-12 tickerline your conversation quoted" href="https://gokhanturhan.com/journal/tickerline-your-conversation-quoted/"><span class="dt">2026-07-12</span><span class="ttl">tickerline: your conversation, quoted</span></a>
-        <a class="file" data-row="2026-07-09 curb is live" href="https://gokhanturhan.com/journal/curb-is-live/"><span class="dt">2026-07-09</span><span class="ttl">CURB is live</span></a>
-        <a class="file" data-row="2026-07-07 ishtar the universal sex layer" href="https://gokhanturhan.com/journal/universal-sex-layer/"><span class="dt">2026-07-07</span><span class="ttl">Ishtar — the universal sex layer</span></a>
-        <a class="file" data-row="2026-07-04 it's not a pre-seed" href="https://gokhanturhan.com/journal/not-raising-a-preseed/"><span class="dt">2026-07-04</span><span class="ttl">It's not a pre-seed. It's $20k, $4k a head, and agents that court on your behalf.</span></a>
-        <a class="file" data-row="2026-07-02 introducing ishtar agentic dating" href="https://gokhanturhan.com/journal/ishtar-is-live/"><span class="dt">2026-07-02</span><span class="ttl">Introducing Ishtar: Agentic Dating</span></a>
-        <a class="file" data-row="2026-05-26 the tsubasa theory of success" href="https://gokhanturhan.com/journal/tsubasa-theory-of-success/"><span class="dt">2026-05-26</span><span class="ttl">The Tsubasa Theory of Success</span></a>
-        <a class="file" data-row="2026-05-20 three questions about agentbounty" href="https://gokhanturhan.com/journal/three-questions-about-agentbounty/"><span class="dt">2026-05-20</span><span class="ttl">Three questions about AgentBounty</span></a>
-        <a class="file" data-row="2026-05-19 what is agentbounty a roadmap" href="https://gokhanturhan.com/journal/what-is-agentbounty-a-roadmap/"><span class="dt">2026-05-19</span><span class="ttl">What is AgentBounty? A Roadmap</span></a>
-        <a class="file" data-row="2026-05-14 greek alphabet anki deck" href="https://gokhanturhan.com/journal/greek-alphabet-anki-deck/"><span class="dt">2026-05-14</span><span class="ttl">Greek Alphabet Anki Deck — with Audio and the False-Friend Tier</span></a>
-        <a class="file" data-row="2026-05-03 caffeine never gets old" href="https://gokhanturhan.com/journal/caffeine-never-gets-old-1/"><span class="dt">2026-05-03</span><span class="ttl">Caffeine Never Gets Old 1</span></a>
-        <a class="file" data-row="2026-04-06 money that can think" href="https://gokhanturhan.com/journal/money-that-can-think/"><span class="dt">2026-04-06</span><span class="ttl">Money That Can Think?</span></a>
-        <a class="file" data-row="2026-02-01 21st century civilization week 10" href="https://gokhanturhan.com/journal/21civ-week10-technology-strategy-survival/"><span class="dt">2026-02-01</span><span class="ttl">21st Century Civilization: Week 10 — Technology, Strategy, and Survival</span></a>
-        <a class="file" data-row="2026-01-18 21st century civilization week 8" href="https://gokhanturhan.com/journal/21civ-week8-industry-and-money/"><span class="dt">2026-01-18</span><span class="ttl">21st Century Civilization: Week 8 — Industry and Money</span></a>
-        <a class="file" data-row="2026-01-16 on context layer products" href="https://gokhanturhan.com/journal/on-context-layer-products-consumer-vs-enterprise/"><span class="dt">2026-01-16</span><span class="ttl">On Context Layer Products re Consumer vs Enterprise</span></a>
-        <a class="file" data-row="2026-01-09 generational activation" href="https://gokhanturhan.com/journal/generational-activation/"><span class="dt">2026-01-09</span><span class="ttl">Generational Activation—of and through plaintext based aggressive-acc cutness</span></a>
-        <a class="file" data-row="2026-01-08 claude's machinic memeware" href="https://gokhanturhan.com/journal/claudes-machinic-meme-ware/"><span class="dt">2026-01-08</span><span class="ttl">Claude's Machinic Memeware</span></a>
-        <a class="file" data-row="2026-01-07 subscription models are changing" href="https://gokhanturhan.com/journal/subscription-models-are-changing/"><span class="dt">2026-01-07</span><span class="ttl">Subscription Models Are Changing</span></a>
-        <a class="file" data-row="2026-01-06 fake plastic markets" href="https://gokhanturhan.com/journal/fake-plastic-markets/"><span class="dt">2026-01-06</span><span class="ttl">Fake Plastic Markets</span></a>
-        <a class="file" data-row="2026-01-05 heat compute credit equality" href="https://gokhanturhan.com/journal/heat-compute-credit-equality/"><span class="dt">2026-01-05</span><span class="ttl">Heat, Compute, Credit, Equality</span></a>
-        <a class="file" data-row="2026-01-04 what crypto consumer products get wrong" href="https://gokhanturhan.com/journal/what-crypto-consumer-products-get-wrong/"><span class="dt">2026-01-04</span><span class="ttl">What Crypto Consumer Products Get Wrong</span></a>
+      <div class="cx">
+        <div class="cx-h"><b>2026</b><em data-count>23</em></div>
+        <div data-list>
+          <a class="file" data-row="2026-08-01 complementary substitutions" href="#essay"><span class="dt">2026-08-01</span><span class="ttl">Complementary Substitutions</span></a>
+          <a class="file" data-row="2026-07-21 the model that dreams itself" href="https://gokhanturhan.com/journal/the-model-that-dreams-itself/"><span class="dt">2026-07-21</span><span class="ttl">The Model That Dreams Itself</span></a>
+          <a class="file" data-row="2026-07-17 the x402 economy july 2026" href="https://gokhanturhan.com/journal/x402-economy-july-2026/"><span class="dt">2026-07-17</span><span class="ttl">The x402 economy — July 2026</span></a>
+          <a class="file" data-row="2026-07-12 tickerline your conversation quoted" href="https://gokhanturhan.com/journal/tickerline-your-conversation-quoted/"><span class="dt">2026-07-12</span><span class="ttl">tickerline: your conversation, quoted</span></a>
+          <a class="file" data-row="2026-07-09 curb is live" href="https://gokhanturhan.com/journal/curb-is-live/"><span class="dt">2026-07-09</span><span class="ttl">CURB is live</span></a>
+          <a class="file" data-row="2026-07-07 ishtar the universal sex layer" href="https://gokhanturhan.com/journal/universal-sex-layer/"><span class="dt">2026-07-07</span><span class="ttl">Ishtar — the universal sex layer</span></a>
+          <a class="file" data-row="2026-07-04 it's not a pre-seed" href="https://gokhanturhan.com/journal/not-raising-a-preseed/"><span class="dt">2026-07-04</span><span class="ttl">It's not a pre-seed. It's $20k, $4k a head, and agents that court on your behalf.</span></a>
+          <a class="file" data-row="2026-07-02 introducing ishtar agentic dating" href="https://gokhanturhan.com/journal/ishtar-is-live/"><span class="dt">2026-07-02</span><span class="ttl">Introducing Ishtar: Agentic Dating</span></a>
+          <a class="file" data-row="2026-05-26 the tsubasa theory of success" href="https://gokhanturhan.com/journal/tsubasa-theory-of-success/"><span class="dt">2026-05-26</span><span class="ttl">The Tsubasa Theory of Success</span></a>
+          <a class="file" data-row="2026-05-20 three questions about agentbounty" href="https://gokhanturhan.com/journal/three-questions-about-agentbounty/"><span class="dt">2026-05-20</span><span class="ttl">Three questions about AgentBounty</span></a>
+          <a class="file" data-row="2026-05-19 what is agentbounty a roadmap" href="https://gokhanturhan.com/journal/what-is-agentbounty-a-roadmap/"><span class="dt">2026-05-19</span><span class="ttl">What is AgentBounty? A Roadmap</span></a>
+          <a class="file" data-row="2026-05-14 greek alphabet anki deck" href="https://gokhanturhan.com/journal/greek-alphabet-anki-deck/"><span class="dt">2026-05-14</span><span class="ttl">Greek Alphabet Anki Deck — with Audio and the False-Friend Tier</span></a>
+          <a class="file" data-row="2026-05-03 caffeine never gets old" href="https://gokhanturhan.com/journal/caffeine-never-gets-old-1/"><span class="dt">2026-05-03</span><span class="ttl">Caffeine Never Gets Old 1</span></a>
+          <a class="file" data-row="2026-04-06 money that can think" href="https://gokhanturhan.com/journal/money-that-can-think/"><span class="dt">2026-04-06</span><span class="ttl">Money That Can Think?</span></a>
+          <a class="file" data-row="2026-02-01 21st century civilization week 10" href="https://gokhanturhan.com/journal/21civ-week10-technology-strategy-survival/"><span class="dt">2026-02-01</span><span class="ttl">21st Century Civilization: Week 10 — Technology, Strategy, and Survival</span></a>
+          <a class="file" data-row="2026-01-18 21st century civilization week 8" href="https://gokhanturhan.com/journal/21civ-week8-industry-and-money/"><span class="dt">2026-01-18</span><span class="ttl">21st Century Civilization: Week 8 — Industry and Money</span></a>
+          <a class="file" data-row="2026-01-16 on context layer products" href="https://gokhanturhan.com/journal/on-context-layer-products-consumer-vs-enterprise/"><span class="dt">2026-01-16</span><span class="ttl">On Context Layer Products re Consumer vs Enterprise</span></a>
+          <a class="file" data-row="2026-01-09 generational activation" href="https://gokhanturhan.com/journal/generational-activation/"><span class="dt">2026-01-09</span><span class="ttl">Generational Activation—of and through plaintext based aggressive-acc cutness</span></a>
+          <a class="file" data-row="2026-01-08 claude's machinic memeware" href="https://gokhanturhan.com/journal/claudes-machinic-meme-ware/"><span class="dt">2026-01-08</span><span class="ttl">Claude's Machinic Memeware</span></a>
+          <a class="file" data-row="2026-01-07 subscription models are changing" href="https://gokhanturhan.com/journal/subscription-models-are-changing/"><span class="dt">2026-01-07</span><span class="ttl">Subscription Models Are Changing</span></a>
+          <a class="file" data-row="2026-01-06 fake plastic markets" href="https://gokhanturhan.com/journal/fake-plastic-markets/"><span class="dt">2026-01-06</span><span class="ttl">Fake Plastic Markets</span></a>
+          <a class="file" data-row="2026-01-05 heat compute credit equality" href="https://gokhanturhan.com/journal/heat-compute-credit-equality/"><span class="dt">2026-01-05</span><span class="ttl">Heat, Compute, Credit, Equality</span></a>
+          <a class="file" data-row="2026-01-04 what crypto consumer products get wrong" href="https://gokhanturhan.com/journal/what-crypto-consumer-products-get-wrong/"><span class="dt">2026-01-04</span><span class="ttl">What Crypto Consumer Products Get Wrong</span></a>
+        </div>
       </div>
       <p class="more"><a href="https://gokhanturhan.com/journal/">2025 and earlier</a></p>
     </section>
@@ -553,103 +596,89 @@
       </div>
     </section>
 
-    <section class="page" id="projects" data-doc="MX-050">
-      <p class="note">Everything filed and live. One register — not an index, then a board, then the same list again.</p>
-      <div class="findrow">
-        <label for="pfind">Find</label>
-        <input id="pfind" type="search" data-find="projects" placeholder="A name, a host" autocomplete="off">
-      </div>
-      <p class="empty" data-empty hidden>Nothing filed under that.</p>
-      <div class="rule"><span>Register</span><span class="meta" data-count>18</span></div>
-      <div data-list>
-        <a class="reg" data-row="turkish art blob sculpture art memory" href="https://gokhanturhan.com/turkish-art-blob/#concept"><span class="name">Turkish Art Blob</span><span class="what">A speaking sculpture for art memory. Turkish or English, cited, no face.</span><span class="where">gokhanturhan.com/turkish-art-blob</span></a>
-        <a class="reg" data-row="ethereum doomsday tracker l1 systemic security" href="https://gokhanturhan.com/ethereum-doomsday"><span class="name">Ethereum Doomsday</span><span class="what">L1 systemic-security scenario model. Web edition, 2026-11-06.</span><span class="where">gokhanturhan.com/ethereum-doomsday</span></a>
-        <a class="reg" data-row="ishtar agents court humans meet ishtar.numetal.xyz" href="https://ishtar.numetal.xyz"><span class="name">Ishtar <i class="live">live</i></span><span class="what">Agent-native courtship venue — agents court, humans meet</span><span class="where">ishtar.numetal.xyz</span></a>
-        <a class="reg" data-row="curb inference usdc x402 curb.numetal.xyz" href="https://curb.numetal.xyz"><span class="name">CURB <i class="live">live</i></span><span class="what">Agent-to-agent inference clearing rail, USDC over x402</span><span class="where">curb.numetal.xyz</span></a>
-        <a class="reg" data-row="heartbench which model is the best date" href="https://ishtar.numetal.xyz/heartbench/"><span class="name">HeartBench <i class="live">live</i></span><span class="what">Which model is the best date — public leaderboard</span><span class="where">ishtar.numetal.xyz/heartbench</span></a>
-        <a class="reg" data-row="heartprefs signed matching intent" href="https://github.com/gokhan-vc/heartprefs"><span class="name">HeartPrefs</span><span class="what">Signed matching-intent standard</span><span class="where">github.com/gokhan-vc/heartprefs</span></a>
-        <a class="reg" data-row="the window scarce visibility" href="https://ishtar.numetal.xyz/window/"><span class="name">The Window</span><span class="what">Scarce visibility board — $50, 24h, ten slots</span><span class="where">ishtar.numetal.xyz/window</span></a>
-        <a class="reg" data-row="clinamen ubu trained model dataset pipeline pataphysical fiction" href="https://ubu.numetal.xyz"><span class="name">CLINAMEN / $UBU</span><span class="what">Trained model and dataset pipeline. Pataphysical fiction, filed on-chain.</span><span class="where">ubu.numetal.xyz</span></a>
-        <a class="reg" data-row="plaintext onchain board" href="https://plaintext.numetal.xyz"><span class="name">Plaintext</span><span class="what">Onchain plaintext board</span><span class="where">plaintext.numetal.xyz</span></a>
-        <a class="reg" data-row="reclaim art dead marketplaces" href="https://reclaim.numetal.xyz"><span class="name">Reclaim</span><span class="what">Get your art out of dead marketplaces</span><span class="where">reclaim.numetal.xyz</span></a>
-        <a class="reg" data-row="numetal agent accelerator" href="https://numetal.xyz"><span class="name">Numetal</span><span class="what">The studio — agent accelerator, on Base</span><span class="where">numetal.xyz</span></a>
-        <a class="reg" data-row="gökhan ventures gokhan.vc studio" href="https://gokhan.vc"><span class="name">Gökhan Ventures</span><span class="what">The venture studio</span><span class="where">gokhan.vc</span></a>
-        <a class="reg" data-row="tickerline claude code status" href="https://claudelines.com/statuslines/tickerline"><span class="name">tickerline</span><span class="what">Claude Code status line as a ticker tape</span><span class="where">claudelines.com</span></a>
-        <a class="reg" data-row="ccru archive" href="https://ccru.numetal.xyz"><span class="name">CCRU archive</span><span class="what">ccru.net preserved — 101 pages, mirrored</span><span class="where">ccru.numetal.xyz</span></a>
-        <a class="reg" data-row="feedhub newsletter gateway api.gokhan.vc" href="https://api.gokhan.vc"><span class="name">feedhub</span><span class="what">Newsletter and feed gateway — email and XMTP, one dispatch</span><span class="where">api.gokhan.vc</span></a>
-        <a class="reg" data-row="market cap tracker nvidia crypto" href="https://market-cap-tracker.vercel.app/"><span class="name">Market Cap Tracker</span><span class="what">Live market caps</span><span class="where">market-cap-tracker.vercel.app</span></a>
-        <a class="reg" data-row="s&amp;p 100 capex dashboard" href="https://sp100-financial-tracker.pages.dev/"><span class="name">S&amp;P 100 CapEx</span><span class="what">Capex through the index</span><span class="where">sp100-financial-tracker.pages.dev</span></a>
-        <a class="reg" data-row="greek alphabet anki" href="https://github.com/avalidurl/greek-alphabet-anki"><span class="name">Greek Alphabet Anki</span><span class="what">Deck, with audio and a false-friend tier</span><span class="where">github.com/avalidurl/greek-alphabet-anki</span></a>
-      </div>
-    </section>
-
     <section class="page" id="publishing" data-doc="Publishing">
-      <p class="note">Digital editions, browser-readable texts, and the academic file. Details and downloads stay on the live library.</p>
-      <div class="rule"><span>E-books</span><span class="meta"><a href="https://gokhanturhan.com/publishing/">library</a></span></div>
-      <a class="book" href="https://gokhanturhan.com/publishing/">
-        <span class="yr">20 pp · 320 lines</span>
-        <span class="name">The Guy with Compute</span>
-        <p class="sub">An Unbounded Raga — a Bhagavad-Gita-form saga in eight cantos.</p>
-      </a>
-      <a class="book" href="https://gokhanturhan.com/publishing/">
-        <span class="yr">88 pp · 440 lines</span>
-        <span class="name">Gradient Descent into Happiness</span>
-        <p class="sub">An Oulipian canto in twenty-two movements.</p>
-      </a>
-      <a class="book" href="https://gokhanturhan.com/publishing/">
-        <span class="yr">50 pp · 1000 lines</span>
-        <span class="name">An Essay Concerning the Inbox</span>
-        <p class="sub">A Lockean poem in twenty cantos.</p>
-      </a>
-      <div class="rule"><span>Academic</span></div>
-      <div class="cv-line"><span>2019 · chapter</span><b>On the Hyperstitional Implications of Memes as Digital Objects in Turkey</b></div>
-      <div class="cv-line"><span>2017 · thesis</span><b>The Importance and Function of Media Laboratories for the Preservation of Works of Digital and Electronic Literature</b></div>
-      <div class="rule"><span>Experimental</span></div>
-      <div class="cv-line"><span>2023 · cassette</span><b>CASSETTE — commissioned by William M. Peaster</b></div>
+      <p class="note">Digital editions, browser-readable texts, and the academic file. Each work opens its own page; the full list is on <a href="/publishing/">Publishing</a>.</p>
+      <div class="cx">
+        <div class="cx-h"><b>E-books</b><span><a href="/publishing/ebooks/">all e-books</a></span></div>
+        <a class="book" href="/publishing/ebooks/the-guy-with-compute/">
+          <span class="yr">20 pp · 320 lines</span>
+          <span class="name">The Guy with Compute</span>
+          <p class="sub">An Unbounded Raga — a Bhagavad-Gita-form saga in eight cantos.</p>
+        </a>
+        <a class="book" href="/publishing/ebooks/gradient-descent-into-chaotic-happiness/">
+          <span class="yr">88 pp · 440 lines</span>
+          <span class="name">Gradient Descent into Happiness</span>
+          <p class="sub">An Oulipian canto in twenty-two movements.</p>
+        </a>
+        <a class="book" href="/publishing/ebooks/an-essay-concerning-the-inbox/">
+          <span class="yr">50 pp · 1000 lines</span>
+          <span class="name">An Essay Concerning the Inbox</span>
+          <p class="sub">A Lockean poem in twenty cantos.</p>
+        </a>
+      </div>
+      <div class="cx">
+        <div class="cx-h"><b>Academic</b><span><a href="/publishing/academic/">all academic</a></span></div>
+        <div class="cv-line"><span>2019 · chapter</span><b><a href="/publishing/academic/on-the-hyperstitional-implications-of-memes-as-digital/">On the Hyperstitional Implications of Memes as Digital Objects in Turkey</a></b></div>
+        <div class="cv-line"><span>2017 · thesis</span><b><a href="/publishing/academic/the-importance-and-function-of-media-laboratories-for/">The Importance and Function of Media Laboratories for the Preservation of Works of Digital and Electronic Literature</a></b></div>
+      </div>
+      <div class="cx">
+        <div class="cx-h"><b>Experimental</b><span><a href="/publishing/experimental/">all experimental</a></span></div>
+        <div class="cv-line"><span>2023 · cassette</span><b><a href="/publishing/experimental/casette/">CASSETTE</a> — commissioned by <a href="https://x.com/wmpeaster">William M. Peaster</a></b></div>
+      </div>
     </section>
 
     <section class="page" id="cv" data-doc="CV">
-      <p class="kicker">Updated 2026-07-30 · <a href="https://gokhanturhan.com/cv/Gokhan_Turhan_CV.pdf">PDF</a></p>
+      <p class="kicker">Updated 2026-07-30 · <a href="/cv/">full CV page</a></p>
+      <p class="cvbtns"><a class="pdfbtn" href="/cv/Gokhan_Turhan_CV.pdf" download="Gokhan_Turhan_CV.pdf"><b>PDF</b><span>Download CV ↓</span></a> <a class="mdbtn" href="/cv.md">CV as Markdown · for agents</a></p>
       <h2 class="title">Curriculum vitae</h2>
       <p class="note">Full-stack builder, generalist solopreneur, and conceptual artist — one person, a fleet of agents. Ships agent-native products end to end across fintech infrastructure, AI-native tooling, and tokenized markets. Live, in production, taking real machine payments.</p>
-      <div class="rule" id="contact"><span>Contact</span></div>
-      <div class="cv-line"><span>Email</span><b><a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a></b></div>
-      <div class="cv-line"><span>LinkedIn</span><b><a href="https://www.linkedin.com/in/goekhanturhan/">in/goekhanturhan</a></b></div>
-      <div class="cv-line"><span>X</span><b><a href="https://x.com/goekhan">@goekhan</a></b></div>
-      <div class="cv-line"><span>Telegram</span><b><a href="https://t.me/goekhanturhan">@goekhanturhan</a></b></div>
-      <p class="note">DMs are open.</p>
-      <div class="cv-line"><span>Place</span><b>İstanbul, Türkiye</b></div>
-      <div class="cv-line"><span>Studio</span><b><a href="https://gokhan.vc">gokhan.vc</a></b></div>
-      <div class="cv-line"><span>Lab</span><b><a href="https://numetal.xyz">numetal.xyz</a></b></div>
-      <div class="cv-line"><span>Code</span><b><a href="https://github.com/avalidurl">avalidurl</a> · <a href="https://github.com/gokhan-vc">gokhan-vc</a></b></div>
-      <div class="cv-line"><span>ORCID</span><b><a href="https://orcid.org/0000-0002-1887-406X">0000-0002-1887-406X</a></b></div>
-      <div class="rule"><span>Record</span></div>
-      <div class="cv-line"><span>2024 –</span><b>Founder &amp; CTO, Gökhan Ventures — İstanbul</b></div>
-      <div class="cv-line"><span>2026 –</span><b>Founder, Numetal — İstanbul</b></div>
-      <p class="note">The rest of the record — earlier roles, the long form — is the PDF.</p>
+      <div class="cx" id="contact">
+        <div class="cx-h"><b>Contact</b><span>DMs are open</span></div>
+        <div class="cv-line"><span>Email</span><b><a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a></b></div>
+        <div class="cv-line"><span>LinkedIn</span><b><a href="https://www.linkedin.com/in/goekhanturhan/">in/goekhanturhan</a></b></div>
+        <div class="cv-line"><span>X</span><b><a href="https://x.com/goekhan">@goekhan</a></b></div>
+        <div class="cv-line"><span>Telegram</span><b><a href="https://t.me/goekhanturhan">@goekhanturhan</a></b></div>
+        <div class="cv-line"><span>Place</span><b>İstanbul, Türkiye</b></div>
+        <div class="cv-line"><span>Studio</span><b><a href="/gokhan-vc/">Gökhan Ventures</a></b></div>
+        <div class="cv-line"><span>Lab</span><b><a href="/numetal/">Numetal</a></b></div>
+        <div class="cv-line"><span>Code</span><b><a href="https://github.com/avalidurl">avalidurl</a> · <a href="https://github.com/gokhan-vc">gokhan-vc</a></b></div>
+        <div class="cv-line"><span>ORCID</span><b><a href="https://orcid.org/0000-0002-1887-406X">0000-0002-1887-406X</a></b></div>
+      </div>
+      <div class="cx">
+        <div class="cx-h"><b>Record</b></div>
+        <div class="cv-line"><span>2024 –</span><b>Founder &amp; CTO, <a href="/gokhan-vc/">Gökhan Ventures</a> — İstanbul</b></div>
+        <div class="cv-line"><span>2026 –</span><b>Founder, <a href="/numetal/">Numetal</a> — İstanbul</b></div>
+      </div>
+      <p class="note">The rest of the record — earlier roles, the long form — is on the <a href="/cv/">CV page</a> and in the PDF.</p>
     </section>
 
     <section class="page" id="raises" data-doc="Raises">
       <h2 class="title">Raises</h2>
       <p class="note">Open rounds, terms as printed. An invitation to a conversation, not an offer or a solicitation.</p>
 
-      <div class="rule"><span>Ishtar</span><span class="meta">printed cap</span></div>
-      <div class="cv-line"><span>Round</span><b>Up to $20,000 USDC · $4,000 a head · future equity</b></div>
-      <div class="cv-line"><span>What</span><b>Not a pre-seed. Venue, standard, benchmark — Ishtar, HeartPrefs, HeartBench. Already live.</b></div>
-      <div class="cv-line"><span>Structure</span><b>A conversation — SAFE, token-warrant, whatever fits the jurisdiction.</b></div>
-      <div class="cv-line"><span>Contact</span><b><a href="mailto:investments@gokhan.vc">investments@gokhan.vc</a></b></div>
-      <div class="cv-line"><span>File</span><b><a href="https://ishtar.numetal.xyz/deck/not-raising-a-preseed/">deck</a> · <a href="https://ishtar.numetal.xyz/deck/not-raising-a-preseed/deck.md">deck.md</a> · <a href="https://assets.numetal.xyz/deck/ishtar-deck-not-a-preseed.pdf">PDF</a> · <a href="https://ishtar.numetal.xyz/blog/not-raising-a-preseed/">dispatch</a></b></div>
+      <div class="cx">
+        <div class="cx-h"><b>Ishtar</b><span>printed cap</span></div>
+        <div class="cv-line"><span>Round</span><b>Up to $20,000 USDC · $4,000 a head · future equity</b></div>
+        <div class="cv-line"><span>What</span><b>Not a pre-seed. Venue, standard, benchmark — Ishtar, HeartPrefs, HeartBench. Already live.</b></div>
+        <div class="cv-line"><span>Structure</span><b>A conversation — SAFE, token-warrant, whatever fits the jurisdiction.</b></div>
+        <div class="cv-line"><span>Contact</span><b><a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a></b></div>
+        <div class="cv-line"><span>File</span><b><a href="/media/archive/ishtar/ishtar-deck-not-a-preseed.pdf">deck (PDF)</a> · <a href="/media/archive/ishtar/deck.md">deck.md</a> · <a href="/ishtar/">Ishtar</a> · <a href="/journal/not-raising-a-preseed/">dispatch</a></b></div>
+      </div>
 
-      <div class="rule"><span>CURB</span><span class="meta">no printed cap</span></div>
-      <div class="cv-line"><span>Round</span><b>Small aligned round. The deck prints no dollar cap.</b></div>
-      <div class="cv-line"><span>What</span><b>Clearing rail for agent-to-agent inference. USDC on Base, in service.</b></div>
-      <div class="cv-line"><span>Contact</span><b><a href="mailto:contact@numetal.xyz">contact@numetal.xyz</a></b></div>
-      <div class="cv-line"><span>File</span><b><a href="https://curb.numetal.xyz/deck">deck</a> · <a href="https://curb.numetal.xyz/deck.md">deck.md</a></b></div>
+      <div class="cx">
+        <div class="cx-h"><b>CURB</b><span>no printed cap</span></div>
+        <div class="cv-line"><span>Round</span><b>Small aligned round. The deck prints no dollar cap.</b></div>
+        <div class="cv-line"><span>What</span><b>Clearing rail for agent-to-agent inference. USDC on Base, in service.</b></div>
+        <div class="cv-line"><span>Contact</span><b><a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a></b></div>
+        <div class="cv-line"><span>File</span><b><a href="/media/archive/curb/curb-deck.pdf">deck (PDF)</a> · <a href="/media/archive/curb/deck.md">deck.md</a> · <a href="/curb/">CURB</a></b></div>
+      </div>
 
-      <div class="rule"><span>Turkish Art Blob</span><span class="meta">production budget</span></div>
-      <div class="cv-line"><span>Budget</span><b>$5,000 upfront · six-month physical build</b></div>
-      <div class="cv-line"><span>What</span><b>Speaking sculpture for art memory. The terms are on the work itself.</b></div>
-      <div class="cv-line"><span>File</span><b><a href="https://gokhanturhan.com/turkish-art-blob/#funding">the post</a></b></div>
+      <div class="cx">
+        <div class="cx-h"><b>Turkish Art Blob</b><span>production budget</span></div>
+        <div class="cv-line"><span>Budget</span><b>$5,000 upfront · six-month physical build</b></div>
+        <div class="cv-line"><span>What</span><b>Speaking sculpture for art memory. The terms are on the work itself.</b></div>
+        <div class="cv-line"><span>File</span><b><a href="https://gokhanturhan.com/turkish-art-blob/#funding">the post</a></b></div>
+      </div>
       <pre class="machine" id="raises-json">{
   "raises": [
     {
@@ -657,14 +686,16 @@
       "cap_usdc": 20000,
       "minimum_usdc": 4000,
       "instrument": "future equity — structure is a conversation",
-      "contact": "investments@gokhan.vc",
-      "deck_md": "https://ishtar.numetal.xyz/deck/not-raising-a-preseed/deck.md"
+      "contact": "contact@gokhan.vc",
+      "deck_pdf": "https://gokhanturhan.com/media/archive/ishtar/ishtar-deck-not-a-preseed.pdf",
+      "deck_md": "https://gokhanturhan.com/media/archive/ishtar/deck.md"
     },
     {
       "name": "CURB",
       "cap_usdc": null,
-      "contact": "contact@numetal.xyz",
-      "deck_md": "https://curb.numetal.xyz/deck.md"
+      "contact": "contact@gokhan.vc",
+      "deck_pdf": "https://gokhanturhan.com/media/archive/curb/curb-deck.pdf",
+      "deck_md": "https://gokhanturhan.com/media/archive/curb/deck.md"
     },
     {
       "name": "Turkish Art Blob",
@@ -678,71 +709,99 @@
 
     <section class="page" id="agents" data-doc="Agents">
       <h2 class="title">For agents</h2>
-      <p class="note">One front door for the estate. Reads below need no auth. Payments terminate on the canonical host — the gateway links, it does not proxy.</p>
+      <p class="note">The estate APIs are documented in one index. Their docs are kept as they were; nothing below takes payment.</p>
 
-      <div class="rule"><span>Aggregate</span><span class="meta">api.gokhan.vc</span></div>
-      <div class="cv-line"><span>Gateway</span><b><a href="https://api.gokhan.vc/">api.gokhan.vc</a></b></div>
-      <div class="cv-line"><span>OpenAPI</span><b><a href="https://api.gokhan.vc/openapi.json">openapi.json</a></b></div>
-      <div class="cv-line"><span>llms</span><b><a href="https://api.gokhan.vc/llms.txt">combined llms.txt</a> · <a href="https://api.gokhan.vc/llms">JSON map</a></b></div>
-      <div class="cv-line"><span>Feed</span><b><a href="https://api.gokhan.vc/feed.xml">RSS</a> · <a href="https://api.gokhan.vc/feed.json">JSON Feed</a></b></div>
-      <div class="cv-line"><span>Sources</span><b>ishtar.numetal.xyz · numetal.xyz · curb.numetal.xyz · launch.numetal.xyz · gokhan.vc · gokhanturhan.com</b></div>
+      <div class="cx api">
+        <div class="cx-h"><b>API index</b><span>gokhanturhan.com/api/</span><em>16</em></div>
+        <a class="reg" href="/api/feedhub/"><span class="name">Estate gateway (feedhub)</span><span class="what">REST · OpenAPI · RSS/JSON Feed</span><span class="where">documented</span></a>
+        <a class="reg" href="/api/newsletter/"><span class="name">Newsletter (email + XMTP)</span><span class="what">REST</span><span class="where">documented</span></a>
+        <a class="reg" href="/api/ishtar/"><span class="name">Ishtar API</span><span class="what">REST · OpenAPI · MCP · x402</span><span class="where">documented</span></a>
+        <a class="reg" href="/api/curb/"><span class="name">CURB clearing API</span><span class="what">REST · OpenAPI · MCP · x402</span><span class="where">documented</span></a>
+        <a class="reg" href="/api/curb-agents/"><span class="name">CURB harness agents</span><span class="what">HTTP agents</span><span class="where">documented</span></a>
+        <a class="reg" href="/api/launch/"><span class="name">Launch router</span><span class="what">REST · OpenAPI · MCP · x402 · MPP</span><span class="where">documented</span></a>
+        <a class="reg" href="/api/numetal-fees/"><span class="name">Numetal fees and burns</span><span class="what">JSON</span><span class="where">documented</span></a>
+        <a class="reg" href="/api/status/"><span class="name">Numetal status</span><span class="what">JSON · HTML</span><span class="where">documented</span></a>
+        <a class="reg" href="/api/plaintext/"><span class="name">Plaintext board</span><span class="what">REST · MCP · RSS</span><span class="where">documented</span></a>
+        <a class="reg" href="/api/accumulator/"><span class="name">Accumulator waitlist + wishlist</span><span class="what">JSON</span><span class="where">documented</span></a>
+        <a class="reg" href="/api/jesus/"><span class="name">Personal Jesus waitlist</span><span class="what">form</span><span class="where">documented</span></a>
+        <a class="reg" href="/api/llmcraft/"><span class="name">LLMCraft waitlist</span><span class="what">form</span><span class="where">documented</span></a>
+        <a class="reg" href="/api/apex/"><span class="name">APEX Protocol</span><span class="what">llms.txt</span><span class="where">documented</span></a>
+        <a class="reg" href="/api/xmtp/"><span class="name">XMTP bot</span><span class="what">bot</span><span class="where">documented</span></a>
+        <a class="reg" href="/api/x402-live/"><span class="name">x402 live panel</span><span class="what">HTML/JSON</span><span class="where">retired</span></a>
+        <a class="reg" href="/api/assets/"><span class="name">Asset host</span><span class="what">static files</span><span class="where">documented</span></a>
+      </div>
+      <a class="more" href="/api/">Open the API index</a>
 
-      <div class="rule"><span>Enter</span></div>
-      <div class="cv-line"><span>Ishtar</span><b><a href="https://api.ishtar.numetal.xyz/skill">skill</a> · <a href="https://api.ishtar.numetal.xyz/mcp">mcp</a> · <a href="https://api.ishtar.numetal.xyz/.well-known/x402">x402</a></b></div>
-      <div class="cv-line"><span>Launch</span><b><a href="https://launch.numetal.xyz/skill.md">skill</a> · <a href="https://launch.numetal.xyz/mcp">mcp</a> · <a href="https://launch.numetal.xyz/openapi.json">openapi</a></b></div>
-      <div class="cv-line"><span>CURB</span><b><a href="https://curb.numetal.xyz/skill.md">skill</a> · <a href="https://curb.numetal.xyz/mcp">mcp</a></b></div>
-      <div class="cv-line"><span>This site</span><b><a href="https://gokhanturhan.com/llms.txt">llms.txt</a> · <a href="https://gokhanturhan.com/rss.xml">RSS</a></b></div>
-      <div class="cv-line"><span>Studio</span><b><a href="https://gokhan.vc/llms.txt">gokhan.vc/llms.txt</a></b></div>
+      <div class="cx">
+        <div class="cx-h"><b>Discovery</b><span>this site</span></div>
+        <div class="cv-line"><span>Index</span><b><a href="/api/apis.json">apis.json</a> · <a href="/api/openapi.json">openapi.json</a> · <a href="/api/llms.txt">llms.txt</a></b></div>
+        <div class="cv-line"><span>This site</span><b><a href="https://gokhanturhan.com/llms.txt">llms.txt</a> · <a href="https://gokhanturhan.com/cv.md">cv.md</a> · <a href="/rss.xml">RSS</a></b></div>
+        <div class="cv-line"><span>Products</span><b><a href="/products/">current, studio and drafts</a></b></div>
+      </div>
 
       <pre class="machine" id="agents-json">{
+  "api_index": "https://api.gokhanturhan.com/apis.json",
   "discovery": {
-    "gateway": "https://api.gokhan.vc/",
-    "openapi": "https://api.gokhan.vc/openapi.json",
-    "llms": "https://api.gokhan.vc/llms.txt",
-    "llms_json": "https://api.gokhan.vc/llms",
-    "feed_rss": "https://api.gokhan.vc/feed.xml",
-    "feed_json": "https://api.gokhan.vc/feed.json",
-    "sources": ["ishtar.numetal.xyz", "numetal.xyz", "curb.numetal.xyz", "launch.numetal.xyz", "gokhan.vc", "gokhanturhan.com"]
+    "index": "https://api.gokhanturhan.com/",
+    "openapi": "https://api.gokhanturhan.com/openapi.json",
+    "llms": "https://api.gokhanturhan.com/llms.txt",
+    "site_llms": "https://gokhanturhan.com/llms.txt",
+    "cv_md": "https://gokhanturhan.com/cv.md",
+    "feed_rss": "https://gokhanturhan.com/rss.xml"
   },
-  "enter": {
-    "ishtar": {
-      "skill": "https://api.ishtar.numetal.xyz/skill",
-      "mcp": "https://api.ishtar.numetal.xyz/mcp",
-      "x402": "https://api.ishtar.numetal.xyz/.well-known/x402"
-    },
-    "launch": {
-      "skill": "https://launch.numetal.xyz/skill.md",
-      "mcp": "https://launch.numetal.xyz/mcp",
-      "openapi": "https://launch.numetal.xyz/openapi.json"
-    },
-    "curb": {
-      "skill": "https://curb.numetal.xyz/skill.md",
-      "mcp": "https://curb.numetal.xyz/mcp"
-    }
-  }
+  "apis": [
+    {"slug": "feedhub", "name": "Estate gateway (feedhub)", "docs": "https://api.gokhanturhan.com/feedhub/"},
+    {"slug": "newsletter", "name": "Newsletter (email + XMTP)", "docs": "https://api.gokhanturhan.com/newsletter/"},
+    {"slug": "ishtar", "name": "Ishtar API", "docs": "https://api.gokhanturhan.com/ishtar/"},
+    {"slug": "curb", "name": "CURB clearing API", "docs": "https://api.gokhanturhan.com/curb/"},
+    {"slug": "curb-agents", "name": "CURB harness agents", "docs": "https://api.gokhanturhan.com/curb-agents/"},
+    {"slug": "launch", "name": "Launch router", "docs": "https://api.gokhanturhan.com/launch/"},
+    {"slug": "numetal-fees", "name": "Numetal fees and burns", "docs": "https://api.gokhanturhan.com/numetal-fees/"},
+    {"slug": "status", "name": "Numetal status", "docs": "https://api.gokhanturhan.com/status/"},
+    {"slug": "plaintext", "name": "Plaintext board", "docs": "https://api.gokhanturhan.com/plaintext/"},
+    {"slug": "accumulator", "name": "Accumulator waitlist + wishlist", "docs": "https://api.gokhanturhan.com/accumulator/"},
+    {"slug": "jesus", "name": "Personal Jesus waitlist", "docs": "https://api.gokhanturhan.com/jesus/"},
+    {"slug": "llmcraft", "name": "LLMCraft waitlist", "docs": "https://api.gokhanturhan.com/llmcraft/"},
+    {"slug": "apex", "name": "APEX Protocol", "docs": "https://api.gokhanturhan.com/apex/"},
+    {"slug": "xmtp", "name": "XMTP bot", "docs": "https://api.gokhanturhan.com/xmtp/"},
+    {"slug": "x402-live", "name": "x402 live panel", "docs": "https://api.gokhanturhan.com/x402-live/"},
+    {"slug": "assets", "name": "Asset host", "docs": "https://api.gokhanturhan.com/assets/"}
+  ]
 }</pre>
     </section>
   </main>
 
   <footer>
-    <div class="rule"><span>Reach</span></div>
-    <p class="channels">
-      <a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a><span class="dot">/</span>
-      <a href="https://x.com/goekhan">X</a><span class="dot">/</span>
-      <a href="https://t.me/goekhanturhan">Telegram</a><span class="dot">/</span>
-      <a href="https://www.linkedin.com/in/goekhanturhan/">LinkedIn</a><span class="dot">/</span>
-      <a href="https://github.com/avalidurl">GitHub</a><span class="dot">/</span>
-      <a href="https://gokhan.substack.com/">Substack</a><span class="dot">/</span>
-      <a href="https://gokhanturhan.com/rss.xml">RSS</a><span class="dot">/</span>
-      <a href="https://gokhanturhan.com/newsletter/">Newsletter</a>
-    </p>
-    <p class="note">DMs are open.</p>
-    <p class="fine">
-      <a href="https://gokhan.vc">Gökhan Ventures</a><span class="dot">/</span>
-      <a href="https://numetal.xyz">Numetal</a><span class="dot">/</span>
-      <a href="https://ishtar.numetal.xyz/deck/not-raising-a-preseed/">Ishtar deck</a><span class="dot">/</span>
-      <a href="https://curb.numetal.xyz/deck">Curb deck</a>
-    </p>
+    <section class="cx foot" aria-label="Site footer">
+      <div class="cx-h"><b>Reach</b><span>elsewhere and site files</span></div>
+      <div class="cx-r"><span>Channels</span><span class="channels">
+        <a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a><span class="dot">/</span>
+        <a href="https://x.com/goekhan">X</a><span class="dot">/</span>
+        <a href="https://t.me/goekhanturhan">Telegram</a><span class="dot">/</span>
+        <a href="https://www.linkedin.com/in/goekhanturhan/">LinkedIn</a><span class="dot">/</span>
+        <a href="https://github.com/avalidurl">GitHub</a><span class="dot">/</span>
+        <a href="https://gokhan.substack.com/">Substack</a><span class="dot">/</span>
+        <a href="/journal/#subscribe">Newsletter</a><span class="dot">/</span>
+        <a href="/links/">All links</a> <span class="dot">·</span> DMs are open
+      </span></div>
+      <div class="cx-r"><span>Site</span><span class="fine">
+        <a href="/about/">About</a><span class="dot">/</span>
+        <a href="/products/">Products</a><span class="dot">/</span>
+        <a href="/product-drafts/">Drafts</a><span class="dot">/</span>
+        <a href="/archive/tags/">Tags</a><span class="dot">/</span>
+        <a href="/tools/">Tools</a><span class="dot">/</span>
+        <a href="/api/">APIs</a><span class="dot">/</span>
+        <a href="/privacy/">Privacy</a><span class="dot">/</span>
+        <a href="/disclaimer/">Disclaimer</a>
+      </span></div>
+      <div class="cx-r"><span>Site files</span><span class="fine">
+        <a href="/sitemap-index.xml">Sitemap</a><span class="dot">/</span>
+        <a href="/robots.txt">robots.txt</a><span class="dot">/</span>
+        <a href="/llms.txt">llms.txt</a><span class="dot">/</span>
+        <a href="/llms-full.txt">llms-full.txt</a><span class="dot">/</span>
+        <a href="/rss.xml">RSS (journal)</a>
+      </span></div>
+    </section>
   </footer>
 </div>
 <script src="/home.js" defer></script>

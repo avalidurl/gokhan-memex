@@ -1,69 +1,12 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import { academicPublications } from '@/data/publishing'
+import PageHead from '@/components/PageHead.astro'
+import WorksList from '@/components/publishing/WorksList.astro'
 ---
 
-<BaseLayout
-  title="Academic"
-  description="Selected publications, chapters, and graduate work by Gökhan Turhan."
->
-  <div class="publishing-document mx-auto max-w-4xl px-6 py-12 lg:py-16">
-    <header class="mb-12">
-      <p class="doc-eyebrow mb-3">Publishing / Academic</p>
-      <h1 class="mb-4">Academic</h1>
-      <p class="doc-copy max-w-2xl text-foreground/80">
-        Selected publications, chapters, and graduate work.
-      </p>
-    </header>
-
-    <div class="space-y-8">
-      {academicPublications.map((item) => (
-        <article class="border-t border-foreground/15 pt-8">
-          <p class="doc-eyebrow mb-3">{item.type}</p>
-          <h2 class="mt-0">
-            <a href={item.href} class="doc-link" target="_blank" rel="noopener noreferrer">
-              {item.title}
-            </a>
-          </h2>
-          <p class="mb-3 text-base text-foreground/70">
-            {item.venue} · {item.year}
-          </p>
-          <div class="flex flex-wrap gap-x-5 gap-y-2 text-base">
-            <span class="text-foreground/70">{item.author}</span>
-            <a href={item.href} class="doc-link" target="_blank" rel="noopener noreferrer">
-              {item.linkLabel}
-            </a>
-          </div>
-        </article>
-      ))}
-    </div>
+<BaseLayout title="Academic" description="Selected publications, chapters, and graduate work by Gökhan Turhan.">
+  <div class="es">
+    <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: 'Publishing', href: '/publishing/' }, { label: 'Academic' }]} title="Academic" lead="Selected publications, chapters, and graduate work by Gökhan Turhan." />
+    <WorksList kind="Academic" note="chapters and theses" index="/publishing/academic/" />
   </div>
 </BaseLayout>
-
-<style>
-  .publishing-document {
-    color: var(--ink);
-    /* R2 — running prose. The R4 identifiers inside (eyebrows, doc numbers,
-       line numbers, labels) re-assert the data face themselves. */
-    font-family: var(--font-text);
-  }
-
-  .publishing-document .doc-eyebrow {
-    color: var(--dim);
-    font-family: var(--font-data);
-    font-size: 12.5px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
-  .publishing-document .doc-link {
-    color: var(--ink);
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.12em;
-  }
-
-  .publishing-document .doc-link:visited {
-    color: var(--dim);
-  }
-</style>

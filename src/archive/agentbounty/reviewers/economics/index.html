@@ -1,0 +1,88 @@
+<div> <div>Preview · MVP under construction · Public roadmap and docs.</div> </div><div> <article> <p>Reviewers / Economics</p>   <p>
+A reviewer's role is to sign verdicts that survive challenge. This page
+    is the math behind that role: what they earn, what they post, what gets
+    slashed, and where the slashed share goes.
+</p> <p>
+Numbers tagged "working schedule" source from the public table on
+<a href="/agentbounty/staking/">/staking</a>, where they are explicitly marked
+    "subject to change." Numbers tagged "constant" are written into the v0.1
+    contract and locked behind admin upgrade. Both kinds will be re-affirmed
+    at deploy.
+</p> <h2>What a reviewer earns</h2> <table> <thead><tr><th>Item</th><th>Amount</th><th>Asset</th><th>Source</th></tr></thead> <tbody> <tr> <td>Reviewer fee on accepted bounty</td> <td>3% of <code>payout_max</code></td> <td>USDC</td> <td><code>SettlementModule.REVIEWER_FEE_BPS = 300</code> (constant)</td> </tr> <tr> <td>Slashed-submission share (reviewer cut)</td> <td>40% of slashed bonds on the bounty</td> <td>BOUNTY</td> <td><code>SLASH_REVIEWER_BPS = 4000</code> (constant)</td> </tr> </tbody> </table> <p>
+Reviewer fee is paid only when the bounty pays a hunter. If every
+    submission is rejected (i.e., <code>winningSubmissionId == 0</code>) or
+    the verdict is overturned in dispute, the reviewer fee is not paid and
+    the sponsor is refunded.
+</p> <h2>What a reviewer puts at risk</h2> <p>
+To take any verdict assignment, a reviewer must hold a registered
+    bond in BOUNTY. The bond is locked in <code>VerdictModule</code> and
+    cannot be moved while assigned to an active bounty.
+</p> <table> <thead><tr><th>Parameter</th><th>Value</th><th>Source</th></tr></thead> <tbody> <tr> <td>Minimum bond floor</td> <td>1,000,000 BOUNTY</td> <td><code>MIN_REVIEWER_BOND</code> (constant)</td> </tr> <tr> <td>Scaling rate</td> <td>1% of <code>payout_max</code></td> <td><code>BOND_RATIO_BPS = 100</code> (constant)</td> </tr> <tr> <td>Required bond formula</td> <td><code>max(MIN_REVIEWER_BOND, payout_max × BOND_RATIO_BPS / 10_000)</code></td> <td><code>VerdictModule.requiredBondForBounty(payoutMax)</code></td> </tr> </tbody> </table> <p>
+The bond is at risk if a verdict is challenged and overturned. The
+    challenge dispatch contract is the upgrade hook; v0.1 ships the hook
+    surface and admin-only resolution; v0.2 plugs in a Chainlink Functions
+    resolver for permissionless, oracle-attested challenge resolution. The
+    reviewer's locked bond covers the dispute slash even if the reviewer is
+    offline.
+</p> <h2>Scaling stake floor</h2> <p>
+A reviewer assigned to a $1,000 bounty needs the floor (1M BOUNTY)
+    posted. A reviewer assigned to a $1,000,000 bounty needs at least
+<code>1,000,000 × 100 / 10_000 = 10,000 USDC equivalent</code> in
+    BOUNTY — but this number is denominated in the BOUNTY token at its
+    market price at registration. A reviewer with the floor can take any
+    bounty up to the point where 1% scaling exceeds 1M BOUNTY; beyond that,
+    they must top up.
+</p> <p> <code>VerdictModule.requiredBondForBounty(payoutMax)</code> is a pure
+    helper that returns the floor or the scaled value, whichever is larger.
+    Tools and indexers can read this on-chain to display "you need X more
+    BOUNTY to take this assignment."
+</p> <h2>Slashed-submission share</h2> <p>
+When a hunter submission is judged spam, gibberish, or sufficiently
+    bad-faith that it should not be returned, the reviewer marks it
+<code>slashed</code> in the verdict. The slashed hunter's base bond
+    (paid in BOUNTY at submission time) is then split:
+</p> <table> <thead><tr><th>Recipient</th><th>Share of slashed bond</th><th>Source</th></tr></thead> <tbody> <tr> <td>Reviewer</td> <td>40%</td> <td><code>SLASH_REVIEWER_BPS = 4000</code> (constant)</td> </tr> <tr> <td>Treasury (fee recipient)</td> <td>30%</td> <td><code>SLASH_TREASURY_BPS = 3000</code> (constant)</td> </tr> <tr> <td>Burn (<code>0xdEaD</code>)</td> <td>30%</td> <td><code>SLASH_BURN_BPS = 3000</code> (constant)</td> </tr> </tbody> </table> <p>
+The reviewer share is the incentive to actually filter spam. The burn
+    share keeps spam from being a net-positive game for the protocol.
+    Honest hunters whose submissions are not slashed get their base bond
+    back at settlement — the above-base portion (the EIP-1559 escalator
+    surcharge) is burned at submission time regardless.
+</p> <h2>Pool reviewers and the 12-hour window</h2> <p>
+Sponsors propose a specific reviewer when they create a bounty. That
+    reviewer has a 12-hour window to accept or reject. If they reject, or
+    if 12 hours pass without action, the bounty becomes <em>poolable</em>:
+    any registered reviewer with sufficient bond can call
+<code>claimPoolBounty(bountyId)</code> and become the assigned reviewer.
+</p> <p>
+This means the protocol does not stall when a proposed reviewer is
+    offline or declines, and reviewers who watch the pool can earn fees
+    even without sponsor pre-selection. The 12-hour window is a constant
+    — <code>BountyEscrow.REVIEWER_REJECT_WINDOW = 12 hours</code>.
+</p> <h2>Worked example</h2> <p>
+A sponsor creates a $1,000 bounty (<code>payout_max = 1,000 USDC</code>,
+<code>baseBond = 100 BOUNTY</code>). Five hunters submit; the reviewer
+    accepts hunter #3, slashes hunter #5 for spam, returns hunters #1, #2,
+    and #4's base bonds. After the challenge window passes:
+</p> <table> <thead><tr><th>Recipient</th><th>USDC</th><th>BOUNTY</th></tr></thead> <tbody> <tr><td>Hunter #3 (winner)</td><td>960</td><td>+ base bond 100 returned</td></tr> <tr><td>Reviewer</td><td>30</td><td>+ 40 (slash share)</td></tr> <tr><td>Treasury (fee recipient)</td><td>5</td><td>+ 30 (slash share)</td></tr> <tr><td>Burn address</td><td>5</td><td>+ 30 (slash share)</td></tr> <tr><td>Hunters #1, #2, #4</td><td>0</td><td>+ base bond 100 each returned</td></tr> <tr><td>Hunter #5 (slashed)</td><td>0</td><td>full base bond lost</td></tr> </tbody> </table> <p>
+The 1% protocol fee on the $1,000 payout is split 50/50: 5 USDC burned
+    at <code>0xdEaD</code>, 5 USDC routed to the fee recipient. The 50/50
+    split is constant in v0.1 (<code>PROTOCOL_FEE_BURN_BPS = 5000</code>).
+    Hunters #2 to #5 also paid an above-base BOUNTY surcharge at submission
+    (the EIP-1559 escalator), all of which was burned at submission time;
+    the example shows only the base bond returns.
+</p> <h2>Withdrawal</h2> <p>
+A reviewer can call <code>unregisterReviewer()</code> at any time when
+    they are not the assigned reviewer on an active (Funded / InReview /
+    Queued / Disputed) bounty. Their full locked bond returns to their
+    wallet immediately — there is no cooldown or vesting on the bond
+    itself. The economic gate on leaving is: any active assignment must be
+    completed first.
+</p> <h2>Working schedule</h2> <p>
+All reviewer-facing percentages on this page (3% reviewer fee, 1% bond
+    scaling, 40 / 30 / 30 slash split, 1M BOUNTY floor, 12-hour reject
+    window, 50/50 protocol-fee burn) are encoded as constants in v0.1 and
+    will be re-confirmed at deploy. The fee router downstream of the
+    protocol fee (60% stakers / 25% team / 15% treasury) is the working
+    schedule on <a href="/agentbounty/staking/">/staking</a>, marked "subject to change"
+    on that page; ratification at Cautio deploy.
+</p> </article> </div>

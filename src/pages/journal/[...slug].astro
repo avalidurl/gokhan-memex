@@ -1,11 +1,12 @@
 ---
 import { type CollectionEntry, getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import Tags from '@/components/Tags.astro'
 import SocialShare from '@/components/SocialShare.astro'
 import PostTitle from '@/components/PostTitle.astro'
 import ResponsiveImage from '@/components/ResponsiveImage.astro'
-import SubscribeBlock from '@/components/SubscribeBlock.astro'
-import { formatDate, humanizeKebab, plainPostTitle } from '@/lib/utils'
+import JournalSubscribe from '@/components/JournalSubscribe.astro'
+import { formatDate, plainPostTitle } from '@/lib/utils'
 
 export async function getStaticPaths() {
   const posts = (await getCollection('blog')).filter((post) => !post.data.draft)
@@ -73,7 +74,7 @@ const showToc = tocHeadings.length >= 2
   description={post.data.description}
   type="article"
   image={post.data.heroImage || `/og/${post.slug}.png`}
-  canonicalURL={post.data.originalUrl}
+  canonicalURL={new URL(`/journal/${post.slug}/`, Astro.site).toString()}
   hideFooterSubscribe
 >
   {/* Default Article Schema - always present */}
@@ -122,11 +123,11 @@ const showToc = tocHeadings.length >= 2
 
         {(post.slug === 'not-raising-a-preseed' || post.slug === 'universal-sex-layer') && (
           <p class="deck-links">
-            <a class="deck-pdf" href="https://assets.numetal.xyz/deck/ishtar-deck-not-a-preseed.pdf" download>Download PDF</a>
+            <a class="deck-pdf" href="/media/archive/ishtar/ishtar-deck-not-a-preseed.pdf" download>Download PDF</a>
             <span class="deck-sep" aria-hidden="true">·</span>
-            <a class="deck-view" href="https://ishtar.numetal.xyz/deck/not-raising-a-preseed/">View deck →</a>
+            <a class="deck-view" href="/ishtar/">View deck →</a>
             <span class="deck-sep" aria-hidden="true">·</span>
-            <a class="deck-md" href="https://ishtar.numetal.xyz/deck/not-raising-a-preseed/deck.md">deck.md</a>
+            <a class="deck-md" href="/ishtar/">deck.md</a>
           </p>
         )}
 
@@ -135,16 +136,10 @@ const showToc = tocHeadings.length >= 2
         )}
 
         {post.data.tags && post.data.tags.length > 0 && (
-          <div class="dispatch-tags">
-            {post.data.tags.map(tag => (
-              <a
-                href={`/archive/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
-                class="dispatch-tag"
-              >
-                {humanizeKebab(tag)}
-              </a>
-            ))}
-          </div>
+          <section class="cx dispatch-tagbox" aria-label="Tags">
+            <div class="cx-h"><b>Tags</b><span>each opens a shared tag page</span><em>{String(post.data.tags.length).padStart(2, '0')}</em></div>
+            <div class="cx-b"><Tags tags={post.data.tags} /></div>
+          </section>
         )}
       </header>
 
@@ -200,7 +195,7 @@ const showToc = tocHeadings.length >= 2
       </footer>
     </article>
   </div>
-  <SubscribeBlock />
+  <div class="mx-auto max-w-2xl px-6 pb-12"><JournalSubscribe where="post" /></div>
 </BaseLayout>
 
 <style>
@@ -344,6 +339,7 @@ const showToc = tocHeadings.length >= 2
     margin: 0;
   }
 
+  .dispatch-tagbox { margin: 0.9rem 0 0; }
   .dispatch-tags {
     display: flex;
     flex-wrap: wrap;

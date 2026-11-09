@@ -1,0 +1,57 @@
+<p><strong>Nuclear Crypto Launch Pad</strong> — a joke title. Numetal <strong>agentic</strong> pad aggregator at <a href="/launch/">launch.numetal.xyz</a>. Skill + MCP for Grok, Cursor, Claude, Codex/ChatGPT, OpenRouter, OpenCode, Amp, Devin, Telegram AI bots, Grok bot, Hermes, <a href="https://www.aeon.fun">Aeon</a>, anything that speaks MCP, HTTP, or <code>SKILL.md</code>.</p>
+<p>Pick an existing launchpad. We build <strong>that pad’s</strong> payload. <strong>The user signs.</strong> Not a launchpad. Not <a href="/coins/">coins.numetal.xyz</a>.</p>
+<p>v0 wired for <strong>people and machines</strong>: <strong>Clanker</strong>, <strong>Bankr</strong>, <strong>pools.fun</strong> — same payloads, same Sign. Unproven matrix: Pons, Feel.cash, pools.trade, pump.fun, Flap.</p>
+<p><strong>No broadcast tool on this origin.</strong> User wallet or user Bankr key. Worker never holds keys. Unattended Aeon notifies the payload and stops.</p>
+<pre><code>npm test
+npm run mcp              # stdio MCP
+npm run dev:worker       # HTTP MCP + well-known + optional Mini App
+</code></pre>
+<h2>Agents</h2>
+<table>
+<thead>
+<tr>
+<th>Host</th>
+<th>How</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cursor / Claude / Grok / Codex / Amp / OpenCode / Devin / ChatGPT MCP</td>
+<td>stdio: <code>npx tsx packages/mcp/src/stdio.ts</code></td>
+</tr>
+<tr>
+<td>Telegram AI / Grok bot / Hermes / OpenRouter HTTP</td>
+<td><code>POST {origin}/mcp</code> JSON-RPC or <code>POST {origin}/api/v1/{tool}</code></td>
+</tr>
+<tr>
+<td>Aeon (<code>aeon.fun</code>)</td>
+<td><code>skills/launch-router/SKILL.md</code> + <code>skills-pack.json</code>. Copy into the instance, or <code>bin/add-skill &lt;owner&gt;/&lt;repo&gt; launch-router</code> / <code>bin/install-skill-pack &lt;owner&gt;/&lt;repo&gt;</code> once this repo is public. Lands <strong>disabled</strong>, <code>workflow_dispatch</code>, <code>mode: read-only</code>. <code>./aeon mcp add launch-router {origin}/mcp</code>. Unattended runs <strong>notify the sign payload</strong> — they never broadcast.</td>
+</tr>
+<tr>
+<td>Any crawler</td>
+<td><code>GET {origin}/llms.txt</code></td>
+</tr>
+</tbody>
+</table>
+<p>Discovery is <strong>free</strong> (x402 <code>amount: "0"</code>, MPP <code>price: "0"</code>):</p>
+<ul>
+<li><code>GET /.well-known/x402</code></li>
+<li><code>GET /.well-known/mpp.json</code></li>
+<li><code>GET /.well-known/mcp.json</code></li>
+<li><code>GET /openapi.json</code></li>
+</ul>
+<p>Skill: <code>skills/launch-router/SKILL.md</code> (Aeon-compatible: <code>category: crypto</code>, <code>mode: read-only</code>). Copy into <code>~/.agents/skills/</code>, <code>.cursor/skills/</code>, <code>.claude/skills/</code>, or an Aeon instance <code>skills/launch-router/</code>. Pack manifest: <code>skills-pack.json</code>. Do not PR <code>aeonfun/aeon</code> unless asked.</p>
+<p>This repo has no GitHub remote. From an Aeon instance:</p>
+<pre><code>cp -R /path/to/launch-router/skills/launch-router skills/launch-router
+# then in aeon.yml, before the heartbeat fallback, quoted schedule:
+#   launch-router: { enabled: false, schedule: "workflow_dispatch" }
+./aeon mcp add launch-router "$LAUNCH_ROUTER_ORIGIN/mcp"   # HTTP, no auth
+# confirm with the operator before: ./aeon skills enable launch-router
+</code></pre>
+<h2>Networks</h2>
+<p>We support <strong>every chain a pad lists</strong> — no extras. <code>list_networks</code> is the union. Clanker: Base, Base Sepolia, Ethereum, Arbitrum, BSC, Unichain, Robinhood, Monad, Monad testnet, Abstract. Bankr: Base + Robinhood. pools.fun: Robinhood. pump.fun is Solana and <strong>unproven</strong> (no adapter).</p>
+<h2>Mini App</h2>
+<p>Signing skin at <code>/app.html</code>. MCP <code>get_sign_payload</code> returns the same JSON. Chat still cannot hold keys.</p>
+<pre><code>npm run dev:miniapp    # http://localhost:5177  foyer; /app.html is Sign
+</code></pre>
+<p>Live: <a href="/launch/">launch.numetal.xyz</a> · Sign: <a href="/launch/app/">/app.html</a> · API catalog: <a href="/gokhan-vc/api/">api.gokhan.vc</a>.</p>

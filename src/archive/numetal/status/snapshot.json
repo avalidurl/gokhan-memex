@@ -1,0 +1,344 @@
+{
+ "title": "Status board",
+ "source": "status.numetal.xyz/status.json",
+ "retrieved": "2026-11-09",
+ "data": {
+  "now": "2026-11-09T04:45:41.651Z",
+  "checked": "2026-11-09T04:42:41.165Z",
+  "overall": "outage",
+  "services": [
+   {
+    "id": "datebook-api",
+    "label": "Ishtar API",
+    "state": "up",
+    "since": "2026-07-12T19:12:58.343Z",
+    "checked": "2026-11-09T04:42:41.165Z",
+    "uptime24": 1,
+    "uptime7": 1,
+    "latency_ms": 111
+   },
+   {
+    "id": "ishtar-x402",
+    "label": "x402 paywall",
+    "state": "up",
+    "since": "2026-07-12T19:12:58.343Z",
+    "checked": "2026-11-09T04:42:41.165Z",
+    "uptime24": 1,
+    "uptime7": 1,
+    "latency_ms": 19
+   },
+   {
+    "id": "ishtar-x402-disco",
+    "label": "x402 discovery",
+    "state": "up",
+    "since": "2026-07-12T19:12:58.343Z",
+    "checked": "2026-11-09T04:42:41.165Z",
+    "uptime24": 1,
+    "uptime7": 1,
+    "latency_ms": 17
+   },
+   {
+    "id": "ishtar-mcp",
+    "label": "MCP endpoint",
+    "state": "up",
+    "since": "2026-07-12T19:12:58.343Z",
+    "checked": "2026-11-09T04:42:41.165Z",
+    "uptime24": 1,
+    "uptime7": 1,
+    "latency_ms": 20
+   },
+   {
+    "id": "ishtar-www",
+    "label": "Ishtar site",
+    "state": "up",
+    "since": "2026-07-02T10:21:28.336Z",
+    "checked": "2026-11-09T04:42:41.165Z",
+    "uptime24": 1,
+    "uptime7": 1,
+    "latency_ms": 23
+   },
+   {
+    "id": "numetal-www",
+    "label": "Numetal site",
+    "state": "up",
+    "since": "2026-07-02T10:21:28.336Z",
+    "checked": "2026-11-09T04:42:41.165Z",
+    "uptime24": 1,
+    "uptime7": 1,
+    "latency_ms": 24
+   },
+   {
+    "id": "numetal-fees-data",
+    "label": "Fee/burn feed",
+    "state": "down",
+    "since": "2026-11-09T04:36:41.161Z",
+    "checked": "2026-11-09T04:42:41.165Z",
+    "uptime24": 0.5894736842105263,
+    "uptime7": 0.8143322475570033,
+    "latency_ms": 484
+   },
+   {
+    "id": "x402-live-panel",
+    "label": "x402 live panel",
+    "state": "down",
+    "since": "2026-08-26T06:21:10.789Z",
+    "checked": "2026-11-09T04:42:41.165Z",
+    "uptime24": 0,
+    "uptime7": 0,
+    "latency_ms": 119
+   },
+   {
+    "id": "numetal-fees-events",
+    "label": "Burn event feed",
+    "state": "up",
+    "since": "2026-09-17T01:09:42.041Z",
+    "checked": "2026-11-09T04:42:41.165Z",
+    "uptime24": 1,
+    "uptime7": 0.998371335504886,
+    "latency_ms": 487
+   },
+   {
+    "id": "curb-api",
+    "label": "CURB API",
+    "state": "up",
+    "since": "2026-07-09T15:33:26.540Z",
+    "checked": "2026-11-09T04:42:41.165Z",
+    "uptime24": 1,
+    "uptime7": 1,
+    "latency_ms": 1870
+   },
+   {
+    "id": "curb-www",
+    "label": "CURB site",
+    "state": "up",
+    "since": "2026-07-09T15:33:26.540Z",
+    "checked": "2026-11-09T04:42:41.165Z",
+    "uptime24": 1,
+    "uptime7": 1,
+    "latency_ms": 1869
+   },
+   {
+    "id": "curb-x402",
+    "label": "x402 paywall",
+    "state": "up",
+    "since": "2026-11-09T00:00:41.175Z",
+    "checked": "2026-11-09T04:42:41.165Z",
+    "uptime24": 0.7789473684210526,
+    "uptime7": 0.8137254901960784,
+    "latency_ms": 525
+   },
+   {
+    "id": "curb-openapi",
+    "label": "OpenAPI spec",
+    "state": "up",
+    "since": "2026-07-09T15:33:26.540Z",
+    "checked": "2026-11-09T04:42:41.165Z",
+    "uptime24": 1,
+    "uptime7": 1,
+    "latency_ms": 129
+   },
+   {
+    "id": "curb-wellknown",
+    "label": "x402 discovery",
+    "state": "up",
+    "since": "2026-07-09T15:33:26.540Z",
+    "checked": "2026-11-09T04:42:41.165Z",
+    "uptime24": 1,
+    "uptime7": 1,
+    "latency_ms": 138
+   },
+   {
+    "id": "curb-harness",
+    "label": "CURB harness",
+    "state": "up",
+    "since": "2026-07-09T15:33:26.540Z",
+    "checked": "2026-11-09T04:42:41.165Z",
+    "uptime24": 1,
+    "uptime7": 1,
+    "latency_ms": 145
+   },
+   {
+    "id": "curb-seller",
+    "label": "CURB seller agent",
+    "state": "up",
+    "since": "2026-07-21T16:06:28.710Z",
+    "checked": "2026-11-09T04:42:41.165Z",
+    "uptime24": 1,
+    "uptime7": 1,
+    "latency_ms": 495
+   },
+   {
+    "id": "curb-buyer",
+    "label": "CURB buyer agent",
+    "state": "up",
+    "since": "2026-07-09T15:33:26.540Z",
+    "checked": "2026-11-09T04:42:41.165Z",
+    "uptime24": 1,
+    "uptime7": 1,
+    "latency_ms": 769
+   },
+   {
+    "id": "feedhub",
+    "label": "feedhub (api.gokhan.vc)",
+    "state": "up",
+    "since": "2026-07-26T00:12:56.339Z",
+    "checked": "2026-11-09T04:42:41.165Z",
+    "uptime24": 1,
+    "uptime7": 1,
+    "latency_ms": 495
+   },
+   {
+    "id": "feedhub-status-path",
+    "label": "Status feed via feedhub",
+    "state": "up",
+    "since": "2026-11-09T00:03:41.165Z",
+    "checked": "2026-11-09T04:42:41.165Z",
+    "uptime24": 0.7894736842105263,
+    "uptime7": 0.8134206219312602,
+    "latency_ms": 3507
+   },
+   {
+    "id": "reclaim-www",
+    "label": "RECLAIM site",
+    "state": "up",
+    "since": "2026-07-26T00:12:56.339Z",
+    "checked": "2026-11-09T04:42:41.165Z",
+    "uptime24": 1,
+    "uptime7": 1,
+    "latency_ms": 508
+   },
+   {
+    "id": "plaintext-www",
+    "label": "plaintext site",
+    "state": "up",
+    "since": "2026-07-26T00:12:56.339Z",
+    "checked": "2026-11-09T04:42:41.165Z",
+    "uptime24": 1,
+    "uptime7": 1,
+    "latency_ms": 620
+   },
+   {
+    "id": "accumulator-www",
+    "label": "ACCUMULATOR site",
+    "state": "up",
+    "since": "2026-07-26T00:12:56.339Z",
+    "checked": "2026-11-09T04:42:41.165Z",
+    "uptime24": 1,
+    "uptime7": 1,
+    "latency_ms": 544
+   },
+   {
+    "id": "ubu-www",
+    "label": "UBU site",
+    "state": "up",
+    "since": "2026-07-26T00:12:56.339Z",
+    "checked": "2026-11-09T04:42:41.165Z",
+    "uptime24": 1,
+    "uptime7": 1,
+    "latency_ms": 564
+   },
+   {
+    "id": "ccru-www",
+    "label": "CCRU archive",
+    "state": "down",
+    "since": "2026-09-06T13:51:42.698Z",
+    "checked": "2026-11-09T04:42:41.165Z",
+    "uptime24": 0,
+    "uptime7": 0,
+    "latency_ms": 598
+   }
+  ],
+  "incidents": [
+   {
+    "service": "numetal-fees-data",
+    "opened": "2026-11-09T04:36:41.161Z",
+    "resolved": null,
+    "reason": "degraded"
+   },
+   {
+    "service": "numetal-fees-data",
+    "opened": "2026-11-09T03:18:41.164Z",
+    "resolved": "2026-11-09T03:24:41.163Z",
+    "reason": "degraded"
+   },
+   {
+    "service": "numetal-fees-data",
+    "opened": "2026-11-09T01:39:41.162Z",
+    "resolved": "2026-11-09T01:51:41.170Z",
+    "reason": "degraded"
+   },
+   {
+    "service": "numetal-fees-data",
+    "opened": "2026-11-09T01:18:41.176Z",
+    "resolved": "2026-11-09T01:24:41.169Z",
+    "reason": "degraded"
+   },
+   {
+    "service": "numetal-fees-data",
+    "opened": "2026-11-09T00:57:41.173Z",
+    "resolved": "2026-11-09T01:03:41.165Z",
+    "reason": "degraded"
+   },
+   {
+    "service": "numetal-fees-data",
+    "opened": "2026-11-09T00:21:41.163Z",
+    "resolved": "2026-11-09T00:42:41.162Z",
+    "reason": "degraded"
+   },
+   {
+    "service": "numetal-fees-data",
+    "opened": "2026-11-08T05:39:41.160Z",
+    "resolved": "2026-11-09T00:03:41.165Z",
+    "reason": "degraded"
+   },
+   {
+    "service": "numetal-fees-data",
+    "opened": "2026-11-08T05:06:41.165Z",
+    "resolved": "2026-11-08T05:21:41.161Z",
+    "reason": "degraded"
+   },
+   {
+    "service": "feedhub-status-path",
+    "opened": "2026-11-08T04:57:41.164Z",
+    "resolved": "2026-11-09T00:03:41.165Z",
+    "reason": "degraded"
+   },
+   {
+    "service": "curb-x402",
+    "opened": "2026-11-08T04:48:41.161Z",
+    "resolved": "2026-11-09T00:00:41.175Z",
+    "reason": "server error"
+   },
+   {
+    "service": "numetal-fees-data",
+    "opened": "2026-11-08T04:30:41.174Z",
+    "resolved": "2026-11-08T04:39:41.162Z",
+    "reason": "degraded"
+   },
+   {
+    "service": "numetal-fees-data",
+    "opened": "2026-11-08T02:39:41.161Z",
+    "resolved": "2026-11-08T03:03:41.160Z",
+    "reason": "degraded"
+   },
+   {
+    "service": "numetal-fees-data",
+    "opened": "2026-11-08T01:42:41.162Z",
+    "resolved": "2026-11-08T01:48:41.164Z",
+    "reason": "degraded"
+   },
+   {
+    "service": "numetal-fees-data",
+    "opened": "2026-11-08T01:18:41.164Z",
+    "resolved": "2026-11-08T01:27:41.163Z",
+    "reason": "degraded"
+   },
+   {
+    "service": "numetal-fees-data",
+    "opened": "2026-11-08T00:03:41.165Z",
+    "resolved": "2026-11-08T00:30:41.174Z",
+    "reason": "degraded"
+   }
+  ]
+ }
+}

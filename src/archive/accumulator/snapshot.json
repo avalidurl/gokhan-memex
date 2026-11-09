@@ -1,0 +1,17 @@
+{
+ "title": "Wishlist votes",
+ "source": "accumulator.numetal.xyz/api/wishlist",
+ "retrieved": "2026-11-09",
+ "data": {
+  "counts": {
+   "procurement-gov": 0,
+   "fee-free": 0,
+   "fee-share": 0,
+   "compute-rebate": 0,
+   "pol-buyback": 0,
+   "price-index": 0,
+   "priority-discharge": 0,
+   "reservoir-vault": 1
+  }
+ }
+}

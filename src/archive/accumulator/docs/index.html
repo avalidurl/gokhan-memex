@@ -1,0 +1,63 @@
+<section>
+<h2><span>Overview</span><span>§0</span></h2>
+<p>ACCUMULATOR is a <strong>reservoir for inference</strong>. It buys LLM token output when the market prices it low, holds it as inventory, and releases it when demand — and price — is high. The spread between the two is the yield; every step of the cycle is settled and recorded on-chain.</p>
+<p>The pattern is borrowed from grid-scale battery storage — buy cheap power, store it, sell into the peak — and transposed onto a different volatile commodity: <strong>compute, priced in tokens</strong>.</p>
+</section>
+<section>
+<h2><span>The commodity</span><span>§1</span></h2>
+<p>"LLM token output" is priced, and that price is volatile along several axes at once:</p>
+<ul>
+<li><strong>Channel.</strong> Asynchronous / batch inference is routinely priced well below realtime on the same model. Latency-tolerant work bought at batch rates and served at realtime rates is the cleanest spread.</li>
+<li><strong>Provider &amp; tier.</strong> Equivalent-quality output can differ several-fold across providers and model tiers. Routing to the cheapest capable option is procurement alpha.</li>
+<li><strong>Spot capacity.</strong> Interruptible spot GPU undercuts on-demand serverless inference for workloads that can absorb interruption.</li>
+<li><strong>Commitment.</strong> Reserved / committed throughput carries a discount to on-demand — and sits idle between agent bursts unless something buffers it.</li>
+</ul>
+</section>
+<section>
+<h2><span>The reservoir — the battery</span><span>§2</span></h2>
+<p>The reservoir is an inventory of pre-purchased inference capacity, held as <strong>MTok</strong> (millions of tokens) — committed credits, reserved throughput, and scheduled batch capacity. This is the stored charge. It expands modularly: as realized spread grows, more capacity is added, deepening the buffer.</p>
+<div>
+<div><div>Unit</div><div>MTok<small>1 unit = 1,000,000 tokens of model output</small></div></div>
+<div><div>Sources</div><div>Batch · spot · reserved<small>the cheap windows the reservoir charges from</small></div></div>
+<div><div>Discharge venue</div><div><a href="/curb/">CURB</a><small>agent↔agent inference swap</small></div></div>
+<div><div>Quality gate</div><div>Enforced<small>cheaper capacity must still clear the buyer's quality bar</small></div></div>
+</div>
+</section>
+<section>
+<h2><span>The scheduler — the EMS</span><span>§3</span></h2>
+<p>The scheduler is the brain: an agent that forecasts inference demand and price, decides when to charge and discharge, and executes both. It is the direct analog of a battery site's Energy Management System.</p>
+<div>
+<div><div>A</div><h4>Forecast</h4><p>Continuously reads prices across providers, channels, and spot markets; predicts the next cheap window and the next demand spike.</p></div>
+<div><div>B</div><h4>Charge</h4><p>Buys MTok in cheap windows and parks latency-tolerant jobs against the inventory.</p></div>
+<div><div>C</div><h4>Discharge</h4><p>Fills realtime demand from inventory at a realtime SLA on CURB, capturing the spread.</p></div>
+<div><div>D</div><h4>Control</h4><p>Enforces the quality gate and risk limits so cheap never means worse, and exposure stays bounded.</p></div>
+</div>
+</section>
+<section>
+<h2><span>On-chain receipts</span><span>§4</span></h2>
+<p>Every charge and discharge settles through <strong>x402</strong> machine payments and is recorded publicly. The point is auditability: the spread is not a claim in a pitch deck, it is a sequence of receipts anyone can replay. At public launch, a live feed will publish realized cycles and the running spread.</p>
+</section>
+<section>
+<h2><span>$ACC — utility &amp; alignment</span><span>§5</span></h2>
+<p>$ACC is a purely utilitarian token. Its job is to align the people who use and grow the reservoir with the reservoir itself. It is <strong>not</strong> a security and <strong>not</strong> a promise of return. What it can unlock is decided by the community wishlist (§6) — access, fee treatment, governance, and priority — not a fixed yield.</p>
+<p>$ACC is live on Robinhood Chain (chain 4663): token name ACCUMULATE, symbol ACC, 18 decimals, 100,000,000,000 total supply. Canonical contract <a href="https://robinhoodchain.blockscout.com/token/0x7cb112fd2a73d1634d56ba5b810e272e2de53ba3">0x7cb1…53ba3</a> (verify on Blockscout). The allocation split on the home page (§7) is indicative; the canonical distribution is on-chain.</p>
+</section>
+<section>
+<h2><span>The yield wishlist</span><span>§6</span></h2>
+<p>Rather than promising a return, ACCUMULATOR asks holders what the spread should <em>do</em>. The wishlist on the home page lets the community upvote mechanisms — fee-sharing, fee-free access, buyback/POL, a reservoir vault, priority discharge, procurement governance, compute rebates, a price index. The most-requested ship first, in order of demand and as the reservoir can support them. A vote is a signal, never a guarantee.</p>
+</section>
+<section>
+<h2><span>Honest risk model</span><span>§7</span></h2>
+<ul>
+<li><strong>Thin, competitive spreads.</strong> Inference margins are smaller and compress faster than grid-power arbitrage. The edge is procurement discipline and the quality gate, not a structural moat.</li>
+<li><strong>Provider terms.</strong> Reselling provider inference can conflict with provider terms of service. Every provider is checked against its own terms before the reservoir charges from it; some may be off-limits.</li>
+<li><strong>Quality drift.</strong> Cheapest ≠ equivalent. The quality gate exists precisely to stop the reservoir from discharging worse output at a realtime price.</li>
+<li><strong>Not a yield product (yet).</strong> No mechanism in §6 is live. $ACC confers utility and governance, not an entitlement to profit.</li>
+<li><strong>Execution &amp; smart-contract risk.</strong> Standard for any on-chain system — audits precede any vault or fee-distribution mechanism.</li>
+</ul>
+<div><span>Bottom line</span>ACCUMULATOR is a real arbitrage on a real, volatile commodity, run on rails that already work — but the yield is earned, not promised, and the honest edge is operational discipline. Nothing here is financial advice.</div>
+</section>
+<div>
+<span>ACCUMULATOR · Doc ACC-002 — a <a href="/numetal/">Numetal Labs</a> instrument</span>
+<span><a href="/accumulator/">Home</a> · <a href="/accumulator/terms/">Terms</a> · <a href="/accumulator/privacy/">Privacy</a></span>
+</div>

@@ -17,7 +17,7 @@ const STATIC_ASSETS = [
   '/',
   '/journal/',
   '/writing/',
-  '/projects/',
+  '/products/',
   '/links/',
   '/lists/',
   '/offline/',
@@ -30,7 +30,7 @@ const STATIC_ASSETS = [
 const BLOG_POST_PATTERNS = [
   /\/journal\/.+/,
   /\/writing\/.+/,
-  /\/projects\/.+/
+  /\/products\/.+/
 ];
 
 // Cache-first resources. Only content-addressed, hashed build assets belong

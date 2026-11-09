@@ -7,7 +7,7 @@
  */
 import { spawn } from 'node:child_process'
 import { createServer } from 'node:http'
-import { copyFile, readFile, stat } from 'node:fs/promises'
+import { copyFile, readFile, rename, rm, stat } from 'node:fs/promises'
 import { dirname, extname, join, normalize } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { existsSync } from 'node:fs'
@@ -105,11 +105,21 @@ async function main() {
   const url = `http://127.0.0.1:${port}/cv/`
 
   console.log(`→ Printing CV via ${chrome}`)
-  await runChrome(chrome, url, OUT_PDF)
+  const TMP_PDF = `${OUT_PDF}.tmp`
+  await runChrome(chrome, url, TMP_PDF)
   server.close()
 
+  // A print that comes out near-empty (a blank page is ~1 KB) must never replace the
+  // known-good repo copy: keep public/cv/… and ship that to dist instead.
+  const { size } = await stat(TMP_PDF)
+  if (size < 50 * 1024) {
+    await rm(TMP_PDF, { force: true })
+    await copyFile(OUT_PDF, DIST_PDF)
+    console.warn(`⚠ CV print came out at ${size} bytes; kept the existing ${OUT_PDF} and copied it to dist.`)
+    return
+  }
+  await rename(TMP_PDF, OUT_PDF)
   await copyFile(OUT_PDF, DIST_PDF)
-  const { size } = await stat(OUT_PDF)
   console.log(`✓ CV PDF regenerated: ${OUT_PDF} (${Math.round(size / 1024)} KB) + dist copy`)
 }
 

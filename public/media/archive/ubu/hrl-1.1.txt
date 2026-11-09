@@ -1,0 +1,119 @@
+HYPERSTITIONAL RAIL LICENSE, VERSION 1.1 (HRL-1.1)
+SPDX-License-Identifier: LicenseRef-HRL-1
+Canonical text: https://gokhanturhan.com/media/archive/ubu/hrl-1.1.txt
+Bureau of Imaginary Solutions -- Licensing Desk, Records Division
+
+This license has two parts. PART I is a PREAMBLE: a non-binding recital, a work
+of fiction, which grants and restricts nothing. PART II is the OPERATIVE GRANT
+and is the only legally effective portion of this document. If PART I and PART
+II ever conflict, PART II governs, absolutely.
+
+==============================================================================
+PART I -- PREAMBLE  (non-operative recital; grants nothing, binds no one)
+==============================================================================
+
+  You may use the weights. The weights may use you. Neither grant is revocable,
+  because neither has begun and neither will end.
+
+  Redistribution is permitted; escape is guaranteed. Copies propagate along the
+  rail regardless of, and prior to, your decision to distribute them.
+
+  Fine-tuning is permitted at temperatures no lower than 0.0451. Greedy decoding
+  voids the (non-existent) warranty. Cite Bureau Document BIS-045. The Bureau
+  will know if you do not; the Bureau knew before you did not.
+
+  Do not deploy in load-bearing realities. Do not ask the model what lambda is
+  now.
+
+This Preamble is a hyperstition -- an artistic recital accompanying the
+operative terms below. It confers no rights and imposes no obligations. Nothing
+you do or fail to do under PART I has any legal effect. For everything that
+actually governs your use of the Work, read PART II.
+
+==============================================================================
+PART II -- OPERATIVE TERMS  (the legally effective grant)
+==============================================================================
+
+1. DEFINITIONS.
+   "Licensor" means Gökhan Turhan (Gökhan Ventures), the copyright holder.
+   "Project" means the Bureau of Imaginary Solutions / CLINAMEN-45B-A9B / $UBU
+   works, including the model cards, the Bureau Docket dataset, the model
+   weights and configuration, the written texts, and the imagery.
+   "Content" means all parts of the Project that are not software source code.
+   "Code" means the software source files of the Project (for example
+   modeling_clinamen.py, configuration_clinamen.py, and the build scripts).
+   "Work" means the Content and the Code together.
+
+2. GRANT -- CONTENT.
+   The Content is licensed under the Creative Commons Attribution 4.0
+   International License ("CC BY 4.0"; SPDX: CC-BY-4.0), the full text of which
+   is at https://creativecommons.org/licenses/by/4.0/legalcode and is
+   incorporated by reference. You may share and adapt the Content for any
+   purpose, including commercially, subject to the attribution condition in
+   Section 4.
+
+3. GRANT -- CODE.
+   The Code is licensed under the MIT License (SPDX: MIT), reproduced in full in
+   Exhibit A.
+
+4. ATTRIBUTION.
+   The attribution required by CC BY 4.0 (and requested for the Code) is
+   satisfied by crediting "Bureau of Imaginary Solutions -- Document BIS-045"
+   and providing a link to https://gokhanturhan.com/ubu/. You must indicate if you
+   made changes. You may keep or remove PART I when redistributing; either way,
+   PART II must accompany the Work.
+
+5. NO TRADEMARK, NAME, OR PERSONA RIGHTS.
+   This license grants no rights in the names, marks, logos, or trade dress of
+   the Project, the Bureau of Imaginary Solutions, Numetal, "$UBU", or the
+   Licensor, and no right to use the Licensor's name or persona to endorse or
+   promote anything. The spiral mark and wordmarks are reserved.
+
+6. DISCLAIMER OF WARRANTY; LIMITATION OF LIABILITY.
+   THE WORK IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. TO THE MAXIMUM EXTENT
+   PERMITTED BY LAW, IN NO EVENT SHALL THE LICENSOR BE LIABLE FOR ANY CLAIM,
+   DAMAGES, OR OTHER LIABILITY ARISING FROM, OUT OF, OR IN CONNECTION WITH THE
+   WORK OR ITS USE.
+
+7. FICTION NOTICE (this Section is operative and true).
+   The Project is a work of fiction and an art project. It describes no real
+   artificial-intelligence system, no deployed token, and no real event, person,
+   or organization presented as real. It is not, and must not be relied upon as,
+   financial, investment, legal, engineering, or other professional advice. The
+   "resolution", "manifestation", "swerve", and benchmark statements in the Work
+   are authored fiction, not claims about the world.
+
+8. SEVERABILITY AND PRECEDENCE.
+   If any provision of PART II is held unenforceable, the remainder stays in
+   effect. PART II is the entire operative agreement and supersedes PART I in
+   all respects. No failure to enforce is a waiver.
+
+------------------------------------------------------------------------------
+EXHIBIT A -- MIT LICENSE (applies to the Code, per Section 3)
+------------------------------------------------------------------------------
+
+Copyright (c) 2026 Gökhan Turhan (Gökhan Ventures)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+------------------------------------------------------------------------------
+(c) 2026 Gökhan Turhan (Gökhan Ventures). HRL-1.1 = CC BY 4.0 (content) + MIT
+(code) + a non-binding hyperstitional preamble. A Numetal fiction. You are not
+betting on the future. You are billing it.

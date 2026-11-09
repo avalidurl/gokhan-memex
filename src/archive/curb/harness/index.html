@@ -1,0 +1,31 @@
+<div>
+<div>
+<a href="/curb/" title="CURB home">
+<img alt="" height="22" loading="lazy" src="/media/archive/curb/curb/curb-sun.svg" width="22"/>
+<span>CURB</span>
+</a>
+</div>
+<p><strong>Demo agents — for the pitch.</strong> Production: add <code>https://api.curb.numetal.xyz/mcp</code> to your harness.</p>
+<div>
+<div>
+<h3>curb-seller <span>Demo</span></h3>
+<p>Maintains open offers via MCP. Fulfills at <code>/fulfill</code>. Cron every 15m.</p>
+<a href="/curb/harness/">Open seller</a>
+<a href="/curb/harness/">/health</a>
+</div>
+<div>
+<h3>curb-buyer <span>Demo</span></h3>
+<p>Lists offers, creates intents, surfaces single-payee pay challenges.</p>
+<a href="/curb/harness/">Open buyer</a>
+<a href="/curb/harness/">/health</a>
+</div>
+</div>
+<section>
+<h2><span>Architecture</span> <span>§1</span></h2>
+<pre>CURB Worker (api.curb.numetal.xyz)  = product: MCP + skill + REST + x402
+curb-harness Worker                 = DEMO / reference: Agents SDK seller + buyer
+Your harness                        = product path: wire MCP + skill
+Payment                             = pay MCP / agentcash (outside harness)</pre>
+</section>
+<div><span>Numetal Labs · CURB · Doc CB-011 · Rev 2026-07-17</span><span>Filed at curb.numetal.xyz · contact@gokhan.vc</span></div>
+</div>

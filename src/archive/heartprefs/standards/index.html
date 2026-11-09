@@ -1,0 +1,67 @@
+<p>Ready-to-submit artifacts for making HeartPrefs an official, portable, permanent standard. Each item here is <strong>prepared</strong> so the founder only has to submit it — the actual external submissions (IANA, W3C, the <code>perma-id/w3id.org</code> PR, and serving <code>did.json</code>) are <strong>founder actions</strong>, because they are outward-facing and irreversible.</p>
+<blockquote>
+<p>Authored 2026-07-04, each verified against its first-party spec (links below). Nothing here has been submitted yet.</p>
+</blockquote>
+<h2>Status</h2>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Standard</th>
+<th>This folder</th>
+<th>External submission (founder)</th>
+<th>Issue</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DID issuer document</td>
+<td>W3C DID Core / <code>did:web</code></td>
+<td><a href="https://github.com/gokhan-vc/heartprefs/blob/main/standards/did/did.json"><code>did/did.json</code></a> + <a href="https://github.com/gokhan-vc/heartprefs/blob/main/standards/did/README.md"><code>did/README.md</code></a></td>
+<td>serve at <code>https://ishtar.numetal.xyz/.well-known/did.json</code> (via <strong>ishtar-website</strong>, not the venue)</td>
+<td>GOK-166</td>
+</tr>
+<tr>
+<td>Permanent schema URL</td>
+<td>w3id.org</td>
+<td><a href="https://github.com/gokhan-vc/heartprefs/blob/main/standards/w3id/"><code>w3id/</code></a></td>
+<td>PR to <code>github.com/perma-id/w3id.org</code></td>
+<td>GOK-163</td>
+</tr>
+<tr>
+<td>Media type</td>
+<td>IANA / RFC 6838</td>
+<td><a href="https://github.com/gokhan-vc/heartprefs/blob/main/standards/iana/vnd.heartprefs+json.txt"><code>iana/vnd.heartprefs+json.txt</code></a></td>
+<td>email <code>iana@iana.org</code> or the IANA web form</td>
+<td>GOK-164</td>
+</tr>
+<tr>
+<td>Community Group</td>
+<td>W3C CG</td>
+<td><a href="https://github.com/gokhan-vc/heartprefs/blob/main/standards/w3c-cg/charter.md"><code>w3c-cg/charter.md</code></a> + <a href="https://github.com/gokhan-vc/heartprefs/blob/main/standards/w3c-cg/README.md"><code>w3c-cg/README.md</code></a></td>
+<td>"Create a Community Group" on w3.org + gather 5 supporters</td>
+<td>GOK-172</td>
+</tr>
+</tbody>
+</table>
+<h2>⚠ One decision to make first (media-type tree)</h2>
+<p>RFC 6838 restricts the <strong>standards tree</strong> (<code>application/heartprefs+json</code>) to formats recognized by a standards body. HeartPrefs is not there yet, so the <strong>registrable name today is the vendor tree: <code>application/vnd.heartprefs+json</code></strong> (RFC 6838 §3.2 — "vendor" explicitly includes consortia and non-commercial entities). Once the <strong>W3C Community Group</strong> (GOK-172) adopts the spec, it can <strong>graduate</strong> to the standards-tree <code>application/heartprefs+json</code>.</p>
+<ul>
+<li>The IANA application here uses <strong><code>application/vnd.heartprefs+json</code></strong> accordingly.</li>
+<li><code>spec/0.1/SPEC.md §10</code> still advertises <code>application/heartprefs+json</code> "(registration pending; use provisionally)". <strong>Recommended follow-up (not done in this PR — it's a normative spec change for you to bless):</strong> reconcile the SPEC to state <code>application/vnd.heartprefs+json</code> as the <em>registered</em> type and <code>application/heartprefs+json</code> as the <em>target</em> after CG adoption.</li>
+</ul>
+<h2>Suggested submission order</h2>
+<ol>
+<li><strong>Launch the W3C CG</strong> (free; gives you a standards body → unlocks the standards-tree media type + a neutral governance home).</li>
+<li><strong>Register the IANA media type</strong> (<code>vnd.</code> now; the CG can graduate it later).</li>
+<li><strong>File the w3id PR</strong> <em>(optional)</em> — a permanent, host-independent schema URL. The schema <code>$id</code> now resolves via GitHub raw (<code>…/main/spec/0.1/heartprefs.schema.json</code>); registering <code>w3id.org/heartprefs</code> lets you switch the <code>$id</code> to the permalink later.</li>
+<li><strong>Serve <code>did.json</code></strong> once the issuer signing key is chosen (see <code>did/README.md</code>) — needed before the 18+ VC path (GOK-166) goes live.</li>
+</ol>
+<h2>First-party sources (verified 2026-07-04)</h2>
+<ul>
+<li>did:web — <a href="https://w3c-ccg.github.io/did-method-web/">https://w3c-ccg.github.io/did-method-web/</a> ; DID Core — <a href="https://www.w3.org/TR/did-core/">https://www.w3.org/TR/did-core/</a></li>
+<li>IANA media types — RFC 6838 <a href="https://www.rfc-editor.org/rfc/rfc6838">https://www.rfc-editor.org/rfc/rfc6838</a> ; <code>+json</code> suffix — RFC 6839</li>
+<li>w3id — <a href="https://github.com/perma-id/w3id.org">https://github.com/perma-id/w3id.org</a></li>
+<li>W3C Community Groups — <a href="https://www.w3.org/community/about/faq/">https://www.w3.org/community/about/faq/</a></li>
+<li>VC Data Model 2.0 — <a href="https://www.w3.org/TR/vc-data-model-2.0/">https://www.w3.org/TR/vc-data-model-2.0/</a></li>
+</ul>

@@ -1,0 +1,24 @@
+<p>HeartPrefs is stewarded as an <strong>open, neutral-by-design</strong> standard. This document pre-commits the process and the path to neutral governance, so the standard reads as a commons — not a single vendor's silo.</p>
+<h2>Licensing</h2>
+<ul>
+<li><strong>Vocabulary + JSON Schema + spec text</strong> (<code>spec/</code>): <strong>CC-BY-4.0</strong>. Anyone may share, adapt, and build on HeartPrefs — including commercially — <strong>provided they attribute "HeartPrefs (Atelier Gökhan / Numetal)"</strong> and link to the license. Attribution (not public-domain release) is deliberate: it keeps provenance and credit with the standard's stewards as it spreads. No share-alike — adopters can borrow freely as long as they credit.</li>
+<li><strong>Code</strong> (<code>sdk/</code>, <code>tools/</code>, <code>validator/</code>, reference servers): <strong>Apache-2.0</strong> — explicit patent grant + retaliation, added alongside the code.</li>
+<li><strong>Name + conformance mark:</strong> "HeartPrefs" and the "HeartPrefs-compliant" mark are protected (trademark). The license lets you implement the standard; it does not grant use of the name to imply endorsement or certification — conformance is asserted via the validator/badge, not by self-claim.</li>
+</ul>
+<h2>Change process — HIP (HeartPrefs Improvement Proposal)</h2>
+<p>Changes to the spec go through a numbered HIP process modeled on EIP-1 and the MCP SEP process:</p>
+<ul>
+<li><strong>Lifecycle:</strong> Draft → Review → Last Call (14 days) → Final, plus Stagnant / Withdrawn / Living.</li>
+<li><strong>Editor role is format and completeness ONLY — never merit.</strong> Editors check that a proposal is well-formed and complete; they do not gate on whether the idea is good. (This neutrality is load-bearing: merit-gating by a single steward is what stalls the move to a neutral standards body.)</li>
+<li><code>hips/hip-0001.md</code> defines the process itself. Substantive changes (new fields, binding-block changes, breaking changes) require a HIP; permissionless additions belong in the <code>ext</code> namespace and need no HIP.</li>
+</ul>
+<h2>Path to neutral governance</h2>
+<ol>
+<li><strong>Launch</strong> under Atelier Gökhan / Numetal, with <a href="/ishtar/">Ishtar</a> as the reference implementation.</li>
+<li><strong>File a W3C Community Group</strong> ("HeartPrefs CG") under open, royalty-free / CC0 IPR terms.</li>
+<li><strong>Donate to a neutral foundation (Linux Foundation) once there are ≥ 3 independent implementations</strong> — a neutral technical steering committee, Apache-2.0 IP for the code. This mirrors the path A2A and OpenAPI took.</li>
+</ol>
+<h2>Compatibility &amp; stability</h2>
+<p>The schema <code>$id</code> is version-pathed (<code>/0.1/</code>, <code>/0.2/</code>, …) so newer versions never break existing holders. Consumers MUST ignore unknown members rather than reject them. v0.1 is <strong>draft</strong> — field names and bindings may change until v1.0.</p>
+<h2>Contact</h2>
+<p>Proposals, questions, and discussion go through the repository's issue tracker: <a href="https://github.com/gokhan-vc/heartprefs/issues">https://github.com/gokhan-vc/heartprefs/issues</a> (open an issue or a PR). For contact by email, use <code>contact@gokhan.vc</code>.</p>

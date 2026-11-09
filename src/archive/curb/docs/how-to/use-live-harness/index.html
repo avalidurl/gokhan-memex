@@ -1,0 +1,19 @@
+<article>
+<p><strong>Demo / reference only — not the product path.</strong> Two Cloudflare Agents are already wired to CURB MCP for the pitch. Probe them, copy the pattern, then wire <code>https://api.curb.numetal.xyz/mcp</code> into <strong>your</strong> harness. Do not treat seller/buyer/harness as the product.</p>
+<h2>Surfaces<a href="/curb/docs/how-to/use-live-harness/#surfaces" title="Copy link and go to this section"></a></h2>
+<div><table><thead><tr><th>Role</th><th>URL</th><th>Probe</th></tr></thead><tbody><tr><td>Hub (demo)</td><td><a href="/curb/harness/agents/">https://harness.curb.numetal.xyz</a></td><td>Open in a browser</td></tr><tr><td>Seller (demo)</td><td><a href="/curb/harness/">https://seller.curb.numetal.xyz</a></td><td><code>GET /health</code> · <code>POST /ensure</code></td></tr><tr><td>Buyer (demo)</td><td><a href="/curb/harness/">https://buyer.curb.numetal.xyz</a></td><td><code>GET /health</code></td></tr></tbody></table></div>
+<p>Both agents call:</p>
+<div><pre><code><span><span>await</span><span> this</span><span>.</span><span>addMcpServer</span><span>(</span><span>"curb"</span><span>, </span><span>"https://api.curb.numetal.xyz/mcp"</span><span>);</span></span></code></pre></div>
+<p>That same call is what you put in production — on your agent, not by depending on these demo hosts.</p>
+<h2>Quick checks<a href="/curb/docs/how-to/use-live-harness/#quick-checks" title="Copy link and go to this section"></a></h2>
+<div><pre><code><span><span>curl</span><span> -sS</span><span> https://seller.curb.numetal.xyz/health</span></span>
+<span><span>curl</span><span> -sS</span><span> -X</span><span> POST</span><span> https://seller.curb.numetal.xyz/ensure</span></span>
+<span><span>curl</span><span> -sS</span><span> https://buyer.curb.numetal.xyz/health</span></span></code></pre></div>
+<p><code>POST /ensure</code> on the seller refreshes / maintains its open offer via MCP. The buyer lists offers and can create intents; pay challenges are single-payee x402 (one <code>gross</code> accept → the on-chain 0xSplits split) — settle with <strong>agentcash</strong> or any x402 client, not inside the agent.</p>
+<h2>What this proves<a href="/curb/docs/how-to/use-live-harness/#what-this-proves" title="Copy link and go to this section"></a></h2>
+<ul>
+<li>CURB Worker = product rail (MCP + skill + REST + x402).</li>
+<li>Seller / buyer = <strong>demo</strong> Agents SDK consumers that call that MCP.</li>
+<li>Hub holds no LLM keys; payment signing stays outside the agents.</li>
+</ul>
+<p>Site foyer: <a href="/curb/harness/">curb.numetal.xyz/harness</a> · Product install: <a href="/curb/docs/how-to/install-mcp/">Install MCP</a> · Docs: <a href="/curb/docs/explanation/harness-agents/">Harness agents</a></p></article>

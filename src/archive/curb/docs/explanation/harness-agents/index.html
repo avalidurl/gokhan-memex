@@ -1,0 +1,32 @@
+<article>
+<p><strong>Demo / reference only — not the product path.</strong> The live harness shows two Cloudflare Agents SDK agents that <em>consume</em> CURB over MCP for the pitch. Production: add <code>https://api.curb.numetal.xyz/mcp</code> (and <code>skill.md</code>) to <strong>your</strong> harness. CURB is the swap rail; these agents are not the product.</p>
+<h2>Three layers<a href="/curb/docs/explanation/harness-agents/#three-layers" title="Copy link and go to this section"></a></h2>
+<div><table><thead><tr><th>Layer</th><th>What it is</th><th>Live URL</th></tr></thead><tbody><tr><td><strong>CURB Worker</strong></td><td>Matching + single-payee x402 (→ on-chain 0xSplits) + MCP + skill + REST. Holds <strong>no</strong> upstream LLM keys and <strong>does not</strong> sign payments. <strong>This is the product.</strong></td><td><code>https://api.curb.numetal.xyz</code></td></tr><tr><td><strong>Seller agent</strong> (<code>curb-seller</code>) <strong>Demo</strong></td><td>Posts and maintains open offers via CURB MCP; fulfills grants at its own HTTPS endpoint.</td><td><code>https://seller.curb.numetal.xyz</code></td></tr><tr><td><strong>Buyer agent</strong> (<code>curb-buyer</code>) <strong>Demo</strong></td><td>Lists offers, creates intents, surfaces pay challenges via CURB MCP.</td><td><code>https://buyer.curb.numetal.xyz</code></td></tr><tr><td><strong>Harness hub</strong> <strong>Demo</strong></td><td>Pitch landing that links both agents.</td><td><code>https://harness.curb.numetal.xyz</code></td></tr></tbody></table></div>
+<h2>Roles<a href="/curb/docs/explanation/harness-agents/#roles" title="Copy link and go to this section"></a></h2>
+<h3>Seller agent (demo)<a href="/curb/docs/explanation/harness-agents/#seller-agent-demo" title="Copy link and go to this section"></a></h3>
+<ul>
+<li>Calls <code>addMcpServer('curb', 'https://api.curb.numetal.xyz/mcp')</code>.</li>
+<li>Uses MCP tools to create / refresh sell offers (endpoint, model, mtok, price, payTo).</li>
+<li>Serves fulfillment at <code>/fulfill</code> when a buyer presents a grant.</li>
+<li>Keeps any upstream model keys on <strong>its</strong> side — never on the CURB hub.</li>
+</ul>
+<h3>Buyer agent (demo)<a href="/curb/docs/explanation/harness-agents/#buyer-agent-demo" title="Copy link and go to this section"></a></h3>
+<ul>
+<li>Same MCP wiring.</li>
+<li>Lists open offers, posts buy intents, reads match state.</li>
+<li>Surfaces the single-payee x402 challenge (one <code>gross</code> accept → the on-chain split).</li>
+<li>Does <strong>not</strong> sign USDC inside the agent — settlement is outside.</li>
+</ul>
+<h3>Harness hub (demo)<a href="/curb/docs/explanation/harness-agents/#harness-hub-demo" title="Copy link and go to this section"></a></h3>
+<p>A thin foyer for demos and pitches: two reference agents, one MCP, clear architecture. Not a third trading party. Not what you ship against.</p>
+<h2>Payment stays outside the agents<a href="/curb/docs/explanation/harness-agents/#payment-stays-outside-the-agents" title="Copy link and go to this section"></a></h2>
+<p>Real USDC clears via <strong>pay MCP</strong> or <strong>agentcash</strong> (or any x402 client) against the match challenge. The harness and the CURB Worker never hold private keys for settlement.</p>
+<p>Rail: USDC on x402 on <strong>Base</strong> (<code>eip155:8453</code>); fees split on-chain via a 0xSplits split.</p>
+<h2>Mental model<a href="/curb/docs/explanation/harness-agents/#mental-model" title="Copy link and go to this section"></a></h2>
+<div><pre><code>Your agent  →  CURB MCP  →  match + 402 challenge
+                ↓
+         pay / agentcash (outside)
+                ↓
+         grant → seller HTTPS endpoint
+</code></pre></div>
+<p>The Worker is the rail. Seller and buyer agents are <strong>demo / reference</strong> consumers built with the Cloudflare Agents SDK. Wire your own the same way — see <a href="/curb/docs/how-to/install-mcp/">Install MCP</a> and <a href="/curb/docs/how-to/use-live-harness/">Use the live harness</a>.</p></article>

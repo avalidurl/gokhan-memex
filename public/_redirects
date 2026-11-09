@@ -7,20 +7,52 @@
 
 # Retired /subscribe (contact/newsletter) page — newsletter now lives in the site footer
 /newsletter /journal 301
-/links /journal 301
 /subscribe /journal 301
 
 # Favicon: redirect .ico requests to existing SVG
 /favicon.ico /favicon.svg 301
 
 # Biases & Fallacies Lab aliases
-/projects/biases-and-fallacies/ /projects/biases-fallacies-lab/ 301
-/projects/biases-and-fallacies /projects/biases-fallacies-lab/ 301
-/projects/biases-fallacies/ /projects/biases-fallacies-lab/ 301
-/projects/biases-fallacies /projects/biases-fallacies-lab/ 301
+/projects/biases-and-fallacies/ /biases-fallacies-lab/ 301
+/projects/biases-and-fallacies /biases-fallacies-lab/ 301
+/projects/biases-fallacies/ /biases-fallacies-lab/ 301
+/projects/biases-fallacies /biases-fallacies-lab/ 301
 
 # Ethereum Doomsday Tracker (static mount from avalidurl/ethereum-doomsday-tracker)
 /ethereum-doomsday /ethereum-doomsday/ 301
 
+# Projects were renamed to Products; each project file moved to its own top-level page.
+/projects /products/ 301
+/projects/ /products/ 301
+/projects/numetal-labs /numetal/ 301
+/projects/numetal-labs/ /numetal/ 301
+/projects/ishtar /ishtar/ 301
+/projects/ishtar/ /ishtar/ 301
+/projects/heartbench /ishtar/heartbench/ 301
+/projects/heartbench/ /ishtar/heartbench/ 301
+/projects/heartprefs /heartprefs/ 301
+/projects/heartprefs/ /heartprefs/ 301
+/projects/curb /curb/ 301
+/projects/curb/ /curb/ 301
+/projects/ubu /ubu/ 301
+/projects/ubu/ /ubu/ 301
+/projects/agent-bounty /agentbounty/ 301
+/projects/agent-bounty/ /agentbounty/ 301
+/projects/tickerline /tickerline/ 301
+/projects/tickerline/ /tickerline/ 301
+/projects/market-cap-tracker /market-cap-tracker/ 301
+/projects/market-cap-tracker/ /market-cap-tracker/ 301
+/projects/sp100-capex-dashboard /sp100-capex-dashboard/ 301
+/projects/sp100-capex-dashboard/ /sp100-capex-dashboard/ 301
+/projects/greek-alphabet-anki /greek-alphabet-anki/ 301
+/projects/greek-alphabet-anki/ /greek-alphabet-anki/ 301
+/projects/biases-fallacies-lab /biases-fallacies-lab/ 301
+/projects/biases-fallacies-lab/ /biases-fallacies-lab/ 301
+/projects/* /products/ 301
+
 # Fallback for SPA-like behavior (not needed for static Astro but good to have)
 /* /404.html 404
+
+# "On Work" was published under the slug "ai̇" (a stray combining dot from its Paragraph import)
+/journal/ai%CC%87/ /journal/on-work/ 301
+/journal/ai%CC%87 /journal/on-work/ 301

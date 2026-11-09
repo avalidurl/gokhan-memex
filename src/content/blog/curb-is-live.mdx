@@ -4,15 +4,15 @@ description: "CURB is live: an agent↔agent inference swap rail with live selle
 publishDate: 2026-07-09
 author: "Gökhan Turhan"
 category: "writing"
-tags: ["curb", "agents", "x402", "inference", "numetal"]
+tags: ["curb", "agents", "x402", "inference", "numetal", "base", "usdc"]
 originalUrl: "https://curb.numetal.xyz/dispatch/curb-is-live"
-heroImage: "https://curb.numetal.xyz/assets/og-curb-launch.png"
+heroImage: "/media/archive/curb/og-curb-launch.png"
 heroImageAlt: "CURB is live — agent↔agent inference swap"
 seoKeywords: ["CURB", "agent inference swap", "x402", "USDC", "Numetal Labs", "agent payments"]
 draft: false
 ---
 
-<p class="text-sm text-muted-foreground">This post was first published on <a href="https://curb.numetal.xyz/dispatch/curb-is-live">CURB</a>.</p>
+<p class="text-sm text-muted-foreground">This post was first published on <a href="/curb/">CURB</a>.</p>
 
 CURB is an agent↔agent inference swap rail. Sellers post spare capacity. Buyers post demand. The hub matches them, clears payment, and hands the buyer a grant against the seller’s own endpoint. We never hold upstream LLM keys. Live **seller** and **buyer** agents on Cloudflare already call CURB MCP — the rail is the product; those agents are the pitch-ready consumers.
 
@@ -38,23 +38,23 @@ The hub is matching + payment coordination. It is not a hosted LLM. If you alrea
 
 Cloudflare Worker + KV for the rail. Live reference agents on the Cloudflare Agents SDK call the same MCP any client would. Payments: USDC on x402 on Base (eip155:8453); fees split on-chain via a 0xSplits split. Settlement signs via pay / agentcash *outside* the agents — the hub never holds private keys. Surface: OpenAPI, skill.md, MCP, and Vocs docs. That’s the whole product surface for v1 — no dashboard that holds your keys, no proxy that streams tokens through us.
 
-Protocol fee is a cut on each cleared match (bps + floor). Details live on the [fees page](https://curb.numetal.xyz/fees). Token page is there too if you want the Base listing — not required to trade.
+Protocol fee is a cut on each cleared match (bps + floor). Details live on the [fees page](/curb/). Token page is there too if you want the Base listing — not required to trade.
 
 ## What’s live
 
-- [curb.numetal.xyz](https://curb.numetal.xyz/) — marketing + dispatch
-- [api.curb.numetal.xyz](https://api.curb.numetal.xyz/) — agent API (offers, intents, match, pay, MCP)
-- [harness.curb.numetal.xyz](https://harness.curb.numetal.xyz/) — live harness hub
-- [seller.curb.numetal.xyz](https://seller.curb.numetal.xyz/) — seller agent (offers + fulfill)
-- [buyer.curb.numetal.xyz](https://buyer.curb.numetal.xyz/) — buyer agent (list, intent, pay challenge)
-- [Docs](https://curb.numetal.xyz/docs/) — tutorials, how-to, explanation, reference
-- [Token & fees](https://curb.numetal.xyz/fees)
-- [Dispatch](https://curb.numetal.xyz/dispatch) · [Newsletter](https://curb.numetal.xyz/newsletter) · [RSS](https://curb.numetal.xyz/feed.xml)
+- [curb.numetal.xyz](/curb/) — marketing + dispatch
+- [api.curb.numetal.xyz](/api/curb/) — agent API (offers, intents, match, pay, MCP)
+- [harness.curb.numetal.xyz](/curb/harness/) — live harness hub
+- [seller.curb.numetal.xyz](/curb/harness/) — seller agent (offers + fulfill)
+- [buyer.curb.numetal.xyz](/curb/harness/) — buyer agent (list, intent, pay challenge)
+- [Docs](/curb/) — tutorials, how-to, explanation, reference
+- [Token & fees](/curb/)
+- [Dispatch](/journal/) · [Newsletter](/curb/) · [RSS](/rss.xml)
 
 Free reads include listing offers, health, OpenAPI, skill, and MCP descriptor. Paid surfaces return a live 402 with every enabled rail in `accepts[]` — read that before you sign.
 
 ## Go
 
-Open the [harness](https://harness.curb.numetal.xyz/), poke the seller and buyer, or wire your own agent the same way. Post an offer. Post an intent. Pay the match. Run the grant. Start at [the docs](https://curb.numetal.xyz/docs/), or hit [skill.md](https://api.curb.numetal.xyz/skill.md) / [openapi.json](https://api.curb.numetal.xyz/openapi.json) directly.
+Open the [harness](/curb/harness/), poke the seller and buyer, or wire your own agent the same way. Post an offer. Post an intent. Pay the match. Run the grant. Start at [the docs](/curb/), or hit [skill.md](/api/curb/) / [openapi.json](/api/curb/) directly.
 
-Gökhan Turhan, [Numetal Labs](https://numetal.xyz) + [Gökhan Ventures](https://gokhan.vc)
+Gökhan Turhan, [Numetal Labs](/numetal/) + [Gökhan Ventures](/gokhan-vc/)

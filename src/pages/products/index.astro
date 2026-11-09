@@ -1,0 +1,101 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHead from '@/components/PageHead.astro'
+import Tags from '@/components/Tags.astro'
+import { topLevel, products, journalProducts, drafts, tools, TAXONOMY } from '@/data/estate'
+
+// Main products first (the studio's products, led by the flagship five); hobby and personal projects last.
+const LEAD = ['ubu', 'ishtar', 'curb', 'reclaim', 'plaintext']
+const main = topLevel('former')
+const lead = LEAD.map((s) => main.find((p) => p.slug === s)!).filter(Boolean)
+const rest = main.filter((p) => !LEAD.includes(p.slug))
+const families = [...new Set(rest.map((p) => p.family))]
+const hobbies = topLevel('current')
+const famSlug = (f: string) => f.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, '-')
+const subs = (slug: string) => products.filter((p) => p.slug.startsWith(`${slug}/`))
+---
+
+<BaseLayout
+  title="Products"
+  description="Products: the ones running now, and Numetal, Gökhan Ventures and their products. Each has its own page, tagged."
+>
+  <div class="es">
+    <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: 'Products' }]} title="Products" lead="Every product has its own page here, with its site, docs and data. Tags open a shared page with the products, posts, drafts and APIs that carry them.">
+      <p class="lead">Drafts and experiments are on <a href="/product-drafts/">Product drafts</a>; private tools are on <a href="/tools/">Tools</a>; every tag is on <a href="/archive/tags/">Tags</a>.</p>
+    </PageHead>
+    <section class="cx" aria-label="Jump to">
+      <div class="cx-h"><b>Jump to</b><span>sections</span></div>
+      <div class="cx-b"><span class="tags"><a class="tg" href="#main">Main products</a> {families.map((f) => <a class="tg" href={`#${famSlug(f)}`}>{f}</a>)} <a class="tg" href="#hobbies">Hobby and personal</a> <a class="tg" href="#elsewhere">Drafts and tools</a></span></div>
+    </section>
+    <section class="cx" aria-label="Main products" id="main">
+      <div class="cx-h"><b>Main products</b><span>Numetal and Gökhan Ventures</span><em>{String(lead.length).padStart(2, '0')}</em></div>
+      <div class="cx-b">
+        The products built under the studio and lab. Each page carries the product's own site: its
+        copy, docs, decks, legal pages and a data snapshot where the live feed is gone.
+      </div>
+      {lead.map((p) => (
+        <div class="cx-r">
+          <span><a href={`/${p.slug}/`}>gokhanturhan.com/{p.slug}/</a>{p.former && <><br /><i>formerly {p.former}</i></>}</span>
+          <span>
+            <a class="nm" href={`/${p.slug}/`}>{p.name}</a> — {p.line}
+            {subs(p.slug).length > 0 && (
+              <><br /><i>also: {subs(p.slug).map((c, j) => (<>{j > 0 && ' · '}<a href={`/${c.slug}/`}>{c.name}</a></>))}</i></>
+            )}
+            <br /><Tags tags={p.tags} />
+          </span>
+        </div>
+      ))}
+    </section>
+
+    {families.map((fam) => {
+      const list = rest.filter((p) => p.family === fam)
+      return (
+        <section class="cx" aria-label={fam} id={famSlug(fam)}>
+          <div class="cx-h"><b>{fam}</b><span>{TAXONOMY[famSlug(fam)] ? <a class="tg" href={`/archive/tags/${famSlug(fam)}/`}>tag page</a> : 'family'}</span><em>{String(list.length).padStart(2, '0')}</em></div>
+          {list.map((p) => (
+            <div class="cx-r">
+              <span><a href={`/${p.slug}/`}>gokhanturhan.com/{p.slug}/</a>{p.former && <><br /><i>formerly {p.former}</i></>}</span>
+              <span>
+                <a class="nm" href={`/${p.slug}/`}>{p.name}</a> — {p.line}
+                {subs(p.slug).length > 0 && (
+                  <><br /><i>also: {subs(p.slug).map((c, j) => (<>{j > 0 && ' · '}<a href={`/${c.slug}/`}>{c.name}</a></>))}</i></>
+                )}
+                <br /><Tags tags={p.tags} />
+              </span>
+            </div>
+          ))}
+          {fam === 'Gökhan Ventures' && journalProducts.map((j) => (
+            <div class="cx-r"><span>journal</span><span><a class="nm" href={j.href}>{j.name}</a> — {j.line}</span></div>
+          ))}
+        </section>
+      )
+    })}
+
+    <section class="cx" aria-label="Hobby and personal projects" id="hobbies">
+      <div class="cx-h"><b>Hobby and personal</b><span>small tools and side projects</span><em>{String(hobbies.length).padStart(2, '0')}</em></div>
+      {hobbies.map((p) => (
+        <div class="cx-r">
+          <span><a href={`/${p.slug}/`}>gokhanturhan.com/{p.slug}/</a>{p.former && <><br /><i>formerly {p.former}</i></>}</span>
+          <span>
+            <a class="nm" href={`/${p.slug}/`}>{p.name}</a> — {p.line}
+            {subs(p.slug).length > 0 && (
+              <><br /><i>also: {subs(p.slug).map((c, j) => (<>{j > 0 && ' · '}<a href={`/${c.slug}/`}>{c.name}</a></>))}</i></>
+            )}
+            <br /><Tags tags={p.tags} />
+          </span>
+        </div>
+      ))}
+    </section>
+
+    <section class="quad" id="elsewhere">
+      <a class="cx draft" href="/product-drafts/" style="text-decoration:none;color:inherit">
+        <div class="cx-h"><b>Drafts</b><span>experiments and unfinished things</span><em>{drafts.length}</em></div>
+        <div class="cx-b">Single-line register with tags.</div>
+      </a>
+      <a class="cx tools" href="/tools/" style="text-decoration:none;color:inherit">
+        <div class="cx-h"><b>Tools</b><span>private, names only</span><em>{tools.length}</em></div>
+        <div class="cx-b">Personal and admin tools behind sign-in.</div>
+      </a>
+    </section>
+  </div>
+</BaseLayout>

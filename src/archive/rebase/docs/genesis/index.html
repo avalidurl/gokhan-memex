@@ -1,0 +1,5 @@
+<article>
+<p>The first book is a community USDG raise. You do not seed it.</p>
+<div><table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td>Cap</td><td>20,000 USDG</td></tr><tr><td>Min per wallet</td><td>10 USDG</td></tr><tr><td>Max per wallet</td><td>2,500 USDG</td></tr><tr><td>Price</td><td>$1.00 — 1 USDG → 1 REBASE at claim</td></tr><tr><td>Window</td><td>7 days from deploy, or earlier if the cap fills</td></tr><tr><td>Fail</td><td>Under 20k at expiry → <code>refund()</code></td></tr></tbody></table></div>
+<p>When <code>raised == 20_000e6</code>, anyone calls <code>graduate()</code>. The pad mints 40,000 REBASE: 20,000 for buyers, 20,000 wrapped into the Uniswap v4 pool against the 20,000 USDG. Then <code>seedPool()</code> opens <code>wREBASE/USDG</code> at 1:1. The LP position stays in the pad. Principal cannot be pulled. <code>collectFees()</code> sends both tokens to the fee wallet.</p>
+<p>Eight maxed wallets fill the raise.</p></article>
