@@ -474,9 +474,14 @@ body.register main a.tg[aria-current="true"], a.tg[aria-current="true"] { backgr
 .cx-r .tags { margin-top: 4px; }
 /* Publishing works */
 .es .work-cover { display: block; max-width: 100%; height: auto; border: 1px solid var(--ink); }
-.es .work-thumb { width: 64px; height: auto; border: 1px solid var(--ink); display: block; }
-.es .cx-r.withthumb { grid-template-columns: 72px 1fr; align-items: start; }
+.es .work-thumb { width: 140px; max-width: 100%; height: auto; border: 1px solid var(--ink); display: block; }
+.es .cx-r.withthumb { grid-template-columns: 140px 1fr; align-items: start; gap: 0 16px; padding: 12px 10px; }
+.es .cx-r.withthumb > :first-child { min-width: 0; overflow: visible; }
 .es .cx-b audio { width: 100%; }
+@media (max-width: 640px) {
+  .es .cx-r.withthumb { grid-template-columns: 100px 1fr; }
+  .es .work-thumb { width: 100px; }
+}
 
 /* Long values (URLs, addresses) wrap inside their box instead of spilling out. */
 .cx-r > * { min-width: 0; overflow-wrap: anywhere; }
