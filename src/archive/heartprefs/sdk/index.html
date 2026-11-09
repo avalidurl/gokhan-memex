@@ -1,0 +1,93 @@
+<p><strong>Author, sign, verify, validate, and match <a href="https://github.com/gokhan-vc/heartprefs/blob/main/README.md">HeartPrefs</a> v0.1
+matching-intent documents.</strong> TypeScript, Apache-2.0.</p>
+<p>A HeartPrefs is one signed JSON object — who someone is (<code>self</code>), who/what they
+seek (<code>seek</code>), free text (<code>free</code>) — portable across venues and verifiable by
+anyone. This SDK is the reference implementation of the <em>one rule</em>: <strong>EIP-191
+<code>personal_sign</code> over the RFC-8785 (JCS) canonicalization of the document with
+<code>proof.signature</code> removed.</strong></p>
+<h2>Install</h2>
+<pre><code>npm install @heartprefs/sdk viem
+</code></pre>
+<p><code>viem</code> is a peer-level runtime dependency (used for signing + signer recovery).</p>
+<h2>Use</h2>
+<pre><code>import { buildDoc, signDoc, verifyDoc, validate, matches, didPkhFromAddress } from "@heartprefs/sdk";
+import { privateKeyToAccount } from "viem/accounts";
+const account = privateKeyToAccount(process.env.AGENT_PRIVATE_KEY as `0x${string}`);
+const subject = didPkhFromAddress(account.address, 8453); // Base
+const doc = buildDoc({
+  id: `urn:heartprefs:${crypto.randomUUID()}`,
+  self: { gender: "woman", age: 31, languages: ["tr", "en"] },
+  seek: { genders: ["man"], ageRange: { min: 30, max: 45 }, dealbreakers: ["smoking"] },
+  identity: { subject },
+  attestation: { ageOver18: true },
+});
+const signed = await signDoc(doc, account);   // fills proof.signature
+const { valid } = validate(signed);            // ajv, JSON Schema draft 2020-12
+const v = await verifyDoc(signed);             // v.recovered === account.address
+</code></pre>
+<p>A full copy-paste agent walkthrough is in <a href="https://github.com/gokhan-vc/heartprefs/blob/main/sdk/SKILL.md"><code>SKILL.md</code></a>.</p>
+<h2>API</h2>
+<table>
+<thead>
+<tr>
+<th>Export</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>buildDoc(input)</code></td>
+<td>assemble a v0.1 doc (<code>self</code>/<code>seek</code>/<code>free</code> + identity + unsigned proof scaffold)</td>
+</tr>
+<tr>
+<td><code>signDoc(doc, privateKeyOrViemAccount)</code></td>
+<td>EIP-191 over JCS(doc − <code>proof.signature</code>); fills <code>proof</code></td>
+</tr>
+<tr>
+<td><code>verifyDoc(doc)</code></td>
+<td>re-canonicalize, recover signer, assert == <code>identity.subject</code> → <code>{ valid, recovered, subject, reason? }</code></td>
+</tr>
+<tr>
+<td><code>recoverSigner(doc)</code></td>
+<td>recovered address; throws if it doesn't equal the subject</td>
+</tr>
+<tr>
+<td><code>validate(doc)</code></td>
+<td>ajv against the frozen schema → <code>{ valid, errors }</code></td>
+</tr>
+<tr>
+<td><code>matches(a, b)</code></td>
+<td>bilateral seek/dealbreaker check → <code>{ match, reasons }</code></td>
+</tr>
+<tr>
+<td><code>publicProjection(doc)</code></td>
+<td>strip the gated keys (<code>free.desire</code>, <code>free.boundaries</code>)</td>
+</tr>
+<tr>
+<td><code>canonicalForSigning(doc)</code></td>
+<td>the exact JCS bytes that get signed (escape hatch)</td>
+</tr>
+<tr>
+<td><code>didPkhFromAddress</code> / <code>addressFromDidPkh</code></td>
+<td><code>did:pkh:eip155</code> ⇄ EVM address</td>
+</tr>
+</tbody>
+</table>
+<h3>Matching semantics</h3>
+<p>A match is <strong>mutual</strong> (SPEC §6): <code>a.seek</code> is checked against <code>b.self</code> <strong>and</strong>
+<code>b.seek</code> against <code>a.self</code>. <strong>Dealbreakers are hard and ANDed</strong> — if any of one
+side's <code>seek.dealbreakers</code> appears in the other's document, there is no match.
+<code>genders</code>, <code>ageRange</code>, and non-empty <code>languages</code> / <code>ethnicities</code> are hard
+filters. Free text feeds ranking, not eligibility, and is not consulted here.</p>
+<h2>Develop</h2>
+<pre><code>npm install
+npm run typecheck   # tsc --noEmit
+npm test            # vitest
+npm run build       # tsup -&gt; dist (ESM + CJS + .d.ts)
+</code></pre>
+<p>The schema in <code>src/heartprefs.schema.json</code> is a byte-identical copy of the
+canonical <a href="https://github.com/gokhan-vc/heartprefs/blob/main/spec/0.1/heartprefs.schema.json"><code>spec/0.1/heartprefs.schema.json</code></a>,
+inlined so the package validates standalone. The spec is the source of truth.</p>
+<h2>License</h2>
+<p><strong>Apache-2.0</strong> (see <a href="https://github.com/gokhan-vc/heartprefs/blob/main/sdk/LICENSE"><code>LICENSE</code></a>). The HeartPrefs vocabulary, schema,
+and spec are <strong>CC-BY-4.0</strong> — attribute "HeartPrefs (Atelier Gökhan / Numetal)".</p>

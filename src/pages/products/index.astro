@@ -1,50 +1,57 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import { topLevel, products, journalProducts, drafts, tools } from '@/data/estate'
+import Tags from '@/components/Tags.astro'
+import { topLevel, products, journalProducts, drafts, tools, TAXONOMY } from '@/data/estate'
 
 const current = topLevel('current')
-const archived = topLevel('archived')
-const families = [...new Set(archived.map((p) => p.family))]
+const studio = topLevel('former')
+const families = [...new Set(studio.map((p) => p.family))]
+const famSlug = (f: string) => f.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, '-')
 const subs = (slug: string) => products.filter((p) => p.slug.startsWith(`${slug}/`))
 ---
 
 <BaseLayout
   title="Products"
-  description="Products: the ones running now, and the archive of Numetal, Gökhan Ventures and their products. Each has its own page."
+  description="Products: the ones running now, and Numetal, Gökhan Ventures and their products. Each has its own page, tagged."
 >
   <div class="es">
-    <div class="meta">Product register · current and archived</div>
+    <div class="meta">Product register · by family · <a href="/archive/tags/">all tags</a></div>
     <div class="dither"></div>
 
     <div class="intro">
       <h1>Products</h1>
       <p class="lead">
-        What runs now, and what is archived. Every product has its own page here. Drafts and
-        experiments are on <a href="/product-drafts/">Product drafts</a>; private tools are on
-        <a href="/tools/">Tools</a>.
+        Every product has its own page here, with its site, docs and data. Tags open a shared page
+        with the products, posts, drafts and APIs that carry them. Drafts and experiments are on
+        <a href="/product-drafts/">Product drafts</a>; private tools are on <a href="/tools/">Tools</a>.
+      </p>
+      <p class="tagline">
+        <a class="tg" href="#current">Current</a>
+        {families.map((f) => <a class="tg" href={`#${famSlug(f)}`}>{f}</a>)}
       </p>
     </div>
 
     <h2 class="sec" id="current">Current</h2>
-    <div class="grid">
-      {current.map((p, i) => (
-        <a class="cell" href={`/${p.slug}/`}>
-          <div class="k">{String(i + 1).padStart(2, '0')} · {p.tags.slice(0, 2).join(' · ')}</div>
-          <div class="v">{p.name}<small>{p.line}</small></div>
-        </a>
+    <section class="cx" aria-label="Current">
+      <div class="cx-h"><b>Current</b><span>running now</span><em>{String(current.length).padStart(2, '0')}</em></div>
+      {current.map((p) => (
+        <div class="cx-r">
+          <span>{p.former ?? p.family}</span>
+          <span><a class="nm" href={`/${p.slug}/`}>{p.name}</a> — {p.line}<br /><Tags tags={p.tags} /></span>
+        </div>
       ))}
-    </div>
+    </section>
 
-    <h2 class="sec" id="archived">Archived</h2>
+    <h2 class="sec" id="studio">Numetal &amp; Gökhan Ventures</h2>
     <p class="body">
-      Numetal, Gökhan Ventures and their products. Each page records what the product was, where it
-      lived and what ran there. Former addresses are shown as plain text.
+      The studio and lab, and the products built under them. Each page carries the product's own
+      site: its copy, docs, decks, legal pages and a data snapshot where the live feed is gone.
     </p>
     {families.map((fam) => {
-      const list = archived.filter((p) => p.family === fam)
+      const list = studio.filter((p) => p.family === fam)
       return (
-        <section class="cx arch" aria-label={fam}>
-          <div class="cx-h"><b>{fam}</b><span>archived</span><em>{String(list.length).padStart(2, '0')}</em></div>
+        <section class="cx" aria-label={fam} id={famSlug(fam)}>
+          <div class="cx-h"><b>{fam}</b><span>{TAXONOMY[famSlug(fam)] ? <a class="tg" href={`/archive/tags/${famSlug(fam)}/`}>tag page</a> : 'family'}</span><em>{String(list.length).padStart(2, '0')}</em></div>
           {list.map((p) => (
             <div class="cx-r">
               <span>{p.former ?? 'no host'}</span>
@@ -53,6 +60,7 @@ const subs = (slug: string) => products.filter((p) => p.slug.startsWith(`${slug}
                 {subs(p.slug).length > 0 && (
                   <><br /><i>also: {subs(p.slug).map((c, j) => (<>{j > 0 && ' · '}<a href={`/${c.slug}/`}>{c.name}</a></>))}</i></>
                 )}
+                <br /><Tags tags={p.tags} />
               </span>
             </div>
           ))}

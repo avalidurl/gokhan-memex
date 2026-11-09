@@ -1,58 +1,34 @@
 ---
-import { getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import { humanizeKebab } from '@/lib/utils'
+import { tagIndex, total } from '@/lib/tags'
 
-// Get all published blog posts
-const allPosts = (await getCollection('blog'))
-  .filter(post => !post.data.draft)
-
-// Extract tags and their counts
-const tagMap = new Map<string, number>()
-allPosts.forEach(post => {
-  post.data.tags?.forEach(tag => {
-    tagMap.set(tag, (tagMap.get(tag) ?? 0) + 1)
-  })
-})
-
-// Sort tags by count (descending)
-const sortedTags = Array.from(tagMap.entries()).sort((a, b) => b[1] - a[1])
+const idx = [...(await tagIndex()).values()]
+const groups = [
+  ['family', 'Family'], ['domain', 'Domain'], ['kind', 'Kind'], ['chain', 'Chain'], ['rail', 'Payment rail'],
+] as const
+const other = idx.filter((b) => !b.def).sort((a, b) => total(b) - total(a))
 ---
 
-<BaseLayout
-  title="All Tags"
-  description={`Browse all ${sortedTags.length} tags`}
-  robots="noindex, follow"
->
-  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
-    <!-- Header -->
-    <header class="mb-12">
-      <h1 class="mb-4">Tags</h1>
-      <p class="text-muted-foreground">
-        {sortedTags.length} tags across {allPosts.length} posts
-      </p>
-    </header>
-
-    <div class="flex flex-wrap gap-2">
-      {sortedTags.map(([tag, count]) => (
-        <a 
-          href={`/archive/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
-          class="text-sm text-muted-foreground hover:text-foreground"
-        >
-          {humanizeKebab(tag)} <span class="text-xs opacity-60">({count})</span>
-        </a>
-      ))}
+<BaseLayout title="Tags" description={`All ${idx.length} tags across products, journal posts, drafts, tools and APIs.`} robots="noindex, follow">
+  <div class="es">
+    <p class="crumb"><a href="/archive/">Archive</a> / Tags</p>
+    <div class="intro">
+      <h1>Tags</h1>
+      <p class="lead">One set of tags for the whole site. Each opens a page with its products, posts, drafts, tools and APIs.</p>
     </div>
-
-    <!-- Navigation -->
-    <footer class="mt-12 pt-8 border-t border-border">
-      <a 
-        href="/archive"
-        class="text-sm text-muted-foreground hover:text-foreground"
-      >
-        ← Back to Archive
-      </a>
-    </footer>
+    <div class="dither"></div>
+    {groups.map(([g, label]) => {
+      const list = idx.filter((b) => b.def?.group === g).sort((a, b) => total(b) - total(a))
+      return list.length > 0 && (
+        <section class="cx" aria-label={label}>
+          <div class="cx-h"><b>{label}</b><em>{String(list.length).padStart(2, '0')}</em></div>
+          <div class="cx-b">{list.map((b) => <a class="tg" href={`/archive/tags/${b.slug}/`}>{b.label} · {total(b)}</a>)}</div>
+        </section>
+      )
+    })}
+    <section class="cx" aria-label="Journal tags">
+      <div class="cx-h"><b>Journal tags</b><em>{String(other.length).padStart(2, '0')}</em></div>
+      <div class="cx-b">{other.map((b) => <a class="tg" href={`/archive/tags/${b.slug}/`}>{b.label} · {total(b)}</a>)}</div>
+    </section>
   </div>
 </BaseLayout>
-

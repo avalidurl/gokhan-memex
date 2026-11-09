@@ -1,0 +1,135 @@
+<p>
+      Telegram login mints an embedded EVM wallet (Privy) that can sign Clanker
+      and pools.fun. Official @wallet is TON and cannot. WalletConnect brings
+      MetaMask / Rainbow into the Mini App. Bankr Sign uses your Bankr user API
+      key, not this wallet.
+    </p>
+<p>no wallet · router never holds keys</p>
+<p>
+      This pad is on the matrix but has no proven deploy API. We will not fake a
+      transaction.
+    </p>
+<p class="ported-note">This form is closed. Fields are shown as they were.</p><fieldset>
+<label>Pad <select disabled=""></select></label>
+<label>Chain <select disabled=""></select></label>
+<label>Name <input disabled="" placeholder="PALMS"/></label>
+<label>Symbol <input disabled="" placeholder="PALMS"/></label>
+<label>Image URL <input disabled="" placeholder="ipfs://… or https://…"/></label>
+<label>Description <input disabled=""/></label>
+<label>X / Twitter URL <input disabled="" placeholder="https://x.com/…"/></label>
+<label>Website URL <input disabled="" placeholder="https://…"/></label>
+<label>Telegram URL <input disabled="" placeholder="https://t.me/…"/></label>
+<label>
+        Pair
+        <select disabled=""></select>
+</label>
+<label>Custom pair (0x…) <input disabled="" placeholder="0x…"/></label>
+<label>Creator (signer) <input disabled="" placeholder="0x… or connect"/></label>
+<label>Fee recipient <input disabled="" placeholder="defaults to signer"/></label>
+<label>
+        Bankr user API key
+        <input disabled="" placeholder="bk_usr_… from bankr.bot/api-keys — never a partner key, never stored" type="password"/>
+</label>
+<details>
+<summary>Advanced</summary>
+<p>Optional. Leave blank for pad defaults. Ignored fields warn on Simulate.</p>
+<fieldset>
+<legend>Fees</legend>
+<label>Launch mode
+            <select disabled="">
+<option value="">(pad default)</option>
+<option value="instant">instant</option>
+<option value="curve">curve</option>
+<option value="crowd">crowd</option>
+</select>
+</label>
+<label>Fee kind
+            <select disabled="">
+<option value="">(pad default)</option>
+<option value="static">static</option>
+<option value="dynamic">dynamic</option>
+</select>
+</label>
+<label>Fee preset
+            <select disabled="">
+<option value="">(pad default)</option>
+<option>StaticBasic</option>
+<option>DynamicBasic</option>
+<option>Dynamic3</option>
+</select>
+</label>
+<label>Swap fee % <input disabled="" placeholder="1 = 1%" type="number"/></label>
+<label>Token-side fee % <input disabled="" type="number"/></label>
+<label>Pair-side fee % <input disabled="" type="number"/></label>
+</fieldset>
+<fieldset>
+<legend>Pool / vault / buy</legend>
+<label>v4 positions
+            <select disabled="">
+<option value="">(pad default)</option>
+<option>Standard</option>
+<option>Project</option>
+<option>TwentyETH</option>
+</select>
+</label>
+<label>Start tick <input disabled="" placeholder="-230400" type="number"/></label>
+<label>Tick spacing <input disabled="" placeholder="200" type="number"/></label>
+<label>Vault % <input disabled="" type="number"/></label>
+<label>Vault lockup (days) <input disabled="" type="number"/></label>
+<label>Vault vest (days) <input disabled="" type="number"/></label>
+<label>Vault recipient <input disabled=""/></label>
+<label>Sniper start fee % <input disabled="" placeholder="66.68" type="number"/></label>
+<label>Sniper end fee % <input disabled="" placeholder="4.17" type="number"/></label>
+<label>Sniper decay (sec) <input disabled="" placeholder="15" type="number"/></label>
+<label>Dev buy (ETH) <input disabled="" type="number"/></label>
+<label>Dev buy recipient <input disabled=""/></label>
+<label>Creator reward % <input disabled="" placeholder="100" type="number"/></label>
+<label>Interface admin <input disabled=""/></label>
+<label>Reward recipient <input disabled="" placeholder="0x… extra split"/></label>
+<label>That recipient % <input disabled="" type="number"/></label>
+<label>Presale % <input disabled="" type="number"/></label>
+<label><input disabled="" type="checkbox"/> Vanity address (0x…b07)</label>
+</fieldset>
+<fieldset>
+<legend>Admin / airdrop / extra URLs</legend>
+<label>Token admin <input disabled="" placeholder="defaults to signer"/></label>
+<label>Metadata URI <input disabled=""/></label>
+<label>Audit URL <input disabled="" placeholder="https://…"/></label>
+<label>Airdrop merkle root <input disabled="" placeholder="0x…"/></label>
+<label>Airdrop amount <input disabled="" type="number"/></label>
+<label>Airdrop lockup (days) <input disabled="" type="number"/></label>
+<label>Airdrop vest (days) <input disabled="" type="number"/></label>
+<label>Airdrop admin <input disabled=""/></label>
+<label>Locker <input disabled="" placeholder="Locker or 0x…"/></label>
+<label>Locker data <input disabled="" placeholder="0x"/></label>
+<label>Pool extension address <input disabled="" placeholder="0x…"/></label>
+<label>Pool extension init data <input disabled="" placeholder="0x"/></label>
+<label>Context interface <input disabled="" placeholder="numetal-launch-router"/></label>
+<label>Context platform <input disabled="" placeholder="telegram"/></label>
+</fieldset>
+<fieldset>
+<legend>pools.fun</legend>
+<label>Start tick quote <input disabled="" placeholder="leave blank = live startTickFor" type="number"/></label>
+<label>Deadline (unix) <input disabled="" type="number"/></label>
+</fieldset>
+<details>
+<summary>Raw JSON (optional)</summary>
+<p>Only if you already have a blob. Everyone else can ignore this.</p>
+<label>Custom fees JSON <textarea disabled=""></textarea></label>
+<label>Custom v4 positions JSON <textarea disabled=""></textarea></label>
+<label>Rewards recipients JSON <textarea disabled=""></textarea></label>
+<label>Airdrop JSON <textarea disabled=""></textarea></label>
+<label>Socials JSON <textarea disabled=""></textarea></label>
+</details>
+</details>
+</fieldset>
+<p>
+      The JSON below is the pad payload your wallet signs — the same object
+      agents get from get_sign_payload. Not a public REST argument.
+    </p>
+<p>
+      Simulate to see it. Clanker → SDK deploy config. Bankr → POST
+      /token-launches/deploy (simulate, then your user key). pools.fun →
+      PartyFactory.launch tx your wallet sends.
+    </p>
+<pre></pre>

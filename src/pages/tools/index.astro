@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import { tools } from '@/data/estate'
+import Tags from '@/components/Tags.astro'
+import { tools, toolTags } from '@/data/estate'
 
 const groups = ['personal', 'estate-admin', 'research'] as const
 const reader = tools.find((t) => t.url)!
@@ -34,7 +35,7 @@ const reader = tools.find((t) => t.url)!
       return list.length > 0 && (
         <section class="cx tools" aria-label={g}>
           <div class="cx-h"><b>{g}</b><em>{String(list.length).padStart(2, '0')}</em></div>
-          {list.map((t, i) => <div class="cx-r"><span>{String(i + 1).padStart(2, '0')}</span><span>{t.name}</span></div>)}
+          {list.map((t, i) => <div class="cx-r"><span>{String(i + 1).padStart(2, '0')}</span><span>{t.name} <Tags tags={toolTags[t.name] ?? []} /></span></div>)}
         </section>
       )
     })}

@@ -1,0 +1,82 @@
+<div> <div>Preview · MVP under construction · Public roadmap and docs.</div> </div><div> <article> <p>Devlog · 2026-05-23</p>   <p>The risk-underwriting token finally has a public surface. The page is
+live at <a href="/agentbounty/staking/">/staking</a> and linked from the top nav. It is a draft
+design board, not a launch post — every number on it is provisional
+and the token name is still held back behind CSS censor bars until launch.</p>
+<h2>What landed<a href="#what-landed">#</a></h2>
+<ul>
+<li><strong><code>/staking</code> route on the main site</strong>, wired into the primary nav
+between <code>Token</code> and <code>Plates</code>. Built with <code>BaseLayout</code> so the site
+header, footer, theme toggle, and design tokens come for free.</li>
+<li><strong>Snapshot countdown</strong> ticking down to <strong>2026-05-31 · 00:00 UTC</strong>.
+Renders in days / hours / minutes / seconds; collapses to a single
+column under 640px; switches to “Snapshot block has landed” once the
+target is reached.</li>
+<li><strong>Tiered yield access on the same snapshot block.</strong> Bench (≥ 3B BOUNTY)
+opens at T+0. Gallery (1B – 2.999B BOUNTY) opens at T+3h. The airdrop
+itself is immediate at TGE for both tiers; only the underwriting-pool
+door opens at different hours.</li>
+<li><strong>Working distribution table.</strong> 100M cap. ERC20 capped, immutable
+token contract, no mint after deploy. <strong>No cliffs anywhere</strong> —
+everything either unlocks at TGE or vests linearly from block one.
+Working split is 30/10/15/10/15/10/10 across airdrop, ecosystem
+airdrops, community emissions, protocol-owned liquidity, treasury,
+team (12-month linear, zero cliff), and reserve.</li>
+<li><strong>Self-selected lock mechanic.</strong> Minimum 6 hours, maximum unbounded.
+Linear multiplier curve 1.0× at 6h → 4.0× at 365d; locks longer than
+a year do not yield additional multiplier. Stake accepted in either
+BOUNTY or USDC; same curve applies.</li>
+<li><strong>Team operating fee split.</strong> 60% of protocol fees route to stakers,
+25% to the team multisig in the bounty’s own currency (so cash flow
+is independent of token price), 15% to treasury. The team token
+allocation exists for governance alignment, not for paying rent.</li>
+<li><strong>Friendly communities, growing.</strong> Aeon Framework (Bankr ecosystem),
+MiroShark, gitlawb, Surplus are on the page today. Holding any listed
+community token above threshold adds +0.25× to the airdrop multiplier,
+stackable up to a 2.0× cap. The list will grow before snapshot.</li>
+<li><strong>Architecture diagram</strong> drawn in Mermaid, rendered client-side from
+CDN, theme-aware (neutral in light mode, dark in dark mode).</li>
+<li><strong>Hero illustration:</strong> a 13th-century manuscript illumination of a
+cautio pledge ceremony — red-robed magistrate on a Gothic trefoil
+throne, green-robed kneeling pledgor, tonsured blue-robed scribe —
+with anachronistic reliquary-server-rack cabinets glowing with
+rose-window LED indicators behind the parties. Generated via the
+Black Forest Labs Flux API at 1440×960, after explicit reference to
+the Decretals of Gregory IX (ca. 1260).</li>
+<li><strong>Responsive image pipeline.</strong> ImageMagick produced WebP and PNG
+variants at 480 / 720 / 1080 / 1440 widths. Served as a <code>&lt;picture&gt;</code>
+element with both formats and explicit <code>sizes</code>. Mobile transfer for
+the hero drops from ~3 MB (original PNG) to <strong>~40 KB</strong> (480w WebP).
+Cloudflare Pages serves the assets from edge with correct
+content-type per format.</li>
+<li><strong>A standing banner at the top of the page</strong> reads
+<em>DRAFT · SNAPSHOT IN 7 DAYS · ALL NUMBERS SUBJECT TO CHANGE</em>. Every
+H2 with provisional numbers carries a <code>subject to change</code> chip.</li>
+<li><strong>A “Daily design updates” promise.</strong> Numbers and friendly
+communities will be edited in place every working day until snapshot.
+No social-only updates; the page is the source of truth.</li>
+</ul>
+<h2>What is deliberately undefined<a href="#what-is-deliberately-undefined">#</a></h2>
+<ul>
+<li><strong>Token name and ticker.</strong> Held back behind CSS censor bars until
+launch. The name is in DOM for accessibility, sed-swap simplicity,
+and the eventual reveal, but visually it is a solid ink-coloured
+block everywhere it appears.</li>
+<li><strong>Slashing mechanics.</strong> Trigger conditions, dispute window, and
+quorum are not on the page. They will publish in v0.2 of the
+underwriting design — not under launch pressure.</li>
+<li><strong>Audit firm and date.</strong> Contracts will be audited before mainnet.
+No firm or window is being committed to.</li>
+<li><strong>TGE date.</strong> Snapshot is in 7 days; launch may take longer. Updated
+timing will publish on <code>/staking</code>, not on social.</li>
+</ul>
+<h2>What ships next<a href="#what-ships-next">#</a></h2>
+<ul>
+<li>Daily edits on <code>/staking</code> as the friendly-communities list grows and
+numbers are tuned through mechanism design.</li>
+<li>v0.2 of the slashing design once the verdict-failure modes are fully
+enumerated.</li>
+<li>A separate post when the token name is unredacted.</li>
+</ul>
+<p>The page deliberately makes the design process auditable in public. If
+a number on <code>/staking</code> changes between morning and evening, the morning
+version is wrong by definition. Bookmark, refresh, watch the countdown.</p>  </article> </div>

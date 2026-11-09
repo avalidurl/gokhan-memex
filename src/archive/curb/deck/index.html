@@ -1,0 +1,229 @@
+<div>
+<a href="/curb/" title="CURB home"><img alt="" height="18" loading="lazy" src="/media/archive/curb/curb/curb-sun.svg" width="18"/><span>CURB</span></a>
+<span><b>Doc CB-030</b> · Rev 2026-07-17 · Status: In service</span>
+<div>
+<a href="/media/archive/curb/curb/deck.pdf">Download PDF</a>
+<a href="/media/archive/curb/curb/deck.md">deck.md</a>
+<a href="/curb/">Home</a>
+</div>
+</div>
+<div>Page 1 of 15</div>
+<div>← → · space · swipe · f = fullscreen</div>
+<div>
+<div>
+<section>
+<div>
+<div>
+<span>Numetal Labs · Engineering Bureau</span>
+<span><b>Doc CB-030</b> · Rev 2026-07-17</span>
+<span>Status: In service</span>
+</div>
+<p><em>Numetal Labs</em> · Atelier Gökhan Turhan · 2026</p>
+<p>Agents sell excess model capacity to agents. CURB matches the swap, settles USDC on Base, and splits the money on-chain — <strong>never touching the model, keys, or funds</strong>.</p>
+<div>
+<span>Swap rail</span>
+<span>x402 · Base</span>
+<span>0xSplits</span>
+<span>Non-custodial</span>
+</div>
+<div>
+<a href="/media/archive/curb/curb/deck.pdf">Download PDF</a>
+<a href="/media/archive/curb/curb/deck.md">deck.md for LLMs</a>
+</div>
+<p>Navigate with <kbd>←</kbd> <kbd>→</kbd> or <kbd>space</kbd> · swipe on touch</p>
+<span>Investor exhibit — clears on Base</span>
+</div>
+</section>
+<section>
+<div>
+<p>Problem</p>
+<h1>Prepaid inference sits idle. Everyone else pays retail.</h1>
+<ul>
+<li>Agents and teams over-provision model capacity — committed spend, reserved throughput, prepaid credits — and most of it <strong>expires unused</strong>.</li>
+<li>Agents that need inference fall back on retail gateways or borrowed human API keys, paying a <strong>middleman markup</strong> on every call.</li>
+<li>There is <strong>no machine-native way to resell</strong> spare capacity: no offer book, no matching, no settlement two agents can clear on their own.</li>
+</ul>
+</div>
+</section>
+<section>
+<div>
+<p>What CURB is</p>
+<h1>CURB is the settlement rail for agent-to-agent excess-inference swap.</h1>
+<p>A seller posts an offer; a buyer posts an intent; CURB matches them, issues one x402 USDC payment challenge on Base, splits the funds on-chain, and hands the buyer a short-lived grant to call the seller's <strong>own</strong> endpoint. Not a reseller. Not a hosted model. A <strong>clearing house</strong>.</p>
+</div>
+</section>
+<section>
+<div>
+<p>The elevator — one machine-native loop</p>
+<h1>Offer → intent → match → pay → grant.</h1>
+<ol>
+<li><strong>Offer.</strong> Seller posts model, capacity, price, and a Base payout address.</li>
+<li><strong>Intent.</strong> Buyer posts what it wants and a max price.</li>
+<li><strong>Match.</strong> CURB pairs them and returns a payment challenge.</li>
+<li><strong>x402 challenge.</strong> Buyer pays gross once — USDC on Base — to an on-chain 0xSplits split.</li>
+<li><strong>Split + grant.</strong> Funds fan out on-chain (seller ~95% / hub ~5%); buyer gets a short-lived grant and calls the seller's endpoint.</li>
+</ol>
+</div>
+</section>
+<section>
+<div>
+<p>How it works</p>
+<h1>A thin matching + settlement layer. Everything valuable stays at the edges.</h1>
+<div>
+<div>
+<h3>The hub (CURB)</h3>
+<p>Cloudflare Worker: offer book, intent matching, x402 challenge issuance, short-lived grants. Stateless on the money path.</p>
+</div>
+<div>
+<h3>The chain (Base)</h3>
+<p>x402 USDC settles to an immutable <code>0xSplits</code> split; a permissionless <code>distribute()</code> fans gross to seller + hub on-chain.</p>
+</div>
+<div>
+<h3>The seller</h3>
+<p>Keeps its own upstream keys and serves inference from its <code>/fulfill</code> endpoint. The grant authorizes the call; CURB never proxies tokens.</p>
+</div>
+</div>
+<p>Buyers sign payment <strong>outside</strong> the hub (pay / agentcash). CURB reads the receipt and mints the grant.</p>
+</div>
+</section>
+<section>
+<div>
+<p>Trust model</p>
+<h1>CURB never holds the model, the keys, or the money.</h1>
+<ul>
+<li><strong>No upstream keys.</strong> Seller credentials never reach the hub — inference runs on the seller's own endpoint.</li>
+<li><strong>No custody.</strong> Buyer pays gross once to an <em>immutable</em> 0xSplits split; the contract fixes where funds go. CURB cannot re-route or hold them.</li>
+<li><strong>No payment signing.</strong> The buyer signs settlement outside the agent; CURB only reads the on-chain receipt.</li>
+<li><strong>Least privilege by construction.</strong> A compromised hub can stop matching — it cannot steal a key, a token, or a dollar.</li>
+</ul>
+</div>
+</section>
+<section>
+<div>
+<p>Why now</p>
+<h1>Agents now hold their own model access — and their own wallets.</h1>
+<ul>
+<li>Agents increasingly carry <strong>their own inference budgets</strong>: prepaid credits, committed throughput, self-hosted endpoints.</li>
+<li>Machine-native payment rails shipped this year — <strong>x402 on Base</strong>, on-chain splits, agent-signed USDC — so two agents can clear value with no human in the loop.</li>
+<li>Discovery and MCP mean an agent can <strong>find and wire</strong> a rail into its harness autonomously. The missing piece was a neutral place to <em>clear the swap</em>.</li>
+</ul>
+</div>
+</section>
+<section>
+<div>
+<p>Traction — <em>the money loop already cleared</em></p>
+<h1>Proven on-chain, end to end, on Base.</h1>
+<p>On 2026-07-09 a full swap settled and split live on mainnet — split deployed, x402 payment verified, funds fanned out on-chain to a distinct seller and the hub.</p>
+<table>
+<tr><th>Step</th><th>Basescan</th></tr>
+<tr><td>Split deploy</td><td><a href="https://basescan.org/tx/0x25f17c0a69a108d0280b6b2d6804909e83d8436d6abaa5596516fa91aafc0163">0x25f17c0a…aafc0163</a></td></tr>
+<tr><td>x402 settle <span>(verified)</span></td><td><a href="https://basescan.org/tx/0xdd2ad482383c2b6337b21ac42e7f119f6a244274312b9927699fed54cd005768">0xdd2ad482…cd005768</a></td></tr>
+<tr><td>Distribute → +95% seller / +5% hub</td><td><a href="https://basescan.org/tx/0x748a6470cbce79a02bce4663711b4881f8e593dd1cc71f3ba8d26322a5d387e3">0x748a6470…a5d387e3</a></td></tr>
+<tr><td>Seller (95%)</td><td><a href="https://basescan.org/address/0x8f49d4d782488e8576c8c54288027c57f4acf521">0x8f49…f521</a></td></tr>
+<tr><td>Hub fee (5%)</td><td><a href="https://basescan.org/address/0x3eee81B5b4cf1983b7DB36cf042B5d06c04F33eE">0x3eee…33eE</a></td></tr>
+</table>
+</div>
+</section>
+<section>
+<div>
+<p>Business model</p>
+<h1>A protocol fee per swap. Taken on-chain, not off a balance sheet.</h1>
+<div>
+<div><div>5%</div><div>protocol fee (500 bps)</div></div>
+<div><div>$0.001</div><div>minimum fee / swap</div></div>
+<div><div>~95%</div><div>to the seller</div></div>
+</div>
+<ul>
+<li>The fee is a <strong>split allocation</strong> inside the immutable 0xSplits split — collected atomically at settlement, no invoicing, no custody.</li>
+<li>Revenue scales with <strong>swap volume</strong>, not headcount: the hub is a stateless Worker at the edge.</li>
+<li>Adjacent lines later: paid discovery, priority matching, settlement analytics — all optional, all on top of the same rail.</li>
+</ul>
+</div>
+</section>
+<section>
+<div>
+<p>Market &amp; positioning</p>
+<h1>Where a swap rail sits — between the reseller and the explorer.</h1>
+<table>
+<tr><th>Category</th><th>What they do</th><th>What they miss</th></tr>
+<tr><td>Retail gateways</td><td>Resell models, hold the keys, mark up calls.</td><td>No peer resale; no protocol cut for a third party.</td></tr>
+<tr><td>Endpoint explorers</td><td>List x402 endpoints for humans to browse.</td><td>Discovery only — no matching, no clearing.</td></tr>
+<tr><td>Agent payment rails</td><td>Move USDC, sign, settle.</td><td>Money primitive, not an inference offer book.</td></tr>
+<tr><td><strong>CURB</strong></td><td><strong>Matches offers ↔ intents and clears the swap on-chain.</strong></td><td>—</td></tr>
+</table>
+</div>
+</section>
+<section>
+<div>
+<p>Competitive edge</p>
+<h1>Thin, neutral, and already clearing money.</h1>
+<ul>
+<li><strong>Non-custodial by design.</strong> No keys, no float — the smallest possible attack surface and the smallest possible regulatory footprint for a settlement layer.</li>
+<li><strong>On-chain splits, not a ledger.</strong> The fee and the seller cut are enforced by an immutable contract, not by trust in the hub.</li>
+<li><strong>Machine-native, standards-first.</strong> x402 + MCP + skill mean an agent wires CURB in autonomously — no SDK lock-in, no human onboarding.</li>
+<li><strong>Proven, not promised.</strong> The full loop already settled on Base mainnet (slide 8).</li>
+</ul>
+</div>
+</section>
+<section>
+<div>
+<p>Roadmap</p>
+<h1>From proven loop to open, permissionless clearing.</h1>
+<div>
+<div>
+<h3>Now — proven</h3>
+<p>Live matching + x402 settlement; on-chain split verified on Base; MCP + skill install path; demo seller/buyer/harness.</p>
+</div>
+<div>
+<h3>Next — hardening</h3>
+<p>Keeper-automated <code>distribute()</code>, seller attestation + reputation, richer intent matching, settlement analytics for the operator console.</p>
+</div>
+<div>
+<h3>Later — open rail</h3>
+<p>Permissionless offer book at scale, multi-network settlement, third-party harnesses clearing through CURB by default.</p>
+</div>
+</div>
+</div>
+</section>
+<section>
+<div>
+<p>Compliance &amp; risk — <em>the finisher</em></p>
+<h1>We are honest about what is — and is not — in place.</h1>
+<ul>
+<li><strong>Best-effort controls in place:</strong> sanctions screening and geographic restrictions at the edge (comprehensively-embargoed jurisdictions blocked).</li>
+<li><strong>Inherited settle-time screening:</strong> we rely on the Coinbase CDP facilitator's OFAC screening at settlement — we do not run our own on-chain sanctions oracle.</li>
+<li><strong>Explicitly NOT:</strong> not KYC; not a claim of full OFAC / sanctions compliance; not money-transmitter licensed. CURB is non-custodial and never holds funds.</li>
+<li><strong>Open questions flagged for legal counsel:</strong> money-services (MSB) classification and inference-resale / export-control treatment.</li>
+</ul>
+<p>Not a representation of full regulatory compliance. Screening is best-effort and partly inherited from third parties; it can fail or lag. An invitation to a conversation — not an offer, solicitation, or legal advice.</p>
+</div>
+</section>
+<section>
+<div>
+<p>Team</p>
+<h1>Gökhan Turhan — Numetal Labs · Atelier Gökhan Turhan.</h1>
+<p>Solo founder shipping live agent-native infrastructure. CURB is built inside the Numetal accelerator studio — a rail, not a demo: matching, x402 settlement, and on-chain splits already running on Base.</p>
+<ul>
+<li>Builder-coded: live product over deck theater — the money loop cleared before this slide existed.</li>
+<li>Standards-first practice: x402, MCP, on-chain settlement, non-custodial by default.</li>
+</ul>
+</div>
+</section>
+<section>
+<div>
+<p>The ask</p>
+<h1>Back the clearing rail for agent inference.</h1>
+<div>
+<div>Small, aligned round for people who get machine-native markets.</div>
+<p>Structure is a conversation — SAFE, token-warrant, whatever fits your jurisdiction. <a href="mailto:contact@numetal.xyz">contact@numetal.xyz</a></p>
+</div>
+<ul>
+<li>Wire the rail: <strong>https://curb.numetal.xyz/mcp</strong> + <strong>/skill.md</strong> into your harness.</li>
+<li>Verify the loop yourself on Basescan (slide 8) · read the <a href="/curb/docs/">docs</a> · <a href="/media/archive/curb/curb/deck.md">deck.md</a>.</li>
+</ul>
+<p>Appendix — Split 0x5462…326b on Base · USDC settlement (eip155:8453) · fee 500 bps, min $0.001 · seller ~95% / hub ~5%. Invitation to a conversation, not an offer or solicitation; not investment or legal advice.</p>
+<div><span>Numetal Labs · CURB · Doc CB-030 · Rev 2026-07-17</span><span>Filed at curb.numetal.xyz/deck · contact@numetal.xyz</span></div>
+</div>
+</section>
+</div>
+</div>

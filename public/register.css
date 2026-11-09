@@ -389,7 +389,7 @@ html.ink { --cx-bg: #1b1b1a; }
 .cx.draft .cx-h { border-bottom-style: dashed; }
 .cx.draft .cx-h b { background: transparent; color: var(--ink); border-right: 1px dashed var(--ink); }
 .cx.tools .cx-h b::after { content: " · access"; opacity: .75; }
-.cx .tg { display: inline-block; font: 10.5px/1.5 var(--mono); border: 1px solid var(--ink); padding: 0 4px; margin: 0 3px 2px 0; color: var(--ink); text-transform: lowercase; }
+.tg { display: inline-block; font: 10.5px/1.5 var(--mono); border: 1px solid var(--ink); padding: 0 4px; margin: 0 3px 2px 0; color: var(--ink); text-transform: lowercase; }
 .quad { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 12px 0; }
 .quad .cx { margin: 0; }
 .cx table { margin: 0; width: 100%; border: 0; }
@@ -425,3 +425,29 @@ html.ink { --cx-bg: #1b1b1a; }
 .es .file { max-width: 68ch; }
 .es .file :where(h1) { display: none; }
 @media (max-width: 640px) { .es { padding: 16px 20px 40px; } .es .grid { grid-template-columns: 1fr; } }
+body.register main a.tg, a.tg { color: var(--ink); text-decoration: none; }
+body.register main a.tg:hover, a.tg:hover { background: var(--ink); color: var(--paper); }
+body.register main a.tg[aria-current="true"], a.tg[aria-current="true"] { background: var(--ink); color: var(--paper); }
+.tg { text-transform: none; }
+/* Product pages: content column + side column */
+.es .tagline { margin: 12px 0 0; }
+.es .pgrid { display: grid; grid-template-columns: minmax(0, 1fr) 19rem; gap: 16px; align-items: start; }
+.es .pside .cx-r { grid-template-columns: 6.5rem 1fr; font-size: 13.5px; }
+.es .sitemap { display: flex; flex-direction: column; padding: 4px 0; max-height: 34rem; overflow: auto; }
+.es .sitemap a { font: 12.5px/1.35 var(--mono); padding: 4px 10px; color: var(--ink); text-decoration: none; border-top: 1px dotted var(--hair); }
+.es .sitemap a:first-child { border-top: 0; }
+.es .sitemap a:hover { color: var(--ikb); }
+.es .sitemap a[aria-current="page"] { background: var(--ink); color: var(--paper); }
+.es .ported { max-width: none; }
+.es .ported div { margin: .3em 0; }
+.es .ported div > span + span, .es .ported p > span + span { margin-left: 1ch; }
+.es .ported section { border-top: 1px dotted var(--ink); margin-top: 1rem; padding-top: .5rem; }
+.es .ported pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+.es .ported table { font-size: 14px; display: block; overflow-x: auto; }
+.es .ported fieldset { border: 1px dashed var(--ink); padding: 10px; margin: 10px 0; }
+.es .ported input, .es .ported textarea, .es .ported select, .es .ported button { font: 13px var(--mono); border: 1px solid var(--hair); background: var(--wash); color: var(--dim); padding: 4px 6px; margin: 2px 0; max-width: 100%; }
+.es .ported .ported-note { font: 12px var(--mono); border-left: 3px solid var(--ink); padding: 4px 8px; background: var(--wash); }
+.es .ported img { max-width: 100%; height: auto; }
+.es .snap-t { overflow-x: auto; }
+.es .snap-t table { font: 12px var(--mono); }
+@media (max-width: 900px) { .es .pgrid { grid-template-columns: 1fr; } }

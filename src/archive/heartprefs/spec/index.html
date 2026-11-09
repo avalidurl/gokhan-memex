@@ -1,0 +1,54 @@
+<blockquote>
+<p><strong>Status: DRAFT / experimental.</strong> Field names and bindings may change until v1.0. Every external rail this spec composes onto (x402, AP2, A2A, MCP, ERC-8004, VC cryptosuites) is itself draft or fast-moving — implementers MUST re-verify against first-party sources before depending on a specific field/path/ABI. See <a href="#9-versioning--stability">§9</a>.</p>
+</blockquote>
+<p>HeartPrefs is an <strong>open, portable, signed matching-intent document</strong>: a single JSON object that says who someone is, who and what they seek, and on what terms an agent may act for them — readable and actable by any agent at any venue.</p>
+<p>The only thing HeartPrefs <em>invents</em> is the <strong>matching vocabulary</strong> (<code>self</code> / <code>seek</code> / <code>free</code>). Everything that makes a document trustable, portable and payable is delegated to existing standards via four thin <strong>binding blocks</strong> (<code>identity</code>, <code>attestation</code>, <code>consent</code>, <code>payment</code>). The same canonical bytes are designed to ride an x402 response body, an <a href="https://a2a-protocol.org">A2A</a> Agent-Card extension, an <a href="https://modelcontextprotocol.io">MCP</a> resource, and an <a href="https://eips.ethereum.org/EIPS/eip-8004">ERC-8004</a> service entry without transformation.</p>
+<h2>1. Document shape</h2>
+<p>A HeartPrefs document is a JSON object validated by <a href="https://github.com/gokhan-vc/heartprefs/blob/main/spec/0.1/heartprefs.schema.json"><code>heartprefs.schema.json</code></a> (JSON Schema <strong>draft 2020-12</strong>). Required top-level members: <code>version</code>, <code>kind</code> (const <code>"heartprefs"</code>), <code>id</code>, <code>self</code>, <code>seek</code>, <code>free</code>, <code>identity</code>, <code>proof</code>. See <a href="https://github.com/gokhan-vc/heartprefs/blob/main/examples/minimal.json"><code>../../examples/minimal.json</code></a>.</p>
+<ul>
+<li><strong><code>self</code></strong> — <code>gender</code>, <code>age</code> (≥18), <code>ethnicity[]</code>, <code>kids</code>, <code>substances{}</code>, <code>languages[]</code>. <code>additionalProperties: false</code>.</li>
+<li><strong><code>seek</code></strong> — <code>genders[]</code>, <code>ageRange{min,max}</code>, <code>languages[]</code>, <code>ethnicities[]</code>, <code>dealbreakers[]</code>. <code>additionalProperties: false</code>.</li>
+<li><strong><code>free</code></strong> — <code>about</code>, <code>seeking</code>, <code>values</code>, <code>interests</code>, <code>logistics</code>, <code>desire</code>, <code>boundaries</code>. <code>desire</code> and <code>boundaries</code> are <strong>gated keys</strong> (see <a href="#5-public-vs-gated">§5</a>).</li>
+</ul>
+<h2>2. Identity binding (<code>identity</code> + <code>proof</code>)</h2>
+<p>The document is bound to a controller key and signed:</p>
+<ul>
+<li><code>identity.subject</code> is a <strong>DID</strong> — <code>did:pkh:eip155:&lt;chainId&gt;:&lt;address&gt;</code> for an EVM wallet, or <code>did:web:&lt;host&gt;</code> for a venue/issuer.</li>
+<li><code>proof</code> is a <strong>detached signature</strong> over the <strong>RFC 8785 (JCS)</strong> canonicalization of the document with <code>proof.signature</code> removed. v0.1 uses <code>proof.type = "EIP191"</code> (<code>personal_sign</code>); <code>proof.verificationMethod</code> MUST equal <code>identity.subject</code>.</li>
+<li><strong>Verification:</strong> re-canonicalize the document (JCS, <code>proof.signature</code> removed), recover the signer, and assert it equals the address in <code>identity.subject</code>. A document whose signature does not recover to its subject is invalid.</li>
+</ul>
+<blockquote>
+<p>Implementation note: JCS number/Unicode handling is the usual signature-mismatch bug. Confirm your serializer is JCS-exact on both ends.</p>
+</blockquote>
+<h2>3. Adulthood (<code>attestation</code>)</h2>
+<p>HeartPrefs carries <strong>proof of adulthood by selective disclosure — never a date of birth.</strong> <code>attestation.credential</code> is a W3C <strong>Verifiable Presentation</strong> (VC Data Model 2.0) that discloses only a boolean <code>ageOver18</code> predicate, issued by a venue/issuer DID (<code>did:web:…</code>) after an out-of-band age check. <code>attestation.ageOver18</code> is a fast-filter summary; the credential is the source of truth. v0.1 pins the boolean property name <strong><code>ageOver18</code></strong> (VC 2.0 defines no normative age field).</p>
+<h2>4. Payment &amp; standing access (<code>payment</code> + <code>consent</code>)</h2>
+<ul>
+<li><strong><code>payment</code></strong> is an <strong>x402</strong> <code>PaymentRequirements</code> quote (<code>x402Version</code>, <code>accepts[]</code>) advertising the price to read/submit. Settlement happens out of band over the x402 wire (HTTP <code>402</code> → <code>X-PAYMENT</code> → facilitator verify/settle); the document only advertises the quote.</li>
+<li><strong><code>consent</code></strong> expresses <em>standing</em> access for an agent acting on the subject's behalf — either an <strong>AP2 <code>IntentMandate</code></strong> (<code>scheme: "ap2-intent"</code>) or a signed metered <strong>allowance</strong> (<code>scheme: "eip191-allowance"</code>). x402 has no native recurring primitive; a venue picks ONE scheme.</li>
+</ul>
+<h2>5. Public vs gated</h2>
+<p>One schema, two projections:</p>
+<ul>
+<li><strong>Public projection</strong> — everything except <code>free.desire</code> and <code>free.boundaries</code>. Safe to publish on a board, an A2A public Agent Card, or an unpaid MCP read.</li>
+<li><strong>Gated projection</strong> — adds <code>free.desire</code> + <code>free.boundaries</code>, served only after identity proof <strong>and</strong> payment/consent are satisfied.</li>
+</ul>
+<h2>6. Matching semantics (bilateral)</h2>
+<p>A <strong>match</strong> is mutual and constraint-checked, not one-directional:</p>
+<ol>
+<li>For candidates A and B, A's <code>seek</code> constraints are checked against B's <code>self</code>, <strong>and</strong> B's <code>seek</code> against A's <code>self</code>.</li>
+<li><strong>Dealbreakers are hard and ANDed:</strong> if any term in one side's <code>seek.dealbreakers</code> is present in the other's document, there is no match. <code>seek.ageRange</code>, <code>seek.genders</code>, and non-empty <code>seek.languages</code> / <code>seek.ethnicities</code> are hard filters.</li>
+<li>Free-text and soft preferences feed ranking, not eligibility.</li>
+</ol>
+<p>A conforming venue MUST enforce dealbreakers as hard predicates before proposing a pairing.</p>
+<h2>7. Extensions</h2>
+<p><code>ext</code> is a permissionless bag for venue- or community-specific keys (suggested form <code>namespace:key</code>). Consumers <strong>MUST ignore</strong> unknown <code>ext</code> keys and unknown top-level members — never reject. Breaking additions go through the <a href="/heartprefs/governance/">HIP process</a>.</p>
+<h2>8. Conformance</h2>
+<p>A <strong>conformant document</strong> validates against <code>heartprefs.schema.json</code> and carries a <code>proof</code> that recovers to <code>identity.subject</code>. A <strong>conformant venue</strong> (a) accepts any conformant document, (b) enforces §6 dealbreakers, and (c) honors the public/gated projection in §5. A hosted validator + badge are part of the reference tooling.</p>
+<h2>9. Versioning &amp; stability</h2>
+<p>The schema <code>$id</code> is version-pathed (<code>/0.1/</code>) so later versions can change shape without breaking existing holders. v0.1 is <strong>draft</strong>: treat field names and the binding blocks as unstable until v1.0. Because every composed rail is itself draft/preview, implementers MUST re-verify the exact x402 version, A2A Agent-Card version, MCP protocol/registry schema, ERC-8004 ABIs/addresses, and VC cryptosuite against first-party sources before locking an implementation.</p>
+<h2>10. Media type &amp; schema URL</h2>
+<ul>
+<li>Media type: <code>application/heartprefs+json</code> (IANA registration pending; use provisionally).</li>
+<li>Schema <code>$id</code>: <code>https://raw.githubusercontent.com/gokhan-vc/heartprefs/main/spec/0.1/heartprefs.schema.json</code> (resolves from this repo). A host-independent <code>w3id.org/heartprefs</code> permalink is prepared under <a href="https://github.com/gokhan-vc/heartprefs/blob/main/standards/w3id/"><code>standards/w3id/</code></a>; once registered, the <code>$id</code> can switch to it.</li>
+</ul>

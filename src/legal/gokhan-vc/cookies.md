@@ -42,5 +42,5 @@ documentation and privacy policy.
 
 ## Contact
 
-Questions about cookies or privacy: [[email protected]](/cdn-cgi/l/email-protection#4c2f2322382d2f380c2b2327242d22623a2f).
+Questions about cookies or privacy: [contact@gokhan.vc](mailto:contact@gokhan.vc).
 See also our [Privacy Policy](/gokhan-vc/legal/privacy/).

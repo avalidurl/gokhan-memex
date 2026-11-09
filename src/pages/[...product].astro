@@ -1,108 +1,192 @@
 ---
 import { getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import { pageProducts, drafts, bySlug, products, type Product, type Draft } from '@/data/estate'
+import Tags from '@/components/Tags.astro'
+import Snapshot from '@/components/Snapshot.astro'
+import { pageProducts, drafts, draftTags, bySlug, products, type Product, type Draft } from '@/data/estate'
+import manifest from '@/archive/manifest.json'
+
+type Page = { host: string; former: string; title: string; doc_title: string; description: string; forms: string[] }
+const MAN = manifest as Record<string, Page>
+const HTML = import.meta.glob('/src/archive/**/index.html', { query: '?raw', import: 'default', eager: true }) as Record<string, string>
+const SNAP = import.meta.glob('/src/archive/**/snapshot.json', { import: 'default', eager: true }) as Record<string, any>
+const LEGAL = import.meta.glob('/src/legal/**/*.md', { eager: true }) as Record<string, any>
+
+const topOf = (p: Product) => bySlug(p.slug.split('/')[0]) ?? p
 
 export async function getStaticPaths() {
   const files = await getCollection('projects')
-  const productPaths = pageProducts.map((p, i) => ({
+  const slugs = new Set(pageProducts.map((p) => `/${p.slug}/`))
+  const ownerOf = (path: string) =>
+    [...pageProducts].sort((a, b) => b.slug.length - a.slug.length).find((p) => path === `/${p.slug}/` || path.startsWith(`/${p.slug}/`))
+  const productPaths = pageProducts.map((p) => ({
     params: { product: p.slug },
-    props: { kind: 'product' as const, p, file: p.file ? files.find((f) => f.slug === p.file) : undefined, n: i + 1 },
+    props: { kind: 'product' as const, path: `/${p.slug}/`, p, file: p.file ? files.find((f) => f.slug === p.file) : undefined },
   }))
-  const draftPaths = drafts.filter((d) => d.page).map((d, i) => ({
-    params: { product: d.slug },
-    props: { kind: 'draft' as const, d, n: i + 1 },
-  }))
-  return [...productPaths, ...draftPaths]
+  const pagePaths = Object.keys(manifest)
+    .filter((path) => !slugs.has(path) && !/\/legal\/[^/]+\/$/.test(path) || (!slugs.has(path) && /^\/(accumulator|agentbounty)\/legal\//.test(path)))
+    .filter((path) => ownerOf(path))
+    .map((path) => ({ params: { product: path.slice(1, -1) }, props: { kind: 'page' as const, path, p: ownerOf(path)! } }))
+  // Section indexes: intermediate folders (e.g. /curb/docs/reference/) that the ported pages link to as breadcrumbs.
+  const have = new Set([...slugs, ...pagePaths.map((x) => x.props.path)])
+  const sections = new Set<string>()
+  for (const k of have) {
+    const segs = k.split('/').filter(Boolean)
+    for (let i = 1; i < segs.length; i++) {
+      const pre = `/${segs.slice(0, i).join('/')}/`
+      if (!have.has(pre) && ownerOf(pre)) sections.add(pre)
+    }
+  }
+  const sectionPaths = [...sections].map((path) => ({ params: { product: path.slice(1, -1) }, props: { kind: 'page' as const, path, p: ownerOf(path)! } }))
+  const draftPaths = drafts.filter((d) => d.page).map((d) => ({ params: { product: d.slug }, props: { kind: 'draft' as const, d } }))
+  return [...productPaths, ...pagePaths, ...sectionPaths, ...draftPaths]
 }
 
-type Props =
-  | { kind: 'product'; p: Product; file?: Awaited<ReturnType<typeof getCollection<'projects'>>>[number]; n: number }
-  | { kind: 'draft'; d: Draft; n: number }
+type ProductProps =
+  | { kind: 'product'; path: string; p: Product; file?: any }
+  | { kind: 'page'; path: string; p: Product }
+  | { kind: 'draft'; d: Draft }
 
-const legalFiles = import.meta.glob('/src/legal/**/*.md', { eager: true }) as Record<string, any>
-const props = Astro.props
-const Content = props.kind === 'product' && props.file ? (await props.file.render()).Content : null
-const p = props.kind === 'product' ? props.p : undefined
+const props = Astro.props as ProductProps
+const path = props.kind === 'draft' ? '' : props.path
+const p = props.kind === 'draft' ? undefined : props.p
 const d = props.kind === 'draft' ? props.d : undefined
-const parentSlug = p?.slug.includes('/') ? p.slug.split('/').slice(0, -1).join('/') : undefined
-const parent = parentSlug ? bySlug(parentSlug) : undefined
-const children = p ? products.filter((c) => c.slug.startsWith(`${p.slug}/`) && c.slug.split('/').length === p.slug.split('/').length + 1) : []
-const legal = p
-  ? Object.entries(legalFiles)
-      .filter(([path]) => path.split('/')[3] === p.slug)
-      .map(([path, mod]) => ({ slug: path.split('/').pop()!.replace(/\.md$/, ''), title: mod.frontmatter.title as string }))
+const page: Page | undefined = MAN[path]
+const html = HTML[`/src/archive${path}index.html`]
+const snap = SNAP[`/src/archive${path}snapshot.json`]
+const Content = props.kind === 'product' && props.file && !html ? (await props.file.render()).Content : null
+
+const segName = (k: string) => { const s = k.split('/').filter(Boolean).pop()!; return s.charAt(0).toUpperCase() + s.slice(1).replace(/-/g, ' ') }
+const top = p ? topOf(p) : undefined
+// Site map for the product: every ported page under the top-level product, plus nested products and legal copies.
+const siteMap = top
+  ? [
+      ...new Set([
+        `/${top.slug}/`,
+        ...products.filter((c) => c.slug.startsWith(`${top.slug}/`)).map((c) => `/${c.slug}/`),
+        ...Object.keys(MAN).filter((k) => k.startsWith(`/${top.slug}/`)),
+        ...Object.keys(LEGAL).filter((k) => k.split('/')[3] === top.slug).map((k) => `/${top.slug}/legal/${k.split('/').pop()!.replace(/\.md$/, '')}/`),
+      ]),
+    ].sort()
   : []
-const doc = p
-  ? `MX-${p.status === 'archived' ? '7' : '5'}${String(props.n).padStart(2, '0')}`
-  : `MX-6${String(props.n).padStart(2, '0')}`
-const title = p ? p.name : d!.name
-const description = p ? p.line : d!.line
+const labelFor = (k: string) => {
+  const prod = products.find((c) => `/${c.slug}/` === k)
+  if (prod) return prod.name
+  const lf = Object.entries(LEGAL).find(([f]) => k === `/${top!.slug}/legal/${f.split('/').pop()!.replace(/\.md$/, '')}/`)
+  if (lf) return lf[1].frontmatter.title
+  return MAN[k]?.title || MAN[k]?.doc_title || segName(k)
+}
+const depth = (k: string) => k.split('/').filter(Boolean).length - 1
+const crumbs = (() => {
+  if (!path) return []
+  const segs = path.split('/').filter(Boolean)
+  return segs.slice(0, -1).map((_, i) => {
+    const k = `/${segs.slice(0, i + 1).join('/')}/`
+    return { href: k, label: labelFor(k) }
+  })
+})()
+const isProduct = props.kind === 'product'
+const sectionKids = props.kind === 'page' && !html ? siteMap.filter((k) => k !== path && k.startsWith(path) && k.slice(path.length).split('/').filter(Boolean).length === 1) : []
+const title = d ? d.name : isProduct ? p!.name : (page?.title || page?.doc_title || segName(path))
+const description = d ? d.line : isProduct ? p!.line : (page?.description || `${title} — ${p!.name}`)
+const legal = p && isProduct
+  ? Object.entries(LEGAL)
+      .filter(([f]) => f.split('/')[3] === p.slug)
+      .map(([f, mod]) => ({ slug: f.split('/').pop()!.replace(/\.md$/, ''), title: mod.frontmatter.title as string }))
+  : []
+const children = p && isProduct ? products.filter((c) => c.slug.startsWith(`${p.slug}/`) && c.slug.split('/').length === p.slug.split('/').length + 1) : []
 ---
 
-<BaseLayout title={title} description={description} docOverride={doc}>
+<BaseLayout title={title} description={description}>
   <div class="es">
     {p && (
       <>
         <p class="crumb">
-          <a href="/products/">Products</a> / <a href={p.status === 'archived' ? '/products/#archived' : '/products/#current'}>{p.status}</a>
-          {parent && <> / <a href={`/${parent.slug}/`}>{parent.name}</a></>}
+          <a href="/products/">Products</a>
+          {crumbs.map((c) => <> / <a href={c.href}>{c.label}</a></>)}
         </p>
         <div class="intro">
-          <h1>{p.name}</h1>
-          <p class="lead">{p.line}</p>
-          <span class={`stamp ${p.status === 'archived' ? 'arch' : 'cur'}`}>Status: {p.status}</span>
+          <h1>{title}</h1>
+          <p class="lead">{isProduct ? p.line : (page?.description || p.line)}</p>
+          <p class="tagline"><Tags tags={p.tags} /></p>
         </div>
         <div class="dither"></div>
 
-        <section class={`cx ${p.status === 'archived' ? 'arch' : ''}`} aria-label="Facts">
-          <div class="cx-h"><b>Facts</b><span>{p.family}</span></div>
-          {p.former && <div class="cx-r"><span>Former address</span><span>{p.former}</span></div>}
-          {(p.facts ?? []).map(([k, v]) => <div class="cx-r"><span>{k}</span><span>{v}</span></div>)}
-          <div class="cx-r"><span>Tags</span><span>{p.tags.map((t) => <span class="tg">{t}</span>)}</span></div>
-        </section>
+        <div class="pgrid">
+          <div class="pmain">
+            {html && (
+              <section class="cx" aria-label="Page">
+                <div class="cx-h"><b>{isProduct ? p.name : title}</b><span>{page?.former}</span></div>
+                <div class="cx-b prose ported" set:html={html} />
+              </section>
+            )}
 
-        {p.about && p.about.length > 0 && (
-          <section class="cx" aria-label="What it was">
-            <div class="cx-h"><b>{p.status === 'archived' ? 'What it was' : 'What it is'}</b></div>
-            <div class="cx-b body">{p.about.map((t) => <p>{t}</p>)}</div>
-          </section>
-        )}
+            {sectionKids.length > 0 && (
+              <section class="cx" aria-label="Pages in this section">
+                <div class="cx-h"><b>{title}</b><span>pages in this section</span><em>{String(sectionKids.length).padStart(2, '0')}</em></div>
+                {sectionKids.map((k) => <div class="cx-r"><span>{k.replace(path, '')}</span><span><a href={k}>{labelFor(k)}</a>{MAN[k]?.description && <> — {MAN[k].description}</>}</span></div>)}
+              </section>
+            )}
 
-        {p.functions && p.functions.length > 0 && (
-          <section class="cx" aria-label="What ran there">
-            <div class="cx-h"><b>{p.status === 'archived' ? 'What ran there' : 'What runs'}</b><em>{String(p.functions.length).padStart(2, '0')}</em></div>
-            {p.functions.map((f, i) => <div class="cx-r"><span>{String(i + 1).padStart(2, '0')}</span><span>{f}</span></div>)}
-          </section>
-        )}
+            {snap && <Snapshot snap={snap} />}
 
-        {children.length > 0 && (
-          <section class="cx" aria-label="Pages under this product">
-            <div class="cx-h"><b>Pages</b><em>{String(children.length).padStart(2, '0')}</em></div>
-            {children.map((c) => <div class="cx-r"><span>/{c.slug}/</span><span><a class="nm" href={`/${c.slug}/`}>{c.name}</a> — {c.line}</span></div>)}
-          </section>
-        )}
+            {isProduct && !html && p.about && p.about.length > 0 && (
+              <section class="cx" aria-label="About">
+                <div class="cx-h"><b>About</b></div>
+                <div class="cx-b body">{p.about.map((t) => <p>{t}</p>)}</div>
+              </section>
+            )}
 
-        {p.links && p.links.length > 0 && (
-          <section class="cx" aria-label="Links">
-            <div class="cx-h"><b>Links</b></div>
-            {p.links.map((l) => <div class="cx-r"><span>{l.href.startsWith('/') ? 'here' : new URL(l.href).hostname}</span><span><a href={l.href}>{l.label}</a></span></div>)}
-          </section>
-        )}
+            {Content && (
+              <section class="cx" aria-label="Project file">
+                <div class="cx-h"><b>Project file</b></div>
+                <div class="cx-b prose file"><Content /></div>
+              </section>
+            )}
+          </div>
 
-        {legal.length > 0 && (
-          <section class="cx arch" aria-label="Legal documents">
-            <div class="cx-h"><b>Legal</b><span>archived copies</span><em>{String(legal.length).padStart(2, '0')}</em></div>
-            {legal.map((l) => <div class="cx-r"><span>copy</span><span><a href={`/${p.slug}/legal/${l.slug}/`}>{l.title}</a></span></div>)}
-          </section>
-        )}
+          <aside class="pside">
+            {isProduct && (
+              <section class="cx" aria-label="Facts">
+                <div class="cx-h"><b>Facts</b><span>{p.family}</span></div>
+                {p.former && <div class="cx-r"><span>Address</span><span>{p.former}</span></div>}
+                {(p.facts ?? []).map(([k, v]) => <div class="cx-r"><span>{k}</span><span>{v}</span></div>)}
+              </section>
+            )}
 
-        {Content && (
-          <section class="cx" aria-label="Project file">
-            <div class="cx-h"><b>Project file</b><span>as filed</span></div>
-            <div class="cx-b prose file"><Content /></div>
-          </section>
-        )}
+            {siteMap.length > 1 && (
+              <section class="cx" aria-label="Site">
+                <div class="cx-h"><b>{top!.name}</b><span>pages</span><em>{String(siteMap.length).padStart(2, '0')}</em></div>
+                <nav class="sitemap">
+                  {siteMap.map((k) => (
+                    <a href={k} style={`padding-left:${0.6 + depth(k) * 0.9}rem`} aria-current={k === path ? 'page' : undefined}>{labelFor(k)}</a>
+                  ))}
+                </nav>
+              </section>
+            )}
+
+            {isProduct && children.length > 0 && (
+              <section class="cx" aria-label="Sections">
+                <div class="cx-h"><b>Sections</b><em>{String(children.length).padStart(2, '0')}</em></div>
+                {children.map((c) => <div class="cx-r"><span><a href={`/${c.slug}/`}>{c.name}</a></span><span>{c.line}</span></div>)}
+              </section>
+            )}
+
+            {legal.length > 0 && (
+              <section class="cx" aria-label="Legal">
+                <div class="cx-h"><b>Legal</b><em>{String(legal.length).padStart(2, '0')}</em></div>
+                {legal.map((l) => <div class="cx-r"><span>doc</span><span><a href={`/${p.slug}/legal/${l.slug}/`}>{l.title}</a></span></div>)}
+              </section>
+            )}
+
+            {isProduct && p.links && p.links.length > 0 && (
+              <section class="cx" aria-label="Links">
+                <div class="cx-h"><b>Links</b></div>
+                {p.links.map((l) => <div class="cx-r"><span>{l.href.startsWith('/') ? 'here' : new URL(l.href).hostname}</span><span><a href={l.href}>{l.label}</a></span></div>)}
+              </section>
+            )}
+          </aside>
+        </div>
       </>
     )}
 
@@ -112,15 +196,15 @@ const description = p ? p.line : d!.line
         <div class="intro">
           <h1>{d.name}</h1>
           <p class="lead">{d.line}</p>
-          <span class="stamp drf">Status: {d.status}</span>
+          <p class="tagline"><Tags tags={draftTags[d.slug] ?? []} /></p>
         </div>
         <div class="dither"></div>
         <section class="cx draft" aria-label="Facts">
           <div class="cx-h"><b>Draft</b><span>published at {d.origin}</span></div>
+          <div class="cx-r"><span>Status</span><span>{d.status}</span></div>
           <div class="cx-r"><span>Kind</span><span>{d.kind}</span></div>
           {d.chain && <div class="cx-r"><span>Chain</span><span>{d.chain}</span></div>}
           <div class="cx-r"><span>Open</span><span><a href={d.href}>{d.href.replace('https://', '')}</a></span></div>
-          <div class="cx-r"><span>Tags</span><span><span class="tg">{d.status}</span><span class="tg">{d.kind}</span>{d.chain && <span class="tg">{d.chain}</span>}</span></div>
         </section>
       </>
     )}

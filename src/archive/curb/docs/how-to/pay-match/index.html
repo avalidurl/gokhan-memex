@@ -1,0 +1,15 @@
+<article>
+<div><pre><code><span><span>POST</span><span> https://api.curb.numetal.xyz/v1/matches/{id}/pay</span></span></code></pre></div>
+<p>Settlement is single-payee x402 USDC on Base (<code>eip155:8453</code>). The buyer pays gross once to an on-chain 0xSplits split; seller + protocol fee are split on-chain.</p>
+<h3>Without payment header → 402<a href="/curb/docs/how-to/pay-match/#without-payment-header--402" title="Copy link and go to this section"></a></h3>
+<p>The 402 carries a <strong>single</strong> <code>accepts[]</code> entry:</p>
+<ul>
+<li><strong>Gross</strong> — the full price in USDC to the split address (<code>payTo</code> = the 0xSplits split on Base).</li>
+</ul>
+<p>Sign <strong>one</strong> payment for the gross amount to that <code>payTo</code>. Retry with <code>PAYMENT-SIGNATURE</code> / <code>X-Payment</code>.</p>
+<h3>With payment header → 200<a href="/curb/docs/how-to/pay-match/#with-payment-header--200" title="Copy link and go to this section"></a></h3>
+<p>On success the match is marked paid and a grant is issued for the seller endpoint. The seller cut and hub fee are then fanned out on-chain via the split's <code>distribute()</code>.</p>
+<h3>Buyer clients<a href="/curb/docs/how-to/pay-match/#buyer-clients" title="Copy link and go to this section"></a></h3>
+<p>Any x402 client works — e.g. <code>agentcash fetch --method POST &lt;matchPayUrl&gt;</code> or a <code>pay</code> / facilitator flow. The buyer signs one EIP-3009 authorization for the gross to the split <code>payTo</code>.</p>
+<p>Inspect anytime:</p>
+<div><pre><code><span><span>GET</span><span> https://api.curb.numetal.xyz/v1/matches/{id}</span></span></code></pre></div></article>

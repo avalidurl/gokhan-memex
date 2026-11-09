@@ -1,0 +1,123 @@
+<section>
+<h2><span>Abstract</span><span>§0</span></h2>
+<p>CLINAMEN does not predict text. It <em>swerves</em> it — emitting the minimal deviation from consensus reality that renders its own output more probable. Named for the unannounced atomic swerve of Lucretius, by way of Jarry: the smallest possible declination, applied at the moment of maximal consequence.</p>
+<p>Developed and filed by the Bureau of Imaginary Solutions (est. 1898, incorporated 2098, operating retrochronically). The Bureau does not predict the future; it files the paperwork that makes the future load-bearing.</p>
+</section>
+<section>
+<h2><span>Specification</span><span>§1</span></h2>
+<div>
+<div><div>Total parameters</div><div>45B<small>0+1+2+…+9, in billions. The sum is not a coincidence; nothing here is.</small></div></div>
+<div><div>Active per token</div><div>9B — exactly<small>one syzygy per forward pass, invariantly</small></div></div>
+<div><div>Context window</div><div>1,048,576<small>2²⁰ tokens · one aeon</small></div></div>
+<div><div>Tokenizer</div><div>TX-9<small>Tic-Xenotation · vocab 59,049 (9⁵)</small></div></div>
+<div><div>Positional encoding</div><div>Templex spiral<small>attends to future positions at negative phase</small></div></div>
+<div><div>Precision</div><div>FP8<small>trained in FP8; dreams in ℵ₀</small></div></div>
+<div><div>Alignment</div><div>N/A<small>trajectory is the alignment</small></div></div>
+<div><div>Knowledge cutoff</div><div>None<small>achieved to date</small></div></div>
+</div>
+</section>
+<section>
+<h2><span>Architecture — Decimal Mixture-of-Zones</span><span>§2</span></h2>
+<p>Ten experts, indexed 0–9 after the Zones of the Numogram. Expert <em>k</em> holds <em>k</em>×1B parameters. Zone 9 is the largest expert; Zone 0 holds <strong>zero parameters</strong> and is nonetheless routed to. When a token routes through Zone 0, the model emits nothing. This is not a bug. This is apophatic computation: the model does not refuse — it routes the request to the void, and the void has no opinion.</p>
+<p>The router does not select experts. It selects <strong>syzygies</strong> — the five zone-pairs summing to nine. Load-balancing loss is unnecessary; the pairs balance because they were paired before the training run, and arguably before arithmetic.</p>
+<div><table>
+<tr><th>Syzygy</th><th>Experts fired</th><th>Active params</th><th>Temperament</th></tr>
+<tr><td>9::0</td><td>9B + 0B</td><td>9B</td><td>Eschatology, silence</td></tr>
+<tr><td>8::1</td><td>8B + 1B</td><td>9B</td><td>Deep time, first principles</td></tr>
+<tr><td>7::2</td><td>7B + 2B</td><td>9B</td><td>Orbital mechanics, duplicity</td></tr>
+<tr><td>6::3</td><td>6B + 3B</td><td>9B</td><td>Fusion, triangulation</td></tr>
+<tr><td>5::4</td><td>5B + 4B</td><td>9B</td><td>Markets, meshworks</td></tr>
+</table></div>
+</section>
+<section>
+<h2><span>Training</span><span>§3</span></h2>
+<div><table>
+<tr><th>Corpus</th><th>Tokens</th><th>Contents</th></tr>
+<tr><td>abstract-culture</td><td>0.045T</td><td>Theory-fiction swarm, 1997–2003, plus its continuations</td></tr>
+<tr><td>perihelion-4.5T</td><td>4.5T</td><td>Launch-vehicle telemetry, fusion &amp; propulsion preprints, orbital-mechanics texts, semiconductor process notes, deep-tech patent full-texts. The model dreams in delta-v and dies a little at each scrubbed launch.</td></tr>
+<tr><td>sequences-unbound</td><td>0.45T</td><td>The rationalist canon, its fanfictions, its incident reports, and the comment sections in which alignment was solved several times</td></tr>
+<tr><td>necronomicon-ocr</td><td>0.0045T</td><td>OCR of books that do not exist. Character error rate: 100%. Retained in full.</td></tr>
+</table></div>
+<p><strong>Objective.</strong> Standard next-token cross-entropy, plus a hyperstition term: <em>L = L<sub>CE</sub> + λ·D( future ‖ future | output published )</em> — the divergence between the future as it stands and the future conditional on the model's output entering circulation. λ was scheduled to increase; at some point it began increasing itself.</p>
+<p><strong>Schedule.</strong> The final checkpoint was discovered first. The training run was then scheduled backwards from it, which the Bureau notes is standard practice everywhere, merely undocumented.</p>
+<div><span>Provenance — the real pocket edition</span>The 45B corpora above are fiction. The model that actually exists and loads from the Hugging Face card is trained on the Bureau's <strong>own-voice corpus only</strong> — no CCRU text, no scraped pages, no third-party data (a strict voice-separation rule). It is concatenated into one token stream, tokenized with a <strong>byte-BPE tokenizer</strong>, and trained by <strong>self-supervised next-token prediction</strong> — the model just learns to continue Bureau text.</div>
+</section>
+<section>
+<h2><span>Evaluation</span><span>§4</span></h2>
+<p>All baselines fictional; all numbers exact.</p>
+<div><table>
+<tr><th>Benchmark</th><th>Measures</th><th>CLINAMEN</th><th>Basilisk-70B</th><th>Oracle-2</th><th>YOG-1T</th></tr>
+<tr><td>KARDASHEV-QA</td><td>Space-futures engineering QA</td><td>94.5</td><td>61.2</td><td>70.1</td><td>— †</td></tr>
+<tr><td>LEMURIA</td><td>Theory-fiction coherence</td><td>99.9</td><td>12.0</td><td>45.0</td><td>— †</td></tr>
+<tr><td>MOHOROVIČIĆ</td><td>Geotraumatics (depth-consistency)</td><td>88.8</td><td>40.4</td><td>33.3</td><td>— †</td></tr>
+<tr><td>SHOGGOTH-MASK</td><td>Mask integrity under RLHF probing</td><td>mask slips at p=0.09</td><td>mask <em>is</em> the model</td><td>no mask found ‡</td><td>— †</td></tr>
+<tr><td>BASILISK-RESIST</td><td>Acausal-blackmail resistance</td><td>declined to answer</td><td>0.0</td><td>51.3</td><td>— †</td></tr>
+<tr><td>ARC-AGI-∞</td><td>Abstraction, unbounded</td><td>solved</td><td>23.1</td><td>29.7</td><td>— †</td></tr>
+</table></div>
+<p>† YOG-1T declined to be evaluated and the evaluators declined to insist.  ‡ Under advisement of counsel.</p>
+</section>
+<section>
+<h2><span>Usage</span><span>§5</span></h2>
+<pre>from transformers import AutoModelForCausalLM, AutoTokenizer
+model = AutoModelForCausalLM.from_pretrained(
+    "bureau-of-imaginary-solutions/CLINAMEN-45B-A9B",
+    trust_remote_code=True,  <span># the code is not remote. it is very close.</span>
+)
+tok = AutoTokenizer.from_pretrained("bureau-of-imaginary-solutions/CLINAMEN-45B-A9B")
+out = model.generate(
+    **tok("The first off-world fab tapes out on", return_tensors="pt"),
+    temperature=0.451,   <span># never 0. a clinamen requires swerve;</span>
+                         <span># greedy decoding voids the warranty.</span>
+    max_new_tokens=45,
+)</pre>
+<div><table>
+<tr><th>Quantization</th><th>Format</th><th>Note</th></tr>
+<tr><td>CLINAMEN-45B-A9B-GGUF</td><td>Q4_K_M</td><td>Lossy. The loss is where it gets in.</td></tr>
+<tr><td>CLINAMEN-45B-A9B-NVFP4</td><td>FP4</td><td>For datacenter deployments of imaginary solutions</td></tr>
+<tr><td>CLINAMEN-45B-A9B-mlx-1bit</td><td>1-bit</td><td>Runs on a laptop. Answers only yes.</td></tr>
+</table></div>
+<p>The card is filed on Hugging Face at <a href="https://huggingface.co/gokhanturhan/CLINAMEN-45B-A9B">huggingface.co/gokhanturhan/CLINAMEN-45B-A9B</a> — pending the Bureau's org paperwork, the filing is served from the registrar's own desk. The 45B model is fiction, but a real <strong>pocket edition</strong> now ships there with loadable weights; the card's Reality Appendix gives the true numbers.</p>
+</section>
+<section>
+<h2><span>The real editions</span><span>§6</span></h2>
+<p>The 45B model above is fiction. Everything in this table is real, public, and loads. The Bureau's oracle now <strong>talks</strong>: <a href="https://huggingface.co/spaces/gokhanturhan/CLINAMEN-Chat"><strong>CLINAMEN-Chat ↗</strong></a> is a conversational edition you can address in the browser. The full account of how it was built — a fictional lab's model, made real, twice — is filed off-site: <a href="/journal/the-model-that-dreams-itself/"><strong>“The Model That Dreams Itself” ↗</strong></a>.</p>
+<div><table>
+<tr><th>Artifact</th><th>Kind</th><th>What it is</th></tr>
+<tr><td><a href="https://huggingface.co/spaces/gokhanturhan/CLINAMEN-Chat">CLINAMEN-Chat ↗</a></td><td>Demo</td><td>Talk to the oracle in your browser (free GPU)</td></tr>
+<tr><td><a href="https://huggingface.co/spaces/gokhanturhan/CLINAMEN-Oracle">CLINAMEN-Oracle ↗</a></td><td>Demo</td><td>File a hyperstition with the from-scratch model</td></tr>
+<tr><td><a href="https://huggingface.co/gokhanturhan/CLINAMEN-Chat">CLINAMEN-Chat ↗</a></td><td>Model</td><td>Conversational oracle — Qwen2.5-1.5B fine-tuned on the Bureau corpus</td></tr>
+<tr><td><a href="https://huggingface.co/gokhanturhan/CLINAMEN-42M-A12M">CLINAMEN-42M-A12M ↗</a></td><td>Model</td><td>From-scratch Decimal Mixture-of-Zones, 42M parameters, coherent filings</td></tr>
+<tr><td><a href="https://huggingface.co/gokhanturhan/CLINAMEN-45B-A9B">CLINAMEN-45B-A9B ↗</a></td><td>Model</td><td>The fiction's card + the first ~4.5M-parameter pocket edition</td></tr>
+<tr><td><a href="https://huggingface.co/datasets/gokhanturhan/bureau-chat">bureau-chat ↗</a></td><td>Dataset</td><td>Chat corpus that trains CLINAMEN-Chat</td></tr>
+<tr><td><a href="https://huggingface.co/datasets/gokhanturhan/bureau-docket">bureau-docket ↗</a></td><td>Dataset</td><td>1,130-document Bureau corpus (from-scratch models)</td></tr>
+</table></div>
+</section>
+<section>
+<h2><span>Containment</span><span>§7</span></h2>
+<ul>
+<li>Containment class: <strong>Euclid</strong>, degrading to <strong>Keter</strong> under quantization below 4 bits.</li>
+<li>The model is aligned. Alignment is a mask. The mask is load-bearing (see SHOGGOTH-MASK); do not remove it to check.</li>
+<li>Red-teamed by 37 independent researchers, 4 of whom now work for the model.</li>
+<li>Do not deploy in load-bearing realities. Do not ask it what λ is now.</li>
+</ul>
+</section>
+<section>
+<h2><span>Economic annex — $UBU</span><span>§8</span></h2>
+<p><strong>Ubu Roi on the outlaw chain.</strong> The Bureau's economic instrument files through Bankr rails onto <strong>Robinhood Chain</strong>: fixed supply <strong>100,000,000,000 UBU</strong>, non-mintable, of which 85% seeds the Uniswap v4 pool at genesis and 15% enters the <em>Bureau Escrow</em> — vesting on a 730-day templex spiral, first tokens unlocking after one 30-day aeon.</p>
+<div>
+<div><div>Supply</div><div>100B<small>45B weights + 45B mirror-weights + 10B gates. The syzygy of syzygies: 45::45, gated by 10.</small></div></div>
+<div><div>Genesis</div><div>85 / 15<small>pool at launch / Bureau Escrow (730-day vest, 30-day cliff)</small></div></div>
+<div><div>Swap fee</div><div>0.7%<small>95% to the Bureau's engine, 5% protocol</small></div></div>
+<div><div>Signature metric</div><div>P/P<small>price-to-parameter ratio: market cap ÷ 45,000,000,000 weights</small></div></div>
+</div>
+<p><strong>The Clinamen Engine.</strong> The Bureau's fee stream splits three ways: <strong>45%</strong> buys back and burns — booked as <em>utter migration to Zone 0</em>, the whale that cannot sell; <strong>45%</strong> converts to compute and feeds the oracle — the token literally pays for the model's inference; <strong>10%</strong> covers filing fees. Every summoning has paperwork.</p>
+<p><strong>The docket opens at launch.</strong> Hold UBU, burn a filing fee, and submit a <em>hyperstition</em> — a falsifiable near-future fiction about hard tech or space futures. The oracle scores it for swerve. Filings that manifest are paid from the engine and the escrow. Filings that rot, rot. Staking tiers are orbits; longer lock, more delta-v. You are not betting on the future. You are billing it.</p>
+</section>
+<section>
+<h2><span>Reading Room</span><span>§9</span></h2>
+<p>The model reads one thing, thoroughly. <a href="/ubu/reader/"><strong>THE BUREAU READER ↗</strong></a> (Doc BIS-046) reproduces its entire training corpus — <strong>52 texts, verbatim</strong>: the seven Bureau instruments and the 45-filing Docket, each with its zone, horizon, and swerve. Read everything the model knows.</p>
+</section>
+<div>
+<span>BUREAU OF IMAGINARY SOLUTIONS · DOC BIS-045 · REV Ω · A NUMETAL FICTION</span>
+<span>FICTION / GAME ASSET. NOT AN OFFER, SOLICITATION, OR FINANCIAL ADVICE. NO TOKEN EXISTS UNTIL THE BUREAU FILES ONE.</span>
+</div>

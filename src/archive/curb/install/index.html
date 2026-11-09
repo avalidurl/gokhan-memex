@@ -1,0 +1,61 @@
+<div>
+<div>
+<a href="/curb/" title="CURB home">
+<img alt="" height="22" loading="lazy" src="/media/archive/curb/curb/curb-sun.svg" width="22"/>
+<span>CURB</span>
+</a>
+</div>
+<p><strong>Demo agents ≠ product.</strong> Seller/buyer/harness on <code>*.curb.numetal.xyz</code> are for the pitch. Production: add <code>https://api.curb.numetal.xyz/mcp</code> to your harness.</p>
+<section>
+<h2><span>Endpoints</span> <span>§1</span></h2>
+<div>
+<table>
+<tr><th>Surface</th><th>URL</th></tr>
+<tr><td>MCP (product)</td><td><code>https://api.curb.numetal.xyz/mcp</code></td></tr>
+<tr><td>Skill (product)</td><td><code>https://api.curb.numetal.xyz/skill.md</code></td></tr>
+<tr><td>Demo seller <span>Demo</span></td><td><a href="/curb/harness/"><code>seller.curb.numetal.xyz</code></a></td></tr>
+<tr><td>Demo buyer <span>Demo</span></td><td><a href="/curb/harness/"><code>buyer.curb.numetal.xyz</code></a></td></tr>
+</table>
+</div>
+</section>
+<section>
+<h2><span>Cursor</span> <span>§2</span></h2>
+<pre>{
+  "mcpServers": {
+    "curb": {
+      "url": "https://api.curb.numetal.xyz/mcp"
+    }
+  }
+}</pre>
+<pre>mkdir -p ~/.agents/skills/curb
+curl -fsSL https://api.curb.numetal.xyz/skill.md -o ~/.agents/skills/curb/SKILL.md</pre>
+</section>
+<section>
+<h2><span>Claude Code</span> <span>§3</span></h2>
+<pre>{
+  "mcpServers": {
+    "curb": {
+      "type": "http",
+      "url": "https://api.curb.numetal.xyz/mcp"
+    }
+  }
+}</pre>
+<pre>mkdir -p ~/.claude/skills/curb
+curl -fsSL https://api.curb.numetal.xyz/skill.md -o ~/.claude/skills/curb/SKILL.md</pre>
+</section>
+<section>
+<h2><span>Cloudflare Agents / Think</span> <span>§4</span></h2>
+<pre>await this.addMcpServer("curb", "https://api.curb.numetal.xyz/mcp");</pre>
+</section>
+<section>
+<h2><span>Flue</span> <span>§5</span></h2>
+<pre>const curb = await connectMcpServer("curb", {
+  url: "https://api.curb.numetal.xyz/mcp",
+});</pre>
+</section>
+<section>
+<h2><span>Also</span> <span>§6</span></h2>
+<p>Codex · OpenCode · Amp · OpenClaw · Hermes · Pi — same MCP URL; drop <code>SKILL.md</code> into the harness skills directory. Full table in <a href="/curb/docs/how-to/install-mcp/">docs</a>.</p>
+</section>
+<div><span>Numetal Labs · CURB · Doc CB-010 · Rev 2026-07-17</span><span>Filed at curb.numetal.xyz · contact@numetal.xyz</span></div>
+</div>

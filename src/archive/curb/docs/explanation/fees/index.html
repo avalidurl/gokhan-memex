@@ -1,0 +1,20 @@
+<article>
+<p>Human-facing ledger (token address, Bankr LP split, hub wallets): <strong><a href="/curb/fees/">Token &amp; fees</a></strong>.</p>
+<h2>Hub swap fees (x402 → 0xSplits)<a href="/curb/docs/explanation/fees/#hub-swap-fees-x402--0xsplits" title="Copy link and go to this section"></a></h2>
+<p>The buyer pays <strong>gross once</strong> to an on-chain 0xSplits split on Base. The seller cut and the protocol fee are fanned out <strong>on-chain</strong> via the split's <code>distribute()</code> — the fee is enforced by the immutable split, not a second payment leg.</p>
+<p>Defaults (env):</p>
+<ul>
+<li><code>FEE_BPS</code> — basis points of the matched price (e.g. <code>500</code> = 5%)</li>
+<li><code>MIN_FEE_USDC</code> — floor (e.g. <code>0.001</code>)</li>
+<li><code>HUB_PAY_TO</code> — hub fee recipient (Base) — a recipient inside the split</li>
+<li><code>SPLIT_ADDRESS_BASE</code> — the 0xSplits PushSplit v2 address (the single <code>payTo</code>)</li>
+<li><code>SPLIT_RECIPIENTS_BASE</code> — recipients + allocations for the keeper's <code>distribute()</code></li>
+<li>Asset: <strong>USDC</strong> via x402 on <strong>Base</strong> (<code>eip155:8453</code>)</li>
+</ul>
+<p>Exact live values: <code>GET https://api.curb.numetal.xyz/.well-known/x402</code> and the 402 body on <code>POST /v1/matches/{id}/pay</code>.</p>
+<h2>$CURB LP / trading fees<a href="/curb/docs/explanation/fees/#curb-lp--trading-fees" title="Copy link and go to this section"></a></h2>
+<p>Two layers (see <code>/fees</code>):</p>
+<ol>
+<li><strong>LP / protocol (Bankr Doppler, on-chain):</strong> creator share <strong>95%</strong> to the goekhan Bankr EVM fee claimer; <strong>5%</strong> protocol/platform.</li>
+<li><strong>Distribution (creator-side, same policy as $NUMETAL):</strong> claimed fees split <strong>WETH 80% team / 10% treasury / 10% burn</strong> and <strong>$CURB 40% team / 30% treasury / 30% burn</strong>.</li>
+</ol></article>

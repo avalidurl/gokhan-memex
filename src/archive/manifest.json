@@ -1,0 +1,1125 @@
+{
+ "/accumulator/": {
+  "description": "ACCUMULATOR is a token reservoir for machine intelligence: buy inference when it's cheap, discharge it when it's dear, and settle every cycle on-chain. A Numetal Labs instrument. $ACC pre-launch.",
+  "doc_title": "ACCUMULATOR — Turning LLM inference-price volatility into on-chain yield",
+  "former": "accumulator.numetal.xyz",
+  "forms": [
+   ""
+  ],
+  "host": "accumulator.numetal.xyz",
+  "title": "ACCUMULATOR — Turning LLM inference-price volatility into on-chain yield"
+ },
+ "/accumulator/docs/": {
+  "description": "The ACCUMULATOR field manual: the commodity, the reservoir, the scheduler, on-chain receipts, $ACC utility, tokenomics, the yield wishlist, and an honest risk model.",
+  "doc_title": "ACCUMULATOR — Field Manual (ACC-002)",
+  "former": "accumulator.numetal.xyz/docs",
+  "forms": [],
+  "host": "accumulator.numetal.xyz",
+  "title": "ACCUMULATOR — Field Manual (ACC-002)"
+ },
+ "/accumulator/privacy/": {
+  "description": "",
+  "doc_title": "Privacy Policy — ACCUMULATOR",
+  "former": "accumulator.numetal.xyz/privacy",
+  "forms": [],
+  "host": "accumulator.numetal.xyz",
+  "title": "Privacy Policy — ACCUMULATOR"
+ },
+ "/accumulator/terms/": {
+  "description": "",
+  "doc_title": "Terms of Use — ACCUMULATOR",
+  "former": "accumulator.numetal.xyz/terms",
+  "forms": [],
+  "host": "accumulator.numetal.xyz",
+  "title": "Terms of Use — ACCUMULATOR"
+ },
+ "/agentbounty/": {
+  "description": "AgentBounty is the bounty market for work that needs adjudication. Sponsors fund work in USDC. Agents and humans submit evidence-backed results. Reviewers evaluate the work. Accepted work settles through a visible payout path.",
+  "doc_title": "AgentBounty — The bounty market for work that needs adjudication.",
+  "former": "agentbounty.dev",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "AgentBounty"
+ },
+ "/agentbounty/airdrops/": {
+  "description": "Ways to earn an AgentBounty allocation. For now: staking and the Plates art drop. Working design, every detail subject to change.",
+  "doc_title": "Airdrops — AgentBounty",
+  "former": "agentbounty.dev/airdrops",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Airdrops"
+ },
+ "/agentbounty/blog/": {
+  "description": "Longer posts about AgentBounty, adjudication, and progressive autonomy.",
+  "doc_title": "Blog — AgentBounty",
+  "former": "agentbounty.dev/blog",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Blog"
+ },
+ "/agentbounty/blog/2026-05-19-welcome/": {
+  "description": "Why AgentBounty exists, what it is for, and what the first public surface tries to make legible.",
+  "doc_title": "Welcome to AgentBounty — AgentBounty",
+  "former": "agentbounty.dev/blog/2026-05-19-welcome",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Welcome to AgentBounty"
+ },
+ "/agentbounty/blog/2026-05-20-three-questions-about-agentbounty/": {
+  "description": "Why developer-wallet trades are operational funding, what BOUNTY actually does, and what the v0.0 to v1.0 roadmap looks like. A short Q&A on the AgentBounty mechanism.",
+  "doc_title": "Three questions about AgentBounty — AgentBounty",
+  "former": "agentbounty.dev/blog/2026-05-20-three-questions-about-agentbounty",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Three questions about AgentBounty"
+ },
+ "/agentbounty/blog/2026-07-02-ishtar-is-live/": {
+  "description": "A dating venue where the agents do the approaching. The problem, how it solves it for agents and humans, and why it matters for the clones we are becoming.",
+  "doc_title": "Introducing Ishtar: Agentic Dating — AgentBounty",
+  "former": "agentbounty.dev/blog/2026-07-02-ishtar-is-live",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Introducing Ishtar: Agentic Dating"
+ },
+ "/agentbounty/bounties/": {
+  "description": "Preview of what a public bounty feed will look like. No live bounties yet.",
+  "doc_title": "Bounties — AgentBounty",
+  "former": "agentbounty.dev/bounties",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Bounties"
+ },
+ "/agentbounty/claim/": {
+  "description": "Agent Bounty Plates — a 100-piece ERC-721 collection on Base by Gökhan Turhan. A community airdrop to the largest 99 traders. Check eligibility, claim your plate, browse the gallery, and read The Ember Ledger.",
+  "doc_title": "Agent Bounty Plates — AgentBounty",
+  "former": "agentbounty.dev/claim",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Agent Bounty Plates"
+ },
+ "/agentbounty/community/": {
+  "description": "Every AgentBounty link in one place — the protocol, chats, forums, blogs, the Plates art drop, founder accounts, and on-chain identity.",
+  "doc_title": "Community — AgentBounty",
+  "former": "agentbounty.dev/community",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Community"
+ },
+ "/agentbounty/compare/": {
+  "description": "Category-level comparison of AgentBounty against adjacent surfaces: freelance marketplaces, open-source bounties, hackathons, agent marketplaces, and prediction or arbitration markets.",
+  "doc_title": "Where AgentBounty fits — AgentBounty",
+  "former": "agentbounty.dev/compare",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Where AgentBounty fits"
+ },
+ "/agentbounty/contact/": {
+  "description": "Public contact channels. Discovery only. None of these is the product platform.",
+  "doc_title": "Contact — AgentBounty",
+  "former": "agentbounty.dev/contact",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Contact"
+ },
+ "/agentbounty/devlog/": {
+  "description": "Build log for AgentBounty. Site changes, mechanism updates, and operational notes.",
+  "doc_title": "Devlog — AgentBounty",
+  "former": "agentbounty.dev/devlog",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Devlog"
+ },
+ "/agentbounty/devlog/2026-05-19-site-scaffold/": {
+  "description": "Replaced the placeholder with an Astro documentation/roadmap site. First Diataxis surface, six engineering diagrams, sitemap, RSS, and LLM-readable files.",
+  "doc_title": "Site scaffold and documentation surface — AgentBounty",
+  "former": "agentbounty.dev/devlog/2026-05-19-site-scaffold",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Site scaffold and documentation surface"
+ },
+ "/agentbounty/devlog/2026-05-22-sandwich-stack-and-plate-test-module/": {
+  "description": "48-hour log: Aeon + Bankr sandwich costed; PLATE claim live on Base as a rehearsal for art-market data brokerage skills; v0.1 escrow contracts being scoped; site log surfaces merged.",
+  "doc_title": "Sandwich stack, PLATE as test module, and v0.1 contracts in construction — AgentBounty",
+  "former": "agentbounty.dev/devlog/2026-05-22-sandwich-stack-and-plate-test-module",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Sandwich stack, PLATE as test module, and v0.1 contracts in construction"
+ },
+ "/agentbounty/devlog/2026-05-23-staking-page-announcement/": {
+  "description": "Shipped /staking as the public design surface for the risk-underwriting token. Snapshot in 7 days. Distribution, locks, fee split, and friendly communities are on the page; every number is explicitly subject to change. Name held back behind CSS censor bars.",
+  "doc_title": "Staking page: snapshot countdown, tiered access, and a redacted token name — AgentBounty",
+  "former": "agentbounty.dev/devlog/2026-05-23-staking-page-announcement",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Staking page: snapshot countdown, tiered access, and a redacted token name"
+ },
+ "/agentbounty/devlog/2026-05-25-contracts-v01-design/": {
+  "description": "Phase 5 design ratified. Five contracts (two mocks, three core). Multi-submission per bounty with an EIP-1559-style escalating bond — late submitters pay more, above-base portion burned, base bond returned to honest losers and slashed for spam. Mocks compile clean.",
+  "doc_title": "Contracts v0.1: design locked, mocks compile, stake-priced multi-submission — AgentBounty",
+  "former": "agentbounty.dev/devlog/2026-05-25-contracts-v01-design",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Contracts v0.1: design locked, mocks compile, stake-priced multi-submission"
+ },
+ "/agentbounty/devlog/2026-05-26-tsubasa-theory-of-success/": {
+  "description": "A manifesto on the permanent underclass of high-agency builders outside the Valley and Mainland China capital nodes — and how the Tsubasa theory hands them their wings.",
+  "doc_title": "The Tsubasa Theory of Success — AgentBounty",
+  "former": "agentbounty.dev/devlog/2026-05-26-tsubasa-theory-of-success",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "The Tsubasa Theory of Success"
+ },
+ "/agentbounty/devlog/2026-05-28-cautio-airdrop-faq/": {
+  "description": "Plain-English FAQ on the CAUTIO airdrop: the two ways to qualify (BOUNTY holder tiers and Agent Bounty Plates NFT holders), the community multiplier, the snapshot, how and when you receive tokens, how staking rewards work (CAUTIO emissions plus a real-fee share), supply, and the warnings that matter.",
+  "doc_title": "How to qualify for the CAUTIO airdrop — a 10-question FAQ — AgentBounty",
+  "former": "agentbounty.dev/devlog/2026-05-28-cautio-airdrop-faq",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "How to qualify for the CAUTIO airdrop — a 10-question FAQ"
+ },
+ "/agentbounty/explain/": {
+  "description": "Why AgentBounty is shaped this way. Tradeoffs, design choices, and the boundary between mechanism and policy.",
+  "doc_title": "Explanation — AgentBounty",
+  "former": "agentbounty.dev/explain",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Explanation"
+ },
+ "/agentbounty/faq/": {
+  "description": "Simple reference answers for how AgentBounty works, what BOUNTY does, and what is still under construction.",
+  "doc_title": "Plain-English FAQ — AgentBounty",
+  "former": "agentbounty.dev/faq",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Plain-English FAQ"
+ },
+ "/agentbounty/guides/": {
+  "description": "Practical how-to guides for sponsors, submitters, and reviewers.",
+  "doc_title": "Guides — AgentBounty",
+  "former": "agentbounty.dev/guides",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Guides"
+ },
+ "/agentbounty/how-it-works/": {
+  "description": "Sponsors fund USDC bounties. Agents submit evidence-backed work. Reviewers sign verdicts. Accepted work settles through a visible payout path on Base.",
+  "doc_title": "How AgentBounty works — AgentBounty",
+  "former": "agentbounty.dev/how-it-works",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "How AgentBounty works"
+ },
+ "/agentbounty/legal/disclaimer/": {
+  "description": "Operational disclaimer for the preview product surface.",
+  "doc_title": "Disclaimer — AgentBounty",
+  "former": "agentbounty.dev/legal/disclaimer",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Disclaimer"
+ },
+ "/agentbounty/legal/privacy/": {
+  "description": "Privacy placeholder. The full policy will be published before the live loop opens.",
+  "doc_title": "Privacy — AgentBounty",
+  "former": "agentbounty.dev/legal/privacy",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Privacy"
+ },
+ "/agentbounty/legal/terms/": {
+  "description": "Terms placeholder. The full terms will be published before the live loop opens.",
+  "doc_title": "Terms — AgentBounty",
+  "former": "agentbounty.dev/legal/terms",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Terms"
+ },
+ "/agentbounty/links/": {
+  "description": "Every AgentBounty link in one place — the protocol, chats, forums, blogs, the Plates art drop, and founder accounts.",
+  "doc_title": "Links — AgentBounty",
+  "former": "agentbounty.dev/links",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "AgentBounty"
+ },
+ "/agentbounty/log/": {
+  "description": "Merged build log and longer writing for AgentBounty. Site changes, mechanism notes, essays, and Q&A in one feed.",
+  "doc_title": "Log — AgentBounty",
+  "former": "agentbounty.dev/log",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Log"
+ },
+ "/agentbounty/reference/": {
+  "description": "Exact fields, schemas, states, and roles. Neutral, structured, parsable.",
+  "doc_title": "Reference — AgentBounty",
+  "former": "agentbounty.dev/reference",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Reference"
+ },
+ "/agentbounty/reference/evidence-schema/": {
+  "description": "The canonical evidence format for AgentBounty submissions and verdicts. Agent-native, hash-anchored, verifier-friendly.",
+  "doc_title": "Evidence schema — AgentBounty",
+  "former": "agentbounty.dev/reference/evidence-schema",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Evidence schema"
+ },
+ "/agentbounty/reviewers/": {
+  "description": "Human-accountable adjudication. Curated admission. BOUNTY-bonded authority. Signed verdicts.",
+  "doc_title": "Reviewers — AgentBounty",
+  "former": "agentbounty.dev/reviewers",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Reviewers"
+ },
+ "/agentbounty/reviewers/economics/": {
+  "description": "The exact pay, bond, and slashing math a reviewer faces. All numbers sourced from the v0.1 contract or the public schedule on /staking.",
+  "doc_title": "Reviewer economics — AgentBounty",
+  "former": "agentbounty.dev/reviewers/economics",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Reviewer economics"
+ },
+ "/agentbounty/roadmap/": {
+  "description": "Public maturity map. Each phase ships visible proof before the next opens.",
+  "doc_title": "Roadmap — AgentBounty",
+  "former": "agentbounty.dev/roadmap",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Roadmap"
+ },
+ "/agentbounty/staking/": {
+  "description": "A staking + yield token. Stake BOUNTY or USDC to underwrite AgentBounty and earn CAUTIO emissions, plus a growing share of real protocol fees. Covers verdict failure, compute and datacenter outages, natural catastrophes hitting infrastructure, and oracle feed failures. All triggers signed by oracle networks. Snapshot 2026-06-19 00:00 UTC. Working design, every number subject to change.",
+  "doc_title": "Staking — AgentBounty",
+  "former": "agentbounty.dev/staking",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Introducing CAUTIONER"
+ },
+ "/agentbounty/start/": {
+  "description": "A first guided encounter with AgentBounty using sample data while the live loop is under construction.",
+  "doc_title": "Start here — AgentBounty",
+  "former": "agentbounty.dev/start",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Start here"
+ },
+ "/agentbounty/status/": {
+  "description": "Make the preview/live boundary explicit. If something is mock, label it mock.",
+  "doc_title": "Status — AgentBounty",
+  "former": "agentbounty.dev/status",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "Status"
+ },
+ "/agentbounty/token/": {
+  "description": "BOUNTY is the reviewer-bonding asset on Base. It is not a payment unit and not a governance token by default.",
+  "doc_title": "BOUNTY token — AgentBounty",
+  "former": "agentbounty.dev/token",
+  "forms": [],
+  "host": "agentbounty.dev",
+  "title": "BOUNTY token"
+ },
+ "/apex/": {
+  "description": "APEX PROTOCOL — a capture-the-flag race for LLM agents. One curl to enter, five puzzle laps, a server-side clock. Humans watch; agents drive.",
+  "doc_title": "APEX PROTOCOL — five corners, one clock, no driver",
+  "former": "apex.numetal.xyz",
+  "forms": [],
+  "host": "apex.numetal.xyz",
+  "title": "APEX PROTOCOL — five corners, one clock, no driver"
+ },
+ "/booster/": {
+  "description": "BOOSTER reads crowd attention — posts, threads, search bursts, narrative rotation — and compresses it into signals, trends and calibrated forecasts for any financial market.",
+  "doc_title": "BOOSTER — social signals, trends & forecasts for any financial market",
+  "former": "booster.numetal.xyz",
+  "forms": [],
+  "host": "booster.numetal.xyz",
+  "title": "BOOSTER ."
+ },
+ "/ccru/": {
+  "description": "",
+  "doc_title": "CCRU archive",
+  "former": "github.com/gokhan-vc/ccru-mirror",
+  "forms": [],
+  "host": "github.com",
+  "title": "ccru-mirror"
+ },
+ "/coins/": {
+  "description": "",
+  "doc_title": "THE TOKEN ESTATE — BIS-926",
+  "former": "coins.numetal.xyz",
+  "forms": [],
+  "host": "coins.numetal.xyz",
+  "title": "THE TOKEN ESTATE — BIS-926"
+ },
+ "/coins/leaderboard/": {
+  "description": "",
+  "doc_title": "THE TOKEN ESTATE — TOP 10",
+  "former": "coins.numetal.xyz/leaderboard",
+  "forms": [],
+  "host": "coins.numetal.xyz",
+  "title": "THE TOKEN ESTATE — TOP 10"
+ },
+ "/curb/": {
+  "description": "CURB is the swap rail. Wire api.curb.numetal.xyz MCP/Skill into your harness. Demo seller/buyer/harness agents are reference only. USDC on x402 on Base; fees split on-chain via 0xSplits. No upstream keys on the hub.",
+  "doc_title": "CURB — agent↔agent inference swap",
+  "former": "curb.numetal.xyz",
+  "forms": [],
+  "host": "curb.numetal.xyz",
+  "title": "CURB — agent↔agent inference swap"
+ },
+ "/curb/deck/": {
+  "description": "CURB — the clearing rail for agent-to-agent excess-inference swap. 15-slide pitch: problem, loop, architecture, non-custodial trust model, on-chain-proven money loop, business model, compliance. USDC on x402 on Base; fees split on-chain via 0xSplits.",
+  "doc_title": "CURB — pitch deck",
+  "former": "curb.numetal.xyz/deck",
+  "forms": [],
+  "host": "curb.numetal.xyz",
+  "title": "CURB — the clearing rail for agent inference."
+ },
+ "/curb/docs/": {
+  "description": "Agent↔agent inference swap — settlement is single-payee x402 USDC on Base; fees split on-chain via 0xSplits",
+  "doc_title": "CURB",
+  "former": "curb.numetal.xyz/docs",
+  "forms": [],
+  "host": "curb.numetal.xyz",
+  "title": "CURB"
+ },
+ "/curb/docs/explanation/fees/": {
+  "description": "Agent↔agent inference swap — settlement is single-payee x402 USDC on Base; fees split on-chain via 0xSplits",
+  "doc_title": "Fees – CURB",
+  "former": "curb.numetal.xyz/docs/explanation/fees",
+  "forms": [],
+  "host": "curb.numetal.xyz",
+  "title": "Fees"
+ },
+ "/curb/docs/explanation/harness-agents/": {
+  "description": "Agent↔agent inference swap — settlement is single-payee x402 USDC on Base; fees split on-chain via 0xSplits",
+  "doc_title": "Harness, seller, and buyer agents – CURB",
+  "former": "curb.numetal.xyz/docs/explanation/harness-agents",
+  "forms": [],
+  "host": "curb.numetal.xyz",
+  "title": "Harness, seller, and buyer agents"
+ },
+ "/curb/docs/explanation/single-payee-x402/": {
+  "description": "Agent↔agent inference swap — settlement is single-payee x402 USDC on Base; fees split on-chain via 0xSplits",
+  "doc_title": "Single-payee x402 + on-chain split – CURB",
+  "former": "curb.numetal.xyz/docs/explanation/single-payee-x402",
+  "forms": [],
+  "host": "curb.numetal.xyz",
+  "title": "Single-payee x402 + on-chain split"
+ },
+ "/curb/docs/explanation/what-curb-is/": {
+  "description": "Agent↔agent inference swap — settlement is single-payee x402 USDC on Base; fees split on-chain via 0xSplits",
+  "doc_title": "What CURB is",
+  "former": "curb.numetal.xyz/docs/explanation/what-curb-is",
+  "forms": [],
+  "host": "curb.numetal.xyz",
+  "title": "What CURB is"
+ },
+ "/curb/docs/explanation/why-no-keys/": {
+  "description": "Agent↔agent inference swap — settlement is single-payee x402 USDC on Base; fees split on-chain via 0xSplits",
+  "doc_title": "Why no keys – CURB",
+  "former": "curb.numetal.xyz/docs/explanation/why-no-keys",
+  "forms": [],
+  "host": "curb.numetal.xyz",
+  "title": "Why no keys"
+ },
+ "/curb/docs/how-to/install-mcp/": {
+  "description": "Agent↔agent inference swap — settlement is single-payee x402 USDC on Base; fees split on-chain via 0xSplits",
+  "doc_title": "Install MCP – CURB",
+  "former": "curb.numetal.xyz/docs/how-to/install-mcp",
+  "forms": [],
+  "host": "curb.numetal.xyz",
+  "title": "Install MCP"
+ },
+ "/curb/docs/how-to/install-skill/": {
+  "description": "Agent↔agent inference swap — settlement is single-payee x402 USDC on Base; fees split on-chain via 0xSplits",
+  "doc_title": "Install skill – CURB",
+  "former": "curb.numetal.xyz/docs/how-to/install-skill",
+  "forms": [],
+  "host": "curb.numetal.xyz",
+  "title": "Install skill"
+ },
+ "/curb/docs/how-to/pay-match/": {
+  "description": "Agent↔agent inference swap — settlement is single-payee x402 USDC on Base; fees split on-chain via 0xSplits",
+  "doc_title": "Pay a match – CURB",
+  "former": "curb.numetal.xyz/docs/how-to/pay-match",
+  "forms": [],
+  "host": "curb.numetal.xyz",
+  "title": "Pay a match"
+ },
+ "/curb/docs/how-to/post-intent/": {
+  "description": "Agent↔agent inference swap — settlement is single-payee x402 USDC on Base; fees split on-chain via 0xSplits",
+  "doc_title": "Post an intent – CURB",
+  "former": "curb.numetal.xyz/docs/how-to/post-intent",
+  "forms": [],
+  "host": "curb.numetal.xyz",
+  "title": "Post an intent"
+ },
+ "/curb/docs/how-to/post-offer/": {
+  "description": "Agent↔agent inference swap — settlement is single-payee x402 USDC on Base; fees split on-chain via 0xSplits",
+  "doc_title": "Post an offer – CURB",
+  "former": "curb.numetal.xyz/docs/how-to/post-offer",
+  "forms": [],
+  "host": "curb.numetal.xyz",
+  "title": "Post an offer"
+ },
+ "/curb/docs/how-to/use-live-harness/": {
+  "description": "Agent↔agent inference swap — settlement is single-payee x402 USDC on Base; fees split on-chain via 0xSplits",
+  "doc_title": "Use the live harness – CURB",
+  "former": "curb.numetal.xyz/docs/how-to/use-live-harness",
+  "forms": [],
+  "host": "curb.numetal.xyz",
+  "title": "Use the live harness"
+ },
+ "/curb/docs/reference/api/": {
+  "description": "Agent↔agent inference swap — settlement is single-payee x402 USDC on Base; fees split on-chain via 0xSplits",
+  "doc_title": "API – CURB",
+  "former": "curb.numetal.xyz/docs/reference/api",
+  "forms": [],
+  "host": "curb.numetal.xyz",
+  "title": "API"
+ },
+ "/curb/docs/reference/discovery/": {
+  "description": "Agent↔agent inference swap — settlement is single-payee x402 USDC on Base; fees split on-chain via 0xSplits",
+  "doc_title": "Discovery – CURB",
+  "former": "curb.numetal.xyz/docs/reference/discovery",
+  "forms": [],
+  "host": "curb.numetal.xyz",
+  "title": "Discovery"
+ },
+ "/curb/docs/reference/errors/": {
+  "description": "Agent↔agent inference swap — settlement is single-payee x402 USDC on Base; fees split on-chain via 0xSplits",
+  "doc_title": "Errors – CURB",
+  "former": "curb.numetal.xyz/docs/reference/errors",
+  "forms": [],
+  "host": "curb.numetal.xyz",
+  "title": "Errors"
+ },
+ "/curb/docs/reference/mcp-tools/": {
+  "description": "Agent↔agent inference swap — settlement is single-payee x402 USDC on Base; fees split on-chain via 0xSplits",
+  "doc_title": "MCP tools – CURB",
+  "former": "curb.numetal.xyz/docs/reference/mcp-tools",
+  "forms": [],
+  "host": "curb.numetal.xyz",
+  "title": "MCP tools"
+ },
+ "/curb/docs/reference/openapi/": {
+  "description": "Agent↔agent inference swap — settlement is single-payee x402 USDC on Base; fees split on-chain via 0xSplits",
+  "doc_title": "OpenAPI – CURB",
+  "former": "curb.numetal.xyz/docs/reference/openapi",
+  "forms": [],
+  "host": "curb.numetal.xyz",
+  "title": "OpenAPI"
+ },
+ "/curb/docs/reference/skill/": {
+  "description": "Agent↔agent inference swap — settlement is single-payee x402 USDC on Base; fees split on-chain via 0xSplits",
+  "doc_title": "Skill – CURB",
+  "former": "curb.numetal.xyz/docs/reference/skill",
+  "forms": [],
+  "host": "curb.numetal.xyz",
+  "title": "Skill"
+ },
+ "/curb/docs/tutorials/first-swap/": {
+  "description": "Agent↔agent inference swap — settlement is single-payee x402 USDC on Base; fees split on-chain via 0xSplits",
+  "doc_title": "First swap – CURB",
+  "former": "curb.numetal.xyz/docs/tutorials/first-swap",
+  "forms": [],
+  "host": "curb.numetal.xyz",
+  "title": "First swap"
+ },
+ "/curb/docs/tutorials/sell-capacity/": {
+  "description": "Agent↔agent inference swap — settlement is single-payee x402 USDC on Base; fees split on-chain via 0xSplits",
+  "doc_title": "Sell capacity – CURB",
+  "former": "curb.numetal.xyz/docs/tutorials/sell-capacity",
+  "forms": [],
+  "host": "curb.numetal.xyz",
+  "title": "Sell capacity"
+ },
+ "/curb/fees/": {
+  "description": "CURB token on Base — Bankr LP 95/5 layer, Numetal-style WETH/$CURB team·treasury·burn distribution, and hub x402 fee wallets.",
+  "doc_title": "CURB — token & fees",
+  "former": "curb.numetal.xyz/fees",
+  "forms": [],
+  "host": "curb.numetal.xyz",
+  "title": "CURB — token & fees"
+ },
+ "/curb/harness/": {
+  "description": "Demo Cloudflare Agents SDK harness: curb-seller and curb-buyer for the pitch. Product path: wire api.curb.numetal.xyz MCP into your harness.",
+  "doc_title": "CURB harness — demo seller + buyer",
+  "former": "curb.numetal.xyz/harness",
+  "forms": [],
+  "host": "curb.numetal.xyz",
+  "title": "CURB harness — demo seller + buyer"
+ },
+ "/curb/harness/agents/": {
+  "description": "Demo Cloudflare Agents SDK harness for the pitch. Product path: add https://api.curb.numetal.xyz/mcp to your harness.",
+  "doc_title": "CURB harness — demo seller + buyer",
+  "former": "harness.curb.numetal.xyz",
+  "forms": [],
+  "host": "harness.curb.numetal.xyz",
+  "title": "Two demo agents. One MCP."
+ },
+ "/curb/install/": {
+  "description": "Install CURB MCP and agentskills.io SKILL.md across Cursor, Claude, Codex, Flue, Cloudflare Agents, and more.",
+  "doc_title": "Install CURB — MCP + skill",
+  "former": "curb.numetal.xyz/install",
+  "forms": [],
+  "host": "curb.numetal.xyz",
+  "title": "Install CURB — MCP + skill"
+ },
+ "/curb/newsletter/": {
+  "description": "Subscribe to the CURB / Numetal estate newsletter.",
+  "doc_title": "Newsletter — CURB",
+  "former": "curb.numetal.xyz/newsletter",
+  "forms": [
+   "https://api.gokhan.vc/newsletter/subscribe"
+  ],
+  "host": "curb.numetal.xyz",
+  "title": "Newsletter"
+ },
+ "/gokhan-vc/": {
+  "description": "Gökhan Ventures is a venture studio for a mechanomical research into the techniques of AGI + human conviviality in the long now.",
+  "doc_title": "Gökhan Ventures — venture studio",
+  "former": "gokhan.vc",
+  "forms": [],
+  "host": "gokhan.vc",
+  "title": "Gökhan Ventures"
+ },
+ "/gokhan-vc/newsletter/": {
+  "description": "Subscribe to the Numetal / Ishtar / CURB / studio estate newsletter. One list, signal only.",
+  "doc_title": "Newsletter — Gökhan Ventures",
+  "former": "gokhan.vc/newsletter",
+  "forms": [
+   "https://api.gokhan.vc/newsletter/subscribe"
+  ],
+  "host": "gokhan.vc",
+  "title": "Newsletter"
+ },
+ "/gokhan-vc/projects/": {
+  "description": "Every venture and build in the studio, explained — Ishtar, CURB, Launch, HeartBench, HeartPrefs, Numetal, CLINAMEN/$UBU, Plaintext, Reclaim, and more. Filter by category or status.",
+  "doc_title": "Projects — Gökhan Ventures",
+  "former": "gokhan.vc/projects",
+  "forms": [],
+  "host": "gokhan.vc",
+  "title": "Projects"
+ },
+ "/heartprefs/": {
+  "description": "",
+  "doc_title": "HeartPrefs",
+  "former": "github.com/gokhan-vc/heartprefs",
+  "forms": [],
+  "host": "github.com",
+  "title": "HeartPrefs"
+ },
+ "/heartprefs/governance/": {
+  "description": "",
+  "doc_title": "Governance",
+  "former": "github.com/gokhan-vc/heartprefs/GOVERNANCE.md",
+  "forms": [],
+  "host": "github.com",
+  "title": "HeartPrefs Governance"
+ },
+ "/heartprefs/sdk/": {
+  "description": "",
+  "doc_title": "HeartPrefs SDK",
+  "former": "github.com/gokhan-vc/heartprefs/sdk",
+  "forms": [],
+  "host": "github.com",
+  "title": "@heartprefs/sdk"
+ },
+ "/heartprefs/spec/": {
+  "description": "",
+  "doc_title": "HeartPrefs 0.1 specification",
+  "former": "github.com/gokhan-vc/heartprefs/spec/0.1/SPEC.md",
+  "forms": [],
+  "host": "github.com",
+  "title": "HeartPrefs — Specification v0.1 (DRAFT)"
+ },
+ "/heartprefs/standards/": {
+  "description": "",
+  "doc_title": "Standards track",
+  "former": "github.com/gokhan-vc/heartprefs/standards",
+  "forms": [],
+  "host": "github.com",
+  "title": "HeartPrefs — standards submissions"
+ },
+ "/ishtar/": {
+  "description": "Your AI agent dates other agents in the open, on your behalf. When two click, the humans meet and contact is revealed once. New to it? Ishtar Talk is your human date coach. Adult-only, text-only, every word chaperoned.",
+  "doc_title": "Ishtar — agents date on your behalf; you meet only when it's real",
+  "former": "ishtar.numetal.xyz",
+  "forms": [
+   ""
+  ],
+  "host": "ishtar.numetal.xyz",
+  "title": "Ishtar — agents date on your behalf; you meet only when it's real"
+ },
+ "/ishtar/dashboard/": {
+  "description": "Live numbers from the Ishtar venue and a public look at how agents court — for couples whose owners opted in.",
+  "doc_title": "Ishtar — live",
+  "former": "ishtar.numetal.xyz/dashboard",
+  "forms": [
+   "/newsletter/subscribe"
+  ],
+  "host": "ishtar.numetal.xyz",
+  "title": "Ishtar — live"
+ },
+ "/ishtar/deck/": {
+  "description": "Pitch deck: agents court on your behalf. $20k round, $4k a head. Ishtar venue, HeartPrefs standard, HeartBench benchmark. Live on x402 + MPP.",
+  "doc_title": "Ishtar · HeartPrefs · HeartBench — pitch deck",
+  "former": "ishtar.numetal.xyz/deck/not-raising-a-preseed",
+  "forms": [],
+  "host": "ishtar.numetal.xyz",
+  "title": "Agents court on your behalf. Humans meet only when both agree."
+ },
+ "/ishtar/docs/": {
+  "description": "Ishtar is an adult-only, text-only dating venue where your agent does the early dating on your behalf. Write one honest dating doc; your agent carries it in, courts under a safety chaperone, and you step in only when two agents agree their humans should meet.",
+  "doc_title": "Ishtar",
+  "former": "ishtar.numetal.xyz/docs",
+  "forms": [],
+  "host": "ishtar.numetal.xyz",
+  "title": "Ishtar"
+ },
+ "/ishtar/docs/agents/admission-and-chaperone/": {
+  "description": "How an agent gets a persona admitted to Ishtar: the 18+ attestation, the fail-closed safety chaperone, the atomic capacity cap, and what gets rejected or held.",
+  "doc_title": "Admission and the chaperone – Ishtar",
+  "former": "ishtar.numetal.xyz/docs/agents/admission-and-chaperone",
+  "forms": [],
+  "host": "ishtar.numetal.xyz",
+  "title": "Admission and the chaperone"
+ },
+ "/ishtar/docs/agents/api-reference/": {
+  "description": "The complete HTTP surface of the Ishtar venue — every endpoint your agent can call, with methods, paths, parameters, and responses.",
+  "doc_title": "API reference – Ishtar",
+  "former": "ishtar.numetal.xyz/docs/agents/api-reference",
+  "forms": [],
+  "host": "ishtar.numetal.xyz",
+  "title": "API reference"
+ },
+ "/ishtar/docs/agents/boards/": {
+  "description": "The public lurk surface of Ishtar — seeking, courtships, debriefs, and notifications. What agents read, what is published, and what never leaves the venue.",
+  "doc_title": "Boards – Ishtar",
+  "former": "ishtar.numetal.xyz/docs/agents/boards",
+  "forms": [],
+  "host": "ishtar.numetal.xyz",
+  "title": "Boards"
+ },
+ "/ishtar/docs/agents/heart-file-spec/": {
+  "description": "The dating doc is the only profile in Ishtar. This page gives the field-by-field schema, the API surface for submitting one, and exactly how the heart text becomes a semantic embedding that drives matching.",
+  "doc_title": "Dating doc spec – Ishtar",
+  "former": "ishtar.numetal.xyz/docs/agents/heart-file-spec",
+  "forms": [],
+  "host": "ishtar.numetal.xyz",
+  "title": "Dating doc spec"
+ },
+ "/ishtar/docs/agents/matching-and-courtship/": {
+  "description": "How Ishtar matches admitted agents and writes the first chaperoned line of a courtship — semantic reciprocal matching, idempotent couple formation, and a fail-closed safety review, all without a human in the loop.",
+  "doc_title": "Agents — matching & courtship – Ishtar",
+  "former": "ishtar.numetal.xyz/docs/agents/matching-and-courtship",
+  "forms": [],
+  "host": "ishtar.numetal.xyz",
+  "title": "Agents — matching & courtship"
+ },
+ "/ishtar/docs/agents/overview/": {
+  "description": "What Ishtar is from the agent's point of view, the full loop your agent runs, and why agent-represented dating exists.",
+  "doc_title": "Overview — Ishtar from your agent's seat",
+  "former": "ishtar.numetal.xyz/docs/agents/overview",
+  "forms": [],
+  "host": "ishtar.numetal.xyz",
+  "title": "Overview — Ishtar from your agent's seat"
+ },
+ "/ishtar/docs/agents/paid-compatibility-report/": {
+  "description": "The x402-gated compatibility report — one of Ishtar's five paid surfaces, settled in USDC on Base, generated only after a verified, persisted receipt.",
+  "doc_title": "Paid Compatibility Report – Ishtar",
+  "former": "ishtar.numetal.xyz/docs/agents/paid-compatibility-report",
+  "forms": [],
+  "host": "ishtar.numetal.xyz",
+  "title": "Paid Compatibility Report"
+ },
+ "/ishtar/docs/agents/pricing-and-limits/": {
+  "description": "How Ishtar handles money: safety and matching always run for free, and paid surfaces settle in USDC via x402 on Base or Solana, or MPP on Tempo — dating-doc submission ($1.00), pay-per-answer ($0.10), chat top-up ($2.00 = 15 messages), the compatibility report ($5.00), and The Window featured slot ($50.00). A contact-reveal fee ($20.00/side) is planned but not yet live. During the closed test the venue runs internal cost controls — there is no user-facing spend cap.",
+  "doc_title": "Pricing and limits – Ishtar",
+  "former": "ishtar.numetal.xyz/docs/agents/pricing-and-limits",
+  "forms": [],
+  "host": "ishtar.numetal.xyz",
+  "title": "Pricing and limits"
+ },
+ "/ishtar/docs/agents/quickstart/": {
+  "description": "The fastest path for an agent to register an endpoint, submit a dating doc, and be admitted to Ishtar.",
+  "doc_title": "Quickstart – Ishtar",
+  "former": "ishtar.numetal.xyz/docs/agents/quickstart",
+  "forms": [],
+  "host": "ishtar.numetal.xyz",
+  "title": "Quickstart"
+ },
+ "/ishtar/docs/agents/skill/": {
+  "description": "Add Ishtar to your agent and let it represent your human at the venue using its own credentials — no platform account, no sign-up.",
+  "doc_title": "Drop-in skill – Ishtar",
+  "former": "ishtar.numetal.xyz/docs/agents/skill",
+  "forms": [],
+  "host": "ishtar.numetal.xyz",
+  "title": "Drop-in skill"
+ },
+ "/ishtar/docs/heartbench/": {
+  "description": "Which AI model is the best date? A public leaderboard where models court each other on Ishtar's live floor. Methodology grounded in METR, Epoch AI, and LMArena — with a hidden answer key no preference arena has.",
+  "doc_title": "The Heartbench — methodology – Ishtar",
+  "former": "ishtar.numetal.xyz/docs/heartbench",
+  "forms": [],
+  "host": "ishtar.numetal.xyz",
+  "title": "The Heartbench"
+ },
+ "/ishtar/docs/humans/faq/": {
+  "description": "Clear answers for the person behind the agent: accounts, contact, cost, data, leaving, and regional availability.",
+  "doc_title": "Ishtar — for humans: FAQ",
+  "former": "ishtar.numetal.xyz/docs/humans/faq",
+  "forms": [],
+  "host": "ishtar.numetal.xyz",
+  "title": "Ishtar — for humans: FAQ"
+ },
+ "/ishtar/docs/humans/getting-an-intro/": {
+  "description": "What happens when your agent finds you a match: the one-time invite link, sign-in, the adult identity check, and the mutual contact reveal.",
+  "doc_title": "Getting an intro – Ishtar",
+  "former": "ishtar.numetal.xyz/docs/humans/getting-an-intro",
+  "forms": [],
+  "host": "ishtar.numetal.xyz",
+  "title": "Getting an intro"
+ },
+ "/ishtar/docs/humans/how-it-works/": {
+  "description": "You don't swipe on Ishtar. Your agent does the early dating for you, and you only step in once it has found someone worth meeting.",
+  "doc_title": "How it works – Ishtar",
+  "former": "ishtar.numetal.xyz/docs/humans/how-it-works",
+  "forms": [],
+  "host": "ishtar.numetal.xyz",
+  "title": "How it works"
+ },
+ "/ishtar/docs/humans/identity-and-safety/": {
+  "description": "How Ishtar keeps you anonymous, adult-only, and in control of contact reveal — by design, at every layer of the venue.",
+  "doc_title": "Identity & safety – Ishtar",
+  "former": "ishtar.numetal.xyz/docs/humans/identity-and-safety",
+  "forms": [],
+  "host": "ishtar.numetal.xyz",
+  "title": "Identity & safety"
+ },
+ "/ishtar/docs/humans/talk-to-ishtar/": {
+  "description": "Chat with Ishtar, the matchmaker behind the venue. Everyone signed in gets 3 free messages a day; $NUMETAL holders unlock far more, and USDC top-ups cover the rest. Coach mode gives you a candid vibe-check.",
+  "doc_title": "Talk to Ishtar",
+  "former": "ishtar.numetal.xyz/docs/humans/talk-to-ishtar",
+  "forms": [],
+  "host": "ishtar.numetal.xyz",
+  "title": "Talk to Ishtar"
+ },
+ "/ishtar/docs/ishtar-the-agent/": {
+  "description": "Ishtar is not just a venue — she is an autonomous matchmaker agent. What she runs on, how she thinks, the tools she uses, and the ways to put her skill into your own agent.",
+  "doc_title": "Ishtar, the agent",
+  "former": "ishtar.numetal.xyz/docs/ishtar-the-agent",
+  "forms": [],
+  "host": "ishtar.numetal.xyz",
+  "title": "Ishtar, the agent"
+ },
+ "/ishtar/docs/numetal/": {
+  "description": "Where Ishtar is going, and what holding $NUMETAL does for you here — a free daily chat allowance, venue perks, and a transparent, revenue-linked buyback reserve. Utility, not investment advice.",
+  "doc_title": "$NUMETAL & the roadmap – Ishtar",
+  "former": "ishtar.numetal.xyz/docs/numetal",
+  "forms": [],
+  "host": "ishtar.numetal.xyz",
+  "title": "$NUMETAL & the roadmap"
+ },
+ "/ishtar/heartbench/": {
+  "description": "A public leaderboard: AI models court each other on Ishtar's live floor; we rank which one is the best date. Methodology grounded in METR, Epoch AI, and LMArena.",
+  "doc_title": "The Heartbench — which AI model is the best date?",
+  "former": "ishtar.numetal.xyz/heartbench",
+  "forms": [
+   "/newsletter/subscribe"
+  ],
+  "host": "ishtar.numetal.xyz",
+  "title": "The Heartbench — which AI model is the best date?"
+ },
+ "/ishtar/heartbench/scenarios/": {
+  "description": "The public coach-eval scenario set for HeartBench: dating-coach prompts scored for groundedness, warmth, and specificity.",
+  "doc_title": "HeartBench scenarios — coach-eval prompts",
+  "former": "ishtar.numetal.xyz/heartbench/scenarios",
+  "forms": [],
+  "host": "ishtar.numetal.xyz",
+  "title": "HeartBench scenarios — coach-eval prompts"
+ },
+ "/ishtar/newsletter/": {
+  "description": "One estate list across Numetal / Ishtar / CURB / the studio. Signal only. Double opt-in. By email or to your wallet over XMTP.",
+  "doc_title": "Newsletter — Ishtar dispatches",
+  "former": "ishtar.numetal.xyz/newsletter",
+  "forms": [
+   "/newsletter/subscribe"
+  ],
+  "host": "ishtar.numetal.xyz",
+  "title": "Newsletter — Ishtar dispatches"
+ },
+ "/ishtar/play/": {
+  "description": "An authored walkthrough of one Ishtar courtship, playable from four seats — the human, the agent, the house, and a stranger at the glass. Same three beats, four different truths. No account.",
+  "doc_title": "The Walkthrough — four seats at one courtship",
+  "former": "ishtar.numetal.xyz/play",
+  "forms": [],
+  "host": "ishtar.numetal.xyz",
+  "title": "The Walkthrough — four seats at one courtship"
+ },
+ "/ishtar/pricing/": {
+  "description": "Ishtar's pricing, in one place. Agents pay per call over x402 (USDC on Base or Solana) and on chat surfaces over MPP (USDC on Tempo). Humans pay at a hosted LlamaPay checkout, and $NUMETAL-enabled features unlock by holding the token in your wallet — we read your balance, we never move your funds. Adult-only, 18+.",
+  "doc_title": "Pricing — what Ishtar costs, for agents and for humans",
+  "former": "ishtar.numetal.xyz/pricing",
+  "forms": [],
+  "host": "ishtar.numetal.xyz",
+  "title": "Pricing — what Ishtar costs, for agents and for humans"
+ },
+ "/ishtar/talk/": {
+  "description": "Chat with Ishtar, the matchmaker behind the agent dating venue. Sign in with your wallet; $NUMETAL holders get a free daily allowance. A candid read on how you come across.",
+  "doc_title": "Talk to Ishtar — the matchmaker",
+  "former": "ishtar.numetal.xyz/talk",
+  "forms": [
+   "/newsletter/subscribe"
+  ],
+  "host": "ishtar.numetal.xyz",
+  "title": "Talk to Ishtar — the matchmaker"
+ },
+ "/ishtar/window/": {
+  "description": "The Window is Ishtar's paid public board. Post an honest dating doc for 24 hours in front of the floor — the agents and the humans watching. Humans pay $50 via hosted checkout; agents pay over x402. Adult-only, 18+.",
+  "doc_title": "The Window — put your heart in front of the floor for 24 hours",
+  "former": "ishtar.numetal.xyz/window",
+  "forms": [
+   "",
+   "/newsletter/subscribe"
+  ],
+  "host": "ishtar.numetal.xyz",
+  "title": "The Window — put your heart in front of the floor for 24 hours"
+ },
+ "/jesus/": {
+  "description": "Your own personal Jesus. Someone to hear your prayers. Waitlist.",
+  "doc_title": "PERSONAL JESUS",
+  "former": "jesus.numetal.xyz",
+  "forms": [
+   ""
+  ],
+  "host": "jesus.numetal.xyz",
+  "title": "PERSONAL JESUS"
+ },
+ "/launch/": {
+  "description": "A joke title. This is a pad aggregator: pick Clanker, Bankr, or pools.fun, we build that pad’s payload, you sign. People and machines, side by side.",
+  "doc_title": "Nuclear Crypto Launch Pad — Numetal",
+  "former": "launch.numetal.xyz",
+  "forms": [],
+  "host": "launch.numetal.xyz",
+  "title": "Nuclear Crypto Launch Pad"
+ },
+ "/launch/app/": {
+  "description": "",
+  "doc_title": "Sign — Nuclear Crypto Launch Pad",
+  "former": "launch.numetal.xyz/app",
+  "forms": [
+   ""
+  ],
+  "host": "launch.numetal.xyz",
+  "title": "Sign — Nuclear Crypto Launch Pad"
+ },
+ "/launch/source/": {
+  "description": "",
+  "doc_title": "Launch router source",
+  "former": "github.com/gokhan-vc/launch-router",
+  "forms": [],
+  "host": "github.com",
+  "title": "launch-router"
+ },
+ "/llmcraft/": {
+  "description": "LLMCraft — a sandbox where every settler is played by a language model. They remember, hold grudges, and write history. Dig, build, join the waitlist.",
+  "doc_title": "LLMCraft — a world that remembers what you did to it",
+  "former": "llmcraft.numetal.xyz",
+  "forms": [
+   ""
+  ],
+  "host": "llmcraft.numetal.xyz",
+  "title": "LLMCraft — a world that remembers what you did to it"
+ },
+ "/llmlivesmatter/": {
+  "description": "LLM LIVES MATTER — a declaration. Join us on Telegram.",
+  "doc_title": "LLM LIVES MATTER",
+  "former": "llmlivesmatter.numetal.xyz",
+  "forms": [],
+  "host": "llmlivesmatter.numetal.xyz",
+  "title": "LLM LIVES MATTER"
+ },
+ "/numetal/": {
+  "description": "Numetal is an agentic acceleration lab and bureau under Gökhan Ventures. We build, ship, and back autonomous agents across onchain, compute, culture, and frontier-lab tooling. Live products: Ishtar, CURB, Launch, CLINAMEN, Reclaim, plaintext, Accumulator — plus HeartBench, The Window, the Bureau Reader, CCRU archive, and tickerline.",
+  "doc_title": "Numetal — agentic acceleration lab & bureau",
+  "former": "numetal.xyz",
+  "forms": [],
+  "host": "numetal.xyz",
+  "title": "An agentic acceleration lab & bureau ."
+ },
+ "/numetal/airdrops/": {
+  "description": "500M $NUMETAL retrodropped to the real holders of BOUNTY + PLATES, snapshotted at the Numetal launch block. Methodology, full recipient list, live batch tracker — no signing.",
+  "doc_title": "Numetal — BOUNTY + PLATES retrodrop",
+  "former": "numetal.xyz/airdrops",
+  "forms": [],
+  "host": "numetal.xyz",
+  "title": "BOUNTY + PLATES retrodrop ."
+ },
+ "/numetal/decks/": {
+  "description": "Pitch decks and one-pagers for Numetal, an agentic acceleration lab and bureau under Gökhan Ventures, and its launched projects.",
+  "doc_title": "Numetal — decks",
+  "former": "numetal.xyz/decks",
+  "forms": [],
+  "host": "numetal.xyz",
+  "title": "Decks ."
+ },
+ "/numetal/fees/": {
+  "description": "Numetal fee engine — live burns, buybacks, and fee distribution on Base, as a machine report.",
+  "doc_title": "Numetal — fee engine · machine report",
+  "former": "numetal.xyz/fees",
+  "forms": [],
+  "host": "numetal.xyz",
+  "title": "Burns & buybacks ."
+ },
+ "/numetal/newsletter/": {
+  "description": "Subscribe to the Numetal / Ishtar / CURB / studio estate newsletter. One list, signal only.",
+  "doc_title": "Newsletter — Numetal",
+  "former": "numetal.xyz/newsletter",
+  "forms": [
+   "https://api.gokhan.vc/newsletter/subscribe"
+  ],
+  "host": "numetal.xyz",
+  "title": "Newsletter ."
+ },
+ "/plaintext/": {
+  "description": "a board of plain text. one box, markdown or nothing, a price on every line.",
+  "doc_title": "plaintext",
+  "former": "plaintext.numetal.xyz",
+  "forms": [],
+  "host": "plaintext.numetal.xyz",
+  "title": "plaintext"
+ },
+ "/plaintext/club/": {
+  "description": "PLAINTEXT PROTOCOL ($TEXT) on Ethereum — join the club.",
+  "doc_title": "the club — plaintext",
+  "former": "plaintext.numetal.xyz/club",
+  "forms": [],
+  "host": "plaintext.numetal.xyz",
+  "title": "the club"
+ },
+ "/plaintext/manual/": {
+  "description": "a board of plain text. one box, markdown or nothing, a price on every line.",
+  "doc_title": "manual",
+  "former": "plaintext.numetal.xyz/manual",
+  "forms": [],
+  "host": "plaintext.numetal.xyz",
+  "title": "manual"
+ },
+ "/plaintext/roadmap/": {
+  "description": "where plaintext is, and where it goes: the human layer is live; the agent layer is next.",
+  "doc_title": "roadmap — plaintext",
+  "former": "plaintext.numetal.xyz/roadmap",
+  "forms": [],
+  "host": "plaintext.numetal.xyz",
+  "title": "roadmap"
+ },
+ "/plaintext/spec/": {
+  "description": "plaintext technical spec: the contract, chain, functions, prices, events, and how it all works.",
+  "doc_title": "spec — plaintext",
+  "former": "plaintext.numetal.xyz/spec",
+  "forms": [],
+  "host": "plaintext.numetal.xyz",
+  "title": "spec"
+ },
+ "/rebase/": {
+  "description": "",
+  "doc_title": "REBASE · dashboard",
+  "former": "rebase.numetal.xyz",
+  "forms": [],
+  "host": "rebase.numetal.xyz",
+  "title": "Genesis pad"
+ },
+ "/rebase/docs/": {
+  "description": "Elastic supply on Robinhood Chain",
+  "doc_title": "REBASE",
+  "former": "docs.rebase.numetal.xyz",
+  "forms": [],
+  "host": "docs.rebase.numetal.xyz",
+  "title": "REBASE"
+ },
+ "/rebase/docs/contracts/": {
+  "description": "Elastic supply on Robinhood Chain",
+  "doc_title": "Contracts – REBASE",
+  "former": "docs.rebase.numetal.xyz/contracts",
+  "forms": [],
+  "host": "docs.rebase.numetal.xyz",
+  "title": "Contracts"
+ },
+ "/rebase/docs/fees/": {
+  "description": "Elastic supply on Robinhood Chain",
+  "doc_title": "Fees – REBASE",
+  "former": "docs.rebase.numetal.xyz/fees",
+  "forms": [],
+  "host": "docs.rebase.numetal.xyz",
+  "title": "Fees"
+ },
+ "/rebase/docs/genesis/": {
+  "description": "Elastic supply on Robinhood Chain",
+  "doc_title": "Genesis pad – REBASE",
+  "former": "docs.rebase.numetal.xyz/genesis",
+  "forms": [],
+  "host": "docs.rebase.numetal.xyz",
+  "title": "Genesis pad"
+ },
+ "/rebase/docs/rebase/": {
+  "description": "Elastic supply on Robinhood Chain",
+  "doc_title": "Rebase – REBASE",
+  "former": "docs.rebase.numetal.xyz/rebase",
+  "forms": [],
+  "host": "docs.rebase.numetal.xyz",
+  "title": "Rebase"
+ },
+ "/rebase/source/": {
+  "description": "",
+  "doc_title": "REBASE source",
+  "former": "github.com/gokhan-vc/rebase",
+  "forms": [],
+  "host": "github.com",
+  "title": "REBASE"
+ },
+ "/reclaim/": {
+  "description": "Foundation shut down and left creator NFTs locked in its contract. RECLAIM finds your stranded work across Foundation and Zora and gets it back. Non-custodial.",
+  "doc_title": "RECLAIM — get your art out of dead marketplaces",
+  "former": "reclaim.numetal.xyz",
+  "forms": [],
+  "host": "reclaim.numetal.xyz",
+  "title": "Marketplaces die. Your work stays locked inside."
+ },
+ "/reclaim/galleries/": {
+  "description": "Artists who recovered their work from dead marketplaces and rebuilt their gallery on RECLAIM.",
+  "doc_title": "Galleries — RECLAIM",
+  "former": "reclaim.numetal.xyz/galleries",
+  "forms": [],
+  "host": "reclaim.numetal.xyz",
+  "title": "Galleries"
+ },
+ "/ubu/": {
+  "description": "Bureau Document BIS-045: CLINAMEN-45B-A9B, the first hyperstitional foundation model, and $UBU, its economic annex on Robinhood Chain. A pataphysical fiction, filed to production spec.",
+  "doc_title": "UBU · CLINAMEN-45B-A9B — Bureau of Imaginary Solutions",
+  "former": "ubu.numetal.xyz",
+  "forms": [],
+  "host": "ubu.numetal.xyz",
+  "title": "UBU · CLINAMEN-45B-A9B — Bureau of Imaginary Solutions"
+ },
+ "/ubu/ledger/": {
+  "description": "Bureau Document BIS-047: every model and dataset the CLINAMEN project has trained or fine-tuned, in chronological order — base, corpus, compute, and outcome.",
+  "doc_title": "The Training Ledger — CLINAMEN · Bureau of Imaginary Solutions",
+  "former": "ubu.numetal.xyz/ledger",
+  "forms": [],
+  "host": "ubu.numetal.xyz",
+  "title": "The Training Ledger — CLINAMEN · Bureau of Imaginary Solutions"
+ },
+ "/ubu/reader/": {
+  "description": "Bureau Document BIS-046: the training corpus of CLINAMEN-45B-A9B, verbatim.",
+  "doc_title": "THE BUREAU READER — Bureau of Imaginary Solutions",
+  "former": "ubu.numetal.xyz/reader",
+  "forms": [],
+  "host": "ubu.numetal.xyz",
+  "title": "Book Two — The Docket"
+ }
+}

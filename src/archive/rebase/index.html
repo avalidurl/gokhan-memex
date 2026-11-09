@@ -1,0 +1,69 @@
+<p>Live feed not kept in this copy; see the snapshot on this page.</p>
+<div>
+<div>
+<div>Fill · 20,000 USDG</div>
+</div>
+<div><div>Raised</div><div>—</div></div>
+<div><div>Remaining</div><div>—</div></div>
+<div><div>Time left</div><div>—</div></div>
+<div><div>Ends (UTC)</div><div>—</div></div>
+<div><div>Min / max per wallet</div><div>10 – 2,500</div></div>
+<div><div>Your deposit</div><div>—</div></div>
+<div><div>Your room</div><div>—</div></div>
+<div><div>USDG balance</div><div>—</div></div>
+<div><div>Graduated</div><div>—</div></div>
+<div><div>Pool seeded</div><div>—</div></div>
+<div><div>Claimed</div><div>—</div></div>
+<div><div>REBASE supply</div><div>—</div></div>
+<div><div>Rebase epoch</div><div>—</div></div>
+<div><div>Last rebase</div><div>—</div></div>
+<div><div>Oracle USD / REBASE</div><div>—</div></div>
+<div><div>Fee wallet · 40 bps both assets</div><div>—</div></div>
+</div>
+<div>
+<section>
+<h2>Contribute USDG</h2>
+<p>$1 per REBASE. <strong>Min 10 USDG. Max 2,500 USDG per wallet.</strong> Eight maxed wallets fill the 20,000 book. Robinhood Chain (4663).</p>
+<label>Amount (USDG) — min 10, max 2,500</label>
+<input disabled="" type="text" value="10"/>
+</section>
+<section>
+<h2>Ops</h2>
+<p>After the 20k fills. Hover a button for what it does. Price is read live from the pool — no “log price” click.</p>
+<p>
+          Pad <a href="#"></a><br/>
+          REBASE <a href="#"></a><br/>
+          USDG <a href="https://robinhoodchain.blockscout.com/address/0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168">0x5fc5…d168</a>
+</p>
+</section>
+</div>
+<section>
+<h2>What each button does</h2>
+<table>
+<thead>
+<tr><th>Button</th><th>Does</th><th>When</th></tr>
+</thead>
+<tbody>
+<tr><td>Connect</td><td>Attaches your wallet and switches to Robinhood Chain (4663).</td><td>First</td></tr>
+<tr><td>Approve USDG</td><td>Permission for the pad to pull the amount in the box. Not a deposit.</td><td>Before contribute</td></tr>
+<tr><td>Contribute</td><td>Sends USDG into the pad at $1. Min 10, max 2,500 per wallet.</td><td>During the 7-day raise</td></tr>
+<tr><td>Claim REBASE</td><td>Pays you 1 REBASE per 1 USDG you put in. Your allocation only.</td><td>After Graduate</td></tr>
+<tr><td>Refund if failed</td><td>Returns your USDG if the cap is missed when time runs out.</td><td>After 7 days, if &lt; 20k</td></tr>
+<tr><td>Graduate</td><td>Locks the raise and mints REBASE. Still no Uniswap book.</td><td>Raised = 20,000</td></tr>
+<tr><td>Seed pool</td><td>Opens locked wREBASE/USDG liquidity at $1. Trading starts.</td><td>After Graduate</td></tr>
+<tr><td>Collect fees</td><td>Sends swap fees to the fee wallet. Cannot pull the 20k.</td><td>After people trade</td></tr>
+<tr><td>Poke rebase</td><td>Reads the <em>live</em> pool price (no extra log click) and scales everyone’s displayed balance if off the $1 band. Not how you receive your purchase.</td><td>After pool + wired oracle, ≤1/day</td></tr>
+</tbody>
+</table>
+<p>
+        The number under <strong>Oracle USD / REBASE</strong> is read automatically every few seconds.
+        There is no “Update oracle” button — that would have been a leftover write for an optional 24h average.
+        Spot is already on-chain once the pool exists. It stays 0 / “not wired” until <code>./wire-oracle.sh</code> and Seed pool.
+      </p>
+</section>
+      Robinhood Chain · 4663 · not a Stock Token · not listed on Robinhood Crypto.
+      <p>
+        These smart contracts are experimental. They may not behave as described, may contain bugs,
+        and you can lose everything you send. Nothing here is an offer, advice, or a guarantee of a
+        peg, a market, or a refund. Do your own research. Only use money you can lose.
+      </p>
