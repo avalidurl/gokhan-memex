@@ -54,9 +54,11 @@ This is the personal memex (digital garden) of Gökhan Turhan. The site contains
 
 ## Contact
 
-- Email: contact@gokhanturhan.com
+- Email: contact@gokhan.vc
+- LinkedIn: https://www.linkedin.com/in/goekhanturhan/
+- X: https://x.com/goekhan
 - Telegram: https://t.me/goekhanturhan
-- For collaboration, consulting, or inquiries
+- DMs are open.
 
 ## License
 

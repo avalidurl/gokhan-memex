@@ -4,16 +4,18 @@ const navLinks = [...document.querySelectorAll("nav a")];
 
 function show() {
   const raw = (location.hash || "#index").slice(1);
+  const aliases = { contact: "cv" };
   const known = pages.some(p => p.id === raw);
-  const id = known ? raw : "index";
+  const id = known ? raw : (aliases[raw] || "index");
   pages.forEach(p => p.classList.toggle("on", p.id === id));
-  const navId = id === "essay" ? "journal" : id;
+  const navId = raw === "contact" ? "contact" : (id === "essay" ? "journal" : id);
   navLinks.forEach(a => {
     a.setAttribute("aria-current", a.getAttribute("href") === "#" + navId ? "page" : "false");
   });
   const page = document.getElementById(id);
   docid.textContent = page ? page.dataset.doc : "MX-001";
   document.title = id === "index" ? "Gökhan Turhan" : document.querySelector("#" + id + " h2, #" + id + " .title")?.textContent?.trim() || "Gökhan Turhan";
+  if (raw === "contact") document.title = "Contact";
   if (id === "essay") document.title = "Complementary Substitutions";
 }
 
