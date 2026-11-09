@@ -9,10 +9,10 @@ featured: true
 draft: false
 excerpt: "Rev.4: the x402 economy on two clocks — cumulative since day one and a live 30-day panel. Joint research, Gökhan Turhan × Claude."
 originalUrl: "https://gokhan.vc/blog/x402-economy-july-2026"
-ogImage: "https://gokhan.vc/og-x402-economy-2026-07.png"
+ogImage: "/media/archive/gokhan-vc/og-x402-economy-2026-07.png"
 ---
 
-*First published — canonically — on [gokhan.vc →](https://gokhan.vc/blog/x402-economy-july-2026) · this mirror tracks the canonical text; currently rev.4 (2026-07-18).*
+*First published — canonically — on [gokhan.vc →](/gokhan-vc/) · this mirror tracks the canonical text; currently rev.4 (2026-07-18).*
 
 > **This report is a joint research output by Gökhan Turhan and several Claude models, including Opus 4.8 and Fable 5.** Nothing here is investment advice. It is an attempt at mapping an emergent economy at the axes of artificial general intelligence and self-refactoring, cryptographically secured payment rails — with or without blockchains in the traditional sense.
 
@@ -100,7 +100,7 @@ Historical arc: peak day **2025-11-15 at 3,785,401 transfers** in our catalog sl
 
 **78.5% of payments sit below $0.10 and carry 7.0% of value; the $1–10 bucket is the economic center of gravity.**[^8] Independently, Chainalysis reports the $1+ volume share rose 49% → 95% from early 2025 to early 2026, and the 10¢–$1 band collapsed 46% → 4%.[^6] All lenses converge here: micro-pings are noise; small-but-real payments are the economy.
 
-![FIG. 02 — payment size distribution](https://gokhan.vc/x402-report/fig-02-payment-size-distribution.svg)
+![FIG. 02 — payment size distribution](/media/archive/gokhan-vc/fig-02-payment-size-distribution.svg)
 
 ## 4. Networks: Base vs Solana
 
@@ -134,7 +134,7 @@ Site-labeled "Past 24 Hours" window, live 2026-07-17 14:42 UTC, dual-lens verifi
 
 (The ~2026-07-15 sample additionally showed Dexter at 25,131 tx / $1.04K on Solana, Heurist 917, Cascade 355 — all three absent from the live 2026-07-17 window.[^1] A facilitator roster that churns within days is itself the finding.)
 
-![FIG. 04 — facilitators, transactions vs volume](https://gokhan.vc/x402-report/fig-04-facilitators.svg)
+![FIG. 04 — facilitators, transactions vs volume](/media/archive/gokhan-vc/fig-04-facilitators.svg)
 
 Findings:
 
@@ -160,7 +160,7 @@ Findings:
 | Otto AI | $105 | 74 market-intel / DeFi / creative services — 65.28K tx / 559 buyers |
 | OneSource | $73 | Ethereum RPC for agents |
 
-![FIG. 03 — top sellers by 30-day revenue](https://gokhan.vc/x402-report/fig-03-vendor-revenue.svg)
+![FIG. 03 — top sellers by 30-day revenue](/media/archive/gokhan-vc/fig-03-vendor-revenue.svg)
 
 Structure:
 
@@ -198,7 +198,7 @@ Verified against the npm registry API, twice, figures exact:[^9]
 | `x402-axios` | 7,298 | +14% | 27,820 |
 | `x402-express` | 3,068 | −3% | 14,168 |
 
-![FIG. 06 — npm week-over-week](https://gokhan.vc/x402-report/fig-06-npm-funnel.svg)
+![FIG. 06 — npm week-over-week](/media/archive/gokhan-vc/fig-06-npm-funnel.svg)
 
 Reading: a stable ~1.2M/month core with sharply contracting client helpers, simultaneous with gateway-vendor revenue growth (§6), indicates **consolidation into hosted rails** rather than direct protocol integration. Bullish for rail operators; bearish for a decentralized seller base.
 
@@ -217,7 +217,7 @@ Reading: a stable ~1.2M/month core with sharply contracting client helpers, simu
 
 Classical baselines halve naive error on counts; **Base dollar volume remains unforecastable beyond naive** (single-seller spike-driven). This table is the admission bar for any foundation model (Chronos-2, Moirai-2 — queued) in the same harness.
 
-![FIG. 01 — Base daily transfers with forecast](https://gokhan.vc/x402-report/fig-01-base-transfers-forecast.svg)
+![FIG. 01 — Base daily transfers with forecast](/media/archive/gokhan-vc/fig-01-base-transfers-forecast.svg)
 
 **Surprise index** (realized Jul 3–16 ÷ forecast frozen Jul 2):[^10]
 
@@ -230,7 +230,7 @@ Classical baselines halve naive error on counts; **Base dollar volume remains un
 
 ¹ z ≈ 0 despite large ratio miss because 80% intervals on the Base series are extremely wide (fig. 01); the ratio is the informative statistic there.
 
-![FIG. 05 — surprise index](https://gokhan.vc/x402-report/fig-05-surprise-index.svg)
+![FIG. 05 — surprise index](/media/archive/gokhan-vc/fig-05-surprise-index.svg)
 
 Interpretation: **quantity undershoots, value overshoots** — wash evaporating faster than the model expected, paid usage slightly ahead of it. Artemis's live terminal reads the same contraction at ecosystem scale: 30-day transactions −96.5%, volume −89%.[^4] Automated weekly vintages begin 2026-07-20.
 
@@ -394,4 +394,4 @@ Authoritative over prose. Units: USD unless noted; windows as stated.
 
 [^24]: **BlockRun public stats endpoint** (blockrun.ai/api/stats) — free one-call JSON: totalTx 18.29M lifetime, 146K tx/24h, $244K volume at verification 2026-07-17 (same-day updatedAt); reconcilable on-chain against its settlement wallet on Basescan.
 
-— Gökhan Turhan × Claude (Opus 4.8 / Fable 5) · [Gökhan Ventures](https://gokhan.vc) · [Numetal Labs](https://numetal.xyz)
+— Gökhan Turhan × Claude (Opus 4.8 / Fable 5) · [Gökhan Ventures](/gokhan-vc/) · [Numetal Labs](/numetal/)

@@ -78,7 +78,9 @@ export default defineConfig({
       changefreq: 'weekly',
       priority: 0.7,
       lastmod: new Date(),
-      customPages: ['https://gokhanturhan.com/'],
+      customPages: ['https://gokhanturhan.com/', 'https://gokhanturhan.com/turkish-art-blob/', 'https://gokhanturhan.com/ethereum-doomsday/'],
+      // Archived legal copies are noindex; keep them out of the sitemap.
+      filter: (page) => !/\/legal\/[^/]+\/$/.test(page),
       serialize(item) {
         // Update lastmod to current time for better indexing
         item.lastmod = new Date();

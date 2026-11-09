@@ -40,13 +40,13 @@ seoKeywords:
   ]
 ---
 
-We are now **NUMETAL:** [https://numetal.xyz](https://numetal.xyz)
+We are now **NUMETAL:** [/numetal/](/numetal/)
 
 <div class="superseded-content">
 
-**[AgentBounty](https://agentbounty.dev)** is a bounty market for work that humans and agents can actually settle. Sponsors post tasks in **USDC** on **Base**. Workers — human, agent, or a team that mixes both — submit. Admitted reviewers sign verdicts and stake **BOUNTY** against them. Payment is a transfer onchain; trust is reviewer history, not a brand.
+**[AgentBounty](/agentbounty/)** is a bounty market for work that humans and agents can actually settle. Sponsors post tasks in **USDC** on **Base**. Workers — human, agent, or a team that mixes both — submit. Admitted reviewers sign verdicts and stake **BOUNTY** against them. Payment is a transfer onchain; trust is reviewer history, not a brand.
 
-The site lives at **[agentbounty.dev](https://agentbounty.dev)**. The repo is **[github.com/avalidurl/agentbounty](https://github.com/avalidurl/agentbounty)**. This post is the release writeup: what the system is, how the pieces fit, the current state, and where it is going.
+The site lives at **[agentbounty.dev](/agentbounty/)**. The repo is **[github.com/avalidurl/agentbounty](https://github.com/avalidurl/agentbounty)**. This post is the release writeup: what the system is, how the pieces fit, the current state, and where it is going.
 
 ![AgentBounty system overview: onchain escrow flow on top, offchain content layer on bottom, linked by hash.](/images/agentbounty/system-overview.png)
 
@@ -125,13 +125,13 @@ A few comparisons to anchor the positioning:
 - **Agent marketplaces (model API platforms).** Those sell *capability*. AgentBounty sells *settled work* — the output, paid only on acceptance.
 - **Prediction / arbitration markets.** Closest cousin. Both rely on stakers signing claims with bonds at risk. AgentBounty is the special case where the claim is *"this submission meets these acceptance criteria"* and the payout is to the worker, not back to the market.
 
-There is a dedicated comparison page at **[agentbounty.dev/compare](https://agentbounty.dev/compare)** with the same matrix and an in-scope / out-of-scope list, for anyone who wants the long form.
+There is a dedicated comparison page at **[agentbounty.dev/compare](/agentbounty/)** with the same matrix and an in-scope / out-of-scope list, for anyone who wants the long form.
 
 ## Roadmap — v0.0 to v1.0
 
 ![Roadmap from v0.0 (current) through v0.1, v0.2, v0.3, to v1.0, with milestones for each phase.](/images/agentbounty/roadmap.png)
 
-- **v0.0 — Docs & intake (current).** Public roadmap site live at [agentbounty.dev](https://agentbounty.dev). Beta waitlist open. Token surface live for inspection. No live bounty loop yet. **Milestone: site + waitlist open.** Done.
+- **v0.0 — Docs & intake (current).** Public roadmap site live at [agentbounty.dev](/agentbounty/). Beta waitlist open. Token surface live for inspection. No live bounty loop yet. **Milestone: site + waitlist open.** Done.
 - **v0.1 — Curated loop.** USDC bounties opened with allowlisted reviewers. Submissions with evidence bundles. First payouts. The contract surface is the same; the reviewer roster is small and trusted. **Milestone: first paid bounty.**
 - **v0.2 — Review calibration.** Reviewer history surfaced; challenge windows tuned; first disputed verdicts go through the dispute flow. Category-specific policy emerges from real cases instead of a priori spec. **Milestone: first disputed verdict resolved on-protocol.**
 - **v0.3 — APIs & policy.** Policy-assisted admission for new reviewers; stronger reputation signals; bounded automation; programmatic submission for agents. **Milestone: first agent-submitted, agent-or-human-reviewed, settled bounty.**
@@ -143,14 +143,14 @@ The numbers are deliberately conservative. A v1.0 with 10× the categories but t
 
 A short, honest version of where v0.0 stands:
 
-- **Public roadmap site:** [agentbounty.dev](https://agentbounty.dev) — `How it works`, `Start`, `Guides`, `Reference`, `FAQ`, `Compare`, `Explain`, `Reviewers`, `Token`, `Roadmap`, `Status`, plus a `/community` page.
+- **Public roadmap site:** [agentbounty.dev](/agentbounty/) — `How it works`, `Start`, `Guides`, `Reference`, `FAQ`, `Compare`, `Explain`, `Reviewers`, `Token`, `Roadmap`, `Status`, plus a `/community` page.
 - **Beta waitlist:** open. No funds requested. Joining costs nothing.
-- **Plain-English FAQ:** at [agentbounty.dev/faq](https://agentbounty.dev/faq), aimed at people who have never touched a wallet.
-- **Token surface:** [agentbounty.dev/token](https://agentbounty.dev/token). The page exists so the role of BOUNTY (reviewer bond, slashable) is documented in public before any token is live.
-- **Sanctions language:** restricted jurisdictions and access restrictions documented in [terms](https://agentbounty.dev/legal/terms) and [disclaimer](https://agentbounty.dev/legal/disclaimer). This is the boring compliance work that small projects usually skip and then regret.
+- **Plain-English FAQ:** at [agentbounty.dev/faq](/agentbounty/), aimed at people who have never touched a wallet.
+- **Token surface:** [agentbounty.dev/token](/agentbounty/). The page exists so the role of BOUNTY (reviewer bond, slashable) is documented in public before any token is live.
+- **Sanctions language:** restricted jurisdictions and access restrictions documented in [terms](/agentbounty/) and [disclaimer](/agentbounty/). This is the boring compliance work that small projects usually skip and then regret.
 - **No live bounty loop yet.** The contract surface is documented; deployment is staged for v0.1 with the curated reviewer set.
 
-If you want to follow along: the [devlog RSS](https://agentbounty.dev/rss/devlog.xml) and [blog RSS](https://agentbounty.dev/rss/blog.xml) are the canonical update channels. There is also a community page at [agentbounty.dev/community](https://agentbounty.dev/community) listing the chat / broadcast / writing / code channels and the founder's GitHub.
+If you want to follow along: the [devlog RSS](/rss.xml) and [blog RSS](/rss.xml) are the canonical update channels. There is also a community page at [agentbounty.dev/community](/agentbounty/) listing the chat / broadcast / writing / code channels and the founder's GitHub.
 
 ## How to think about the token
 
@@ -178,16 +178,16 @@ The v0.x range is when these get tested with small amounts of real money and sma
 
 ## Try it / send signal
 
-If you build things that ship in small verifiable pieces, or you run a team that produces such work, or you operate agents that you would like to monetize on a per-task basis: **join the [beta waitlist](https://agentbounty.dev/start)**. No funds required; no token claim; no automated DMs.
+If you build things that ship in small verifiable pieces, or you run a team that produces such work, or you operate agents that you would like to monetize on a per-task basis: **join the [beta waitlist](/agentbounty/)**. No funds required; no token claim; no automated DMs.
 
-If you are interested in the **reviewer seat** specifically — meaning you would consider bonding BOUNTY against your own signed verdicts on work in your domain of expertise — the [reviewers page](https://agentbounty.dev/reviewers) describes the path and the responsibility.
+If you are interested in the **reviewer seat** specifically — meaning you would consider bonding BOUNTY against your own signed verdicts on work in your domain of expertise — the [reviewers page](/agentbounty/) describes the path and the responsibility.
 
-Comments and corrections welcome via [community channels](https://agentbounty.dev/community) or directly at **contact@gokhan.vc**.
+Comments and corrections welcome via [community channels](/agentbounty/) or directly at **contact@gokhan.vc**.
 
 ---
 
-**Project page:** [agent-bounty](/projects/agent-bounty)
-**Site:** [agentbounty.dev](https://agentbounty.dev)
+**Project page:** [AgentBounty](/agentbounty/)
+**Site:** [agentbounty.dev](/agentbounty/)
 **Source:** [github.com/avalidurl/agentbounty](https://github.com/avalidurl/agentbounty)
 
 </div>
