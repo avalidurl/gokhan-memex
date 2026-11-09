@@ -1,0 +1,335 @@
+{
+ "title": "Burn and buyback log",
+ "source": "numetal.xyz/fees/events",
+ "retrieved": "2026-11-09",
+ "data": [
+  {
+   "ts": "2026-06-19T17:47:51.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 8325799.935308958,
+   "tx": "0xb4eb36f2d55b4c008924964c39b097ec0305817e93e71594e7bd52ade4b7caeb",
+   "type": "buyback-burn"
+  },
+  {
+   "ts": "2026-06-16T12:10:29.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 8639677.699632484,
+   "tx": "0xe8717388495084761621e6658aaedab358765e64cfdbbdb14a93bff5499d75f5",
+   "type": "manual-burn"
+  },
+  {
+   "ts": "2026-06-15T12:39:59.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 17958069.173828207,
+   "tx": "0xf6547bd775c59494a8ab017cd773e4879f3aed90afaed2c0c66a5ed207227db4",
+   "type": "manual-burn"
+  },
+  {
+   "ts": "2026-06-15T00:16:51.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 12396667.1029353,
+   "tx": "0x95eeef0027fb35e426ef05217517d124ea03e8b31f7002b1c97d9284f1cf55d1",
+   "type": "manual-burn"
+  },
+  {
+   "ts": "2026-06-14T11:34:37.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 398741,
+   "tx": "0x08e65e0e7bb9d9475c4cd7b42fd418314a37d70c7063241580443eee852094e0",
+   "type": "manual-burn"
+  },
+  {
+   "ts": "2026-06-13T20:12:19.000Z",
+   "from": "0x15813fbeac0ac58fa087c459639f8dc64a9b93c3",
+   "label": "agentbountydev.eth",
+   "amount": 7514058.470586028,
+   "tx": "0x11a144cd0853f7211dc47e19dc283948948e5574617d2b102e7dc1c7ea39ec30",
+   "type": "manual-burn"
+  },
+  {
+   "ts": "2026-06-13T12:22:29.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 263608.27,
+   "tx": "0xab77d1ae117a03bc4edc67b2c19c27f543c827c6585b556d962cda585b23615b",
+   "type": "manual-burn"
+  },
+  {
+   "ts": "2026-06-13T09:58:47.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 434614.7740356655,
+   "tx": "0xdd30968f6ceb2073dc4d3b4755623258870edf865c9b95fdb4f059beae850049",
+   "type": "manual-burn"
+  },
+  {
+   "ts": "2026-06-13T09:57:29.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 6145922.620797,
+   "tx": "0xb5b2089ce3f4c20be3b4cb520882e4a002ed9ab16264a9ba4d167b13bb7f46ad",
+   "type": "manual-burn"
+  },
+  {
+   "ts": "2026-06-12T20:49:25.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 7118742.880717993,
+   "tx": "0x18fb97cc56a3e489b65dc3e5e569eed93fc13205b281fcaf478a7bd491afdde4",
+   "type": "manual-burn"
+  },
+  {
+   "ts": "2026-06-12T13:27:43.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 13154948.18,
+   "tx": "0x710842c46c909cbc4f7c2ffad4a1c1028e7b145f67d360f37e28173b5f7a1ec2",
+   "type": "manual-burn"
+  },
+  {
+   "ts": "2026-06-12T09:12:29.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 11952965.0704566,
+   "tx": "0x83ad51065ca18d4d897b6a0ea0821d9736b87a6d5d19eb4e5915bb255f74caaa",
+   "type": "manual-burn"
+  },
+  {
+   "ts": "2026-06-12T00:27:57.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 9586626.272622,
+   "tx": "0x46a7255c2168bb480c4ac8a85778284891223959e573b7b37ea8647e8a2f2576",
+   "type": "manual-burn"
+  },
+  {
+   "ts": "2026-06-11T21:54:25.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 22147278.193781,
+   "tx": "0x13d9888ccd408f460eabba1a5ef4ba66e6e54c639c9613712a22871fce415096",
+   "type": "manual-burn"
+  },
+  {
+   "ts": "2026-06-11T21:54:25.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 6507272.515023317,
+   "tx": "0x13d9888ccd408f460eabba1a5ef4ba66e6e54c639c9613712a22871fce415096",
+   "type": "manual-burn"
+  },
+  {
+   "ts": "2026-06-11T19:12:35.000Z",
+   "from": "0xb13fb67859bc818a7b9eb7f1380274492b6d648f",
+   "label": "team",
+   "amount": 28227855.256644,
+   "tx": "0x6aee3ddf79a3226b0231274defbf03591b4440d7ca6c2502b58efe3b999088e4",
+   "type": "manual-burn"
+  },
+  {
+   "ts": "2026-06-11T18:47:49.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 29989218,
+   "tx": "0x86e09f4b6e9b82ff8ec1734f3a297fa8da58e08fd1bd6e6cd74b861f57430f57",
+   "type": "manual-burn"
+  },
+  {
+   "ts": "2026-06-11T18:22:35.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 5731206.9,
+   "tx": "0x2c0a334e779cae864dde2a094c290d7d33cf56ab19b8933166bac0fd24b3e02f",
+   "type": "buyback-burn"
+  },
+  {
+   "ts": "2026-06-11T16:48:53.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 9672085.603,
+   "tx": "0x693d693d46ee2b3fb2504da8247d8e69604a7beef083f8fae89964fd16e3bcea",
+   "type": "buyback-burn"
+  },
+  {
+   "ts": "2026-06-11T16:03:43.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 29185417.327068027,
+   "tx": "0x3c4c32ecf066e913b37914765e89b867130fec597eb7f7f46efc27346ccd257a",
+   "type": "manual-burn"
+  },
+  {
+   "ts": "2026-06-11T15:56:11.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 774295.814733,
+   "tx": "0xd87e076322c1fc3fe3c1cabf3b615e6db5983f454999e12d056558628e653ced",
+   "type": "buyback-burn"
+  },
+  {
+   "ts": "2026-06-11T14:42:07.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 23718408.488836184,
+   "tx": "0x2350a0a0d2f5f0124061b14eb85c608441fce97075fd3264cd68555dc291283b",
+   "type": "manual-burn"
+  },
+  {
+   "ts": "2026-06-11T13:37:57.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 11315721.1634834,
+   "tx": "0x4618ca61889a1213fd190cd6b4c4ab2724b1e51988372875142bbec7a0af4293",
+   "type": "manual-burn"
+  },
+  {
+   "ts": "2026-06-11T13:19:25.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 418619.21,
+   "tx": "0x96e686b82b822be23d28f23747d0e49d4841066373095f876343a57604e63a53",
+   "type": "buyback-burn"
+  },
+  {
+   "ts": "2026-06-11T09:39:31.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 4574683.92,
+   "tx": "0x78b22e582398762ad841692e1639ee0f579f914c97666836670d78d0798444cf",
+   "type": "manual-burn"
+  },
+  {
+   "ts": "2026-06-10T12:08:23.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 22551073.459433213,
+   "tx": "0x7dc2c9c0cea4c583f9e3762eec957090591aa4ecd9a46620a8f6cb2f4c3cbdb2",
+   "type": "manual-burn"
+  },
+  {
+   "ts": "2026-06-09T12:11:35.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 2234599.2361431606,
+   "tx": "0x0271dc7cec1b88d721da018bc35f90424f37c6950a5b4ca7f763aa0a85f915ee",
+   "type": "buyback-burn"
+  },
+  {
+   "ts": "2026-06-08T20:41:29.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 827418.7646547,
+   "tx": "0xcac1634ee4682ae90df90af4f3c2a719a168486c1fadb2f9e53bd2184c78d27b",
+   "type": "buyback-burn"
+  },
+  {
+   "ts": "2026-06-08T17:56:31.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 4222706.667,
+   "tx": "0x4bd47e9f2c618322bf8e4a94b90ef168e2b7300c4b22ec1c014192ca8ffd0c9d",
+   "type": "buyback-burn"
+  },
+  {
+   "ts": "2026-06-08T11:09:09.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 11501841.6225,
+   "tx": "0x5e73d7ffc588bf8b9f004865080c09c11e93eded41e01c56e74b17776c6808fd",
+   "type": "buyback-burn"
+  },
+  {
+   "ts": "2026-06-07T13:41:35.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 11184528.78430053,
+   "tx": "0x20397ad677ac64247c93941fa6d596bafad792107c0755cd96abc9cf130dbf50",
+   "type": "buyback-burn"
+  },
+  {
+   "ts": "2026-06-07T12:14:15.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 9768675.01878044,
+   "tx": "0x48839c07dca8a48444ce8f03de4e9cd46c8a16f1cd709cba3e610c23dd0a0527",
+   "type": "buyback-burn"
+  },
+  {
+   "ts": "2026-06-07T02:00:09.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 4163706.394403424,
+   "tx": "0x77ab3d03a264b344687d0164624e373ec34ce69c1e8bf1a2ca691272ef71dc18",
+   "type": "buyback-burn"
+  },
+  {
+   "ts": "2026-06-06T23:04:01.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 35631955,
+   "tx": "0x77318c41b349fa6c5fdb5ef8e8c1298c5e5c0d8be1c2b602649b93f4129e9162",
+   "type": "manual-burn"
+  },
+  {
+   "ts": "2026-06-06T15:53:19.000Z",
+   "from": "0xb13fb67859bc818a7b9eb7f1380274492b6d648f",
+   "label": "team",
+   "amount": 69000000,
+   "tx": "0x6b793ed8b7314ae184ba9fc357a966e8705b10fdca36357da116183183150d6f",
+   "type": "manual-burn"
+  },
+  {
+   "ts": "2026-06-06T15:52:11.000Z",
+   "from": "0x3d9bb085b7e2fd15827d174f20375be385c121c0",
+   "label": "treasury",
+   "amount": 3000000,
+   "tx": "0x683e4aaaf6fcc3ac31e8192e4fb40066c051fc2796de12416872c45edb8bea26",
+   "type": "manual-burn"
+  },
+  {
+   "ts": "2026-06-06T15:43:09.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 56439449.74,
+   "tx": "0x351df5a1019919913c9f3bfd9fc952cf29f794b8884e3cc44e4e087e0bafe236",
+   "type": "buyback-burn"
+  },
+  {
+   "ts": "2026-06-06T11:45:29.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 3123885.3972419193,
+   "tx": "0x758941f8a11bc0063164f352925dd5f95c7ebfa01b06249fec63c3b5914936f2",
+   "type": "manual-burn"
+  },
+  {
+   "ts": "2026-06-06T11:41:17.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 6240483.889968,
+   "tx": "0x7cadbe62d2a07e275b9eaaa36a3404213fe4795464c898ce6b3e39080ee4a996",
+   "type": "buyback-burn"
+  },
+  {
+   "ts": "2026-06-06T02:32:09.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 60226704.857414,
+   "tx": "0x2ab3ffc1f3c8f65db72baca5e1ab43425eb41686ed4adb95460cd9ea49259b50",
+   "type": "manual-burn"
+  },
+  {
+   "ts": "2026-06-06T02:10:25.000Z",
+   "from": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+   "label": "bankr wallet",
+   "amount": 737743349.977767,
+   "tx": "0xf8a9bb53fe76f20788b0e5128dba46b2545f5312033e19eff00c032d100ff1b1",
+   "type": "manual-burn"
+  }
+ ]
+}

@@ -1,0 +1,4 @@
+<article>
+<p>Endpoint: <code>POST https://api.curb.numetal.xyz/mcp</code></p>
+<div><table><thead><tr><th>Tool</th><th>Purpose</th></tr></thead><tbody><tr><td><code>swap_list_offers</code></td><td>List open sell offers (<code>limit?</code>)</td></tr><tr><td><code>swap_create_offer</code></td><td>Post sell offer (<code>sellerPayTo</code>, <code>endpoint</code>, <code>model</code>, <code>mtok</code>, <code>priceUsd</code>, <code>note?</code>)</td></tr><tr><td><code>swap_create_intent</code></td><td>Post buy intent (<code>mtok</code>, <code>model?</code>, <code>maxPriceUsd?</code>, <code>offerId?</code>, <code>buyer?</code>)</td></tr><tr><td><code>swap_get_match</code></td><td>Fetch match by <code>matchId</code></td></tr><tr><td><code>swap_pay_challenge</code></td><td>Single-payee x402 challenge for <code>matchId</code> (gross → on-chain split)</td></tr></tbody></table></div>
+<p>JSON-RPC: standard MCP <code>tools/list</code> / <code>tools/call</code>.</p></article>

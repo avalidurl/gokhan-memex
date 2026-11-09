@@ -1,10 +1,12 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import { drafts } from '@/data/estate'
+import Tags from '@/components/Tags.astro'
+import { drafts, draftTags, tagLabel } from '@/data/estate'
 
 const facet = (k: 'status' | 'kind' | 'chain' | 'origin') =>
   [...new Set(drafts.map((d) => d[k]).filter(Boolean) as string[])].sort()
-const facets = (['status', 'kind', 'chain', 'origin'] as const).map((k) => ({ k, v: facet(k) }))
+const facets = (['status', 'origin'] as const).map((k) => ({ k, v: facet(k) }))
+const allTags = [...new Set(drafts.flatMap((d) => draftTags[d.slug] ?? []))].sort((a, b) => tagLabel(a).localeCompare(tagLabel(b)))
 ---
 
 <BaseLayout
@@ -20,7 +22,8 @@ const facets = (['status', 'kind', 'chain', 'origin'] as const).map((k) => ({ k,
     </div>
 
     <section class="cx" aria-label="Tags">
-      <div class="cx-h"><b>Tags</b><span>facets</span></div>
+      <div class="cx-h"><b>Tags</b><span>each opens a shared tag page</span></div>
+      <div class="cx-r"><span>tags</span><span><Tags tags={allTags} /></span></div>
       {facets.map(({ k, v }) => (
         <div class="cx-r"><span>{k}</span><span>{v.map((t) => <span class="tg">{t}</span>)}</span></div>
       ))}
@@ -33,7 +36,7 @@ const facets = (['status', 'kind', 'chain', 'origin'] as const).map((k) => ({ k,
           <span>{d.origin}</span>
           <span>
             <a class="nm" href={d.page ? `/${d.slug}/` : d.href}>{d.name}</a> — {d.line}{' '}
-            <span class="tg">{d.status}</span><span class="tg">{d.kind}</span>{d.chain && <span class="tg">{d.chain}</span>}
+            <i>{d.status}</i><br /><Tags tags={draftTags[d.slug] ?? []} />
           </span>
         </div>
       ))}

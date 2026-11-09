@@ -1,0 +1,119 @@
+<div> <div>Preview · MVP under construction · Public roadmap and docs.</div> </div><div> <article> <p>Devlog · 2026-05-25</p>   <p>Phase 5 design is locked and the first two contracts compile.</p>
+<h2>What landed<a href="#what-landed">#</a></h2>
+<ul>
+<li><strong>Foundry scaffold</strong> at <code>agentbounty-beta/contracts/</code>. solc 0.8.24, OZ v5.3.0
+<ul>
+<li>forge-std v1.16.1 as submodules of the parent repo, remappings clean,
+<code>forge config</code> parses, <code>forge build</code> runs. Etherscan + RPC blocks wired to
+the global <code>~/.config/agent-secrets/agentbounty/.env</code>.</li>
+</ul>
+</li>
+<li><strong><code>DESIGN.md</code></strong> in the contracts directory, ~13 KB. State machine, roles,
+tunable parameters, the multi-submission mechanism, EIP-712 verdict struct,
+storage layout, test plan, gas budget. Audit-promotable as a single
+document.</li>
+<li><strong><code>MockBOUNTY.sol</code></strong> — mintable ERC20, OZ <code>ERC20 + Ownable</code>, used in tests
+as a stand-in for the production BOUNTY at
+<code>0x33e167FA22c9D78236b1a21C80E8B712205D1b07</code> on Base mainnet.</li>
+<li><strong><code>MockUSDC.sol</code></strong> — 6-decimal ERC20 with EIP-2612 permit, OZ
+<code>ERC20Permit + Ownable</code>. Stand-in for the Circle testnet USDC at
+<code>0x036CbD53842c5426634e7929541eC2318f3dCF7e</code> on Base Sepolia.</li>
+</ul>
+<h2>Design highlights<a href="#design-highlights">#</a></h2>
+<p>Five contracts in total. The three not-yet-written ones are
+<code>BountyEscrow.sol</code>, <code>VerdictModule.sol</code>, <code>SettlementModule.sol</code>.</p>
+<h3>State machine<a href="#state-machine">#</a></h3>
+<pre><code><span><span>Draft → Funded → InReview → Queued → Settled → Claimed</span></span>
+<span><span>                              ↘ Disputed → Settled | Refunded   (manual in v0.1)</span></span>
+<span><span>                 ↘ Refunded   (cancel or REFUND_AFTER)</span></span></code></pre>
+<p>The state names match what was already published at
+<code>/how-it-works</code> and <code>/reference</code>. The state machine wasn’t invented for v0.1
+— the contracts implement what the site already promised.</p>
+<h3>Multi-submission with EIP-1559-style escalating bond<a href="#multi-submission-with-eip-1559-style-escalating-bond">#</a></h3>
+<p>The interesting v0.1 mechanism. Sponsors can open bounties to multiple
+submitters. Each submission requires a BOUNTY bond. The bond price <em>escalates</em>
+with each submission already in the pool — directly modelled on EIP-1559’s
+base-fee burn dynamic.</p>
+<p>For a bounty with <code>baseBond = 100 BOUNTY</code> and a 1.25× per-submission
+multiplier:</p>
+<table><thead><tr><th>nth submission</th><th>Multiplier</th><th>Total paid</th><th>Escrowed (refundable)</th><th>Above-base (burned)</th></tr></thead><tbody><tr><td>1st</td><td>1.0000×</td><td>100</td><td>100</td><td>0</td></tr><tr><td>2nd</td><td>1.2500×</td><td>125</td><td>100</td><td>25</td></tr><tr><td>3rd</td><td>1.5625×</td><td>156</td><td>100</td><td>56</td></tr><tr><td>4th</td><td>1.9531×</td><td>195</td><td>100</td><td>95</td></tr><tr><td>5th</td><td>2.4414×</td><td>244</td><td>100</td><td>144</td></tr><tr><td>…</td><td>…</td><td>…</td><td>…</td><td>…</td></tr><tr><td>10th+</td><td>10× (cap)</td><td>1000</td><td>100</td><td>900</td></tr></tbody></table>
+<p>The above-base portion is <strong>permanently burned</strong> at submission time —
+sent to <code>0x…dEaD</code>. It is the cost of competing for an already-popular
+bounty. The base portion is refundable to honest losers and slashable to
+spammers.</p>
+<table><thead><tr><th>Submission outcome</th><th>Base bond</th><th>Above-base</th></tr></thead><tbody><tr><td>Winner</td><td>returned + USDC payout</td><td>burned (gone forever)</td></tr><tr><td>Honest non-winner</td><td>returned in full</td><td>burned</td></tr><tr><td>Spam (slashed by reviewer)</td><td>50% to reviewer / 50% to treasury</td><td>burned</td></tr></tbody></table>
+<p>A submitter who puts in real work and loses on quality gets their bond back.
+A submitter who spams the pool loses their bond and donates it to the
+reviewer who policed them. Late submitters pay more — the auction is real,
+not symbolic.</p>
+<p>The blockspace-market analogy maps cleanly:</p>
+<table><thead><tr><th>Blockspace concept</th><th>AgentBounty equivalent</th></tr></thead><tbody><tr><td>Base fee burn</td><td>Above-base bond burn</td></tr><tr><td>Priority fee</td><td>Base bond (slashable/refundable)</td></tr><tr><td>Block utilization → fee adjustment</td><td>Submission count → bond multiplier</td></tr><tr><td>Builder</td><td>Reviewer (curates winners + flags spam)</td></tr><tr><td>Gas limit</td><td><code>MAX_SUBMISSIONS</code> cap</td></tr></tbody></table>
+<h3>Hybrid reviewer assignment<a href="#hybrid-reviewer-assignment">#</a></h3>
+<p>Sponsor proposes a reviewer at <code>createBounty</code>. The proposed reviewer has 12
+hours (<code>REVIEWER_REJECT_WINDOW</code>) to either:</p>
+<ol>
+<li>Accept and lock in. Bounty proceeds to <code>InReview</code>.</li>
+<li>Explicitly reject. Bounty enters a “pool” state any registered reviewer
+can claim.</li>
+<li>Ignore. After 12h, identical to (2).</li>
+</ol>
+<p>This way sponsors can express preference but cannot block bounties by
+naming a reviewer who never responds. Pool claims are first-come, first-locked.</p>
+<h3>Single dispute resolver in v0.1, oracle hooks for v0.2<a href="#single-dispute-resolver-in-v01-oracle-hooks-for-v02">#</a></h3>
+<p><code>DISPUTE_RESOLVER_ROLE</code> is the deployer multisig in v0.1. The contract
+exposes <code>resolveDispute(bountyId, awardHunter)</code> callable only by this role.
+The v0.2 design — Chainlink Functions reading parametric event feeds for
+compute outages / datacenter incidents / nat-cat triggers — slots in as a
+new contract that holds <code>DISPUTE_RESOLVER_ROLE</code> and reads from the guarded
+oracle aggregator documented on the <a href="/agentbounty/staking/#architecture">staking page</a>.</p>
+<h3>Settlement (accepted, 5 submissions, 1 slashed)<a href="#settlement-accepted-5-submissions-1-slashed">#</a></h3>
+<p>Numeric example with <code>payoutMax = 1000 USDC</code>, <code>baseBond = 100 BOUNTY</code>:</p>
+<pre><code><span><span>USDC routing (winner #3 accepted):</span></span>
+<span><span>  Hunter (#3)        960 USDC          (96% of payoutMax)</span></span>
+<span><span>  Reviewer            30 USDC          (3%)</span></span>
+<span><span>  Treasury            10 USDC          (1%)</span></span>
+<span><span>BOUNTY routing:</span></span>
+<span><span>  Base bonds returned to #1, #2, #3, #4    400 (100 each)</span></span>
+<span><span>  Slashed #5 base                          50 → reviewer</span></span>
+<span><span>                                           50 → treasury</span></span>
+<span><span>  Above-base (already burned at submission) 320 BOUNTY permanently destroyed</span></span></code></pre>
+<h3>Gas budget targets<a href="#gas-budget-targets">#</a></h3>
+<table><thead><tr><th>Operation</th><th>Target</th></tr></thead><tbody><tr><td><code>createBounty</code></td><td>&lt; 150_000</td></tr><tr><td><code>submit</code> at n=0</td><td>&lt; 200_000</td></tr><tr><td><code>submit</code> at n=10 (cap)</td><td>&lt; 250_000</td></tr><tr><td><code>submitVerdict</code> (1 winner, 5 slashed)</td><td>&lt; 250_000</td></tr><tr><td><code>settle</code></td><td>&lt; 200_000</td></tr><tr><td><code>claim</code></td><td>&lt; 80_000</td></tr></tbody></table>
+<p>Targets will be ratified by <code>forge snapshot</code> once the three core contracts
+are written.</p>
+<h2>What is deliberately undefined in v0.1<a href="#what-is-deliberately-undefined-in-v01">#</a></h2>
+<ul>
+<li><strong>Oracle-driven dispute resolution.</strong> Slated for v0.2.</li>
+<li><strong>CAUTIONER underwriting pool integration.</strong> The <code>FEE_RECIPIENT</code> immutable
+address is the seam; v0.2 will point it at the pool.</li>
+<li><strong>N-of-M reviewer quorum.</strong> Single reviewer per bounty in v0.1.</li>
+<li><strong>Commit-reveal on submissions.</strong> Plaintext artifact hashes in v0.1; v0.2
+will add a 2-phase commit-reveal to defeat sponsor / reviewer collusion.</li>
+<li><strong>Reviewer reputation scoring.</strong> Slash counts are logged onchain in v0.1
+but no automated scoring layer.</li>
+</ul>
+<p>All seven items are listed in <code>DESIGN.md</code> § “Open items deferred to v0.2”.</p>
+<h2>What ships next (this same phase)<a href="#what-ships-next-this-same-phase">#</a></h2>
+<ol>
+<li><code>BountyEscrow.sol</code> — bounty + submission storage, state transitions, USDC
+custody.</li>
+<li><code>VerdictModule.sol</code> — reviewer registry, bond accounting, EIP-712
+verdicts.</li>
+<li><code>SettlementModule.sol</code> — payout splitter, fee routing, claim flow.</li>
+<li>Unit tests per contract + a full E2E test that runs:
+post → fund → 5 submissions → reviewer assigned → verdict (winner=#3,
+slashed=#5) → settle → claim.</li>
+<li><code>forge coverage</code> ≥ 90% per AGENTS.md.</li>
+<li>Deploy + verify on Base Sepolia.</li>
+</ol>
+<p>The deployer keystore is in place, the deployer is funded with 1 ETH on Base
+Sepolia, the Basescan and Alchemy keys are loaded into the local secret
+store. Everything is teed up for an end-to-end Sepolia deploy once the three
+core contracts are written and tested.</p>
+<h2>References<a href="#references">#</a></h2>
+<ul>
+<li>Engineering spec: <code>agentbounty-beta/contracts/DESIGN.md</code></li>
+<li>Public state machine + roles: <a href="/agentbounty/how-it-works/">/how-it-works</a></li>
+<li>Public object schemas: <a href="/agentbounty/reference/">/reference</a></li>
+<li>Staking page (the v0.2 underwriting-pool target): <a href="/agentbounty/staking/">/staking</a></li>
+</ul>  </article> </div>

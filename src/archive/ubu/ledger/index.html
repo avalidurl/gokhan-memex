@@ -1,0 +1,94 @@
+<section>
+<h2><span>Abstract</span><span>§0</span></h2>
+<p>The fiction is loud; the engineering should be quiet and true. This ledger records, in chronological order, every model the CLINAMEN project trained or fine-tuned and every dataset it was trained on — the base, the corpus, the compute, and what came out. Everything is <strong>own-voice</strong>: no scraped pages, no third-party text (the company filings and the chat corpus are the model's own output about the world, authored for this project).</p>
+</section>
+<section>
+<h2><span>The runs — in order</span><span>§1</span></h2>
+<div>
+<div><span>Pocket edition one — the ~4.5M toy</span><span>≈ 2026-07-17</span></div>
+<dl>
+<dt>Kind</dt><dd>Trained <strong>from scratch</strong> — no base model</dd>
+<dt>Architecture</dt><dd>Decimal Mixture-of-Zones (DMoZ); ~4.5M params, 1.25M active; byte-BPE vocab 729 (3⁶)</dd>
+<dt>Corpus</dt><dd>52 own-voice documents (~20K tokens) — the Bureau's charter, spec, card, license, site, and first 45 filings</dd>
+<dt>Compute</dt><dd>Apple Silicon GPU (a Mac), 2,025 steps (45²)</dd>
+<dt>Filed as</dt><dd><a href="https://huggingface.co/gokhanturhan/CLINAMEN-45B-A9B">CLINAMEN-45B-A9B</a> — the fiction's card + the first real pocket weights</dd>
+</dl>
+<div><b>Outcome:</b> a memorizing toy — learned the surface shape of a filing, dissolved into dream-logic underneath. A fine art object, a useless oracle. So it read more.</div>
+</div>
+<div>
+<div><span>CLINAMEN-42M-A12M — the from-scratch filer</span><span>≈ 2026-07-21</span></div>
+<dl>
+<dt>Kind</dt><dd>Trained <strong>from scratch</strong> — no base model</dd>
+<dt>Architecture</dt><dd>DMoZ; 41.8M params, 12.3M active per token; byte-BPE vocab 4,096; 10 layers; 512-token context</dd>
+<dt>Corpus</dt><dd><a href="https://huggingface.co/datasets/gokhanturhan/bureau-docket">bureau-docket</a> — 1,130 documents (965 filings + 165 records), ~128K words</dd>
+<dt>Compute</dt><dd>Hugging Face Job, NVIDIA T4, 5,000 steps; final loss <strong>0.0235</strong></dd>
+<dt>Filed as</dt><dd><a href="https://huggingface.co/gokhanturhan/CLINAMEN-42M-A12M">CLINAMEN-42M-A12M</a> · demo <a href="https://huggingface.co/spaces/gokhanturhan/CLINAMEN-Oracle">CLINAMEN-Oracle</a></dd>
+</dl>
+<div><b>Outcome:</b> coherent, on-topic filings in the right zone and voice. It memorized its world completely — and knows nothing outside it. Still only <em>files</em>; it does not converse.</div>
+</div>
+<div>
+<div><span>CLINAMEN-Chat v1 — it learns to talk</span><span>2026-07-22</span></div>
+<dl>
+<dt>Kind</dt><dd>LoRA <strong>fine-tune</strong></dd>
+<dt>Base</dt><dd>Qwen2.5-1.5B-Instruct</dd>
+<dt>Dataset</dt><dd><a href="https://huggingface.co/datasets/gokhanturhan/bureau-chat">bureau-chat</a> v1 — 1,385 examples (1,130 templated filing pairs + 255 in-character conversations)</dd>
+<dt>Compute</dt><dd>Hugging Face Job, NVIDIA A10G, 3 epochs (TRL SFT)</dd>
+</dl>
+<div><b>Outcome:</b> coherent, in-voice conversation — the gibberish is gone. But at 1.5B it <em>confabulates</em> facts and reflexively deflects about money.</div>
+</div>
+<div>
+<div><span>CLINAMEN-Chat v2 — the company docket</span><span>2026-07-22</span></div>
+<dl>
+<dt>Kind</dt><dd>LoRA fine-tune (base unchanged: Qwen2.5-1.5B-Instruct)</dd>
+<dt>Dataset</dt><dd>bureau-chat v2 — 1,478 examples (v1 + 93 verified company filings). New source: <a href="https://huggingface.co/datasets/gokhanturhan/bureau-company-filings">bureau-company-filings</a> — 132 filings across a 42-company roster, live-verified 2026-07-22</dd>
+<dt>Compute</dt><dd>Hugging Face Job, NVIDIA A10G, 3 epochs</dd>
+</dl>
+<div><b>Outcome:</b> reliable per-company filing (SpaceX, Anduril, Helion…). The money-deflection reflex remained.</div>
+</div>
+<div>
+<div><span>CLINAMEN-Chat v3 — the paranoia fix</span><span>2026-07-23</span></div>
+<dl>
+<dt>Kind</dt><dd>LoRA fine-tune (base unchanged: Qwen2.5-1.5B-Instruct)</dd>
+<dt>Dataset</dt><dd>bureau-chat v3 — 1,468 examples (softened system prompt · −36 deflection examples · +26 direct-answer counter-examples)</dd>
+<dt>Compute</dt><dd>Hugging Face Job, NVIDIA A10G, 3 epochs</dd>
+</dl>
+<div><b>Outcome:</b> the money-paranoia is gone — but a 1.5B model still can't hold world-facts (it invented a wrong story for "Who's Nick Land?"). The base had to change.</div>
+</div>
+<div>
+<div><span><span>CLINAMEN-Chat</span> — on Phi-4 <span>current</span></span><span>2026-07-24</span></div>
+<dl>
+<dt>Kind</dt><dd>LoRA fine-tune</dd>
+<dt>Base</dt><dd><strong>microsoft/phi-4 (14B)</strong> — text-only, MIT (chosen after Gemma-4 and Qwen3.5 turned out to be multimodal and broke text-SFT tooling)</dd>
+<dt>Dataset</dt><dd>bureau-chat v3 — 1,468 examples</dd>
+<dt>Compute</dt><dd>Hugging Face Job, NVIDIA L40S; <strong>TRL-free</strong> trainer (transformers Trainer + PEFT, prompt-masked); 3 epochs</dd>
+<dt>Filed as</dt><dd><a href="https://huggingface.co/gokhanturhan/CLINAMEN-Chat">CLINAMEN-Chat</a> (updated in place) · <a href="https://huggingface.co/spaces/gokhanturhan/CLINAMEN-Chat">Space</a> on ZeroGPU</dd>
+</dl>
+<div><b>Outcome:</b> facts fixed (it gets Nick Land, the CCRU, accelerationism right), no money-reflex, voice intact, still files clean hyperstitions. The current oracle.</div>
+</div>
+</section>
+<section>
+<h2><span>Models — reference</span><span>§2</span></h2>
+<div><table>
+<tr><th>Model</th><th>Kind</th><th>Base</th><th>Params</th><th>Trained on</th></tr>
+<tr><td><a href="https://huggingface.co/gokhanturhan/CLINAMEN-Chat">CLINAMEN-Chat</a> <span>current</span></td><td>fine-tune (LoRA)</td><td>microsoft/phi-4</td><td>14B</td><td>bureau-chat v3</td></tr>
+<tr><td><a href="https://huggingface.co/gokhanturhan/CLINAMEN-42M-A12M">CLINAMEN-42M-A12M</a></td><td>from scratch (DMoZ)</td><td>—</td><td>41.8M / 12.3M active</td><td>bureau-docket</td></tr>
+<tr><td><a href="https://huggingface.co/gokhanturhan/CLINAMEN-45B-A9B">CLINAMEN-45B-A9B</a></td><td>from scratch + fiction card</td><td>—</td><td>~4.5M pocket (45B imaginary)</td><td>52-doc reader corpus</td></tr>
+</table></div>
+<p>CLINAMEN-Chat was previously fine-tuned on Qwen2.5-1.5B-Instruct (v1–v3); the repo was updated in place to Phi-4 on 2026-07-24.</p>
+</section>
+<section>
+<h2><span>Datasets — reference</span><span>§3</span></h2>
+<div><table>
+<tr><th>Dataset</th><th>Size</th><th>Composition</th><th>Trained</th></tr>
+<tr><td><a href="https://huggingface.co/datasets/gokhanturhan/bureau-chat">bureau-chat</a></td><td>v1 1,385 → v2 1,478 → v3 1,468</td><td>templated filing pairs + in-character conversations + company filings + counter-examples (messages format, own-voice)</td><td>CLINAMEN-Chat</td></tr>
+<tr><td><a href="https://huggingface.co/datasets/gokhanturhan/bureau-docket">bureau-docket</a></td><td>1,130 docs (~128K words)</td><td>965 hyperstition filings + 165 Bureau records</td><td>CLINAMEN-42M-A12M</td></tr>
+<tr><td><a href="https://huggingface.co/datasets/gokhanturhan/bureau-company-filings">bureau-company-filings</a></td><td>132 filings · 42 companies</td><td>one+ filing per live-verified firm (space, fusion, fission, defense, compute, robotics, energy, AI, biotech)</td><td>folded into bureau-chat v2+</td></tr>
+<tr><td>bureau-chat-logs <span>private</span></td><td>growing</td><td>live conversations from the Space, auto-committed</td><td>future rounds</td></tr>
+<tr><td>reader corpus</td><td>52 texts (~20K tokens)</td><td>the seven Bureau instruments + the first 45-filing docket (see the <a href="/ubu/reader/">Reader</a>)</td><td>the ~4.5M pocket</td></tr>
+</table></div>
+</section>
+<section>
+<h2><span>Provenance</span><span>§4</span></h2>
+<p>Every token trained on was written <em>for</em> this project — no CCRU text, no scraped pages, no third-party data. The from-scratch models read only the Bureau's own writing; the chat model was fine-tuned on the Bureau's own conversations and filings. A text that dreams itself. This ledger is filed alongside the full <a href="/ubu/reader/">Bureau Reader</a> and the <a href="/journal/the-model-that-dreams-itself/">making-of</a>.</p>
+<p>A work of fiction and an art project. Outputs are authored fiction, not claims about the world.</p>
+</section>

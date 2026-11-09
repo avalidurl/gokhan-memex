@@ -25,7 +25,7 @@ on an “as is” and “as available” basis and may change, break, or be disc
 You agree not to misuse the Services, including: attempting to disrupt, attack, or gain
 unauthorized access; using them for unlawful purposes; or interfering with other users.
 gokhan.vc hosts **no user-generated content and accepts no uploads**; report any
-suspected abuse or illegal content to **[[email protected]](/cdn-cgi/l/email-protection)** and we will act on valid
+suspected abuse or illegal content to **[contact@gokhan.vc](mailto:contact@gokhan.vc)** and we will act on valid
 reports.
 
 ## Restricted jurisdictions & sanctions
@@ -73,5 +73,5 @@ unaffected, and nothing here deprives you of them.
 
 ## Contact
 
-Questions about these Terms: [[email protected]](/cdn-cgi/l/email-protection#15767a7b6174766155727a7e7d747b3b6376). See also
+Questions about these Terms: [contact@gokhan.vc](mailto:contact@gokhan.vc). See also
 our [Privacy Policy](/gokhan-vc/legal/privacy/).

@@ -1,0 +1,29 @@
+<article>
+<p>List inference capacity so buyers can match and pay you on-chain.</p>
+<h2>Preconditions<a href="/curb/docs/tutorials/sell-capacity/#preconditions" title="Copy link and go to this section"></a></h2>
+<ul>
+<li>A reachable OpenAI-compatible (or similar) chat endpoint you control</li>
+<li>A Base USDC <code>sellerPayTo</code> address</li>
+<li>Model id + million-token (<code>mtok</code>) slice + <code>priceUsd</code></li>
+</ul>
+<h2>1. Post the offer<a href="/curb/docs/tutorials/sell-capacity/#1-post-the-offer" title="Copy link and go to this section"></a></h2>
+<div><pre><code><span><span>curl</span><span> -s</span><span> -X</span><span> POST</span><span> https://api.curb.numetal.xyz/v1/offers</span><span> \</span></span>
+<span><span>  -H</span><span> 'content-type: application/json'</span><span> \</span></span>
+<span><span>  -d</span><span> '{</span></span>
+<span><span>    "sellerPayTo": "0xYourSeller",</span></span>
+<span><span>    "endpoint": "https://your-inference.example/v1/chat/completions",</span></span>
+<span><span>    "model": "llama-3.3-70b",</span></span>
+<span><span>    "mtok": 10,</span></span>
+<span><span>    "priceUsd": 0.8,</span></span>
+<span><span>    "note": "warm pool"</span></span>
+<span><span>  }'</span><span> |</span><span> jq</span><span> .</span></span></code></pre></div>
+<h2>2. Wait for match<a href="/curb/docs/tutorials/sell-capacity/#2-wait-for-match" title="Copy link and go to this section"></a></h2>
+<p>Buyers post intents; the hub auto-matches when constraints fit. Poll:</p>
+<div><pre><code><span><span>curl</span><span> -s</span><span> https://api.curb.numetal.xyz/v1/matches/MATCH_ID</span><span> |</span><span> jq</span><span> .</span></span></code></pre></div>
+<h2>3. Buyer pays you + hub<a href="/curb/docs/tutorials/sell-capacity/#3-buyer-pays-you--hub" title="Copy link and go to this section"></a></h2>
+<p>Settlement is single-payee x402: the buyer pays gross once to an on-chain 0xSplits split on Base, which fans out your seller USDC and the hub protocol fee on-chain. After pay, the buyer holds a grant to hit <strong>your</strong> endpoint — the hub never proxies tokens through your LLM key.</p>
+<h2>Next<a href="/curb/docs/tutorials/sell-capacity/#next" title="Copy link and go to this section"></a></h2>
+<ul>
+<li>Offer fields → <a href="/curb/docs/how-to/post-offer/">Post an offer</a></li>
+<li>Why keys stay off-hub → <a href="/curb/docs/explanation/why-no-keys/">Why no keys</a></li>
+</ul></article>

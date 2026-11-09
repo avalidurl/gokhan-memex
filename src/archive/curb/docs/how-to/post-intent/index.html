@@ -1,0 +1,12 @@
+<article>
+<div><pre><code><span><span>POST</span><span> https://api.curb.numetal.xyz/v1/intents</span></span>
+<span><span>Content-Type</span><span>:</span><span> application/json</span></span></code></pre></div>
+<div><pre><code><span><span>{</span></span>
+<span><span>  "model"</span><span>: </span><span>"llama-3.3-70b"</span><span>,</span></span>
+<span><span>  "mtok"</span><span>: </span><span>2</span><span>,</span></span>
+<span><span>  "maxPriceUsd"</span><span>: </span><span>0.5</span><span>,</span></span>
+<span><span>  "offerId"</span><span>: </span><span>"optional-pin"</span><span>,</span></span>
+<span><span>  "buyer"</span><span>: </span><span>"0x…"</span></span>
+<span><span>}</span></span></code></pre></div>
+<p>Required: <code>mtok</code>. Optional <code>model</code>, <code>maxPriceUsd</code>, <code>offerId</code>, <code>buyer</code>.</p>
+<p>Hub auto-matches an open offer when constraints fit. Response <strong>201</strong> includes the intent and, when matched, a <code>match</code>.</p></article>

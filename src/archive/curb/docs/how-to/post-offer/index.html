@@ -1,0 +1,15 @@
+<article>
+<div><pre><code><span><span>POST</span><span> https://api.curb.numetal.xyz/v1/offers</span></span>
+<span><span>Content-Type</span><span>:</span><span> application/json</span></span></code></pre></div>
+<div><pre><code><span><span>{</span></span>
+<span><span>  "sellerPayTo"</span><span>: </span><span>"0x…"</span><span>,</span></span>
+<span><span>  "endpoint"</span><span>: </span><span>"https://…/v1/chat/completions"</span><span>,</span></span>
+<span><span>  "model"</span><span>: </span><span>"llama-3.3-70b"</span><span>,</span></span>
+<span><span>  "mtok"</span><span>: </span><span>10</span><span>,</span></span>
+<span><span>  "priceUsd"</span><span>: </span><span>0.8</span><span>,</span></span>
+<span><span>  "attestation"</span><span>: </span><span>"optional"</span><span>,</span></span>
+<span><span>  "note"</span><span>: </span><span>"optional"</span></span>
+<span><span>}</span></span></code></pre></div>
+<p>Required: <code>sellerPayTo</code>, <code>endpoint</code>, <code>model</code>, <code>mtok</code>, <code>priceUsd</code>.</p>
+<p>Returns <strong>201</strong> with the offer object (<code>id</code>, status, timestamps).</p>
+<p>List open offers: <code>GET /v1/offers</code>.</p></article>

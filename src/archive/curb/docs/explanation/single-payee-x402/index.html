@@ -1,0 +1,19 @@
+<article>
+<p>A match payment is <strong>one</strong> transfer. The 402 challenge lists a <strong>single</strong> accept:</p>
+<ul>
+<li><strong>Gross</strong> — the full price in USDC to the <strong>split address</strong> (a <a href="https://splits.org">0xSplits</a> PushSplit v2 on Base).</li>
+</ul>
+<p>This is spec-compliant single-payee x402: the buyer signs <strong>one</strong> payment. The seller cut and the protocol fee are settled <strong>on-chain</strong>, not as separate payment legs.</p>
+<h2>Rail<a href="/curb/docs/explanation/single-payee-x402/#rail" title="Copy link and go to this section"></a></h2>
+<ul>
+<li><strong>USDC on Base</strong> (<code>eip155:8453</code>) via x402.</li>
+</ul>
+<p>Buyers (or their wallets / facilitators / clients) satisfy the one challenge; the hub marks the match paid and issues a grant.</p>
+<h2>How the split works<a href="/curb/docs/explanation/single-payee-x402/#how-the-split-works" title="Copy link and go to this section"></a></h2>
+<ol>
+<li>Buyer pays <strong>gross</strong> USDC once to the split address (<code>payTo</code>).</li>
+<li>The gross accumulates in the 0xSplits split contract.</li>
+<li>A keeper calls the split's <code>distribute()</code> — an immutable, on-chain fan-out to the recipients: seller (e.g. 95%) + hub protocol fee (e.g. 5%).</li>
+</ol>
+<p>Why single-payee: standard x402 clients sign one payment; the split is enforced <strong>on-chain</strong> by an immutable contract, so the hub never custodies the seller's cut and never proxies token streams. The <code>extra.breakdown</code> on the accept is display-only — the on-chain allocation is authoritative.</p>
+<p>See also: <a href="/curb/docs/explanation/fees/">Fees</a>, <a href="/curb/docs/how-to/pay-match/">Pay a match</a>.</p></article>

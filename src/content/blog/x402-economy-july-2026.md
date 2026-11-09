@@ -4,7 +4,7 @@ description: "Rev.4, two-clock aligned: the x402 economy across five lenses — 
 publishDate: "2026-07-17"
 author: "Gökhan Turhan"
 category: "technology"
-tags: ["x402", "agentic-payments", "agentic-commerce", "stablecoins", "forecasting", "base", "solana", "machine-economy", "agi"]
+tags: ["x402", "agentic-payments", "agentic-commerce", "stablecoins", "forecasting", "base", "solana", "machine-economy", "agi", "gokhan-ventures"]
 featured: true
 draft: false
 excerpt: "Rev.4: the x402 economy on two clocks — cumulative since day one and a live 30-day panel. Joint research, Gökhan Turhan × Claude."

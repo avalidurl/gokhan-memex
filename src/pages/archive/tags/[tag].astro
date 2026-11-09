@@ -1,96 +1,92 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content'
-import type { GetStaticPaths } from 'astro'
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import PostTitle from '@/components/PostTitle.astro'
-import { humanizeKebab } from '@/lib/utils'
+import Tags from '@/components/Tags.astro'
+import { tagIndex, total, type TagBucket } from '@/lib/tags'
+import { draftTags, toolTags, apiTags, API_INDEX } from '@/data/estate'
 
-type PostEntry = CollectionEntry<'blog'>
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const allPosts = (await getCollection('blog'))
-    .filter((post: PostEntry) => !post.data.draft)
-
-  const tagSet = new Set<string>()
-  allPosts.forEach((post: PostEntry) => {
-    post.data.tags?.forEach((tag: string) => {
-      tagSet.add(tag)
-    })
-  })
-
-  return Array.from(tagSet).map((tag: string) => ({
-    params: {
-      tag: tag.toLowerCase().replace(/\s+/g, '-')
-    }
-  }))
+export async function getStaticPaths() {
+  const idx = await tagIndex()
+  return [...idx.values()].map((b) => ({ params: { tag: b.slug }, props: { b } }))
 }
 
-const { tag: tagSlug } = Astro.params as { tag: string }
-
-const allPosts = (await getCollection('blog'))
-  .filter((post: PostEntry) => !post.data.draft)
-
-const tagMap = new Map<string, string>()
-allPosts.forEach((post: PostEntry) => {
-  post.data.tags?.forEach((tag: string) => {
-    const slug = tag.toLowerCase().replace(/\s+/g, '-')
-    tagMap.set(slug, tag)
-  })
-})
-
-const tag = tagMap.get(tagSlug) || tagSlug
-const displayTag = humanizeKebab(tag)
-
-const posts: PostEntry[] = allPosts
-  .filter((post: PostEntry) => post.data.tags?.some((t: string) =>
-    t.toLowerCase().replace(/\s+/g, '-') === tagSlug
-  ))
-  .sort((a: PostEntry, b: PostEntry) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf())
+const { b } = Astro.props as { b: TagBucket }
+const n = total(b)
+const pad = (x: number) => String(x).padStart(2, '0')
+const groupLabel: Record<string, string> = { family: 'Family', domain: 'Domain', kind: 'Kind', chain: 'Chain', rail: 'Payment rail' }
 ---
 
 <BaseLayout
-  title={`${displayTag} - Archive`}
-  description={`${posts.length} posts tagged with ${displayTag}.`}
+  title={`${b.label} · Tag`}
+  description={`Everything tagged ${b.label}: ${n} item${n === 1 ? '' : 's'} across products, journal posts, drafts, tools and APIs.`}
   robots="noindex, follow"
 >
-  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
-    <header class="mb-12">
-      <p class="text-sm text-muted-foreground mb-2">
-        <a href="/archive" class="hover:underline underline-offset-2">Archive</a> / Tags
-      </p>
-      <h1 class="mb-2">{displayTag}</h1>
-      <p class="text-muted-foreground">
-        {posts.length} post{posts.length !== 1 ? 's' : ''}
-      </p>
-    </header>
+  <div class="es">
+    <p class="crumb"><a href="/archive/">Archive</a> / <a href="/archive/tags/">Tags</a></p>
+    <div class="intro">
+      <h1>{b.label}</h1>
+      {b.def && <p class="lead">{b.def.note}</p>}
+      <span class="stamp">{b.def ? groupLabel[b.def.group] : 'Journal tag'} · {n} item{n === 1 ? '' : 's'}</span>
+    </div>
+    <div class="dither"></div>
 
-    {posts.length > 0 ? (
-      <ul class="space-y-2">
-        {posts.map((post: PostEntry) => (
-          <li>
-            <a 
-              href={`/journal/${post.slug}/`}
-              class="group flex items-baseline gap-3 py-1"
-            >
-              <PostTitle title={post.data.title} class="text-foreground group-hover:underline decoration-1 underline-offset-2" />
-              <span class="text-sm text-muted-foreground shrink-0">
-                {post.data.publishDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
-              </span>
-            </a>
-          </li>
+    {b.projects.length > 0 && (
+      <section class="cx" aria-label="Products">
+        <div class="cx-h"><b>Products</b><span>by family</span><em>{pad(b.projects.length)}</em></div>
+        {b.projects.map((p) => (
+          <div class="cx-r">
+            <span>{p.family}</span>
+            <span><a class="nm" href={`/${p.slug}/`}>{p.name}</a> — {p.line}<br /><Tags tags={p.tags} current={b.slug} /></span>
+          </div>
         ))}
-      </ul>
-    ) : (
-      <p class="text-muted-foreground">No posts with this tag.</p>
+      </section>
     )}
 
-    <div class="mt-12 pt-8 border-t border-border">
-      <a 
-        href="/archive"
-        class="text-muted-foreground hover:text-foreground hover:underline underline-offset-2"
-      >
-        ← Back to archive
-      </a>
-    </div>
+    {b.posts.length > 0 && (
+      <section class="cx" aria-label="Journal">
+        <div class="cx-h"><b>Journal</b><span>posts</span><em>{pad(b.posts.length)}</em></div>
+        {b.posts.map((p) => (
+          <div class="cx-r">
+            <span>{p.data.publishDate.toISOString().slice(0, 10)}</span>
+            <span><a class="nm" href={`/journal/${p.slug}/`}>{p.data.title}</a>{p.data.tags && <><br /><Tags tags={p.data.tags.slice(0, 8)} current={b.slug} /></>}</span>
+          </div>
+        ))}
+      </section>
+    )}
+
+    {b.drafts.length > 0 && (
+      <section class="cx draft" aria-label="Product drafts">
+        <div class="cx-h"><b>Product drafts</b><span>experiments and small tools</span><em>{pad(b.drafts.length)}</em></div>
+        {b.drafts.map((d) => (
+          <div class="cx-r">
+            <span>{d.origin}</span>
+            <span><a class="nm" href={d.page ? `/${d.slug}/` : d.href}>{d.name}</a> — {d.line}<br /><Tags tags={draftTags[d.slug] ?? []} current={b.slug} /></span>
+          </div>
+        ))}
+      </section>
+    )}
+
+    {b.tools.length > 0 && (
+      <section class="cx tools" aria-label="Tools">
+        <div class="cx-h"><b>Tools</b><span>private, names only</span><em>{pad(b.tools.length)}</em></div>
+        {b.tools.map((t) => (
+          <div class="cx-r">
+            <span>{t.group}</span>
+            <span>{t.url ? <a class="nm" href="/tools/">{t.name}</a> : <span>{t.name}</span>}<br /><Tags tags={toolTags[t.name] ?? []} current={b.slug} /></span>
+          </div>
+        ))}
+      </section>
+    )}
+
+    {b.apis.length > 0 && (
+      <section class="cx api" aria-label="APIs">
+        <div class="cx-h"><b>APIs</b><span>documented</span><em>{pad(b.apis.length)}</em></div>
+        {b.apis.map((a) => (
+          <div class="cx-r">
+            <span>{a.kind}</span>
+            <span><a class="nm" href={`${API_INDEX}/${a.slug}/`}>{a.name}</a><br /><Tags tags={apiTags[a.slug] ?? []} current={b.slug} /></span>
+          </div>
+        ))}
+      </section>
+    )}
   </div>
 </BaseLayout>

@@ -1,0 +1,58 @@
+<div>
+<div>
+<a href="/reclaim/"><i></i>RECLAIM</a>
+<div>
+<a href="/reclaim/">Home</a>
+<a href="/reclaim/galleries/">Galleries</a>
+</div>
+</div>
+<div>
+<p>Foundation · Zora · Ethereum</p>
+<p>Foundation went offline on <strong>27 April 2026</strong> and told creators they would have to delist
+    manually — then took the interface with them. Anything you listed is still sitting in the market contract.
+    Zora's old auction house holds work the same way, and Drops contracts hold <strong>unwithdrawn sale proceeds</strong>
+    nobody ever claimed. It is all still yours. There was just no longer a button.</p>
+<span>Non-custodial · you sign · read-only until you act</span>
+</div>
+<section>
+<h2><span>Find your work</span><span>§1</span></h2>
+<div>
+<span>or scan any address, read-only</span>
+</div>
+<div>
+<input disabled="" placeholder="0x… creator address" type="text"/>
+</div>
+<p>Reads public chain state across Foundation, Zora Auction House, and
+    contracts you deployed. Nothing is signed and nothing is stored.</p>
+</section>
+<div>
+<div><span>Stranded</span><b>0</b><small>works + balances</small></div>
+<div><span>In escrow</span><b>0</b><small>held by a contract</small></div>
+<div><span>Live offers</span><b>0</b><small>WETH, unexpired</small></div>
+<div><span>Claimable</span><b>0</b><small>ETH proceeds</small></div>
+</div>
+<section>
+<h2><span>Your positions</span><span>§2</span></h2>
+<div>
+<b>Service fee.</b> <b>0.0025</b> ETH per action, or <b>0.005</b> ETH once for a whole
+      batch — batching several is cheaper than doing them one at a time. Accepting an offer also sends
+      <b>2</b>% of the offer. The fee is a separate transfer your wallet signs; it cannot ride along with the
+      recovery call because those functions reject ETH.
+    </div>
+<div>
+<label><input disabled="" type="checkbox"/> <span>select all</span></label>
+<span>0 selected</span>
+</div>
+</section>
+<section>
+<h2><span>What each action does</span><span>§3</span></h2>
+<p><strong>Cancel auction / buy price</strong> — returns the NFT to your wallet.
+    Auctions can only be cancelled if nobody ever bid; one bid locks the piece until it settles.</p>
+<p><strong>Accept offer — this SELLS the piece</strong> for the WETH offered. Irreversible,
+    and always behind a confirmation.</p>
+<p><strong>Withdraw</strong> — pulls sale proceeds sitting in a contract you own.</p>
+<p>A piece with <em>both</em> an auction and a buy price needs <span>needs both</span>
+    cancelled. The first transaction succeeds and looks green while the artwork stays in escrow — the contract holds it
+    until the second lands. This app re-reads ownership after every action instead of trusting a green transaction.</p>
+</section>
+</div>

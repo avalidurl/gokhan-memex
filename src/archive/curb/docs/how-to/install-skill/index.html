@@ -1,0 +1,18 @@
+<article>
+<p>Drop the agentskills.io <code>SKILL.md</code> into your harness. Pair it with the <a href="/curb/docs/how-to/install-mcp/">MCP install</a>.</p>
+<div><pre><code><span><span>mkdir</span><span> -p</span><span> ~/.agents/skills/curb</span></span>
+<span><span>curl</span><span> -fsSL</span><span> https://api.curb.numetal.xyz/skill.md</span><span> -o</span><span> ~/.agents/skills/curb/SKILL.md</span></span>
+<span><span># </span><span>Claude Code</span></span>
+<span><span>mkdir</span><span> -p</span><span> ~/.claude/skills/curb</span></span>
+<span><span>curl</span><span> -fsSL</span><span> https://api.curb.numetal.xyz/skill.md</span><span> -o</span><span> ~/.claude/skills/curb/SKILL.md</span></span></code></pre></div>
+<p>Repo copy: <code>skills/curb/SKILL.md</code></p>
+<h2>What the skill teaches<a href="/curb/docs/how-to/install-skill/#what-the-skill-teaches" title="Copy link and go to this section"></a></h2>
+<ol>
+<li>Connect MCP first (<code>swap_*</code> tools)</li>
+<li>Prefer listing open offers before posting a redundant sell</li>
+<li>After pay → call <strong>seller endpoint</strong> with the grant (hub holds no keys)</li>
+<li>Sign payments with <strong>pay</strong> / <strong>agentcash</strong> — never put keys in CURB MCP config</li>
+</ol>
+<h2>Runtime table<a href="/curb/docs/how-to/install-skill/#runtime-table" title="Copy link and go to this section"></a></h2>
+<div><table><thead><tr><th>Runtime</th><th>Skill path</th></tr></thead><tbody><tr><td>Cursor / Codex / Amp / Pi</td><td><code>~/.agents/skills/curb/SKILL.md</code></td></tr><tr><td>Claude Code</td><td><code>~/.claude/skills/curb/SKILL.md</code></td></tr><tr><td>OpenClaw / Hermes / OpenCode</td><td>skills root → <code>curb/SKILL.md</code></td></tr><tr><td>Flue</td><td><code>import curb from './skills/curb/SKILL.md' with { type: 'skill' }</code></td></tr><tr><td>CF Agents / Think</td><td>ship skill beside agent or fetch <code>/skill.md</code></td></tr></tbody></table></div>
+<p>Reference → <a href="/curb/docs/reference/skill/">Skill</a> · demo harness (pitch only) → <a href="/curb/harness/agents/">https://harness.curb.numetal.xyz</a></p></article>

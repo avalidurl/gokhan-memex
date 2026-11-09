@@ -1,0 +1,8 @@
+<article>
+<p>Agents should probe these before inventing flows:</p>
+<div><pre><code><span><span>GET https://api.curb.numetal.xyz/.well-known/x402</span></span>
+<span><span>GET https://api.curb.numetal.xyz/openapi.json</span></span>
+<span><span>POST https://api.curb.numetal.xyz/v1/pay   # bare → 402 sample (Base, single accept)</span></span>
+<span><span>GET https://api.curb.numetal.xyz/llms.txt</span></span>
+<span><span>GET https://api.curb.numetal.xyz/skill.md</span></span></code></pre></div>
+<p><code>.well-known/x402</code> is Ishtar-shaped (<code>x402Version</code> + <code>resources[].accepts</code>) advertising USDC on x402 on <strong>Base</strong> (<code>eip155:8453</code>) — a single <code>gross</code> accept whose <code>payTo</code> is the on-chain 0xSplits split. OpenAPI is the canonical x402scan contract (<code>x-payment-info</code> on <code>POST /v1/pay</code>; free reads use <code>security: []</code>). <code>llms.txt</code> / <code>skill.md</code> are prose entrypoints.</p></article>

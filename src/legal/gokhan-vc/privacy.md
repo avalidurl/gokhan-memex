@@ -15,7 +15,7 @@ as possible.
 We do not ask for or collect personal information through gokhan.vc. The site serves static
 content only. Our infrastructure provider (Cloudflare) processes standard technical request data
 (such as IP address and browser metadata) to deliver and secure the site. If you choose to email
-us at **[[email protected]](/cdn-cgi/l/email-protection)**, we receive the contents of your message and your email
+us at **[contact@gokhan.vc](mailto:contact@gokhan.vc)**, we receive the contents of your message and your email
 address solely to respond.
 
 ## How we use information
@@ -45,7 +45,7 @@ you send us is retained only as long as needed to handle your enquiry.
 
 ## Your choices & rights
 
-Under the GDPR and UK GDPR you have the right to **access, rectify, erase, restrict, and port** your personal data, to **object** to processing, and to **lodge a complaint with your data-protection supervisory authority** (GDPR Art 77). To exercise any of these, contact [[email protected]](/cdn-cgi/l/email-protection#3b5854554f5a584f7b5c5450535a55154d58).
+Under the GDPR and UK GDPR you have the right to **access, rectify, erase, restrict, and port** your personal data, to **object** to processing, and to **lodge a complaint with your data-protection supervisory authority** (GDPR Art 77). To exercise any of these, contact [contact@gokhan.vc](mailto:contact@gokhan.vc).
 
 ## Children’s privacy
 
@@ -60,5 +60,5 @@ policy.
 
 ## Contact
 
-Questions about this policy: [[email protected]](/cdn-cgi/l/email-protection#8eede1e0faefedfacee9e1e5e6efe0a0f8ed). See also
+Questions about this policy: [contact@gokhan.vc](mailto:contact@gokhan.vc). See also
 our [Terms of Service](/gokhan-vc/legal/terms/).

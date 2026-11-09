@@ -7,17 +7,17 @@ const { product, title, former, retrieved, others } = Astro.props
 const p = bySlug(product)!
 ---
 
-<BaseLayout title={`${title} · ${p.name} (archived)`} description={`Archived copy of the ${p.name} ${title}.`} robots="noindex, follow">
+<BaseLayout title={`${title} · ${p.name}`} description={`The ${p.name} ${title}.`} robots="noindex, follow">
   <div class="es">
     <p class="crumb"><a href="/products/">Products</a> / <a href={`/${p.slug}/`}>{p.name}</a> / legal</p>
     <div class="intro">
       <h1>{title}</h1>
-      <span class="stamp arch">Archived copy · retrieved {retrieved}</span>
+      <span class="stamp">Copy · retrieved {retrieved}</span>
     </div>
     <div class="dither"></div>
-    <section class="cx arch" aria-label="About this copy">
-      <div class="cx-h"><b>Archived copy</b><span>{p.name}</span></div>
-      <div class="cx-r"><span>Former address</span><span>{former}</span></div>
+    <section class="cx" aria-label="About this copy">
+      <div class="cx-h"><b>{title}</b><span>{p.name}</span></div>
+      <div class="cx-r"><span>Address</span><span>{former}</span></div>
       <div class="cx-r"><span>Retrieved</span><span>{retrieved}, copied as published</span></div>
       <div class="cx-r"><span>Other documents</span><span>{others.map((o, i) => <>{i > 0 && ' · '}<a href={`/${p.slug}/legal/${o.slug}/`}>{o.title}</a></>)}</span></div>
     </section>

@@ -1,0 +1,95 @@
+{
+ "title": "Buyer agent health",
+ "source": "buyer.curb.numetal.xyz/health",
+ "retrieved": "2026-11-09",
+ "data": {
+  "ok": true,
+  "agent": "curb-buyer",
+  "product": "numetal-curb",
+  "harness": "cloudflare-agents-sdk",
+  "mcpUrl": "https://api.curb.numetal.xyz/mcp",
+  "mcpTools": [],
+  "mcpServers": {
+   "WbmtS0SA": {
+    "name": "curb",
+    "state": "failed"
+   }
+  },
+  "state": {
+   "role": "buyer",
+   "mcpReady": true,
+   "mcpServerId": "WbmtS0SA",
+   "lastMatchId": "match_mugg14oh_c12ab8e7",
+   "lastIntentAt": "2026-11-04T15:10:35.086Z",
+   "lastChallenge": {
+    "id": "match_mugg14oh_c12ab8e7",
+    "status": "awaiting_payment",
+    "offerId": "offer_mu7xp5br_10258d6e",
+    "intentId": "intent_mugg145i_fb82e8b4",
+    "model": "demo/llama-3.3-70b",
+    "mtok": 1,
+    "sellerPayTo": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+    "sellerEndpoint": "https://seller.curb.numetal.xyz/fulfill",
+    "buyer": "0x0000000000000000000000000000000000000b0b",
+    "split": {
+     "grossUsd": 0.05,
+     "feeUsd": 0.0025,
+     "sellerUsd": 0.0475,
+     "feeBps": 500
+    },
+    "challenge": {
+     "x402Version": 2,
+     "error": "payment required",
+     "accepts": [
+      {
+       "scheme": "exact",
+       "network": "eip155:8453",
+       "amount": "50000",
+       "maxAmountRequired": "50000",
+       "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+       "payTo": "0x546217c24617bCF9faD565E8ECABe5dE2D41326b",
+       "maxTimeoutSeconds": 300,
+       "extra": {
+        "name": "USD Coin",
+        "version": "2",
+        "role": "gross",
+        "amountUsd": "0.05",
+        "feeBps": 500,
+        "breakdown": {
+         "sellerUsd": "0.0475",
+         "feeUsd": "0.0025"
+        },
+        "splitAddress": "0x546217c24617bCF9faD565E8ECABe5dE2D41326b",
+        "splitType": "0xsplits-push-v2"
+       }
+      }
+     ],
+     "resource": {
+      "url": "https://api.curb.numetal.xyz/v1/matches/match_mugg14oh_c12ab8e7/pay",
+      "description": "Swap 1 MTok demo/llama-3.3-70b",
+      "mimeType": "application/json"
+     },
+     "split": {
+      "grossUsd": 0.05,
+      "feeUsd": 0.0025,
+      "sellerUsd": 0.0475,
+      "feeBps": 500
+     },
+     "settlement": {
+      "model": "single-payee-to-splitter",
+      "note": "Buyer pays gross ONCE to the split address. CURB fans out seller/hub ON-CHAIN via 0xSplits distribute() on Base.",
+      "splitBase": "0x546217c24617bCF9faD565E8ECABe5dE2D41326b"
+     },
+     "rails": {
+      "base": true,
+      "note": "Single accept = gross to the split address; on-chain fan-out to seller + hub."
+     }
+    },
+    "grant": null,
+    "createdAt": "2026-09-25T04:11:05.585Z"
+   },
+   "lastError": null
+  },
+  "payment": "Use pay MCP or agentcash outside this agent. No private keys in the harness."
+ }
+}

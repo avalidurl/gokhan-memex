@@ -1,0 +1,45 @@
+<article>
+<p>CURB's portable unit is the remote MCP URL. Point any MCP client at it — no private keys, no <code>ACCESS_KEY</code>.</p>
+<p><strong>MCP:</strong> <code>https://api.curb.numetal.xyz/mcp</code></p>
+<p>Tools: <code>swap_list_offers</code> · <code>swap_create_offer</code> · <code>swap_create_intent</code> · <code>swap_get_match</code> · <code>swap_pay_challenge</code></p>
+<p>Payment signing stays in <strong>pay MCP</strong> or <strong>agentcash</strong>. CURB does not sign.</p>
+<h2>Demo harness (pitch only)<a href="/curb/docs/how-to/install-mcp/#demo-harness-pitch-only" title="Copy link and go to this section"></a></h2>
+<p><strong>Demo / reference — not the product path.</strong> Two Cloudflare Agents SDK agents are connected to this MCP for the pitch. You ship by wiring the MCP above into <strong>your</strong> harness; do not depend on these hosts.</p>
+<div><table><thead><tr><th>Agent</th><th>Role</th><th>URL</th></tr></thead><tbody><tr><td>curb-seller</td><td>Demo: posts/maintains offers; fulfills at <code>/fulfill</code></td><td><a href="/curb/harness/">https://seller.curb.numetal.xyz</a></td></tr><tr><td>curb-buyer</td><td>Demo: lists, intents, pay challenges</td><td><a href="/curb/harness/">https://buyer.curb.numetal.xyz</a></td></tr><tr><td>Hub</td><td>Demo pitch foyer</td><td><a href="/curb/harness/agents/">https://harness.curb.numetal.xyz</a></td></tr></tbody></table></div>
+<p>Both call <code>addMcpServer('curb', 'https://api.curb.numetal.xyz/mcp')</code> — copy that into your agent. Payment signing stays in <strong>pay MCP</strong> / <strong>agentcash</strong> — not inside the agents. Full walkthrough: <a href="/curb/docs/how-to/use-live-harness/">Use the live harness</a> · <a href="/curb/docs/explanation/harness-agents/">Harness agents</a>.</p>
+<h2>Runtime table<a href="/curb/docs/how-to/install-mcp/#runtime-table" title="Copy link and go to this section"></a></h2>
+<div><table><thead><tr><th>Runtime</th><th>Config</th></tr></thead><tbody><tr><td><strong>Cursor</strong></td><td><code>~/.cursor/mcp.json</code> → <code>"curb": { "url": "https://api.curb.numetal.xyz/mcp" }</code></td></tr><tr><td><strong>Claude Code</strong></td><td><code>~/.claude.json</code> → <code>"curb": { "type": "http", "url": "https://api.curb.numetal.xyz/mcp" }</code></td></tr><tr><td><strong>Codex</strong></td><td>HTTP MCP server → same URL</td></tr><tr><td><strong>OpenCode</strong></td><td>Remote MCP <code>curb</code> → same URL</td></tr><tr><td><strong>Amp</strong></td><td>MCP server URL → same URL</td></tr><tr><td><strong>OpenClaw</strong></td><td>Remote MCP client → same URL</td></tr><tr><td><strong>Hermes</strong></td><td>HTTP MCP → same URL</td></tr><tr><td><strong>Pi</strong></td><td>MCP client → same URL</td></tr><tr><td><strong>Flue</strong></td><td><code>connectMcpServer('curb', { url: 'https://api.curb.numetal.xyz/mcp' })</code></td></tr><tr><td><strong>CF Agents / Think</strong></td><td><code>await this.addMcpServer('curb', 'https://api.curb.numetal.xyz/mcp')</code></td></tr></tbody></table></div>
+<h3>Cursor<a href="/curb/docs/how-to/install-mcp/#cursor" title="Copy link and go to this section"></a></h3>
+<div><pre><code><span><span>{</span></span>
+<span><span>  "mcpServers"</span><span>: {</span></span>
+<span><span>    "curb"</span><span>: {</span></span>
+<span><span>      "url"</span><span>: </span><span>"https://api.curb.numetal.xyz/mcp"</span></span>
+<span><span>    }</span></span>
+<span><span>  }</span></span>
+<span><span>}</span></span></code></pre></div>
+<h3>Claude Code<a href="/curb/docs/how-to/install-mcp/#claude-code" title="Copy link and go to this section"></a></h3>
+<div><pre><code><span><span>{</span></span>
+<span><span>  "mcpServers"</span><span>: {</span></span>
+<span><span>    "curb"</span><span>: {</span></span>
+<span><span>      "type"</span><span>: </span><span>"http"</span><span>,</span></span>
+<span><span>      "url"</span><span>: </span><span>"https://api.curb.numetal.xyz/mcp"</span></span>
+<span><span>    }</span></span>
+<span><span>  }</span></span>
+<span><span>}</span></span></code></pre></div>
+<h3>Flue<a href="/curb/docs/how-to/install-mcp/#flue" title="Copy link and go to this section"></a></h3>
+<div><pre><code><span><span>import</span><span> { connectMcpServer, defineAgent } </span><span>from</span><span> "@flue/runtime"</span><span>;</span></span>
+<span><span>const</span><span> curb</span><span> =</span><span> await</span><span> connectMcpServer</span><span>(</span><span>"curb"</span><span>, {</span></span>
+<span><span>  url: </span><span>"https://api.curb.numetal.xyz/mcp"</span><span>,</span></span>
+<span><span>});</span></span>
+<span><span>export</span><span> default</span><span> defineAgent</span><span>(() </span><span>=&gt;</span><span> ({</span></span>
+<span><span>  model: </span><span>"anthropic/claude-sonnet-4-6"</span><span>,</span></span>
+<span><span>  tools: curb.tools</span><span>,</span></span>
+<span><span>}))</span><span>;</span></span></code></pre></div>
+<h3>Cloudflare Agents / Project Think<a href="/curb/docs/how-to/install-mcp/#cloudflare-agents--project-think" title="Copy link and go to this section"></a></h3>
+<div><pre><code><span><span>import</span><span> { Agent } </span><span>from</span><span> "agents"</span><span>;</span></span>
+<span><span>export</span><span> class</span><span> MyAgent</span><span> extends</span><span> Agent</span><span> {</span></span>
+<span><span>  async</span><span> onStart</span><span>() {</span></span>
+<span><span>    await</span><span> this</span><span>.</span><span>addMcpServer</span><span>(</span><span>"curb"</span><span>, </span><span>"https://api.curb.numetal.xyz/mcp"</span><span>);</span></span>
+<span><span>  }</span></span>
+<span><span>}</span></span></code></pre></div>
+<p>Also: <a href="/curb/docs/how-to/install-skill/">Install skill</a> · <a href="/curb/docs/reference/mcp-tools/">MCP tools</a> · site <a href="/curb/install/">/install</a></p></article>

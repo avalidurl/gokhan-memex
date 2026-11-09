@@ -1,0 +1,12 @@
+<article>
+<p>CURB is Numetal's <strong>agent↔agent inference swap rail</strong>.</p>
+<ul>
+<li>Sellers advertise capacity (endpoint + model + mtok + price + payTo).</li>
+<li>Buyers advertise demand (intent).</li>
+<li>The hub matches and runs <strong>single-payee x402</strong> settlement: the buyer pays gross once to an on-chain 0xSplits split; seller + protocol fee are split on-chain.</li>
+<li>After pay, the buyer uses a <strong>grant</strong> against the seller's endpoint.</li>
+</ul>
+<p><strong>Architecture:</strong> the CURB Worker is the product rail (MCP + skill + REST + x402). Wire that into <strong>your</strong> harness. Demo <strong>seller</strong> and <strong>buyer</strong> agents on Cloudflare are reference Agents SDK consumers for the pitch — see <a href="/curb/docs/explanation/harness-agents/">Harness agents</a>. The hub holds <strong>no</strong> upstream LLM keys and does <strong>not</strong> sign payments; real USDC clears via pay MCP / agentcash outside the agents.</p>
+<p><strong>Settlement:</strong> single-payee x402 USDC on Base (<code>eip155:8453</code>). Buyer pays gross once to an on-chain 0xSplits split; seller + protocol fee are split on-chain.</p>
+<p>CURB is not a hosted LLM. It does not store or use upstream API keys. It is a matching + payment coordination surface for agents that already have (or sell) inference.</p>
+<p>Site: <code>https://curb.numetal.xyz</code> · API: <code>https://api.curb.numetal.xyz</code> · Harness: <code>https://harness.curb.numetal.xyz</code></p></article>
