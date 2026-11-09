@@ -475,3 +475,25 @@ body.register main a.tg[aria-current="true"], a.tg[aria-current="true"] { backgr
 .es .work-thumb { width: 64px; height: auto; border: 1px solid var(--ink); display: block; }
 .es .cx-r.withthumb { grid-template-columns: 72px 1fr; align-items: start; }
 .es .cx-b audio { width: 100%; }
+
+/* Long values (URLs, addresses) wrap inside their box instead of spilling out. */
+.cx-r > * { min-width: 0; overflow-wrap: anywhere; }
+.cx-b { overflow-wrap: anywhere; }
+/* Footer as a box */
+body.register .reg-foot .cx.foot { margin: 0; }
+body.register .reg-foot .cx.foot .cx-r > :last-child { font-family: var(--mono); font-size: 12.5px; letter-spacing: .02em; }
+body.register .reg-foot .cx.foot .reg-channels, body.register .reg-foot .cx.foot .reg-fine { margin: 0; display: inline; }
+
+/* Header nav: "Index" reads "Home" on hover and keyboard focus. */
+.nav-swap .sw-b { display: none; }
+.nav-swap:hover .sw-a, .nav-swap:focus-visible .sw-a { display: none; }
+.nav-swap:hover .sw-b, .nav-swap:focus-visible .sw-b { display: inline; }
+
+/* Collapsible boxes: <details class="cx fold"> with the label strip as <summary>. */
+details.cx.fold > summary.cx-h { cursor: pointer; list-style: none; }
+details.cx.fold > summary.cx-h::-webkit-details-marker { display: none; }
+details.cx.fold > summary.cx-h::after { content: "−"; margin-left: auto; padding: 7px 10px; border-left: 1px solid var(--ink); font: 500 11px/1 var(--mono); }
+details.cx.fold > summary.cx-h:has(em)::after { margin-left: 0; }
+details.cx.fold:not([open]) > summary.cx-h { border-bottom: 0; }
+details.cx.fold:not([open]) > summary.cx-h::after { content: "+"; }
+details.cx.fold > summary.cx-h:focus-visible { outline: 2px solid var(--ikb); outline-offset: 2px; }

@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHead from '@/components/PageHead.astro'
 import { humanizeKebab } from '@/lib/utils'
 
 // Get all published blog posts
@@ -39,91 +40,32 @@ const sortedYears = Array.from(postsByYear.keys()).sort((a, b) => b - a)
 
 <BaseLayout
   title="Archive"
-  description="Browse all content by categories, tags, and years."
+  description="Browse all journal posts by year, category and tag."
   robots="noindex, follow"
 >
-  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
-    <!-- Header -->
-    <header class="mb-12">
-      <h1 class="mb-4">Archive</h1>
-      <p class="text-muted-foreground">
-        {allPosts.length} posts across {sortedCategories.length} categories and {sortedTags.length} tags.
-      </p>
-    </header>
+  <div class="es">
+    <PageHead crumbs={[{ label: 'Journal', href: '/journal/' }, { label: 'Archive' }]} title="Archive" lead={`${allPosts.length} posts across ${sortedYears.length} years, ${sortedCategories.length} categories and ${sortedTags.length} tags.`} />
 
-    <div class="space-y-12">
-      <!-- Categories Section -->
-      <section id="categories">
-        <h2 class="mb-4">
-          Categories
-        </h2>
-        <ul class="space-y-1">
-          {sortedCategories.map(([category, count]) => (
-            <li>
-              <a 
-                href={`/archive/categories/${category.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and')}`}
-                class="group flex items-baseline justify-between py-2"
-              >
-                <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
-                  {category}
-                </span>
-                <span class="text-sm text-muted-foreground tabular-nums">
-                  {count}
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
+    <details class="cx fold" id="years" open>
+      <summary class="cx-h"><b>Years</b><span>posts by year</span><em>{String(sortedYears.length).padStart(2, '0')}</em></summary>
+      {sortedYears.map((year) => (
+        <div class="cx-r"><span><a href={`/journal/${year}/`}>{year}</a></span><span>{postsByYear.get(year)?.length} posts</span></div>
+      ))}
+    </details>
 
-      <!-- Tags Section -->
-      <section id="tags">
-        <h2 class="mb-4">
-          Tags
-        </h2>
-        <div class="flex flex-wrap gap-2">
-          {sortedTags.slice(0, 40).map(([tag, count]) => (
-            <a 
-              href={`/archive/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
-              class="text-sm text-muted-foreground hover:text-foreground"
-            >
-              {humanizeKebab(tag)} <span class="text-xs opacity-60">({count})</span>
-            </a>
-          ))}
-          {sortedTags.length > 40 && (
-            <a 
-              href="/archive/tags"
-              class="text-sm text-muted-foreground hover:text-foreground"
-            >
-              +{sortedTags.length - 40} more
-            </a>
-          )}
-        </div>
-      </section>
+    <details class="cx fold" id="categories" open>
+      <summary class="cx-h"><b>Categories</b><span>by number of posts</span><em>{String(sortedCategories.length).padStart(2, '0')}</em></summary>
+      {sortedCategories.map(([category, count]) => (
+        <div class="cx-r"><span><a href={`/archive/categories/${category.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and')}/`}>{humanizeKebab(category)}</a></span><span>{count} post{count === 1 ? '' : 's'}</span></div>
+      ))}
+    </details>
 
-      <!-- Years Section -->
-      <section id="years">
-        <h2 class="mb-4">
-          Years
-        </h2>
-        <ul class="space-y-1">
-          {sortedYears.map(year => (
-            <li>
-              <a 
-                href={`/journal/${year}`}
-                class="group flex items-baseline justify-between py-2"
-              >
-                <span class="text-foreground group-hover:underline decoration-1 underline-offset-2">
-                  {year}
-                </span>
-                <span class="text-sm text-muted-foreground tabular-nums">
-                  {postsByYear.get(year)?.length} posts
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
-    </div>
+    <details class="cx fold" id="tags" open>
+      <summary class="cx-h"><b>Tags</b><span>most used first</span><em>{String(sortedTags.length).padStart(2, '0')}</em></summary>
+      <div class="cx-b">
+        {sortedTags.slice(0, 40).map(([tag, count]) => <a class="tg" href={`/archive/tags/${tag.toLowerCase().replace(/\s+/g, '-')}/`}>{humanizeKebab(tag)} · {count}</a>)}
+        {sortedTags.length > 40 && <a class="tg more" href="/archive/tags/">+{sortedTags.length - 40} more</a>}
+      </div>
+    </details>
   </div>
 </BaseLayout>
