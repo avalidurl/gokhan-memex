@@ -46,6 +46,7 @@ const nav = [
   { name: 'Drafts', href: '/product-drafts/', on: path.startsWith('/product-drafts') },
   { name: 'Publishing', href: '/publishing/', on: path.startsWith('/publishing') },
   { name: 'CV', href: '/cv/', on: path.startsWith('/cv') },
+  { name: 'About', href: '/about/', on: path.startsWith('/about') },
   { name: 'Raises', href: '/#raises', on: false },
   { name: 'Agents', href: '/#agents', on: false },
 ]
@@ -134,7 +135,7 @@ const tableDeskVersion = createHash('sha256')
     <meta name="twitter:image:alt" content={fullTitle} />
     
     <!-- RSS -->
-    <link rel="alternate" type="application/rss+xml" title={siteName} href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Gökhan Turhan — Journal" href="/rss.xml" />
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json" />
@@ -287,16 +288,24 @@ const tableDeskVersion = createHash('sha256')
           <a href="https://github.com/avalidurl">GitHub</a><span class="reg-dot">/</span>
           <a href="https://gokhan.substack.com/">Substack</a><span class="reg-dot">/</span>
           <a href="/rss.xml">RSS</a><span class="reg-dot">/</span>
-          <a href="/newsletter/">Newsletter</a>
+          <a href="/journal/#subscribe">Newsletter</a>
         </p>
         <p class="reg-fine">
           <a href="/about/">About</a><span class="reg-dot">/</span>
           <a href="/product-drafts/">Drafts</a><span class="reg-dot">/</span>
           <a href="/archive/tags/">Tags</a><span class="reg-dot">/</span>
           <a href="/tools/">Tools</a><span class="reg-dot">/</span>
-          <a href="https://api.gokhanturhan.com/">APIs</a><span class="reg-dot">/</span>
+          <a href="/api/">APIs</a><span class="reg-dot">/</span>
           <a href="/privacy/">Privacy</a><span class="reg-dot">/</span>
           <a href="/disclaimer/">Disclaimer</a>
+        </p>
+        <p class="reg-fine reg-files">
+          <span>Site files</span>
+          <a href="/sitemap-index.xml">Sitemap</a><span class="reg-dot">/</span>
+          <a href="/robots.txt">robots.txt</a><span class="reg-dot">/</span>
+          <a href="/llms.txt">llms.txt</a><span class="reg-dot">/</span>
+          <a href="/llms-full.txt">llms-full.txt</a><span class="reg-dot">/</span>
+          <a href="/rss.xml">RSS (journal)</a>
         </p>
       </footer>
     </div>

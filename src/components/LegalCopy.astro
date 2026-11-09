@@ -13,7 +13,8 @@ const p = bySlug(product)!
     <PageHead crumbs={[{ label: 'Products', href: '/products/' }, { label: p.name, href: `/${p.slug}/` }, { label: 'Legal' }]} title={title} lead={`Copy retrieved ${retrieved}.`} tags={p.tags} />
     <section class="cx" aria-label="About this copy">
       <div class="cx-h"><b>{title}</b><span>{p.name}</span></div>
-      <div class="cx-r"><span>Address</span><span>{former}</span></div>
+      <div class="cx-r"><span>Address</span><span><a href={`/${p.slug}/`}>gokhanturhan.com/{p.slug}/</a></span></div>
+      <div class="cx-r"><span>Former address</span><span>{former}</span></div>
       <div class="cx-r"><span>Retrieved</span><span>{retrieved}, copied as published</span></div>
       <div class="cx-r"><span>Other documents</span><span>{others.map((o, i) => <>{i > 0 && ' · '}<a href={`/${p.slug}/legal/${o.slug}/`}>{o.title}</a></>)}</span></div>
     </section>

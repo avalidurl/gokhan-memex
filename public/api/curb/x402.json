@@ -1,0 +1,73 @@
+{
+  "archived": true,
+  "as_of": "2026-11-09",
+  "note": "Frozen copy of a retired x402 manifest. Do not pay these resources.",
+  "original": {
+    "x402Version": 2,
+    "resources": [
+      {
+        "resource": "https://curb.numetal.xyz/v1/pay",
+        "type": "http",
+        "x402Version": 2,
+        "description": "CURB — single-payee x402 USDC on Base (eip155:8453). Buyer pays gross once to the on-chain 0xSplits split; CURB fans out seller + protocol fee on-chain. Bare POST → 402.",
+        "mimeType": "application/json",
+        "accepts": [
+          {
+            "scheme": "exact",
+            "network": "eip155:8453",
+            "amount": "100000",
+            "maxAmountRequired": "100000",
+            "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+            "payTo": "0x546217c24617bCF9faD565E8ECABe5dE2D41326b",
+            "maxTimeoutSeconds": 300,
+            "extra": {
+              "name": "USD Coin",
+              "version": "2",
+              "role": "gross",
+              "amountUsd": "0.1",
+              "feeBps": 500,
+              "breakdown": {
+                "sellerUsd": "0.095",
+                "feeUsd": "0.005"
+              },
+              "splitAddress": "0x546217c24617bCF9faD565E8ECABe5dE2D41326b",
+              "splitType": "0xsplits-push-v2"
+            }
+          }
+        ]
+      }
+    ],
+    "name": "CURB",
+    "url": "https://curb.numetal.xyz",
+    "openapi": "https://curb.numetal.xyz/openapi.json",
+    "mcp": "https://curb.numetal.xyz/mcp",
+    "skill": "https://curb.numetal.xyz/skill.md",
+    "rails": [
+      "x402 · USDC on Base (eip155:8453)",
+      "MPP · USDC on Tempo (eip155:4217, push, splits) on POST /v1/matches/{id}/pay"
+    ],
+    "mpp": {
+      "network": "eip155:4217",
+      "currency": "0x20c000000000000000000000b9537d11c60e8b50",
+      "mode": "push",
+      "splits": true,
+      "resource": "https://curb.numetal.xyz/v1/matches/{id}/pay",
+      "credential": "Authorization: Payment <b64url>",
+      "receipt": "Payment-Receipt"
+    },
+    "feeBps": 500,
+    "settlementModel": "single-payee-to-splitter",
+    "split": {
+      "base": "0x546217c24617bCF9faD565E8ECABe5dE2D41326b",
+      "provider": "0xsplits-push-v2"
+    },
+    "hubPayTo": "0x3eee81B5b4cf1983b7DB36cf042B5d06c04F33eE",
+    "networks": [
+      "eip155:8453"
+    ],
+    "assets": {
+      "eip155:8453": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
+    },
+    "facilitator": "https://api.cdp.coinbase.com/platform/v2/x402"
+  }
+}

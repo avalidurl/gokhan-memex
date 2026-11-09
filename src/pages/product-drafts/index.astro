@@ -29,9 +29,9 @@ const allTags = [...new Set(drafts.flatMap((d) => draftTags[d.slug] ?? []))].sor
       <div class="cx-h"><b>Register</b><span>name · line · tags</span><em>{String(drafts.length).padStart(2, '0')}</em></div>
       {drafts.map((d) => (
         <div class="cx-r" data-status={d.status} data-kind={d.kind} data-chain={d.chain ?? ''} data-origin={d.origin}>
-          <span>{d.origin}</span>
+          <span><a href={`/${d.slug}/`}>gokhanturhan.com/{d.slug}/</a>{d.origin !== 'gokhanturhan.com' && <><br /><i>originally {d.origin}</i></>}</span>
           <span>
-            <a class="nm" href={d.page ? `/${d.slug}/` : d.href}>{d.name}</a> — {d.line}{' '}
+            <a class="nm" href={`/${d.slug}/`}>{d.name}</a> — {d.line}{' '}
             <i>{d.status}</i><br /><Tags tags={draftTags[d.slug] ?? []} />
           </span>
         </div>

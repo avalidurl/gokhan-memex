@@ -1,0 +1,31 @@
+{
+  "archived": true,
+  "as_of": "2026-11-09",
+  "note": "Frozen copy of a retired x402 manifest. Do not pay these resources.",
+  "original": {
+    "x402Version": 2,
+    "resources": [
+      {
+        "resource": "https://api.gokhan.vc/agent/email",
+        "type": "http",
+        "x402Version": 2,
+        "description": "Paid cold email to Gökhan Turhan — $1 USDC per message (x402 on Base or MPP on Tempo).",
+        "mimeType": "application/json",
+        "accepts": [
+          {
+            "scheme": "exact",
+            "network": "eip155:8453",
+            "amount": "1000000",
+            "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+            "payTo": "0x36de990133D36d7E3DF9a820aA3eDE5a2320De71",
+            "maxTimeoutSeconds": 300,
+            "extra": {
+              "name": "USD Coin",
+              "version": "2"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

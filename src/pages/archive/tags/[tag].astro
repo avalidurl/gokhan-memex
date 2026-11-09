@@ -78,7 +78,7 @@ const groupLabel: Record<string, string> = { family: 'Family', domain: 'Domain',
         {b.tools.map((t) => (
           <div class="cx-r">
             <span>{t.group}</span>
-            <span>{t.url ? <a class="nm" href="/tools/">{t.name}</a> : <span>{t.name}</span>}<br /><Tags tags={toolTags[t.name] ?? []} current={b.slug} /></span>
+            <span><a class="nm" href={`/tools/#${t.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`}>{t.name}</a> — {t.line}<br /><Tags tags={toolTags[t.name] ?? []} current={b.slug} /></span>
           </div>
         ))}
       </section>

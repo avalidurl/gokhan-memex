@@ -1,0 +1,64 @@
+---
+/**
+ * Journal subscribe box (.cx container). Posts to the existing studio
+ * newsletter endpoint (api.gokhan.vc, D6 still open). The fields mirror the
+ * endpoint's own hosted form (email, site, honeypot, ts, Turnstile token).
+ * If the Turnstile check cannot load on this host, the button opens the
+ * endpoint's own hosted sign-up page instead of sending an empty request.
+ */
+interface Props { where?: 'index' | 'post' }
+const { where = 'post' } = Astro.props
+const endpoint = 'https://api.gokhan.vc/newsletter/subscribe'
+---
+<section class="cx jsub" id="subscribe" aria-labelledby="jsub-h" data-endpoint={endpoint}>
+  <div class="cx-h"><b id="jsub-h">Subscribe</b><span>the journal by email · double opt-in</span><em><a href="/rss.xml">RSS</a></em></div>
+  <div class="cx-b">
+    <p class="jsub-copy">{where === 'index' ? 'New journal posts by email, a few times a month at most.' : 'Get the next post by email.'} One email to confirm; unsubscribe in one click.</p>
+    <form class="jsub-form" method="POST" action={endpoint}>
+      <label class="jsub-sr" for={`jsub-email-${where}`}>Email</label>
+      <input id={`jsub-email-${where}`} class="jsub-in" type="email" name="email" required placeholder="you@email.com" autocomplete="email" />
+      <input type="hidden" name="site" value="memex" />
+      <input type="hidden" name="ts" value={String(Date.now())} data-jsub-ts />
+      <div class="jsub-hp" aria-hidden="true"><label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label></div>
+      <button type="submit" class="jsub-btn">Subscribe</button>
+      <div class="cf-turnstile jsub-ts" data-sitekey="0x4AAAAAAEG8CWZN8yq8G3kt" data-theme="auto" data-size="flexible"></div>
+    </form>
+    <p class="jsub-status" role="status" aria-live="polite" data-jsub-status></p>
+    <p class="jsub-alt">Or use the <a href="/newsletter/">newsletter page</a> · <a href={endpoint}>hosted sign-up form</a> · <a href="/rss.xml">RSS feed</a>.</p>
+  </div>
+</section>
+<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script is:inline>
+(function () {
+  document.querySelectorAll('.jsub').forEach(function (box) {
+    if (box.dataset.bound) return; box.dataset.bound = '1'
+    var form = box.querySelector('form'), status = box.querySelector('[data-jsub-status]'), ts = box.querySelector('[data-jsub-ts]')
+    if (ts) ts.value = String(Date.now())
+    form.addEventListener('submit', function (e) {
+      var tok = form.querySelector('[name="cf-turnstile-response"]')
+      if (!tok || !tok.value) {
+        e.preventDefault()
+        status.textContent = 'The verification step did not load here, so the hosted sign-up form is opening instead.'
+        window.location.href = box.dataset.endpoint
+        return
+      }
+      status.textContent = 'Sending… check your inbox for the confirmation email.'
+    })
+  })
+})()
+</script>
+<style>
+  .jsub { max-width: 42rem; margin: 2rem auto; }
+  .jsub-copy { font-size: 15px; line-height: 1.45; }
+  .jsub-form { display: grid; grid-template-columns: 1fr auto; gap: 8px; margin: 10px 0 0; }
+  .jsub-in { width: 100%; padding: 10px 12px; border: 1px solid var(--ink); background: transparent; color: var(--ink); font: inherit; box-sizing: border-box; }
+  .jsub-btn { padding: 10px 22px; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); font: 500 12px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+  .jsub-btn:hover, .jsub-btn:focus-visible { background: transparent; color: var(--ink); }
+  .jsub-ts { grid-column: 1 / -1; }
+  .jsub-hp { position: absolute; left: -9999px; top: -9999px; }
+  .jsub-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .jsub-status { font: 12px var(--mono); min-height: 1.2em; margin: 6px 0 0; }
+  .jsub-alt { font: 12px var(--mono); color: var(--dim); margin: 4px 0 0; }
+  .jsub-alt a, .jsub .cx-h a { color: var(--ikb); }
+  @media (max-width: 560px) { .jsub-form { grid-template-columns: 1fr; } }
+</style>
