@@ -25,75 +25,75 @@ const groupLabel: Record<string, string> = { family: 'Family', domain: 'Domain',
     <PageHead crumbs={[{ label: 'Archive', href: '/archive/' }, { label: 'Tags', href: '/archive/tags/' }, { label: b.def ? groupLabel[b.def.group] : 'Journal tag' }]} title={b.label} lead={b.def?.note} count={`${n} item${n === 1 ? '' : 's'}`} />
 
     {b.projects.length > 0 && (
-      <section class="cx" aria-label="Products">
-        <div class="cx-h"><b>Products</b><span>by family</span><em>{pad(b.projects.length)}</em></div>
+      <details class="cx fold" aria-label="Products" open>
+        <summary class="cx-h"><b>Products</b><span>by family</span><em>{pad(b.projects.length)}</em></summary>
         {b.projects.map((p) => (
           <div class="cx-r">
             <span>{p.family}</span>
             <span><a class="nm" href={`/${p.slug}/`}>{p.name}</a> — {p.line}<br /><Tags tags={p.tags} current={b.slug} /></span>
           </div>
         ))}
-      </section>
+      </details>
     )}
 
     {b.posts.length > 0 && (
-      <section class="cx" aria-label="Journal">
-        <div class="cx-h"><b>Journal</b><span>posts</span><em>{pad(b.posts.length)}</em></div>
+      <details class="cx fold" aria-label="Journal" open>
+        <summary class="cx-h"><b>Journal</b><span>posts</span><em>{pad(b.posts.length)}</em></summary>
         {b.posts.map((p) => (
           <div class="cx-r">
             <span>{p.data.publishDate.toISOString().slice(0, 10)}</span>
             <span><a class="nm" href={`/journal/${p.slug}/`}>{p.data.title}</a>{p.data.tags && <><br /><Tags tags={p.data.tags.slice(0, 8)} current={b.slug} /></>}</span>
           </div>
         ))}
-      </section>
+      </details>
     )}
 
     {b.works.length > 0 && (
-      <section class="cx" aria-label="Publishing">
-        <div class="cx-h"><b>Publishing</b><span>books, papers and experimental works</span><em>{pad(b.works.length)}</em></div>
+      <details class="cx fold" aria-label="Publishing" open>
+        <summary class="cx-h"><b>Publishing</b><span>books, papers and experimental works</span><em>{pad(b.works.length)}</em></summary>
         {b.works.map((w) => (
           <div class="cx-r">
             <span>{w.year} · {w.kind}</span>
             <span><a class="nm" href={w.href}>{w.title}</a> — {w.line}<br /><Tags tags={w.tags} current={b.slug} /></span>
           </div>
         ))}
-      </section>
+      </details>
     )}
 
     {b.drafts.length > 0 && (
-      <section class="cx draft" aria-label="Product drafts">
-        <div class="cx-h"><b>Product drafts</b><span>experiments and small tools</span><em>{pad(b.drafts.length)}</em></div>
+      <details class="cx fold draft" aria-label="Product drafts" open>
+        <summary class="cx-h"><b>Product drafts</b><span>experiments and small tools</span><em>{pad(b.drafts.length)}</em></summary>
         {b.drafts.map((d) => (
           <div class="cx-r">
             <span>{d.origin}</span>
             <span><a class="nm" href={d.page ? `/${d.slug}/` : d.href}>{d.name}</a> — {d.line}<br /><Tags tags={draftTags[d.slug] ?? []} current={b.slug} /></span>
           </div>
         ))}
-      </section>
+      </details>
     )}
 
     {b.tools.length > 0 && (
-      <section class="cx tools" aria-label="Tools">
-        <div class="cx-h"><b>Tools</b><span>private, names only</span><em>{pad(b.tools.length)}</em></div>
+      <details class="cx fold tools" aria-label="Tools" open>
+        <summary class="cx-h"><b>Tools</b><span>private, names only</span><em>{pad(b.tools.length)}</em></summary>
         {b.tools.map((t) => (
           <div class="cx-r">
             <span>{t.group}</span>
             <span><a class="nm" href={`/tools/#${t.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`}>{t.name}</a> — {t.line}<br /><Tags tags={toolTags[t.name] ?? []} current={b.slug} /></span>
           </div>
         ))}
-      </section>
+      </details>
     )}
 
     {b.apis.length > 0 && (
-      <section class="cx api" aria-label="APIs">
-        <div class="cx-h"><b>APIs</b><span>documented</span><em>{pad(b.apis.length)}</em></div>
+      <details class="cx fold api" aria-label="APIs" open>
+        <summary class="cx-h"><b>APIs</b><span>documented</span><em>{pad(b.apis.length)}</em></summary>
         {b.apis.map((a) => (
           <div class="cx-r">
             <span>{a.kind}</span>
             <span><a class="nm" href={`${API_INDEX}/${a.slug}/`}>{a.name}</a><br /><Tags tags={apiTags[a.slug] ?? []} current={b.slug} /></span>
           </div>
         ))}
-      </section>
+      </details>
     )}
   </div>
 </BaseLayout>

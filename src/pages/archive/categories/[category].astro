@@ -3,6 +3,8 @@ import { getCollection, type CollectionEntry } from 'astro:content'
 import type { GetStaticPaths } from 'astro'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PostTitle from '@/components/PostTitle.astro'
+import PageHead from '@/components/PageHead.astro'
+import { humanizeKebab } from '@/lib/utils'
 
 type PostEntry = CollectionEntry<'blog'>
 
@@ -38,48 +40,20 @@ const posts: PostEntry[] = allPosts
 ---
 
 <BaseLayout
-  title={`${category} - Archive`}
+  title={`${humanizeKebab(category)} - Archive`}
   description={`${posts.length} posts in the ${category} category.`}
   robots="noindex, follow"
 >
-  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
-    <header class="mb-12">
-      <p class="text-sm text-muted-foreground mb-2">
-        <a href="/archive" class="hover:underline underline-offset-2">Archive</a> / Categories
-      </p>
-      <h1 class="mb-2">{category}</h1>
-      <p class="text-muted-foreground">
-        {posts.length} post{posts.length !== 1 ? 's' : ''}
-      </p>
-    </header>
-
-    {posts.length > 0 ? (
-      <ul class="space-y-2">
-        {posts.map((post: PostEntry) => (
-          <li>
-            <a 
-              href={`/journal/${post.slug}/`}
-              class="group flex items-baseline gap-3 py-1"
-            >
-              <PostTitle title={post.data.title} class="text-foreground group-hover:underline decoration-1 underline-offset-2" />
-              <span class="text-sm text-muted-foreground shrink-0">
-                {post.data.publishDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
-              </span>
-            </a>
-          </li>
-        ))}
-      </ul>
-    ) : (
-      <p class="text-muted-foreground">No posts in this category.</p>
-    )}
-
-    <div class="mt-12 pt-8 border-t border-border">
-      <a 
-        href="/archive"
-        class="text-muted-foreground hover:text-foreground hover:underline underline-offset-2"
-      >
-        ← Back to archive
-      </a>
-    </div>
+  <div class="es">
+    <PageHead crumbs={[{ label: 'Archive', href: '/archive/' }, { label: 'Categories', href: '/archive/#categories' }]} title={humanizeKebab(category)} count={`${posts.length} post${posts.length !== 1 ? 's' : ''}`} />
+    <details class="cx fold" open>
+      <summary class="cx-h"><b>Posts</b><span>newest first</span><em>{String(posts.length).padStart(2, '0')}</em></summary>
+      {posts.length > 0
+        ? posts.map((post: PostEntry) => (
+            <div class="cx-r"><span>{post.data.publishDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</span><span><a href={`/journal/${post.slug}/`}><PostTitle title={post.data.title} /></a></span></div>
+          ))
+        : <div class="cx-b"><p>No posts in this category.</p></div>}
+    </details>
+    <section class="cx arch" aria-label="Back"><div class="cx-r" style="grid-template-columns:1fr"><span style="font-family:inherit;font-size:inherit"><a href="/archive/">← Back to the archive</a></span></div></section>
   </div>
 </BaseLayout>

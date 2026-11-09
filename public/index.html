@@ -422,6 +422,9 @@
   .cvbtns .pdfbtn span { padding: 11px 13px; }
   .cvbtns .mdbtn { color: var(--ink); padding: 11px 13px; }
   .cvbtns a:hover { background: var(--ikb, #002fa7); border-color: var(--ikb, #002fa7); color: #fff; }
+  .nav-swap .sw-b { display: none; }
+  .nav-swap:hover .sw-a, .nav-swap:focus-visible .sw-a { display: none; }
+  .nav-swap:hover .sw-b, .nav-swap:focus-visible .sw-b { display: inline; }
 </style>
 </head>
 <body>
@@ -436,13 +439,13 @@
     </div>
     <div class="bar">
       <nav aria-label="Sections">
-        <a href="#index">Index</a>
+        <a href="/about/">About</a>
+        <a href="#cv">CV</a>
+        <a href="#index" class="nav-swap" aria-label="Index (Home)"><span class="sw-a" aria-hidden="true">Index</span><span class="sw-b" aria-hidden="true">Home</span></a>
         <a href="#journal">Journal</a>
         <a href="/products/">Products</a>
         <a href="/product-drafts/">Drafts</a>
         <a href="#publishing">Publishing</a>
-        <a href="#cv">CV</a>
-        <a href="/about/">About</a>
         <a href="#raises">Raises</a>
         <a href="#agents">Agents</a>
       </nav>

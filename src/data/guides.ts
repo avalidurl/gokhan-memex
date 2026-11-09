@@ -56,12 +56,12 @@ export const guides: Guide[] = [
   // ---------- How-to ----------
   {
     slug: 'subscribe', quad: 'how-to', title: 'Subscribe to the journal by email',
-    lead: 'Get new journal posts by email. The list uses double opt-in: nothing is sent until you confirm.',
+    lead: 'Get new journal posts by email: one field, one button.',
     steps: [
       'Open the <a href="/journal/#subscribe">subscribe box on the Journal</a>. The same box is at the end of every post.',
       'Type your email address and press <b>Subscribe</b>. If a verification check appears, complete it first.',
-      'Open the email titled as a confirmation from Gökhan Turhan and click its confirm link. A page reads “You’re subscribed. Thank you.”',
-      'If no email arrives within a few minutes, check spam, then try again an hour later. The list allows one confirmation email per address per hour.',
+      'That is all. New posts arrive at that address. If the sending service asks you to verify the address once, click the link in that email.',
+      'Nothing arriving? Check spam. The list accepts one sign-up per address per hour, so wait before trying again.',
     ],
     notes: [
       'If the verification check cannot load in your browser, the button opens the newsletter’s own sign-up form instead. It does the same thing.',
@@ -82,7 +82,7 @@ export const guides: Guide[] = [
     ],
     rows: [
       ['Unsubscribe path', `<code>${API}/newsletter/unsubscribe?t=…</code> (older emails: <code>${API}/unsubscribe?t=…</code>). Both work only with the signed <code>t=</code> token from your own email.`],
-      ['Confirm path', `<code>${API}/newsletter/confirm?t=…</code>. This is the sign-up confirmation, not an unsubscribe.`],
+      ['Confirm path', `<code>${API}/newsletter/confirm?t=…</code>. This verifies a sign-up; it is not an unsubscribe.`],
       ['Docs', '<a href="/api/newsletter/">Newsletter API reference</a>'],
     ],
     notes: [
@@ -240,8 +240,8 @@ export const guides: Guide[] = [
     lead: 'How the newsletter works, in facts.',
     tags: ['newsletter'],
     rows: [
-      ['Sign up', '<a href="/journal/#subscribe">Journal subscribe box</a> (email) — double opt-in'],
-      ['Confirm', `a link in the confirmation email (<code>${API}/newsletter/confirm?t=…</code>)`],
+      ['Sign up', '<a href="/journal/#subscribe">Journal subscribe box</a> (email field and Subscribe button)'],
+      ['Verify', `only if the sending service asks, by a link in an email (<code>${API}/newsletter/confirm?t=…</code>)`],
       ['Unsubscribe', `the link at the end of every email, or the mail app’s Unsubscribe button (<code>${API}/newsletter/unsubscribe?t=…</code>). <a href="/about/unsubscribe/">How to unsubscribe</a>`],
       ['Wallet delivery', 'XMTP, optional; each message has its own unsubscribe link'],
       ['Sending service', 'run by the studio newsletter API; addresses are not shared'],

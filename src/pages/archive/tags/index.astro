@@ -16,15 +16,15 @@ const other = idx.filter((b) => !b.def).sort((a, b) => total(b) - total(a))
     {groups.map(([g, label]) => {
       const list = idx.filter((b) => b.def?.group === g).sort((a, b) => total(b) - total(a))
       return list.length > 0 && (
-        <section class="cx" aria-label={label}>
-          <div class="cx-h"><b>{label}</b><em>{String(list.length).padStart(2, '0')}</em></div>
+        <details class="cx fold" aria-label={label} open>
+          <summary class="cx-h"><b>{label}</b><em>{String(list.length).padStart(2, '0')}</em></summary>
           <div class="cx-b">{list.map((b) => <a class="tg" href={`/archive/tags/${b.slug}/`}>{b.label} · {total(b)}</a>)}</div>
-        </section>
+        </details>
       )
     })}
-    <section class="cx" aria-label="Journal tags">
-      <div class="cx-h"><b>Journal tags</b><em>{String(other.length).padStart(2, '0')}</em></div>
+    <details class="cx fold" aria-label="Journal tags" open>
+      <summary class="cx-h"><b>Journal tags</b><em>{String(other.length).padStart(2, '0')}</em></summary>
       <div class="cx-b">{other.map((b) => <a class="tg" href={`/archive/tags/${b.slug}/`}>{b.label} · {total(b)}</a>)}</div>
-    </section>
+    </details>
   </div>
 </BaseLayout>
