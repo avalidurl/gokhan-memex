@@ -32,7 +32,7 @@ We retain technical/security logs only as long as needed for security and operat
 
 ## 06 · Your choices & rights
 
-Under the GDPR and UK GDPR you have the right to **access, rectify, erase, restrict, and port** your personal data, to **object** to processing, and to **lodge a complaint with your data-protection supervisory authority** (GDPR Art 77). To exercise any of these, contact **contact@numetal.xyz**. Server owners control the bot’s configuration and the moderation-log channel within their own servers.
+Under the GDPR and UK GDPR you have the right to **access, rectify, erase, restrict, and port** your personal data, to **object** to processing, and to **lodge a complaint with your data-protection supervisory authority** (GDPR Art 77). To exercise any of these, contact **contact@gokhan.vc**. Server owners control the bot’s configuration and the moderation-log channel within their own servers.
 
 ## 07 · Children’s privacy
 
@@ -44,4 +44,4 @@ We may update this policy from time to time. The “last updated” date above r
 
 ## 09 · Contact
 
-Questions about this policy: reach us in the official Numetal Discord, or at **contact@numetal.xyz**.
+Questions about this policy: reach us in the official Numetal Discord, or at **contact@gokhan.vc**.

@@ -28,4 +28,4 @@ Because these cookies are strictly necessary, blocking them in your browser may 
 
 ## 05 · Contact
 
-Questions about cookies or privacy: **contact@numetal.xyz**. See also our [Privacy Policy](/numetal/legal/privacy/).
+Questions about cookies or privacy: **contact@gokhan.vc**. See also our [Privacy Policy](/numetal/legal/privacy/).

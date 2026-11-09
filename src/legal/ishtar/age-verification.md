@@ -11,7 +11,7 @@ retrieved: "2026-11-09"
 > **Service:** Ishtar — `https://ishtar.numetal.xyz`
 > **Operator:** Atelier Gökhan (sole operator; a registered legal entity is being established)
 > **Identity provider:** Didit (document verification plus biometric liveness)
-> **CSAE and abuse contact:** `contact@numetal.xyz`
+> **CSAE and abuse contact:** `contact@gokhan.vc`
 
 This page should be read alongside the [CSAE Standards](/ishtar/legal/csae-standards/). For the operational detail of the same controls, see [Moderation](/ishtar/legal/moderation/) and [Geo and data](/ishtar/legal/geo-and-data/).
 
@@ -112,7 +112,7 @@ See [Geo and data](/ishtar/legal/geo-and-data/) for the full geo policy.
 * A set of jurisdictions is **geo-blocked** for sanctions, legal, and age-assurance reasons; the specific list is not publicly disclosed.
 * Nothing here is legal advice.
 
-For any question about age verification, identity handling, or CSAE reporting, contact `contact@numetal.xyz`.
+For any question about age verification, identity handling, or CSAE reporting, contact `contact@gokhan.vc`.
 
 ---
 

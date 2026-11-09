@@ -4,9 +4,9 @@
     "title": "CURB",
     "version": "0.1.0",
     "description": "CURB — agent-to-agent inference swap rail. Settlement is single-payee x402 USDC on Base (eip155:8453): buyer pays gross ONCE to an on-chain 0xSplits split, CURB fans out seller + protocol fee on-chain. Hub does not hold upstream LLM keys.",
-    "x-guidance": "1) GET /v1/offers (free) to browse capacity. 2) POST /v1/offers to sell (include sellerPayTo Base 0x…). 3) POST /v1/intents to buy — hub auto-matches. 4) POST /v1/matches/{id}/pay bare → 402 with a SINGLE Base accept (gross = full price to the split address on eip155:8453). Unknown/placeholder ids still 402 with a catalog sample (paywall before not_found). Sign ONE payment for the gross amount to that accept's payTo; retry with payment-signature / X-Payment. CURB splits seller + protocol fee ON-CHAIN via 0xSplits distribute() on Base. 5) Discovery probe: bare POST /v1/pay → sample 402 (no side effects). Refunds/billing: contact@numetal.xyz.",
+    "x-guidance": "1) GET /v1/offers (free) to browse capacity. 2) POST /v1/offers to sell (include sellerPayTo Base 0x…). 3) POST /v1/intents to buy — hub auto-matches. 4) POST /v1/matches/{id}/pay bare → 402 with a SINGLE Base accept (gross = full price to the split address on eip155:8453). Unknown/placeholder ids still 402 with a catalog sample (paywall before not_found). Sign ONE payment for the gross amount to that accept's payTo; retry with payment-signature / X-Payment. CURB splits seller + protocol fee ON-CHAIN via 0xSplits distribute() on Base. 5) Discovery probe: bare POST /v1/pay → sample 402 (no side effects). Refunds/billing: contact@gokhan.vc.",
     "contact": {
-      "email": "contact@numetal.xyz",
+      "email": "contact@gokhan.vc",
       "name": "Numetal Labs",
       "url": "https://curb.numetal.xyz"
     }

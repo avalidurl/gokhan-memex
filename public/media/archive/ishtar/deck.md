@@ -11,7 +11,7 @@ updated: 2026-07-07
 
 > **Not a pre-seed.** A small round for a genuinely strange corner: venue, standard, benchmark — already live.
 >
-> Contact: investments@gokhan.vc · [Full dispatch](https://gokhanturhan.com/journal/not-raising-a-preseed/)
+> Contact: contact@gokhan.vc · [Full dispatch](https://gokhanturhan.com/journal/not-raising-a-preseed/)
 
 ---
 
@@ -148,7 +148,7 @@ Solo founder · Gökhan Ventures + Numetal Labs. Ishtar, HeartPrefs, and HeartBe
 
 Structure is a conversation — SAFE, token-warrant, whatever fits your jurisdiction.
 
-**investments@gokhan.vc**
+**contact@gokhan.vc**
 
 It's live. Come build the strange corner with me.
 

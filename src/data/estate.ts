@@ -273,7 +273,7 @@ export const products: Product[] = [
     slug: 'gokhan-vc', name: 'Gökhan Ventures', status: 'former', family: 'Gökhan Ventures',
     line: 'Venture studio: the umbrella over Numetal and its products.',
     former: 'gokhan.vc',
-    facts: [['Contact', [mail('contact@gokhan.vc'), mail('investments@gokhan.vc'), { label: 'partnerships@gokhan.vc' }]]],
+    facts: [['Contact', [mail('contact@gokhan.vc'), mail('contact@gokhan.vc'), { label: 'contact@gokhan.vc' }]]],
     about: ['The studio site: a project grid, a blog, a newsletter and the studio legal pages. The essays from its blog are in the Journal.'],
     functions: ['Project grid', 'Blog', 'Newsletter'],
     links: [{ label: 'Journal · The x402 economy, July 2026', href: '/journal/x402-economy-july-2026/' }],

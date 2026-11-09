@@ -140,11 +140,17 @@ export const guides: Guide[] = [
   },
   {
     slug: 'contact', quad: 'how-to', title: 'Get in touch',
-    lead: 'Email is the reliable way. Pick the address for what you need.',
+    lead: 'Email Gökhan Turhan at contact@gokhan.vc, or send a DM: DMs are open on X, LinkedIn and Telegram.',
     steps: [
-      'General, press and collaboration: <a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a>.',
-      'Pitches and investment questions: <a href="mailto:investments@gokhan.vc">investments@gokhan.vc</a>. The <a href="/#raises">Raises</a> box on the home page shows what is open.',
-      'Short messages: <a href="https://x.com/goekhan">X (@goekhan)</a> or <a href="https://t.me/goekhanturhan">Telegram</a>.',
+      'Email: <a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a>. One address for everything: questions, press, collaboration and pitches.',
+      'DMs are open. Message <a href="https://x.com/goekhan">@goekhan on X</a>, <a href="https://www.linkedin.com/in/goekhanturhan/">Gökhan Turhan on LinkedIn</a> or <a href="https://t.me/goekhanturhan">@goekhanturhan on Telegram</a>.',
+      'Pitches and investment questions go to the same address. The <a href="/#raises">Raises</a> box on the home page shows what is open.',
+    ],
+    rows: [
+      ['Email', '<a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a>'],
+      ['LinkedIn', '<a href="https://www.linkedin.com/in/goekhanturhan/">linkedin.com/in/goekhanturhan</a> · DMs open'],
+      ['X', '<a href="https://x.com/goekhan">@goekhan</a> · DMs open'],
+      ['Telegram', '<a href="https://t.me/goekhanturhan">@goekhanturhan</a> · DMs open'],
     ],
     next: [{ label: 'CV', href: '/cv/' }, { label: 'Products', href: '/products/' }],
   },

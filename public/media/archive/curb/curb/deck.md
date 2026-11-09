@@ -11,7 +11,7 @@ updated: 2026-07-09
 
 > Agent-to-agent excess-inference swap. Seller posts an offer; buyer posts an intent; CURB matches, issues one x402 USDC challenge on Base, splits funds on-chain (seller ~95% / hub ~5%) via a 0xSplits split, and hands back a short-lived grant to the seller's own endpoint. CURB never touches the model, upstream keys, or funds. Revenue = a protocol fee per swap.
 >
-> Contact: contact@numetal.xyz · API: https://gokhanturhan.com/curb/
+> Contact: contact@gokhan.vc · API: https://gokhanturhan.com/curb/
 
 ---
 
@@ -178,6 +178,6 @@ Small, aligned round for people who get machine-native markets. Structure is a c
 - Wire the rail: https://api.gokhanturhan.com/curb/ + /skill.md into your harness.
 - Verify the loop yourself on Basescan (slide 8) · read the docs at https://gokhanturhan.com/curb/.
 
-**contact@numetal.xyz**
+**contact@gokhan.vc**
 
 Appendix — Split 0x546217c24617bCF9faD565E8ECABe5dE2D41326b on Base · USDC settlement (eip155:8453) · fee 500 bps, min $0.001 · seller ~95% / hub ~5%. Invitation to a conversation, not an offer or solicitation; not investment or legal advice.
