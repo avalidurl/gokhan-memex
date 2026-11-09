@@ -1,0 +1,42 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { drafts } from '@/data/estate'
+
+const facet = (k: 'status' | 'kind' | 'chain' | 'origin') =>
+  [...new Set(drafts.map((d) => d[k]).filter(Boolean) as string[])].sort()
+const facets = (['status', 'kind', 'chain', 'origin'] as const).map((k) => ({ k, v: facet(k) }))
+---
+
+<BaseLayout
+  title="Product drafts"
+  description="Drafts, experiments and live tools: one line each, with tags for status, kind, chain and where it is published."
+>
+  <div class="es">
+    <div class="meta">Product drafts · one line each</div>
+    <div class="dither"></div>
+    <div class="intro">
+      <h1>Product drafts</h1>
+      <p class="lead">Experiments, concepts and small live tools. One line each, tagged.</p>
+    </div>
+
+    <section class="cx" aria-label="Tags">
+      <div class="cx-h"><b>Tags</b><span>facets</span></div>
+      {facets.map(({ k, v }) => (
+        <div class="cx-r"><span>{k}</span><span>{v.map((t) => <span class="tg">{t}</span>)}</span></div>
+      ))}
+    </section>
+
+    <section class="cx draft" aria-label="Drafts">
+      <div class="cx-h"><b>Register</b><span>name · line · tags</span><em>{String(drafts.length).padStart(2, '0')}</em></div>
+      {drafts.map((d) => (
+        <div class="cx-r" data-status={d.status} data-kind={d.kind} data-chain={d.chain ?? ''} data-origin={d.origin}>
+          <span>{d.origin}</span>
+          <span>
+            <a class="nm" href={d.page ? `/${d.slug}/` : d.href}>{d.name}</a> — {d.line}{' '}
+            <span class="tg">{d.status}</span><span class="tg">{d.kind}</span>{d.chain && <span class="tg">{d.chain}</span>}
+          </span>
+        </div>
+      ))}
+    </section>
+  </div>
+</BaseLayout>

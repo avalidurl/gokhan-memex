@@ -20,6 +20,8 @@ export interface Props {
   breadcrumbOverride?: { items: { href?: string; label: string }[]; currentPage: string }
   /** Hide footer subscribe when journal in-flow block is shown. */
   hideFooterSubscribe?: boolean
+  /** Document number shown in the masthead (defaults to the section's number). */
+  docOverride?: string
 }
 
 const {
@@ -29,6 +31,7 @@ const {
   canonicalURL = new URL(Astro.url.pathname, Astro.site),
   type = 'website',
   robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+  docOverride,
 } = Astro.props
 
 const siteName = 'Gökhan Turhan'
@@ -39,7 +42,7 @@ const path = pathname.endsWith('/') ? pathname : `${pathname}/`
 const nav = [
   { name: 'Index', href: '/', on: path === '/' },
   { name: 'Journal', href: '/journal/', on: path.startsWith('/journal') || path.startsWith('/archive') || path.startsWith('/writing') },
-  { name: 'Projects', href: '/projects/', on: path.startsWith('/projects') },
+  { name: 'Products', href: '/products/', on: path.startsWith('/products') || path.startsWith('/product-drafts') },
   { name: 'Publishing', href: '/publishing/', on: path.startsWith('/publishing') },
   { name: 'CV', href: '/cv/', on: path.startsWith('/cv') },
   { name: 'Raises', href: '/#raises', on: false },
@@ -53,7 +56,10 @@ const docMap: Record<string, string> = {
   archive: 'MX-020',
   writing: 'MX-030',
   publishing: 'MX-040',
-  projects: 'MX-050',
+  products: 'MX-050',
+  'product-drafts': 'MX-051',
+  tools: 'MX-052',
+  about: 'MX-002',
   art: 'MX-060',
   lists: 'MX-070',
   links: 'MX-080',
@@ -66,7 +72,7 @@ const docMap: Record<string, string> = {
   offline: 'MX-098',
   '404': 'MX-099',
 }
-const docNo = docMap[docSection] ?? 'MX-000'
+const docNo = docOverride ?? docMap[docSection] ?? 'MX-000'
 const docRev = 'REV 2026-07-17'
 
 /** Content hash of the collapse script, so an edit busts the 2h asset cache for every
@@ -283,8 +289,10 @@ const tableDeskVersion = createHash('sha256')
           <a href="/newsletter/">Newsletter</a>
         </p>
         <p class="reg-fine">
-          <a href="https://gokhan.vc">Gökhan Ventures</a><span class="reg-dot">/</span>
-          <a href="https://numetal.xyz">Numetal</a><span class="reg-dot">/</span>
+          <a href="/about/">About</a><span class="reg-dot">/</span>
+          <a href="/products/#archived">Archive</a><span class="reg-dot">/</span>
+          <a href="/tools/">Tools</a><span class="reg-dot">/</span>
+          <a href="https://api.gokhanturhan.com/">APIs</a><span class="reg-dot">/</span>
           <a href="/privacy/">Privacy</a><span class="reg-dot">/</span>
           <a href="/disclaimer/">Disclaimer</a>
         </p>

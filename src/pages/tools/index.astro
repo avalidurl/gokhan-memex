@@ -1,0 +1,42 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { tools } from '@/data/estate'
+
+const groups = ['personal', 'estate-admin', 'research'] as const
+const reader = tools.find((t) => t.url)!
+---
+
+<BaseLayout
+  title="Tools"
+  description="Private tools behind sign-in. Names only; Reader is the one with a public sign-in page."
+>
+  <div class="es">
+    <div class="meta">Tools · private, behind sign-in</div>
+    <div class="dither"></div>
+    <div class="intro">
+      <h1>Tools</h1>
+      <p class="lead">Personal and admin tools. They sit behind email sign-in, so only their names are listed.</p>
+    </div>
+
+    <section class="cx tools" aria-label="Reader">
+      <div class="cx-h"><b>Reader</b><span>personal RSS reader</span></div>
+      <div class="cx-r"><span>Address</span><span><a href={reader.url}>{reader.url!.replace('https://', '')}</a></span></div>
+      <div class="cx-r"><span>Sign-in</span><span>{reader.signIn}</span></div>
+      <div class="cx-b">
+        <figure>
+          <img src={reader.shot} width="530" height="400" alt="Reader sign-in page: an email field and a Send login code button." loading="lazy" />
+        </figure>
+      </div>
+    </section>
+
+    {groups.map((g) => {
+      const list = tools.filter((t) => t.group === g && !t.url)
+      return list.length > 0 && (
+        <section class="cx tools" aria-label={g}>
+          <div class="cx-h"><b>{g}</b><em>{String(list.length).padStart(2, '0')}</em></div>
+          {list.map((t, i) => <div class="cx-r"><span>{String(i + 1).padStart(2, '0')}</span><span>{t.name}</span></div>)}
+        </section>
+      )
+    })}
+  </div>
+</BaseLayout>

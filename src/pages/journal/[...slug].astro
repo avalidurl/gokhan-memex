@@ -73,7 +73,7 @@ const showToc = tocHeadings.length >= 2
   description={post.data.description}
   type="article"
   image={post.data.heroImage || `/og/${post.slug}.png`}
-  canonicalURL={post.data.originalUrl}
+  canonicalURL={new URL(`/journal/${post.slug}/`, Astro.site).toString()}
   hideFooterSubscribe
 >
   {/* Default Article Schema - always present */}
@@ -122,11 +122,11 @@ const showToc = tocHeadings.length >= 2
 
         {(post.slug === 'not-raising-a-preseed' || post.slug === 'universal-sex-layer') && (
           <p class="deck-links">
-            <a class="deck-pdf" href="https://assets.numetal.xyz/deck/ishtar-deck-not-a-preseed.pdf" download>Download PDF</a>
+            <a class="deck-pdf" href="/media/archive/ishtar/ishtar-deck-not-a-preseed.pdf" download>Download PDF</a>
             <span class="deck-sep" aria-hidden="true">·</span>
-            <a class="deck-view" href="https://ishtar.numetal.xyz/deck/not-raising-a-preseed/">View deck →</a>
+            <a class="deck-view" href="/ishtar/">View deck →</a>
             <span class="deck-sep" aria-hidden="true">·</span>
-            <a class="deck-md" href="https://ishtar.numetal.xyz/deck/not-raising-a-preseed/deck.md">deck.md</a>
+            <a class="deck-md" href="/ishtar/">deck.md</a>
           </p>
         )}
 

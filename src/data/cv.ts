@@ -18,9 +18,9 @@ export type ContactLine = { label: string; value: string; url?: string }
 export const contact: ContactLine[] = [
   { label: 'Location', value: 'İstanbul, Türkiye' },
   { label: 'Email', value: 'contact@gokhan.vc', url: 'mailto:contact@gokhan.vc' },
-  { label: 'Website', value: 'gokhan.vc', url: 'https://gokhan.vc/' },
+  { label: 'Website', value: 'gokhan.vc', url: '/gokhan-vc/' },
   { label: 'Website', value: 'gokhanturhan.com', url: 'https://gokhanturhan.com/' },
-  { label: 'Website', value: 'numetal.xyz', url: 'https://numetal.xyz/' },
+  { label: 'Website', value: 'numetal.xyz', url: '/numetal/' },
   { label: 'LinkedIn', value: 'linkedin.com/in/goekhanturhan', url: 'https://linkedin.com/in/goekhanturhan' },
   { label: 'X', value: 'x.com/goekhan', url: 'https://x.com/goekhan' },
   { label: 'GitHub', value: 'github.com/avalidurl', url: 'https://github.com/avalidurl' },

@@ -1,0 +1,128 @@
+---
+import { getCollection } from 'astro:content'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { pageProducts, drafts, bySlug, products, type Product, type Draft } from '@/data/estate'
+
+export async function getStaticPaths() {
+  const files = await getCollection('projects')
+  const productPaths = pageProducts.map((p, i) => ({
+    params: { product: p.slug },
+    props: { kind: 'product' as const, p, file: p.file ? files.find((f) => f.slug === p.file) : undefined, n: i + 1 },
+  }))
+  const draftPaths = drafts.filter((d) => d.page).map((d, i) => ({
+    params: { product: d.slug },
+    props: { kind: 'draft' as const, d, n: i + 1 },
+  }))
+  return [...productPaths, ...draftPaths]
+}
+
+type Props =
+  | { kind: 'product'; p: Product; file?: Awaited<ReturnType<typeof getCollection<'projects'>>>[number]; n: number }
+  | { kind: 'draft'; d: Draft; n: number }
+
+const legalFiles = import.meta.glob('/src/legal/**/*.md', { eager: true }) as Record<string, any>
+const props = Astro.props
+const Content = props.kind === 'product' && props.file ? (await props.file.render()).Content : null
+const p = props.kind === 'product' ? props.p : undefined
+const d = props.kind === 'draft' ? props.d : undefined
+const parentSlug = p?.slug.includes('/') ? p.slug.split('/').slice(0, -1).join('/') : undefined
+const parent = parentSlug ? bySlug(parentSlug) : undefined
+const children = p ? products.filter((c) => c.slug.startsWith(`${p.slug}/`) && c.slug.split('/').length === p.slug.split('/').length + 1) : []
+const legal = p
+  ? Object.entries(legalFiles)
+      .filter(([path]) => path.split('/')[3] === p.slug)
+      .map(([path, mod]) => ({ slug: path.split('/').pop()!.replace(/\.md$/, ''), title: mod.frontmatter.title as string }))
+  : []
+const doc = p
+  ? `MX-${p.status === 'archived' ? '7' : '5'}${String(props.n).padStart(2, '0')}`
+  : `MX-6${String(props.n).padStart(2, '0')}`
+const title = p ? p.name : d!.name
+const description = p ? p.line : d!.line
+---
+
+<BaseLayout title={title} description={description} docOverride={doc}>
+  <div class="es">
+    {p && (
+      <>
+        <p class="crumb">
+          <a href="/products/">Products</a> / <a href={p.status === 'archived' ? '/products/#archived' : '/products/#current'}>{p.status}</a>
+          {parent && <> / <a href={`/${parent.slug}/`}>{parent.name}</a></>}
+        </p>
+        <div class="intro">
+          <h1>{p.name}</h1>
+          <p class="lead">{p.line}</p>
+          <span class={`stamp ${p.status === 'archived' ? 'arch' : 'cur'}`}>Status: {p.status}</span>
+        </div>
+        <div class="dither"></div>
+
+        <section class={`cx ${p.status === 'archived' ? 'arch' : ''}`} aria-label="Facts">
+          <div class="cx-h"><b>Facts</b><span>{p.family}</span></div>
+          {p.former && <div class="cx-r"><span>Former address</span><span>{p.former}</span></div>}
+          {(p.facts ?? []).map(([k, v]) => <div class="cx-r"><span>{k}</span><span>{v}</span></div>)}
+          <div class="cx-r"><span>Tags</span><span>{p.tags.map((t) => <span class="tg">{t}</span>)}</span></div>
+        </section>
+
+        {p.about && p.about.length > 0 && (
+          <section class="cx" aria-label="What it was">
+            <div class="cx-h"><b>{p.status === 'archived' ? 'What it was' : 'What it is'}</b></div>
+            <div class="cx-b body">{p.about.map((t) => <p>{t}</p>)}</div>
+          </section>
+        )}
+
+        {p.functions && p.functions.length > 0 && (
+          <section class="cx" aria-label="What ran there">
+            <div class="cx-h"><b>{p.status === 'archived' ? 'What ran there' : 'What runs'}</b><em>{String(p.functions.length).padStart(2, '0')}</em></div>
+            {p.functions.map((f, i) => <div class="cx-r"><span>{String(i + 1).padStart(2, '0')}</span><span>{f}</span></div>)}
+          </section>
+        )}
+
+        {children.length > 0 && (
+          <section class="cx" aria-label="Pages under this product">
+            <div class="cx-h"><b>Pages</b><em>{String(children.length).padStart(2, '0')}</em></div>
+            {children.map((c) => <div class="cx-r"><span>/{c.slug}/</span><span><a class="nm" href={`/${c.slug}/`}>{c.name}</a> — {c.line}</span></div>)}
+          </section>
+        )}
+
+        {p.links && p.links.length > 0 && (
+          <section class="cx" aria-label="Links">
+            <div class="cx-h"><b>Links</b></div>
+            {p.links.map((l) => <div class="cx-r"><span>{l.href.startsWith('/') ? 'here' : new URL(l.href).hostname}</span><span><a href={l.href}>{l.label}</a></span></div>)}
+          </section>
+        )}
+
+        {legal.length > 0 && (
+          <section class="cx arch" aria-label="Legal documents">
+            <div class="cx-h"><b>Legal</b><span>archived copies</span><em>{String(legal.length).padStart(2, '0')}</em></div>
+            {legal.map((l) => <div class="cx-r"><span>copy</span><span><a href={`/${p.slug}/legal/${l.slug}/`}>{l.title}</a></span></div>)}
+          </section>
+        )}
+
+        {Content && (
+          <section class="cx" aria-label="Project file">
+            <div class="cx-h"><b>Project file</b><span>as filed</span></div>
+            <div class="cx-b prose file"><Content /></div>
+          </section>
+        )}
+      </>
+    )}
+
+    {d && (
+      <>
+        <p class="crumb"><a href="/product-drafts/">Product drafts</a> / {d.status}</p>
+        <div class="intro">
+          <h1>{d.name}</h1>
+          <p class="lead">{d.line}</p>
+          <span class="stamp drf">Status: {d.status}</span>
+        </div>
+        <div class="dither"></div>
+        <section class="cx draft" aria-label="Facts">
+          <div class="cx-h"><b>Draft</b><span>published at {d.origin}</span></div>
+          <div class="cx-r"><span>Kind</span><span>{d.kind}</span></div>
+          {d.chain && <div class="cx-r"><span>Chain</span><span>{d.chain}</span></div>}
+          <div class="cx-r"><span>Open</span><span><a href={d.href}>{d.href.replace('https://', '')}</a></span></div>
+          <div class="cx-r"><span>Tags</span><span><span class="tg">{d.status}</span><span class="tg">{d.kind}</span>{d.chain && <span class="tg">{d.chain}</span>}</span></div>
+        </section>
+      </>
+    )}
+  </div>
+</BaseLayout>

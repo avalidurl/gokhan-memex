@@ -1,0 +1,78 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { topLevel, products, journalProducts, drafts, tools } from '@/data/estate'
+
+const current = topLevel('current')
+const archived = topLevel('archived')
+const families = [...new Set(archived.map((p) => p.family))]
+const subs = (slug: string) => products.filter((p) => p.slug.startsWith(`${slug}/`))
+---
+
+<BaseLayout
+  title="Products"
+  description="Products: the ones running now, and the archive of Numetal, Gökhan Ventures and their products. Each has its own page."
+>
+  <div class="es">
+    <div class="meta">Product register · current and archived</div>
+    <div class="dither"></div>
+
+    <div class="intro">
+      <h1>Products</h1>
+      <p class="lead">
+        What runs now, and what is archived. Every product has its own page here. Drafts and
+        experiments are on <a href="/product-drafts/">Product drafts</a>; private tools are on
+        <a href="/tools/">Tools</a>.
+      </p>
+    </div>
+
+    <h2 class="sec" id="current">Current</h2>
+    <div class="grid">
+      {current.map((p, i) => (
+        <a class="cell" href={`/${p.slug}/`}>
+          <div class="k">{String(i + 1).padStart(2, '0')} · {p.tags.slice(0, 2).join(' · ')}</div>
+          <div class="v">{p.name}<small>{p.line}</small></div>
+        </a>
+      ))}
+    </div>
+
+    <h2 class="sec" id="archived">Archived</h2>
+    <p class="body">
+      Numetal, Gökhan Ventures and their products. Each page records what the product was, where it
+      lived and what ran there. Former addresses are shown as plain text.
+    </p>
+    {families.map((fam) => {
+      const list = archived.filter((p) => p.family === fam)
+      return (
+        <section class="cx arch" aria-label={fam}>
+          <div class="cx-h"><b>{fam}</b><span>archived</span><em>{String(list.length).padStart(2, '0')}</em></div>
+          {list.map((p) => (
+            <div class="cx-r">
+              <span>{p.former ?? 'no host'}</span>
+              <span>
+                <a class="nm" href={`/${p.slug}/`}>{p.name}</a> — {p.line}
+                {subs(p.slug).length > 0 && (
+                  <><br /><i>also: {subs(p.slug).map((c, j) => (<>{j > 0 && ' · '}<a href={`/${c.slug}/`}>{c.name}</a></>))}</i></>
+                )}
+              </span>
+            </div>
+          ))}
+          {fam === 'Gökhan Ventures' && journalProducts.map((j) => (
+            <div class="cx-r"><span>journal</span><span><a class="nm" href={j.href}>{j.name}</a> — {j.line}</span></div>
+          ))}
+        </section>
+      )
+    })}
+
+    <h2 class="sec">Elsewhere</h2>
+    <section class="quad">
+      <a class="cx draft" href="/product-drafts/" style="text-decoration:none;color:inherit">
+        <div class="cx-h"><b>Drafts</b><span>experiments and unfinished things</span><em>{drafts.length}</em></div>
+        <div class="cx-b">Single-line register with tags.</div>
+      </a>
+      <a class="cx tools" href="/tools/" style="text-decoration:none;color:inherit">
+        <div class="cx-h"><b>Tools</b><span>private, names only</span><em>{tools.length}</em></div>
+        <div class="cx-b">Personal and admin tools behind sign-in.</div>
+      </a>
+    </section>
+  </div>
+</BaseLayout>
