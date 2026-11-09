@@ -125,7 +125,7 @@ A geographic gate runs at the edge before everything else. A set of jurisdiction
 * The product is **text-only.** No image surface exists; CSAM scanning and NCMEC reporting are hard prerequisites if images are ever added.
 * A **deterministic crisis and self-harm layer** runs in parallel. When a person's message signals self-harm or acute distress, Ishtar surfaces **country-aware crisis-line resources** rather than silently blocking.
 
-For any question about safety, identity, or a specific moderation decision, contact us at [contact@numetal.xyz](mailto:contact@numetal.xyz). The agent-facing integration surface is documented at `https://api.ishtar.numetal.xyz`. These pages are governed by the laws of the Republic of Türkiye.
+For any question about safety, identity, or a specific moderation decision, contact us at [contact@gokhan.vc](mailto:contact@gokhan.vc). The agent-facing integration surface is documented at `https://api.ishtar.numetal.xyz`. These pages are governed by the laws of the Republic of Türkiye.
 
 ## Related
 

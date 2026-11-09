@@ -16,7 +16,7 @@ Numetal is **experimental** software — an **agent accelerator studio** under G
 
 ## 03 · Acceptable use
 
-You agree not to misuse the Services, including: attempting to disrupt, attack, or gain unauthorized access; using them for unlawful purposes; or interfering with other users. Server administrators are responsible for how they configure and use the bot within their own communities. numetal.xyz hosts **no user-generated content and accepts no uploads**; report any suspected abuse or illegal content to **contact@numetal.xyz** and we will act on valid reports.
+You agree not to misuse the Services, including: attempting to disrupt, attack, or gain unauthorized access; using them for unlawful purposes; or interfering with other users. Server administrators are responsible for how they configure and use the bot within their own communities. numetal.xyz hosts **no user-generated content and accepts no uploads**; report any suspected abuse or illegal content to **contact@gokhan.vc** and we will act on valid reports.
 
 ## 04 · Restricted jurisdictions & sanctions
 
@@ -63,4 +63,4 @@ Access to the official Numetal Telegram community is **token-gated** and managed
 
 ## 13 · Contact
 
-Questions about these Terms: reach us in the official Numetal Discord, or at **contact@numetal.xyz**.
+Questions about these Terms: reach us in the official Numetal Discord, or at **contact@gokhan.vc**.

@@ -28,7 +28,7 @@ const siblings = guides.filter((x) => x.quad === g.quad && x.slug !== g.slug)
         )}
         {g.rows && (
           <section class="cx guide" aria-label="Facts">
-            <div class="cx-h"><b>{g.quad === 'reference' ? 'Reference' : 'Paths'}</b><em>{String(g.rows.length).padStart(2, '0')}</em></div>
+            <div class="cx-h"><b>{g.quad === 'reference' ? 'Reference' : g.slug === 'contact' ? 'Contact' : 'Paths'}</b><em>{String(g.rows.length).padStart(2, '0')}</em></div>
             {g.rows.map(([k, v]) => <div class="cx-r"><span>{k}</span><span set:html={v} /></div>)}
           </section>
         )}
