@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHead from '@/components/PageHead.astro'
 import Tags from '@/components/Tags.astro'
 import { tagIndex, total, type TagBucket } from '@/lib/tags'
 import { draftTags, toolTags, apiTags, API_INDEX } from '@/data/estate'
@@ -21,13 +22,7 @@ const groupLabel: Record<string, string> = { family: 'Family', domain: 'Domain',
   robots="noindex, follow"
 >
   <div class="es">
-    <p class="crumb"><a href="/archive/">Archive</a> / <a href="/archive/tags/">Tags</a></p>
-    <div class="intro">
-      <h1>{b.label}</h1>
-      {b.def && <p class="lead">{b.def.note}</p>}
-      <span class="stamp">{b.def ? groupLabel[b.def.group] : 'Journal tag'} · {n} item{n === 1 ? '' : 's'}</span>
-    </div>
-    <div class="dither"></div>
+    <PageHead crumbs={[{ label: 'Archive', href: '/archive/' }, { label: 'Tags', href: '/archive/tags/' }, { label: b.def ? groupLabel[b.def.group] : 'Journal tag' }]} title={b.label} lead={b.def?.note} count={`${n} item${n === 1 ? '' : 's'}`} />
 
     {b.projects.length > 0 && (
       <section class="cx" aria-label="Products">
@@ -48,6 +43,18 @@ const groupLabel: Record<string, string> = { family: 'Family', domain: 'Domain',
           <div class="cx-r">
             <span>{p.data.publishDate.toISOString().slice(0, 10)}</span>
             <span><a class="nm" href={`/journal/${p.slug}/`}>{p.data.title}</a>{p.data.tags && <><br /><Tags tags={p.data.tags.slice(0, 8)} current={b.slug} /></>}</span>
+          </div>
+        ))}
+      </section>
+    )}
+
+    {b.works.length > 0 && (
+      <section class="cx" aria-label="Publishing">
+        <div class="cx-h"><b>Publishing</b><span>books, papers and experimental works</span><em>{pad(b.works.length)}</em></div>
+        {b.works.map((w) => (
+          <div class="cx-r">
+            <span>{w.year} · {w.kind}</span>
+            <span><a class="nm" href={w.href}>{w.title}</a> — {w.line}<br /><Tags tags={w.tags} current={b.slug} /></span>
           </div>
         ))}
       </section>

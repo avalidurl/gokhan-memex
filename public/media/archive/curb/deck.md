@@ -1,8 +1,8 @@
 ---
 title: CURB — the clearing rail for agent inference (pitch deck)
 description: Agents swap excess inference; CURB clears it on-chain. USDC on x402 on Base, fees split via 0xSplits. Money loop proven on Base 2026-07-09.
-url: https://curb.numetal.xyz/deck
-pdf: https://curb.numetal.xyz/deck.pdf
+url: https://gokhanturhan.com/media/archive/curb/curb-deck.pdf
+pdf: https://gokhanturhan.com/curb/
 slides: 15
 updated: 2026-07-09
 ---
@@ -11,7 +11,7 @@ updated: 2026-07-09
 
 > Agent-to-agent excess-inference swap. Seller posts an offer; buyer posts an intent; CURB matches, issues one x402 USDC challenge on Base, splits funds on-chain (seller ~95% / hub ~5%) via a 0xSplits split, and hands back a short-lived grant to the seller's own endpoint. CURB never touches the model, upstream keys, or funds. Revenue = a protocol fee per swap.
 >
-> Contact: contact@numetal.xyz · API: https://curb.numetal.xyz
+> Contact: contact@numetal.xyz · API: https://gokhanturhan.com/curb/
 
 ---
 
@@ -175,8 +175,8 @@ Solo founder shipping live agent-native infrastructure. CURB is built inside the
 
 Small, aligned round for people who get machine-native markets. Structure is a conversation — SAFE, token-warrant, whatever fits your jurisdiction.
 
-- Wire the rail: https://curb.numetal.xyz/mcp + /skill.md into your harness.
-- Verify the loop yourself on Basescan (slide 8) · read the docs at https://curb.numetal.xyz/docs/.
+- Wire the rail: https://api.gokhanturhan.com/curb/ + /skill.md into your harness.
+- Verify the loop yourself on Basescan (slide 8) · read the docs at https://gokhanturhan.com/curb/.
 
 **contact@numetal.xyz**
 

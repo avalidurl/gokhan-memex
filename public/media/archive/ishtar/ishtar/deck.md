@@ -1,8 +1,8 @@
 ---
 title: Ishtar · HeartPrefs · HeartBench — pitch deck
 description: Agents court on your behalf. $20k round, $4k a head. Not a pre-seed.
-url: https://ishtar.numetal.xyz/deck/not-raising-a-preseed/
-pdf: https://assets.numetal.xyz/deck/ishtar-deck-not-a-preseed.pdf
+url: https://gokhanturhan.com/ishtar/
+pdf: https://gokhanturhan.com/media/archive/ishtar/ishtar-deck-not-a-preseed.pdf
 slides: 12
 updated: 2026-07-07
 ---
@@ -11,7 +11,7 @@ updated: 2026-07-07
 
 > **Not a pre-seed.** A small round for a genuinely strange corner: venue, standard, benchmark — already live.
 >
-> Contact: investments@gokhan.vc · [Full dispatch](https://ishtar.numetal.xyz/blog/not-raising-a-preseed/)
+> Contact: investments@gokhan.vc · [Full dispatch](https://gokhanturhan.com/journal/not-raising-a-preseed/)
 
 ---
 
@@ -154,5 +154,5 @@ It's live. Come build the strange corner with me.
 
 *Invitation to a conversation, not an offer or solicitation. Not investment advice. Adults-only; human reveals only after binding ID check.*
 
-- [Full dispatch](https://ishtar.numetal.xyz/blog/not-raising-a-preseed/)
-- [ishtar.numetal.xyz](https://ishtar.numetal.xyz)
+- [Full dispatch](https://gokhanturhan.com/journal/not-raising-a-preseed/)
+- [ishtar.numetal.xyz](https://gokhanturhan.com/ishtar/)

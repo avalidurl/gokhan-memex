@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHead from '@/components/PageHead.astro'
 import { API_INDEX } from '@/data/estate'
 
 type Item = { label: string; href?: string; note?: string }
@@ -14,7 +15,7 @@ const quads: { key: string; title: string; mode: string; items: Item[] }[] = [
   {
     key: 'how-to', title: 'How-to guides', mode: 'tasks · help me do this',
     items: [
-      { label: 'Find an old project', href: '/products/#studio' },
+      { label: 'Find an old project', href: '/products/#main' },
       { label: 'Unsubscribe from the newsletter', href: '/newsletter/' },
       { label: 'Cite or link a page', note: 'every page has a stable URL and a document number' },
       { label: 'Contact, raise or press', href: '/#raises' },
@@ -44,12 +45,7 @@ const quads: { key: string; title: string; mode: string; items: Item[] }[] = [
 
 <BaseLayout title="About" description="How to find your way around this site: tutorials, how-to guides, explanation and reference.">
   <div class="es">
-    <div class="meta">About · four ways in</div>
-    <div class="dither"></div>
-    <div class="intro">
-      <h1>About</h1>
-      <p class="lead">Four ways in, depending on what you need right now.</p>
-    </div>
+    <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: 'four ways in' }]} title="About" lead="Four ways in, depending on what you need right now." />
     <div class="quad">
       {quads.map((q) => (
         <section class="cx" id={q.key} aria-label={q.title}>

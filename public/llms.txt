@@ -42,13 +42,21 @@ This is the personal memex (digital garden) of Gökhan Turhan. The site contains
 - Token gating criticism
 - Knowledge management in the age of LLMs
 
+## CV
+
+- CV (Markdown, for agents): https://gokhanturhan.com/cv.md
+- CV (HTML): https://gokhanturhan.com/cv/
+- CV (PDF): https://gokhanturhan.com/cv/Gokhan_Turhan_CV.pdf
+- CV (JSON / plain text): https://gokhanturhan.com/cv.json · https://gokhanturhan.com/cv/plain.txt
+
 ## Products, tools and APIs
 
-- Products (current and archived): https://gokhanturhan.com/products/
-- Archived: Numetal, Gökhan Ventures, AgentBounty and their products, one page each: https://gokhanturhan.com/products/#archived
+- Products (main products, then hobby and personal projects): https://gokhanturhan.com/products/
+- Main products (UBU · CLINAMEN, Ishtar, CURB, Reclaim, plaintext, Numetal, Gökhan Ventures, AgentBounty), one page each: https://gokhanturhan.com/products/#main
+- Tags (shared tag pages): https://gokhanturhan.com/archive/tags/
 - Product drafts: https://gokhanturhan.com/product-drafts/
 - Tools (private, names only): https://gokhanturhan.com/tools/
-- API index (archived estate APIs, documentation only): https://api.gokhanturhan.com/apis.json
+- API index (estate APIs, documentation only): https://api.gokhanturhan.com/apis.json
 - About: https://gokhanturhan.com/about/
 
 ## AgentBounty Notes

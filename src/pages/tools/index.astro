@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHead from '@/components/PageHead.astro'
 import Tags from '@/components/Tags.astro'
 import { tools, toolTags } from '@/data/estate'
 
@@ -12,17 +13,13 @@ const reader = tools.find((t) => t.url)!
   description="Private tools behind sign-in. Names only; Reader is the one with a public sign-in page."
 >
   <div class="es">
-    <div class="meta">Tools · private, behind sign-in</div>
-    <div class="dither"></div>
-    <div class="intro">
-      <h1>Tools</h1>
-      <p class="lead">Personal and admin tools. They sit behind email sign-in, so only their names are listed.</p>
-    </div>
+    <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: 'private, behind sign-in' }]} title="Tools" lead="Personal and admin tools. They sit behind email sign-in, so only their names are listed." />
 
     <section class="cx tools" aria-label="Reader">
       <div class="cx-h"><b>Reader</b><span>personal RSS reader</span></div>
       <div class="cx-r"><span>Address</span><span><a href={reader.url}>{reader.url!.replace('https://', '')}</a></span></div>
       <div class="cx-r"><span>Sign-in</span><span>{reader.signIn}</span></div>
+      <div class="cx-r"><span>Tags</span><span><Tags tags={toolTags[reader.name] ?? []} /></span></div>
       <div class="cx-b">
         <figure>
           <img src={reader.shot} width="530" height="400" alt="Reader sign-in page: an email field and a Send login code button." loading="lazy" />
@@ -35,7 +32,7 @@ const reader = tools.find((t) => t.url)!
       return list.length > 0 && (
         <section class="cx tools" aria-label={g}>
           <div class="cx-h"><b>{g}</b><em>{String(list.length).padStart(2, '0')}</em></div>
-          {list.map((t, i) => <div class="cx-r"><span>{String(i + 1).padStart(2, '0')}</span><span>{t.name} <Tags tags={toolTags[t.name] ?? []} /></span></div>)}
+          {list.map((t, i) => <div class="cx-r"><span>{String(i + 1).padStart(2, '0')}</span><span>{t.name}<br /><Tags tags={toolTags[t.name] ?? []} /></span></div>)}
         </section>
       )
     })}

@@ -8,7 +8,7 @@ tags: ["numetal", "gokhan-ventures"]
 draft: true
 ---
 
-Numetal, Gökhan Ventures, AgentBounty and the products under them are moving to this site. Each one has its own page under [Products](/products/#studio), carrying its site, docs, decks, legal pages and a snapshot of its data. Once the move is done, the old addresses will forward to those pages.
+Numetal, Gökhan Ventures, AgentBounty and the products under them are moving to this site. Each one has its own page under [Products](/products/#main), carrying its site, docs, decks, legal pages and a snapshot of its data. Once the move is done, the old addresses will forward to those pages.
 
 ## Where things will be
 

@@ -1,121 +1,69 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHead from '@/components/PageHead.astro'
+import Tags from '@/components/Tags.astro'
 import type { Ebook } from '@/data/ebooks'
+import { works } from '@/data/works'
 
 const { ebook } = Astro.props as { ebook: Ebook }
-
-const publishedLabel = new Date(ebook.publishedOn).toLocaleDateString('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-})
-
+const publishedLabel = new Date(ebook.publishedOn).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
 const summarySentences = ebook.summarySentences?.length ? ebook.summarySentences : [ebook.blurb]
+const work = works.find((w) => w.kind === 'E-book' && w.slug === ebook.slug)!
+const others = works.filter((w) => w !== work)
 ---
 
-<BaseLayout
-  title={ebook.title}
-  description={ebook.description}
-  image={ebook.socialImage ?? ebook.coverImage}
-  breadcrumbOverride={{
-    items: [
-      { label: 'Publishing', href: '/publishing/' },
-      { label: 'E-books', href: '/publishing/ebooks/' },
-    ],
-    currentPage: ebook.title,
-  }}
->
-  <div class="ebook-document mx-auto max-w-5xl px-6 py-12 lg:py-16">
-    <section class="grid gap-8 lg:grid-cols-[320px_1fr] lg:items-start">
-      <div class="lg:sticky lg:top-24">
-        <img
-          src={ebook.coverImage}
-          alt={`Cover art for ${ebook.title}`}
-          class="w-full border border-foreground/10 object-cover"
-        />
-      </div>
+<BaseLayout title={ebook.title} description={ebook.description} image={ebook.socialImage ?? ebook.coverImage}>
+  <div class="es">
+    <PageHead crumbs={[{ label: 'Publishing', href: '/publishing/' }, { label: 'E-books', href: '/publishing/ebooks/' }, { label: ebook.title }]} title={ebook.title} lead={ebook.subtitle} tags={work.tags} />
 
-      <div>
-        <p class="doc-eyebrow mb-3">Publishing / E-books</p>
-        <h1 class="mb-4">{ebook.title}</h1>
-        <p class="mb-5 max-w-2xl text-lg text-foreground/70">{ebook.subtitle}</p>
+    <div class="pgrid">
+      <div class="pmain">
+        <section class="cx" aria-label="About">
+          <div class="cx-h"><b>About</b><span>{ebook.author} · {publishedLabel}</span></div>
+          <div class="cx-b body">
+            <p>{ebook.blurb}</p>
+            {summarySentences.filter((t) => t !== ebook.blurb).map((t) => <p>{t}</p>)}
+          </div>
+        </section>
 
-        <div class="mb-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-foreground/60">
-          <span>{ebook.author}</span>
-          <span>{publishedLabel}</span>
-          <span>{ebook.pageCount} pages</span>
-          <span>{ebook.lineCount} lines</span>
-        </div>
-
-        <p class="doc-copy max-w-3xl text-lg text-foreground/90">{ebook.blurb}</p>
-
-        <div class="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-base">
-          <a
-            href={ebook.browserEditionUrl}
-            class="doc-link"
-          >
-            Open HTML edition
-          </a>
-          <a
-            href={ebook.epubUrl}
-            class="doc-link"
-            download
-          >
-            Download EPUB
-          </a>
-          <a
-            href={ebook.staticHtmlUrl}
-            class="doc-link"
-            target="_blank"
-            rel="noopener"
-          >
-            Raw HTML export
-          </a>
-          {ebook.sourceTextUrl ? (
-            <a
-              href={ebook.sourceTextUrl}
-              class="doc-link"
-              download
-            >
-              Download source text
-            </a>
-          ) : null}
-          {ebook.fontUrl ? (
-            <a
-              href={ebook.fontUrl}
-              class="doc-link"
-              download
-            >
-              Download font
-            </a>
-          ) : null}
-        </div>
-      </div>
-    </section>
-
-    <section class="mt-14 grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
-      <div class="border-t border-foreground/15 pt-6">
-        <p class="doc-eyebrow mb-3">Info</p>
-        <div class="space-y-4">
-          {summarySentences.map((sentence) => (
-            <p class="doc-copy mb-0 text-lg text-foreground/90">{sentence}</p>
-          ))}
-        </div>
-      </div>
-
-      <div class="border-t border-foreground/15 pt-6">
-        <h2 class="mb-4">Table of Contents</h2>
-        <ol class="space-y-2 text-base leading-7">
+        <section class="cx" aria-label="Table of contents">
+          <div class="cx-h"><b>Table of contents</b><em>{String(ebook.toc.length).padStart(2, '0')}</em></div>
           {ebook.toc.map((entry) => (
-            <li>
-              <a href={`${ebook.browserEditionUrl}#${entry.anchor}`} class="doc-link">
-                {entry.number}. {entry.title}
-              </a>
-            </li>
+            <div class="cx-r"><span>{entry.number}</span><span><a href={`${ebook.browserEditionUrl}#${entry.anchor}`}>{entry.title}</a></span></div>
           ))}
-        </ol>
+        </section>
+
+        <section class="cx" aria-label="Cover">
+          <div class="cx-h"><b>Cover</b></div>
+          <div class="cx-b"><img src={ebook.coverImage} alt={`Cover art for ${ebook.title}`} class="work-cover" /></div>
+        </section>
       </div>
-    </section>
+
+      <aside class="pside">
+        <section class="cx" aria-label="Facts">
+          <div class="cx-h"><b>Facts</b><span>E-book</span></div>
+          <div class="cx-r"><span>Author</span><span>{ebook.author}</span></div>
+          <div class="cx-r"><span>Published</span><span>{publishedLabel}</span></div>
+          <div class="cx-r"><span>Length</span><span>{ebook.pageCount} pages · {ebook.lineCount} lines</span></div>
+          {ebook.protocols?.length > 0 && <div class="cx-r"><span>Protocols</span><span>{ebook.protocols.join(' · ')}</span></div>}
+          <div class="cx-r"><span>Tags</span><span><Tags tags={work.tags} /></span></div>
+        </section>
+
+        <section class="cx" aria-label="Read and download">
+          <div class="cx-h"><b>Read</b><span>and download</span></div>
+          <div class="cx-r"><span>Read</span><span><a href={ebook.browserEditionUrl}>HTML edition</a></span></div>
+          <div class="cx-r"><span>EPUB</span><span><a href={ebook.epubUrl} download>Download EPUB</a></span></div>
+          <div class="cx-r"><span>Raw</span><span><a href={ebook.staticHtmlUrl} target="_blank" rel="noopener">Raw HTML export</a></span></div>
+          {ebook.sourceTextUrl && <div class="cx-r"><span>Source</span><span><a href={ebook.sourceTextUrl} download>Source text</a></span></div>}
+          {ebook.fontUrl && <div class="cx-r"><span>Font</span><span><a href={ebook.fontUrl} download>Download font</a></span></div>}
+        </section>
+
+        <section class="cx" aria-label="More publishing">
+          <div class="cx-h"><b>Publishing</b><span>other works</span></div>
+          {others.map((w) => <div class="cx-r"><span>{w.kind}</span><span><a href={w.href}>{w.title}</a></span></div>)}
+        </section>
+      </aside>
+    </div>
   </div>
 </BaseLayout>
 

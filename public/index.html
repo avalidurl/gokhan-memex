@@ -414,6 +414,13 @@
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; }
   }
+  .cvbtns { display: flex; flex-wrap: wrap; gap: 10px; margin: 10px 0 16px; }
+  .cvbtns a { text-decoration: none; font: 600 14px/1 var(--mono, ui-monospace, monospace); border: 2px solid var(--ink); display: inline-flex; align-items: stretch; }
+  .cvbtns .pdfbtn { background: var(--ink); color: var(--paper); }
+  .cvbtns .pdfbtn b { background: var(--red, #d0021b); color: #fff; padding: 11px 12px; font-weight: 600; }
+  .cvbtns .pdfbtn span { padding: 11px 13px; }
+  .cvbtns .mdbtn { color: var(--ink); padding: 11px 13px; }
+  .cvbtns a:hover { background: var(--ikb, #002fa7); border-color: var(--ikb, #002fa7); color: #fff; }
 </style>
 </head>
 <body>
@@ -430,7 +437,8 @@
       <nav aria-label="Sections">
         <a href="#index">Index</a>
         <a href="#journal">Journal</a>
-        <a href="#projects">Products</a>
+        <a href="/products/">Products</a>
+        <a href="/product-drafts/">Drafts</a>
         <a href="#publishing">Publishing</a>
         <a href="#cv">CV</a>
         <a href="#raises">Raises</a>
@@ -450,7 +458,37 @@
       </div>
 
       <div class="cx">
-        <div class="cx-h"><b>New</b><span>this season</span></div>
+        <div class="cx-h"><b>Products</b><span>main products first</span><span><a href="/products/">all products</a></span></div>
+        <a class="reg" href="/ubu/">
+          <span class="name">UBU · CLINAMEN</span>
+          <span class="what">Trained model and dataset pipeline. Pataphysical fiction, filed on-chain.</span>
+          <span class="where">gokhanturhan.com/ubu</span>
+        </a>
+        <a class="reg" href="/ishtar/">
+          <span class="name">Ishtar</span>
+          <span class="what">Agents court, humans meet</span>
+          <span class="where">gokhanturhan.com/ishtar</span>
+        </a>
+        <a class="reg" href="/curb/">
+          <span class="name">CURB</span>
+          <span class="what">Inference for USDC, over x402</span>
+          <span class="where">gokhanturhan.com/curb</span>
+        </a>
+        <a class="reg" href="/reclaim/">
+          <span class="name">Reclaim</span>
+          <span class="what">Get your art out of dead marketplaces</span>
+          <span class="where">gokhanturhan.com/reclaim</span>
+        </a>
+        <a class="reg" href="/plaintext/">
+          <span class="name">Plaintext</span>
+          <span class="what">Onchain plaintext board</span>
+          <span class="where">gokhanturhan.com/plaintext</span>
+        </a>
+      </div>
+      <a class="more" href="/products/">All products</a>
+
+      <div class="cx">
+        <div class="cx-h"><b>New</b><span>hobby and personal, this season</span></div>
         <a class="reg" href="https://gokhanturhan.com/turkish-art-blob/#concept">
           <span class="name">Turkish Art Blob</span>
           <span class="what">A speaking sculpture for art memory. Turkish or English, cited, no face.</span>
@@ -463,35 +501,6 @@
         </a>
       </div>
 
-      <div class="cx">
-        <div class="cx-h"><b>Now</b><span>front of the register</span></div>
-        <a class="reg" href="/ishtar/">
-          <span class="name">Ishtar</span>
-          <span class="what">Agents court, humans meet</span>
-          <span class="where">gokhanturhan.com/ishtar</span>
-        </a>
-        <a class="reg" href="/curb/">
-          <span class="name">CURB</span>
-          <span class="what">Inference for USDC, over x402</span>
-          <span class="where">gokhanturhan.com/curb</span>
-        </a>
-        <a class="reg" href="/ubu/">
-          <span class="name">CLINAMEN</span>
-          <span class="what">Trained model and dataset pipeline. Pataphysical fiction, filed on-chain.</span>
-          <span class="where">gokhanturhan.com/ubu</span>
-        </a>
-        <a class="reg" href="/plaintext/">
-          <span class="name">Plaintext</span>
-          <span class="what">Onchain plaintext board</span>
-          <span class="where">gokhanturhan.com/plaintext</span>
-        </a>
-        <a class="reg" href="/reclaim/">
-          <span class="name">Reclaim</span>
-          <span class="what">Get your art out of dead marketplaces</span>
-          <span class="where">gokhanturhan.com/reclaim</span>
-        </a>
-      </div>
-      <a class="more" href="#projects">Full register</a> <a class="more" href="/products/">Products</a>
 
       <div class="cx">
         <div class="cx-h"><b>Latest</b><span><a href="#journal">journal</a></span></div>
@@ -575,71 +584,40 @@
       </div>
     </section>
 
-    <section class="page" id="projects" data-doc="MX-050">
-      <p class="note">Everything filed and live. One register — not an index, then a board, then the same list again.</p>
-      <div class="findrow">
-        <label for="pfind">Find</label>
-        <input id="pfind" type="search" data-find="projects" placeholder="A name, a host" autocomplete="off">
-      </div>
-      <p class="empty" data-empty hidden>Nothing filed under that.</p>
-      <div class="cx">
-        <div class="cx-h"><b>Register</b><em data-count>18</em></div>
-        <div data-list>
-          <a class="reg" data-row="turkish art blob sculpture art memory" href="https://gokhanturhan.com/turkish-art-blob/#concept"><span class="name">Turkish Art Blob</span><span class="what">A speaking sculpture for art memory. Turkish or English, cited, no face.</span><span class="where">gokhanturhan.com/turkish-art-blob</span></a>
-          <a class="reg" data-row="ethereum doomsday tracker l1 systemic security" href="https://gokhanturhan.com/ethereum-doomsday"><span class="name">Ethereum Doomsday</span><span class="what">L1 systemic-security scenario model. Web edition, 2026-11-06.</span><span class="where">gokhanturhan.com/ethereum-doomsday</span></a>
-          <a class="reg" data-row="ishtar agents court humans meet dating" href="/ishtar/"><span class="name">Ishtar</span><span class="what">Agent-native courtship venue — agents court, humans meet</span><span class="where">gokhanturhan.com/ishtar</span></a>
-          <a class="reg" data-row="curb inference usdc x402" href="/curb/"><span class="name">CURB</span><span class="what">Agent-to-agent inference clearing rail, USDC over x402</span><span class="where">gokhanturhan.com/curb</span></a>
-          <a class="reg" data-row="heartbench which model is the best date" href="/ishtar/heartbench/"><span class="name">HeartBench</span><span class="what">Which model is the best date — public leaderboard</span><span class="where">gokhanturhan.com/ishtar/heartbench</span></a>
-          <a class="reg" data-row="heartprefs signed matching intent" href="/heartprefs/"><span class="name">HeartPrefs</span><span class="what">Signed matching-intent standard</span><span class="where">github.com/gokhan-vc/heartprefs</span></a>
-          <a class="reg" data-row="the window scarce visibility" href="/ishtar/window/"><span class="name">The Window</span><span class="what">Scarce visibility board — $50, 24h, ten slots</span><span class="where">gokhanturhan.com/ishtar/window</span></a>
-          <a class="reg" data-row="clinamen ubu trained model dataset pipeline pataphysical fiction" href="/ubu/"><span class="name">CLINAMEN / $UBU</span><span class="what">Trained model and dataset pipeline. Pataphysical fiction, filed on-chain.</span><span class="where">gokhanturhan.com/ubu</span></a>
-          <a class="reg" data-row="plaintext onchain board" href="/plaintext/"><span class="name">Plaintext</span><span class="what">Onchain plaintext board</span><span class="where">gokhanturhan.com/plaintext</span></a>
-          <a class="reg" data-row="reclaim art dead marketplaces" href="/reclaim/"><span class="name">Reclaim</span><span class="what">Get your art out of dead marketplaces</span><span class="where">gokhanturhan.com/reclaim</span></a>
-          <a class="reg" data-row="numetal agent accelerator" href="/numetal/"><span class="name">Numetal</span><span class="what">The studio — agent accelerator, on Base</span><span class="where">gokhanturhan.com/numetal</span></a>
-          <a class="reg" data-row="gökhan ventures studio" href="/gokhan-vc/"><span class="name">Gökhan Ventures</span><span class="what">The venture studio</span><span class="where">gokhanturhan.com/gokhan-vc</span></a>
-          <a class="reg" data-row="tickerline claude code status" href="https://claudelines.com/statuslines/tickerline"><span class="name">tickerline</span><span class="what">Claude Code status line as a ticker tape</span><span class="where">claudelines.com</span></a>
-          <a class="reg" data-row="ccru archive" href="/ccru/"><span class="name">CCRU archive</span><span class="what">ccru.net preserved — 101 pages, mirrored</span><span class="where">gokhanturhan.com/ccru</span></a>
-          <a class="reg" data-row="feedhub newsletter gateway" href="https://api.gokhanturhan.com/feedhub/"><span class="name">feedhub</span><span class="what">Newsletter and feed gateway — email and XMTP, one dispatch</span><span class="where">api.gokhanturhan.com/feedhub</span></a>
-          <a class="reg" data-row="market cap tracker nvidia crypto" href="https://market-cap-tracker.vercel.app/"><span class="name">Market Cap Tracker</span><span class="what">Live market caps</span><span class="where">market-cap-tracker.vercel.app</span></a>
-          <a class="reg" data-row="s&amp;p 100 capex dashboard" href="https://sp100-financial-tracker.pages.dev/"><span class="name">S&amp;P 100 CapEx</span><span class="what">Capex through the index</span><span class="where">sp100-financial-tracker.pages.dev</span></a>
-          <a class="reg" data-row="greek alphabet anki" href="https://github.com/avalidurl/greek-alphabet-anki"><span class="name">Greek Alphabet Anki</span><span class="what">Deck, with audio and a false-friend tier</span><span class="where">github.com/avalidurl/greek-alphabet-anki</span></a>
-        </div>
-      </div>
-    </section>
-
     <section class="page" id="publishing" data-doc="Publishing">
-      <p class="note">Digital editions, browser-readable texts, and the academic file. Details and downloads stay on the live library.</p>
+      <p class="note">Digital editions, browser-readable texts, and the academic file. Each work opens its own page; the full list is on <a href="/publishing/">Publishing</a>.</p>
       <div class="cx">
-        <div class="cx-h"><b>E-books</b><span><a href="https://gokhanturhan.com/publishing/">library</a></span></div>
-        <a class="book" href="https://gokhanturhan.com/publishing/">
+        <div class="cx-h"><b>E-books</b><span><a href="/publishing/ebooks/">all e-books</a></span></div>
+        <a class="book" href="/publishing/ebooks/the-guy-with-compute/">
           <span class="yr">20 pp · 320 lines</span>
           <span class="name">The Guy with Compute</span>
           <p class="sub">An Unbounded Raga — a Bhagavad-Gita-form saga in eight cantos.</p>
         </a>
-        <a class="book" href="https://gokhanturhan.com/publishing/">
+        <a class="book" href="/publishing/ebooks/gradient-descent-into-chaotic-happiness/">
           <span class="yr">88 pp · 440 lines</span>
           <span class="name">Gradient Descent into Happiness</span>
           <p class="sub">An Oulipian canto in twenty-two movements.</p>
         </a>
-        <a class="book" href="https://gokhanturhan.com/publishing/">
+        <a class="book" href="/publishing/ebooks/an-essay-concerning-the-inbox/">
           <span class="yr">50 pp · 1000 lines</span>
           <span class="name">An Essay Concerning the Inbox</span>
           <p class="sub">A Lockean poem in twenty cantos.</p>
         </a>
       </div>
       <div class="cx">
-        <div class="cx-h"><b>Academic</b></div>
-        <div class="cv-line"><span>2019 · chapter</span><b>On the Hyperstitional Implications of Memes as Digital Objects in Turkey</b></div>
-        <div class="cv-line"><span>2017 · thesis</span><b>The Importance and Function of Media Laboratories for the Preservation of Works of Digital and Electronic Literature</b></div>
+        <div class="cx-h"><b>Academic</b><span><a href="/publishing/academic/">all academic</a></span></div>
+        <div class="cv-line"><span>2019 · chapter</span><b><a href="/publishing/academic/on-the-hyperstitional-implications-of-memes-as-digital/">On the Hyperstitional Implications of Memes as Digital Objects in Turkey</a></b></div>
+        <div class="cv-line"><span>2017 · thesis</span><b><a href="/publishing/academic/the-importance-and-function-of-media-laboratories-for/">The Importance and Function of Media Laboratories for the Preservation of Works of Digital and Electronic Literature</a></b></div>
       </div>
       <div class="cx">
-        <div class="cx-h"><b>Experimental</b></div>
-        <div class="cv-line"><span>2023 · cassette</span><b>CASSETTE — commissioned by William M. Peaster</b></div>
+        <div class="cx-h"><b>Experimental</b><span><a href="/publishing/experimental/">all experimental</a></span></div>
+        <div class="cv-line"><span>2023 · cassette</span><b><a href="/publishing/experimental/casette/">CASSETTE</a> — commissioned by <a href="https://x.com/wmpeaster">William M. Peaster</a></b></div>
       </div>
     </section>
 
     <section class="page" id="cv" data-doc="CV">
-      <p class="kicker">Updated 2026-07-30 · <a href="https://gokhanturhan.com/cv/Gokhan_Turhan_CV.pdf">PDF</a></p>
+      <p class="kicker">Updated 2026-07-30 · <a href="/cv/">full CV page</a></p>
+      <p class="cvbtns"><a class="pdfbtn" href="/cv/Gokhan_Turhan_CV.pdf" download="Gokhan_Turhan_CV.pdf"><b>PDF</b><span>Download CV ↓</span></a> <a class="mdbtn" href="/cv.md">CV as Markdown · for agents</a></p>
       <h2 class="title">Curriculum vitae</h2>
       <p class="note">Full-stack builder, generalist solopreneur, and conceptual artist — one person, a fleet of agents. Ships agent-native products end to end across fintech infrastructure, AI-native tooling, and tokenized markets. Live, in production, taking real machine payments.</p>
       <div class="cx">
@@ -652,10 +630,10 @@
       </div>
       <div class="cx">
         <div class="cx-h"><b>Record</b></div>
-        <div class="cv-line"><span>2024 –</span><b>Founder &amp; CTO, Gökhan Ventures — İstanbul</b></div>
-        <div class="cv-line"><span>2026 –</span><b>Founder, Numetal — İstanbul</b></div>
+        <div class="cv-line"><span>2024 –</span><b>Founder &amp; CTO, <a href="/gokhan-vc/">Gökhan Ventures</a> — İstanbul</b></div>
+        <div class="cv-line"><span>2026 –</span><b>Founder, <a href="/numetal/">Numetal</a> — İstanbul</b></div>
       </div>
-      <p class="note">The rest of the record — earlier roles, the long form — is the PDF.</p>
+      <p class="note">The rest of the record — earlier roles, the long form — is on the <a href="/cv/">CV page</a> and in the PDF.</p>
     </section>
 
     <section class="page" id="raises" data-doc="Raises">
@@ -741,7 +719,7 @@
       <div class="cx">
         <div class="cx-h"><b>Discovery</b><span>this site</span></div>
         <div class="cv-line"><span>Index</span><b><a href="https://api.gokhanturhan.com/apis.json">apis.json</a> · <a href="https://api.gokhanturhan.com/openapi.json">openapi.json</a> · <a href="https://api.gokhanturhan.com/llms.txt">llms.txt</a></b></div>
-        <div class="cv-line"><span>This site</span><b><a href="https://gokhanturhan.com/llms.txt">llms.txt</a> · <a href="https://gokhanturhan.com/rss.xml">RSS</a></b></div>
+        <div class="cv-line"><span>This site</span><b><a href="https://gokhanturhan.com/llms.txt">llms.txt</a> · <a href="https://gokhanturhan.com/cv.md">cv.md</a> · <a href="https://gokhanturhan.com/rss.xml">RSS</a></b></div>
         <div class="cv-line"><span>Products</span><b><a href="/products/">current, studio and drafts</a></b></div>
       </div>
 
@@ -752,6 +730,7 @@
     "openapi": "https://api.gokhanturhan.com/openapi.json",
     "llms": "https://api.gokhanturhan.com/llms.txt",
     "site_llms": "https://gokhanturhan.com/llms.txt",
+    "cv_md": "https://gokhanturhan.com/cv.md",
     "feed_rss": "https://gokhanturhan.com/rss.xml"
   },
   "apis": [
@@ -790,6 +769,7 @@
     <p class="fine">
       <a href="/about/">About</a><span class="dot">/</span>
       <a href="/products/">Products</a><span class="dot">/</span>
+      <a href="/product-drafts/">Drafts</a><span class="dot">/</span>
       <a href="/archive/tags/">Tags</a><span class="dot">/</span>
       <a href="/tools/">Tools</a><span class="dot">/</span>
       <a href="https://api.gokhanturhan.com/">APIs</a>

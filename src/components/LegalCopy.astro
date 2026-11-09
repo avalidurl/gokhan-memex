@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHead from '@/components/PageHead.astro'
 import { bySlug } from '@/data/estate'
 
 interface Props { product: string; title: string; former: string; retrieved: string; others: { slug: string; title: string }[] }
@@ -9,12 +10,7 @@ const p = bySlug(product)!
 
 <BaseLayout title={`${title} · ${p.name}`} description={`The ${p.name} ${title}.`} robots="noindex, follow">
   <div class="es">
-    <p class="crumb"><a href="/products/">Products</a> / <a href={`/${p.slug}/`}>{p.name}</a> / legal</p>
-    <div class="intro">
-      <h1>{title}</h1>
-      <span class="stamp">Copy · retrieved {retrieved}</span>
-    </div>
-    <div class="dither"></div>
+    <PageHead crumbs={[{ label: 'Products', href: '/products/' }, { label: p.name, href: `/${p.slug}/` }, { label: 'Legal' }]} title={title} lead={`Copy retrieved ${retrieved}.`} tags={p.tags} />
     <section class="cx" aria-label="About this copy">
       <div class="cx-h"><b>{title}</b><span>{p.name}</span></div>
       <div class="cx-r"><span>Address</span><span>{former}</span></div>

@@ -1,6 +1,6 @@
 HYPERSTITIONAL RAIL LICENSE, VERSION 1.1 (HRL-1.1)
 SPDX-License-Identifier: LicenseRef-HRL-1
-Canonical text: https://ubu.numetal.xyz/hrl-1.1.txt
+Canonical text: https://gokhanturhan.com/media/archive/ubu/hrl-1.1.txt
 Bureau of Imaginary Solutions -- Licensing Desk, Records Division
 
 This license has two parts. PART I is a PREAMBLE: a non-binding recital, a work
@@ -59,7 +59,7 @@ PART II -- OPERATIVE TERMS  (the legally effective grant)
 4. ATTRIBUTION.
    The attribution required by CC BY 4.0 (and requested for the Code) is
    satisfied by crediting "Bureau of Imaginary Solutions -- Document BIS-045"
-   and providing a link to https://ubu.numetal.xyz/. You must indicate if you
+   and providing a link to https://gokhanturhan.com/ubu/. You must indicate if you
    made changes. You may keep or remove PART I when redistributing; either way,
    PART II must accompany the Work.
 

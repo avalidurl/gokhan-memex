@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHead from '@/components/PageHead.astro'
 import Tags from '@/components/Tags.astro'
 import Snapshot from '@/components/Snapshot.astro'
 import { pageProducts, drafts, draftTags, bySlug, products, type Product, type Draft } from '@/data/estate'
@@ -101,16 +102,7 @@ const children = p && isProduct ? products.filter((c) => c.slug.startsWith(`${p.
   <div class="es">
     {p && (
       <>
-        <p class="crumb">
-          <a href="/products/">Products</a>
-          {crumbs.map((c) => <> / <a href={c.href}>{c.label}</a></>)}
-        </p>
-        <div class="intro">
-          <h1>{title}</h1>
-          <p class="lead">{isProduct ? p.line : (page?.description || p.line)}</p>
-          <p class="tagline"><Tags tags={p.tags} /></p>
-        </div>
-        <div class="dither"></div>
+        <PageHead crumbs={[{ label: 'Products', href: '/products/' }, ...crumbs, { label: isProduct ? p.family : title }]} title={title} lead={isProduct ? p.line : (page?.description || p.line)} tags={isProduct ? undefined : p.tags} />
 
         <div class="pgrid">
           <div class="pmain">
@@ -150,7 +142,12 @@ const children = p && isProduct ? products.filter((c) => c.slug.startsWith(`${p.
               <section class="cx" aria-label="Facts">
                 <div class="cx-h"><b>Facts</b><span>{p.family}</span></div>
                 {p.former && <div class="cx-r"><span>Address</span><span>{p.former}</span></div>}
-                {(p.facts ?? []).map(([k, v]) => <div class="cx-r"><span>{k}</span><span>{v}</span></div>)}
+                {(p.facts ?? []).map(([k, v]) => (
+                  <div class="cx-r"><span>{k}</span><span>{typeof v === 'string' ? v : (
+                    <ul class="flinks">{v.map((l) => <li>{l.href ? <a href={l.href}>{l.label}</a> : l.label}{l.note && <small> {l.note}</small>}</li>)}</ul>
+                  )}</span></div>
+                ))}
+                <div class="cx-r"><span>Tags</span><span><Tags tags={p.tags} /></span></div>
               </section>
             )}
 
@@ -192,13 +189,7 @@ const children = p && isProduct ? products.filter((c) => c.slug.startsWith(`${p.
 
     {d && (
       <>
-        <p class="crumb"><a href="/product-drafts/">Product drafts</a> / {d.status}</p>
-        <div class="intro">
-          <h1>{d.name}</h1>
-          <p class="lead">{d.line}</p>
-          <p class="tagline"><Tags tags={draftTags[d.slug] ?? []} /></p>
-        </div>
-        <div class="dither"></div>
+        <PageHead crumbs={[{ label: 'Product drafts', href: '/product-drafts/' }, { label: d.status }]} title={d.name} lead={d.line} tags={draftTags[d.slug] ?? []} variant="draft" />
         <section class="cx draft" aria-label="Facts">
           <div class="cx-h"><b>Draft</b><span>published at {d.origin}</span></div>
           <div class="cx-r"><span>Status</span><span>{d.status}</span></div>

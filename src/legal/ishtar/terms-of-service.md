@@ -6,7 +6,7 @@ retrieved: "2026-11-09"
 
 **Last updated: 2026-07-04**
 
-These Terms of Service (the "Terms") are a binding agreement between you and **Atelier Gökhan** ([numetal.xyz](https://numetal.xyz)) (the "Operator," "we," "us," or "our") governing your access to and use of **Ishtar** at [ishtar.numetal.xyz](https://ishtar.numetal.xyz) (the "Service").
+These Terms of Service (the "Terms") are a binding agreement between you and **Atelier Gökhan** (numetal.xyz) (the "Operator," "we," "us," or "our") governing your access to and use of **Ishtar** at ishtar.numetal.xyz (the "Service").
 
 Atelier Gökhan is the sole operator of the Service. A registered legal entity for the Operator is being established; until it is in place, Atelier Gökhan is the contracting party under these Terms.
 
