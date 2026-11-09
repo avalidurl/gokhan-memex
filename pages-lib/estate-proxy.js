@@ -19,8 +19,12 @@ const OLD_HOSTS = [
   ['https://plaintext.numetal.xyz', '/plaintext'],
 ]
 
+// The site shows one public mailbox; rewrite any other address the live apps print.
+const MAILBOX = /\b[A-Za-z0-9._%+-]+@(?:[a-z0-9-]+\.)*(?:numetal\.xyz|gokhan\.vc|gokhanturhan\.com)\b/g
+
 export function rewriteText(text, prefix, host) {
-  let t = text.split(`https://${host}`).join(prefix)
+  let t = text.replace(MAILBOX, 'contact@gokhan.vc')
+  t = t.split(`https://${host}`).join(prefix)
   for (const [a, b] of OLD_HOSTS) t = t.split(a).join(b)
   // root-relative URLs in attributes, including ones built inside JS strings
   t = t.replace(/(\s(?:href|src|action|poster|content)=\\?["'])\/(?![\/])(?!(?:reclaim|plaintext|numetal|gokhan-vc|products)(?:[\/"'?#]|$))/g, `$1${prefix}/`)
@@ -103,6 +107,7 @@ export async function proxy(context, { prefix, host, name }) {
     // keep same-origin asset paths (Vite bundles, JSON redirect targets) on the prefix
     body = body.split(`https://${host}`).join(prefix).replace(/(["'`])\/(join|assets)\//g, `$1${prefix}/$2/`)
     if (/javascript/.test(ct)) {
+      body = body.replace(MAILBOX, 'contact@gokhan.vc')
       // app code: same-origin fetches, links and redirects (e.g. fetch(`/api/…`), href:"/~name", location.href="/")
       body = body
         .replace(/(\bfetch\(\s*["'`])\/(?![\/])(?!(?:reclaim|plaintext)\/)/g, `$1${prefix}/`)
