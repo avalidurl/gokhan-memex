@@ -829,3 +829,62 @@ body.register main .footnotes :is(li, p, a) { overflow-wrap: anywhere; }
 body.register main .snap-t > :is(.table-desk, .table-wrap) { margin: 0; border: 0; }
 body.register main .snap-t > .table-desk.is-wide { border: 1px solid var(--ink); }
 body.register main .snap-t > .table-desk:not(.is-small) > .table-desk-bar { border-bottom: 1px solid var(--hair); }
+
+/* Fold toggles: every collapse/expand control is one square chip. */
+details.cx.fold > summary.cx-h,
+body.register main details:not(.cx, .group) > summary:not([style]),
+body.register .hcoll-h { cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background-color .15s ease; }
+body.register main details:not(.cx, .group) > summary:not([style]) { list-style: none; user-select: none; }
+body.register main details:not(.cx, .group) > summary:not([style])::-webkit-details-marker { display: none; }
+
+details.cx.fold > summary.cx-h::after,
+body.register main details:not(.cx, .group) > summary:not([style])::before,
+body.register .hcoll {
+  box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; flex: none;
+  width: 24px; height: 24px; min-width: 0; padding: 0;
+  border: 1px solid var(--ink); border-radius: 0; background: var(--cx-bg); color: var(--ink);
+  font: 700 16px/1 var(--mono); letter-spacing: 0; text-transform: none; opacity: 1;
+  transition: background-color .15s ease, color .15s ease, border-color .15s ease, transform .08s ease;
+}
+details.cx.fold > summary.cx-h::after { content: "−"; align-self: center; margin: 4px 6px 4px auto; border-left: 1px solid var(--ink); }
+details.cx.fold > summary.cx-h:has(em)::after { margin-left: 6px; }
+details.cx.fold:not([open]) > summary.cx-h::after { content: "+"; }
+body.register main details:not(.cx, .group) > summary:not([style])::before { content: "+"; margin-right: .6em; vertical-align: middle; width: 22px; height: 22px; font-size: 15px; }
+body.register main details:not(.cx, .group)[open] > summary:not([style])::before { content: "−"; }
+body.register .hcoll { width: 22px; height: 22px; margin-right: .45em; font-size: 15px; vertical-align: .12em; position: relative; }
+
+@media (hover: hover) {
+  details.cx.fold > summary.cx-h:hover,
+  body.register main details:not(.cx, .group) > summary:not([style]):hover { background-color: color-mix(in srgb, var(--cx-bg) 92%, var(--ikb)); }
+  details.cx.fold > summary.cx-h:hover::after,
+  body.register main details:not(.cx, .group) > summary:not([style]):hover::before,
+  body.register .hcoll-h:hover > .hcoll,
+  body.register .hcoll:hover { background: var(--ikb); border-color: var(--ikb); color: var(--paper); }
+  details.cx.fold > summary.cx-h:hover > b { text-decoration: underline; text-underline-offset: 3px; }
+}
+details.cx.fold > summary.cx-h:focus-visible,
+body.register main details:not(.cx, .group) > summary:not([style]):focus-visible,
+body.register .hcoll:focus-visible { outline: 2px solid var(--ikb); outline-offset: 2px; }
+details.cx.fold > summary.cx-h:focus-visible::after,
+body.register main details:not(.cx, .group) > summary:not([style]):focus-visible::before,
+body.register .hcoll:focus-visible { background: var(--ikb); border-color: var(--ikb); color: var(--paper); }
+details.cx.fold > summary.cx-h:active::after,
+body.register main details:not(.cx, .group) > summary:not([style]):active::before,
+body.register .hcoll:active { background: var(--ink); border-color: var(--ink); color: var(--paper); transform: scale(.9); }
+
+@media (hover: none) {
+  details.cx.fold > summary.cx-h::after,
+  body.register main details:not(.cx, .group) > summary:not([style])::before,
+  body.register .hcoll { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+  details.cx.fold > summary.cx-h:active::after,
+  body.register main details:not(.cx, .group) > summary:not([style]):active::before,
+  body.register .hcoll:active { background: var(--ikb); border-color: var(--ikb); }
+}
+@media (prefers-reduced-motion: reduce) {
+  details.cx.fold > summary.cx-h, details.cx.fold > summary.cx-h::after,
+  body.register main details > summary, body.register main details > summary::before,
+  body.register .hcoll, body.register .hcoll-h { transition: none; }
+  details.cx.fold > summary.cx-h:active::after,
+  body.register main details > summary:active::before,
+  body.register .hcoll:active { transform: none; }
+}
