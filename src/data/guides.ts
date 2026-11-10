@@ -32,7 +32,7 @@ export const guides: Guide[] = [
     steps: [
       'Open the <a href="/">home page</a>. It is a register: one boxed section each for products, new work and the latest journal posts. Every name in a box opens that item’s own page; CV, Journal, Publishing, Raises and Agents each have their own page in the top bar.',
       'Go to <a href="/products/">Products</a>. The five main products come first: <a href="/ubu/">UBU</a>, <a href="/ishtar/">Ishtar</a>, <a href="/curb/">CURB</a>, <a href="/reclaim/">Reclaim</a> and <a href="/plaintext/">plaintext</a>. Product families follow, and hobby projects come last.',
-      'Open <a href="/ubu/">UBU</a>. The Facts box on the right gives its address, its former address (plain text), its models and datasets, and its tags. The <a href="/ubu/reader/">Bureau Reader</a> is linked under Read.',
+      'Open <a href="/ubu/">UBU</a>. Open the File strip under the title to see its address, its former address (plain text), its models and datasets. The <a href="/ubu/reader/">Bureau Reader</a> is linked under Read, and the whole book downloads from the reader page as one PDF or EPUB.',
       'Click a tag chip, for example <a href="/archive/tags/agents/">agents</a>. A tag page gathers products, journal posts, drafts, tools and APIs that share it.',
       'Open the <a href="/journal/">Journal</a> and read one post. The subscribe box is at the top of the journal and at the end of every post.',
       'Finish on the <a href="/cv/">CV</a>. The PDF button is at the top, and <a href="/cv.md">cv.md</a> is the same CV as Markdown.',
@@ -111,7 +111,7 @@ export const guides: Guide[] = [
       'Not there? Try <a href="/product-drafts/">Drafts</a>. Experiments first published on GitHub Pages are listed there, each with its own page.',
       'Know the topic but not the name? Open <a href="/archive/tags/">Tags</a> and pick one, for example <a href="/archive/tags/agents/">agents</a> or <a href="/archive/tags/token/">token</a>.',
       'Looking for an API rather than a page? The <a href="/api/">API index</a> lists each interface with its former base and a link to its product page.',
-      'On a product page, the Facts box gives the address to use from now on. Use that link when you cite or share it.',
+      'On a product page, the File strip under the title gives the address to use from now on. Use that link when you cite or share it.',
     ],
     next: [{ label: 'Why addresses moved', href: '/about/why-addresses-moved/' }, { label: 'Cite or link a page', href: '/about/cite-a-page/' }],
   },
@@ -119,7 +119,7 @@ export const guides: Guide[] = [
     slug: 'cite-a-page', quad: 'how-to', title: 'Cite or link a page',
     lead: 'Every page has a stable address and a document number in its header strip.',
     steps: [
-      'Use the address in the browser bar, with its trailing slash, for example <code>https://gokhanturhan.com/ubu/</code>. Product pages also print it in their Facts box as <b>Address</b>.',
+      'Use the address in the browser bar, with its trailing slash, for example <code>https://gokhanturhan.com/ubu/</code>. Product pages also print it in their File strip as <b>Address</b>.',
       'The header strip shows a document number such as <b>MX-010</b>. Add it to a citation if you want a short handle.',
       'For a journal post, cite the author (Gökhan Turhan), the title, the date shown on the post, and its address.',
       'For papers and books, open the item’s own page from <a href="/publishing/">Publishing</a>: <a href="/publishing/academic/">Academic</a>, <a href="/publishing/ebooks/">E-books</a> or <a href="/publishing/experimental/">Experimental</a>.',
@@ -192,7 +192,7 @@ export const guides: Guide[] = [
     lead: 'Everything now lives under gokhanturhan.com; older domains only point here.',
     steps: [
       'Running a domain per product meant many hosts to keep alive. Moving every product to gokhanturhan.com/&lt;name&gt;/ keeps one address to remember and one place to maintain.',
-      'Each page keeps its history: the Facts box shows the former address as plain text, so you can recognise it, but every link goes to the new page.',
+      'Each page keeps its history: the File strip shows the former address as plain text, so you can recognise it, but every link goes to the new page.',
       'Interfaces that were live APIs are documented in the <a href="/api/">API index</a> rather than kept running.',
     ],
     next: [{ label: 'Find an old project', href: '/about/find-an-old-project/' }, { label: 'Products', href: '/products/' }],
