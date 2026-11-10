@@ -238,10 +238,10 @@ export const products: Product[] = [
   },
   {
     slug: 'coins', name: 'The Token Estate', status: 'former', family: 'Numetal',
-    line: 'BIS-926: a register of 996 issuances.',
+    line: 'BIS-926: a register of 998 issuances.',
     former: 'coins.numetal.xyz',
-    facts: [['Register', 'BIS-926'], ['Entries', '996 issuances']],
-    about: ['A register and leaderboard of 996 token issuances, filed as BIS-926.'],
+    facts: [['Register', 'BIS-926'], ['Entries', '998 issuances']],
+    about: ['A register and leaderboard of 998 token issuances, filed as BIS-926.'],
     functions: ['Register', 'Leaderboard'],
     tags: ['numetal', 'token', 'dashboard', 'leaderboard'],
   },
