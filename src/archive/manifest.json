@@ -355,11 +355,11 @@
  },
  "/coins/leaderboard/": {
   "description": "",
-  "doc_title": "THE TOKEN ESTATE — TOP 10",
+  "doc_title": "THE TOKEN ESTATE — LEADERBOARD",
   "former": "coins.numetal.xyz/leaderboard",
   "forms": [],
   "host": "coins.numetal.xyz",
-  "title": "THE TOKEN ESTATE — TOP 10"
+  "title": "Leaderboard"
  },
  "/curb/": {
   "description": "CURB is the swap rail. Wire api.curb.numetal.xyz MCP/Skill into your harness. Demo seller/buyer/harness agents are reference only. USDC on x402 on Base; fees split on-chain via 0xSplits. No upstream keys on the hub.",
@@ -1115,11 +1115,11 @@
   "title": "The Training Ledger — CLINAMEN · Bureau of Imaginary Solutions"
  },
  "/ubu/reader/": {
-  "description": "Bureau Document BIS-046: the training corpus of CLINAMEN-45B-A9B, verbatim.",
+  "description": "Bureau Document BIS-046: the training corpus of CLINAMEN-45B-A9B, verbatim, in three books.",
   "doc_title": "THE BUREAU READER — Bureau of Imaginary Solutions",
   "former": "ubu.numetal.xyz/reader",
   "forms": [],
   "host": "ubu.numetal.xyz",
-  "title": "The Bureau Reader — Book Two, The Docket"
+  "title": "The Bureau Reader"
  }
 }

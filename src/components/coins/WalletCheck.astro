@@ -1,0 +1,149 @@
+---
+/** Wallet check: paste an address, list the tokens it has touched, flag the ones in this register.
+    Runs in the visitor's browser against public, keyless explorers (Blockscout; Solana's public RPC). */
+import { parties } from '@/data/coins-wallets'
+const watched = parties.filter((p) => p.address).map((p) => ({ id: p.id, label: p.label ?? '', address: p.address! }))
+---
+
+<section class="cx wcheck" aria-labelledby="wc-title" data-watched={JSON.stringify(watched)}>
+  <div class="cx-h"><b id="wc-title">Check a wallet</b><span>paste any address to see which coins it has interacted with</span></div>
+  <form class="wc-form" data-wc-form>
+    <label for="wc-addr" class="wc-l">Address</label>
+    <input id="wc-addr" name="address" type="text" inputmode="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="0x… (Base, Robinhood, Ethereum, Unichain) or a Solana address" required />
+    <button type="submit">Check</button>
+  </form>
+  <p class="wc-help">EVM addresses are checked on Base, Robinhood Chain, Ethereum and Unichain through the public Blockscout explorers: tokens it holds and tokens it has sent or received. Solana addresses show tokens currently held. Coins from this register are marked. Nothing is stored; the lookup runs in your browser.</p>
+  <div class="wc-out" data-wc-out aria-live="polite" hidden></div>
+</section>
+
+<script>
+  type Hit = { chain: string; address: string; symbol: string; name: string; held: boolean; moved: boolean; url: string }
+  const box = document.querySelector<HTMLElement>('.wcheck')
+  if (box) {
+    const form = box.querySelector<HTMLFormElement>('[data-wc-form]')!
+    const input = form.querySelector<HTMLInputElement>('input')!
+    const btn = form.querySelector<HTMLButtonElement>('button')!
+    const out = box.querySelector<HTMLElement>('[data-wc-out]')!
+    const watched: { id: string; label: string; address: string }[] = JSON.parse(box.dataset.watched || '[]')
+    const register = new Map<string, { ticker: string; name: string; by: string; launcher: string; date: string }>()
+    document.querySelectorAll<HTMLTableRowElement>('.coins-reg [data-rows] tr').forEach((r) => {
+      const d = r.dataset
+      register.set(d.contract!, { ticker: d.ticker!, name: d.name!, by: d.by!, launcher: d.launcher!, date: d.date! })
+    })
+    const EVM = [
+      { chain: 'Base', api: 'https://base.blockscout.com', scan: 'https://basescan.org/token/' },
+      { chain: 'Robinhood', api: 'https://robinhoodchain.blockscout.com', scan: 'https://robinhoodchain.blockscout.com/token/' },
+      { chain: 'Ethereum', api: 'https://eth.blockscout.com', scan: 'https://etherscan.io/token/' },
+      { chain: 'Unichain', api: 'https://unichain.blockscout.com', scan: 'https://uniscan.xyz/token/' },
+    ]
+    const SOL_RPC = 'https://api.mainnet-beta.solana.com'
+    const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!)
+    const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
+    async function getJSON(url: string, init?: RequestInit, tries = 3): Promise<any> {
+      for (let i = 0; i < tries; i++) {
+        const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 20000)
+        try {
+          const r = await fetch(url, { ...init, signal: ctl.signal, headers: { accept: 'application/json', ...(init?.headers || {}) } })
+          if (r.status === 429) { await sleep(1500 * (i + 1)); continue }
+          if (r.status === 404) return null
+          if (!r.ok) throw new Error(`HTTP ${r.status}`)
+          return await r.json()
+        } finally { clearTimeout(t) }
+      }
+      throw new Error('rate limited')
+    }
+    const qs = (p: Record<string, any> | null) => (p ? '&' + Object.entries(p).map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(String(v))}`).join('&') : '')
+    async function evmChain(c: (typeof EVM)[number], a: string, hits: Map<string, Hit>) {
+      let next: any = null
+      for (let page = 0; page < 4; page++) {
+        const d = await getJSON(`${c.api}/api/v2/addresses/${a}/tokens?type=ERC-20${qs(next)}`)
+        if (!d) break
+        for (const it of d.items || []) {
+          const t = it.token; if (!t?.address_hash) continue
+          const k = `${c.chain}:${t.address_hash.toLowerCase()}`
+          const h = hits.get(k) || { chain: c.chain, address: t.address_hash, symbol: t.symbol || '', name: t.name || '', held: false, moved: false, url: c.scan + t.address_hash }
+          h.held = true; hits.set(k, h)
+        }
+        next = d.next_page_params; if (!next) break
+        await sleep(250)
+      }
+      next = null
+      for (let page = 0; page < 6; page++) {
+        const d = await getJSON(`${c.api}/api/v2/addresses/${a}/token-transfers?type=ERC-20${qs(next)}`)
+        if (!d) break
+        for (const it of d.items || []) {
+          const t = it.token; if (!t?.address_hash) continue
+          const k = `${c.chain}:${t.address_hash.toLowerCase()}`
+          const h = hits.get(k) || { chain: c.chain, address: t.address_hash, symbol: t.symbol || '', name: t.name || '', held: false, moved: false, url: c.scan + t.address_hash }
+          h.moved = true; hits.set(k, h)
+        }
+        next = d.next_page_params; if (!next) break
+        await sleep(250)
+      }
+    }
+    async function solana(a: string, hits: Map<string, Hit>) {
+      for (const program of ['TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA', 'TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb']) {
+        const d = await getJSON(SOL_RPC, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'getTokenAccountsByOwner', params: [a, { programId: program }, { encoding: 'jsonParsed' }] }) })
+        if (d?.error) throw new Error(d.error.message || 'RPC error')
+        for (const acc of d?.result?.value || []) {
+          const info = acc.account?.data?.parsed?.info; if (!info) continue
+          if (!(Number(info.tokenAmount?.uiAmount) > 0)) continue
+          const m = info.mint as string, reg = register.get(m.toLowerCase())
+          hits.set(`Solana:${m}`, { chain: 'Solana', address: m, symbol: reg?.ticker || '', name: reg?.name || '', held: true, moved: false, url: 'https://solscan.io/token/' + m })
+        }
+      }
+    }
+    function render(a: string, hits: Hit[], notes: string[], me: { id: string; label: string } | undefined, ownCount: number) {
+      const ours = hits.filter((h) => register.has(h.address.toLowerCase()))
+      hits.sort((x, y) => Number(register.has(y.address.toLowerCase())) - Number(register.has(x.address.toLowerCase())) || x.chain.localeCompare(y.chain) || (x.symbol || '').localeCompare(y.symbol || ''))
+      let html = `<div class="wc-sum"><span><i>Address</i> <code>${esc(a)}</code></span><span><i>Tokens found</i> <b>${hits.length}</b></span><span><i>From this register</i> <b>${ours.length}</b></span></div>`
+      if (me) html += `<p class="wc-me">This is a watched wallet: <b>${esc(me.id)}</b>${me.label ? ` (${esc(me.label)})` : ''}, with ${ownCount} launch${ownCount === 1 ? '' : 'es'} in the register. <button type="button" class="wc-filter" data-by="${esc(me.id)}">Show them in the table</button></p>`
+      if (hits.length) {
+        html += '<div class="cr-scroll"><table class="cr-t wc-t" data-table-static><thead><tr><th>Chain</th><th>Ticker</th><th>Name</th><th>Relation</th><th>Contract</th><th>Register</th></tr></thead><tbody>'
+        for (const h of hits) {
+          const reg = register.get(h.address.toLowerCase())
+          const rel = [h.held && 'holds', h.moved && 'sent / received'].filter(Boolean).join(' · ')
+          html += `<tr class="${reg ? 'ours' : ''}"><td>${esc(h.chain)}</td><td class="sym">${esc(h.symbol || reg?.ticker || '—')}</td><td class="nm">${esc(h.name || reg?.name || '—')}</td><td>${rel}</td><td class="ct"><a href="${esc(h.url)}" rel="noopener">${esc(h.address.slice(0, 10))}…</a></td><td>${reg ? `<span class="wc-ours">Launched by Gökhan</span> <small>${esc(reg.launcher)} · ${esc(reg.date)}</small>` : ''}</td></tr>`
+        }
+        html += '</tbody></table></div>'
+      } else html += '<p class="wc-empty">No tokens found for this address on the chains checked.</p>'
+      if (notes.length) html += `<ul class="wc-notes">${notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>`
+      out.innerHTML = html
+      out.querySelector<HTMLButtonElement>('.wc-filter')?.addEventListener('click', (e) => {
+        const id = (e.currentTarget as HTMLElement).dataset.by!
+        const p = document.querySelector<HTMLButtonElement>(`.cr-party[data-by="${CSS.escape(id)}"]`)
+        if (p && p.getAttribute('aria-pressed') !== 'true') p.click()
+        document.querySelector('.coins-reg')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      })
+    }
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault()
+      const a = input.value.trim()
+      out.hidden = false
+      const isEvm = /^0x[0-9a-fA-F]{40}$/.test(a)
+      const isSol = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(a)
+      const isCanton = /^[\w.-]+::[0-9a-f]{20,}$/i.test(a)
+      if (!isEvm && !isSol && !isCanton) { out.innerHTML = '<p class="wc-err">That does not look like an EVM (0x…), Solana or Canton address.</p>'; return }
+      const me = watched.find((w) => w.address.toLowerCase() === a.toLowerCase())
+      const ownCount = me ? document.querySelectorAll(`.coins-reg [data-rows] tr[data-by="${me.id}"]`).length : 0
+      if (isCanton) {
+        render(a, [], ['Canton has no public, keyless index to read from the browser, so only this register was checked.'], me, ownCount)
+        return
+      }
+      btn.disabled = true; btn.textContent = 'Checking…'
+      out.innerHTML = '<p class="wc-wait">Asking the explorers…</p>'
+      const hits = new Map<string, Hit>(), notes: string[] = []
+      try {
+        if (isEvm) {
+          const res = await Promise.allSettled(EVM.map((c) => evmChain(c, a, hits)))
+          res.forEach((r, i) => { if (r.status === 'rejected') notes.push(`${EVM[i].chain}: the explorer did not answer (${(r.reason as Error)?.message || 'error'}). Try again in a minute.`) })
+          notes.push('Transfers are read up to the latest 300 per chain; very busy wallets may show only recent activity.')
+        } else {
+          try { await solana(a, hits) } catch (err) { notes.push(`Solana: the public RPC refused the request (${(err as Error).message}). Try again later.`) }
+          notes.push('Solana shows tokens currently held, not past activity.')
+        }
+      } finally { btn.disabled = false; btn.textContent = 'Check' }
+      render(a, [...hits.values()], notes, me, ownCount)
+    })
+  }
+</script>
