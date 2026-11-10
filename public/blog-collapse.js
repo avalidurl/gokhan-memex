@@ -40,7 +40,7 @@
     var btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'hcoll';
-    btn.textContent = '▾'; // ▾
+    btn.textContent = '−';
     btn.setAttribute('aria-label', 'Toggle this section');
     btn.setAttribute('aria-expanded', 'true');
     btn.setAttribute('data-tip', 'Collapse this heading');
@@ -52,7 +52,7 @@
       if (e) { e.preventDefault(); e.stopPropagation(); }
       collapsed = !collapsed;
       for (var i = 0; i < body.length; i++) { body[i].style.display = collapsed ? 'none' : ''; }
-      btn.textContent = collapsed ? '▸' : '▾'; // ▸ / ▾
+      btn.textContent = collapsed ? '+' : '−';
       btn.setAttribute('aria-expanded', String(!collapsed));
       btn.setAttribute('data-tip', collapsed ? 'Expand this heading' : 'Collapse this heading');
     }
