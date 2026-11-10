@@ -1,37 +1,23 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHead from '@/components/PageHead.astro'
 ---
 
 <BaseLayout
   title="Page Not Found"
   description="The page you're looking for doesn't exist."
+  robots="noindex, follow"
 >
-  <div class="mx-auto max-w-2xl px-6 py-24 lg:py-32 text-center">
-    <p class="text-8xl font-light text-muted-foreground mb-8">404</p>
-    <h1 class="mb-4">Page not found</h1>
-    <p class="text-muted-foreground mb-12">
-      The page you're looking for doesn't exist or has been moved.
-    </p>
-    
-    <div class="space-y-4">
-      <a 
-        href="/"
-        class="inline-block px-6 py-3 border-2 border-border font-mono text-[15px] tracking-[0.06em] hover:bg-foreground hover:text-background"
-      >
-        ← Back to home
-      </a>
-      
-      <div class="flex justify-center gap-6 pt-4 text-sm">
-        <a href="/journal" class="text-muted-foreground hover:text-foreground hover:underline underline-offset-2">
-          Journal
-        </a>
-        <a href="/archive" class="text-muted-foreground hover:text-foreground hover:underline underline-offset-2">
-          Archive
-        </a>
-        <a href="/lists" class="text-muted-foreground hover:text-foreground hover:underline underline-offset-2">
-          Lists
-        </a>
-      </div>
-    </div>
+  <div class="es">
+    <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: '404' }]} title="Page not found" lead="The page you're looking for doesn't exist or has been moved." />
+    <section class="cx" aria-label="Where to go">
+      <div class="cx-h"><b>Try</b><span>the main sections</span></div>
+      <div class="cx-r"><span><a href="/">Index</a></span><span>Home</span></div>
+      <div class="cx-r"><span><a href="/journal/">Journal</a></span><span>Every post, filed by year</span></div>
+      <div class="cx-r"><span><a href="/products/">Products</a></span><span>Current, studio and drafts</span></div>
+      <div class="cx-r"><span><a href="/cv/">CV</a></span><span>The full record</span></div>
+      <div class="cx-r"><span><a href="/archive/">Archive</a></span><span>Years, categories and tags</span></div>
+      <div class="cx-r"><span><a href="/about/why-addresses-moved/">Why addresses moved</a></span><span>Old links and where they went</span></div>
+    </section>
   </div>
 </BaseLayout>

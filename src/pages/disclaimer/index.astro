@@ -1,54 +1,25 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHead from '@/components/PageHead.astro'
 ---
 
 <BaseLayout
   title="Disclaimer"
   description="Important disclaimers regarding financial advice and content."
 >
-  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
-    <header class="mb-12">
-      <h1 class="mb-4">Disclaimer</h1>
-      <p class="text-muted-foreground">
-        Important information regarding content on this website.
-      </p>
-    </header>
-
-    <div class="prose dark:prose-invert max-w-none">
-      <div class="bg-muted border-l-2 border-border pl-4 py-4 mb-8">
-        <p class="text-lg m-0">
-          <strong>None of the content on this website constitutes financial advice.</strong> All content is for research and educational purposes only.
-        </p>
-      </div>
-
-      <h2>Research Purpose</h2>
-      <p>
-        This website shares research findings and insights on stablecoins, tokenization, AI, and emerging technologies. Content is intended for academic discourse, not actionable investment guidance.
-      </p>
-
-      <h2>Affiliate Links</h2>
-      <p>
-        This website may contain affiliate links. When present, they are clearly disclosed. I may receive compensation from purchases through these links at no additional cost to you.
-      </p>
-
-      <h2>No Warranties</h2>
-      <p>
-        While I strive for accuracy, no warranties are made regarding completeness or reliability of any content. Information may become outdated without notice.
-      </p>
-
-      <h2>Personal Opinions</h2>
-      <p>
-        All content represents personal opinions and analysis. Views expressed do not necessarily reflect positions of any organizations I may be affiliated with.
-      </p>
-
-      <h2>Contact</h2>
-      <p>
-        Questions? Email <a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a>
-      </p>
-
-      <p class="text-sm text-muted-foreground mt-8">
-        Last updated: January 2026
-      </p>
-    </div>
+  <div class="es">
+    <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: 'Disclaimer' }]} title="Disclaimer" lead="Important information regarding content on this website." stamp="Last updated · January 2026" />
+    <section class="cx" aria-label="Summary">
+      <div class="cx-h"><b>In short</b></div>
+      <div class="cx-b"><p><strong>None of the content on this website constitutes financial advice.</strong> All content is for research and educational purposes only.</p></div>
+    </section>
+    <section class="cx" aria-label="Terms">
+      <div class="cx-h"><b>Terms</b><em>05</em></div>
+      <div class="cx-r"><span>Research purpose</span><span>This website shares research findings and insights on stablecoins, tokenization, AI, and emerging technologies. Content is intended for academic discourse, not actionable investment guidance.</span></div>
+      <div class="cx-r"><span>Affiliate links</span><span>This website may contain affiliate links. When present, they are clearly disclosed. I may receive compensation from purchases through these links at no additional cost to you.</span></div>
+      <div class="cx-r"><span>No warranties</span><span>While I strive for accuracy, no warranties are made regarding completeness or reliability of any content. Information may become outdated without notice.</span></div>
+      <div class="cx-r"><span>Personal opinions</span><span>All content represents personal opinions and analysis. Views expressed do not necessarily reflect positions of any organizations I may be affiliated with.</span></div>
+      <div class="cx-r"><span>Contact</span><span>Questions? Email <a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a></span></div>
+    </section>
   </div>
 </BaseLayout>

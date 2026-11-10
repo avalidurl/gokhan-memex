@@ -1,25 +1,27 @@
-const pages = [...document.querySelectorAll(".page")];
-const docid = document.getElementById("docid");
-const navLinks = [...document.querySelectorAll("nav a")];
+// The homepage is one page. Old hash "pages" (#cv, #journal, ...) moved to real
+// paths; send old bookmarks there instead of rendering a second copy.
+const moved = {
+  index: "/",
+  cv: "/cv/",
+  contact: "/cv/#contact",
+  journal: "/journal/",
+  essay: "/journal/complementary-substitutions/",
+  publishing: "/publishing/",
+  raises: "/raises/",
+  agents: "/agents/",
+  projects: "/products/",
+  products: "/products/",
+};
 
-function show() {
-  const raw = (location.hash || "#index").slice(1);
-  // Old bookmarks: the products list lives at /products/ only.
-  if (raw === "projects") { location.replace("/products/"); return; }
-  const aliases = { contact: "cv" };
-  const known = pages.some(p => p.id === raw);
-  const id = known ? raw : (aliases[raw] || "index");
-  pages.forEach(p => p.classList.toggle("on", p.id === id));
-  const navId = raw === "contact" ? "contact" : (id === "essay" ? "journal" : id);
-  navLinks.forEach(a => {
-    a.setAttribute("aria-current", a.getAttribute("href") === "#" + navId ? "page" : "false");
-  });
-  const page = document.getElementById(id);
-  docid.textContent = page ? page.dataset.doc : "MX-001";
-  document.title = id === "index" ? "Gökhan Turhan" : document.querySelector("#" + id + " h2, #" + id + " .title")?.textContent?.trim() || "Gökhan Turhan";
-  if (raw === "contact") document.title = "Contact";
-  if (id === "essay") document.title = "Complementary Substitutions";
+function route() {
+  const id = decodeURIComponent((location.hash || "").slice(1));
+  const to = moved[id];
+  if (!to) return;
+  if (to === "/") { history.replaceState(null, "", "/"); return; }
+  location.replace(to);
 }
+route();
+addEventListener("hashchange", route);
 
 const root = document.documentElement;
 const themeBtn = document.getElementById("theme");
@@ -54,22 +56,3 @@ faceBtn.addEventListener("click", () => {
   localStorage.setItem("gt-face", root.classList.contains("sans") ? "sans" : "serif");
   paint();
 });
-
-document.querySelectorAll("[data-find]").forEach(input => {
-  input.addEventListener("input", () => {
-    const q = input.value.trim().toLowerCase();
-    const scope = document.getElementById(input.dataset.find);
-    const rows = [...scope.querySelectorAll("[data-row]")];
-    rows.forEach(row => {
-      row.hidden = q.length > 0 && !row.dataset.row.includes(q);
-    });
-    const n = rows.filter(r => !r.hidden).length;
-    const count = scope.querySelector("[data-count]");
-    if (count) count.textContent = String(n);
-    const empty = scope.querySelector("[data-empty]");
-    if (empty) empty.hidden = n !== 0;
-  });
-});
-
-addEventListener("hashchange", show);
-show();
