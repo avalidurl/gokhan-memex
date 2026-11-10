@@ -445,12 +445,11 @@ body.register main a.tg[aria-current="true"], a.tg[aria-current="true"] { backgr
 .es .ported div > span + span, .es .ported p > span + span { margin-left: 1ch; }
 .es .ported section { border-top: 1px dotted var(--ink); margin-top: 1rem; padding-top: .5rem; }
 .es .ported pre { white-space: pre-wrap; overflow-wrap: anywhere; }
-.es .ported table { font-size: 14px; display: block; overflow-x: auto; }
 .es .ported fieldset { border: 1px dashed var(--ink); padding: 10px; margin: 10px 0; }
-.es .ported input, .es .ported textarea, .es .ported select, .es .ported button { font: 13px var(--mono); border: 1px solid var(--hair); background: var(--wash); color: var(--dim); padding: 4px 6px; margin: 2px 0; max-width: 100%; }
+.es .ported input:not(.table-desk-filter), .es .ported textarea, .es .ported select, .es .ported button:not(.table-desk-btn, .table-desk-sort) { font: 13px var(--mono); border: 1px solid var(--hair); background: var(--wash); color: var(--dim); padding: 4px 6px; margin: 2px 0; max-width: 100%; }
 .es .ported .ported-note { font: 12px var(--mono); border-left: 3px solid var(--ink); padding: 4px 8px; background: var(--wash); }
 .es .ported img { max-width: 100%; height: auto; }
-.es .snap-t { overflow-x: auto; }
+.es .snap-t { overflow: visible; }
 .es .snap-t table { font: 12px var(--mono); }
 @media (max-width: 900px) { .es .pgrid { grid-template-columns: 1fr; } }
 /* Facts: linked assets one per line; tag chips keep a visible gap */
@@ -597,9 +596,6 @@ a.file[hidden], a.reg[hidden], .cx[hidden] { display: none; }
 .es .pbody .prose { font-size: 1.02rem; line-height: 1.62; }
 .es .pbody .prose :where(p, li, blockquote, dd) { max-width: 70ch; }
 .es .pbody .prose :where(h2, h3, h4) { max-width: 70ch; }
-.es .pbody .ported :where(table) { width: 100%; border-collapse: collapse; }
-.es .pbody .ported :where(th, td) { padding: 5px 8px; border-bottom: 1px dotted var(--hair); text-align: left; vertical-align: top; }
-.es .pbody .ported :where(th) { font: 500 11px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--dim); border-bottom: 1px solid var(--ink); }
 .es .pbody .ported :where(pre, code) { font-size: 12.5px; }
 .es .pbody .ported :where(pre) { background: var(--wash); padding: 10px 12px; border: 1px solid var(--hair); }
 
@@ -747,3 +743,89 @@ a.file[hidden], a.reg[hidden], .cx[hidden] { display: none; }
   .cx table.cr-t { font-size: 12px; }
 }
 @media (max-width: 860px) { .cr-lbt col.c-t { width: auto; } }
+
+/* Data tables: one system for every ledger, sheet and spec table. */
+body.register main .table-desk,
+body.register main .table-wrap { position: relative; width: 100%; max-width: 100%; margin: 1.25rem 0 1.5rem; border: 1px solid var(--ink); background: var(--cx-bg); overflow: visible; }
+body.register main .table-desk .table-desk-scroll { overflow-x: auto; overscroll-behavior-x: contain; max-width: 100%; }
+body.register main .table-desk:not(.is-overflow) .table-desk-scroll { overflow: visible; }
+body.register main .table-desk.is-wide { width: min(1216px, calc(100vw - 32px)); max-width: none; }
+body.register main .table-desk.is-overflow::after { content: ""; position: absolute; top: 0; right: 0; bottom: 0; width: 28px; pointer-events: none; background: linear-gradient(to right, transparent, var(--cx-bg)); opacity: 1; transition: opacity .15s; }
+body.register main .table-desk.is-overflow.at-end::after { opacity: 0; }
+
+body.register main .table-desk-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 0; margin: 0; border-bottom: 1px solid var(--ink); font: 500 10.5px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+body.register main .table-desk-bar > * { margin: 0; }
+body.register main .table-desk-filter { flex: 1 1 12rem; min-width: 8rem; height: 32px; padding: 0 12px; border: 0; border-right: 1px solid var(--hair); background: transparent; color: var(--ink); font: 12.5px var(--mono); letter-spacing: 0; text-transform: none; }
+body.register main .table-desk-filter:focus-visible { outline: 2px solid var(--ikb); outline-offset: -2px; }
+body.register main .table-desk-count { padding: 0 12px; color: var(--dim); font-variant-numeric: tabular-nums; white-space: nowrap; }
+body.register main .table-desk-btn { height: 32px; padding: 0 12px; margin: 0; border: 0; border-left: 1px solid var(--hair); background: transparent; color: var(--ink); font: inherit; letter-spacing: inherit; text-transform: inherit; cursor: pointer; }
+body.register main .table-desk-btn:hover, body.register main .table-desk-btn:focus-visible { background: var(--ink); color: var(--paper); outline: 0; }
+body.register main .table-desk-btn[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+body.register main .table-desk.is-small .table-desk-filter,
+body.register main .table-desk.is-small .table-desk-count,
+body.register main .table-desk.is-small .table-desk-btn:not([aria-pressed]) { display: none; }
+body.register main .table-desk.is-small .table-desk-bar { justify-content: flex-end; border-bottom: 0; position: absolute; right: 0; bottom: 100%; }
+body.register main .table-desk.is-small .table-desk-btn { height: 24px; border: 1px solid var(--ink); border-bottom: 0; background: var(--cx-bg); }
+
+body.register main table:not([data-table-static]) { display: table; width: 100%; min-width: 0; margin: 0; border: 0; border-collapse: collapse; table-layout: auto; font: 14.5px/1.5 var(--read); font-variant-numeric: tabular-nums; color: var(--ink); overflow-wrap: normal; word-break: normal; hyphens: manual; }
+body.register main table:not([data-table-static]) :is(th, td) { padding: 9px 14px; border: 0; border-bottom: 1px solid var(--hair); text-align: left; vertical-align: top; overflow-wrap: normal; word-break: normal; background: none; }
+body.register main table:not([data-table-static]) td { max-width: 34rem; }
+body.register main table:not([data-table-static]) td:first-child:not(.td-nw, .td-num) { min-width: 7rem; }
+body.register main table:not([data-table-static]) td.td-brk { overflow-wrap: anywhere; }
+body.register main table:not([data-table-static]) th { position: sticky; top: 0; z-index: 1; padding-top: 8px; padding-bottom: 8px; background: color-mix(in srgb, var(--cx-bg) 93%, var(--ink)); border-bottom: 1px solid var(--ink); font: 500 10.5px/1.35 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--dim); vertical-align: bottom; }
+body.register main table:not([data-table-static]) tbody tr:nth-child(even) > td { background: color-mix(in srgb, var(--cx-bg) 97.5%, var(--ink)); }
+body.register main table:not([data-table-static]) tbody tr:last-child > td { border-bottom: 0; }
+body.register main table:not([data-table-static]) tbody tr:hover > td { background: color-mix(in srgb, var(--cx-bg) 94%, var(--ikb)); }
+body.register main table:not([data-table-static]) :is(th, td):first-child { padding-left: 16px; }
+body.register main table:not([data-table-static]) :is(th, td):last-child { padding-right: 16px; }
+body.register main table:not([data-table-static]) .td-nw { white-space: nowrap; }
+body.register main table:not([data-table-static]) td.td-num { white-space: nowrap; text-align: right; font: 13px/1.6 var(--mono); }
+body.register main table:not([data-table-static]) th.td-num { text-align: right; }
+body.register main table:not([data-table-static]) th.td-num .table-desk-sort { text-align: right; }
+body.register main table:not([data-table-static]) :is(td, th) code { font: 12.5px/1.5 var(--mono); padding: 0; background: none; border: 0; white-space: normal; overflow-wrap: anywhere; word-break: normal; }
+body.register main table:not([data-table-static]) .td-nw code { white-space: nowrap; overflow-wrap: normal; }
+body.register main table:not([data-table-static]) td :is(p, ul, ol) { margin: 0; max-width: none; }
+body.register main table:not([data-table-static]) td a { overflow-wrap: anywhere; }
+body.register main .table-desk .table-desk-sort { all: unset; box-sizing: border-box; display: block; width: 100%; cursor: pointer; padding-right: 10px; text-align: left; }
+body.register main .table-desk .table-desk-sort:hover, body.register main .table-desk .table-desk-sort:focus-visible { color: var(--ink); text-decoration: none; }
+body.register main .table-desk .table-desk-sort:focus-visible { outline: 2px solid var(--ikb); outline-offset: 2px; }
+body.register main .table-desk .table-desk-resize { position: absolute; top: 0; right: 0; width: 8px; height: 100%; cursor: col-resize; }
+body.register main .table-desk .table-desk-resize:hover { background: linear-gradient(to right, transparent 3px, var(--hair) 3px, var(--hair) 5px, transparent 5px); }
+body.register main :is(h2, h3, h4) + :is(.table-desk, .table-wrap) { margin-top: .75rem; }
+body.register main.es .pbody .prose > :is(.table-desk, .table-wrap) { max-width: none; }
+body.register main caption { caption-side: top; padding: 8px 16px; text-align: left; font: 500 10.5px/1.35 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--dim); border-bottom: 1px solid var(--hair); }
+@media (max-width: 760px) {
+  body.register main .table-desk.is-wide { width: 100%; margin-left: 0 !important; }
+  body.register main .table-desk-btn[aria-pressed] { display: none; }
+  body.register main .table-desk.is-small .table-desk-bar { display: none; }
+  body.register main .table-desk-bar { flex-wrap: nowrap; }
+  body.register main .table-desk-filter { flex: 1 1 0; min-width: 0; }
+  body.register main .table-desk-count { padding: 0 10px; }
+  body.register main table:not([data-table-static]) { font-size: 14px; }
+  body.register main table:not([data-table-static]) :is(th, td) { padding: 8px 10px; }
+  body.register main table:not([data-table-static]) :is(th, td):first-child { padding-left: 12px; }
+  body.register main table:not([data-table-static]) td { max-width: 20rem; }
+  body.register main table:not([data-table-static]) td:first-child:not(.td-nw, .td-num) { min-width: 6.5rem; }
+  /* Prose-heavy tables read as stacked records. */
+  body.register main .table-desk:has(table.is-prose) .table-desk-scroll { overflow: visible; }
+  body.register main .table-desk:has(table.is-prose)::after { display: none; }
+  body.register main table.is-prose, body.register main table.is-prose :is(tbody, tr, td) { display: block; width: 100%; max-width: none; min-width: 0; }
+  body.register main table.is-prose thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  body.register main table.is-prose colgroup { display: none; }
+  body.register main table.is-prose tr { padding: 10px 12px; border-bottom: 1px solid var(--hair); }
+  body.register main table.is-prose tbody tr:last-child { border-bottom: 0; }
+  body.register main table.is-prose:not([data-table-static]) tbody tr > td { background: none; }
+  body.register main table.is-prose:not([data-table-static]) td { display: block; padding: 4px 0; border: 0; text-align: left; white-space: normal; overflow-wrap: break-word; }
+  body.register main table.is-prose td::before { content: attr(data-label); display: block; margin: 0 0 1px; font: 500 10px/1.6 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--dim); }
+  body.register main table.is-prose td:empty { display: none; }
+  body.register main table.is-prose:not([data-table-static]) td:first-child { padding: 0 0 4px; font-weight: 600; }
+  body.register main table.is-prose td:first-child::before { display: none; }
+  body.register main table.is-prose td.td-num { font: 13px/1.6 var(--mono); }
+  body.register main table.is-prose td code { white-space: normal; overflow-wrap: anywhere; }
+}
+body.register main table:not([data-table-static]) code::before,
+body.register main table:not([data-table-static]) code::after { content: none; }
+body.register main .footnotes :is(li, p, a) { overflow-wrap: anywhere; }
+body.register main .snap-t > :is(.table-desk, .table-wrap) { margin: 0; border: 0; }
+body.register main .snap-t > .table-desk.is-wide { border: 1px solid var(--ink); }
+body.register main .snap-t > .table-desk:not(.is-small) > .table-desk-bar { border-bottom: 1px solid var(--hair); }
