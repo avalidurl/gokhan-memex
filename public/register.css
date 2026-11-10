@@ -714,3 +714,31 @@ a.file[hidden], a.reg[hidden], .cx[hidden] { display: none; }
   .es .wcheck button, .es .coins-reg button, .es .coins-reg input, .es .wcheck input { min-height: 44px; }
 }
 .es .pbody .cr-parties > summary { align-items: center; }
+
+/* Parties legend: full addresses, copy, explorer links. */
+.cr-plist { display: block; list-style: none; margin: 0; padding: 0; columns: 2 30rem; column-gap: 0; column-rule: 1px dotted var(--hair); }
+.cr-pw { break-inside: avoid; display: grid; grid-template-columns: 3.2rem minmax(0, 1fr) auto; gap: 0 10px; align-items: start; padding: 10px 12px; border-bottom: 1px dotted var(--hair); font: 13px/1.4 var(--mono); }
+.cr-pid { font-weight: 600; padding-top: 2px; }
+.cr-pmain { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.cr-plabel { color: var(--ink); }
+.cr-paddr { font: 12.5px/1.45 var(--mono); overflow-wrap: anywhere; word-break: break-all; user-select: all; background: none; padding: 0; }
+.cr-paddr.is-none { user-select: text; color: var(--dim); word-break: normal; }
+.cr-pmain small { color: var(--dim); font-size: 11.5px; }
+.cr-pacts { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; font-size: 11.5px; letter-spacing: .02em; }
+.cr-pacts a { color: var(--ikb); text-decoration: none; min-height: 28px; display: inline-flex; align-items: center; }
+.cr-pacts a:hover { text-decoration: underline; }
+.cr-copy { all: unset; box-sizing: border-box; cursor: pointer; border: 1px solid var(--ink); padding: 0 8px; min-height: 28px; display: inline-flex; align-items: center; font: 500 10.5px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.cr-copy:hover { background: var(--ink); color: var(--paper); }
+.cr-copy:focus-visible { outline: 2px solid var(--ikb); outline-offset: 2px; }
+.cr-pw > .cr-party { all: unset; box-sizing: border-box; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 3.6rem; min-height: 44px; padding: 4px 8px; border: 1px solid var(--ink); font: 13px/1.1 var(--mono); }
+.cr-pw > .cr-party em { font-style: normal; font-weight: 600; }
+.cr-pw > .cr-party span { font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--dim); }
+.cr-pw > .cr-party:hover { background: var(--wash); }
+.cr-pw > .cr-party[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.cr-pw > .cr-party[aria-pressed="true"] span { color: var(--paper); }
+@media (max-width: 640px) {
+  .cr-plist { columns: 1; }
+  .cr-pw { grid-template-columns: 2.6rem minmax(0, 1fr) auto; padding: 10px; }
+  .cr-copy, .cr-pacts a { min-height: 44px; }
+}
+.es .cr-paddr { border: 0; color: var(--ink); }

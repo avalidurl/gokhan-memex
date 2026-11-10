@@ -1,7 +1,7 @@
 ---
 /** The coin register: wallet check, totals, parties, filters, and the sortable table. */
 import coins from '@/data/coins.json'
-import { parties } from '@/data/coins-wallets'
+import { parties, explorers } from '@/data/coins-wallets'
 import WalletCheck from './WalletCheck.astro'
 
 type Coin = { n: number; date: string; chain: string; launcher: string; by: string; ticker: string; name: string; vol: number; url: string; contract: string }
@@ -37,18 +37,25 @@ const newest = rows.reduce((a, r) => (r.date > a ? r.date : a), '')
     <span><i>Σ vol shown</i> <b data-sumvol>—</b></span>
   </div>
 
-  <details class="cr-parties">
-    <summary>Parties — the “By” column <small>{parties.length} wallets and signers</small></summary>
-    <div class="cr-plist">
+  <details class="cr-parties" open>
+    <summary>Parties — the “By” column <small>{parties.length} wallets and signers, full addresses</small></summary>
+    <ul class="cr-plist">
       {parties.map((p) => (
-        <button type="button" class="cr-party" data-by={p.id} aria-pressed="false">
-          <b>{p.id}</b>
-          {p.label && <span>{p.label}</span>}
-          <small>{p.short}{p.note && ` · ${p.note}`}</small>
-          <em>{byParty.get(p.id) ?? 0}</em>
-        </button>
+        <li class="cr-pw" data-pid={p.id}>
+          <b class="cr-pid">{p.id}</b>
+          <div class="cr-pmain">
+            {p.label && <span class="cr-plabel">{p.label}</span>}
+            {p.address ? <code class="cr-paddr">{p.address}</code> : <code class="cr-paddr is-none">{p.short}</code>}
+            {p.note && <small>{p.note}</small>}
+            <span class="cr-pacts">
+              {p.address && <button type="button" class="cr-copy" data-copy={p.address} aria-label={`Copy ${p.id} address`}>Copy</button>}
+              {explorers(p).map((e) => <a href={e.href} rel="noopener" target="_blank">{e.label} ↗</a>)}
+            </span>
+          </div>
+          <button type="button" class="cr-party" data-by={p.id} aria-pressed="false" aria-label={`Show ${p.id} coins in the table`}><em>{byParty.get(p.id) ?? 0}</em><span>coins</span></button>
+        </li>
       ))}
-    </div>
+    </ul>
   </details>
 
   <div class="cr-tools">
@@ -137,6 +144,11 @@ const newest = rows.reduce((a, r) => (r.date > a ? r.date : a), '')
     }
     root.querySelectorAll<HTMLButtonElement>('.tag[data-l]').forEach((b) => b.addEventListener('click', () => pick('l', b.dataset.l!)))
     root.querySelectorAll<HTMLButtonElement>('.tag[data-c]').forEach((b) => b.addEventListener('click', () => pick('c', b.dataset.c!)))
+    root.querySelectorAll<HTMLButtonElement>('.cr-copy').forEach((b) => b.addEventListener('click', async () => {
+      const v = b.dataset.copy!
+      try { await navigator.clipboard.writeText(v) } catch { const r = document.createRange(); const c = b.closest('.cr-pw')!.querySelector('.cr-paddr')!; r.selectNodeContents(c); const sel = getSelection()!; sel.removeAllRanges(); sel.addRange(r); document.execCommand('copy') }
+      b.textContent = 'Copied'; setTimeout(() => { b.textContent = 'Copy' }, 1400)
+    }))
     root.querySelectorAll<HTMLButtonElement>('.cr-party').forEach((b) => b.addEventListener('click', () => {
       bf = bf === b.dataset.by ? '' : b.dataset.by!
       root.querySelectorAll<HTMLButtonElement>('.cr-party').forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.by === bf)))
