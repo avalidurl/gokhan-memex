@@ -44,8 +44,8 @@ const pubRows: { label: string; href?: string; meta?: string }[] = [
         <p class="cv-tag">{cvMeta.tagline}</p>
       </PageHead>
 
-      <section class="cx no-print" aria-label="Download">
-        <div class="cx-h"><b>Files</b><span>PDF, Markdown and machine-readable copies</span></div>
+      <details class="cx fold no-print" aria-label="Files" open>
+        <summary class="cx-h"><b>Files</b><span>PDF, Markdown and machine-readable copies</span></summary>
         <div class="cx-b cv-actions">
           <a href={cvMeta.pdfUrl} class="cv-pdf" download={cvMeta.pdfFileName}>
             <span class="cv-pdf-k">PDF</span><span class="cv-pdf-v">Download CV <small>Gokhan_Turhan_CV.pdf</small></span><span aria-hidden="true">↓</span>
@@ -54,25 +54,25 @@ const pubRows: { label: string; href?: string; meta?: string }[] = [
         </div>
         <div class="cx-r"><span>Machine-readable</span><span><a href="/cv.json">JSON</a> · <a href="/cv/plain.txt">Plain text</a> · <a href="/cv/raw.html">Raw HTML</a> · <a href="/cv.md">Markdown</a></span></div>
         <div class="cx-r"><span>Updated</span><span>{cvMeta.lastUpdated}</span></div>
-      </section>
+      </details>
 
-      <section class="cx" id="contact" aria-labelledby="contact-heading">
-        <div class="cx-h"><b id="contact-heading">Contact</b><span>DMs are open</span><em>{String(contact.length).padStart(2, '0')}</em></div>
+      <details class="cx fold" id="contact" aria-labelledby="contact-heading" open>
+        <summary class="cx-h"><b id="contact-heading">Contact</b><span>DMs are open</span><em>{String(contact.length).padStart(2, '0')}</em></summary>
         <address class="cv-addr">
           {contact.map((c) => (
             <div class="cx-r"><span>{c.label}</span><span>{c.url ? <a href={c.url} rel="noopener noreferrer">{c.value}</a> : c.value}</span></div>
           ))}
           <div class="cx-b">DMs are open.</div>
         </address>
-      </section>
+      </details>
 
-      <section class="cx" aria-labelledby="profile-heading">
-        <div class="cx-h"><b id="profile-heading">Profile</b></div>
+      <details class="cx fold" aria-labelledby="profile-heading" open>
+        <summary class="cx-h"><b id="profile-heading">Profile</b></summary>
         <div class="cx-b cv-prose">{profile.map((p) => <p>{p}</p>)}</div>
-      </section>
+      </details>
 
-      <section class="cx" aria-labelledby="exp-heading">
-        <div class="cx-h"><b id="exp-heading">Experience</b><span>roles, newest first</span><em>{String(experience.length).padStart(2, '0')}</em></div>
+      <details class="cx fold" aria-labelledby="exp-heading" open>
+        <summary class="cx-h"><b id="exp-heading">Experience</b><span>roles, newest first</span><em>{String(experience.length).padStart(2, '0')}</em></summary>
         {experience.map((job) => (
           <div class="cx-r cv-row">
             <span><time datetime={job.start}>{job.start}</time> – <time datetime={job.end}>{job.end}</time></span>
@@ -83,10 +83,10 @@ const pubRows: { label: string; href?: string; meta?: string }[] = [
             </span>
           </div>
         ))}
-      </section>
+      </details>
 
-      <section class="cx" aria-labelledby="edu-heading">
-        <div class="cx-h"><b id="edu-heading">Education</b><em>{String(education.length).padStart(2, '0')}</em></div>
+      <details class="cx fold" aria-labelledby="edu-heading" open>
+        <summary class="cx-h"><b id="edu-heading">Education</b><em>{String(education.length).padStart(2, '0')}</em></summary>
         {education.map((ed) => (
           <div class="cx-r cv-row">
             <span>{ed.years}</span>
@@ -97,28 +97,28 @@ const pubRows: { label: string; href?: string; meta?: string }[] = [
             </span>
           </div>
         ))}
-      </section>
+      </details>
 
-      <section class="cx" aria-labelledby="pub-heading">
-        <div class="cx-h"><b id="pub-heading">Publications &amp; exhibitions</b><em>{String(pubRows.length).padStart(2, '0')}</em></div>
+      <details class="cx fold" aria-labelledby="pub-heading" open>
+        <summary class="cx-h"><b id="pub-heading">Publications &amp; exhibitions</b><em>{String(pubRows.length).padStart(2, '0')}</em></summary>
         {pubRows.map((r, i) => (
           <div class="cx-r cv-row"><span>{String(i + 1).padStart(2, '0')}</span><span>{r.href ? <a href={r.href}>{r.label}</a> : r.label}{r.meta && <> — {r.meta}</>}</span></div>
         ))}
-      </section>
+      </details>
 
-      <section class="cx" aria-labelledby="skills-heading">
-        <div class="cx-h"><b id="skills-heading">Skills &amp; tooling</b><em>{String(skillGroups.length).padStart(2, '0')}</em></div>
+      <details class="cx fold" aria-labelledby="skills-heading" open>
+        <summary class="cx-h"><b id="skills-heading">Skills &amp; tooling</b><em>{String(skillGroups.length).padStart(2, '0')}</em></summary>
         {skillGroups.map((g) => (
           <div class="cx-r cv-row"><span>{g.name}</span><span><ul class="cv-list plain">{g.items.map((item) => <li>{item}</li>)}</ul></span></div>
         ))}
-      </section>
+      </details>
 
-      <section class="cx" aria-labelledby="lang-heading">
-        <div class="cx-h"><b id="lang-heading">Languages</b><em>{String(languages.length).padStart(2, '0')}</em></div>
+      <details class="cx fold" aria-labelledby="lang-heading" open>
+        <summary class="cx-h"><b id="lang-heading">Languages</b><em>{String(languages.length).padStart(2, '0')}</em></summary>
         {languages.map((l) => (
           <div class="cx-r"><span>{l.name}</span><span>{l.level}</span></div>
         ))}
-      </section>
+      </details>
     </div>
 
     <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

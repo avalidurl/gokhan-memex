@@ -1,91 +1,92 @@
 ---
 import { getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHead from '@/components/PageHead.astro'
 import PostTitle from '@/components/PostTitle.astro'
 import JournalSubscribe from '@/components/JournalSubscribe.astro'
 
-// Get all published blog posts, sorted by date (newest first)
+// Every published post, newest first, filed by year.
 const allPosts = (await getCollection('blog'))
-  .filter(post => !post.data.draft)
+  .filter((post) => !post.data.draft)
   .sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf())
 
-// Group posts by year
+const iso = (d: Date | string) => new Date(d).toISOString().slice(0, 10)
+const plain = (t: string) => t.replace(/<[^>]+>/g, '').replace(/[~*_`]/g, '').toLowerCase()
+
 const postsByYear = allPosts.reduce((acc, post) => {
   const year = new Date(post.data.publishDate).getFullYear()
-  if (!acc[year]) acc[year] = []
-  acc[year].push(post)
+  ;(acc[year] ??= []).push(post)
   return acc
 }, {} as Record<number, typeof allPosts>)
-
 const years = Object.keys(postsByYear).map(Number).sort((a, b) => b - a)
 ---
 
 <BaseLayout
   title="Journal"
-  description="Latest thoughts on stablecoins, tokenization, AGI, investment strategies, and global systemic challenges."
+  description="Essays and dispatches by Gökhan Turhan — agent-native markets, stablecoins, tokenization, AI, filed by year."
   hideFooterSubscribe
 >
-  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
-    <!-- Header -->
-    <header class="mb-8">
-      <h1 class="mb-4">Journal</h1>
-      <p class="text-muted-foreground">
-        {allPosts.length} posts on stablecoins, tokenization, AGI, and more.
-      </p>
-      <p class="mt-3 text-sm text-muted-foreground">
-        Read them here or → <a href="/rss.xml" class="text-foreground underline decoration-1 underline-offset-2">RSS</a>
-      </p>
-      <div class="mt-4 flex items-center gap-6 text-sm">
-        <a
-          href="/archive/"
-          class="text-muted-foreground hover:text-foreground"
-        >
-          Browse by category →
-        </a>
-        <a
-          href="/rss.xml"
-          class="text-muted-foreground hover:text-foreground"
-        >
-          RSS
-        </a>
-      </div>
-    </header>
-    <JournalSubscribe where="index" />
+  <div class="es">
+    <PageHead
+      crumbs={[{ label: 'Index', href: '/' }, { label: 'Journal' }]}
+      title="Journal"
+      count={allPosts.length}
+      lead={`${allPosts.length} posts, filed by year. Follow by email below or by RSS.`}
+    />
 
-    <!-- Posts by Year -->
-    <div class="space-y-12">
-      {years.map(year => (
-        <section>
-          <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
-            {year}
-          </h2>
-          <ul class="space-y-1">
-            {postsByYear[year].map(post => (
-              <li>
-                <a
-                  href={`/journal/${post.slug}/`}
-                  class="group flex items-baseline gap-4 py-2"
-                >
-                  <PostTitle title={post.data.title} class="text-foreground group-hover:underline decoration-1 underline-offset-2 flex-1" />
-                  <span class="text-sm text-muted-foreground shrink-0 tabular-nums">
-                    {new Date(post.data.publishDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                  </span>
-                </a>
-              </li>
+    <section class="cx" aria-label="Subscribe">
+      <div class="cx-h"><b>Subscribe</b><span>occasional, low-frequency</span><span><a href="/rss.xml">RSS</a></span><span><a href="/archive/">archive</a></span></div>
+      <div class="cx-b"><JournalSubscribe where="index" /></div>
+    </section>
+
+    <div id="journal-list">
+      <div class="findrow">
+        <label for="jfind">Find</label>
+        <input id="jfind" type="search" data-find="journal-list" placeholder="A title, a date" autocomplete="off" />
+      </div>
+      <p class="empty" data-empty hidden>Nothing filed under that.</p>
+      {years.map((year) => (
+        <details class="cx fold" id={`y${year}`} data-year open>
+          <summary class="cx-h"><b><a href={`/journal/${year}/`}>{year}</a></b><em data-count>{postsByYear[year].length}</em></summary>
+          <div data-list>
+            {postsByYear[year].map((post) => (
+              <a class="file" data-row={`${iso(post.data.publishDate)} ${plain(post.data.title)}`} href={`/journal/${post.slug}/`}>
+                <span class="dt">{iso(post.data.publishDate)}</span>
+                <PostTitle title={post.data.title} class="ttl" />
+              </a>
             ))}
-          </ul>
-        </section>
+          </div>
+        </details>
       ))}
     </div>
 
-    <!-- Empty State -->
-    {allPosts.length === 0 && (
-      <div class="text-center py-12">
-        <p class="text-lg text-muted-foreground mb-4">No posts found.</p>
-        <p class="text-sm text-muted-foreground">
-          Content is being migrated. Check back soon!
-        </p>
-      </div>
-    )}
+    {allPosts.length === 0 && <p class="note">No posts filed yet.</p>}
   </div>
 </BaseLayout>
+
+<script is:inline>
+  (() => {
+    const input = document.getElementById('jfind')
+    if (!input) return
+    const scope = document.getElementById(input.dataset.find)
+    const boxes = [...scope.querySelectorAll('[data-year]')]
+    const empty = scope.querySelector('[data-empty]')
+    const run = () => {
+      const q = input.value.trim().toLowerCase()
+      let total = 0
+      boxes.forEach((box) => {
+        const rows = [...box.querySelectorAll('[data-row]')]
+        rows.forEach((row) => { row.hidden = q.length > 0 && !row.dataset.row.includes(q) })
+        const n = rows.filter((r) => !r.hidden).length
+        total += n
+        box.hidden = n === 0
+        if (q) box.open = true
+        const count = box.querySelector('[data-count]')
+        if (count) count.textContent = String(n)
+      })
+      if (empty) empty.hidden = total !== 0
+    }
+    input.addEventListener('input', run)
+    if (input.value) run()
+  })()
+</script>

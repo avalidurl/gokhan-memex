@@ -47,8 +47,8 @@ const nav = [
   { name: 'Products', href: '/products/', on: path.startsWith('/products') },
   { name: 'Drafts', href: '/product-drafts/', on: path.startsWith('/product-drafts') },
   { name: 'Publishing', href: '/publishing/', on: path.startsWith('/publishing') },
-  { name: 'Raises', href: '/#raises', on: false },
-  { name: 'Agents', href: '/#agents', on: false },
+  { name: 'Raises', href: '/raises/', on: path.startsWith('/raises') },
+  { name: 'Agents', href: '/agents/', on: path.startsWith('/agents') },
 ]
 
 const docSection = pathname.split('/').filter(Boolean)[0] ?? ''
@@ -68,6 +68,8 @@ const docMap: Record<string, string> = {
   newsletter: 'MX-081',
   haleanbar: 'MX-085',
   cv: 'MX-090',
+  raises: 'MX-092',
+  agents: 'MX-093',
   consulting: 'MX-091',
   privacy: 'MX-095',
   disclaimer: 'MX-096',
@@ -249,7 +251,7 @@ const tableDeskVersion = createHash('sha256')
 
     <!-- Per-page head content passed via slot="head" (Article JSON-LD, custom schemas, seoKeywords meta). -->
     <slot name="head" />
-    <link rel="stylesheet" href="/register.css?v=20261110-2" />
+    <link rel="stylesheet" href="/register.css?v=20261110-3" />
   </head>
 
   <body class="register">

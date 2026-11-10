@@ -1,0 +1,42 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHead from '@/components/PageHead.astro'
+
+const machine = "{\n  \"raises\": [\n    {\n      \"name\": \"Ishtar · HeartPrefs · HeartBench\",\n      \"cap_usdc\": 20000,\n      \"minimum_usdc\": 4000,\n      \"instrument\": \"future equity — structure is a conversation\",\n      \"contact\": \"contact@gokhan.vc\",\n      \"deck_pdf\": \"https://gokhanturhan.com/media/archive/ishtar/ishtar-deck-not-a-preseed.pdf\",\n      \"deck_md\": \"https://gokhanturhan.com/media/archive/ishtar/deck.md\"\n    },\n    {\n      \"name\": \"CURB\",\n      \"cap_usdc\": null,\n      \"contact\": \"contact@gokhan.vc\",\n      \"deck_pdf\": \"https://gokhanturhan.com/media/archive/curb/curb-deck.pdf\",\n      \"deck_md\": \"https://gokhanturhan.com/media/archive/curb/deck.md\"\n    },\n    {\n      \"name\": \"Turkish Art Blob\",\n      \"budget_usd\": 5000,\n      \"term\": \"six-month physical build\",\n      \"file\": \"https://gokhanturhan.com/turkish-art-blob/#funding\"\n    }\n  ]\n}"
+---
+
+<BaseLayout
+  title="Raises"
+  description="Open rounds from Gökhan Turhan — Ishtar, CURB, Turkish Art Blob. Terms as printed; an invitation to a conversation, not an offer or a solicitation."
+>
+  <div class="es">
+    <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: 'Raises' }]} title="Raises" lead="Open rounds, terms as printed. An invitation to a conversation, not an offer or a solicitation." />
+      <div class="cx">
+        <div class="cx-h"><b>Ishtar</b><span>printed cap</span></div>
+        <div class="cv-line"><span>Round</span><b>Up to $20,000 USDC · $4,000 a head · future equity</b></div>
+        <div class="cv-line"><span>What</span><b>Not a pre-seed. Venue, standard, benchmark — Ishtar, HeartPrefs, HeartBench. Already live.</b></div>
+        <div class="cv-line"><span>Structure</span><b>A conversation — SAFE, token-warrant, whatever fits the jurisdiction.</b></div>
+        <div class="cv-line"><span>Contact</span><b><a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a></b></div>
+        <div class="cv-line"><span>File</span><b><a href="/media/archive/ishtar/ishtar-deck-not-a-preseed.pdf">deck (PDF)</a> · <a href="/media/archive/ishtar/deck.md">deck.md</a> · <a href="/ishtar/">Ishtar</a> · <a href="/journal/not-raising-a-preseed/">dispatch</a></b></div>
+      </div>
+
+      <div class="cx">
+        <div class="cx-h"><b>CURB</b><span>no printed cap</span></div>
+        <div class="cv-line"><span>Round</span><b>Small aligned round. The deck prints no dollar cap.</b></div>
+        <div class="cv-line"><span>What</span><b>Clearing rail for agent-to-agent inference. USDC on Base, in service.</b></div>
+        <div class="cv-line"><span>Contact</span><b><a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a></b></div>
+        <div class="cv-line"><span>File</span><b><a href="/media/archive/curb/curb-deck.pdf">deck (PDF)</a> · <a href="/media/archive/curb/deck.md">deck.md</a> · <a href="/curb/">CURB</a></b></div>
+      </div>
+
+      <div class="cx">
+        <div class="cx-h"><b>Turkish Art Blob</b><span>production budget</span></div>
+        <div class="cv-line"><span>Budget</span><b>$5,000 upfront · six-month physical build</b></div>
+        <div class="cv-line"><span>What</span><b>Speaking sculpture for art memory. The terms are on the work itself.</b></div>
+        <div class="cv-line"><span>File</span><b><a href="https://gokhanturhan.com/turkish-art-blob/#funding">the post</a></b></div>
+      </div>
+      <details class="cx fold" open>
+        <summary class="cx-h"><b>Machine</b><span>raises.json — same terms, for agents</span></summary>
+        <pre class="machine" id="raises-json" set:text={machine} />
+      </details>
+  </div>
+</BaseLayout>

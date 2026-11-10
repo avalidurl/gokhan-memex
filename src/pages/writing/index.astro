@@ -1,29 +1,19 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHead from '@/components/PageHead.astro'
 ---
 
 <BaseLayout
   title="Writing"
   description="Essays, research, and long-form analysis."
 >
-  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
-    <header class="mb-12">
-      <h1 class="mb-4">Writing</h1>
-      <p class="text-muted-foreground">
-        Essays, research, and long-form analysis.
-      </p>
-    </header>
-
-    <div class="py-12 text-center">
-      <p class="text-muted-foreground mb-8">
-        Writing portfolio coming soon.
-      </p>
-      <a 
-        href="/journal"
-        class="text-foreground hover:underline decoration-1 underline-offset-2"
-      >
-        ← Read journal posts
-      </a>
-    </div>
+  <div class="es">
+    <PageHead crumbs={[{ label: 'Journal', href: '/journal/' }, { label: 'Writing' }]} title="Writing" lead="Essays, research, and long-form analysis." />
+    <section class="cx" aria-label="Writing">
+      <div class="cx-h"><b>Where it lives</b></div>
+      <div class="cx-r"><span><a href="/journal/">Journal</a></span><span>Every essay and dispatch, filed by year</span></div>
+      <div class="cx-r"><span><a href="/publishing/">Publishing</a></span><span>E-books, academic and experimental work</span></div>
+      <div class="cx-r"><span><a href="/archive/">Archive</a></span><span>Years, categories and tags</span></div>
+    </section>
   </div>
 </BaseLayout>

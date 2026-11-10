@@ -30,7 +30,7 @@ export const guides: Guide[] = [
     slug: 'read-the-site', quad: 'tutorials', title: 'Read the site in ten minutes',
     lead: 'A first walk through the site, in the order most people find useful.',
     steps: [
-      'Open the <a href="/">home page</a>. It is a register: one boxed section each for products, the journal, publishing and the CV. Every name in a box opens that item’s own page.',
+      'Open the <a href="/">home page</a>. It is a register: one boxed section each for products, new work and the latest journal posts. Every name in a box opens that item’s own page; CV, Journal, Publishing, Raises and Agents each have their own page in the top bar.',
       'Go to <a href="/products/">Products</a>. The five main products come first: <a href="/ubu/">UBU</a>, <a href="/ishtar/">Ishtar</a>, <a href="/curb/">CURB</a>, <a href="/reclaim/">Reclaim</a> and <a href="/plaintext/">plaintext</a>. Product families follow, and hobby projects come last.',
       'Open <a href="/ubu/">UBU</a>. The Facts box on the right gives its address, its former address (plain text), its models and datasets, and its tags. The <a href="/ubu/reader/">Bureau Reader</a> is linked under Read.',
       'Click a tag chip, for example <a href="/archive/tags/agents/">agents</a>. A tag page gathers products, journal posts, drafts, tools and APIs that share it.',
@@ -144,7 +144,7 @@ export const guides: Guide[] = [
     steps: [
       'Email: <a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a>. One address for everything: questions, press, collaboration and pitches.',
       'DMs are open. Message <a href="https://x.com/goekhan">@goekhan on X</a>, <a href="https://www.linkedin.com/in/goekhanturhan/">Gökhan Turhan on LinkedIn</a> or <a href="https://t.me/goekhanturhan">@goekhanturhan on Telegram</a>.',
-      'Pitches and investment questions go to the same address. The <a href="/#raises">Raises</a> box on the home page shows what is open.',
+      'Pitches and investment questions go to the same address. <a href="/raises/">Raises</a> shows what is open.',
     ],
     rows: [
       ['Email', '<a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a>'],

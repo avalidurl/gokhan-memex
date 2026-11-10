@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PostTitle from '@/components/PostTitle.astro'
+import PageHead from '@/components/PageHead.astro'
 
 // Get all published blog posts for music and books categories
 const allPosts = (await getCollection('blog'))
@@ -19,104 +20,29 @@ const bookPosts = allPosts.filter(post =>
   (post.data.tags && post.data.tags.includes('books'))
 )
 
+const iso = (d: Date | string) => new Date(d).toISOString().slice(0, 10)
+const groups = [
+  { id: 'books', label: 'Books', sub: 'Book reviews and reading reflections.', posts: bookPosts },
+  { id: 'music', label: 'Music', sub: 'Sound art, playlists, and musical explorations.', posts: musicPosts },
+].filter((g) => g.posts.length > 0)
 ---
 
 <BaseLayout
   title="Lists"
   description="Curated collection of books and music content."
 >
-  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
-    <!-- Header -->
-    <header class="mb-12">
-      <h1 class="mb-4">Lists</h1>
-      <p class="text-muted-foreground">
-        Curated books and music content I follow.
-      </p>
-    </header>
-
-    <div class="space-y-8">
-      <!-- Books Section -->
-      {bookPosts.length > 0 && (
-        <section id="books">
-          <details class="group">
-            <summary class="flex items-center justify-between cursor-pointer list-none py-2 border-b border-border">
-              <div>
-                <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground">
-                  Books
-                </h2>
-                <p class="text-sm text-muted-foreground mt-1">
-                  Book reviews and reading reflections.
-                </p>
-              </div>
-              <span class="text-muted-foreground group-open:rotate-180">
-                ▼
-              </span>
-            </summary>
-            <div class="space-y-2 pt-4">
-              {bookPosts.map(post => (
-                <div>
-                  <a 
-                    href={`/journal/${post.slug}/`}
-                    class="group/link flex items-baseline gap-3 py-1"
-                  >
-                    <PostTitle title={post.data.title} class="text-foreground group-hover/link:underline decoration-1 underline-offset-2" />
-                    <span class="text-sm text-muted-foreground shrink-0">
-                      {post.data.publishDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
-                    </span>
-                  </a>
-                </div>
-              ))}
-            </div>
-          </details>
-        </section>
-      )}
-
-      <!-- Music Section -->
-      {musicPosts.length > 0 && (
-        <section id="music">
-          <details class="group">
-            <summary class="flex items-center justify-between cursor-pointer list-none py-2 border-b border-border">
-              <div>
-                <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground">
-                  Music
-                </h2>
-                <p class="text-sm text-muted-foreground mt-1">
-                  Sound art, playlists, and musical explorations.
-                </p>
-              </div>
-              <span class="text-muted-foreground group-open:rotate-180">
-                ▼
-              </span>
-            </summary>
-            <div class="space-y-2 pt-4">
-              {musicPosts.map(post => (
-                <div>
-                  <a 
-                    href={`/journal/${post.slug}/`}
-                    class="group/link flex items-baseline gap-3 py-1"
-                  >
-                    <PostTitle title={post.data.title} class="text-foreground group-hover/link:underline decoration-1 underline-offset-2" />
-                    <span class="text-sm text-muted-foreground shrink-0">
-                      {post.data.publishDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
-                    </span>
-                  </a>
-                </div>
-              ))}
-            </div>
-          </details>
-        </section>
-      )}
-    </div>
+  <div class="es">
+    <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: 'Lists' }]} title="Lists" lead="Curated books and music content I follow." />
+    {groups.map((g) => (
+      <details class="cx fold" id={g.id} open>
+        <summary class="cx-h"><b>{g.label}</b><span>{g.sub}</span><em>{g.posts.length}</em></summary>
+        {g.posts.map((post) => (
+          <a class="file" href={`/journal/${post.slug}/`}>
+            <span class="dt">{iso(post.data.publishDate)}</span>
+            <PostTitle title={post.data.title} class="ttl" />
+          </a>
+        ))}
+      </details>
+    ))}
   </div>
 </BaseLayout>
-
-<style>
-  /* Hide default marker */
-  details summary::-webkit-details-marker {
-    display: none;
-  }
-  
-  details summary::marker {
-    display: none;
-  }
-</style>
