@@ -381,8 +381,6 @@ const showToc = tocHeadings.length >= 2
     user-select: none;
   }
   .contents-label::-webkit-details-marker { display: none; }
-  .contents-label::before { content: "▸  "; color: hsl(var(--foreground)); }
-  .contents-box[open] > .contents-label::before { content: "▾  "; }
   .contents-box:not([open]) > .contents-label { border-bottom: none; }
   .contents-list {
     list-style: none;
