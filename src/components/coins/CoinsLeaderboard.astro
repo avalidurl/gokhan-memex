@@ -4,6 +4,7 @@ import coins from '@/data/coins.json'
 type Coin = { n: number; date: string; chain: string; launcher: string; by: string; ticker: string; name: string; vol: number; url: string; contract: string }
 const ranked = (coins as Coin[]).filter((r) => r.vol > 0).sort((a, b) => b.vol - a.vol)
 const fmt = (n: number) => (n >= 1e6 ? '$' + (n / 1e6).toFixed(1).replace(/\.0$/, '') + 'M' : n >= 1e4 ? '$' + Math.round(n / 1e3) + 'k' : n >= 1e3 ? '$' + Math.round(n).toLocaleString('en-US') : '$' + Math.round(n))
+const short = (c: string) => (c.length <= 13 ? c : `${c.slice(0, 6)}…${c.slice(-4)}`)
 const total = ranked.reduce((s, r) => s + r.vol, 0)
 const groups = [
   { title: 'Top ten', note: 'by lifetime volume', rows: ranked.slice(0, 10), from: 1 },
@@ -16,20 +17,21 @@ const groups = [
     <div class="cx-h"><b>{g.title}</b><span>{g.note}</span><em>{g.rows.length}</em></div>
     {g.from === 1 && <div class="cr-stats"><span><i>Ranked coins</i> <b>{ranked.length}</b></span><span><i>Σ lifetime vol</i> <b>{fmt(total)}</b></span><span><i>Snapshot</i> <b>2026-08-26</b></span></div>}
     <div class="cr-scroll">
-      <table class="cr-t" data-table-static>
-        <thead><tr><th class="r">Rank</th><th>Ticker</th><th>Name</th><th>Chain</th><th>Launcher</th><th>By</th><th>Date</th><th class="r">Lifetime vol</th><th>Contract</th></tr></thead>
+      <table class="cr-t cr-lbt" data-table-static>
+        <colgroup><col class="c-rk" /><col class="c-t" /><col class="c-nm p3" /><col class="c-ch p4" /><col class="c-l p3" /><col class="c-by" /><col class="c-d p4" /><col class="c-v" /><col class="c-ct p4" /></colgroup>
+        <thead><tr><th class="r">Rank</th><th>Ticker</th><th class="p3">Name</th><th class="p4">Chain</th><th class="p3">Launcher</th><th>By</th><th class="p4">Date</th><th class="r">Lifetime vol</th><th class="p4">Contract</th></tr></thead>
         <tbody>
           {g.rows.map((r, i) => (
             <tr>
               <td class="r n">{g.from + i}</td>
-              <td class="sym">{r.ticker}</td>
-              <td class="nm" title={r.name}>{r.name}</td>
-              <td>{r.chain}</td>
-              <td>{r.launcher}</td>
+              <td class="sym" title={r.ticker}><a href={r.url} rel="noopener">{r.ticker}</a></td>
+              <td class="nm p3" title={r.name}>{r.name}</td>
+              <td class="p4" title={r.chain}>{r.chain}</td>
+              <td class="p3" title={r.launcher}>{r.launcher}</td>
               <td class="by">{r.by}</td>
-              <td class="d">{r.date}</td>
+              <td class="d p4">{r.date}</td>
               <td class="r">{fmt(r.vol)}</td>
-              <td class="ct"><a href={r.url} rel="noopener">{r.contract.slice(0, 10)}…</a></td>
+              <td class="ct p4"><a href={r.url} rel="noopener" title={r.contract}>{short(r.contract)}</a></td>
             </tr>
           ))}
         </tbody>
