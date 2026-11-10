@@ -1,0 +1,22 @@
+---
+import LegalCopy from '@/components/LegalCopy.astro'
+
+const PRODUCT = 'curb'
+const files = import.meta.glob('/src/legal/curb/*.md', { eager: true }) as Record<string, any>
+const docs = Object.entries(files).map(([path, mod]) => ({ slug: path.split('/').pop()!.replace(/\.md$/, ''), mod }))
+
+export function getStaticPaths() {
+  const files = import.meta.glob('/src/legal/curb/*.md', { eager: true }) as Record<string, any>
+  return Object.keys(files).map((path) => ({ params: { doc: path.split('/').pop()!.replace(/\.md$/, '') } }))
+}
+
+const { doc } = Astro.params
+const cur = docs.find((d) => d.slug === doc)!
+const Content = cur.mod.Content
+const fm = cur.mod.frontmatter
+const others = docs.filter((d) => d.slug !== doc).map((d) => ({ slug: d.slug, title: d.mod.frontmatter.title }))
+---
+
+<LegalCopy product={PRODUCT} title={fm.title} former={fm.former} retrieved={fm.retrieved} others={others}>
+  <Content />
+</LegalCopy>
