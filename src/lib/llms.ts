@@ -56,6 +56,7 @@ function core(): string[] {
     '',
     `- [Publishing](${SITE}/publishing/): e-books, academic papers and experimental works`,
     ...works.map((w) => `- [${w.title}](${abs(w.href)}): ${w.kind}, ${w.year}. ${w.line}`),
+    `- [The Bureau Reader](${SITE}/ubu/reader/): UBU · CLINAMEN, 2026. Books One to Three in one volume: ${SITE}/media/archive/ubu/ubu/the-bureau-reader-complete.pdf (PDF), ${SITE}/media/archive/ubu/ubu/the-bureau-reader-complete.epub (EPUB)`,
     '',
     '## APIs',
     '',

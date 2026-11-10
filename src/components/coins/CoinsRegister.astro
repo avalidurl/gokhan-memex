@@ -1,0 +1,163 @@
+---
+/** The coin register: wallet check, totals, parties, filters, and the sortable table. */
+import coins from '@/data/coins.json'
+import { parties } from '@/data/coins-wallets'
+import WalletCheck from './WalletCheck.astro'
+
+type Coin = { n: number; date: string; chain: string; launcher: string; by: string; ticker: string; name: string; vol: number; url: string; contract: string }
+const rows = coins as Coin[]
+const count = <K extends keyof Coin>(k: K) => {
+  const m = new Map<string, number>()
+  for (const r of rows) m.set(String(r[k]), (m.get(String(r[k])) ?? 0) + 1)
+  return [...m.entries()].sort((a, b) => b[1] - a[1])
+}
+const launchers = count('launcher')
+const chains = count('chain')
+const byParty = new Map(count('by'))
+const fmt = (n: number) => {
+  if (!n) return '—'
+  if (n >= 1e6) return '$' + (n / 1e6).toFixed(1).replace(/\.0$/, '') + 'M'
+  if (n >= 1e4) return '$' + Math.round(n / 1e3) + 'k'
+  if (n >= 1e3) return '$' + Math.round(n).toLocaleString('en-US')
+  return '$' + Math.round(n)
+}
+const short = (c: string) => (c.startsWith('0x') ? c.slice(0, 10) : c.slice(0, 10)) + '…'
+const newest = rows.reduce((a, r) => (r.date > a ? r.date : a), '')
+---
+
+<WalletCheck />
+
+<section class="cx coins-reg" aria-label="The register">
+  <div class="cx-h"><b>The register</b><span>every coin launched from a watched wallet · newest {newest}</span><em>{rows.length}</em></div>
+  <div class="cr-stats">
+    <span><i>Issuances</i> <b>{rows.length}</b></span>
+    <span><i>Launchers</i> <b>{launchers.length}</b></span>
+    <span><i>Chains</i> <b>{chains.length}</b></span>
+    {chains.map(([c, n]) => <span><i>{c}</i> <b>{n}</b></span>)}
+    <span><i>Σ vol shown</i> <b data-sumvol>—</b></span>
+  </div>
+
+  <details class="cr-parties">
+    <summary>Parties — the “By” column <small>{parties.length} wallets and signers</small></summary>
+    <div class="cr-plist">
+      {parties.map((p) => (
+        <button type="button" class="cr-party" data-by={p.id} aria-pressed="false">
+          <b>{p.id}</b>
+          {p.label && <span>{p.label}</span>}
+          <small>{p.short}{p.note && ` · ${p.note}`}</small>
+          <em>{byParty.get(p.id) ?? 0}</em>
+        </button>
+      ))}
+    </div>
+  </details>
+
+  <div class="cr-tools">
+    <label class="cr-q"><span>Filter</span><input type="search" data-q placeholder="ticker, name or contract" autocomplete="off" spellcheck="false" /></label>
+    <label class="cr-v"><span>Min vol</span>
+      <select data-vmin>
+        <option value="0">All</option><option value="0.01">&gt; $0</option><option value="1000">&gt; $1k</option><option value="10000">&gt; $10k</option><option value="100000">&gt; $100k</option><option value="1000000">&gt; $1M</option>
+      </select>
+    </label>
+    <span class="cr-count" data-count aria-live="polite"></span>
+    <button type="button" class="cr-reset" data-reset>Reset</button>
+  </div>
+  <div class="cr-tags" role="group" aria-label="Launcher">
+    <span class="cr-g">Launcher</span>
+    <button type="button" class="tag on" data-l="">All</button>
+    {launchers.map(([l, n]) => <button type="button" class="tag" data-l={l}>{l} <small>{n}</small></button>)}
+  </div>
+  <div class="cr-tags" role="group" aria-label="Chain">
+    <span class="cr-g">Chain</span>
+    <button type="button" class="tag on" data-c="">All</button>
+    {chains.map(([c, n]) => <button type="button" class="tag" data-c={c}>{c} <small>{n}</small></button>)}
+  </div>
+
+  <div class="cr-scroll">
+    <table class="cr-t" data-table-static>
+      <thead>
+        <tr>
+          <th data-k="n" data-num aria-sort="none"><button type="button">#</button></th>
+          <th data-k="date" aria-sort="none"><button type="button">Date</button></th>
+          <th data-k="chain" aria-sort="none"><button type="button">Chain</button></th>
+          <th data-k="launcher" aria-sort="none"><button type="button">Launcher</button></th>
+          <th data-k="by" aria-sort="none"><button type="button">By</button></th>
+          <th data-k="ticker" aria-sort="none"><button type="button">Ticker</button></th>
+          <th data-k="name" aria-sort="none"><button type="button">Name</button></th>
+          <th data-k="vol" data-num aria-sort="none" class="r"><button type="button">Vol</button></th>
+          <th data-k="contract" aria-sort="none"><button type="button">Contract</button></th>
+        </tr>
+      </thead>
+      <tbody data-rows>
+        {rows.map((r) => (
+          <tr data-n={r.n} data-date={r.date} data-chain={r.chain} data-launcher={r.launcher} data-by={r.by} data-ticker={r.ticker} data-name={r.name} data-vol={r.vol} data-contract={r.contract.toLowerCase()} data-s={`${r.ticker} ${r.name} ${r.contract}`.toLowerCase()}>
+            <td class="n">{r.n}</td>
+            <td class="d">{r.date}</td>
+            <td>{r.chain}</td>
+            <td>{r.launcher}</td>
+            <td class="by">{r.by}</td>
+            <td class="sym">{r.ticker}</td>
+            <td class="nm" title={r.name}>{r.name}</td>
+            <td class="r">{fmt(r.vol)}</td>
+            <td class="ct"><a href={r.url} rel="noopener">{short(r.contract)}</a></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="cr-note">Vol is lifetime DEX USD on Dune-indexed chains (snapshot 2026-08-26). Robinhood, Elysium, Arc and Canton are not indexed, so those cells read —. Rows added after the snapshot read — too. Click a column head to sort.</p>
+</section>
+
+<script>
+  const root = document.querySelector('.coins-reg')
+  if (root) {
+    const tb = root.querySelector<HTMLTableSectionElement>('[data-rows]')!
+    const rows = [...tb.querySelectorAll<HTMLTableRowElement>('tr')]
+    const q = root.querySelector<HTMLInputElement>('[data-q]')!
+    const vmin = root.querySelector<HTMLSelectElement>('[data-vmin]')!
+    const count = root.querySelector<HTMLElement>('[data-count]')!
+    const sum = root.querySelector<HTMLElement>('[data-sumvol]')
+    let lf = '', cf = '', bf = ''
+    const fmt = (n: number) => !n ? '—' : n >= 1e6 ? '$' + (n / 1e6).toFixed(1).replace(/\.0$/, '') + 'M' : n >= 1e4 ? '$' + Math.round(n / 1e3) + 'k' : n >= 1e3 ? '$' + Math.round(n).toLocaleString('en-US') : '$' + Math.round(n)
+    const apply = () => {
+      const t = q.value.trim().toLowerCase(), min = parseFloat(vmin.value) || 0
+      let n = 0, s = 0
+      for (const r of rows) {
+        const d = r.dataset, v = parseFloat(d.vol || '0') || 0
+        const ok = (!lf || d.launcher === lf) && (!cf || d.chain === cf) && (!bf || d.by === bf) && (!t || d.s!.includes(t)) && v >= min
+        r.hidden = !ok
+        if (ok) { n++; s += v }
+      }
+      count.textContent = `${n} / ${rows.length} shown`
+      if (sum) sum.textContent = fmt(s)
+    }
+    const pick = (attr: 'l' | 'c', val: string) => {
+      root.querySelectorAll<HTMLButtonElement>(`.tag[data-${attr}]`).forEach((b) => b.classList.toggle('on', b.dataset[attr] === val))
+      if (attr === 'l') lf = val; else cf = val
+      apply()
+    }
+    root.querySelectorAll<HTMLButtonElement>('.tag[data-l]').forEach((b) => b.addEventListener('click', () => pick('l', b.dataset.l!)))
+    root.querySelectorAll<HTMLButtonElement>('.tag[data-c]').forEach((b) => b.addEventListener('click', () => pick('c', b.dataset.c!)))
+    root.querySelectorAll<HTMLButtonElement>('.cr-party').forEach((b) => b.addEventListener('click', () => {
+      bf = bf === b.dataset.by ? '' : b.dataset.by!
+      root.querySelectorAll<HTMLButtonElement>('.cr-party').forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.by === bf)))
+      apply()
+    }))
+    root.querySelector('[data-reset]')!.addEventListener('click', () => { q.value = ''; vmin.value = '0'; bf = ''; root.querySelectorAll('.cr-party').forEach((x) => x.setAttribute('aria-pressed', 'false')); pick('c', ''); pick('l', '') })
+    q.addEventListener('input', apply)
+    vmin.addEventListener('change', apply)
+    let sk = '', dir = 1
+    root.querySelectorAll<HTMLTableCellElement>('th[data-k]').forEach((th) => th.querySelector('button')!.addEventListener('click', () => {
+      const k = th.dataset.k!, num = th.hasAttribute('data-num')
+      dir = sk === k ? -dir : num || k === 'date' ? -1 : 1
+      sk = k
+      root.querySelectorAll('th[data-k]').forEach((x) => x.setAttribute('aria-sort', 'none'))
+      th.setAttribute('aria-sort', dir > 0 ? 'ascending' : 'descending')
+      rows.sort((a, b) => {
+        const x = a.dataset[k] || '', y = b.dataset[k] || ''
+        return (num ? (parseFloat(x) || 0) - (parseFloat(y) || 0) : x.localeCompare(y)) * dir
+      })
+      tb.append(...rows)
+    }))
+    apply()
+  }
+</script>

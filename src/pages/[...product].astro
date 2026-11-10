@@ -2,8 +2,10 @@
 import { getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PageHead from '@/components/PageHead.astro'
-import Tags from '@/components/Tags.astro'
 import Snapshot from '@/components/Snapshot.astro'
+import CoinsRegister from '@/components/coins/CoinsRegister.astro'
+import CoinsLeaderboard from '@/components/coins/CoinsLeaderboard.astro'
+import { pageActions, widePages } from '@/data/page-actions'
 import { pageProducts, drafts, draftTags, bySlug, products, type Product, type Draft } from '@/data/estate'
 import manifest from '@/archive/manifest.json'
 import draftManifest from '@/archive/drafts/manifest.json'
@@ -101,95 +103,105 @@ const legal = p && isProduct
       .filter(([f]) => f.split('/')[3] === p.slug)
       .map(([f, mod]) => ({ slug: f.split('/').pop()!.replace(/\.md$/, ''), title: mod.frontmatter.title as string }))
   : []
+const wide = widePages.has(path)
+const acts = pageActions[path] ?? []
+const custom = path === '/coins/' ? 'coins' : path === '/coins/leaderboard/' ? 'leaderboard' : null
+const stripCount = siteMap.length > 1 ? siteMap.length : undefined
 const children = p && isProduct ? products.filter((c) => c.slug.startsWith(`${p.slug}/`) && c.slug.split('/').length === p.slug.split('/').length + 1) : []
 ---
 
 <BaseLayout title={title} description={description}>
-  <div class="es">
+  <div class={`es${wide ? ' wide' : ''}`}>
     {p && (
       <>
         <PageHead crumbs={[{ label: 'Products', href: '/products/' }, ...crumbs, { label: isProduct ? p.family : title }]} title={title} lead={isProduct ? p.line : (page?.description || p.line)} tags={isProduct ? undefined : p.tags} />
 
-        <div class="pgrid">
-          <div class="pmain">
-            {html && (
-              <section class="cx" aria-label="Page">
-                <div class="cx-h"><b>{isProduct ? p.name : title}</b><span>gokhanturhan.com{path}</span></div>
-                <div class="cx-b prose ported" set:html={html} />
-              </section>
-            )}
-
-            {sectionKids.length > 0 && (
-              <section class="cx" aria-label="Pages in this section">
-                <div class="cx-h"><b>{title}</b><span>pages in this section</span><em>{String(sectionKids.length).padStart(2, '0')}</em></div>
-                {sectionKids.map((k) => <div class="cx-r"><span>{k.replace(path, '')}</span><span><a href={k}>{labelFor(k)}</a>{MAN[k]?.description && <> — {MAN[k].description}</>}</span></div>)}
-              </section>
-            )}
-
-            {snap && <Snapshot snap={snap} />}
-
-            {isProduct && !html && p.about && p.about.length > 0 && (
-              <section class="cx" aria-label="About">
-                <div class="cx-h"><b>About</b></div>
-                <div class="cx-b body">{p.about.map((t) => <p>{t}</p>)}</div>
-              </section>
-            )}
-
-            {Content && (
-              <section class="cx" aria-label="Project file">
-                <div class="cx-h"><b>Project file</b></div>
-                <div class="cx-b prose file"><Content /></div>
-              </section>
-            )}
-          </div>
-
-          <aside class="pside">
-            {isProduct && (
-              <section class="cx" aria-label="Facts">
-                <div class="cx-h"><b>Facts</b><span>{p.family}</span></div>
-                <div class="cx-r"><span>Address</span><span><a href={`/${p.slug}/`}>gokhanturhan.com/{p.slug}/</a></span></div>
-                {p.former && <div class="cx-r"><span>Former address</span><span class="former">{p.former}</span></div>}
-                {(p.facts ?? []).map(([k, v]) => (
-                  <div class="cx-r"><span>{k}</span><span>{typeof v === 'string' ? v : (
-                    <ul class="flinks">{v.map((l) => <li>{l.href ? <a href={l.href}>{l.label}</a> : l.label}{l.note && <small> {l.note}</small>}</li>)}</ul>
-                  )}</span></div>
-                ))}
-                <div class="cx-r"><span>Tags</span><span><Tags tags={p.tags} /></span></div>
-              </section>
-            )}
-
-            {siteMap.length > 1 && (
-              <section class="cx" aria-label="Site">
-                <div class="cx-h"><b>{top!.name}</b><span>pages</span><em>{String(siteMap.length).padStart(2, '0')}</em></div>
-                <nav class="sitemap">
-                  {siteMap.map((k) => (
-                    <a href={k} style={`padding-left:${0.6 + depth(k) * 0.9}rem`} aria-current={k === path ? 'page' : undefined}>{labelFor(k)}</a>
+        <div class="pstrip">
+          <details class="cx fold pfile">
+            <summary class="cx-h"><b>File</b><span class="pf-sum">gokhanturhan.com{path}{p.former && <> · formerly {p.former}</>}</span>{stripCount && <em>{String(stripCount).padStart(2, '0')} pages</em>}</summary>
+            <div class="pf-g">
+              {isProduct && (
+                <section class="pf-c" aria-label="Facts">
+                  <h2 class="pf-t">Facts</h2>
+                  <div class="cx-r"><span>Address</span><span><a href={`/${p.slug}/`}>gokhanturhan.com/{p.slug}/</a></span></div>
+                  {p.former && <div class="cx-r"><span>Former</span><span class="former">{p.former}</span></div>}
+                  {(p.facts ?? []).map(([k, v]) => (
+                    <div class="cx-r"><span>{k}</span><span>{typeof v === 'string' ? v : (
+                      <ul class="flinks">{v.map((l) => <li>{l.href ? <a href={l.href}>{l.label}</a> : l.label}{l.note && <small> {l.note}</small>}</li>)}</ul>
+                    )}</span></div>
                   ))}
-                </nav>
-              </section>
-            )}
+                  <div class="cx-r"><span>Family</span><span>{p.family}</span></div>
+                </section>
+              )}
+              {siteMap.length > 1 && (
+                <section class="pf-c" aria-label="Pages">
+                  <h2 class="pf-t">{top!.name} · pages</h2>
+                  <nav class="sitemap">
+                    {siteMap.map((k) => (
+                      <a href={k} style={`padding-left:${0.6 + depth(k) * 0.9}rem`} aria-current={k === path ? 'page' : undefined}>{labelFor(k)}</a>
+                    ))}
+                  </nav>
+                </section>
+              )}
+              {isProduct && children.length > 0 && (
+                <section class="pf-c" aria-label="Sections">
+                  <h2 class="pf-t">Sections</h2>
+                  {children.map((c) => <div class="cx-r"><span><a href={`/${c.slug}/`}>{c.name}</a></span><span>{c.line}</span></div>)}
+                </section>
+              )}
+              {(legal.length > 0 || (isProduct && p.links && p.links.length > 0)) && (
+                <section class="pf-c" aria-label="Links">
+                  <h2 class="pf-t">Links</h2>
+                  {legal.map((l) => <div class="cx-r"><span>legal</span><span><a href={`/${p.slug}/legal/${l.slug}/`}>{l.title}</a></span></div>)}
+                  {isProduct && (p.links ?? []).map((l) => <div class="cx-r"><span>{l.href.startsWith('/') ? 'here' : new URL(l.href).hostname}</span><span><a href={l.href}>{l.label}</a></span></div>)}
+                </section>
+              )}
+            </div>
+          </details>
+          {acts.length > 0 && (
+            <nav class="pacts" aria-label="Page actions">
+              {acts.map((g) => (
+                <span class="pact">
+                  {g.label && <span class="pact-l">{g.label}</span>}
+                  {g.links.map((l, i) => <>{i > 0 && <span class="pact-dot">·</span>}<a class="btn" href={l.href} download={l.download ? '' : undefined}>{l.text}</a></>)}
+                </span>
+              ))}
+            </nav>
+          )}
+        </div>
 
-            {isProduct && children.length > 0 && (
-              <section class="cx" aria-label="Sections">
-                <div class="cx-h"><b>Sections</b><em>{String(children.length).padStart(2, '0')}</em></div>
-                {children.map((c) => <div class="cx-r"><span><a href={`/${c.slug}/`}>{c.name}</a></span><span>{c.line}</span></div>)}
-              </section>
-            )}
+        <div class="pbody">
+          {custom === 'coins' && <CoinsRegister />}
+          {custom === 'leaderboard' && <CoinsLeaderboard />}
+          {!custom && html && (
+            <section class="cx" aria-label="Page">
+              <div class="cx-h"><b>{isProduct ? p.name : title}</b><span>gokhanturhan.com{path}</span></div>
+              <div class="cx-b prose ported" set:html={html} />
+            </section>
+          )}
 
-            {legal.length > 0 && (
-              <section class="cx" aria-label="Legal">
-                <div class="cx-h"><b>Legal</b><em>{String(legal.length).padStart(2, '0')}</em></div>
-                {legal.map((l) => <div class="cx-r"><span>doc</span><span><a href={`/${p.slug}/legal/${l.slug}/`}>{l.title}</a></span></div>)}
-              </section>
-            )}
+          {sectionKids.length > 0 && (
+            <section class="cx" aria-label="Pages in this section">
+              <div class="cx-h"><b>{title}</b><span>pages in this section</span><em>{String(sectionKids.length).padStart(2, '0')}</em></div>
+              {sectionKids.map((k) => <div class="cx-r"><span>{k.replace(path, '')}</span><span><a href={k}>{labelFor(k)}</a>{MAN[k]?.description && <> — {MAN[k].description}</>}</span></div>)}
+            </section>
+          )}
 
-            {isProduct && p.links && p.links.length > 0 && (
-              <section class="cx" aria-label="Links">
-                <div class="cx-h"><b>Links</b></div>
-                {p.links.map((l) => <div class="cx-r"><span>{l.href.startsWith('/') ? 'here' : new URL(l.href).hostname}</span><span><a href={l.href}>{l.label}</a></span></div>)}
-              </section>
-            )}
-          </aside>
+          {snap && <Snapshot snap={snap} />}
+
+          {isProduct && !html && p.about && p.about.length > 0 && (
+            <section class="cx" aria-label="About">
+              <div class="cx-h"><b>About</b></div>
+              <div class="cx-b body">{p.about.map((t) => <p>{t}</p>)}</div>
+            </section>
+          )}
+
+          {Content && (
+            <section class="cx" aria-label="Project file">
+              <div class="cx-h"><b>Project file</b></div>
+              <div class="cx-b prose file"><Content /></div>
+            </section>
+          )}
         </div>
       </>
     )}
@@ -197,31 +209,35 @@ const children = p && isProduct ? products.filter((c) => c.slug.startsWith(`${p.
     {d && (
       <>
         <PageHead crumbs={[{ label: 'Product drafts', href: '/product-drafts/' }, { label: d.status }]} title={d.name} lead={DM[d.slug]?.description || d.line} tags={draftTags[d.slug] ?? []} variant="draft" />
-        <div class="pgrid">
-          <div class="pmain">
-            {dHtml && (
-              <section class="cx draft" aria-label="Page">
-                <div class="cx-h"><b>{d.name}</b><span>gokhanturhan.com/{d.slug}/</span></div>
-                <div class="cx-b prose ported" set:html={dHtml} />
+        <div class="pstrip">
+          <details class="cx fold pfile draft">
+            <summary class="cx-h"><b>File</b><span class="pf-sum">gokhanturhan.com/{d.slug}/ · {d.status} · {d.kind}</span></summary>
+            <div class="pf-g">
+              <section class="pf-c" aria-label="Facts">
+                <h2 class="pf-t">Facts</h2>
+                <div class="cx-r"><span>Address</span><span><a href={`/${d.slug}/`}>gokhanturhan.com/{d.slug}/</a></span></div>
+                {d.origin !== 'gokhanturhan.com' && <div class="cx-r"><span>Original</span><span class="former">{d.href.replace('https://', '')}</span></div>}
+                <div class="cx-r"><span>Status</span><span>{d.status}</span></div>
+                <div class="cx-r"><span>Kind</span><span>{d.kind}</span></div>
+                {d.chain && <div class="cx-r"><span>Chain</span><span>{d.chain}</span></div>}
               </section>
-            )}
-            {dSnap && <Snapshot snap={dSnap} />}
-          </div>
-          <aside class="pside">
-            <section class="cx draft" aria-label="Facts">
-              <div class="cx-h"><b>Facts</b><span>draft</span></div>
-              <div class="cx-r"><span>Address</span><span><a href={`/${d.slug}/`}>gokhanturhan.com/{d.slug}/</a></span></div>
-              {d.origin !== 'gokhanturhan.com' && <div class="cx-r"><span>Original</span><span class="former">{d.href.replace('https://', '')}</span></div>}
-              <div class="cx-r"><span>Status</span><span>{d.status}</span></div>
-              <div class="cx-r"><span>Kind</span><span>{d.kind}</span></div>
-              {d.chain && <div class="cx-r"><span>Chain</span><span>{d.chain}</span></div>}
-              <div class="cx-r"><span>Tags</span><span><Tags tags={draftTags[d.slug] ?? []} /></span></div>
+              <section class="pf-c" aria-label="Other drafts">
+                <h2 class="pf-t">Other drafts</h2>
+                <nav class="sitemap">
+                  {drafts.filter((x) => x.page && x.slug !== d.slug).map((x) => <a href={`/${x.slug}/`}>{x.name}</a>)}
+                </nav>
+              </section>
+            </div>
+          </details>
+        </div>
+        <div class="pbody">
+          {dHtml && (
+            <section class="cx draft" aria-label="Page">
+              <div class="cx-h"><b>{d.name}</b><span>gokhanturhan.com/{d.slug}/</span></div>
+              <div class="cx-b prose ported" set:html={dHtml} />
             </section>
-            <section class="cx draft" aria-label="Other drafts">
-              <div class="cx-h"><b>Drafts</b><span>others</span></div>
-              {drafts.filter((x) => x.page && x.slug !== d.slug).map((x) => <div class="cx-r"><span>{x.kind}</span><span><a href={`/${x.slug}/`}>{x.name}</a></span></div>)}
-            </section>
-          </aside>
+          )}
+          {dSnap && <Snapshot snap={dSnap} />}
         </div>
       </>
     )}
