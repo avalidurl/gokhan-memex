@@ -60,7 +60,7 @@ Source repositories that were public stay public. Hugging Face models, Spaces an
 
 ## Contact
 
-Use the contact routes on the [Index](/#raises).
+Use the contact routes on the [CV](/cv/#contact).
 
 ## Indexes
 

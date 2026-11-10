@@ -474,9 +474,14 @@ body.register main a.tg[aria-current="true"], a.tg[aria-current="true"] { backgr
 .cx-r .tags { margin-top: 4px; }
 /* Publishing works */
 .es .work-cover { display: block; max-width: 100%; height: auto; border: 1px solid var(--ink); }
-.es .work-thumb { width: 64px; height: auto; border: 1px solid var(--ink); display: block; }
-.es .cx-r.withthumb { grid-template-columns: 72px 1fr; align-items: start; }
+.es .work-thumb { width: 140px; max-width: 100%; height: auto; border: 1px solid var(--ink); display: block; }
+.es .cx-r.withthumb { grid-template-columns: 140px 1fr; align-items: start; gap: 0 16px; padding: 12px 10px; }
+.es .cx-r.withthumb > :first-child { min-width: 0; overflow: visible; }
 .es .cx-b audio { width: 100%; }
+@media (max-width: 640px) {
+  .es .cx-r.withthumb { grid-template-columns: 100px 1fr; }
+  .es .work-thumb { width: 100px; }
+}
 
 /* Long values (URLs, addresses) wrap inside their box instead of spilling out. */
 .cx-r > * { min-width: 0; overflow-wrap: anywhere; }
@@ -499,3 +504,71 @@ details.cx.fold > summary.cx-h:has(em)::after { margin-left: 0; }
 details.cx.fold:not([open]) > summary.cx-h { border-bottom: 0; }
 details.cx.fold:not([open]) > summary.cx-h::after { content: "+"; }
 details.cx.fold > summary.cx-h:focus-visible { outline: 2px solid var(--ikb); outline-offset: 2px; }
+
+/* ---- Register rows shared with the homepage: journal files, product registers,
+   label/value lines, find field, notes, machine-readable blocks. Scoped to
+   a.file / a.reg so product prose (.cx-b.prose.file) keeps its own rules. ---- */
+body.register a.file, body.register a.reg,
+a.file, a.reg {
+  display: grid;
+  gap: 0 1rem;
+  align-items: baseline;
+  padding: 0.42rem 9px;
+  border-top: 1px dotted var(--ink);
+  color: inherit;
+  text-decoration: none;
+  max-width: none;
+}
+body.register main a.file, body.register main a.reg { color: inherit; text-decoration: none; }
+a.file { grid-template-columns: 6.6rem 1fr; }
+a.reg { grid-template-columns: 10.5rem 1fr 11.5rem; }
+.cx > .cx-h + a.file, .cx > .cx-h + a.reg, .cx [data-list] > a:first-child { border-top: 0; }
+a.file:hover, a.reg:hover { background: var(--wash); }
+a.file .dt, a.reg .where, .yr {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--dim);
+  font-variant-numeric: tabular-nums;
+}
+a.file .ttl, a.reg .name { font-family: var(--read); font-size: 1.02rem; line-height: 1.3; color: var(--ink); }
+a.file:hover .ttl, a.reg:hover .name { color: var(--ikb); }
+a.reg .what { font-family: var(--read); font-size: 0.98rem; line-height: 1.35; color: var(--ink); }
+.cv-line {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr;
+  gap: 0.15rem 1rem;
+  padding: 0.4rem 9px;
+  border-top: 1px dotted var(--ink);
+  font-size: 0.98rem;
+}
+.cx > .cx-h + .cv-line { border-top: 0; }
+.cv-line b { font-weight: 500; min-width: 0; overflow-wrap: anywhere; }
+.cv-line > span { font-family: var(--mono); font-size: 12px; color: var(--dim); }
+.findrow { display: flex; align-items: baseline; gap: 0.75rem; margin: 0.85rem 0 0.6rem; }
+.findrow label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); }
+body.register .findrow input[type="search"] { width: min(16rem, 60%); padding: 0.3rem 0; }
+body.register .findrow input[type="search"]:focus { outline: none; border-bottom-color: var(--ikb); }
+.empty { font-family: var(--mono); font-size: 13px; color: var(--dim); }
+body.register main p.note, .note { max-width: 38rem; color: var(--dim); font-size: 0.98rem; margin: 0.7rem 0; }
+body.register main a.more, .more { display: block; margin: 0.55rem 0 16px; font-family: var(--mono); font-size: 12.5px; }
+body.register main p.more { font-family: var(--mono); font-size: 12.5px; }
+.cx-b.more { margin: 0; }
+pre.machine {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  margin: 0;
+  padding: 0.65rem 9px;
+  color: var(--ink);
+  background: transparent;
+}
+.cx > pre.machine { border-top: 0; }
+.live { font-family: var(--mono); font-size: 10px; font-style: normal; letter-spacing: 0.06em; text-transform: uppercase; color: var(--red); margin-left: 0.4rem; }
+.cx .cx-b .subscribe { margin: 0; }
+@media (max-width: 680px) {
+  a.file, a.reg, .cv-line { grid-template-columns: 1fr; gap: 0.12rem; padding: 0.65rem 9px; }
+  a.reg .where { order: 3; }
+}
+a.file[hidden], a.reg[hidden], .cx[hidden] { display: none; }

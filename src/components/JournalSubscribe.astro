@@ -1,59 +1,75 @@
 ---
 /**
- * One-line journal subscribe: email + Subscribe + RSS. Posts to the existing
- * newsletter endpoint (api.gokhan.vc, D6 still open) with the fields its own
- * hosted form sends. Turnstile runs in interaction-only mode, so it stays
- * hidden unless a challenge is needed. If no token is available, the button
- * opens the endpoint's hosted form instead of sending an empty request.
+ * One-line subscribe, same shape as avalidurl.github.io: email + Subscribe.
+ * Native POST to the existing newsletter endpoint. No Turnstile, no extra chrome.
  */
 interface Props { where?: 'index' | 'post' }
 const { where = 'post' } = Astro.props
 const endpoint = 'https://api.gokhan.vc/newsletter/subscribe'
 ---
-<div class={`jsub jsub-${where}`} id="subscribe" data-endpoint={endpoint}>
-  <form class="jsub-form" method="POST" action={endpoint} aria-label="Subscribe to the journal by email">
-    <label class="jsub-sr" for={`jsub-email-${where}`}>Email</label>
-    <input id={`jsub-email-${where}`} class="jsub-in" type="email" name="email" required placeholder="you@email.com" autocomplete="email" />
-    <input type="hidden" name="site" value="memex" />
-    <input type="hidden" name="ts" value={String(Date.now())} data-jsub-ts />
-    <span class="jsub-hp" aria-hidden="true"><input type="text" name="company" tabindex="-1" autocomplete="off" /></span>
-    <button type="submit" class="jsub-btn">Subscribe</button>
-    <a class="jsub-rss" href="/rss.xml">RSS</a>
-    <div class="cf-turnstile jsub-ts" data-sitekey="0x4AAAAAAEG8CWZN8yq8G3kt" data-appearance="interaction-only" data-size="compact"></div>
-  </form>
-  <p class="jsub-status" role="status" aria-live="polite" data-jsub-status></p>
-</div>
-<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-<script is:inline>
-(function () {
-  document.querySelectorAll('.jsub').forEach(function (box) {
-    if (box.dataset.bound) return; box.dataset.bound = '1'
-    var form = box.querySelector('form'), status = box.querySelector('[data-jsub-status]'), ts = box.querySelector('[data-jsub-ts]')
-    if (ts) ts.value = String(Date.now())
-    form.addEventListener('submit', function (e) {
-      var tok = form.querySelector('[name="cf-turnstile-response"]')
-      if (!tok || !tok.value) {
-        e.preventDefault()
-        status.textContent = 'Opening the sign-up form…'
-        window.location.href = box.dataset.endpoint
-        return
-      }
-      status.textContent = 'Subscribing…'
-    })
-  })
-})()
-</script>
+<form
+  method="POST"
+  action={endpoint}
+  class={`subscribe subscribe-${where}`}
+  id={where === 'index' ? 'subscribe' : undefined}
+  title="Subscribe to the newsletter — occasional and low-frequency, no spam"
+>
+  <input
+    type="email"
+    name="email"
+    required
+    placeholder="you@email.com"
+    autocomplete="email"
+    aria-label="Email"
+    id={`subscribe-email-${where}`}
+  />
+  <input type="hidden" name="site" value="memex" />
+  <button type="submit">Subscribe</button>
+</form>
+
 <style>
-  .jsub { max-width: 42rem; margin: 1.25rem auto; }
-  .jsub-index { margin: 0 0 1.75rem; max-width: none; }
-  .jsub-form { position: relative; display: flex; align-items: stretch; gap: 6px; margin: 0; }
-  .jsub-in { flex: 1 1 auto; min-width: 0; padding: 7px 10px; border: 1px solid var(--ink); background: transparent; color: var(--ink); font: inherit; font-size: 15px; }
-  .jsub-btn { flex: 0 0 auto; padding: 7px 14px; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); font: 500 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
-  .jsub-btn:hover, .jsub-btn:focus-visible { background: transparent; color: var(--ink); }
-  .jsub-rss { flex: 0 0 auto; align-self: center; font: 11px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ikb); }
-  .jsub-ts { position: absolute; top: 100%; right: 0; z-index: 5; margin-top: 4px; }
-  .jsub-hp { position: absolute; left: -9999px; top: -9999px; }
-  .jsub-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-  .jsub-status { font: 11px var(--mono); margin: 4px 0 0; min-height: 0; }
-  .jsub-status:empty { display: none; }
+  .subscribe {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    max-width: 440px;
+    margin: 0;
+  }
+  .subscribe-index {
+    margin: 0 0 2rem;
+  }
+  .subscribe-post {
+    margin: 0 auto;
+  }
+  .subscribe input[type="email"] {
+    flex: 1;
+    min-width: 190px;
+    padding: 5px 12px;
+    font: inherit;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--ink, currentColor);
+    background: transparent;
+    border: 1px solid var(--ink, currentColor);
+    border-radius: 0;
+  }
+  .subscribe input[type="email"]::placeholder {
+    color: var(--dim, gray);
+  }
+  .subscribe button {
+    padding: 5px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    color: var(--paper, #fff);
+    background: var(--ink, #111);
+    border: 1px solid var(--ink, #111);
+    border-radius: 0;
+    cursor: pointer;
+  }
+  .subscribe button:hover,
+  .subscribe button:focus-visible {
+    background: transparent;
+    color: var(--ink, #111);
+  }
 </style>

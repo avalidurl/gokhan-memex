@@ -1,45 +1,24 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHead from '@/components/PageHead.astro'
 ---
 
 <BaseLayout
   title="Consulting"
   description="Strategic innovation and technology advisory."
 >
-  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
-    <header class="mb-12">
-      <h1 class="mb-4">Consulting</h1>
-      <p class="text-muted-foreground">
-        Strategic innovation and technology advisory.
-      </p>
-    </header>
-
-    <div class="space-y-12">
-      <section>
-        <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
-          Services
-        </h2>
-        <ul class="space-y-2 text-muted-foreground">
-          <li>DevOps & Infrastructure Architecture</li>
-          <li>Developer Relations Strategy</li>
-          <li>Business Development</li>
-          <li>Strategic Technology Advisory</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
-          Contact
-        </h2>
-        <p class="mb-4">
-          <a 
-            href="mailto:contact@gokhan.vc"
-            class="text-foreground hover:underline decoration-1 underline-offset-2"
-          >
-            contact@gokhan.vc
-          </a>
-        </p>
-      </section>
-    </div>
+  <div class="es">
+    <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: 'Consulting' }]} title="Consulting" lead="Strategic innovation and technology advisory." />
+    <section class="cx" aria-label="Services">
+      <div class="cx-h"><b>Services</b><em>04</em></div>
+      <div class="cx-r"><span>01</span><span>DevOps &amp; Infrastructure Architecture</span></div>
+      <div class="cx-r"><span>02</span><span>Developer Relations Strategy</span></div>
+      <div class="cx-r"><span>03</span><span>Business Development</span></div>
+      <div class="cx-r"><span>04</span><span>Strategic Technology Advisory</span></div>
+    </section>
+    <section class="cx" aria-label="Contact">
+      <div class="cx-h"><b>Contact</b></div>
+      <div class="cx-r"><span>Email</span><span><a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a></span></div>
+    </section>
   </div>
 </BaseLayout>
