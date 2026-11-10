@@ -21,7 +21,7 @@ const fmt = (n: number) => {
   if (n >= 1e3) return '$' + Math.round(n).toLocaleString('en-US')
   return '$' + Math.round(n)
 }
-const short = (c: string) => (c.startsWith('0x') ? c.slice(0, 10) : c.slice(0, 10)) + '…'
+const short = (c: string) => (c.length <= 13 ? c : c.startsWith('0x') ? `${c.slice(0, 6)}…${c.slice(-4)}` : `${c.slice(0, 6)}…${c.slice(-4)}`)
 const newest = rows.reduce((a, r) => (r.date > a ? r.date : a), '')
 ---
 
@@ -37,22 +37,19 @@ const newest = rows.reduce((a, r) => (r.date > a ? r.date : a), '')
     <span><i>Σ vol shown</i> <b data-sumvol>—</b></span>
   </div>
 
-  <details class="cr-parties" open>
-    <summary>Parties — the “By” column <small>{parties.length} wallets and signers, full addresses</small></summary>
+  <details class="cr-parties">
+    <summary>Watched addresses ({parties.length}) <small>the “By” column: full addresses, copy, explorers</small></summary>
     <ul class="cr-plist">
       {parties.map((p) => (
         <li class="cr-pw" data-pid={p.id}>
           <b class="cr-pid">{p.id}</b>
-          <div class="cr-pmain">
-            {p.label && <span class="cr-plabel">{p.label}</span>}
-            {p.address ? <code class="cr-paddr">{p.address}</code> : <code class="cr-paddr is-none">{p.short}</code>}
-            {p.note && <small>{p.note}</small>}
-            <span class="cr-pacts">
-              {p.address && <button type="button" class="cr-copy" data-copy={p.address} aria-label={`Copy ${p.id} address`}>Copy</button>}
-              {explorers(p).map((e) => <a href={e.href} rel="noopener" target="_blank">{e.label} ↗</a>)}
-            </span>
-          </div>
-          <button type="button" class="cr-party" data-by={p.id} aria-pressed="false" aria-label={`Show ${p.id} coins in the table`}><em>{byParty.get(p.id) ?? 0}</em><span>coins</span></button>
+          <span class="cr-plabel" title={p.note ?? p.label ?? ''}>{p.label ?? '—'}</span>
+          {p.address ? <code class="cr-paddr">{p.address}</code> : <code class="cr-paddr is-none" title={p.note}>{p.short}</code>}
+          <span class="cr-pacts">
+            {p.address && <button type="button" class="cr-copy" data-copy={p.address} aria-label={`Copy ${p.id} address`}>Copy</button>}
+            {explorers(p).map((e) => <a href={e.href} rel="noopener" target="_blank" title={e.label}>{e.short ?? e.label}↗</a>)}
+          </span>
+          <button type="button" class="cr-party" data-by={p.id} aria-pressed="false" aria-label={`Show ${p.id} coins in the table`} title="Show these coins in the table">{byParty.get(p.id) ?? 0}</button>
         </li>
       ))}
     </ul>
@@ -80,32 +77,33 @@ const newest = rows.reduce((a, r) => (r.date > a ? r.date : a), '')
   </div>
 
   <div class="cr-scroll">
-    <table class="cr-t" data-table-static>
+    <table class="cr-t cr-reg" data-table-static>
+      <colgroup><col class="c-n p2" /><col class="c-d p4" /><col class="c-ch" /><col class="c-l p3" /><col class="c-by" /><col class="c-t" /><col class="c-nm p4" /><col class="c-v p4" /><col class="c-ct" /></colgroup>
       <thead>
         <tr>
-          <th data-k="n" data-num aria-sort="none"><button type="button">#</button></th>
-          <th data-k="date" aria-sort="none"><button type="button">Date</button></th>
+          <th data-k="n" data-num aria-sort="none" class="p2 r"><button type="button">#</button></th>
+          <th data-k="date" aria-sort="none" class="p4"><button type="button">Date</button></th>
           <th data-k="chain" aria-sort="none"><button type="button">Chain</button></th>
-          <th data-k="launcher" aria-sort="none"><button type="button">Launcher</button></th>
+          <th data-k="launcher" aria-sort="none" class="p3"><button type="button">Launcher</button></th>
           <th data-k="by" aria-sort="none"><button type="button">By</button></th>
           <th data-k="ticker" aria-sort="none"><button type="button">Ticker</button></th>
-          <th data-k="name" aria-sort="none"><button type="button">Name</button></th>
-          <th data-k="vol" data-num aria-sort="none" class="r"><button type="button">Vol</button></th>
+          <th data-k="name" aria-sort="none" class="p4"><button type="button">Name</button></th>
+          <th data-k="vol" data-num aria-sort="none" class="r p4"><button type="button">Vol</button></th>
           <th data-k="contract" aria-sort="none"><button type="button">Contract</button></th>
         </tr>
       </thead>
       <tbody data-rows>
         {rows.map((r) => (
           <tr data-n={r.n} data-date={r.date} data-chain={r.chain} data-launcher={r.launcher} data-by={r.by} data-ticker={r.ticker} data-name={r.name} data-vol={r.vol} data-contract={r.contract.toLowerCase()} data-s={`${r.ticker} ${r.name} ${r.contract}`.toLowerCase()}>
-            <td class="n">{r.n}</td>
-            <td class="d">{r.date}</td>
-            <td>{r.chain}</td>
-            <td>{r.launcher}</td>
+            <td class="n r p2">{r.n}</td>
+            <td class="d p4">{r.date}</td>
+            <td title={r.chain}>{r.chain}</td>
+            <td class="p3" title={r.launcher}>{r.launcher}</td>
             <td class="by">{r.by}</td>
-            <td class="sym">{r.ticker}</td>
-            <td class="nm" title={r.name}>{r.name}</td>
-            <td class="r">{fmt(r.vol)}</td>
-            <td class="ct"><a href={r.url} rel="noopener">{short(r.contract)}</a></td>
+            <td class="sym" title={r.ticker}>{r.ticker}</td>
+            <td class="nm p4" title={r.name}>{r.name}</td>
+            <td class="r p4">{fmt(r.vol)}</td>
+            <td class="ct"><a href={r.url} rel="noopener" title={r.contract}>{short(r.contract)}</a></td>
           </tr>
         ))}
       </tbody>

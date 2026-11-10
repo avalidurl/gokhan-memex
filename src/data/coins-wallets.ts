@@ -2,15 +2,15 @@
 export interface Party { id: string; label?: string; address?: string; short: string; note?: string; chain?: 'evm' | 'solana' | 'canton'; link?: string }
 
 /** Explorer links for a party: EVM wallets get Base, Robinhood Chain and Ethereum; Solana gets Solscan; Canton gets CCView. */
-export function explorers(p: Party): { label: string; href: string }[] {
-  if (p.link) return [{ label: 'profile', href: p.link }]
+export function explorers(p: Party): { label: string; short?: string; href: string }[] {
+  if (p.link) return [{ label: 'Profile', short: 'profile', href: p.link }]
   if (!p.address) return []
-  if (p.chain === 'solana') return [{ label: 'Solscan', href: `https://solscan.io/account/${p.address}` }, { label: 'pump.fun', href: 'https://pump.fun/profile/gokhan' }]
-  if (p.chain === 'canton') return [{ label: 'CCView', href: `https://ccview.io/party/${p.address}` }]
+  if (p.chain === 'solana') return [{ label: 'Solscan', short: 'SOL', href: `https://solscan.io/account/${p.address}` }, { label: 'pump.fun profile', short: 'pump', href: 'https://pump.fun/profile/gokhan' }]
+  if (p.chain === 'canton') return [{ label: 'CCView (Canton explorer)', short: 'CCV', href: `https://ccview.io/party/${p.address}` }]
   return [
-    { label: 'Basescan', href: `https://basescan.org/address/${p.address}` },
-    { label: 'Robinhood', href: `https://robinhoodchain.blockscout.com/address/${p.address}` },
-    { label: 'Etherscan', href: `https://etherscan.io/address/${p.address}` },
+    { label: 'Basescan', short: 'BASE', href: `https://basescan.org/address/${p.address}` },
+    { label: 'Robinhood Chain explorer', short: 'RH', href: `https://robinhoodchain.blockscout.com/address/${p.address}` },
+    { label: 'Etherscan', short: 'ETH', href: `https://etherscan.io/address/${p.address}` },
   ]
 }
 
