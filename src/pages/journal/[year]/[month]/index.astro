@@ -2,6 +2,7 @@
 import { type CollectionEntry, getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PostTitle from '@/components/PostTitle.astro'
+import PageHead from '@/components/PageHead.astro'
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog')
@@ -50,6 +51,7 @@ const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
                    'July', 'August', 'September', 'October', 'November', 'December']
 
 const monthName = monthNames[month - 1]
+const iso = (d: Date | string) => new Date(d).toISOString().slice(0, 10)
 ---
 
 <BaseLayout
@@ -57,51 +59,26 @@ const monthName = monthNames[month - 1]
   description={`${monthPosts.length} posts published in ${monthName} ${year}`}
   robots="noindex, follow"
 >
-  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
-    <!-- Header -->
-    <header class="mb-12">
-      <h1 class="mb-4">{monthName} {year}</h1>
-      <p class="text-muted-foreground">
-        {monthPosts.length} post{monthPosts.length !== 1 ? 's' : ''} published
-      </p>
-    </header>
+  <div class="es">
+    <PageHead
+      crumbs={[{ label: 'Journal', href: '/journal/' }, { label: String(year), href: `/journal/${year}/` }, { label: monthName }]}
+      title={`${monthName} ${year}`}
+      count={monthPosts.length}
+      lead={`${monthPosts.length} post${monthPosts.length !== 1 ? 's' : ''} filed.`}
+    />
 
     {monthPosts.length > 0 ? (
-      <ul class="space-y-3">
-        {monthPosts.map(post => (
-          <li>
-            <a 
-              href={`/journal/${post.slug}/`}
-              class="group block"
-            >
-              <PostTitle title={post.data.title} class="text-foreground group-hover:underline decoration-1 underline-offset-2" />
-              <span class="block text-sm text-muted-foreground mt-0.5">
-                {post.data.description}
-              </span>
-            </a>
-          </li>
+      <section class="cx" aria-label={`${monthName} ${year}`}>
+        <div class="cx-h"><b>{monthName}</b><span><a href={`/journal/${year}/`}>{year}</a></span><em>{monthPosts.length}</em></div>
+        {monthPosts.map((post) => (
+          <a class="file" href={`/journal/${post.slug}/`}>
+            <span class="dt">{iso(post.data.publishDate)}</span>
+            <PostTitle title={post.data.title} class="ttl" />
+          </a>
         ))}
-      </ul>
-    ) : (
-      <p class="text-muted-foreground">No posts found for {monthName} {year}.</p>
-    )}
+      </section>
+    ) : <p class="note">No posts found for {monthName} {year}.</p>}
 
-    <!-- Navigation -->
-    <footer class="mt-12 pt-8 border-t border-border">
-      <div class="flex justify-between">
-        <a 
-          href={`/journal/${year}/`}
-          class="text-sm text-muted-foreground hover:text-foreground"
-        >
-          ← {year}
-        </a>
-        <a 
-          href="/archive"
-          class="text-sm text-muted-foreground hover:text-foreground"
-        >
-          Archive
-        </a>
-      </div>
-    </footer>
+    <a class="more" href={`/journal/${year}/`}>{year}</a>
   </div>
 </BaseLayout>

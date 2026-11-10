@@ -2,6 +2,7 @@
 import { type CollectionEntry, getCollection } from 'astro:content'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PostTitle from '@/components/PostTitle.astro'
+import PageHead from '@/components/PageHead.astro'
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog')
@@ -46,59 +47,34 @@ yearPosts.forEach(post => {
 
 // Sort months in descending order (most recent first)
 const sortedMonths: [number, PostType[]][] = Array.from(postsByMonth.entries()).sort((a, b) => b[0] - a[0])
+const iso = (d: Date | string) => new Date(d).toISOString().slice(0, 10)
 ---
 
 <BaseLayout
-  title={`${year}`}
+  title={`Journal ${year}`}
   description={`${yearPosts.length} posts published in ${year}`}
   robots="noindex, follow"
 >
-  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
-    <!-- Header -->
-    <header class="mb-12">
-      <h1 class="mb-4">{year}</h1>
-      <p class="text-muted-foreground">
-        {yearPosts.length} post{yearPosts.length !== 1 ? 's' : ''} published
-      </p>
-    </header>
+  <div class="es">
+    <PageHead
+      crumbs={[{ label: 'Journal', href: '/journal/' }, { label: String(year) }]}
+      title={String(year)}
+      count={yearPosts.length}
+      lead={`${yearPosts.length} post${yearPosts.length !== 1 ? 's' : ''} filed in ${year}, by month.`}
+    />
 
-    {yearPosts.length > 0 ? (
-      <div class="space-y-12">
-        {sortedMonths.map(([monthIndex, monthPosts]) => (
-          <section>
-            <h2 class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
-              {monthNames[monthIndex]}
-            </h2>
-            <ul class="space-y-2">
-              {monthPosts.map(post => (
-                <li>
-                  <a 
-                    href={`/journal/${post.slug}/`}
-                    class="group flex items-baseline gap-3 py-1"
-                  >
-                    <PostTitle title={post.data.title} class="text-foreground group-hover:underline decoration-1 underline-offset-2" />
-                    <span class="text-sm text-muted-foreground shrink-0">
-                      {new Date(post.data.publishDate).getDate()}
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </section>
+    {yearPosts.length > 0 ? sortedMonths.map(([monthIndex, monthPosts]) => (
+      <details class="cx fold" open>
+        <summary class="cx-h"><b><a href={`/journal/${year}/${String(monthIndex + 1).padStart(2, '0')}/`}>{monthNames[monthIndex]}</a></b><em>{monthPosts.length}</em></summary>
+        {monthPosts.map((post) => (
+          <a class="file" href={`/journal/${post.slug}/`}>
+            <span class="dt">{iso(post.data.publishDate)}</span>
+            <PostTitle title={post.data.title} class="ttl" />
+          </a>
         ))}
-      </div>
-    ) : (
-      <p class="text-muted-foreground">No posts found for {year}.</p>
-    )}
+      </details>
+    )) : <p class="note">No posts found for {year}.</p>}
 
-    <!-- Navigation -->
-    <footer class="mt-12 pt-8 border-t border-border">
-      <a 
-        href="/archive"
-        class="text-sm text-muted-foreground hover:text-foreground"
-      >
-        ← Back to Archive
-      </a>
-    </footer>
+    <a class="more" href="/journal/">All years</a>
   </div>
 </BaseLayout>

@@ -1,29 +1,17 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import PageHead from '@/components/PageHead.astro'
 ---
 
 <BaseLayout
   title="Hale Anbar"
   description="Artist and researcher exploring intersections of technology and creative practice"
 >
-  <div class="mx-auto max-w-2xl px-6 py-12 lg:py-16">
-    <header class="mb-12">
-      <h1 class="mb-4">Hale Anbar</h1>
-      <p class="text-muted-foreground">
-        Artist and researcher exploring intersections of technology and creative practice.
-      </p>
-    </header>
-
-    <div class="py-12 text-center">
-      <p class="text-muted-foreground mb-8">
-        Page coming soon.
-      </p>
-      <a 
-        href="/lists"
-        class="text-foreground hover:underline decoration-1 underline-offset-2"
-      >
-        ← Back to lists
-      </a>
-    </div>
+  <div class="es">
+    <PageHead crumbs={[{ label: 'Lists', href: '/lists/' }, { label: 'Hale Anbar' }]} title="Hale Anbar" lead="Artist and researcher exploring intersections of technology and creative practice." />
+    <section class="cx" aria-label="Hale Anbar">
+      <div class="cx-h"><b>Page</b><span>in preparation</span></div>
+      <div class="cx-b"><p>Page coming soon. <a href="/lists/">Back to lists</a>.</p></div>
+    </section>
   </div>
 </BaseLayout>
