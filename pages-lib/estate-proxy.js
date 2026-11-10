@@ -92,6 +92,9 @@ export async function proxy(context, { prefix, host, name }) {
     if (wantsHtml) return fallback(context, null)
     return Response.json({ error: `The ${name} service did not answer (${e && e.name === 'TimeoutError' ? 'timeout' : 'network error'}). Try again in a minute.` }, { status: 504, headers: { 'cache-control': 'no-store' } })
   }
+  // A retired origin that now redirects back to this site would loop; serve the built copy.
+  const loc = res.headers.get('location') || ''
+  if (res.status >= 300 && res.status < 400 && /^https?:\/\/(?:www\.)?gokhanturhan\.com(?:[\/?#]|$)/i.test(loc)) return context.next()
   const ct = res.headers.get('content-type') || ''
   if (wantsHtml && res.status >= 500) return fallback(context, { res, prefix, host, name })
 
