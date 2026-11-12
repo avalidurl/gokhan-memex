@@ -317,6 +317,78 @@ def prepare_curb_agents():
         write(OUT / "curb" / slug / "index.html", html)
 
 
+
+# Vocs docs: do not put the bar in the initial HTML (React hydration #418).
+# Inject after mount and set --vocs-spacing-banner (Vocs's own banner offset)
+# to the measured bar height so fixed logo / top nav / sidebar / content
+# all shift down together on desktop and mobile.
+VOCS_BAR_CSS = (
+    "html{--gt-bar-h:31px;--vocs-spacing-banner:var(--gt-bar-h)!important}"
+    ".gt-bar{all:initial;display:block;box-sizing:border-box;width:100%;"
+    "position:fixed;top:0;left:0;right:0;z-index:99999;"
+    "border-bottom:1px solid #141414;background:#f6f5f1;color:#141414;"
+    "font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;padding:6px 14px;"
+    "letter-spacing:.02em}"
+    ".gt-bar a{color:#002fa7;text-decoration:none}"
+    ".gt-bar a:hover{text-decoration:underline}.gt-bar b{font-weight:600}"
+    "@media (prefers-color-scheme:dark){.gt-bar{background:#141414;color:#f3f2ec;"
+    "border-color:#f3f2ec}.gt-bar a{color:#8eb0ff}}"
+)
+
+
+def vocs_bar_script(prefix: str, name: str) -> str:
+    import json
+    html = bar(prefix, name)
+    lit = json.dumps(html)
+    return (
+        "<script>(function(){var HTML=" + lit + ";"
+        "function sync(){var el=document.querySelector('.gt-bar');if(!el)return;"
+        "var h=Math.ceil(el.getBoundingClientRect().height);"
+        "document.documentElement.style.setProperty('--gt-bar-h',h+'px');}"
+        "function place(){"
+        "if(!document.querySelector('.gt-bar')){"
+        "var d=document.createElement('div');d.innerHTML=HTML;"
+        "var el=d.firstElementChild;if(!el||!document.body)return;"
+        "document.body.insertBefore(el,document.body.firstChild);}"
+        "sync();}"
+        "if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',place);"
+        "else place();"
+        "new MutationObserver(place).observe(document.documentElement,{childList:true,subtree:true});"
+        "window.addEventListener('resize',sync);"
+        "setTimeout(place,0);setTimeout(place,200);setTimeout(place,800);"
+        "})();</script>"
+    )
+
+
+def add_vocs_chrome(html: str, prefix: str, name: str) -> str:
+    html = MAILBOX.sub("contact@gokhan.vc", html)
+    # never leave a static first-child bar — it trips React #418
+    html = re.sub(
+        r'(<body[^>]*>)\s*<div class="gt-bar"[^>]*>.*?</div>',
+        r'\1',
+        html,
+        count=1,
+        flags=re.S,
+    )
+    if 'gt-bar{' not in html:
+        if re.search(r"</head>", html, re.I):
+            html = re.sub(
+                r"</head>",
+                f"<style>{VOCS_BAR_CSS}</style>\n</head>",
+                html,
+                count=1,
+                flags=re.I,
+            )
+    if "setProperty('--gt-bar-h'" not in html:
+        script = vocs_bar_script(prefix, name)
+        idx = html.lower().rfind("</body>")
+        if idx >= 0:
+            html = html[:idx] + script + "\n" + html[idx:]
+        else:
+            html += script
+    return html
+
+
 def prepare_curb_docs():
     src = Path("/tmp/builds/inference-swap/dist/public")
     if not src.exists():
@@ -339,11 +411,7 @@ def prepare_curb_docs():
             sub = _canonical_sub(rel)
             # already prefixed /curb/docs/ — only add chrome; process_html
             # ATTR_RE skips "curb" so hrefs stay, FETCH_RE could double.
-            html = MAILBOX.sub("contact@gokhan.vc", html)
-            if "gt-bar" not in html:
-                if re.search(r"</head>", html, re.I):
-                    html = re.sub(r"</head>", f"<style>{BAR_CSS}</style>\n</head>", html, count=1, flags=re.I)
-                html = re.sub(r"(<body[^>]*>)", rf"\1\n{bar('/curb', 'CURB')}", html, count=1, flags=re.I)
+            html = add_vocs_chrome(html, "/curb", "CURB")
             if re.search(r'rel=["\']canonical["\']', html, re.I):
                 html = re.sub(
                     r'(<link\s+rel=["\']canonical["\']\s+href=["\'])[^"\']+(["\'])',
@@ -376,11 +444,7 @@ def prepare_ishtar_docs():
             html = p.read_text(encoding="utf-8", errors="replace")
             html = html.replace('href="/favicon.svg"', 'href="/ishtar/docs/favicon.svg"')
             html = html.replace("href='/favicon.svg'", "href='/ishtar/docs/favicon.svg'")
-            html = MAILBOX.sub("contact@gokhan.vc", html)
-            if "gt-bar" not in html:
-                if re.search(r"</head>", html, re.I):
-                    html = re.sub(r"</head>", f"<style>{BAR_CSS}</style>\n</head>", html, count=1, flags=re.I)
-                html = re.sub(r"(<body[^>]*>)", rf"\1\n{bar('/ishtar', 'Ishtar')}", html, count=1, flags=re.I)
+            html = add_vocs_chrome(html, "/ishtar", "Ishtar")
             sub = _canonical_sub(rel)
             if re.search(r'rel=["\']canonical["\']', html, re.I):
                 html = re.sub(
