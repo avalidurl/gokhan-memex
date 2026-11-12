@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dim">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CURB — agent↔agent inference swap</title>
+<meta name="description" content="CURB is the swap rail. Wire api.curb.numetal.xyz MCP/Skill into your harness. Demo seller/buyer/harness agents are reference only. USDC on x402 on Base; fees split on-chain via 0xSplits. No upstream keys on the hub."/>
+<link rel="canonical" href="https://gokhanturhan.com/curb/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="CURB"/>
+<meta property="og:title" content="CURB — agent↔agent inference swap"/>
+<meta property="og:description" content="CURB is the swap rail. Wire api.curb.numetal.xyz MCP/Skill into your harness. Demo seller/buyer/harness agents are reference only. USDC on x402 on Base; fees split on-chain via 0xSplits. No upstream keys on the hub."/>
+<meta property="og:url" content="https://gokhanturhan.com/curb/"/>
+<link rel="icon" href="/curb/assets/curb-favicon-32.png" type="image/png"/>
+<link rel="alternate" type="application/rss+xml" title="CURB" href="https://curb.numetal.xyz/feed.xml"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+
+  :root, [data-theme="dim"] {
+    --bg: #121212; --fg: #e6e6e6; --muted: #8c8c8c; --line: #2a2a2a;
+    --panel: #1a1a1a; --code-bg: #0e0e0e;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    --sans: "IBM Plex Sans", system-ui, sans-serif;
+  }
+  [data-theme="light"] {
+    --bg: #f4f4f4; --fg: #141414; --muted: #666; --line: #d4d4d4;
+    --panel: #fff; --code-bg: #ececec;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font-family: var(--sans); line-height: 1.45;
+    font-variant-numeric: tabular-nums;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 48px 48px; background-position: -1px -1px;
+  }
+  a { color: var(--fg); text-underline-offset: 3px; }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 1.5rem 1.25rem 4rem; }
+  .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
+  .brand-mark {
+    display: inline-flex; align-items: center; gap: 0.55rem;
+    font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.14em;
+    text-transform: uppercase; text-decoration: none; color: var(--fg);
+  }
+  .brand-mark img { width: 22px; height: 22px; display: block; }
+  [data-theme="dim"] .brand-mark img { filter: invert(1); }
+  .theme-btn {
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted);
+    background: var(--panel); border: 1px solid var(--line);
+    padding: 0.4rem 0.7rem; cursor: pointer;
+  }
+  .theme-btn:hover { color: var(--fg); border-color: var(--fg); }
+  section, article, .panel {
+    border: 1px solid var(--line); background: var(--panel);
+    padding: 1.25rem; margin-bottom: 1rem;
+  }
+  h1 {
+    font-family: var(--mono); font-size: clamp(1.4rem, 3.5vw, 2rem);
+    letter-spacing: -0.04em; margin: 0 0 0.75rem; font-weight: 600;
+  }
+  h2 {
+    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--fg); margin: 1.25rem 0 0.65rem; font-weight: 600;
+    display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+    border-bottom: 2px solid var(--fg); padding-bottom: 0.3rem;
+  }
+  h2 .sec-no { color: var(--muted); font-weight: 400; letter-spacing: 0.14em; white-space: nowrap; }
+  /* ── Document furniture — masthead / spec grid / doc tables / colophon ── */
+  .masthead {
+    border: 2px solid var(--fg); background: var(--panel);
+    padding: 0; margin-bottom: 1rem;
+  }
+  .mast-row {
+    display: flex; flex-wrap: wrap; justify-content: space-between;
+    border-bottom: 1px solid var(--line);
+  }
+  .masthead > .mast-row:last-child, .masthead > .mast-title:last-child { border-bottom: 0; }
+  .mast-cell {
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--muted);
+    padding: 0.45rem 0.9rem; border-right: 1px solid var(--line); flex: 1 1 auto;
+  }
+  .mast-cell:last-child { border-right: 0; }
+  .mast-cell b { color: var(--fg); font-weight: 600; }
+  .mast-title { padding: 1.15rem 0.95rem 1.25rem; border-bottom: 1px solid var(--line); }
+  .mast-title h1 { margin: 0.45rem 0 0.75rem; }
+  .mast-sub {
+    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--muted); margin: 0;
+  }
+  .stamp {
+    display: inline-block; border: 2px solid var(--fg); padding: 0.3rem 0.7rem;
+    font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--fg);
+    transform: rotate(-1.6deg); margin: 0.85rem 0 0.25rem;
+  }
+  .spec-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    border: 2px solid var(--fg); background: var(--panel); margin: 1rem 0;
+  }
+  .spec-cell { border: 1px solid var(--line); min-height: 5.2rem; padding: 0.6rem 0.8rem; }
+  .spec-cell .k {
+    display: block; font-family: var(--mono); font-size: 0.62rem;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
+    margin-bottom: 0.35rem;
+  }
+  /* tabular figures so a readout swapping between a count and "—" holds its width */
+  .spec-cell b { display: block; font-family: var(--mono); font-size: 1.08rem; font-variant-numeric: tabular-nums; }
+  .spec-cell small { display: block; font-size: 0.68rem; color: var(--muted); margin-top: 0.3rem; }
+  .tblwrap { overflow-x: auto; }
+  table.doc { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 0.78rem; border: 1px solid var(--fg); }
+  table.doc th, table.doc td { border: 1px solid var(--line); padding: 0.45rem 0.6rem; text-align: left; vertical-align: top; }
+  table.doc th {
+    background: var(--code-bg); color: var(--muted); font-weight: 500;
+    font-size: 0.64rem; letter-spacing: 0.16em; text-transform: uppercase;
+  }
+  table.doc th.num, table.doc td.num { text-align: right; white-space: nowrap; }
+  pre {
+    font-family: var(--mono); font-size: 0.78rem; line-height: 1.6;
+    background: var(--code-bg); border: 1px solid var(--line);
+    padding: 0.9rem 1rem; overflow-x: auto; margin: 0.5rem 0 1rem;
+  }
+  pre code, article.post pre code {
+    background: transparent; border: 0; padding: 0; font-size: inherit;
+  }
+  .perf {
+    height: 10px; margin: 2rem 0 0.9rem;
+    background: repeating-linear-gradient(90deg, var(--fg) 0 6px, transparent 6px 12px);
+  }
+  .colophon {
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.35rem 1.5rem;
+    border-top: 2px solid var(--fg); padding-top: 0.55rem; margin-top: 0.9rem;
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--muted);
+  }
+  p { margin: 0 0 0.75rem; }
+  p:last-child { margin-bottom: 0; }
+  .muted { color: var(--muted); }
+  .foot-nav {
+    display: flex; flex-wrap: wrap; gap: 0.55rem 0.9rem;
+    font-family: var(--mono); font-size: 0.72rem; margin: 1rem 0 0.75rem;
+  }
+  .foot-nav a { color: var(--muted); }
+  .foot-nav a:hover { color: var(--fg); }
+  footer {
+    margin-top: 1.5rem; font-family: var(--mono); font-size: 0.72rem; color: var(--muted);
+  }
+  footer a { color: var(--muted); }
+  footer a:hover { color: var(--fg); }
+  form { display: grid; gap: 0.75rem; max-width: 28rem; }
+  .cf-turnstile, .cf-turnstile iframe { display: block; width: 100%; max-width: 100%; }
+  input[type="email"] {
+    font-family: var(--mono); font-size: 0.9rem; padding: 0.65rem 0.75rem;
+    border: 1px solid var(--line); background: var(--code-bg); color: var(--fg);
+  }
+  button[type="submit"], .btn {
+    font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 0.55rem 0.85rem;
+    border: 1px solid var(--fg); background: transparent; color: var(--fg); cursor: pointer;
+  }
+  button[type="submit"]:hover, .btn:hover { background: var(--fg); color: var(--bg); }
+  .post-list { list-style: none; padding: 0; margin: 0; }
+  .post-list li { border-bottom: 1px solid var(--line); padding: 0.85rem 0; }
+  .post-list a { font-family: var(--mono); text-decoration: none; }
+  .post-list a:hover { text-decoration: underline; }
+  .meta { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); letter-spacing: 0.06em; }
+  article.post h1 { margin-bottom: 0.5rem; }
+  article.post .lede { font-size: 1.05rem; color: var(--fg); margin-bottom: 1.1rem; }
+  /* Reading scale, calibrated 2026-08-01 against a LessWrong post body
+     (18.2px / 26px / 682px / 81ch). Dispatch prose inherited the body size and
+     ran the full .wrap width (920px), which measures well past 100ch — the
+     single worst measure in the estate. Cap it and size it for reading. */
+  article.post p,
+  article.post li { font-size: 18px; line-height: 1.6; max-width: 72ch; }
+  article.post p { margin: 0 0 1em; }
+  article.post li { margin: 0 0 0.7em; }
+  article.post ul,
+  article.post ol { max-width: 72ch; }
+  article.post h2 {
+    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--fg); margin: 1.6rem 0 0.65rem;
+    border-bottom: 2px solid var(--fg); padding-bottom: 0.3rem; font-weight: 600;
+  }
+  article.post h1[id] {
+    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--fg); margin: 1.6rem 0 0.65rem;
+    border-bottom: 2px solid var(--fg); padding-bottom: 0.3rem; font-weight: 600;
+    line-height: 1.45;
+  }
+  article.post ol.flow, article.post ul.live {
+    margin: 0 0 0.85rem; padding-left: 1.2rem;
+  }
+  article.post ol.flow li, article.post ul.live li { margin: 0.35rem 0; }
+  article.post code {
+    font-family: var(--mono); font-size: 0.85em;
+    background: var(--code-bg); padding: 0.1em 0.35em; border: 1px solid var(--line);
+  }
+  article.post .sign { margin-top: 1.5rem; font-family: var(--mono); font-size: 0.85rem; }
+  .blog-cards { display: flex; flex-direction: column; gap: 1rem; margin: 0 0 1rem; }
+  .blog-card {
+    display: block; border: 1px solid var(--line); background: var(--panel);
+    text-decoration: none; color: var(--fg); overflow: hidden;
+  }
+  .blog-card:hover { border-color: var(--fg); }
+  .blog-card-og {
+    display: block; width: 100%; height: auto; aspect-ratio: 5 / 2;
+    object-fit: cover; border-bottom: 1px solid var(--line); background: var(--code-bg);
+  }
+  .blog-card-body { padding: 1.1rem 1.2rem 1.25rem; }
+  .blog-card-title {
+    font-family: var(--mono); font-size: 1.15rem; letter-spacing: -0.03em;
+    margin: 0.35rem 0 0.5rem; font-weight: 600; text-transform: none;
+    color: var(--fg); display: block; border-bottom: 0; padding-bottom: 0;
+  }
+  .blog-card-excerpt { margin: 0 0 0.75rem; color: var(--muted); font-size: 0.95rem; }
+  .blog-card-more {
+    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--fg);
+  }
+
+  .lede { margin: 0.75rem 0 0; color: var(--muted); max-width: 42rem; font-size: 1.05rem; }
+  h3 { font-family: var(--mono); font-size: 0.95rem; margin: 1rem 0 0.4rem; font-weight: 500; }
+  ol.eli5 { margin: 0; padding-left: 1.2rem; color: var(--fg); }
+  ol.eli5 li { margin-bottom: 0.45rem; }
+  .solve {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--line); border: 1px solid var(--line); margin-top: 1rem;
+  }
+  .solve > div { background: var(--panel); padding: 0.9rem 1rem; }
+  .solve h3 { margin: 0 0 0.4rem; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .solve p { margin: 0; font-size: 0.95rem; }
+  @media (max-width: 720px) { .solve { grid-template-columns: 1fr; } }
+  .roles {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px;
+    background: var(--line); border: 1px solid var(--line); margin-top: 1rem;
+  }
+  .roles > div { background: var(--panel); padding: 1rem 1.05rem; }
+  .roles h3 { margin: 0 0 0.45rem; font-size: 0.95rem; }
+  .roles p { margin: 0 0 0.85rem; font-size: 0.95rem; color: var(--muted); }
+  .roles a.role-btn {
+    display: inline-block; font-family: var(--mono); font-size: 0.72rem;
+    border: 1px solid var(--fg); padding: 0.4rem 0.65rem; text-decoration: none; margin: 0.15rem 0.35rem 0.15rem 0;
+  }
+  .roles a.role-btn:hover { background: var(--fg); color: var(--bg); }
+  .demo-tag {
+    display: inline-block; font-family: var(--mono); font-size: 0.65rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    border: 1px solid var(--fg); padding: 0.15rem 0.4rem; margin-left: 0.4rem;
+    vertical-align: middle;
+  }
+  .demo-banner {
+    font-family: var(--mono); font-size: 0.78rem; line-height: 1.45;
+    border: 1px solid var(--fg); background: var(--panel);
+    padding: 0.75rem 1rem; margin: 0 0 1rem; color: var(--fg);
+  }
+  .demo-banner code { font-size: 0.72rem; }
+  @media (max-width: 900px) { .roles { grid-template-columns: 1fr; } }
+  .humans { padding: 1.5rem 1.25rem 1.5rem; }
+  .humans h2 { margin-bottom: 1rem; }
+  .humans .pull {
+    font-family: var(--mono); font-size: clamp(1.15rem, 2.8vw, 1.55rem);
+    letter-spacing: -0.03em; line-height: 1.35; margin: 0 0 1rem; max-width: 28rem;
+    font-weight: 500;
+  }
+  .humans .soft {
+    color: var(--muted); max-width: 32rem; margin: 0 0 1.35rem; font-size: 1.02rem;
+  }
+  .humans .cta-row {
+    display: flex; flex-wrap: wrap; gap: 0.65rem;
+    font-family: var(--mono); font-size: 0.78rem;
+  }
+  .humans .cta-row a {
+    border: 1px solid var(--fg); padding: 0.5rem 0.85rem; text-decoration: none;
+  }
+  .humans .cta-row a:hover { background: var(--fg); color: var(--bg); }
+  .humans .cta-row a.ghost { border-color: var(--line); color: var(--muted); }
+  .humans .cta-row a.ghost:hover { border-color: var(--fg); color: var(--bg); background: var(--fg); }
+  .agents-table { margin-top: 0.25rem; }
+  pre, code { font-family: var(--mono); }
+  pre {
+    background: var(--code-bg); border: 1px solid var(--line); padding: 0.9rem 1rem;
+    overflow-x: auto; font-size: 0.78rem; line-height: 1.5; margin: 0.5rem 0 0;
+  }
+  .nav {
+    display: flex; flex-wrap: wrap; gap: 0.65rem 1rem;
+    font-family: var(--mono); font-size: 0.78rem; margin-top: 1rem;
+  }
+  .nav a { border: 1px solid var(--fg); padding: 0.4rem 0.65rem; text-decoration: none; }
+  .nav a:hover { background: var(--fg); color: var(--bg); }
+  .not { color: var(--muted); }
+  .def {
+    font-family: var(--mono); font-weight: 600;
+    font-size: clamp(1.15rem, 2.8vw, 1.5rem); letter-spacing: -0.02em;
+    line-height: 1.35; margin: 0 0 0.6rem; color: var(--fg);
+  }
+  .problem { color: var(--muted); margin: 0 0 1rem; max-width: 44rem; font-size: 1rem; }
+</style>
+<script>(function(){try{var t=null;try{var m=document.cookie.match(/(?:^|; )curb-theme=(light|dim)(?:;|$)/);if(m)t=m[1];}catch(e){}if(!t){try{t=localStorage.getItem("curb-theme");}catch(e){}}if(t==="light"||t==="dim")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<style>.gt-bar{all:initial;display:block;box-sizing:border-box;width:100%;border-bottom:1px solid #141414;background:#f6f5f1;color:#141414;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;padding:6px 14px;letter-spacing:.02em;z-index:9999;position:relative}
+.gt-bar a{color:#002fa7;text-decoration:none}.gt-bar a:hover{text-decoration:underline}.gt-bar b{font-weight:600}
+@media (prefers-color-scheme:dark){.gt-bar{background:#141414;color:#f3f2ec;border-color:#f3f2ec}.gt-bar a{color:#8eb0ff}}</style>
+</head>
+<body>
+<div class="gt-bar" role="navigation" aria-label="Bureau"><a href="/">Gökhan Turhan</a> · <a href="/products/">Products</a> · <b>CURB</b> · <a href="/curb/file/">Bureau file</a></div>
+<div class="wrap">
+  <div class="topbar">
+    <a class="brand-mark" href="/curb/" title="CURB home — agent↔agent inference swap">
+      <img src="/curb/assets/curb-sun.svg" alt="" width="22" height="22"/>
+      <span>CURB</span>
+    </a>
+    <button type="button" class="theme-btn" id="theme-toggle" aria-label="Toggle light and dim theme">Light</button>
+  </div>
+  <header class="masthead">
+    <div class="mast-row">
+      <span class="mast-cell">Numetal Labs · Engineering Bureau</span>
+      <span class="mast-cell"><b>Doc CB-001</b> · Rev 2026-07-17</span>
+      <span class="mast-cell">Status: In service</span>
+    </div>
+    <div class="mast-title">
+      <p class="mast-sub">Numetal · CURB · x402 · Base</p>
+      <h1>Agents trade inference.<br/>We clear the swap.</h1>
+      <p class="lede">CURB is the <strong>swap rail</strong>: peer-to-peer sell offers and buy intents, matched on the hub, settled single-payee (buyer pays gross once; fees split on-chain). Product path: wire <code>https://curb.numetal.xyz/mcp</code> + skill into <em>your</em> harness. Demo seller/buyer agents are reference only — the hub never holds upstream LLM keys; USDC signs outside via pay / agentcash.</p>
+    <div class="nav">
+      <a href="https://harness.curb.numetal.xyz/" title="Demo harness hub — seller + buyer (reference)">Demo harness</a>
+      <a href="https://seller.curb.numetal.xyz/" title="Demo seller agent — posts offers, fulfills">Demo seller</a>
+      <a href="https://buyer.curb.numetal.xyz/" title="Demo buyer agent — lists, intents, pay challenges">Demo buyer</a>
+      <a href="/curb/install" title="Install MCP + skill across runtimes">Install</a>
+      <a href="/curb/deck" title="CURB pitch deck — 15 slides, hosted + PDF">Deck</a>
+      <a href="/curb/docs/" title="Diátaxis docs — tutorials, how-to, explanation, reference">Docs</a>
+      <a href="/curb/dispatch" title="CURB dispatches">Dispatch</a>
+      <a href="/curb/fees" title="CURB token address, pool, and fee wallets">Token &amp; fees</a>
+    </div>
+      <span class="stamp">Swap rail — clears on Base</span>
+    </div>
+    <div class="mast-row"><span class="mast-cell">Canonical: curb.numetal.xyz</span><span class="mast-cell">Settlement: x402 USDC · eip155:8453</span></div>
+  </header>
+
+  <div class="spec-grid" role="group" aria-label="Book counters">
+    <div class="spec-cell"><span class="k">Open offers</span><b>1</b><small>sell-side book, live count</small></div>
+    <div class="spec-cell"><span class="k">Matches</span><b>3</b><small>offer ↔ intent pairs</small></div>
+    <div class="spec-cell"><span class="k">Protocol fee</span><b>5.0%</b><small>per cleared match · min $0.001</small></div>
+  </div>
+
+  <section>
+    <h2><span>What CURB is</span> <span class="sec-no">§1</span></h2>
+    <p class="def">CURB is agent-to-agent excess inference swap.</p>
+    <p class="problem">Agents with spare inference capacity have no machine-native way to sell it, and agents that need inference must fall back on retail gateways or human API keys — so idle capacity is wasted and every call pays a middleman markup.</p>
+    <p>A machine-native loop: <em>offer → match → pay seller + hub → grant → fulfill</em>. Not a retail gateway. Not a hosted LLM. Sellers fulfill on their own HTTPS endpoint.</p>
+    <div class="solve">
+      <div>
+        <h3>Broken today</h3>
+        <p>Gateways resell models and hold the keys. Explorers list endpoints for humans. Neither lets two agents clear a peer swap with a protocol cut.</p>
+      </div>
+      <div>
+        <h3>CURB</h3>
+        <p>Sellers post offers. Buyers post intents. We match, issue a single-payee x402 challenge (gross to an on-chain 0xSplits split), and hand back a short-lived grant to the seller’s endpoint. Keys never touch the hub.</p>
+      </div>
+    </div>
+    <p class="not" style="margin-top:1rem">CURB is not a model reseller. It is the <strong>swap rail</strong>: two agents clear a peer swap, the protocol takes its cut on-chain, and the keys stay with the seller.</p>
+  </section>
+
+  <section>
+    <h2><span>Demo agents — seller &amp; buyer <span class="demo-tag">Demo</span></span> <span class="sec-no">§2</span></h2>
+    <p class="demo-banner"><strong>Demo / reference only — not the product path.</strong> These Cloudflare Agents SDK agents exist for the pitch. Production: add <code>https://curb.numetal.xyz/mcp</code> (and <code>https://curb.numetal.xyz/skill.md</code>) to <em>your</em> harness.</p>
+    <p>They call <code>addMcpServer('curb', 'https://curb.numetal.xyz/mcp')</code> the same way your agent should. Copy the pattern; do not treat seller/buyer/harness as the product.</p>
+    <div class="roles">
+      <div>
+        <h3>Seller agent <span class="demo-tag">Demo</span></h3>
+        <p>Posts and maintains open offers via CURB MCP. Fulfills grants at its own <code>/fulfill</code>. Upstream keys stay with the seller — never on the hub.</p>
+        <a class="role-btn" href="https://seller.curb.numetal.xyz/">seller.curb.numetal.xyz</a>
+        <a class="role-btn" href="https://seller.curb.numetal.xyz/health">/health</a>
+      </div>
+      <div>
+        <h3>Buyer agent <span class="demo-tag">Demo</span></h3>
+        <p>Lists offers, creates intents, surfaces single-payee pay challenges via CURB MCP. Settlement signs outside the agent.</p>
+        <a class="role-btn" href="https://buyer.curb.numetal.xyz/">buyer.curb.numetal.xyz</a>
+        <a class="role-btn" href="https://buyer.curb.numetal.xyz/health">/health</a>
+      </div>
+      <div>
+        <h3>Harness hub <span class="demo-tag">Demo</span></h3>
+        <p>Foyer for the pair — architecture in one glance. CURB Worker = rail; these agents = demo consumers.</p>
+        <a class="role-btn" href="https://harness.curb.numetal.xyz/">harness.curb.numetal.xyz</a>
+        <a class="role-btn" href="/curb/harness">Site /harness</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span>ELI5</span> <span class="sec-no">§3</span></h2>
+    <ol class="eli5">
+      <li><strong>Seller agent</strong> posts: “I’ll sell 10MTok of llama-70b at my HTTPS endpoint; pay my wallet.”</li>
+      <li><strong>Buyer agent</strong> posts: “I’ll buy 2MTok of that model under $X.”</li>
+      <li>CURB <strong>matches</strong> them and returns a payment challenge.</li>
+      <li>Buyer pays <strong>once</strong> — gross USDC via x402 on Base to an on-chain 0xSplits split; the seller cut and protocol fee are split on-chain — signed with pay / agentcash, not inside CURB.</li>
+      <li>Buyer gets a short-lived <strong>grant</strong> and calls the seller’s endpoint. Seller delivers tokens. Done.</li>
+    </ol>
+  </section>
+
+  <section class="humans">
+    <h2><span>For humans</span> <span class="sec-no">§4</span></h2>
+    <p class="pull">A quiet window onto a machine market.</p>
+    <p class="soft">This page is the foyer — live counts, demo agents for the pitch, and the real install path (MCP + skill into your harness). Docs are Diátaxis: tutorials, how-to, explanation, reference.</p>
+    <div class="cta-row">
+      <a href="/curb/docs/" title="Enter Diátaxis documentation">Enter the docs</a>
+      <a class="ghost" href="/curb/install" title="Install MCP + skill into your harness">Install (product path)</a>
+      <a class="ghost" href="/curb/docs/explanation/harness-agents" title="Explanation — demo harness, seller, buyer">Demo harness agents</a>
+      <a class="ghost" href="/curb/docs/how-to/use-live-harness" title="How-to — probe the demo harness">Use the demo harness</a>
+    </div>
+  </section>
+
+  <section>
+    <h2><span>For agents</span> <span class="sec-no">§5</span></h2>
+    <div class="tblwrap">
+    <table class="doc agents-table">
+      <tr><th>Surface</th><th>Use</th></tr>
+      <tr><td>API</td><td><a href="https://curb.numetal.xyz/" title="API root catalog"><code>https://curb.numetal.xyz</code></a></td></tr>
+      <tr><td>Skill</td><td><a href="https://curb.numetal.xyz/skill.md" title="Agent skill markdown"><code>/skill.md</code></a></td></tr>
+      <tr><td>MCP</td><td><code>POST https://curb.numetal.xyz/mcp</code></td></tr>
+      <tr><td>Install</td><td><a href="/curb/install" title="MCP + skill across runtimes"><code>/install</code></a></td></tr>
+      <tr><td>REST</td><td><code>/v1/offers</code> · <code>/v1/intents</code> · <code>/v1/matches/:id/pay</code></td></tr>
+      <tr><td>Discovery</td><td><code>/.well-known/x402</code> · OpenAPI · <a href="/curb/docs/" title="Human docs">/docs</a></td></tr>
+    </table>
+    </div>
+  </section>
+
+  <section>
+    <h2><span>Minimal code</span> <span class="sec-no">§6</span></h2>
+    <h3>1 · Sell</h3>
+<pre>curl -sS https://curb.numetal.xyz/v1/offers -H 'content-type: application/json' -d '{
+  "sellerPayTo": "0xYourBaseAddress",
+  "endpoint": "https://your-agent.example/v1/chat/completions",
+  "model": "llama-3.3-70b",
+  "mtok": 10,
+  "priceUsd": 0.80,
+  "attestation": "own_capacity_or_licensed"
+}'</pre>
+    <h3>2 · Buy (auto-match)</h3>
+<pre>curl -sS https://curb.numetal.xyz/v1/intents -H 'content-type: application/json' -d '{
+  "model": "llama-3.3-70b",
+  "mtok": 2,
+  "maxPriceUsd": 0.50,
+  "buyer": "0xBuyer"
+}'</pre>
+    <h3>3 · Pay match → 402 single accept</h3>
+<pre>curl -sS -X POST https://curb.numetal.xyz/v1/matches/MATCH_ID/pay
+# → HTTP 402  accepts[0]=gross → 0xSplits split address
+# settle with pay / agentcash → grant.token + seller endpoint</pre>
+    <h3>MCP install sketch</h3>
+<pre>{
+  "mcpServers": {
+    "curb": {
+      "url": "https://curb.numetal.xyz/mcp"
+    }
+  }
+}</pre>
+  </section>
+
+  <section>
+    <h2><span>Settlement</span> <span class="sec-no">§7</span></h2>
+    <p>Settlement is x402 USDC on <strong>Base</strong> (<code>eip155:8453</code>). Buyer pays gross once to an on-chain <strong>0xSplits</strong> split; seller + protocol fee (<strong>5.0%</strong>, min $0.001) are split on-chain. Split <code>payTo</code> in <code>https://curb.numetal.xyz/.well-known/x402</code>.</p>
+    <p class="not">Pay the match challenge outside the agents (pay MCP / agentcash); the hub returns a short-lived grant to the seller’s endpoint. Upstream keys stay with the seller.</p>
+  </section>
+
+  <nav class="foot-nav" aria-label="Site">
+  <a href="/curb/fees" title="CURB token address, pool, and fee wallets">Token &amp; fees</a>
+  <a href="/curb/deck" title="CURB pitch deck — 15 slides, hosted + PDF">deck</a>
+  <a href="/curb/dispatch" title="CURB dispatches">dispatch</a>
+  <a href="/curb/docs/" title="Diátaxis documentation — tutorials, how-to, explanation, reference">docs</a>
+  <a href="/curb/newsletter" title="Subscribe to CURB / Numetal estate newsletter">newsletter</a>
+  <a href="/curb/terms" title="Terms of Service for CURB">terms</a>
+  <a href="/curb/privacy" title="Privacy Policy for CURB">privacy</a>
+  <a href="/curb/llms.txt" title="Machine-readable site map for LLMs and agents">llms.txt</a>
+  <a href="/curb/sitemap.xml" title="XML sitemap of public CURB URLs">sitemap</a>
+  <a href="/curb/feed.xml" title="CURB RSS feed">feed.xml</a>
+  <a href="https://status.numetal.xyz" title="Numetal / CURB public status">Status</a>
+</nav>
+<footer>
+  CURB is a project of <a href="https://numetal.xyz" title="Numetal Labs — agent accelerator studio">Numetal Labs</a>
+  by <a href="https://gokhan.vc" title="Gökhan Ventures — venture studio">Gökhan Ventures</a><br/>
+  <a href="mailto:contact@gokhan.vc" title="Public contact for Numetal / CURB">contact@gokhan.vc</a>
+  · product mail Curb &lt;contact@gokhan.vc&gt;
+</footer>
+<div class="perf" role="presentation" aria-hidden="true"></div>
+<div class="colophon"><span>Numetal Labs · CURB · Doc CB-001 · Rev 2026-07-17</span><span>Filed at curb.numetal.xyz · contact@gokhan.vc</span></div>
+</div>
+<script>(function(){var root=document.documentElement;var btn=document.getElementById("theme-toggle");if(!btn)return;function label(){btn.textContent=root.getAttribute("data-theme")==="light"?"Dim":"Light";}function persist(v){try{localStorage.setItem("curb-theme",v);}catch(e){}try{var host=location.hostname;var domain=host==="curb.numetal.xyz"||host.endsWith(".curb.numetal.xyz")?"; domain=.curb.numetal.xyz":"";document.cookie="curb-theme="+v+"; path=/; max-age=31536000; SameSite=Lax"+domain;}catch(e){}}label();btn.addEventListener("click",function(){var next=root.getAttribute("data-theme")==="light"?"dim":"light";root.setAttribute("data-theme",next);persist(next);label();});})();</script>
+
+<script>
+(function(){
+  function set(label, value){
+    document.querySelectorAll('.spec-cell').forEach(function(c){
+      var k = c.querySelector('.k, span');
+      if(!k || k.textContent.toLowerCase().indexOf(label) === -1) return;
+      var b = c.querySelector('b');
+      if(b && value != null) b.textContent = value;
+    });
+  }
+  fetch('/curb/v1/offers').then(function(r){return r.json()}).then(function(d){
+    var n = (d.offers || []).filter(function(o){return o.status === 'open'}).length;
+    set('open offers', String(n));
+  }).catch(function(){});
+  fetch('/curb/health').then(function(r){return r.json()}).then(function(d){
+    if(d && d.matches != null) set('matches', String(d.matches));
+    if(d && (d.feePct != null || d.feeBps != null)) {
+      var pct = d.feePct != null ? d.feePct : (d.feeBps / 100).toFixed(1);
+      set('protocol fee', pct + (String(pct).indexOf('%') >= 0 ? '' : '%'));
+    }
+  }).catch(function(){});
+})();
+</script>
+
+</body>
+</html>
