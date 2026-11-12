@@ -251,7 +251,9 @@ const tableDeskVersion = createHash('sha256')
 
     <!-- Per-page head content passed via slot="head" (Article JSON-LD, custom schemas, seoKeywords meta). -->
     <slot name="head" />
-    <link rel="stylesheet" href="/register.css?v=20261110-7" />
+    <link rel="preload" href="/fonts/source-sans-3/source-sans-3-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/eb-garamond/eb-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/register.css?v=20261112-fonts" />
   </head>
 
   <body class="register">
