@@ -67,9 +67,16 @@ A personal **memex** — a networked knowledge garden, portfolio, and research a
 
 ### Typography
 
-- [Source Sans Pro](https://fonts.google.com/specimen/Source+Sans+Pro) — Headings and UI
-- [Crimson Text](https://fonts.google.com/specimen/Crimson+Text) — Body text and prose
-- [JetBrains Mono](https://www.jetbrains.com/lp/mono/) — Code blocks
+Self-hosted OFL variable woff2 (latin + latin-ext, weights 400–600), the same
+families as [commanding-heights.com](https://commanding-heights.com/):
+
+- [Source Sans 3](https://github.com/adobe-fonts/source-sans) — sans (`--sans`); roman face is preloaded
+- [EB Garamond](https://github.com/octaviopardo/EBGaramond12) — serif (`--serif`); default `--read` on register pages
+- [JetBrains Mono](https://www.jetbrains.com/lp/mono/) — data face / code (`--mono`), unchanged
+
+These apply to the memex's own pages (register, journal, homepage). Restored
+original product designs keep their own fonts. Licenses and sources live in
+`public/fonts/`.
 
 ## Project Structure
 
