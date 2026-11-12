@@ -25,10 +25,12 @@ const monoScale = {
 // Two faces, five roles — the same contract as src/styles/critical.css.
 // R1 display · R2 running prose · R3 quantities  -> textStack  (--font-text)
 // R4 identifiers & controls · R5 machine strings -> dataStack  (--font-data)
-// Bureau register (booster.numetal.xyz, 2026-08-09): Helvetica Neue text face,
-// JetBrains Mono-led data face — booster's exact lists, straight from the OS,
-// no webfonts. Must stay in step with --font-text/--font-data in critical.css.
+// 2026-11-12: Source Sans 3 text face (self-hosted OFL), JetBrains Mono-led
+// data face. Must stay in step with --font-text/--font-data / --sans in
+// critical.css. Register pages additionally offer EB Garamond via --serif.
 const textStack = [
+  '"Source Sans 3"',
+  '"Source Sans Pro"',
   '"Helvetica Neue"',
   'Helvetica',
   'Arial',

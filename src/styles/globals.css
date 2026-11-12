@@ -1,11 +1,12 @@
 /* Non-critical CSS - Critical CSS is inlined in BaseLayout.astro */
 /* This file contains the full Tailwind CSS build for non-critical styles */
 
-/* R1/R2/R3 text face — the Helvetica Neue system stack (Bureau register,
-   adopted 2026-08-09 from booster.numetal.xyz). No webfonts ship: booster
-   serves its faces straight from the OS, and this sheet now does the same.
-   The stacks live in critical.css (--font-text / --font-data) and must stay
-   in step with textStack/dataStack in tailwind.config.mjs. */
+/* R1/R2/R3 text face — Source Sans 3 (sans) / EB Garamond (serif), self-hosted
+   OFL variable woff2, matching commanding-heights.com. The stacks live in
+   critical.css (--sans / --serif / --font-text / --font-data) and register.css
+   (--read maps to serif or sans) and must stay in step with textStack/dataStack
+   in tailwind.config.mjs. JetBrains Mono is unchanged. Restored original
+   product designs keep their own fonts and do not use these faces. */
 @import './bureau.css';
 
 @tailwind base;

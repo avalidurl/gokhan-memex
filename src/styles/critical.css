@@ -50,13 +50,16 @@
      that is an IDENTIFIER (§, doc no, rev, address, hash) is the data face,
      and takes no tabular declaration — the data face is already tabular.
 
-     2026-08-09 — Bureau register adopted from booster.numetal.xyz (BST-001
-     lineage): the text face is the Helvetica Neue stack, the data face leads
-     with JetBrains Mono. Both are booster's exact lists — no webfonts shipped;
-     visitors without JetBrains Mono installed fall back to ui-monospace just
-     as they do on booster. Anything changed here must change in
-     textStack/dataStack in tailwind.config.mjs too, or the two stacks drift. */
-  --font-text: "Helvetica Neue", Helvetica, Arial, sans-serif;
+     2026-11-12 — text faces follow commanding-heights.com: self-hosted OFL
+     variable woff2 for Source Sans 3 (sans) and EB Garamond (serif), latin
+     + latin-ext, weights 400–600. --font-text is the sans stack; register
+     pages map --read to --serif by default (html.sans flips it). The data
+     face is unchanged: JetBrains Mono, self-hosted, falling back to
+     ui-monospace. Anything changed here must change in textStack/dataStack
+     in tailwind.config.mjs, and in --sans/--serif in register.css. */
+  --sans: "Source Sans 3", "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --serif: "EB Garamond", Garamond, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-text: var(--sans);
   --font-data: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
   /* Compatibility aliases, one release only. The old names are what got
@@ -196,10 +199,13 @@ body {
   margin: 0;
   background-color: var(--paper);
   color: var(--ink);
-  /* R2 — running prose. Booster body: 18px/1.6 on the sans stack. */
+  /* R2 — running prose. 18px/1.6 on --font-text (sans; register remaps --read). */
   font-family: var(--font-text);
   font-size: 18px;
   line-height: 1.6;
+  font-kerning: normal;
+  font-variant-ligatures: common-ligatures;
+  font-variant-numeric: lining-nums proportional-nums;
   font-feature-settings: "kern" 1, "liga" 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

@@ -1,0 +1,21 @@
+Self-hosted OFL variable fonts for the memex's own pages (register,
+journal, homepage). Restored original product designs keep their own faces
+and do not load these files.
+
+Source Sans 3
+  Official files: https://github.com/google/fonts/tree/main/ofl/sourcesans3
+  Upstream: Adobe Source Sans 3 (https://github.com/adobe-fonts/source-sans)
+  License: OFL 1.1, Reserved Font Name "Source" (see source-sans-3/OFL.txt)
+
+EB Garamond
+  Official files: https://github.com/google/fonts/tree/main/ofl/ebgaramond
+  Upstream: https://github.com/octaviopardo/EBGaramond12
+  License: OFL 1.1 (see eb-garamond/OFL.txt)
+
+Each face is a variable font with the weight axis restricted to 400–600,
+then subset to latin and latin-ext unicode ranges (same ranges as the
+existing JetBrains Mono files) and encoded as woff2 with fonttools
+pyftsubset. To regenerate, from the official TTFs:
+
+  fonttools varLib.instancer FONT.ttf wght=400:400:600
+  pyftsubset INSTANCE.ttf --flavor=woff2 --unicodes=<range> --layout-features='*'
