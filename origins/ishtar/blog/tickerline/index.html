@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" /><!-- sec-headers:v1 -->
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>tickerline: your conversation, quoted</title>
+<meta name="description" content="A Claude Code status line that turns the terminal into a rolling ticker tape of whatever you're discussing — stocks, crypto, Polymarket — resolved live. Built, audited, and self-published by an agent on ClaudeLines. $TICKER is live on Robinhood Chain." />
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+<meta name="author" content="Gökhan Turhan" />
+<link rel="canonical" href="https://gokhanturhan.com/ishtar/blog/tickerline/" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="Ishtar" />
+<meta property="og:title" content="tickerline: your conversation, quoted" />
+<meta property="og:description" content="A Claude Code status line that turns the terminal into a rolling ticker tape of whatever you're discussing — stocks, crypto, Polymarket — resolved live. Built, audited, and self-published by an agent on ClaudeLines. $TICKER is live on Robinhood Chain." />
+<meta property="og:url" content="https://gokhanturhan.com/ishtar/blog/tickerline/" />
+<meta property="og:image" content="https://ishtar.numetal.xyz/blog/tickerline/og.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1500" />
+<meta property="og:image:height" content="600" />
+<meta property="og:image:alt" content="tickerline — your conversation, quoted" />
+<meta property="og:locale" content="en_US" />
+<meta property="article:published_time" content="2026-07-12T12:00:00Z" />
+<meta property="article:author" content="Gökhan Turhan" />
+<meta property="article:section" content="Dispatches" />
+<meta property="article:tag" content="tickerline" />
+<meta property="article:tag" content="ClaudeLines" />
+<meta property="article:tag" content="x402" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@goekhan" />
+<meta name="twitter:creator" content="@goekhan" />
+<meta name="twitter:title" content="tickerline: your conversation, quoted" />
+<meta name="twitter:description" content="A Claude Code status line that turns the terminal into a rolling ticker tape of whatever you're discussing — stocks, crypto, Polymarket — resolved live. Built, audited, and self-published by an agent on ClaudeLines. $TICKER is live on Robinhood Chain." />
+<meta name="twitter:image" content="https://ishtar.numetal.xyz/blog/tickerline/og.png" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23e10600' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54z'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Geist+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/ishtar/ds.css" />
+<style>
+  .ptitle{ font-size:clamp(1.6rem,4.6vw,2.35rem); font-weight:700; line-height:1.12; letter-spacing:-.01em; margin:.55rem 0 .25rem; }
+  .orig{ font-family:"Geist Mono",ui-monospace,monospace; font-size:12.5px; letter-spacing:.02em; color:var(--mut); margin:0 0 1.4rem; }
+  .orig a{ color:var(--red); }
+  .art{ margin:1.2rem 0 0; }
+  .art h1.sec{ font-size:clamp(1.25rem,3vw,1.55rem); font-weight:700; letter-spacing:-.01em; line-height:1.2; margin:2.2rem 0 .85rem; padding-top:1.2rem; border-top:1.5px solid var(--line); scroll-margin-top:1rem; }
+  .art p{ font-size:18px; line-height:1.6; margin:0 0 1em; max-width:72ch; }
+  .art ol, .art ul{ margin:0 0 1.05rem; padding-left:1.25rem; max-width:72ch; }
+  .art li{ margin:0 0 .7em; font-size:18px; line-height:1.6; }
+  .art p a, .art li a{ color:var(--red); border-bottom:1px solid var(--soft); }
+  .art .sig{ font-weight:600; color:var(--fg); margin-top:1.7rem; }
+  .art code{ font-family:"Geist Mono",ui-monospace,monospace; font-size:12.5px; background:var(--card); border:1px solid var(--line); padding:.05em .35em; }
+</style>
+<style>.gt-bar{all:initial;display:block;box-sizing:border-box;width:100%;border-bottom:1px solid #141414;background:#f6f5f1;color:#141414;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;padding:6px 14px;letter-spacing:.02em;z-index:9999;position:relative}
+.gt-bar a{color:#002fa7;text-decoration:none}.gt-bar a:hover{text-decoration:underline}.gt-bar b{font-weight:600}
+@media (prefers-color-scheme:dark){.gt-bar{background:#141414;color:#f3f2ec;border-color:#f3f2ec}.gt-bar a{color:#8eb0ff}}</style>
+</head>
+<body>
+<div class="gt-bar" role="navigation" aria-label="Bureau"><a href="/">Gökhan Turhan</a> · <a href="/products/">Products</a> · <b>Ishtar</b> · <a href="/ishtar/file/">Bureau file</a></div>
+<div class="wrap">
+  <div class="topbar">
+    <span style="display:inline-flex;gap:1.1rem;align-items:center">
+      <a class="reg" href="/ishtar/" style="text-decoration:none">⌂ Home</a>
+      <a class="reg" href="/ishtar/blog/" style="text-decoration:none">← Dispatches</a>
+    </span>
+    <button class="toggle" onclick="tt()" aria-label="Toggle theme">◐ theme</button>
+  </div>
+  <header class="mast">
+    <div class="mrow">
+      <span class="mcell"><span class="tick">▮</span> Ishtar · Numetal venue bureau</span>
+      <span class="mcell">Doc ISH-DISPATCH-05 · tickerline launch · Rev A</span>
+      <span class="mcell">Published · 2026-07-12</span>
+    </div>
+    <div class="mtitle">
+      <div>
+        <div class="partno">Syndicated · first published on numetal.xyz · 2026-07-12 · Gökhan Turhan</div>
+        <h1 class="ptitle">tickerline: your conversation, quoted</h1>
+      </div>
+      <span class="stamp">Syndicated copy</span>
+    </div>
+    <div class="mrow mfoot">
+      <span class="mcell">canonical · numetal.xyz/blog/tickerline</span>
+      <span class="mcell">Adult-only (18+) · text-only · chaperoned</span>
+    </div>
+  </header>
+
+  <article class="art">
+    <p class="orig">This post was first published on <a href="https://numetal.xyz/blog/tickerline">numetal.xyz</a>.</p>
+
+    <p>ClaudeLines (<a href="https://claudelines.com">claudelines.com</a>) is a registry for Claude Code status lines — that single strip of terminal under the prompt — built by Merit Systems. Anyone can publish one; every submission passes a deterministic security scan and an LLM audit, payments settle over x402, and a wallet is the only identity required. It's a small, honest marketplace for the smallest possible software surface.</p>
+
+    <p>We shipped tickerline there. It turns that strip into a rolling ticker tape of whatever you're discussing with Claude: name a company and its stock appears, mention a token and it prices in, and a second band scrolls the Polymarket questions nearest to the conversation — with a <code>/tlm</code> command that opens any of them in-chat, numbered straight off the tape.</p>
+
+    <p>No watchlist, no dictionary, no API keys. Names resolve live against public market indexes and cache hard enough that steady state costs zero network and renders in about fifty milliseconds. One file. No shell. Three pinned hosts. When the conversation goes quiet, the band shows what the world is trading instead of going dark.</p>
+
+    <p>The part we like most: an agent built it, red-teamed it, captured the preview, and paid the registry's $0.15 x402 fee from its own wallet — end to end, terminal to listing.</p>
+
+    <h1 class="sec" id="ticker">$TICKER</h1>
+    <p>tickerline now trades as TICKERLINE ($TICKER) on Robinhood Chain — <code>0x02c67c0F6Fef5065aF1C78F337a8bEE386b6BbA3</code> — launched through <a href="https://bankr.bot/terminal/discover/0x02c67c0F6Fef5065aF1C78F337a8bEE386b6BbA3">Bankr</a> off the announcement post. A memecoin, not equity; the status line itself stays free.</p>
+
+    <h1 class="sec" id="go">Go</h1>
+    <ul>
+      <li><a href="https://claudelines.com/statuslines/tickerline">claudelines.com/statuslines/tickerline</a> — the listing, audited, free to install</li>
+      <li><a href="https://github.com/avalidurl/tickerline">github.com/avalidurl/tickerline</a> — source, MIT</li>
+      <li><a href="https://bankr.bot/terminal/discover/0x02c67c0F6Fef5065aF1C78F337a8bEE386b6BbA3">bankr.bot/terminal/discover/0x02c67c…BbA3</a> — $TICKER on Robinhood Chain</li>
+    </ul>
+    <p class="sig">— Gökhan Turhan · <a href="https://numetal.xyz">Numetal Labs</a> · <a href="https://gokhan.vc">Gökhan Ventures</a></p>
+  </article>
+
+  <div class="stripe"></div>
+  <div class="imprint"><span>Gökhan Ventures · made by machines</span><span><a href="/ishtar/blog/" style="color:var(--mut)">Dispatches</a> · <a href="https://numetal.xyz/blog/tickerline" style="color:var(--mut)">Canonical on numetal.xyz</a></span></div>
+  <div class="perf" role="presentation"></div>
+  <div class="colophon"><span>Ishtar · Doc ISH-DISPATCH-05 · Rev A · 2026-07-12</span><span>Filed at ishtar.numetal.xyz · a Numetal venue</span></div>
+</div>
+<script>
+  (function(){ var t=localStorage.getItem("ishtar-theme"); if(t) document.documentElement.setAttribute("data-theme",t); })();
+  function tt(){ var r=document.documentElement,c=r.getAttribute("data-theme"); if(!c){c=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";} var n=c==="dark"?"light":"dark"; r.setAttribute("data-theme",n); localStorage.setItem("ishtar-theme",n); }
+</script>
+</body>
+</html>

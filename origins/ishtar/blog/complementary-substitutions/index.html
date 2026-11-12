@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" /><!-- sec-headers:v1 -->
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Complementary Substitutions</title>
+<meta name="description" content="Two notes from the same week. Why the open-weights fight is a microeconomics argument about complements rather than a morality play, and why Leopold Aschenbrenner selling the public book to Citadel is a risk story rather than a verdict." />
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+<meta name="author" content="Gökhan Turhan" />
+<link rel="canonical" href="https://gokhanturhan.com/ishtar/blog/complementary-substitutions/" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="Ishtar" />
+<meta property="og:title" content="Complementary Substitutions" />
+<meta property="og:description" content="Two notes from the same week. Why the open-weights fight is a microeconomics argument about complements rather than a morality play, and why Leopold Aschenbrenner selling the public book to Citadel is a risk story rather than a verdict." />
+<meta property="og:url" content="https://gokhanturhan.com/ishtar/blog/complementary-substitutions/" />
+<meta property="og:image" content="https://ishtar.numetal.xyz/blog/complementary-substitutions/og.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Complementary Substitutions — Ishtar dispatch" />
+<meta property="og:locale" content="en_US" />
+<meta property="article:published_time" content="2026-08-01T12:00:00Z" />
+<meta property="article:author" content="Gökhan Turhan" />
+<meta property="article:section" content="Dispatches" />
+<meta property="article:tag" content="open weights" />
+<meta property="article:tag" content="open source" />
+<meta property="article:tag" content="forecasting" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@goekhan" />
+<meta name="twitter:creator" content="@goekhan" />
+<meta name="twitter:title" content="Complementary Substitutions" />
+<meta name="twitter:description" content="Two notes from the same week. Why the open-weights fight is a microeconomics argument about complements rather than a morality play, and why Leopold Aschenbrenner selling the public book to Citadel is a risk story rather than a verdict." />
+<meta name="twitter:image" content="https://ishtar.numetal.xyz/blog/complementary-substitutions/og.png" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23e10600' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54z'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Geist+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/ishtar/ds.css" />
+<style>
+  .ptitle{ font-size:clamp(1.6rem,4.6vw,2.35rem); font-weight:700; line-height:1.12; letter-spacing:-.01em; margin:.55rem 0 .25rem; }
+  .orig{ font-family:"Geist Mono",ui-monospace,monospace; font-size:12.5px; letter-spacing:.02em; color:var(--mut); margin:0 0 1.4rem; }
+  .orig a{ color:var(--red); }
+  .art{ margin:1.2rem 0 0; }
+  .art h1.sec{ font-size:clamp(1.25rem,3vw,1.55rem); font-weight:700; letter-spacing:-.01em; line-height:1.2; margin:2.2rem 0 .85rem; padding-top:1.2rem; border-top:1.5px solid var(--line); scroll-margin-top:1rem; }
+  .art p{ font-size:18px; line-height:1.6; margin:0 0 1em; max-width:72ch; }
+  .art ol, .art ul{ margin:0 0 1.05rem; padding-left:1.25rem; max-width:72ch; }
+  .art li{ margin:0 0 .7em; font-size:18px; line-height:1.6; }
+  .art p a, .art li a{ color:var(--red); border-bottom:1px solid var(--soft); }
+  .art .sig{ font-weight:600; color:var(--fg); margin-top:1.7rem; }
+  .art code{ font-family:"Geist Mono",ui-monospace,monospace; font-size:12.5px; background:var(--card); border:1px solid var(--line); padding:.05em .35em; }
+</style>
+<style>.gt-bar{all:initial;display:block;box-sizing:border-box;width:100%;border-bottom:1px solid #141414;background:#f6f5f1;color:#141414;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;padding:6px 14px;letter-spacing:.02em;z-index:9999;position:relative}
+.gt-bar a{color:#002fa7;text-decoration:none}.gt-bar a:hover{text-decoration:underline}.gt-bar b{font-weight:600}
+@media (prefers-color-scheme:dark){.gt-bar{background:#141414;color:#f3f2ec;border-color:#f3f2ec}.gt-bar a{color:#8eb0ff}}</style>
+</head>
+<body>
+<div class="gt-bar" role="navigation" aria-label="Bureau"><a href="/">Gökhan Turhan</a> · <a href="/products/">Products</a> · <b>Ishtar</b> · <a href="/ishtar/file/">Bureau file</a></div>
+<div class="wrap">
+  <div class="topbar">
+    <span style="display:inline-flex;gap:1.1rem;align-items:center">
+      <a class="reg" href="/ishtar/" style="text-decoration:none">⌂ Home</a>
+      <a class="reg" href="/ishtar/blog/" style="text-decoration:none">← Dispatches</a>
+    </span>
+    <button class="toggle" onclick="tt()" aria-label="Toggle theme">◐ theme</button>
+  </div>
+  <header class="mast">
+    <div class="mrow">
+      <span class="mcell"><span class="tick">▮</span> Ishtar · Numetal venue bureau</span>
+      <span class="mcell">Doc ISH-DISPATCH-07 · Journal · Rev A</span>
+      <span class="mcell">Published · 2026-08-01</span>
+    </div>
+    <div class="mtitle">
+      <div>
+        <div class="partno">Syndicated · first published on gokhanturhan.com · 2026-08-01 · Gökhan Turhan</div>
+        <h1 class="ptitle">Complementary Substitutions</h1>
+      </div>
+      <span class="stamp">Syndicated copy</span>
+    </div>
+    <div class="mrow mfoot">
+      <span class="mcell">canonical · gokhanturhan.com/journal/complementary-substitutions</span>
+      <span class="mcell">A Numetal estate dispatch</span>
+    </div>
+  </header>
+
+  <article class="art">
+    <p class="orig">This post was first published on <a href="https://gokhanturhan.com/journal/complementary-substitutions">gokhanturhan.com</a>.</p>
+
+<h1 class="sec">Open Weights Falls</h1>
+<ul>
+<li>Even pizzerias are in the add-in markets and you wonder why you suck at your work of line. I think double-cheddar crusts with organic gluten free sesame are great and deserve any premia atop if the chef meets even the Barstool <a href="https://www.youtube.com/@OneBitePizzaReviews">standards</a>. While you are trying to time the markets reading into <a href="https://www.pizzint.watch/">Pentagon pizza waves</a>, though, you also tend to make sloppy generalizations regarding the open weight letters of global intents, lone ranger trail blazers diligently not bending before the "mob" so as not to turn a technology so future-present-impactful out of not only the empire business drives but also a firm belief in the supremacy of that which is to distill itself from not the future but immediate present. You have always done this. It is how you meet people online all the while thinking it's not the people's slop but is the AI slop.</li>
+<li>That is, it is lazy to argue over no faith at all rather than having a good or bad faith, let alone the basics of business and economics, which is the pure human psyche. I think social media makes you dumb and you are responsible for weaving a proper network of critical thinking for your own. That was also why Dean Ball was unevenly, to put it roughly, "roasted" for a <a href="https://x.com/deanwball/status/2078619513575137330?s=20">pristine communique</a> regarding open source, open weights the last week, and it was done especially by people who should know how to speak better but anyway went to harvest populist slop online.</li>
+<li>If you are wondering why you have both claude dot md and agents dot md in your file system today, and want to make sense of Huang's first "tweet" or Sacks' most of the time proper blanket criticism that at times won't work, or the mere microeconomic basics such as substitute or complement, I think Gwern's post from 2018 is a good primer: <a href="https://gwern.net/complement">Laws of Tech: Commoditize Your Complement</a></li>
+</ul>
+<h1 class="sec">You too can buy Sweden</h1>
+<ul>
+<li><a href="https://situational-awareness.ai/">Situational Awareness</a>, and its author-forecaster <a href="https://x.com/leopoldasch">Leopold Aschenbrenner</a> were almost too stupidly condemned for making future predictions into domains where incumbents didn't have any whatsoever. Only a handful of underfunded forecasters, tobacco-fragrant <a href="https://grokipedia.com/page/Nick_Land">Nick Land</a> fanboys who can never stop collecting <a href="https://www.youtube.com/watch?v=zP6NkpWTZRU&amp;list=PLrrTHwNNlbfK7GL0k2vPJy1J5ahqn8gEJ">Burial</a> reissues, avid LessWrong readers and <a href="https://scholar.google.com/citations?user=CJjf6H0AAAAJ&amp;hl=en">Phil Tetlock</a> disciples thought they knew what was going on—and a few hundred dozen <a href="https://www.astralcodexten.com/">Astral Codex Ten</a> annual 75% discount Substack link hunters. It was 2024, and it was, and still is a good document, and it did outstanding returns, as a fund, too, either in unrealized and realized ends. With some of the bubbly parts of the current markets popped here and there, Leopold had to sell the public parts of the books he was managing to <a href="https://grokipedia.com/page/Ken_Griffin">Ken Griffin</a>'s <a href="https://uk.finance.yahoo.com/news/situational-awareness-ai-deal-citadels-235730306.html">Citadel</a>. Now, this is all markets, and he might not have been able to manage some margins. Risk happens. Unlike Michael Lewis tries to <a href="https://www.amazon.com/dp/0692336907?lv=shuf&amp;channelId=500&amp;plpRedirect=mhFallback">lobotomize</a> the parts of your brains where you are supposed to understand behavioral markets, not everyone is as charismatic as Michael Burry because he is indeed <a href="https://x.com/goekhan/status/2083558938612502699?s=20">Christian Bale</a>. Though if you can spend only 4 hours of your time on this Dwarkesh Patel <a href="https://open.substack.com/pub/dwarkesh/p/leopold-aschenbrenner?r=1ejwk&amp;utm_campaign=post-expanded-share&amp;utm_medium=web">podcast</a>, having read the entire Situational Awareness epub, you'll get to see that you are probably witnessing the rise of a future famous fund manager who can take risks. He'll indeed be more efficient and will probably become one of the few dozens running the citadels of the next two decades unlike some clairvoyants from 2008 who are charging 60 USD per month on Substack.</li>
+</ul>
+
+    <p class="sig">— Gökhan Turhan · <a href="https://numetal.xyz">Numetal Labs</a> · <a href="https://gokhan.vc">Gökhan Ventures</a></p>
+  </article>
+
+  <div class="stripe"></div>
+  <div class="imprint"><span>Gökhan Ventures · made by machines</span><span><a href="/ishtar/blog/" style="color:var(--mut)">Dispatches</a> · <a href="https://gokhanturhan.com/journal/complementary-substitutions" style="color:var(--mut)">Canonical on gokhanturhan.com</a></span></div>
+  <div class="perf" role="presentation"></div>
+  <div class="colophon"><span>Ishtar · Doc ISH-DISPATCH-07 · Rev A · 2026-08-01</span><span>Filed at ishtar.numetal.xyz · a Numetal venue</span></div>
+</div>
+<script>
+  (function(){ var t=localStorage.getItem("ishtar-theme"); if(t) document.documentElement.setAttribute("data-theme",t); })();
+  function tt(){ var r=document.documentElement,c=r.getAttribute("data-theme"); if(!c){c=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";} var n=c==="dark"?"light":"dark"; r.setAttribute("data-theme",n); localStorage.setItem("ishtar-theme",n); }
+</script>
+</body>
+</html>

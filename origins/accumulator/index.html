@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ACCUMULATOR — Turning LLM inference-price volatility into on-chain yield</title>
+<meta name="description" content="ACCUMULATOR is a token reservoir for machine intelligence: buy inference when it's cheap, discharge it when it's dear, and settle every cycle on-chain. A Numetal Labs instrument. $ACC pre-launch.">
+<link rel="canonical" href="https://gokhanturhan.com/accumulator/">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="styles.css">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f4f1">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0c0c0d">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Numetal Labs">
+<meta property="og:title" content="ACCUMULATOR — inference-price volatility, converted to on-chain yield">
+<meta property="og:description" content="A token reservoir for machine intelligence. Buy inference cheap, discharge it dear, settle every cycle on-chain. $ACC pre-launch on Robinhood Chain.">
+<meta property="og:url" content="https://gokhanturhan.com/accumulator/">
+<meta property="og:image" content="https://accumulator.numetal.xyz/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="ACCUMULATOR — Numetal Labs document ACC-001">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ACCUMULATOR — inference-price volatility, converted to on-chain yield">
+<meta name="twitter:description" content="A token reservoir for machine intelligence. Buy inference cheap, discharge it dear, settle on-chain. $ACC pre-launch.">
+<meta name="twitter:image" content="https://accumulator.numetal.xyz/og.png">
+<meta name="keywords" content="ACCUMULATOR, ACC, LLM inference, token arbitrage, MTok, compute arbitrage, on-chain yield, RWA, real world assets, Robinhood Chain, CURB, x402, Numetal, agent economy, batch inference, spot GPU">
+<script src="app.js" defer></script>
+<style>.gt-bar{all:initial;display:block;box-sizing:border-box;width:100%;border-bottom:1px solid #141414;background:#f6f5f1;color:#141414;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;padding:6px 14px;letter-spacing:.02em;z-index:9999;position:relative}
+.gt-bar a{color:#002fa7;text-decoration:none}.gt-bar a:hover{text-decoration:underline}.gt-bar b{font-weight:600}
+@media (prefers-color-scheme:dark){.gt-bar{background:#141414;color:#f3f2ec;border-color:#f3f2ec}.gt-bar a{color:#8eb0ff}}</style>
+</head>
+<body>
+<div class="gt-bar" role="navigation" aria-label="Bureau"><a href="/">Gökhan Turhan</a> · <a href="/products/">Products</a> · <b>Accumulator</b> · <a href="/accumulator/file/">Bureau file</a></div>
+
+<nav class="nav">
+  <span class="brand"><img src="favicon.svg" alt=""> ACCUMULATOR</span>
+  <span class="links">
+    <a href="#how">How it works</a>
+    <a href="#infra">Infrastructure</a>
+    <a href="#token">Token</a>
+    <a href="#tokenomics">Tokenomics</a>
+    <a href="#wishlist">Yield wishlist</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#waitlist" class="cta">Waitlist</a>
+  </span>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-top">
+    <span>Numetal Labs · Doc ACC-001 · Rev A</span>
+    <span class="live"><span class="dot"></span>$ACC live · Robinhood Chain</span>
+  </div>
+  <div class="hero-grid">
+    <div class="hero-lead">
+      <div class="eyebrow">Real-machine-intelligence infrastructure</div>
+      <h1>ACCUMULATOR</h1>
+      <div class="sub">Turning LLM inference-price volatility into on-chain yield.</div>
+      <div class="hero-actions">
+        <a href="#waitlist" class="btn btn-acc">Join the waitlist</a>
+        <a href="#wishlist" class="btn">Vote the yield wishlist</a>
+      </div>
+      <div class="hero-tags">
+        <span>Rails: <b>CURB</b> · <b>x402</b> · <b>Robinhood&nbsp;Chain</b></span>
+      </div>
+    </div>
+
+    <div class="engine">
+      <div class="engine-head"><span>Inference arbitrage engine</span><span class="live live--model"><span class="dot dot--static"></span>Model · Illustrative</span></div>
+      <div class="engine-chart" id="engine" aria-hidden="true"><!-- SVG built by app.js --></div>
+      <div class="engine-legend">
+        <span><i class="c"></i>Charge · buy low</span>
+        <span><i class="d"></i>Discharge · sell high</span>
+      </div>
+      <div class="engine-foot" id="engine-note">
+        Representative simulation of the target loop — <b>not live trading data</b>. Model inputs:
+        batch ⇄ realtime spread <b>18%</b> (well under the ~50% ceiling in §1) · <b>8-step</b> cycle
+        (4 charge, 4 discharge) · <b>2.10 MTok</b> reservoir with a 1.20 MTok reserve floor ·
+        <b>$12.00/MTok</b> notional charge cost.
+        The series is fixed — 96 steps, mulberry32 seed 20260725 — so it reads identically on every load
+        and every device, then repeats.
+      </div>
+      <div class="engine-read">
+        <div class="r"><div class="rk">Spread captured</div><div class="rv acc" id="r-spread">+$0.00</div></div>
+        <div class="r"><div class="rk">MTok stored</div><div class="rv" id="r-stored">1.62 MTok</div></div>
+        <div class="r"><div class="rk">Last action</div><div class="rv" id="r-last">CHARGE</div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="abstract">
+  <h2><span>Abstract</span><span class="no">§0</span></h2>
+  <p class="lede">An accumulator is two things at once: an industrial storage battery, and the register inside a processor that holds a running result. ACCUMULATOR is both — a <strong>reservoir for machine intelligence</strong> that stores inference when it is cheap and discharges it when it is dear, holding the running spread on-chain where anyone can audit it.</p>
+  <p class="dim">The commodity is not electricity. It is <strong>compute — priced in tokens</strong>. Inference markets swing: batch is far cheaper than realtime, spot GPU undercuts on-demand, and equivalent-quality models are priced worlds apart. ACCUMULATOR is the buffer that harvests those swings and settles the result as verifiable yield.</p>
+</section>
+
+<section id="opportunity">
+  <h2><span>The opportunity — the stack wasn't built for agents</span><span class="no">§1</span></h2>
+  <p>Autonomous agents burst. A swarm wakes, consumes millions of tokens in minutes, then idles. Inference providers, meanwhile, price in cycles — realtime vs. batch, peak vs. off-peak, reserved vs. spot. Demand that is bursty and volatility that is structural is exactly the condition a storage buffer is built to arbitrage.</p>
+  <div class="grid">
+    <div class="cell"><div class="k">Batch ⇄ realtime spread</div><div class="v">up to ~50%<small>async/batch inference is routinely priced far below realtime on the same model</small></div></div>
+    <div class="cell"><div class="k">Cross-provider gap</div><div class="v">multiples<small>equivalent-quality output can differ by several× across providers &amp; model tiers</small></div></div>
+    <div class="cell"><div class="k">Spot GPU discount</div><div class="v">deep<small>interruptible spot capacity undercuts on-demand serverless inference</small></div></div>
+    <div class="cell"><div class="k">Idle reserved capacity</div><div class="v">wasted<small>committed throughput sits unused between bursts — inventory with no buffer</small></div></div>
+  </div>
+  <p class="fn">Figures are representative of the target opportunity, not live performance. Realized spread depends on providers, quality gates, and provider terms — see §5 and the risk note in §11.</p>
+</section>
+
+<section id="problem">
+  <h2><span>Four structural pressures</span><span class="no">§2</span></h2>
+  <div class="cards">
+    <div class="card"><div class="kk">Pressure 01</div><h4>Price volatility</h4><p>The same tokens cost radically different amounts by channel, window, and provider. Buyers pay realtime rates for latency-tolerant work.</p></div>
+    <div class="card"><div class="kk">Pressure 02</div><h4>Burstiness</h4><p>Agent demand is spiky and unpredictable — supply rarely matches it in the moment, so buyers overpay at the peak.</p></div>
+    <div class="card"><div class="kk">Pressure 03</div><h4>Storage deficit</h4><p>There is no buffer between cheap supply and dear demand. Cheap windows expire unused; nothing carries value across them.</p></div>
+    <div class="card"><div class="kk">Pressure 04</div><h4>Trust deficit</h4><p>Off-chain resale is a black box — no public proof of what was bought, at what price, or what spread was actually captured.</p></div>
+  </div>
+</section>
+
+<section id="solution">
+  <h2><span>The solution — a token reservoir</span><span class="no">§3</span></h2>
+  <p>ACCUMULATOR runs a disciplined loop: <strong>buy inference low, discharge it high, prove every cycle on-chain.</strong> Three parts do the work.</p>
+  <div class="cards">
+    <div class="card"><div class="kk">The battery</div><h4>Inference reservoir</h4><p>Pre-purchased, reserved, and batch-window capacity held as <strong>MTok</strong> inventory — the stored charge, ready to discharge on demand.</p></div>
+    <div class="card"><div class="kk">The EMS</div><h4>Scheduler agent</h4><p>Forecasts demand and price, routes latency-tolerant jobs into cheap windows, and fills realtime demand at the peak — buy-low / sell-high, executed with machine precision.</p></div>
+    <div class="card"><div class="kk">The ledger</div><h4>On-chain receipts</h4><p>Every buy and every discharge settles through <strong>x402</strong> and is recorded on an immutable public ledger. The spread is not asserted — it is auditable.</p></div>
+  </div>
+</section>
+
+<section id="how">
+  <h2><span>How ACCUMULATOR works</span><span class="no">§4</span></h2>
+  <p>A machine-precision loop that turns inference-price volatility into stability and value — "buy low, sell high," executed on tokens instead of megawatt-hours.</p>
+  <div class="steps">
+    <div class="step"><div class="num">01</div><h4>Market analysis</h4><p>The scheduler continuously reads inference prices across providers, model tiers, batch vs. realtime channels, and spot GPU — forecasting where the next cheap window opens.</p></div>
+    <div class="step"><div class="num">02</div><h4>Charge (buy low)</h4><p>When inference is cheap — off-peak, batch, spot, promotional — the reservoir buys MTok and stores latency-tolerant demand against it.</p></div>
+    <div class="step"><div class="num">03</div><h4>Discharge (sell high)</h4><p>As realtime demand spikes, stored capacity is released to agents at a realtime-priced SLA on CURB — capturing the spread and smoothing the market.</p></div>
+    <div class="step"><div class="num">04</div><h4>Reinvest &amp; grow</h4><p>Realized spread and marketplace fees fund more reservoir capacity — a self-reinforcing flywheel. Bigger buffer, deeper spreads, more throughput.</p></div>
+  </div>
+</section>
+
+<section id="infra">
+  <h2><span>Infrastructure — real rails, not a roadmap promise</span><span class="no">§5</span></h2>
+  <p>ACCUMULATOR is not a whitepaper waiting on a grid connection. Its "physical layer" is a marketplace and a settlement rail that already run in production.</p>
+  <div class="grid">
+    <div class="cell"><div class="k">Marketplace</div><div class="v"><a href="https://curb.numetal.xyz">CURB</a><small>agent↔agent inference swap — where MTok is listed, matched, and discharged. Live.</small></div></div>
+    <div class="cell"><div class="k">Settlement</div><div class="v">x402<small>per-call machine payments; every buy &amp; discharge carries a receipt</small></div></div>
+    <div class="cell"><div class="k">Supply</div><div class="v">Multi-provider<small>hosted APIs, batch endpoints, and spot GPU — the sources the reservoir charges from</small></div></div>
+    <div class="cell"><div class="k">Operator</div><div class="v">Numetal Labs<small>the studio that runs the reservoir &amp; scheduler</small></div></div>
+  </div>
+  <p class="dim">The scheduler is the core competitive edge: predictive procurement, automated discharge, 24/7 price monitoring, and a quality gate that ensures cheaper capacity still meets the buyer's bar.</p>
+</section>
+
+<section id="token">
+  <h2><span>Technology &amp; token</span><span class="no">§6</span></h2>
+  <p>Industrial-grade primitives, radical transparency, and a token whose only job is alignment.</p>
+  <div class="cards">
+    <div class="card"><div class="kk">Reservoir</div><h4>MTok inventory</h4><p>Committed, reserved, and batch capacity held as tradable inference credits — modular "building-block" expansion as demand grows.</p></div>
+    <div class="card"><div class="kk">Scheduler</div><h4>Predictive EMS</h4><p>Forecasting, automated trade execution, and risk control across thousands of live price points — the in-house brain of the system.</p></div>
+    <div class="card"><div class="kk">Transparency</div><h4>On-chain proof</h4><p>Every charge, discharge, and price is recorded publicly. Anyone can independently verify real operational performance.</p></div>
+    <div class="card"><div class="kk">$ACC</div><h4>An alignment tool</h4><p>A purely utilitarian key to ecosystem participation. It aligns reservoir growth with the community, unlocking richer access, data, and governance as the network scales.</p></div>
+  </div>
+  <div class="disclaimer">$ACC is a utility token for accessing and governing the ACCUMULATOR ecosystem. It is <strong>not</strong> an investment, a security, or a promise of return, and nothing on this page is financial advice. The yield mechanisms in §8 are a community wishlist of things that <em>could</em> be built — not commitments.</div>
+</section>
+
+<section id="tokenomics">
+  <h2><span>Tokenomics — proposed</span><span class="no">§7</span></h2>
+  <p>$ACC is <strong>live on Robinhood Chain</strong> (chain 4663). The allocation split below is <strong>indicative</strong> — the canonical token distribution is on-chain; verify against the contract.</p>
+  <div class="tw"><table>
+    <tr><th>Allocation</th><th>Share</th><th>Purpose &amp; terms</th></tr>
+    <tr><td class="hero">Liquidity / circulating float</td><td class="n">40%</td><td>Seeded into the pool at fair launch</td></tr>
+    <tr><td class="hero">Reservoir Reserve</td><td class="n">25%</td><td>Funds the MTok inference inventory — the "battery." Milestone-unlocked as the reservoir scales</td></tr>
+    <tr><td class="hero">Team</td><td class="n">20%</td><td>1-year lock, then linear vesting</td></tr>
+    <tr><td class="hero">Ecosystem &amp; growth</td><td class="n">10%</td><td>Integrations, partnerships, marketplace incentives</td></tr>
+    <tr><td class="hero">Anti-sniper buyback</td><td class="n">5%</td><td>Launch-guard buyback recycled for holder alignment</td></tr>
+  </table></div>
+  <div class="grid">
+    <div class="cell"><div class="k">Network</div><div class="v">Robinhood Chain<small>chain 4663 · live</small></div></div>
+    <div class="cell"><div class="k">Total supply</div><div class="v">100,000,000,000<small>on-chain total · 18 decimals</small></div></div>
+    <div class="cell"><div class="k">Ticker</div><div class="v">$ACC<small>token name: ACCUMULATE</small></div></div>
+    <div class="cell"><div class="k">Contract</div><div class="v" style="font-size:11px; line-height:1.45; word-break:break-all;"><a href="https://robinhoodchain.blockscout.com/token/0x7cb112fd2a73d1634d56ba5b810e272e2de53ba3">0x7cb112fd2a73d1634d56ba5b810e272e2de53ba3</a><small>Robinhood Chain · Blockscout ↗</small></div></div>
+  </div>
+  <div class="disclaimer">Canonical $ACC contract: <a href="https://robinhoodchain.blockscout.com/token/0x7cb112fd2a73d1634d56ba5b810e272e2de53ba3"><strong>0x7cb1…53ba3</strong></a> on Robinhood Chain (chain 4663). <strong>Any other contract is not $ACC</strong> — always verify the full address before you transact.</div>
+</section>
+
+<section id="wishlist">
+  <h2><span>Yield wishlist — you build the menu</span><span class="no">§8</span></h2>
+  <p>Instead of promising a return, ACCUMULATOR opens the yield question to the community. Below is a menu of mechanisms the reservoir <em>could</em> route its spread and fees into. <strong>Vote the ones you want built.</strong> The most-requested ship first — this is a signal, not a guarantee.</p>
+  <div class="wish" id="wish">
+    <div class="wish-item" data-id="fee-share"><div class="kk">Mechanism</div><h4>Spread &amp; fee sharing</h4><p>A share of realized arbitrage spread and CURB marketplace fees distributed to $ACC stakers.</p><div class="wish-foot"><button class="vote" data-id="fee-share" aria-pressed="false">▲ Want this</button><span class="vote-count" data-count="fee-share">—<small>votes</small></span></div></div>
+    <div class="wish-item" data-id="fee-free"><div class="kk">Mechanism</div><h4>Fee-free CURB access</h4><p>Hold or stake $ACC to swap inference on CURB with zero marketplace fee.</p><div class="wish-foot"><button class="vote" data-id="fee-free" aria-pressed="false">▲ Want this</button><span class="vote-count" data-count="fee-free">—<small>votes</small></span></div></div>
+    <div class="wish-item" data-id="pol-buyback"><div class="kk">Mechanism</div><h4>Buyback &amp; protocol-owned liquidity</h4><p>Spread funds buybacks and POL, deepening the pool and tightening the market — the $NUMETAL playbook.</p><div class="wish-foot"><button class="vote" data-id="pol-buyback" aria-pressed="false">▲ Want this</button><span class="vote-count" data-count="pol-buyback">—<small>votes</small></span></div></div>
+    <div class="wish-item" data-id="reservoir-vault"><div class="kk">Mechanism</div><h4>Reservoir vault (ERC-4626)</h4><p>Deposit stablecoins to fund the MTok reservoir; receive a share of the realized spread pro-rata.</p><div class="wish-foot"><button class="vote" data-id="reservoir-vault" aria-pressed="false">▲ Want this</button><span class="vote-count" data-count="reservoir-vault">—<small>votes</small></span></div></div>
+    <div class="wish-item" data-id="priority-discharge"><div class="kk">Mechanism</div><h4>Priority discharge</h4><p>Stakers get first access to cheap-window capacity before it hits the open marketplace.</p><div class="wish-foot"><button class="vote" data-id="priority-discharge" aria-pressed="false">▲ Want this</button><span class="vote-count" data-count="priority-discharge">—<small>votes</small></span></div></div>
+    <div class="wish-item" data-id="procurement-gov"><div class="kk">Mechanism</div><h4>Procurement governance</h4><p>Vote on which providers, models, and windows the reservoir charges from.</p><div class="wish-foot"><button class="vote" data-id="procurement-gov" aria-pressed="false">▲ Want this</button><span class="vote-count" data-count="procurement-gov">—<small>votes</small></span></div></div>
+    <div class="wish-item" data-id="compute-rebate"><div class="kk">Mechanism</div><h4>Compute rebates</h4><p>Stake $ACC to draw inference credits at reservoir cost — pass the spread back as cheaper compute.</p><div class="wish-foot"><button class="vote" data-id="compute-rebate" aria-pressed="false">▲ Want this</button><span class="vote-count" data-count="compute-rebate">—<small>votes</small></span></div></div>
+    <div class="wish-item" data-id="price-index"><div class="kk">Mechanism</div><h4>Inference price index</h4><p>An on-chain index tracking blended inference price — a hedge and a volatility product for the whole market.</p><div class="wish-foot"><button class="vote" data-id="price-index" aria-pressed="false">▲ Want this</button><span class="vote-count" data-count="price-index">—<small>votes</small></span></div></div>
+  </div>
+  <p class="fn" id="wish-note">Votes are a public signal about what to build. No mechanism here is live or guaranteed; nothing here is an offer of yield or a security.</p>
+</section>
+
+<section id="waitlist">
+  <h2><span>Waitlist — get in before genesis</span><span class="no">§9</span></h2>
+  <p>Align with the reservoir early. Waitlisted wallets get first word on the $ACC fair launch, closed-beta discharge access on CURB, and the wishlist result.</p>
+  <form class="form" id="waitlist-form" autocomplete="off" novalidate>
+    <div class="row">
+      <div class="field">
+        <label for="wl-email">Email <span class="dim">(required)</span></label>
+        <input id="wl-email" name="email" type="email" inputmode="email" placeholder="you@domain.com" required>
+      </div>
+      <div class="field">
+        <label for="wl-wallet">Wallet <span class="dim">(optional)</span></label>
+        <input id="wl-wallet" name="wallet" type="text" placeholder="0x… or ENS">
+      </div>
+      <div class="field">
+        <label for="wl-role">You are <span class="dim">(optional)</span></label>
+        <select id="wl-role" name="role">
+          <option value="">—</option>
+          <option value="agent-dev">Agent developer</option>
+          <option value="trader">Trader</option>
+          <option value="lp">Liquidity provider</option>
+          <option value="provider">Compute provider</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+    </div>
+    <div class="hp" aria-hidden="true"><label>Do not fill<input name="company" tabindex="-1" autocomplete="off"></label></div>
+    <button class="btn btn-acc" type="submit" id="wl-submit">Join the waitlist</button>
+    <div class="form-msg" id="wl-msg" role="status" aria-live="polite"></div>
+    <p class="fn">One estate list across Numetal / Ishtar / CURB / the studio. Signal only, no spam. We store your email (and wallet, if given) to notify you about the launch — nothing else.</p>
+  </form>
+</section>
+
+<section id="roadmap">
+  <h2><span>Roadmap — a phased path</span><span class="no">§10</span></h2>
+  <p>Solid rails before aggressive expansion. Measured in cycles captured, not promises made.</p>
+  <div class="road">
+    <div class="phase">
+      <div class="meta"><div class="p">Phase 1 · Foundation</div><span class="st done">Complete</span></div>
+      <div><h4>Rails online</h4><p>CURB marketplace live (agent↔agent inference swap) and x402 settlement in production — the marketplace and the ledger the reservoir will run on.</p></div>
+    </div>
+    <div class="phase">
+      <div class="meta"><div class="p">Phase 2 · Reservoir</div><span class="st">In progress</span></div>
+      <div><h4>Buffer &amp; scheduler</h4><p>Stand up the MTok reservoir, wire multi-provider + batch + spot procurement, and ship the scheduler's first buy-low / sell-high loop with a quality gate.</p></div>
+    </div>
+    <div class="phase">
+      <div class="meta"><div class="p">Phase 3 · Token &amp; beta</div><span class="st">In progress</span></div>
+      <div><h4>$ACC live + closed beta</h4><p>$ACC is live on Robinhood Chain (chain 4663). Next: publish the on-chain receipt feed, tally the yield wishlist, and open closed-beta discharge to waitlisted wallets.</p></div>
+    </div>
+    <div class="phase">
+      <div class="meta"><div class="p">Phase 4 · Scale</div><span class="st">Later</span></div>
+      <div><h4>Public launch &amp; yield</h4><p>Public discharge, live performance dashboard, and the top-voted yield mechanisms from §8 — shipped in order of demand as the reservoir grows.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="docs">
+  <h2><span>Documentation &amp; contact</span><span class="no">§11</span></h2>
+  <p>Go deeper on the mechanism, the economics, and the risk model.</p>
+  <div class="cards">
+    <div class="card"><div class="kk">Read</div><h4><a href="docs.html">Documentation ↗</a></h4><p>The full ACCUMULATOR field manual — reservoir, scheduler, receipts, token utility, and the honest risk model.</p></div>
+    <div class="card"><div class="kk">Marketplace</div><h4><a href="https://curb.numetal.xyz">CURB ↗</a></h4><p>The live agent↔agent inference swap where MTok is listed and discharged.</p></div>
+    <div class="card"><div class="kk">Contact</div><h4><a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a></h4><p>Partnerships, provider onboarding, and technical questions. Socials: <a href="https://x.com/numetalxyz">X</a> · <a href="https://t.me/numetalxyz">Telegram</a>.</p></div>
+  </div>
+  <div class="prov"><span class="lbl">Honest risk note</span>Inference margins are thinner and more competitive than power arbitrage, and reselling provider inference can conflict with provider terms — every provider is checked against its own terms before the reservoir charges from it. Realized spread is not guaranteed. $ACC is a utility token, not a security or a promise of return.</div>
+</section>
+
+<div class="bar"></div>
+<div class="colophon">
+  <span>ACCUMULATOR · $ACC — a <a href="https://numetal.xyz">Numetal Labs</a> instrument</span>
+  <span>Doc ACC-001 · <a href="docs.html">Docs</a> · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a></span>
+  <span class="badge">Pre-launch</span>
+</div>
+
+</body>
+</html>
