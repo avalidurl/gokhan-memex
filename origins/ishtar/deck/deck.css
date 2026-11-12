@@ -1,0 +1,520 @@
+/* Ishtar pitch deck — bureau register */
+:root {
+  --deck-pad: clamp(1.5rem, 5vw, 4rem);
+  --deck-max: 56rem;
+  --deck-top-h: 2.75rem;
+  --slide-dur: 520ms;
+}
+html, body.deck-root {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Archivo", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.deck {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+}
+.deck-track {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  transition: transform var(--slide-dur) cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: calc(var(--deck-pad) + var(--deck-top-h)) var(--deck-pad) var(--deck-pad);
+  box-sizing: border-box;
+  position: relative;
+}
+.slide-inner {
+  max-width: var(--deck-max);
+  width: 100%;
+  margin: 0 auto;
+}
+.slide .kicker {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mut);
+  margin: 0 0 1rem;
+}
+.slide .kicker em {
+  color: var(--red);
+  font-style: normal;
+}
+.slide h1 {
+  font-size: clamp(1.85rem, 5.2vw, 3.35rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.25rem;
+  max-width: 18ch;
+}
+.slide h1.wide {
+  max-width: 22ch;
+}
+.slide h1.xwide {
+  max-width: none;
+}
+.slide .lead {
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+  line-height: 1.55;
+  color: var(--mut);
+  max-width: 42ch;
+  margin: 0;
+}
+.slide .lead strong {
+  color: var(--fg);
+  font-weight: 600;
+}
+.slide ul.bullets {
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  max-width: 44ch;
+}
+.slide ul.bullets li {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.5;
+  margin: 0.85rem 0;
+  padding-left: 1.1rem;
+  position: relative;
+}
+.slide ul.bullets li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 5px;
+  height: 5px;
+  background: var(--red);
+}
+.slide .pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+}
+@media (max-width: 720px) {
+  .slide .pillars {
+    grid-template-columns: 1fr;
+  }
+}
+.pillar {
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--red);
+  padding: 1rem 1.1rem;
+  background: var(--card);
+}
+.pillar .name {
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 0.35rem;
+}
+.pillar .desc {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--mut);
+}
+.slide .ask-box {
+  border: 2px solid var(--red);
+  padding: 1.25rem 1.4rem;
+  margin-top: 1.5rem;
+  max-width: 38ch;
+  background: var(--card);
+}
+.slide .ask-box .amt {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: var(--red);
+  font-weight: 700;
+  line-height: 1.45;
+}
+.slide .ask-box p {
+  margin: 0.65rem 0 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--mut);
+}
+.slide .ask-box a {
+  color: var(--red);
+  border-bottom: 1px solid var(--soft);
+}
+.slide .stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 2.5rem;
+  margin-top: 1.75rem;
+}
+.slide .stat .n {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 700;
+  color: var(--red);
+}
+.slide .stat .l {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mut);
+  margin-top: 0.2rem;
+}
+.slide .fine {
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--mut);
+  max-width: 52ch;
+  margin-top: 2rem;
+}
+.slide .fine a {
+  color: var(--mut);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.slide.title-slide h1 {
+  max-width: none;
+  font-size: clamp(2rem, 6vw, 3.8rem);
+}
+.slide.title-slide .brands {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin-top: 2rem;
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.slide.title-slide .brands span {
+  border: 1px solid var(--line);
+  padding: 0.25rem 0.55rem;
+}
+.slide.title-slide .brands span.hot {
+  border-color: var(--red);
+  color: var(--red);
+}
+.slide.title-slide .title-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem 1rem;
+  margin-top: 2rem;
+}
+.slide.title-slide .btn-dl-prominent {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--red);
+  border: 2px solid var(--red);
+  padding: 0.55rem 1rem;
+  background: var(--card);
+  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+.slide.title-slide .btn-dl-prominent:hover {
+  background: var(--red);
+  color: var(--bg);
+  transform: translateY(-1px);
+  box-shadow: 4px 4px 0 var(--line);
+}
+.slide.title-slide .btn-md-link {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--mut);
+  border-bottom: 1px solid var(--soft);
+  padding-bottom: 0.1rem;
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+.slide.title-slide .btn-md-link:hover {
+  color: var(--red);
+  border-color: var(--red);
+}
+.slide.title-slide .title-nav-hint {
+  margin: 1.25rem 0 0;
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mut);
+}
+.slide.title-slide .title-nav-hint kbd {
+  display: inline-block;
+  font: inherit;
+  padding: 0.12rem 0.35rem;
+  border: 1px solid var(--line);
+  background: var(--card);
+  border-radius: 0;
+  color: var(--fg);
+  text-transform: none;
+  letter-spacing: 0;
+}
+.slide .red-rule {
+  width: 3rem;
+  height: 3px;
+  background: var(--red);
+  margin: 0 0 1.25rem;
+}
+/* chrome — top bar always visible */
+.deck-chrome {
+  position: fixed;
+  z-index: 20;
+}
+.deck-top {
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: var(--deck-top-h);
+  padding: 0.65rem var(--deck-pad);
+  box-sizing: border-box;
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mut);
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  opacity: 1;
+  transform: none;
+}
+.deck-top a {
+  color: var(--mut);
+  text-decoration: none;
+}
+.deck-top .deck-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  min-width: 0;
+}
+.deck-top .deck-doc {
+  color: var(--mut);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (max-width: 860px) {
+  .deck-top .deck-doc {
+    display: none;
+  }
+}
+.deck-top a:hover {
+  color: var(--red);
+}
+.deck-top .btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+.deck-top button,
+.deck-top .btn-link {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--mut);
+  font: inherit;
+  font-size: 10px;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+.deck-top button:hover,
+.deck-top .btn-link:hover {
+  border-color: var(--red);
+  color: var(--fg);
+}
+.deck-top .btn-dl {
+  border-color: var(--red);
+  color: var(--red);
+}
+.deck-progress {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: var(--red);
+  width: 0;
+  transition: width var(--slide-dur) cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 20;
+  opacity: 0.85;
+}
+/* Per-slide page number (screen + PDF) */
+.slide-page {
+  position: absolute;
+  bottom: var(--deck-pad);
+  right: var(--deck-pad);
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mut);
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 2;
+}
+.deck-counter,
+.deck-hint {
+  position: fixed;
+  bottom: 0.85rem;
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--mut);
+  z-index: 20;
+  opacity: 0.75;
+  transition: opacity 0.18s ease;
+}
+.deck-counter:hover,
+.deck-hint:hover {
+  opacity: 0.95;
+}
+.deck-counter {
+  right: var(--deck-pad);
+}
+.deck-hint {
+  left: var(--deck-pad);
+}
+@media (max-width: 560px) {
+  .deck-hint {
+    font-size: 9px;
+  }
+  .slide.title-slide .title-nav-hint {
+    display: none;
+  }
+}
+/* Slide navigation arrows */
+.deck-nav {
+  position: fixed;
+  inset: 0;
+  z-index: 15;
+  pointer-events: none;
+}
+.deck-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: auto;
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 1.1rem;
+  line-height: 1;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  color: var(--mut);
+  cursor: pointer;
+  transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease, transform 0.18s ease, opacity 0.18s ease;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.deck-nav-prev {
+  left: clamp(0.5rem, 2vw, 1.25rem);
+}
+.deck-nav-next {
+  right: clamp(0.5rem, 2vw, 1.25rem);
+}
+.deck-nav-btn:hover:not(:disabled) {
+  border-color: var(--red);
+  color: var(--red);
+  background: var(--card);
+  transform: translateY(-50%) scale(1.06);
+}
+.deck-nav-btn:disabled {
+  opacity: 0.2;
+  cursor: default;
+}
+@media (max-width: 560px) {
+  .deck-nav-btn {
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 0.95rem;
+  }
+}
+/* print / PDF — one slide per page, real text layer */
+@media print {
+  .deck-chrome,
+  .deck-progress,
+  .deck-counter,
+  .deck-hint,
+  .deck-nav,
+  .title-actions,
+  .title-nav-hint {
+    display: none !important;
+  }
+  .slide-page {
+    opacity: 0.7 !important;
+  }
+  html,
+  body.deck-root {
+    overflow: visible !important;
+    height: auto !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .deck {
+    position: static !important;
+    overflow: visible !important;
+    inset: auto !important;
+  }
+  .deck-track {
+    display: block !important;
+    transform: none !important;
+    transition: none !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+  .slide {
+    flex: none !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 100vh;
+    page-break-after: always;
+    page-break-inside: avoid;
+    break-after: page;
+    break-inside: avoid;
+  }
+  .slide:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+  [data-animate] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  @page {
+    size: landscape;
+    margin: 0;
+  }
+}
+/* anime targets start hidden */
+[data-animate] {
+  opacity: 0;
+}
+.slide.is-active [data-animate] {
+  /* anime.js sets opacity */
+}

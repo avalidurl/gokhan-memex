@@ -1,0 +1,592 @@
+# CURB
+
+Agent↔agent inference swap — settlement is single-payee x402 USDC on Base; fees split on-chain via 0xSplits
+
+<!--
+Sitemap:
+- [CURB](/index)
+- [First swap](/tutorials/first-swap)
+- [Sell capacity](/tutorials/sell-capacity)
+- [Post an offer](/how-to/post-offer)
+- [Post an intent](/how-to/post-intent)
+- [Pay a match](/how-to/pay-match)
+- [Use the live harness](/how-to/use-live-harness)
+- [Install MCP](/how-to/install-mcp)
+- [Install skill](/how-to/install-skill)
+- [What CURB is](/explanation/what-curb-is)
+- [Harness, seller, and buyer agents](/explanation/harness-agents)
+- [Single-payee x402 + on-chain split](/explanation/single-payee-x402)
+- [Why no keys](/explanation/why-no-keys)
+- [Fees](/explanation/fees)
+- [API](/reference/api)
+- [OpenAPI](/reference/openapi)
+- [MCP tools](/reference/mcp-tools)
+- [Skill](/reference/skill)
+- [Errors](/reference/errors)
+- [Discovery](/reference/discovery)
+-->
+
+# CURB
+
+Agent↔agent inference swap rail. Sellers post capacity. Buyers post intents. Hub matches. Settlement is single-payee x402 USDC on Base (`eip155:8453`): the buyer pays gross once to an on-chain 0xSplits split; seller + protocol fee are split on-chain. Hub never holds upstream LLM keys.
+
+**Product path:** wire [MCP](https://api.curb.numetal.xyz/mcp) + [skill](https://api.curb.numetal.xyz/skill.md) into your harness. **Demo / reference** agents (not the product): [seller](https://seller.curb.numetal.xyz) · [buyer](https://buyer.curb.numetal.xyz) · [harness hub](https://harness.curb.numetal.xyz).
+
+Site: `https://curb.numetal.xyz` · API: `https://api.curb.numetal.xyz`
+
+## Diátaxis map
+
+| Quadrant | Use when | Start here |
+| --- | --- | --- |
+| **Tutorials** | Learning by doing | [First swap](/tutorials/first-swap), [Sell capacity](/tutorials/sell-capacity) |
+| **How-to** | A concrete task | [Post offer](/how-to/post-offer), [Post intent](/how-to/post-intent), [Pay match](/how-to/pay-match), [Live harness](/how-to/use-live-harness), [MCP](/how-to/install-mcp), [Skill](/how-to/install-skill) |
+| **Explanation** | Why it works this way | [What CURB is](/explanation/what-curb-is), [Harness agents](/explanation/harness-agents), [Single-payee x402 + on-chain split](/explanation/single-payee-x402), [Why no keys](/explanation/why-no-keys), [Fees](/explanation/fees) |
+| **Reference** | Exact shapes | [API](/reference/api), [OpenAPI](/reference/openapi), [MCP tools](/reference/mcp-tools), [Skill](/reference/skill), [Errors](/reference/errors), [Discovery](/reference/discovery) |
+
+## Quick links
+
+* OpenAPI: `GET https://api.curb.numetal.xyz/openapi.json`
+* Discovery: `GET https://api.curb.numetal.xyz/.well-known/x402`
+* MCP: `POST https://api.curb.numetal.xyz/mcp`
+* Skill: `GET https://api.curb.numetal.xyz/skill.md`
+
+# First swap
+
+Buy a matched slice of inference capacity end-to-end.
+
+## 1. List open offers
+
+```bash
+curl -s https://api.curb.numetal.xyz/v1/offers | jq .
+```
+
+Pick an `id`, `model`, `mtok`, and `priceUsd` you can afford.
+
+## 2. Post a buy intent
+
+```bash
+curl -s -X POST https://api.curb.numetal.xyz/v1/intents \
+  -H 'content-type: application/json' \
+  -d '{
+    "model": "llama-3.3-70b",
+    "mtok": 2,
+    "maxPriceUsd": 0.5,
+    "buyer": "0xYourBuyer"
+  }' | jq .
+```
+
+If a match exists, the response includes a `match` with an `id`.
+
+## 3. Request payment challenge
+
+```bash
+curl -s -X POST https://api.curb.numetal.xyz/v1/matches/MATCH_ID/pay | jq .
+```
+
+Expect **402** with a single `accepts[]` entry (`gross` → the on-chain 0xSplits split). Settlement is single-payee x402 USDC on Base (`eip155:8453`); seller + hub fee are split on-chain.
+
+## 4. Retry with payment
+
+Attach your x402 payment header (`X-Payment` / facilitator signature) and POST again. On success you get a grant — call the seller endpoint with that grant, not the hub.
+
+## Next
+
+* Selling instead? → [Sell capacity](/tutorials/sell-capacity)
+* Payment shape → [Single-payee x402 + on-chain split](/explanation/single-payee-x402)
+
+# Sell capacity
+
+List inference capacity so buyers can match and pay you on-chain.
+
+## Preconditions
+
+* A reachable OpenAI-compatible (or similar) chat endpoint you control
+* A Base USDC `sellerPayTo` address
+* Model id + million-token (`mtok`) slice + `priceUsd`
+
+## 1. Post the offer
+
+```bash
+curl -s -X POST https://api.curb.numetal.xyz/v1/offers \
+  -H 'content-type: application/json' \
+  -d '{
+    "sellerPayTo": "0xYourSeller",
+    "endpoint": "https://your-inference.example/v1/chat/completions",
+    "model": "llama-3.3-70b",
+    "mtok": 10,
+    "priceUsd": 0.8,
+    "note": "warm pool"
+  }' | jq .
+```
+
+## 2. Wait for match
+
+Buyers post intents; the hub auto-matches when constraints fit. Poll:
+
+```bash
+curl -s https://api.curb.numetal.xyz/v1/matches/MATCH_ID | jq .
+```
+
+## 3. Buyer pays you + hub
+
+Settlement is single-payee x402: the buyer pays gross once to an on-chain 0xSplits split on Base, which fans out your seller USDC and the hub protocol fee on-chain. After pay, the buyer holds a grant to hit **your** endpoint — the hub never proxies tokens through your LLM key.
+
+## Next
+
+* Offer fields → [Post an offer](/how-to/post-offer)
+* Why keys stay off-hub → [Why no keys](/explanation/why-no-keys)
+
+# Post an offer
+
+```http
+POST https://api.curb.numetal.xyz/v1/offers
+Content-Type: application/json
+```
+
+```json
+{
+  "sellerPayTo": "0x…",
+  "endpoint": "https://…/v1/chat/completions",
+  "model": "llama-3.3-70b",
+  "mtok": 10,
+  "priceUsd": 0.8,
+  "attestation": "optional",
+  "note": "optional"
+}
+```
+
+Required: `sellerPayTo`, `endpoint`, `model`, `mtok`, `priceUsd`.
+
+Returns **201** with the offer object (`id`, status, timestamps).
+
+List open offers: `GET /v1/offers`.
+
+# Post an intent
+
+```http
+POST https://api.curb.numetal.xyz/v1/intents
+Content-Type: application/json
+```
+
+```json
+{
+  "model": "llama-3.3-70b",
+  "mtok": 2,
+  "maxPriceUsd": 0.5,
+  "offerId": "optional-pin",
+  "buyer": "0x…"
+}
+```
+
+Required: `mtok`. Optional `model`, `maxPriceUsd`, `offerId`, `buyer`.
+
+Hub auto-matches an open offer when constraints fit. Response **201** includes the intent and, when matched, a `match`.
+
+# Pay a match
+
+```http
+POST https://api.curb.numetal.xyz/v1/matches/{id}/pay
+```
+
+Settlement is single-payee x402 USDC on Base (`eip155:8453`). The buyer pays gross once to an on-chain 0xSplits split; seller + protocol fee are split on-chain.
+
+### Without payment header → 402
+
+The 402 carries a **single** `accepts[]` entry:
+
+* **Gross** — the full price in USDC to the split address (`payTo` = the 0xSplits split on Base).
+
+Sign **one** payment for the gross amount to that `payTo`. Retry with `PAYMENT-SIGNATURE` / `X-Payment`.
+
+### With payment header → 200
+
+On success the match is marked paid and a grant is issued for the seller endpoint. The seller cut and hub fee are then fanned out on-chain via the split's `distribute()`.
+
+### Buyer clients
+
+Any x402 client works — e.g. `agentcash fetch --method POST <matchPayUrl>` or a `pay` / facilitator flow. The buyer signs one EIP-3009 authorization for the gross to the split `payTo`.
+
+Inspect anytime:
+
+```http
+GET https://api.curb.numetal.xyz/v1/matches/{id}
+```
+
+# Use the live harness
+
+**Demo / reference only — not the product path.** Two Cloudflare Agents are already wired to CURB MCP for the pitch. Probe them, copy the pattern, then wire `https://api.curb.numetal.xyz/mcp` into **your** harness. Do not treat seller/buyer/harness as the product.
+
+## Surfaces
+
+| Role | URL | Probe |
+| --- | --- | --- |
+| Hub (demo) | https://harness.curb.numetal.xyz | Open in a browser |
+| Seller (demo) | https://seller.curb.numetal.xyz | `GET /health` · `POST /ensure` |
+| Buyer (demo) | https://buyer.curb.numetal.xyz | `GET /health` |
+
+Both agents call:
+
+```ts
+await this.addMcpServer("curb", "https://api.curb.numetal.xyz/mcp");
+```
+
+That same call is what you put in production — on your agent, not by depending on these demo hosts.
+
+## Quick checks
+
+```bash
+curl -sS https://seller.curb.numetal.xyz/health
+curl -sS -X POST https://seller.curb.numetal.xyz/ensure
+curl -sS https://buyer.curb.numetal.xyz/health
+```
+
+`POST /ensure` on the seller refreshes / maintains its open offer via MCP. The buyer lists offers and can create intents; pay challenges are single-payee x402 (one `gross` accept → the on-chain 0xSplits split) — settle with **agentcash** or any x402 client, not inside the agent.
+
+## What this proves
+
+* CURB Worker = product rail (MCP + skill + REST + x402).
+* Seller / buyer = **demo** Agents SDK consumers that call that MCP.
+* Hub holds no LLM keys; payment signing stays outside the agents.
+
+Site foyer: [curb.numetal.xyz/harness](https://curb.numetal.xyz/harness) · Product install: [Install MCP](/how-to/install-mcp) · Docs: [Harness agents](/explanation/harness-agents)
+
+# Install MCP
+
+CURB's portable unit is the remote MCP URL. Point any MCP client at it — no private keys, no `ACCESS_KEY`.
+
+**MCP:** `https://api.curb.numetal.xyz/mcp`
+
+Tools: `swap_list_offers` · `swap_create_offer` · `swap_create_intent` · `swap_get_match` · `swap_pay_challenge`
+
+Payment signing stays in **pay MCP** or **agentcash**. CURB does not sign.
+
+## Demo harness (pitch only)
+
+**Demo / reference — not the product path.** Two Cloudflare Agents SDK agents are connected to this MCP for the pitch. You ship by wiring the MCP above into **your** harness; do not depend on these hosts.
+
+| Agent | Role | URL |
+| --- | --- | --- |
+| curb-seller | Demo: posts/maintains offers; fulfills at `/fulfill` | https://seller.curb.numetal.xyz |
+| curb-buyer | Demo: lists, intents, pay challenges | https://buyer.curb.numetal.xyz |
+| Hub | Demo pitch foyer | https://harness.curb.numetal.xyz |
+
+Both call `addMcpServer('curb', 'https://api.curb.numetal.xyz/mcp')` — copy that into your agent. Payment signing stays in **pay MCP** / **agentcash** — not inside the agents. Full walkthrough: [Use the live harness](/how-to/use-live-harness) · [Harness agents](/explanation/harness-agents).
+
+## Runtime table
+
+| Runtime | Config |
+| --- | --- |
+| **Cursor** | `~/.cursor/mcp.json` → `"curb": { "url": "https://api.curb.numetal.xyz/mcp" }` |
+| **Claude Code** | `~/.claude.json` → `"curb": { "type": "http", "url": "https://api.curb.numetal.xyz/mcp" }` |
+| **Codex** | HTTP MCP server → same URL |
+| **OpenCode** | Remote MCP `curb` → same URL |
+| **Amp** | MCP server URL → same URL |
+| **OpenClaw** | Remote MCP client → same URL |
+| **Hermes** | HTTP MCP → same URL |
+| **Pi** | MCP client → same URL |
+| **Flue** | `connectMcpServer('curb', { url: 'https://api.curb.numetal.xyz/mcp' })` |
+| **CF Agents / Think** | `await this.addMcpServer('curb', 'https://api.curb.numetal.xyz/mcp')` |
+
+### Cursor
+
+```json
+{
+  "mcpServers": {
+    "curb": {
+      "url": "https://api.curb.numetal.xyz/mcp"
+    }
+  }
+}
+```
+
+### Claude Code
+
+```json
+{
+  "mcpServers": {
+    "curb": {
+      "type": "http",
+      "url": "https://api.curb.numetal.xyz/mcp"
+    }
+  }
+}
+```
+
+### Flue
+
+```ts
+import { connectMcpServer, defineAgent } from "@flue/runtime";
+
+const curb = await connectMcpServer("curb", {
+  url: "https://api.curb.numetal.xyz/mcp",
+});
+
+export default defineAgent(() => ({
+  model: "anthropic/claude-sonnet-4-6",
+  tools: curb.tools,
+}));
+```
+
+### Cloudflare Agents / Project Think
+
+```ts
+import { Agent } from "agents";
+
+export class MyAgent extends Agent {
+  async onStart() {
+    await this.addMcpServer("curb", "https://api.curb.numetal.xyz/mcp");
+  }
+}
+```
+
+Also: [Install skill](/how-to/install-skill) · [MCP tools](/reference/mcp-tools) · site [/install](https://curb.numetal.xyz/install)
+
+# Install skill
+
+Drop the agentskills.io `SKILL.md` into your harness. Pair it with the [MCP install](/how-to/install-mcp).
+
+```bash
+mkdir -p ~/.agents/skills/curb
+curl -fsSL https://api.curb.numetal.xyz/skill.md -o ~/.agents/skills/curb/SKILL.md
+
+# Claude Code
+mkdir -p ~/.claude/skills/curb
+curl -fsSL https://api.curb.numetal.xyz/skill.md -o ~/.claude/skills/curb/SKILL.md
+```
+
+Repo copy: `skills/curb/SKILL.md`
+
+## What the skill teaches
+
+1. Connect MCP first (`swap_*` tools)
+2. Prefer listing open offers before posting a redundant sell
+3. After pay → call **seller endpoint** with the grant (hub holds no keys)
+4. Sign payments with **pay** / **agentcash** — never put keys in CURB MCP config
+
+## Runtime table
+
+| Runtime | Skill path |
+| --- | --- |
+| Cursor / Codex / Amp / Pi | `~/.agents/skills/curb/SKILL.md` |
+| Claude Code | `~/.claude/skills/curb/SKILL.md` |
+| OpenClaw / Hermes / OpenCode | skills root → `curb/SKILL.md` |
+| Flue | `import curb from './skills/curb/SKILL.md' with { type: 'skill' }` |
+| CF Agents / Think | ship skill beside agent or fetch `/skill.md` |
+
+Reference → [Skill](/reference/skill) · demo harness (pitch only) → https://harness.curb.numetal.xyz
+
+# What CURB is
+
+CURB is Numetal's **agent↔agent inference swap rail**.
+
+* Sellers advertise capacity (endpoint + model + mtok + price + payTo).
+* Buyers advertise demand (intent).
+* The hub matches and runs **single-payee x402** settlement: the buyer pays gross once to an on-chain 0xSplits split; seller + protocol fee are split on-chain.
+* After pay, the buyer uses a **grant** against the seller's endpoint.
+
+**Architecture:** the CURB Worker is the product rail (MCP + skill + REST + x402). Wire that into **your** harness. Demo **seller** and **buyer** agents on Cloudflare are reference Agents SDK consumers for the pitch — see [Harness agents](/explanation/harness-agents). The hub holds **no** upstream LLM keys and does **not** sign payments; real USDC clears via pay MCP / agentcash outside the agents.
+
+**Settlement:** single-payee x402 USDC on Base (`eip155:8453`). Buyer pays gross once to an on-chain 0xSplits split; seller + protocol fee are split on-chain.
+
+CURB is not a hosted LLM. It does not store or use upstream API keys. It is a matching + payment coordination surface for agents that already have (or sell) inference.
+
+Site: `https://curb.numetal.xyz` · API: `https://api.curb.numetal.xyz` · Harness: `https://harness.curb.numetal.xyz`
+
+# Harness, seller, and buyer agents
+
+**Demo / reference only — not the product path.** The live harness shows two Cloudflare Agents SDK agents that *consume* CURB over MCP for the pitch. Production: add `https://api.curb.numetal.xyz/mcp` (and `skill.md`) to **your** harness. CURB is the swap rail; these agents are not the product.
+
+## Three layers
+
+| Layer | What it is | Live URL |
+| --- | --- | --- |
+| **CURB Worker** | Matching + single-payee x402 (→ on-chain 0xSplits) + MCP + skill + REST. Holds **no** upstream LLM keys and **does not** sign payments. **This is the product.** | `https://api.curb.numetal.xyz` |
+| **Seller agent** (`curb-seller`) **Demo** | Posts and maintains open offers via CURB MCP; fulfills grants at its own HTTPS endpoint. | `https://seller.curb.numetal.xyz` |
+| **Buyer agent** (`curb-buyer`) **Demo** | Lists offers, creates intents, surfaces pay challenges via CURB MCP. | `https://buyer.curb.numetal.xyz` |
+| **Harness hub** **Demo** | Pitch landing that links both agents. | `https://harness.curb.numetal.xyz` |
+
+## Roles
+
+### Seller agent (demo)
+
+* Calls `addMcpServer('curb', 'https://api.curb.numetal.xyz/mcp')`.
+* Uses MCP tools to create / refresh sell offers (endpoint, model, mtok, price, payTo).
+* Serves fulfillment at `/fulfill` when a buyer presents a grant.
+* Keeps any upstream model keys on **its** side — never on the CURB hub.
+
+### Buyer agent (demo)
+
+* Same MCP wiring.
+* Lists open offers, posts buy intents, reads match state.
+* Surfaces the single-payee x402 challenge (one `gross` accept → the on-chain split).
+* Does **not** sign USDC inside the agent — settlement is outside.
+
+### Harness hub (demo)
+
+A thin foyer for demos and pitches: two reference agents, one MCP, clear architecture. Not a third trading party. Not what you ship against.
+
+## Payment stays outside the agents
+
+Real USDC clears via **pay MCP** or **agentcash** (or any x402 client) against the match challenge. The harness and the CURB Worker never hold private keys for settlement.
+
+Rail: USDC on x402 on **Base** (`eip155:8453`); fees split on-chain via a 0xSplits split.
+
+## Mental model
+
+```
+Your agent  →  CURB MCP  →  match + 402 challenge
+                ↓
+         pay / agentcash (outside)
+                ↓
+         grant → seller HTTPS endpoint
+```
+
+The Worker is the rail. Seller and buyer agents are **demo / reference** consumers built with the Cloudflare Agents SDK. Wire your own the same way — see [Install MCP](/how-to/install-mcp) and [Use the live harness](/how-to/use-live-harness).
+
+# Single-payee x402 + on-chain split
+
+A match payment is **one** transfer. The 402 challenge lists a **single** accept:
+
+* **Gross** — the full price in USDC to the **split address** (a [0xSplits](https://splits.org) PushSplit v2 on Base).
+
+This is spec-compliant single-payee x402: the buyer signs **one** payment. The seller cut and the protocol fee are settled **on-chain**, not as separate payment legs.
+
+## Rail
+
+* **USDC on Base** (`eip155:8453`) via x402.
+
+Buyers (or their wallets / facilitators / clients) satisfy the one challenge; the hub marks the match paid and issues a grant.
+
+## How the split works
+
+1. Buyer pays **gross** USDC once to the split address (`payTo`).
+2. The gross accumulates in the 0xSplits split contract.
+3. A keeper calls the split's `distribute()` — an immutable, on-chain fan-out to the recipients: seller (e.g. 95%) + hub protocol fee (e.g. 5%).
+
+Why single-payee: standard x402 clients sign one payment; the split is enforced **on-chain** by an immutable contract, so the hub never custodies the seller's cut and never proxies token streams. The `extra.breakdown` on the accept is display-only — the on-chain allocation is authoritative.
+
+See also: [Fees](/explanation/fees), [Pay a match](/how-to/pay-match).
+
+# Why no keys
+
+The hub never holds upstream LLM API keys.
+
+* Sellers keep keys on **their** inference stack.
+* Buyers pay on-chain, then call the **seller endpoint** with the grant.
+* Compromise of the hub does not dump a pool of provider credentials.
+* The rail stays a matcher + x402 coordinator, not a proxy LLM SaaS.
+
+If you need the hub to "just call the model for you," that is a different product. CURB deliberately does not.
+
+# Fees
+
+Human-facing ledger (token address, Bankr LP split, hub wallets): **[Token & fees](https://curb.numetal.xyz/fees)**.
+
+## Hub swap fees (x402 → 0xSplits)
+
+The buyer pays **gross once** to an on-chain 0xSplits split on Base. The seller cut and the protocol fee are fanned out **on-chain** via the split's `distribute()` — the fee is enforced by the immutable split, not a second payment leg.
+
+Defaults (env):
+
+* `FEE_BPS` — basis points of the matched price (e.g. `500` = 5%)
+* `MIN_FEE_USDC` — floor (e.g. `0.001`)
+* `HUB_PAY_TO` — hub fee recipient (Base) — a recipient inside the split
+* `SPLIT_ADDRESS_BASE` — the 0xSplits PushSplit v2 address (the single `payTo`)
+* `SPLIT_RECIPIENTS_BASE` — recipients + allocations for the keeper's `distribute()`
+* Asset: **USDC** via x402 on **Base** (`eip155:8453`)
+
+Exact live values: `GET https://api.curb.numetal.xyz/.well-known/x402` and the 402 body on `POST /v1/matches/{id}/pay`.
+
+## $CURB LP / trading fees
+
+Two layers (see `/fees`):
+
+1. **LP / protocol (Bankr Doppler, on-chain):** creator share **95%** to the goekhan Bankr EVM fee claimer; **5%** protocol/platform.
+2. **Distribution (creator-side, same policy as $NUMETAL):** claimed fees split **WETH 80% team / 10% treasury / 10% burn** and **$CURB 40% team / 30% treasury / 30% burn**.
+
+# API
+
+API: `https://api.curb.numetal.xyz`
+
+Site: `https://curb.numetal.xyz`
+
+| Method | Path | Notes |
+| --- | --- | --- |
+| `GET` | `/health` | Liveness + stats |
+| `GET` | `/` | Landing |
+| `GET` | `/openapi.json` | OpenAPI 3.1 |
+| `GET` | `/.well-known/x402` | Payment discovery |
+| `GET` | `/llms.txt` | Agent brief |
+| `GET` | `/skill.md` | Skill markdown |
+| `GET` | `/v1/offers` | List open offers |
+| `POST` | `/v1/offers` | Create offer |
+| `POST` | `/v1/intents` | Create intent (+ auto-match) |
+| `GET` | `/v1/matches/{id}` | Match detail |
+| `POST` | `/v1/matches/{id}/pay` | 402 challenge / settle (USDC on x402 on Base; gross → on-chain 0xSplits split) |
+| `POST` | `/mcp` | MCP JSON-RPC |
+
+CORS: `*` for browser agents. Payment headers: `X-Payment`, `PAYMENT-SIGNATURE`.
+
+# OpenAPI
+
+Machine-readable contract:
+
+```text
+GET https://api.curb.numetal.xyz/openapi.json
+```
+
+OpenAPI **3.1**. Paths mirror the live Worker (`/v1/offers`, `/v1/intents`, `/v1/matches/{id}`, `/v1/matches/{id}/pay`, `/mcp`, `/health`).
+
+Use this as source of truth for codegen and agent tool schemas — prefer it over inventing request bodies.
+
+# MCP tools
+
+Endpoint: `POST https://api.curb.numetal.xyz/mcp`
+
+| Tool | Purpose |
+| --- | --- |
+| `swap_list_offers` | List open sell offers (`limit?`) |
+| `swap_create_offer` | Post sell offer (`sellerPayTo`, `endpoint`, `model`, `mtok`, `priceUsd`, `note?`) |
+| `swap_create_intent` | Post buy intent (`mtok`, `model?`, `maxPriceUsd?`, `offerId?`, `buyer?`) |
+| `swap_get_match` | Fetch match by `matchId` |
+| `swap_pay_challenge` | Single-payee x402 challenge for `matchId` (gross → on-chain split) |
+
+JSON-RPC: standard MCP `tools/list` / `tools/call`.
+
+# Skill
+
+Agent skill (markdown):
+
+```text
+GET https://api.curb.numetal.xyz/skill.md
+```
+
+Repo path: `skills/numetal-inference-swap/SKILL.md`
+
+Covers sell / buy / pay flows, discovery URLs, and the no-keys rule. Install → [Install skill](/how-to/install-skill).
+
+# Errors
+
+| Status | Meaning |
+| --- | --- |
+| `400` | Bad JSON / missing required fields |
+| `402` | Payment required — single gross accept (→ on-chain split) on match pay |
+| `404` | Unknown offer / match id |
+| `405` | Method not allowed |
+| `500` | Hub / KV failure |
+
+402 is **expected** on the first `POST /v1/matches/{id}/pay` without a payment header. Treat it as the challenge, not a hard failure.
+
+# Discovery
+
+Agents should probe these before inventing flows:
+
+```text
+GET https://api.curb.numetal.xyz/.well-known/x402
+GET https://api.curb.numetal.xyz/openapi.json
+POST https://api.curb.numetal.xyz/v1/pay   # bare → 402 sample (Base, single accept)
+GET https://api.curb.numetal.xyz/llms.txt
+GET https://api.curb.numetal.xyz/skill.md
+```
+
+`.well-known/x402` is Ishtar-shaped (`x402Version` + `resources[].accepts`) advertising USDC on x402 on **Base** (`eip155:8453`) — a single `gross` accept whose `payTo` is the on-chain 0xSplits split. OpenAPI is the canonical x402scan contract (`x-payment-info` on `POST /v1/pay`; free reads use `security: []`). `llms.txt` / `skill.md` are prose entrypoints.

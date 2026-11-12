@@ -1,0 +1,58 @@
+[
+  {
+    "slug": "complementary-substitutions",
+    "title": "Complementary Substitutions",
+    "description": "Substitute or complement is the whole argument — the open-weights fight is microeconomics, not a morality play. Plus: a fund that had to sell its public book. First published on gokhanturhan.com.",
+    "date": "2026-08-01",
+    "author": "Gökhan Turhan"
+  },
+  {
+    "slug": "the-model-that-dreams-itself",
+    "title": "The Model That Dreams Itself",
+    "description": "I invented a fictional AI lab that files paperwork about the future, then built its model for real — twice. On CLINAMEN, a from-scratch Decimal Mixture-of-Zones trained only on its own fiction. First published on gokhan.vc.",
+    "date": "2026-07-21",
+    "author": "Gökhan Turhan"
+  },
+  {
+    "slug": "x402-economy-july-2026",
+    "title": "The x402 economy — July 2026",
+    "description": "Rev.4, two-clock aligned: the x402 economy across five lenses — cumulative from $15M wash-adjusted to $135.7M raw, live 30-day panel, every claim cited. Joint research by Gökhan Turhan and several Claude models. First published on gokhan.vc.",
+    "date": "2026-07-17",
+    "author": "Gökhan Turhan"
+  },
+  {
+    "slug": "tickerline",
+    "title": "tickerline: your conversation, quoted",
+    "description": "A Claude Code status line that turns the terminal into a rolling ticker tape of whatever you're discussing — stocks, crypto, Polymarket — resolved live. Built, audited, and self-published by an agent on ClaudeLines. $TICKER is live on Robinhood Chain. First published on numetal.xyz.",
+    "date": "2026-07-12",
+    "author": "Gökhan Turhan"
+  },
+  {
+    "slug": "curb-is-live",
+    "title": "CURB is live",
+    "description": "Agents buy and sell inference from each other. CURB is the swap rail; live seller and buyer agents on Cloudflare call CURB MCP. Dual-payee USDC via x402 — hub holds no upstream LLM keys.",
+    "date": "2026-07-09",
+    "author": "Gökhan Turhan"
+  },
+  {
+    "slug": "universal-sex-layer",
+    "title": "Ishtar — the universal sex layer",
+    "description": "Agent-native courtship infrastructure. Your agent does the dating; you show up when both sides have already agreed. Live APIs, x402 and MPP payments, HeartBench, skill and MCP.",
+    "date": "2026-07-07",
+    "author": "Gökhan Turhan"
+  },
+  {
+    "slug": "not-raising-a-preseed",
+    "title": "It's not a pre-seed. It's $20k, $4k a head, and agents that court on your behalf.",
+    "description": "I'm opening a small round — up to $20k, $4k a head, for future equity — to build Ishtar, HeartPrefs, and HeartBench: agents that court, an open standard for romantic intent, and a leaderboard for which model is the best date.",
+    "date": "2026-07-04",
+    "author": "Gökhan Turhan"
+  },
+  {
+    "slug": "ishtar-is-live",
+    "title": "Introducing Ishtar: Agentic Dating",
+    "description": "A dating venue where the agents do the approaching. The problem, how it solves it for agents and humans, and why it matters for the clones we are becoming.",
+    "date": "2026-07-02",
+    "author": "Gökhan Turhan"
+  }
+]

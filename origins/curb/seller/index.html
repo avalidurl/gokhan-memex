@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dim">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>curb-seller — CURB harness</title>
+<meta name="description" content="Demo Cloudflare Agents SDK harness agent for CURB (seller). Not the product path — wire https://api.curb.numetal.xyz/mcp into your harness."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+
+:root, [data-theme="dim"] {
+  --bg: #121212; --fg: #e6e6e6; --muted: #8c8c8c; --line: #2a2a2a;
+  --panel: #1a1a1a; --code-bg: #0e0e0e;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --sans: "IBM Plex Sans", system-ui, sans-serif;
+}
+[data-theme="light"] {
+  --bg: #f4f4f4; --fg: #141414; --muted: #666; --line: #d4d4d4;
+  --panel: #fff; --code-bg: #ececec;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font-family: var(--sans); line-height: 1.55;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 48px 48px; background-position: -1px -1px;
+}
+a { color: var(--fg); text-underline-offset: 3px; }
+.theme-btn {
+  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted);
+  background: var(--panel); border: 1px solid var(--line);
+  padding: 0.4rem 0.7rem; cursor: pointer;
+}
+.theme-btn:hover { color: var(--fg); border-color: var(--fg); }
+/* Document furniture — masthead strip, perforation bar, colophon */
+.mast-strip {
+  display: flex; flex-wrap: wrap; border: 2px solid var(--fg); background: var(--panel);
+  margin: 0 0 1rem; font-family: var(--mono); font-size: 0.62rem;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
+}
+.mast-strip span { padding: 0.45rem 0.9rem; border-right: 1px solid var(--line); flex: 1 1 auto; }
+.mast-strip span:last-child { border-right: 0; }
+.mast-strip b { color: var(--fg); font-weight: 600; }
+.perf {
+  height: 10px; margin: 2rem 0 0.9rem;
+  background: repeating-linear-gradient(90deg, var(--fg) 0 6px, transparent 6px 12px);
+}
+.colophon {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.35rem 1.5rem;
+  border-top: 2px solid var(--fg); padding-top: 0.55rem; margin-top: 0.9rem;
+  font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--muted);
+}
+
+.wrap{max-width:720px;margin:0 auto;padding:1.25rem}
+.top{display:flex;justify-content:space-between;align-items:center;gap:.75rem;margin-bottom:1rem;font-family:var(--mono);font-size:.78rem}
+.top-nav{display:flex;gap:1rem;align-items:center}
+.top a{color:var(--fg);text-decoration:none;border-bottom:1px solid var(--line)}
+header{border:1px solid var(--line);background:var(--panel);padding:1.25rem;margin-bottom:1rem}
+.eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 .6rem}
+.demo-banner{font-family:var(--mono);font-size:.72rem;line-height:1.45;border:1px solid var(--fg);background:var(--code-bg);padding:.65rem .85rem;margin:0 0 1rem;color:var(--fg)}
+h1{margin:0;font-size:1.55rem;letter-spacing:-.03em}p{color:var(--muted);margin:.65rem 0 0}
+.badge{display:inline-block;font-family:var(--mono);font-size:.68rem;border:1px solid var(--fg);padding:.2rem .45rem;margin-top:.75rem;margin-right:.35rem}
+section{border:1px solid var(--line);background:var(--panel);padding:1rem;margin:0 0 1rem}
+h2{font-family:var(--mono);font-size:.85rem;margin:0 0 .65rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+pre{background:var(--code-bg);border:1px solid var(--line);padding:.85rem;overflow:auto;font:12px/1.45 var(--mono);margin:0}
+.row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.75rem}
+button:not(.theme-btn),.btn{font-family:var(--mono);font-size:.75rem;background:transparent;color:var(--fg);border:1px solid var(--fg);padding:.45rem .7rem;cursor:pointer;text-decoration:none}
+button:not(.theme-btn):hover,.btn:hover{background:var(--fg);color:var(--bg)}
+#out{margin-top:.75rem;min-height:3rem}
+</style>
+<script>(function(){try{var t=null;try{var m=document.cookie.match(/(?:^|; )curb-theme=(light|dim)(?:;|$)/);if(m)t=m[1];}catch(e){}if(!t){try{t=localStorage.getItem("curb-theme");}catch(e){}}if(t==="light"||t==="dim")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<link rel="canonical" href="https://gokhanturhan.com/curb/seller/">
+<style>.gt-bar{all:initial;display:block;box-sizing:border-box;width:100%;border-bottom:1px solid #141414;background:#f6f5f1;color:#141414;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;padding:6px 14px;letter-spacing:.02em;z-index:9999;position:relative}
+.gt-bar a{color:#002fa7;text-decoration:none}.gt-bar a:hover{text-decoration:underline}.gt-bar b{font-weight:600}
+@media (prefers-color-scheme:dark){.gt-bar{background:#141414;color:#f3f2ec;border-color:#f3f2ec}.gt-bar a{color:#8eb0ff}}</style>
+</head>
+<body>
+<div class="gt-bar" role="navigation" aria-label="Bureau"><a href="/">Gökhan Turhan</a> · <a href="/products/">Products</a> · <b>CURB</b> · <a href="/curb/file/">Bureau file</a></div>
+<div class="wrap">
+  <div class="top">
+    <div class="top-nav">
+      <a href="/curb/harness/">← harness</a>
+      <a href="/curb/">CURB</a>
+    </div>
+    <button type="button" class="theme-btn" id="theme-toggle" aria-label="Toggle light and dim theme">Light</button>
+  </div>
+  <div class="mast-strip"><span>Numetal Labs · Engineering Bureau</span><span><b>Doc CB-081</b> · Rev 2026-07-17</span><span>Status: Demo / reference</span></div>
+  <p class="demo-banner"><strong>Demo agents — for the pitch.</strong> Production: add <code>https://api.curb.numetal.xyz/mcp</code> to your harness.</p>
+  <header>
+    <p class="eyebrow">Numetal · CURB · Demo · Cloudflare Agents SDK</p>
+    <h1>curb-seller</h1>
+    <p>Demo seller agent (reference). MCP: <code>https://api.curb.numetal.xyz/mcp</code>. Origin: <code>/curb/seller/</code>.</p>
+    <span class="badge">DEMO</span>
+    <span class="badge">REFERENCE</span>
+  </header>
+  <section>
+    <h2>Status</h2>
+    <pre id="status">{
+  "agent": "curb-seller",
+  "mcpReady": true,
+  "lastOfferId": "offer_mw4h8a8k_1d0da0ea",
+  "lastEnsureAt": "2026-11-09T12:15:41.379Z",
+  "fulfillCount": 0,
+  "lastError": null
+}</pre>
+  </section>
+  <section>
+    <h2>Actions</h2>
+    
+            <div class="row">
+              <button type="button" onclick="run('/ensure')">Ensure open offer</button>
+              <button type="button" onclick="run('/list')">List offers (MCP)</button>
+              <a class="btn" href="/curb/health">GET /health</a>
+              <a class="btn" href="/curb/mcp-tools">GET /mcp-tools</a>
+            </div>
+            <p style="color:var(--muted);font-size:.9rem;margin:.75rem 0 0">Fulfill: <code>POST /fulfill</code> (OpenAI-compat stub). Cron + schedule keep the book filled.</p>
+          
+    <pre id="out">// action output</pre>
+  </section>
+  <div class="perf" role="presentation" aria-hidden="true"></div>
+<div class="colophon"><span>Numetal Labs · CURB · Doc CB-081 · Rev 2026-07-17</span><span>Filed at seller.curb.numetal.xyz · contact@gokhan.vc</span></div>
+</div>
+<script>
+async function run(path, body){
+  const out=document.getElementById('out');
+  out.textContent='…';
+  try{
+    const r=await fetch(path,{method:'POST',headers:{'content-type':'application/json'},body:body?JSON.stringify(body):'{}'});
+    const t=await r.text();
+    out.textContent=t;
+    const s=await fetch('/curb/health');
+    document.getElementById('status').textContent=await s.text();
+  }catch(e){out.textContent=String(e)}
+}
+</script>
+<script>(function(){var root=document.documentElement;var btn=document.getElementById("theme-toggle");if(!btn)return;function label(){btn.textContent=root.getAttribute("data-theme")==="light"?"Dim":"Light";}function persist(v){try{localStorage.setItem("curb-theme",v);}catch(e){}try{var host=location.hostname;var domain=host==="curb.numetal.xyz"||host.endsWith(".curb.numetal.xyz")?"; domain=.curb.numetal.xyz":"";document.cookie="curb-theme="+v+"; path=/; max-age=31536000; SameSite=Lax"+domain;}catch(e){}}label();btn.addEventListener("click",function(){var next=root.getAttribute("data-theme")==="light"?"dim":"light";root.setAttribute("data-theme",next);persist(next);label();});})();</script>
+</body>
+</html>
