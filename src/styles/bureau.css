@@ -1,6 +1,7 @@
 /* House register primitives — filed-document chrome shared across surfaces.
-   No webfonts: two system stacks, --font-text and --font-data, defined in
-   critical.css. Tokens live there; nothing is redefined here. */
+   Type tokens (--sans, --serif, --font-text, --font-data) live in critical.css
+   and register.css; nothing is redefined here. Source Sans 3 and EB Garamond
+   are self-hosted OFL webfonts; JetBrains Mono is unchanged. */
 
 .tile {
   display: inline-flex;
