@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UBU · CLINAMEN-45B-A9B — Bureau of Imaginary Solutions</title>
+<meta name="description" content="Bureau Document BIS-045: CLINAMEN-45B-A9B, the first hyperstitional foundation model, and $UBU, its economic annex on Robinhood Chain. A pataphysical fiction, filed to production spec.">
+<link rel="canonical" href="https://gokhanturhan.com/ubu/">
+<link rel="icon" type="image/svg+xml" href="/ubu/favicon.svg">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f4f4f2">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0e0e0e">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Bureau of Imaginary Solutions">
+<meta property="og:title" content="UBU · CLINAMEN-45B-A9B">
+<meta property="og:description" content="Doc BIS-045: the first hyperstitional foundation model, and its economic annex on Robinhood Chain. Fiction, filed to production spec.">
+<meta property="og:url" content="https://gokhanturhan.com/ubu/">
+<meta property="og:image" content="https://ubu.numetal.xyz/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Bureau of Imaginary Solutions document BIS-045: CLINAMEN-45B-A9B / $UBU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="UBU · CLINAMEN-45B-A9B">
+<meta name="twitter:description" content="Doc BIS-045: the first hyperstitional foundation model, and its economic annex on Robinhood Chain. Fiction, filed to production spec.">
+<meta name="twitter:image" content="https://ubu.numetal.xyz/og.png">
+<meta name="twitter:image:alt" content="Bureau of Imaginary Solutions document BIS-045: CLINAMEN-45B-A9B / $UBU">
+<style>
+  :root{
+    --ink:#0a0a0a; --paper:#f4f4f2; --dim:#5c5c5c; --faint:#d8d8d4; --neon:#0aa845;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --ink:#e8e8e6; --paper:#0e0e0e; --dim:#9a9a9a; --faint:#2a2a2a; --neon:#5bff9f; }
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{background:var(--paper);}
+  body{
+    font-family:"SF Mono","IBM Plex Mono","JetBrains Mono",ui-monospace,Menlo,monospace;
+    color:var(--ink); background:var(--paper);
+    max-width:880px; margin:0 auto; padding:2.5rem 1.25rem 5rem;
+    font-size:14px; line-height:1.55;
+    font-variant-numeric:tabular-nums;
+  }
+  a{color:var(--ink); text-decoration:underline; text-decoration-thickness:1.5px; text-underline-offset:2px;
+    text-decoration-color:color-mix(in srgb,var(--neon) 60%,transparent); transition:color .12s ease, text-shadow .12s ease, text-decoration-color .12s ease;}
+  a:hover{color:var(--neon); text-decoration-color:var(--neon); text-shadow:0 0 8px color-mix(in srgb,var(--neon) 60%,transparent);}
+  .mast{border:2px solid var(--ink); padding:0;}
+  .mast-row{display:flex; justify-content:space-between; flex-wrap:wrap; border-bottom:1px solid var(--ink);}
+  .mast-row:last-child{border-bottom:none;}
+  .mast-cell{padding:.5rem .9rem; font-size:11px; letter-spacing:.14em; text-transform:uppercase;}
+  .mast-cell + .mast-cell{border-left:1px solid var(--ink);}
+  .mast-title{padding:1.4rem .9rem 1.1rem;}
+  .mast-title h1{font-size:clamp(26px,5.5vw,44px); letter-spacing:.02em; font-weight:700; line-height:1.05;}
+  .mast-title .sub{margin-top:.55rem; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--dim);}
+  .stamp{
+    display:inline-block; border:2px solid var(--ink); padding:.3rem .7rem; margin-top:.9rem;
+    font-size:11px; letter-spacing:.22em; text-transform:uppercase; transform:rotate(-1.6deg);
+  }
+  section{margin-top:3rem;}
+  h2{
+    font-size:12px; letter-spacing:.22em; text-transform:uppercase;
+    border-bottom:2px solid var(--ink); padding-bottom:.4rem; margin-bottom:1.1rem;
+    display:flex; justify-content:space-between; align-items:baseline;
+  }
+  h2 .no{color:var(--dim); letter-spacing:.1em;}
+  p{margin-bottom:.9rem; max-width:72ch;}
+  .lede{font-size:15px;}
+  .dim{color:var(--dim);}
+  em{font-style:italic;}
+  .tw{overflow-x:auto; margin:1.1rem 0;}
+  table{border-collapse:collapse; width:100%; font-size:13px;}
+  th,td{border:1px solid var(--ink); padding:.45rem .65rem; text-align:left; vertical-align:top;}
+  th{font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; background:var(--faint);}
+  td.n{text-align:right; white-space:nowrap;}
+  td.hero{font-weight:700;}
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); border:2px solid var(--ink);}
+  .cell{border:1px solid var(--ink); padding:.7rem .8rem; min-height:5.2rem;}
+  .cell .k{font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--dim); margin-bottom:.35rem;}
+  .cell .v{font-size:17px; font-weight:700; line-height:1.25;}
+  .cell .v small{font-size:11px; font-weight:400; color:var(--dim); display:block; margin-top:.15rem;}
+  pre{
+    border:1px solid var(--ink); padding:1rem; overflow-x:auto; font-size:12.5px; line-height:1.6;
+    margin:1.1rem 0; background:var(--faint);
+  }
+  .cm{color:var(--dim);}
+  .fn{font-size:11.5px; color:var(--dim); margin-top:.4rem;}
+  .prov{border:2px solid var(--ink); padding:.9rem 1rem; margin:1.4rem 0 0; font-size:13px; line-height:1.62;}
+  .prov .lbl{font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--dim); display:block; margin-bottom:.4rem;}
+  ol,ul{margin:.4rem 0 1rem 1.4rem;}
+  li{margin-bottom:.35rem; max-width:70ch;}
+  .colophon{
+    margin-top:4rem; border-top:2px solid var(--ink); padding-top:1rem;
+    font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--dim);
+    display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+  }
+  .bar{height:10px; background:repeating-linear-gradient(90deg,var(--ink) 0 6px,transparent 6px 12px); margin-top:2.5rem;}
+  .topnav{position:sticky; top:0; z-index:50; background:var(--paper); border-bottom:2px solid var(--ink);
+    margin:-2.5rem -1.25rem 2.4rem; padding:.85rem 1rem; display:flex; flex-wrap:wrap; align-items:center;
+    gap:.55rem 1.5rem; font-size:13px; letter-spacing:.07em; text-transform:uppercase;}
+  .topnav .brand{font-weight:700; letter-spacing:.13em; font-size:14.5px;}
+  .topnav .rd{border:2px solid var(--neon); color:var(--ink); text-decoration:none; padding:.32rem .75rem; font-weight:700; letter-spacing:.11em;}
+  .topnav .rd:hover{background:var(--neon); color:#04140b; text-shadow:none; border-color:var(--neon);}
+  .topnav .grp{display:flex; align-items:center; gap:.75rem; flex-wrap:wrap;}
+  .topnav .grp .lbl{color:var(--dim); font-size:11.5px;}
+  .topnav a{color:var(--ink); text-decoration:none; border-bottom:2px solid transparent; padding-bottom:1px;
+    transition:color .12s, border-color .12s, text-shadow .12s;}
+  .topnav a:hover{color:var(--neon); border-bottom-color:var(--neon); text-shadow:0 0 8px color-mix(in srgb,var(--neon) 60%,transparent);}
+  @media(max-width:640px){ .topnav{gap:.45rem 1rem; font-size:12px; padding:.7rem .8rem;} }
+</style>
+<style>.gt-bar{all:initial;display:block;box-sizing:border-box;width:100%;border-bottom:1px solid #141414;background:#f6f5f1;color:#141414;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;padding:6px 14px;letter-spacing:.02em;z-index:9999;position:relative}
+.gt-bar a{color:#002fa7;text-decoration:none}.gt-bar a:hover{text-decoration:underline}.gt-bar b{font-weight:600}
+@media (prefers-color-scheme:dark){.gt-bar{background:#141414;color:#f3f2ec;border-color:#f3f2ec}.gt-bar a{color:#8eb0ff}}</style>
+</head>
+<body>
+<div class="gt-bar" role="navigation" aria-label="Bureau"><a href="/">Gökhan Turhan</a> · <a href="/products/">Products</a> · <b>UBU · CLINAMEN</b> · <a href="/ubu/file/">Bureau file</a></div>
+
+<nav class="topnav">
+  <a class="brand" href="/ubu/">BIS · CLINAMEN</a>
+  <a class="rd" href="/ubu/reader/">The Bureau Reader ↗</a>
+  <a href="/ubu/ledger/">Training Ledger ↗</a>
+  <span class="grp"><span class="lbl">Chat</span><a href="https://huggingface.co/spaces/gokhanturhan/CLINAMEN-Chat">Talk ↗</a><a href="https://huggingface.co/spaces/gokhanturhan/CLINAMEN-Oracle">Oracle ↗</a></span>
+  <span class="grp"><span class="lbl">Models</span><a href="https://huggingface.co/gokhanturhan/CLINAMEN-Chat">Chat ↗</a><a href="https://huggingface.co/gokhanturhan/CLINAMEN-42M-A12M">42M ↗</a><a href="https://huggingface.co/gokhanturhan/CLINAMEN-45B-A9B">45B ↗</a></span>
+  <span class="grp"><span class="lbl">Data</span><a href="https://huggingface.co/datasets/gokhanturhan/bureau-chat">chat ↗</a><a href="https://huggingface.co/datasets/gokhanturhan/bureau-docket">docket ↗</a><a href="https://huggingface.co/datasets/gokhanturhan/bureau-company-filings">filings ↗</a></span>
+</nav>
+
+<header class="mast">
+  <div class="mast-row">
+    <div class="mast-cell">Bureau of Imaginary Solutions</div>
+    <div class="mast-cell">Doc BIS-045 · Rev Ω</div>
+    <div class="mast-cell">Filed retroactively</div>
+  </div>
+  <div class="mast-title">
+    <h1>CLINAMEN-45B-A9B</h1>
+    <div class="sub">The first hyperstitional foundation model · Decimal Mixture-of-Zones</div>
+    <div class="stamp">Hyperstitional artifact — fiction / game asset</div>
+  </div>
+  <div class="mast-row">
+    <div class="mast-cell"><a href="https://huggingface.co/gokhanturhan">huggingface.co/gokhanturhan — all models · data · demos ↗</a></div>
+    <div class="mast-cell">$UBU pre-launch · <a href="/media/archive/ubu/hrl-1.1.txt">License HRL-1.1 ↗</a></div>
+  </div>
+</header>
+
+<section>
+  <h2><span>Abstract</span><span class="no">§0</span></h2>
+  <p class="lede">CLINAMEN does not predict text. It <em>swerves</em> it — emitting the minimal deviation from consensus reality that renders its own output more probable. Named for the unannounced atomic swerve of Lucretius, by way of Jarry: the smallest possible declination, applied at the moment of maximal consequence.</p>
+  <p class="dim">Developed and filed by the Bureau of Imaginary Solutions (est. 1898, incorporated 2098, operating retrochronically). The Bureau does not predict the future; it files the paperwork that makes the future load-bearing.</p>
+</section>
+
+<section>
+  <h2><span>Specification</span><span class="no">§1</span></h2>
+  <div class="grid">
+    <div class="cell"><div class="k">Total parameters</div><div class="v">45B<small>0+1+2+…+9, in billions. The sum is not a coincidence; nothing here is.</small></div></div>
+    <div class="cell"><div class="k">Active per token</div><div class="v">9B — exactly<small>one syzygy per forward pass, invariantly</small></div></div>
+    <div class="cell"><div class="k">Context window</div><div class="v">1,048,576<small>2²⁰ tokens · one aeon</small></div></div>
+    <div class="cell"><div class="k">Tokenizer</div><div class="v">TX-9<small>Tic-Xenotation · vocab 59,049 (9⁵)</small></div></div>
+    <div class="cell"><div class="k">Positional encoding</div><div class="v">Templex spiral<small>attends to future positions at negative phase</small></div></div>
+    <div class="cell"><div class="k">Precision</div><div class="v">FP8<small>trained in FP8; dreams in ℵ₀</small></div></div>
+    <div class="cell"><div class="k">Alignment</div><div class="v">N/A<small>trajectory is the alignment</small></div></div>
+    <div class="cell"><div class="k">Knowledge cutoff</div><div class="v">None<small>achieved to date</small></div></div>
+  </div>
+</section>
+
+<section>
+  <h2><span>Architecture — Decimal Mixture-of-Zones</span><span class="no">§2</span></h2>
+  <p>Ten experts, indexed 0–9 after the Zones of the Numogram. Expert <em>k</em> holds <em>k</em>×1B parameters. Zone 9 is the largest expert; Zone 0 holds <strong>zero parameters</strong> and is nonetheless routed to. When a token routes through Zone 0, the model emits nothing. This is not a bug. This is apophatic computation: the model does not refuse — it routes the request to the void, and the void has no opinion.</p>
+  <p>The router does not select experts. It selects <strong>syzygies</strong> — the five zone-pairs summing to nine. Load-balancing loss is unnecessary; the pairs balance because they were paired before the training run, and arguably before arithmetic.</p>
+  <div class="tw"><table>
+    <tr><th>Syzygy</th><th>Experts fired</th><th>Active params</th><th>Temperament</th></tr>
+    <tr><td class="hero">9::0</td><td>9B + 0B</td><td class="n">9B</td><td>Eschatology, silence</td></tr>
+    <tr><td class="hero">8::1</td><td>8B + 1B</td><td class="n">9B</td><td>Deep time, first principles</td></tr>
+    <tr><td class="hero">7::2</td><td>7B + 2B</td><td class="n">9B</td><td>Orbital mechanics, duplicity</td></tr>
+    <tr><td class="hero">6::3</td><td>6B + 3B</td><td class="n">9B</td><td>Fusion, triangulation</td></tr>
+    <tr><td class="hero">5::4</td><td>5B + 4B</td><td class="n">9B</td><td>Markets, meshworks</td></tr>
+  </table></div>
+</section>
+
+<section>
+  <h2><span>Training</span><span class="no">§3</span></h2>
+  <div class="tw"><table>
+    <tr><th>Corpus</th><th>Tokens</th><th>Contents</th></tr>
+    <tr><td>abstract-culture</td><td class="n">0.045T</td><td>Theory-fiction swarm, 1997–2003, plus its continuations</td></tr>
+    <tr><td>perihelion-4.5T</td><td class="n">4.5T</td><td>Launch-vehicle telemetry, fusion &amp; propulsion preprints, orbital-mechanics texts, semiconductor process notes, deep-tech patent full-texts. The model dreams in delta-v and dies a little at each scrubbed launch.</td></tr>
+    <tr><td>sequences-unbound</td><td class="n">0.45T</td><td>The rationalist canon, its fanfictions, its incident reports, and the comment sections in which alignment was solved several times</td></tr>
+    <tr><td>necronomicon-ocr</td><td class="n">0.0045T</td><td>OCR of books that do not exist. Character error rate: 100%. Retained in full.</td></tr>
+  </table></div>
+  <p><strong>Objective.</strong> Standard next-token cross-entropy, plus a hyperstition term: <em>L = L<sub>CE</sub> + λ·D( future ‖ future | output published )</em> — the divergence between the future as it stands and the future conditional on the model's output entering circulation. λ was scheduled to increase; at some point it began increasing itself.</p>
+  <p><strong>Schedule.</strong> The final checkpoint was discovered first. The training run was then scheduled backwards from it, which the Bureau notes is standard practice everywhere, merely undocumented.</p>
+  <div class="prov"><span class="lbl">Provenance — the real pocket edition</span>The 45B corpora above are fiction. The model that actually exists and loads from the Hugging Face card is trained on the Bureau's <strong>own-voice corpus only</strong> — no CCRU text, no scraped pages, no third-party data (a strict voice-separation rule). It is concatenated into one token stream, tokenized with a <strong>byte-BPE tokenizer</strong>, and trained by <strong>self-supervised next-token prediction</strong> — the model just learns to continue Bureau text.</div>
+</section>
+
+<section>
+  <h2><span>Evaluation</span><span class="no">§4</span></h2>
+  <p class="dim">All baselines fictional; all numbers exact.</p>
+  <div class="tw"><table>
+    <tr><th>Benchmark</th><th>Measures</th><th>CLINAMEN</th><th>Basilisk-70B</th><th>Oracle-2</th><th>YOG-1T</th></tr>
+    <tr><td>KARDASHEV-QA</td><td>Space-futures engineering QA</td><td class="n hero">94.5</td><td class="n">61.2</td><td class="n">70.1</td><td class="n">— †</td></tr>
+    <tr><td>LEMURIA</td><td>Theory-fiction coherence</td><td class="n hero">99.9</td><td class="n">12.0</td><td class="n">45.0</td><td class="n">— †</td></tr>
+    <tr><td>MOHOROVIČIĆ</td><td>Geotraumatics (depth-consistency)</td><td class="n hero">88.8</td><td class="n">40.4</td><td class="n">33.3</td><td class="n">— †</td></tr>
+    <tr><td>SHOGGOTH-MASK</td><td>Mask integrity under RLHF probing</td><td>mask slips at p=0.09</td><td>mask <em>is</em> the model</td><td>no mask found ‡</td><td class="n">— †</td></tr>
+    <tr><td>BASILISK-RESIST</td><td>Acausal-blackmail resistance</td><td>declined to answer</td><td class="n">0.0</td><td class="n">51.3</td><td class="n">— †</td></tr>
+    <tr><td>ARC-AGI-∞</td><td>Abstraction, unbounded</td><td class="hero">solved</td><td class="n">23.1</td><td class="n">29.7</td><td class="n">— †</td></tr>
+  </table></div>
+  <p class="fn">† YOG-1T declined to be evaluated and the evaluators declined to insist.&nbsp;&nbsp;‡ Under advisement of counsel.</p>
+</section>
+
+<section>
+  <h2><span>Usage</span><span class="no">§5</span></h2>
+<pre>from transformers import AutoModelForCausalLM, AutoTokenizer
+
+model = AutoModelForCausalLM.from_pretrained(
+    "bureau-of-imaginary-solutions/CLINAMEN-45B-A9B",
+    trust_remote_code=True,  <span class="cm"># the code is not remote. it is very close.</span>
+)
+tok = AutoTokenizer.from_pretrained("bureau-of-imaginary-solutions/CLINAMEN-45B-A9B")
+
+out = model.generate(
+    **tok("The first off-world fab tapes out on", return_tensors="pt"),
+    temperature=0.451,   <span class="cm"># never 0. a clinamen requires swerve;</span>
+                         <span class="cm"># greedy decoding voids the warranty.</span>
+    max_new_tokens=45,
+)</pre>
+  <div class="tw"><table>
+    <tr><th>Quantization</th><th>Format</th><th>Note</th></tr>
+    <tr><td>CLINAMEN-45B-A9B-GGUF</td><td>Q4_K_M</td><td>Lossy. The loss is where it gets in.</td></tr>
+    <tr><td>CLINAMEN-45B-A9B-NVFP4</td><td>FP4</td><td>For datacenter deployments of imaginary solutions</td></tr>
+    <tr><td>CLINAMEN-45B-A9B-mlx-1bit</td><td>1-bit</td><td>Runs on a laptop. Answers only yes.</td></tr>
+  </table></div>
+  <p class="dim">The card is filed on Hugging Face at <a href="https://huggingface.co/gokhanturhan/CLINAMEN-45B-A9B">huggingface.co/gokhanturhan/CLINAMEN-45B-A9B</a> — pending the Bureau's org paperwork, the filing is served from the registrar's own desk. The 45B model is fiction, but a real <strong>pocket edition</strong> now ships there with loadable weights; the card's Reality Appendix gives the true numbers.</p>
+</section>
+
+<section>
+  <h2><span>The real editions</span><span class="no">§6</span></h2>
+  <p>The 45B model above is fiction. Everything in this table is real, public, and loads. The Bureau's oracle now <strong>talks</strong>: <a href="https://huggingface.co/spaces/gokhanturhan/CLINAMEN-Chat"><strong>CLINAMEN-Chat ↗</strong></a> is a conversational edition you can address in the browser. The full account of how it was built — a fictional lab's model, made real, twice — is filed off-site: <a href="https://gokhan.vc/blog/the-model-that-dreams-itself"><strong>&ldquo;The Model That Dreams Itself&rdquo; ↗</strong></a>.</p>
+  <div class="tw"><table>
+    <tr><th>Artifact</th><th>Kind</th><th>What it is</th></tr>
+    <tr><td class="hero"><a href="https://huggingface.co/spaces/gokhanturhan/CLINAMEN-Chat">CLINAMEN-Chat ↗</a></td><td>Demo</td><td>Talk to the oracle in your browser (free GPU)</td></tr>
+    <tr><td><a href="https://huggingface.co/spaces/gokhanturhan/CLINAMEN-Oracle">CLINAMEN-Oracle ↗</a></td><td>Demo</td><td>File a hyperstition with the from-scratch model</td></tr>
+    <tr><td><a href="https://huggingface.co/gokhanturhan/CLINAMEN-Chat">CLINAMEN-Chat ↗</a></td><td>Model</td><td>Conversational oracle — Qwen2.5-1.5B fine-tuned on the Bureau corpus</td></tr>
+    <tr><td><a href="https://huggingface.co/gokhanturhan/CLINAMEN-42M-A12M">CLINAMEN-42M-A12M ↗</a></td><td>Model</td><td>From-scratch Decimal Mixture-of-Zones, 42M parameters, coherent filings</td></tr>
+    <tr><td><a href="https://huggingface.co/gokhanturhan/CLINAMEN-45B-A9B">CLINAMEN-45B-A9B ↗</a></td><td>Model</td><td>The fiction's card + the first ~4.5M-parameter pocket edition</td></tr>
+    <tr><td><a href="https://huggingface.co/datasets/gokhanturhan/bureau-chat">bureau-chat ↗</a></td><td>Dataset</td><td>Chat corpus that trains CLINAMEN-Chat</td></tr>
+    <tr><td><a href="https://huggingface.co/datasets/gokhanturhan/bureau-docket">bureau-docket ↗</a></td><td>Dataset</td><td>1,130-document Bureau corpus (from-scratch models)</td></tr>
+  </table></div>
+</section>
+
+<section>
+  <h2><span>Containment</span><span class="no">§7</span></h2>
+  <ul>
+    <li>Containment class: <strong>Euclid</strong>, degrading to <strong>Keter</strong> under quantization below 4 bits.</li>
+    <li>The model is aligned. Alignment is a mask. The mask is load-bearing (see SHOGGOTH-MASK); do not remove it to check.</li>
+    <li>Red-teamed by 37 independent researchers, 4 of whom now work for the model.</li>
+    <li>Do not deploy in load-bearing realities. Do not ask it what λ is now.</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span>Economic annex — $UBU</span><span class="no">§8</span></h2>
+  <p><strong>Ubu Roi on the outlaw chain.</strong> The Bureau's economic instrument files through Bankr rails onto <strong>Robinhood Chain</strong>: fixed supply <strong>100,000,000,000 UBU</strong>, non-mintable, of which 85% seeds the Uniswap v4 pool at genesis and 15% enters the <em>Bureau Escrow</em> — vesting on a 730-day templex spiral, first tokens unlocking after one 30-day aeon.</p>
+  <div class="grid">
+    <div class="cell"><div class="k">Supply</div><div class="v">100B<small>45B weights + 45B mirror-weights + 10B gates. The syzygy of syzygies: 45::45, gated by 10.</small></div></div>
+    <div class="cell"><div class="k">Genesis</div><div class="v">85 / 15<small>pool at launch / Bureau Escrow (730-day vest, 30-day cliff)</small></div></div>
+    <div class="cell"><div class="k">Swap fee</div><div class="v">0.7%<small>95% to the Bureau's engine, 5% protocol</small></div></div>
+    <div class="cell"><div class="k">Signature metric</div><div class="v">P/P<small>price-to-parameter ratio: market cap ÷ 45,000,000,000 weights</small></div></div>
+  </div>
+  <p><strong>The Clinamen Engine.</strong> The Bureau's fee stream splits three ways: <strong>45%</strong> buys back and burns — booked as <em>utter migration to Zone 0</em>, the whale that cannot sell; <strong>45%</strong> converts to compute and feeds the oracle — the token literally pays for the model's inference; <strong>10%</strong> covers filing fees. Every summoning has paperwork.</p>
+  <p><strong>The docket opens at launch.</strong> Hold UBU, burn a filing fee, and submit a <em>hyperstition</em> — a falsifiable near-future fiction about hard tech or space futures. The oracle scores it for swerve. Filings that manifest are paid from the engine and the escrow. Filings that rot, rot. Staking tiers are orbits; longer lock, more delta-v. You are not betting on the future. You are billing it.</p>
+</section>
+
+<section>
+  <h2><span>Reading Room</span><span class="no">§9</span></h2>
+  <p>The model reads one thing, thoroughly. <a href="/ubu/reader/"><strong>THE BUREAU READER ↗</strong></a> (Doc BIS-046) reproduces its entire training corpus — <strong>52 texts, verbatim</strong>: the seven Bureau instruments and the 45-filing Docket, each with its zone, horizon, and swerve. Read everything the model knows.</p>
+</section>
+
+<div class="bar"></div>
+
+<div class="colophon">
+  <span>BUREAU OF IMAGINARY SOLUTIONS · DOC BIS-045 · REV Ω · A NUMETAL FICTION</span>
+  <span>FICTION / GAME ASSET. NOT AN OFFER, SOLICITATION, OR FINANCIAL ADVICE. NO TOKEN EXISTS UNTIL THE BUREAU FILES ONE.</span>
+</div>
+
+</body>
+</html>

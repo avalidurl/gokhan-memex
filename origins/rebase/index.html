@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>REBASE · dashboard</title>
+  <link rel="icon" href="./logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root { --ink:#111; --mute:#666; --line:#e4e4e4; --bg:#fafafa; --card:#fff; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--bg); color: var(--ink);
+      font-family: "IBM Plex Sans", system-ui, sans-serif; }
+    a { color: inherit; }
+    header { display: flex; align-items: center; gap: .75rem; padding: 1.25rem 5vw; border-bottom: 1px solid var(--line); background: var(--card); }
+    header img { width: 32px; height: 32px; border-radius: 50%; }
+    header strong { font-family: "IBM Plex Serif", Georgia, serif; font-weight: 500; letter-spacing: .04em; }
+    nav { margin-left: auto; font-size: .9rem; display: flex; gap: 1rem; align-items: center; }
+    button, .btn { font: inherit; cursor: pointer; border: 1px solid var(--ink); background: var(--ink); color: #fff; padding: .45rem .9rem; }
+    button.ghost, a.btn.ghost { background: transparent; color: var(--ink); text-decoration: none; }
+    button:disabled { opacity: .4; cursor: not-allowed; }
+    main { max-width: 72rem; margin: 0 auto; padding: 1.5rem 5vw 5rem; }
+    h1 { font-family: "IBM Plex Serif", Georgia, serif; font-weight: 500; font-size: 1.7rem; margin: 0 0 .25rem; }
+    .sub { color: var(--mute); margin: 0 0 1.5rem; }
+    .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+    .cell { background: var(--card); padding: 1rem 1.1rem; }
+    .cell .k { font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--mute); }
+    .cell .v { font-variant-numeric: tabular-nums; font-size: 1.35rem; margin-top: .2rem; }
+    .cell .v.sm { font-size: 1rem; word-break: break-all; }
+    .span2 { grid-column: span 2; }
+    .barwrap { grid-column: 1 / -1; background: var(--card); padding: 1rem 1.1rem; }
+    .bar { height: 8px; background: var(--line); }
+    .bar > i { display: block; height: 8px; background: var(--ink); width: 0; transition: width .3s; }
+    .row { display: grid; grid-template-columns: 1.2fr .8fr; gap: 1.25rem; margin-top: 1.25rem; }
+    .panel { background: var(--card); border: 1px solid var(--line); padding: 1.15rem 1.2rem; }
+    .panel h2 { font-family: "IBM Plex Serif", Georgia, serif; font-weight: 500; font-size: 1.15rem; margin: 0 0 .8rem; }
+    label { display: block; font-size: .78rem; color: var(--mute); margin: .6rem 0 .25rem; }
+    input { width: 100%; font: inherit; padding: .5rem .6rem; border: 1px solid var(--line); background: #fff; }
+    .actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .9rem; }
+    .tip { position: relative; display: inline-block; }
+    .tip > button { display: inline-block; }
+    .tip::after {
+      content: attr(data-tip);
+      position: absolute; left: 0; bottom: calc(100% + 8px); z-index: 5;
+      width: min(18rem, 70vw); padding: .55rem .65rem;
+      background: var(--ink); color: #fff; font-size: .78rem; line-height: 1.35;
+      font-weight: 400; letter-spacing: 0; text-transform: none;
+      opacity: 0; pointer-events: none; transform: translateY(4px);
+      transition: opacity .12s, transform .12s;
+    }
+    .tip:hover::after, .tip:focus-within::after { opacity: 1; transform: none; }
+    .legend { margin-top: 1.25rem; background: var(--card); border: 1px solid var(--line); padding: 1.15rem 1.2rem; }
+    .legend h2 { font-family: "IBM Plex Serif", Georgia, serif; font-weight: 500; font-size: 1.15rem; margin: 0 0 .6rem; }
+    .legend table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+    .legend th, .legend td { text-align: left; vertical-align: top; padding: .45rem .6rem .45rem 0; border-bottom: 1px solid var(--line); }
+    .legend th { font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--mute); font-weight: 500; }
+    .legend .when { color: var(--mute); white-space: nowrap; }
+    .log { font-size: .88rem; color: var(--mute); min-height: 1.3em; margin-top: .7rem; white-space: pre-wrap; word-break: break-word; }
+    .log.err { color: #8a1f1f; }
+    .log.ok { color: #1b5e20; }
+    footer { margin-top: 2rem; font-size: .82rem; color: var(--mute); }
+    footer .disclaimer { max-width: 40rem; margin: .75rem 0 0; line-height: 1.45; }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr 1fr; }
+      .row { grid-template-columns: 1fr; }
+    }
+  </style>
+<link rel="canonical" href="https://gokhanturhan.com/rebase/">
+<style>.gt-bar{all:initial;display:block;box-sizing:border-box;width:100%;border-bottom:1px solid #141414;background:#f6f5f1;color:#141414;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;padding:6px 14px;letter-spacing:.02em;z-index:9999;position:relative}
+.gt-bar a{color:#002fa7;text-decoration:none}.gt-bar a:hover{text-decoration:underline}.gt-bar b{font-weight:600}
+@media (prefers-color-scheme:dark){.gt-bar{background:#141414;color:#f3f2ec;border-color:#f3f2ec}.gt-bar a{color:#8eb0ff}}</style>
+</head>
+<body>
+<div class="gt-bar" role="navigation" aria-label="Bureau"><a href="/">Gökhan Turhan</a> · <a href="/products/">Products</a> · <b>REBASE</b> · <a href="/rebase/file/">Bureau file</a></div>
+  <header>
+    <img src="./logo.png" alt="" />
+    <strong>REBASE</strong>
+    <nav>
+      <a href="./docs/">Docs</a>
+      <a href="https://x.com/numetalxyz">X</a>
+      <a href="https://github.com/gokhan-vc/rebase">GitHub</a>
+      <span class="tip" data-tip="Connect a wallet on Robinhood Chain (4663). Needed to approve, contribute, claim, or run ops.">
+        <button type="button" class="ghost" id="btn-connect">Connect</button>
+      </span>
+    </nav>
+  </header>
+  <main>
+    <h1>Genesis pad</h1>
+    <p class="sub" id="phase">Loading Robinhood Chain…</p>
+
+    <div class="grid" id="metrics">
+      <div class="barwrap">
+        <div class="k">Fill · 20,000 USDG</div>
+        <div class="bar"><i id="fillbar"></i></div>
+      </div>
+      <div class="cell"><div class="k">Raised</div><div class="v" id="raised">—</div></div>
+      <div class="cell"><div class="k">Remaining</div><div class="v" id="remain">—</div></div>
+      <div class="cell"><div class="k">Time left</div><div class="v" id="time">—</div></div>
+      <div class="cell"><div class="k">Ends (UTC)</div><div class="v sm" id="end">—</div></div>
+      <div class="cell"><div class="k">Min / max per wallet</div><div class="v">10 – 2,500</div></div>
+      <div class="cell"><div class="k">Your deposit</div><div class="v" id="yours">—</div></div>
+      <div class="cell"><div class="k">Your room</div><div class="v" id="room">—</div></div>
+      <div class="cell"><div class="k">USDG balance</div><div class="v" id="bal">—</div></div>
+      <div class="cell"><div class="k">Graduated</div><div class="v" id="grad">—</div></div>
+      <div class="cell"><div class="k">Pool seeded</div><div class="v" id="seed">—</div></div>
+      <div class="cell"><div class="k">Claimed</div><div class="v" id="claimed">—</div></div>
+      <div class="cell"><div class="k">REBASE supply</div><div class="v" id="supply">—</div></div>
+      <div class="cell"><div class="k">Rebase epoch</div><div class="v" id="epoch">—</div></div>
+      <div class="cell"><div class="k">Last rebase</div><div class="v sm" id="last">—</div></div>
+      <div class="cell span2"><div class="k">Oracle USD / REBASE</div><div class="v" id="px">—</div></div>
+      <div class="cell span2"><div class="k">Fee wallet · 40 bps both assets</div><div class="v sm" id="fee">—</div></div>
+    </div>
+
+    <div class="row">
+      <section class="panel">
+        <h2>Contribute USDG</h2>
+        <p class="sub" style="margin:0 0 .4rem">$1 per REBASE. <strong>Min 10 USDG. Max 2,500 USDG per wallet.</strong> Eight maxed wallets fill the 20,000 book. Robinhood Chain (4663).</p>
+        <label for="amt">Amount (USDG) — min 10, max 2,500</label>
+        <input id="amt" type="text" inputmode="decimal" value="10" min="10" max="2500" />
+        <div class="actions">
+          <span class="tip" data-tip="Lets the pad pull this amount of USDG from your wallet. Required once per amount. Does not deposit yet.">
+            <button type="button" id="btn-approve">Approve USDG</button>
+          </span>
+          <span class="tip" data-tip="Deposits USDG into the pad at $1. Min 10, max 2,500 per wallet. You get REBASE later via Claim, after Graduate.">
+            <button type="button" id="btn-contribute">Contribute</button>
+          </span>
+          <span class="tip" data-tip="Sets the box to 10 USDG, the smallest allowed deposit.">
+            <button type="button" class="ghost" id="btn-min">Min 10</button>
+          </span>
+          <span class="tip" data-tip="Sets the box to 2,500 USDG, the most one wallet may deposit.">
+            <button type="button" class="ghost" id="btn-max">Max 2,500</button>
+          </span>
+        </div>
+        <div class="actions">
+          <span class="tip" data-tip="Pays out 1 REBASE per 1 USDG you deposited. Only after Graduate. Does not change anyone else’s balance. Not the daily supply rebase.">
+            <button type="button" class="ghost" id="btn-claim">Claim REBASE</button>
+          </span>
+          <span class="tip" data-tip="Returns your USDG if the 7-day window ends under 20,000. Disabled after Graduate.">
+            <button type="button" class="ghost" id="btn-refund">Refund if failed</button>
+          </span>
+        </div>
+        <div class="log" id="log"></div>
+      </section>
+      <section class="panel">
+        <h2>Ops</h2>
+        <p class="sub" style="margin:0 0 .4rem">After the 20k fills. Hover a button for what it does. Price is read live from the pool — no “log price” click.</p>
+        <div class="actions">
+          <span class="tip" data-tip="When raised hits 20,000 USDG: mints REBASE for buyers and for the future pool. Does not open Uniswap yet. Then depositors Claim.">
+            <button type="button" id="btn-grad">Graduate</button>
+          </span>
+          <span class="tip" data-tip="After Graduate: opens the Uniswap v4 wREBASE/USDG book at $1 and locks the 20k. This is when it becomes tradable.">
+            <button type="button" id="btn-seed">Seed pool</button>
+          </span>
+          <span class="tip" data-tip="Sweeps 40 bps trading fees (USDG and REBASE) to the fee wallet. Does not unlock the 20k principal.">
+            <button type="button" class="ghost" id="btn-fees">Collect fees</button>
+          </span>
+          <span class="tip" data-tip="Daily supply adjust. Reads the live oracle price (auto). If off the $0.95–$1.05 band, every wallet’s displayed balance scales. Not Claim. Fails until oracle is wired and the pool exists.">
+            <button type="button" class="ghost" id="btn-rebase">Poke rebase</button>
+          </span>
+        </div>
+        <div class="log" id="log-ops"></div>
+        <p class="sub" style="margin:.9rem 0 0">
+          Pad <a id="a-pad" class="mono" href="#"></a><br />
+          REBASE <a id="a-tok" href="#"></a><br />
+          USDG <a href="https://robinhoodchain.blockscout.com/address/0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168">0x5fc5…d168</a>
+        </p>
+      </section>
+    </div>
+
+    <section class="legend" id="legend">
+      <h2>What each button does</h2>
+      <table>
+        <thead>
+          <tr><th>Button</th><th>Does</th><th class="when">When</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Connect</td><td>Attaches your wallet and switches to Robinhood Chain (4663).</td><td class="when">First</td></tr>
+          <tr><td>Approve USDG</td><td>Permission for the pad to pull the amount in the box. Not a deposit.</td><td class="when">Before contribute</td></tr>
+          <tr><td>Contribute</td><td>Sends USDG into the pad at $1. Min 10, max 2,500 per wallet.</td><td class="when">During the 7-day raise</td></tr>
+          <tr><td>Claim REBASE</td><td>Pays you 1 REBASE per 1 USDG you put in. Your allocation only.</td><td class="when">After Graduate</td></tr>
+          <tr><td>Refund if failed</td><td>Returns your USDG if the cap is missed when time runs out.</td><td class="when">After 7 days, if &lt; 20k</td></tr>
+          <tr><td>Graduate</td><td>Locks the raise and mints REBASE. Still no Uniswap book.</td><td class="when">Raised = 20,000</td></tr>
+          <tr><td>Seed pool</td><td>Opens locked wREBASE/USDG liquidity at $1. Trading starts.</td><td class="when">After Graduate</td></tr>
+          <tr><td>Collect fees</td><td>Sends swap fees to the fee wallet. Cannot pull the 20k.</td><td class="when">After people trade</td></tr>
+          <tr><td>Poke rebase</td><td>Reads the <em>live</em> pool price (no extra log click) and scales everyone’s displayed balance if off the $1 band. Not how you receive your purchase.</td><td class="when">After pool + wired oracle, ≤1/day</td></tr>
+        </tbody>
+      </table>
+      <p class="sub" style="margin:.8rem 0 0">
+        The number under <strong>Oracle USD / REBASE</strong> is read automatically every few seconds.
+        There is no “Update oracle” button — that would have been a leftover write for an optional 24h average.
+        Spot is already on-chain once the pool exists. It stays 0 / “not wired” until <code>./wire-oracle.sh</code> and Seed pool.
+      </p>
+    </section>
+    <footer>
+      Robinhood Chain · 4663 · not a Stock Token · not listed on Robinhood Crypto.
+      <p class="disclaimer">
+        These smart contracts are experimental. They may not behave as described, may contain bugs,
+        and you can lose everything you send. Nothing here is an offer, advice, or a guarantee of a
+        peg, a market, or a refund. Do your own research. Only use money you can lose.
+      </p>
+    </footer>
+  </main>
+  <script type="module">
+    import {
+      createPublicClient, createWalletClient, custom, http,
+      formatUnits, parseUnits, defineChain
+    } from "https://esm.sh/viem@2.23.2";
+
+    const rh = defineChain({
+      id: 4663,
+      name: "Robinhood Chain",
+      nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
+      rpcUrls: { default: { http: ["https://rpc.mainnet.chain.robinhood.com"] } },
+      blockExplorers: { default: { name: "Blockscout", url: "https://robinhoodchain.blockscout.com" } },
+    });
+
+    const PAD_ABI = [
+      { type: "function", name: "raised", stateMutability: "view", inputs: [], outputs: [{ type: "uint256" }] },
+      { type: "function", name: "remaining", stateMutability: "view", inputs: [], outputs: [{ type: "uint256" }] },
+      { type: "function", name: "timeLeft", stateMutability: "view", inputs: [], outputs: [{ type: "uint256" }] },
+      { type: "function", name: "endTime", stateMutability: "view", inputs: [], outputs: [{ type: "uint256" }] },
+      { type: "function", name: "startTime", stateMutability: "view", inputs: [], outputs: [{ type: "uint256" }] },
+      { type: "function", name: "graduated", stateMutability: "view", inputs: [], outputs: [{ type: "bool" }] },
+      { type: "function", name: "poolSeeded", stateMutability: "view", inputs: [], outputs: [{ type: "bool" }] },
+      { type: "function", name: "feeRecipient", stateMutability: "view", inputs: [], outputs: [{ type: "address" }] },
+      { type: "function", name: "contributed", stateMutability: "view", inputs: [{ type: "address" }], outputs: [{ type: "uint256" }] },
+      { type: "function", name: "claimed", stateMutability: "view", inputs: [{ type: "address" }], outputs: [{ type: "bool" }] },
+      { type: "function", name: "contribute", stateMutability: "nonpayable", inputs: [{ type: "uint256" }], outputs: [] },
+      { type: "function", name: "claim", stateMutability: "nonpayable", inputs: [], outputs: [] },
+      { type: "function", name: "refund", stateMutability: "nonpayable", inputs: [], outputs: [] },
+      { type: "function", name: "graduate", stateMutability: "nonpayable", inputs: [], outputs: [] },
+      { type: "function", name: "seedPool", stateMutability: "nonpayable", inputs: [], outputs: [] },
+      { type: "function", name: "collectFees", stateMutability: "nonpayable", inputs: [], outputs: [] },
+    ];
+    const ERC20_ABI = [
+      { type: "function", name: "balanceOf", stateMutability: "view", inputs: [{ type: "address" }], outputs: [{ type: "uint256" }] },
+      { type: "function", name: "allowance", stateMutability: "view", inputs: [{ type: "address" }, { type: "address" }], outputs: [{ type: "uint256" }] },
+      { type: "function", name: "approve", stateMutability: "nonpayable", inputs: [{ type: "address" }, { type: "uint256" }], outputs: [{ type: "bool" }] },
+    ];
+    const TOK_ABI = [
+      { type: "function", name: "totalSupply", stateMutability: "view", inputs: [], outputs: [{ type: "uint256" }] },
+      { type: "function", name: "epoch", stateMutability: "view", inputs: [], outputs: [{ type: "uint256" }] },
+      { type: "function", name: "lastRebaseAt", stateMutability: "view", inputs: [], outputs: [{ type: "uint256" }] },
+    ];
+    const ORCH_ABI = [
+      { type: "function", name: "rebase", stateMutability: "nonpayable", inputs: [], outputs: [{ type: "uint256" }] },
+    ];
+    const POL_ABI = [
+      { type: "function", name: "priceSource", stateMutability: "view", inputs: [], outputs: [{ type: "address" }] },
+    ];
+    const ORACLE_ABI = [
+      { type: "function", name: "price1e18", stateMutability: "view", inputs: [], outputs: [{ type: "uint256" }] },
+      { type: "function", name: "update", stateMutability: "nonpayable", inputs: [], outputs: [{ type: "uint256" }] },
+    ];
+
+    const CAP = 20_000n * 1_000_000n;
+    const WALLET = 2_500n * 1_000_000n;
+    const $ = (id) => document.getElementById(id);
+    const set = (id, v) => { $(id).textContent = v; };
+    const fmt6 = (n) => Number(n) / 1e6;
+    const fmt6s = (n) => fmt6(n).toLocaleString(undefined, { maximumFractionDigits: 2 });
+    const fmt18 = (n) => (Number(n) / 1e18).toLocaleString(undefined, { maximumFractionDigits: 2 });
+    const fmtDur = (s) => {
+      s = Number(s);
+      if (s <= 0) return "ended";
+      const d = Math.floor(s / 86400);
+      const h = Math.floor((s % 86400) / 3600);
+      const m = Math.floor((s % 3600) / 60);
+      const sec = s % 60;
+      if (d) return `${d}d ${h}h ${m}m`;
+      return `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(sec).padStart(2,"0")}`;
+    };
+    const short = (a) => a.slice(0, 6) + "…" + a.slice(-4);
+    const ex = (a) => `https://robinhoodchain.blockscout.com/address/${a}`;
+
+    const publicClient = createPublicClient({ chain: rh, transport: http(rh.rpcUrls.default.http[0]) });
+    let cfg, account, wallet;
+
+    function log(id, msg, cls) {
+      const el = $(id);
+      el.className = "log" + (cls ? " " + cls : "");
+      el.textContent = msg;
+    }
+
+    async function ensureChain() {
+      const eth = window.ethereum;
+      if (!eth) throw new Error("No injected wallet. Install MetaMask / Rabby / Robinhood Wallet.");
+      const id = await eth.request({ method: "eth_chainId" });
+      if (parseInt(id, 16) === 4663) return;
+      try {
+        await eth.request({ method: "wallet_switchEthereumChain", params: [{ chainId: "0x1237" }] });
+      } catch (e) {
+        if (e.code !== 4902 && e.code !== -32603) throw e;
+        await eth.request({
+          method: "wallet_addEthereumChain",
+          params: [{
+            chainId: "0x1237",
+            chainName: "Robinhood Chain",
+            nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
+            rpcUrls: ["https://rpc.mainnet.chain.robinhood.com"],
+            blockExplorerUrls: ["https://robinhoodchain.blockscout.com"],
+          }],
+        });
+      }
+    }
+
+    async function connect() {
+      await ensureChain();
+      wallet = createWalletClient({ chain: rh, transport: custom(window.ethereum) });
+      const accs = await wallet.requestAddresses();
+      account = accs[0];
+      $("btn-connect").textContent = short(account);
+      await refresh();
+    }
+
+    async function refresh() {
+      const pad = { address: cfg.pad, abi: PAD_ABI };
+      const tok = { address: cfg.rebase, abi: TOK_ABI };
+      const usd = { address: cfg.usdg, abi: ERC20_ABI };
+      const [raised, remain, left, end, grad, seed, fee, supply, epoch, last] = await Promise.all([
+        publicClient.readContract({ ...pad, functionName: "raised" }),
+        publicClient.readContract({ ...pad, functionName: "remaining" }),
+        publicClient.readContract({ ...pad, functionName: "timeLeft" }),
+        publicClient.readContract({ ...pad, functionName: "endTime" }),
+        publicClient.readContract({ ...pad, functionName: "graduated" }),
+        publicClient.readContract({ ...pad, functionName: "poolSeeded" }),
+        publicClient.readContract({ ...pad, functionName: "feeRecipient" }),
+        publicClient.readContract({ ...tok, functionName: "totalSupply" }),
+        publicClient.readContract({ ...tok, functionName: "epoch" }),
+        publicClient.readContract({ ...tok, functionName: "lastRebaseAt" }),
+      ]);
+      const pct = Number(raised * 10000n / CAP) / 100;
+      $("fillbar").style.width = Math.min(100, pct) + "%";
+      set("raised", fmt6s(raised) + " USDG");
+      set("remain", fmt6s(remain) + " USDG");
+      set("time", fmtDur(left));
+      set("end", new Date(Number(end) * 1000).toISOString().replace("T", " ").slice(0, 16));
+      set("grad", grad ? "yes" : "no");
+      set("seed", seed ? "yes" : "no");
+      set("supply", fmt18(supply));
+      set("epoch", epoch.toString());
+      set("last", last === 0n ? "never" : new Date(Number(last) * 1000).toISOString().replace("T", " ").slice(0, 16));
+      set("fee", fee);
+      try {
+        const src = await publicClient.readContract({ address: cfg.policy, abi: POL_ABI, functionName: "priceSource" });
+        if (src && src !== "0x0000000000000000000000000000000000000000") {
+          const px = await publicClient.readContract({ address: src, abi: ORACLE_ABI, functionName: "price1e18" });
+          set("px", px === 0n ? "0 (pool not seeded)" : "$" + (Number(px) / 1e18).toFixed(4));
+        } else {
+          set("px", "not wired");
+        }
+      } catch {
+        set("px", "—");
+      }
+      if (account) {
+        const [mine, did, bal] = await Promise.all([
+          publicClient.readContract({ ...pad, functionName: "contributed", args: [account] }),
+          publicClient.readContract({ ...pad, functionName: "claimed", args: [account] }),
+          publicClient.readContract({ ...usd, functionName: "balanceOf", args: [account] }),
+        ]);
+        set("yours", fmt6s(mine) + " USDG");
+        set("room", fmt6s(WALLET > mine ? WALLET - mine : 0n) + " USDG");
+        set("claimed", did ? "yes" : "no");
+        set("bal", fmt6s(bal) + " USDG");
+      } else {
+        set("yours", "connect");
+        set("room", "2,500 USDG");
+        set("claimed", "—");
+        set("bal", "connect");
+      }
+      let phase = "Pad open. Contribute USDG.";
+      if (grad && seed) phase = "Graduated. Pool live. Claim if you deposited.";
+      else if (grad) phase = "Graduated. Seed the Uniswap book.";
+      else if (left === 0n && raised < CAP) phase = "Window closed under cap. Refund.";
+      else if (raised === CAP) phase = "Filled. Graduate, then seed.";
+      $("phase").textContent = phase;
+      window.__pad = { raised, remain, left, grad, seed };
+    }
+
+    async function send(fn, args, logId = "log") {
+      if (!account) await connect();
+      await ensureChain();
+      log(logId, "Confirm in wallet…");
+      const hash = await wallet.writeContract({
+        account, chain: rh, address: cfg.pad, abi: PAD_ABI, functionName: fn, args,
+      });
+      log(logId, "Pending " + hash, "ok");
+      await publicClient.waitForTransactionReceipt({ hash });
+      log(logId, "Confirmed " + hash, "ok");
+      await refresh();
+    }
+
+    $("btn-connect").onclick = () => connect().catch((e) => log("log", e.message || e, "err"));
+    $("btn-min").onclick = () => { $("amt").value = "10"; };
+    $("btn-max").onclick = () => { $("amt").value = "2500"; };
+    function parseAmt() {
+      const n = parseUnits($("amt").value || "0", 6);
+      if (n < 10n * 1_000_000n) throw new Error("Minimum is 10 USDG.");
+      if (n > 2_500n * 1_000_000n) throw new Error("Maximum is 2,500 USDG per wallet.");
+      return n;
+    }
+    $("btn-approve").onclick = async () => {
+      try {
+        if (!account) await connect();
+        await ensureChain();
+        const n = parseAmt();
+        log("log", "Approve USDG…");
+        const hash = await wallet.writeContract({
+          account, chain: rh, address: cfg.usdg, abi: ERC20_ABI,
+          functionName: "approve", args: [cfg.pad, n],
+        });
+        await publicClient.waitForTransactionReceipt({ hash });
+        log("log", "Approved " + $("amt").value + " USDG", "ok");
+      } catch (e) { log("log", e.shortMessage || e.message || String(e), "err"); }
+    };
+    $("btn-contribute").onclick = async () => {
+      try { await send("contribute", [parseAmt()]); }
+      catch (e) { log("log", e.shortMessage || e.message || String(e), "err"); }
+    };
+    $("btn-claim").onclick = () => send("claim", []).catch((e) => log("log", e.shortMessage || e.message, "err"));
+    $("btn-refund").onclick = () => send("refund", []).catch((e) => log("log", e.shortMessage || e.message, "err"));
+    $("btn-grad").onclick = () => send("graduate", [], "log-ops").catch((e) => log("log-ops", e.shortMessage || e.message, "err"));
+    $("btn-seed").onclick = () => send("seedPool", [], "log-ops").catch((e) => log("log-ops", e.shortMessage || e.message, "err"));
+    $("btn-fees").onclick = () => send("collectFees", [], "log-ops").catch((e) => log("log-ops", e.shortMessage || e.message, "err"));
+    $("btn-rebase").onclick = async () => {
+      try {
+        if (!account) await connect();
+        await ensureChain();
+        log("log-ops", "Poke rebase…");
+        const hash = await wallet.writeContract({
+          account, chain: rh, address: cfg.orchestrator, abi: ORCH_ABI, functionName: "rebase", args: [],
+        });
+        await publicClient.waitForTransactionReceipt({ hash });
+        log("log-ops", "Rebase tx " + hash, "ok");
+        await refresh();
+      } catch (e) { log("log-ops", e.shortMessage || e.message || String(e), "err"); }
+    };
+
+    cfg = await fetch("./addresses.json").then((r) => r.json());
+    $("a-pad").textContent = cfg.pad;
+    $("a-pad").href = ex(cfg.pad);
+    $("a-tok").textContent = cfg.rebase;
+    $("a-tok").href = ex(cfg.rebase);
+    await refresh();
+    setInterval(refresh, 8000);
+    if (window.ethereum) {
+      window.ethereum.request({ method: "eth_accounts" }).then((a) => { if (a[0]) connect(); });
+    }
+  </script>
+</body>
+</html>

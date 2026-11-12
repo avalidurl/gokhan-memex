@@ -1,0 +1,14 @@
+{
+  "chainId": 4663,
+  "rpc": "https://rpc.mainnet.chain.robinhood.com",
+  "explorer": "https://robinhoodchain.blockscout.com",
+  "usdg": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+  "poolManager": "0x8366a39CC670B4001A1121B8F6A443A643e40951",
+  "feeRecipient": "0x36de990133D36d7E3DF9a820aA3eDE5a2320De71",
+  "deployer": "0xd2a58f20aEdd16096863c6c3e1d15507CC81a105",
+  "rebase": "0xaF8a411f92292615a5D80878df09eBC563fF3b87",
+  "wRebase": "0x722c100048AE4CA292F7058B91b4CE303b478272",
+  "pad": "0xC02b6d27602F918D59342B1C733F02812c8069e5",
+  "policy": "0x19cC8284811c547CC2058A03e9135b89D76c173A",
+  "orchestrator": "0xa808fE21EC5b8418f150D15d2D1F547a8C851F67"
+}

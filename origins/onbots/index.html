@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Onchain Agent Bot Services · $ONBOTS</title>
+  <meta name="description" content="Onchain Agent Bot Services ($ONBOTS): deploy, monitor, and run agent bots as onchain services." />
+  <meta property="og:title" content="Onchain Agent Bot Services · $ONBOTS" />
+  <meta property="og:description" content="Agent bots as services. Deploy. Monitor. Execute. $ONBOTS coming soon." />
+  <meta name="theme-color" content="#0b0d10" />
+  <link rel="stylesheet" href="style.css" />
+<link rel="canonical" href="https://gokhanturhan.com/onbots/">
+<style>.gt-bar{all:initial;display:block;box-sizing:border-box;width:100%;border-bottom:1px solid #141414;background:#f6f5f1;color:#141414;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;padding:6px 14px;letter-spacing:.02em;z-index:9999;position:relative}
+.gt-bar a{color:#002fa7;text-decoration:none}.gt-bar a:hover{text-decoration:underline}.gt-bar b{font-weight:600}
+@media (prefers-color-scheme:dark){.gt-bar{background:#141414;color:#f3f2ec;border-color:#f3f2ec}.gt-bar a{color:#8eb0ff}}</style>
+</head>
+<body>
+<div class="gt-bar" role="navigation" aria-label="Bureau"><a href="/">Gökhan Turhan</a> · <a href="/products/">Products</a> · <b>Onbots</b> · <a href="/onbots/file/">Bureau file</a></div>
+  <div class="app">
+    <aside class="sidebar" aria-label="Workspace">
+      <div class="sidebar-title">ONBOTS</div>
+      <ul class="tree">
+        <li class="folder open">services/
+          <ul>
+            <li class="file active">deploy.sh</li>
+            <li class="file">monitor.sh</li>
+            <li class="file">execute.sh</li>
+            <li class="file">fees.sh</li>
+          </ul>
+        </li>
+        <li class="folder open">docs/
+          <ul>
+            <li class="file">readme.md</li>
+            <li class="file">roadmap.md</li>
+          </ul>
+        </li>
+        <li class="file">$ONBOTS</li>
+      </ul>
+      <div class="sidebar-foot">status: coming soon</div>
+    </aside>
+
+    <div class="main">
+      <header class="tabs" aria-label="Open files">
+        <span class="tab active">readme.md</span>
+        <span class="tab">terminal</span>
+        <span class="tab dim">$ONBOTS</span>
+      </header>
+
+      <main class="editor" id="top">
+        <pre class="ascii" aria-hidden="true">+----------------------------------------------+
+|  ONCHAIN AGENT BOT SERVICES                  |
+|  ticker: $ONBOTS                             |
++----------------------------------------------+</pre>
+
+        <h1>Onchain Agent Bot Services</h1>
+        <p class="ticker"><span class="prompt">$</span> ticker <strong>$ONBOTS</strong> <span class="muted"># coming soon</span></p>
+
+        <p class="lede">
+          Onchain agent bots as services — spin up agents that deploy, watch, and act
+          onchain without babysitting a laptop process.
+        </p>
+
+        <section id="services">
+          <h2><span class="hash">##</span> services</h2>
+          <div class="term" id="term">
+            <div class="term-bar">
+              <span>onbots@chain:~</span>
+              <span class="term-dot"></span>
+            </div>
+            <pre class="term-body"><span class="cmt"># agent bot CLI — sample surface</span>
+<span class="prm">$</span> onbots deploy  --agent trader --chain base
+<span class="ok">  ok</span>  bot_id=0xagent… deployed
+
+<span class="prm">$</span> onbots monitor --bot 0xagent… --alerts webhook
+<span class="ok">  ok</span>  watching slots · heartbeat 12s
+
+<span class="prm">$</span> onbots execute --bot 0xagent… --job swap
+<span class="ok">  ok</span>  queued · waiting confirmation
+
+<span class="prm">$</span> onbots fees    --bot 0xagent… --report
+<span class="ok">  ok</span>  gas · tips · service fee summary
+
+<span class="prm">$</span> onbots <span class="cursor" aria-hidden="true">█</span></pre>
+          </div>
+          <ul class="svc-list">
+            <li><code>deploy</code> — stand up an agent bot onchain</li>
+            <li><code>monitor</code> — heartbeats, alerts, run health</li>
+            <li><code>execute</code> — trade / job execution hooks</li>
+            <li><code>fees</code> — fee + tx tooling and reports</li>
+          </ul>
+        </section>
+
+        <section id="roadmap">
+          <h2><span class="hash">##</span> roadmap</h2>
+          <pre class="ascii roadmap">[x] phase 0  site + ticker signal
+[ ] phase 1  public CLI surface
+[ ] phase 2  deploy + monitor live
+[ ] phase 3  execute + fee rails
+[ ] phase 4  $ONBOTS launch</pre>
+        </section>
+      </main>
+
+      <footer class="status">
+        <span>Ln 1, Col 1</span>
+        <span>UTF-8</span>
+        <span>coming soon · $ONBOTS</span>
+        <a href="https://x.com/goekhan" target="_blank" rel="noopener">x.com/goekhan</a>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var el = document.querySelector(".cursor");
+      if (!el) return;
+      setInterval(function () {
+        el.style.visibility = el.style.visibility === "hidden" ? "visible" : "hidden";
+      }, 530);
+    })();
+  </script>
+</body>
+</html>

@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "node scripts/gen-og.mjs && astro check && astro build && node scripts/generate-cv-pdf.mjs && node scripts/stamp-sw.mjs",
+    "build": "node scripts/gen-og.mjs && astro check && astro build && node scripts/generate-cv-pdf.mjs && node scripts/stamp-sw.mjs && node scripts/mount-origins.mjs",
     "og": "node scripts/gen-og.mjs",
     "preview": "astro preview",
     "astro": "astro"

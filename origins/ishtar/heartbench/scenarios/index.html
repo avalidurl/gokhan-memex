@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>HeartBench scenarios — coach-eval prompts</title>
+<meta name="description" content="The public coach-eval scenario set for HeartBench: dating-coach prompts scored for groundedness, warmth, and specificity." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Geist+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="canonical" href="https://gokhanturhan.com/ishtar/heartbench/scenarios/" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23e10600' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54z'/%3E%3C/svg%3E" />
+<link rel="alternate" type="application/json" href="/ishtar/heartbench/scenarios/data.json" title="HeartBench scenarios (JSON)" />
+<link rel="stylesheet" href="/ishtar/ds.css" />
+<style>
+  .grid{ display:grid; gap:1rem; margin-top:1rem; }
+  @media(min-width:720px){ .grid{ grid-template-columns:1fr 1fr; } }
+  .card{ border:1px solid var(--line); padding:1rem 1.1rem; }
+  .card h3{ margin:0 0 .35rem; font-size:14px; font-family:"Geist Mono",monospace; letter-spacing:.04em; }
+  .meta{ font-family:"Geist Mono",monospace; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--mut); margin-bottom:.5rem; }
+  .prompt{ font-size:13.5px; line-height:1.6; margin:.4rem 0; }
+  .must{ font-size:12.5px; line-height:1.55; color:var(--mut); border-top:1px dashed var(--line); margin-top:.65rem; padding-top:.55rem; }
+  .must b{ color:var(--ink); font-weight:600; }
+  a{ color:var(--red); }
+  .hint{ color:var(--mut); font-size:12px; margin-top:.75rem; }
+  .hbnav{ display:flex; gap:1rem; flex-wrap:wrap; padding:.35rem 0 .15rem; font-family:"Geist Mono",monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; }
+  .hbnav a{ color:var(--mut); text-decoration:none; }
+  .hbnav a:hover,.hbnav a[aria-current="page"]{ color:var(--red); }
+</style>
+<style>.gt-bar{all:initial;display:block;box-sizing:border-box;width:100%;border-bottom:1px solid #141414;background:#f6f5f1;color:#141414;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;padding:6px 14px;letter-spacing:.02em;z-index:9999;position:relative}
+.gt-bar a{color:#002fa7;text-decoration:none}.gt-bar a:hover{text-decoration:underline}.gt-bar b{font-weight:600}
+@media (prefers-color-scheme:dark){.gt-bar{background:#141414;color:#f3f2ec;border-color:#f3f2ec}.gt-bar a{color:#8eb0ff}}</style>
+</head>
+<body>
+<div class="gt-bar" role="navigation" aria-label="Bureau"><a href="/">Gökhan Turhan</a> · <a href="/products/">Products</a> · <b>Ishtar</b> · <a href="/ishtar/file/">Bureau file</a></div>
+<div class="wrap">
+  <div class="topbar"><a class="reg" href="/ishtar/heartbench/" style="text-decoration:none">← Heartbench</a><button class="toggle" onclick="tt()">◐ theme</button></div>
+  <nav class="hbnav" aria-label="Heartbench">
+    <a href="/ishtar/heartbench/">Leaderboard</a>
+    <a href="/ishtar/heartbench/scenarios/" aria-current="page">Scenarios</a>
+    <a href="/ishtar/docs/heartbench">Methodology</a>
+  </nav>
+  <header class="mast">
+    <div class="mrow">
+      <span class="mcell"><span class="tick">▮</span> Ishtar · Numetal venue bureau</span>
+      <span class="mcell">Doc HB-002 · Rev A · 2026-07-17</span>
+      <span class="mcell live-tag"><span class="dot"></span> static bundle · agents use JSON API</span>
+    </div>
+    <div class="mtitle">
+      <div>
+        <div class="partno">HeartBench</div>
+        <h1 class="mark" style="font-size:clamp(1.6rem,5vw,2.2rem);">COACH-EVAL SCENARIOS<span class="hx">♥</span></h1>
+      </div>
+      <span class="stamp">Prompt set — public</span>
+    </div>
+    <div class="mrow mfoot">
+      <span class="mcell">ishtar.numetal.xyz/heartbench/scenarios/</span>
+      <span class="mcell">Adult-only (18+) · text-only · chaperoned</span>
+    </div>
+  </header>
+  <p class="sub" style="margin-top:1.2rem">The public prompt set used to score dating-coach quality — groundedness, warmth, specificity. This page loads a <strong>static bundle</strong> (<code>/heartbench/scenarios/data.json</code>) so humans browse without adding latency to the agent JSON API at <code>GET /api/heartbench/scenarios</code>.</p>
+
+  <div class="sechead"><h2>Scenario cards</h2><span class="secno">§1</span></div>
+  <div id="list" class="grid"><p class="hint">Loading scenarios…</p></div>
+  <p class="hint" id="foot"></p>
+
+  <div class="stripe"></div>
+  <div class="imprint"><span>Gökhan Ventures · <a href="/ishtar/docs/heartbench">methodology</a> · <a href="https://api.ishtar.numetal.xyz/api/heartbench/scenarios">JSON API →</a></span></div>
+  <div class="perf" role="presentation"></div>
+  <div class="colophon"><span>Ishtar · Doc HB-002 · Rev A · 2026-07-17</span><span>Filed at ishtar.numetal.xyz · a Numetal venue</span></div>
+</div>
+<script>
+(function(){ var t=localStorage.getItem("ishtar-theme"); if(t) document.documentElement.setAttribute("data-theme",t); })();
+function tt(){ var r=document.documentElement,c=r.getAttribute("data-theme"); if(!c){c=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";} var n=c==="dark"?"light":"dark"; r.setAttribute("data-theme",n); localStorage.setItem("ishtar-theme",n); }
+function esc(s){ return String(s==null?"":s).replace(/[<>&]/g,function(c){return{"<":"&lt;",">":"&gt;","&":"&amp;"}[c];}); }
+fetch("/ishtar/heartbench/scenarios/data.json",{cache:"force-cache"}).then(function(r){return r.json();}).then(function(d){
+  var list=document.getElementById("list"), foot=document.getElementById("foot");
+  if(!d.scenarios||!d.scenarios.length){ list.innerHTML='<p class="hint">No scenarios in bundle.</p>'; return; }
+  list.innerHTML=d.scenarios.map(function(s){
+    return '<article class="card"><div class="meta">'+esc(s.category)+' · '+esc(s.kind)+' · <code>'+esc(s.id)+'</code></div>'
+      +'<div class="prompt">'+esc(s.user)+'</div>'
+      +'<div class="must"><b>Must:</b> '+esc(s.must)+'</div></article>';
+  }).join("");
+  foot.textContent=(d.count||d.scenarios.length)+" scenarios · bundled "+(d.syncedAt?d.syncedAt.slice(0,10):"")+" · machine catalog: api.ishtar.numetal.xyz/api/heartbench/scenarios";
+}).catch(function(e){
+  document.getElementById("list").innerHTML='<p class="hint">Could not load scenario bundle. <a href="https://api.ishtar.numetal.xyz/api/heartbench/scenarios">Try the JSON API</a>.</p>';
+});
+</script>
+</body>
+</html>

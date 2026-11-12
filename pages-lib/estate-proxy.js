@@ -1,14 +1,15 @@
 /**
- * Preview-only bridge for the two interactive products (Reclaim, plaintext).
+ * Estate origin bridge.
  *
- * The product backends still run on their original Workers. This Pages Function
- * serves each app under its gokhanturhan.com path (/reclaim/…, /plaintext/…):
- * pages and API calls are fetched from the original host and served same-origin,
- * so the apps' own JavaScript (scan, wallet, write, publish) runs unchanged and
- * no CORS is involved. Root-relative links are rewritten onto the path prefix.
+ * Product backends still run on their original Workers. Pages Functions under
+ * each product path proxy API (and WebSocket) calls to that worker so the
+ * original UI, served as static files from this site, can talk to live APIs
+ * same-origin and without CORS issues. HTML is never fetched from a retired
+ * origin — those hosts 301 back here, which would loop — and is served from
+ * the built original-design copy via context.next().
  *
- * If the original host fails (timeout or 5xx, e.g. its daily database quota),
- * HTML requests fall back to the static copy built into this site.
+ * The older `proxy()` helper can still fetch HTML from a live origin and
+ * rewrite it; prefer `originOnRequest()` for the mounted original designs.
  */
 const OLD_HOSTS = [
   ['https://numetal.xyz/', '/numetal/'],
@@ -129,4 +130,76 @@ async function fallback(context, up) {
   const headers = rewriteHeaders(up.res.headers, up.prefix, up.host)
   const body = rewriteText(await up.res.text(), up.prefix, up.host)
   return new Response(body, { status: up.res.status, headers })
+}
+
+
+const API_HEADERS = [
+  'accept', 'accept-language', 'content-type', 'cookie', 'user-agent',
+  'authorization', 'payment-signature', 'x-payment',
+  'upgrade', 'connection', 'sec-websocket-key', 'sec-websocket-version',
+  'sec-websocket-protocol', 'sec-websocket-extensions', 'sec-websocket-extensions',
+]
+
+/**
+ * Proxy only API / WebSocket traffic to the original worker. JSON is passed
+ * through untouched so contract addresses and seller endpoints stay intact.
+ * HTML and everything else is served from the built original-design copy.
+ */
+export function originOnRequest({ prefix, host, name, api }) {
+  return async (context) => {
+    const { request } = context
+    const url = new URL(request.url)
+    const rest = url.pathname.slice(prefix.length) || '/'
+    const isWs = (request.headers.get('upgrade') || '').toLowerCase() === 'websocket'
+    if (!isWs && !api.test(rest)) return context.next()
+    return proxyApi(context, { prefix, host, name, rest, isWs })
+  }
+}
+
+async function proxyApi(context, { prefix, host, name, rest, isWs }) {
+  const { request } = context
+  const url = new URL(request.url)
+  let path = rest || url.pathname.slice(prefix.length) || '/'
+  if (path.length > 1 && path.endsWith('/') && !isWs) path = path.slice(0, -1)
+  const upstream = `https://${host}${path}${url.search}`
+
+  if (isWs) {
+    try {
+      const res = await fetch(upstream, request)
+      return res
+    } catch (e) {
+      return new Response('WebSocket upstream failed', { status: 504 })
+    }
+  }
+
+  const fwd = new Headers()
+  for (const k of API_HEADERS) {
+    const v = request.headers.get(k)
+    if (v) fwd.set(k, v)
+  }
+  // Same-origin on this site; do not send the retired origin as Origin.
+  fwd.set('Origin', `https://${host}`)
+  const init = { method: request.method, headers: fwd, redirect: 'manual' }
+  if (!['GET', 'HEAD'].includes(request.method)) init.body = await request.arrayBuffer()
+
+  let res
+  try {
+    res = await fetch(upstream, init)
+  } catch (e) {
+    return Response.json({ error: `The ${name} service did not answer (${e && e.name === 'TimeoutError' ? 'timeout' : 'network error'}). Try again in a minute.` }, { status: 504, headers: { 'cache-control': 'no-store' } })
+  }
+  const loc = res.headers.get('location') || ''
+  if (res.status >= 300 && res.status < 400 && /^https?:\/\/(?:www\.)?gokhanturhan\.com(?:[\/?#]|$)/i.test(loc)) {
+    return Response.json({ error: `The ${name} API redirected away from the original host.` }, { status: 502, headers: { 'cache-control': 'no-store' } })
+  }
+
+  const headers = new Headers()
+  for (const [k, v] of res.headers) {
+    const key = k.toLowerCase()
+    if (['content-length', 'content-encoding', 'transfer-encoding', 'alt-svc', 'report-to', 'nel', 'strict-transport-security'].includes(key)) continue
+    if (key === 'location') { headers.set('location', rewriteLocation(v, prefix, host)); continue }
+    headers.set(k, v)
+  }
+  headers.set('cache-control', 'no-store')
+  return new Response(res.body, { status: res.status, headers })
 }

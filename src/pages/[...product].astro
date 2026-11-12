@@ -7,6 +7,7 @@ import CoinsRegister from '@/components/coins/CoinsRegister.astro'
 import CoinsLeaderboard from '@/components/coins/CoinsLeaderboard.astro'
 import { pageActions, widePages } from '@/data/page-actions'
 import { pageProducts, drafts, draftTags, bySlug, products, type Product, type Draft } from '@/data/estate'
+import { isOriginSlug } from '@/data/origins'
 import manifest from '@/archive/manifest.json'
 import draftManifest from '@/archive/drafts/manifest.json'
 const DM = draftManifest as Record<string, { description?: string }>
@@ -44,13 +45,22 @@ export async function getStaticPaths() {
   }
   const sectionPaths = [...sections].map((path) => ({ params: { product: path.slice(1, -1) }, props: { kind: 'page' as const, path, p: ownerOf(path)! } }))
   const draftPaths = drafts.filter((d) => d.page).map((d) => ({ params: { product: d.slug }, props: { kind: 'draft' as const, d } }))
-  return [...productPaths, ...pagePaths, ...sectionPaths, ...draftPaths]
+  const filePaths = pageProducts
+    .filter((prod) => isOriginSlug(prod.slug))
+    .map((prod) => ({
+      params: { product: `${prod.slug}/file` },
+      props: { kind: 'product' as const, path: `/${prod.slug}/`, p: prod, file: prod.file ? files.find((f) => f.slug === prod.file) : undefined, isFile: true },
+    }))
+  const draftFilePaths = drafts
+    .filter((d) => d.page && isOriginSlug(d.slug))
+    .map((d) => ({ params: { product: `${d.slug}/file` }, props: { kind: 'draft' as const, d, isFile: true } }))
+  return [...productPaths, ...pagePaths, ...sectionPaths, ...draftPaths, ...filePaths, ...draftFilePaths]
 }
 
 type ProductProps =
-  | { kind: 'product'; path: string; p: Product; file?: any }
+  | { kind: 'product'; path: string; p: Product; file?: any; isFile?: boolean }
   | { kind: 'page'; path: string; p: Product }
-  | { kind: 'draft'; d: Draft }
+  | { kind: 'draft'; d: Draft; isFile?: boolean }
 
 const props = Astro.props as ProductProps
 const path = props.kind === 'draft' ? '' : props.path
@@ -103,6 +113,7 @@ const legal = p && isProduct
       .filter(([f]) => f.split('/')[3] === p.slug)
       .map(([f, mod]) => ({ slug: f.split('/').pop()!.replace(/\.md$/, ''), title: mod.frontmatter.title as string }))
   : []
+const isFile = Boolean('isFile' in props && props.isFile)
 const wide = widePages.has(path)
 const acts = pageActions[path] ?? []
 const custom = path === '/coins/' ? 'coins' : path === '/coins/leaderboard/' ? 'leaderboard' : null
@@ -110,11 +121,19 @@ const stripCount = siteMap.length > 1 ? siteMap.length : undefined
 const children = p && isProduct ? products.filter((c) => c.slug.startsWith(`${p.slug}/`) && c.slug.split('/').length === p.slug.split('/').length + 1) : []
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout
+  title={isFile ? `${title} · Bureau file` : title}
+  description={description}
+  robots={isFile ? 'noindex, follow' : undefined}
+  canonicalURL={isFile && (p || d) ? new URL(`/${(p?.slug ?? d!.slug)}/file/`, Astro.site).href : undefined}
+>
   <div class={`es${wide ? ' wide' : ''}`}>
     {p && (
       <>
-        <PageHead crumbs={[{ label: 'Products', href: '/products/' }, ...crumbs, { label: isProduct ? p.family : title }]} title={title} lead={isProduct ? p.line : (page?.description || p.line)} tags={isProduct ? undefined : p.tags} />
+        <PageHead crumbs={[{ label: 'Products', href: '/products/' }, ...crumbs, { label: isFile ? 'Bureau file' : (isProduct ? p.family : title) }]} title={title} lead={isProduct ? p.line : (page?.description || p.line)} tags={isProduct ? undefined : p.tags} />
+        {isFile && (
+          <p class="lead" style="margin:0 0 1rem">This is the Bureau file. <a href={`/${p.slug}/`}>Open the original {p.name} site</a>.</p>
+        )}
 
         <div class="pstrip">
           <details class="cx fold pfile">
@@ -208,7 +227,10 @@ const children = p && isProduct ? products.filter((c) => c.slug.startsWith(`${p.
 
     {d && (
       <>
-        <PageHead crumbs={[{ label: 'Product drafts', href: '/product-drafts/' }, { label: d.status }]} title={d.name} lead={DM[d.slug]?.description || d.line} tags={draftTags[d.slug] ?? []} variant="draft" />
+        <PageHead crumbs={[{ label: 'Product drafts', href: '/product-drafts/' }, { label: d.status }]} title={isFile ? `${d.name} · Bureau file` : d.name} lead={DM[d.slug]?.description || d.line} tags={draftTags[d.slug] ?? []} variant="draft" />
+        {isFile && (
+          <p class="lead" style="margin:0 0 1rem">This is the Bureau file. <a href={`/${d.slug}/`}>Open the original {d.name} site</a>.</p>
+        )}
         <div class="pstrip">
           <details class="cx fold pfile draft">
             <summary class="cx-h"><b>File</b><span class="pf-sum">gokhanturhan.com/{d.slug}/ · {d.status} · {d.kind}</span></summary>
