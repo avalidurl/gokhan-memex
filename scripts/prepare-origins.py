@@ -32,6 +32,10 @@ MAILBOX = re.compile(
 SKIP_PREFIX = (
     "curb", "ishtar", "ubu", "reclaim", "plaintext", "numetal", "launch",
     "accumulator", "rebase", "apex", "booster", "clank-tape", "heartprefs",
+    "gokhan-vc", "coins", "jesus", "llmcraft", "llmlivesmatter",
+    "onbots", "tape-exchange", "clankdog", "ai-ipo", "belief-systems",
+    "foreguild-fao-plan", "hypersitition", "lectotype",
+    "turkish-art-blob", "ethereum-doomsday",
     "products", "product-drafts", "journal", "media", "publishing", "about",
     "cv", "archive", "_astro", "register", "home.js", "register-boot",
     "register.css", "register.js", "table-desk", "sw.js", "manifest.json",

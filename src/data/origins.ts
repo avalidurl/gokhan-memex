@@ -15,6 +15,19 @@ export const originSlugs = [
   'apex',
   'booster',
   'clank-tape',
+  'gokhan-vc',
+  'coins',
+  'jesus',
+  'llmcraft',
+  'llmlivesmatter',
+  'onbots',
+  'tape-exchange',
+  'clankdog',
+  'ai-ipo',
+  'belief-systems',
+  'foreguild-fao-plan',
+  'hypersitition',
+  'lectotype',
 ] as const
 
 export type OriginSlug = (typeof originSlugs)[number]

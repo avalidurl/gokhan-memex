@@ -46,5 +46,57 @@
   {
     "slug": "clank-tape",
     "name": "Clank Tape"
+  },
+  {
+    "slug": "gokhan-vc",
+    "name": "G\u00f6khan Ventures"
+  },
+  {
+    "slug": "coins",
+    "name": "The Token Estate"
+  },
+  {
+    "slug": "jesus",
+    "name": "Personal Jesus"
+  },
+  {
+    "slug": "llmcraft",
+    "name": "LLMCraft"
+  },
+  {
+    "slug": "llmlivesmatter",
+    "name": "LLM LIVES MATTER"
+  },
+  {
+    "slug": "onbots",
+    "name": "Onbots"
+  },
+  {
+    "slug": "tape-exchange",
+    "name": "Tape Exchange"
+  },
+  {
+    "slug": "clankdog",
+    "name": "Clank Dog"
+  },
+  {
+    "slug": "ai-ipo",
+    "name": "AI IPO"
+  },
+  {
+    "slug": "belief-systems",
+    "name": "Belief Systems"
+  },
+  {
+    "slug": "foreguild-fao-plan",
+    "name": "Foreguild FAO Plan"
+  },
+  {
+    "slug": "hypersitition",
+    "name": "hypersitition"
+  },
+  {
+    "slug": "lectotype",
+    "name": "Lectotype"
   }
 ]

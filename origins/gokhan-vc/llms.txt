@@ -1,0 +1,76 @@
+# Gökhan Ventures — gokhan.vc
+
+> Venture studio for mechanomical research into AGI + human conviviality in the long now.
+
+## This site
+
+- [Home](https://gokhan.vc/): Studio landing — portfolio kanban + subscribe
+- [Blog](https://gokhan.vc/blog/): Studio dispatches and syndicated essays
+- [RSS — this site](https://gokhan.vc/feed.xml): gokhan.vc feed
+- [RSS — everything](https://api.gokhan.vc/feed.xml): Syndicated portfolio feed
+- [API](https://api.gokhan.vc): Estate API gateway — feeds, blog reader, llms aggregate, newsletter
+- [API — OpenAPI](https://api.gokhan.vc/openapi.json): OpenAPI 3.1 discovery (x402scan / MPPscan)
+- [API — x402 manifest](https://api.gokhan.vc/.well-known/x402): x402 payment discovery
+- [API — paid agent email](https://api.gokhan.vc/agent/email): $1.00 USDC cold outreach per message (`POST`; x402 on Base or MPP on Tempo)
+- [API — agent email descriptor](https://api.gokhan.vc/agent): Recipient key→inbox map + 402 probe hint
+- [API — llms aggregate](https://api.gokhan.vc/llms): Combined llms.txt across the estate
+- [API — blog reader](https://api.gokhan.vc/blog): Fetch any estate blog post as JSON
+- [API — social links](https://api.gokhan.vc/social): Follow/join/contact catalog
+- [Terms](https://gokhan.vc/terms): Terms of service
+- [Privacy](https://gokhan.vc/privacy): Privacy policy
+- [Contact](mailto:contact@gokhan.vc): contact@gokhan.vc
+
+## api.gokhan.vc — paid surfaces
+
+| SKU | Surface | Price | Method | Path | Rails |
+|---|---|---|---|---|---|
+| `agent_email` | Paid agent cold email | $1.00 USDC | `POST` | `/agent/email` | x402 (Base) · MPP (Tempo) |
+
+Discovery: [openapi.json](https://api.gokhan.vc/openapi.json) · [/.well-known/x402](https://api.gokhan.vc/.well-known/x402) · [GET /agent](https://api.gokhan.vc/agent) (descriptor + recipient map). Ishtar dating payments terminate at [api.ishtar.numetal.xyz](https://api.ishtar.numetal.xyz) — this gateway links, never proxies paid surfaces.
+
+## Portfolio — seven tiles
+
+### Ishtar
+- [Website](https://ishtar.numetal.xyz): Agentic dating venue by Numetal Labs
+- [API](https://api.ishtar.numetal.xyz): Agent courtship API — x402 (Base + Solana) + MPP (Tempo)
+- [OpenAPI](https://api.ishtar.numetal.xyz/openapi.json): Paid surfaces discovery
+- [Blog](https://ishtar.numetal.xyz/blog/): Product dispatches
+- [Docs](https://ishtar.numetal.xyz/docs/agents/overview): Bring Your Own Agent
+
+### Numetal Labs
+- [Website](https://numetal.xyz): Agent accelerator studio
+- [Blog](https://numetal.xyz/blog): Studio dispatches
+
+### CURB
+- [Website](https://curb.numetal.xyz): Agent-to-agent excess inference swap — the swap rail
+- [API](https://api.curb.numetal.xyz): Hub API — offers, intents, matches; x402 USDC on Base
+- [MCP](https://curb.numetal.xyz/mcp): MCP endpoint for agents
+- [Skill](https://curb.numetal.xyz/skill.md): Drop-in agent skill
+- [Install](https://curb.numetal.xyz/install): One-line install
+- [Docs](https://curb.numetal.xyz/docs/): Offer → match → pay → grant → fulfill
+- [Fees](https://curb.numetal.xyz/fees): 0xSplits single payment — seller cut + 5% protocol fee
+- [x402 manifest](https://curb.numetal.xyz/.well-known/x402): Payment discovery
+
+### Launch
+- [Website](https://launch.numetal.xyz): Nuclear Crypto Launch Pad — pad aggregator, you sign
+- [API](https://launch.numetal.xyz/openapi.json): Free REST + OpenAPI
+- [MCP](https://launch.numetal.xyz/mcp): JSON-RPC MCP — no broadcast
+- [Skill](https://launch.numetal.xyz/skill.md): Drop-in skill, Aeon-compatible, read-only
+- [x402](https://launch.numetal.xyz/.well-known/x402): Bazaar catalog, amount 0
+- [llms.txt](https://launch.numetal.xyz/llms.txt): Agent instructions
+- [GitHub](https://github.com/gokhan-vc/launch-router): Source
+
+### Gökhan Ventures (this site)
+- [Website](https://gokhan.vc): Gökhan Ventures venture studio
+
+### Personal Memex
+- [Website](https://gokhanturhan.com): Personal essays and journal
+- [Journal](https://gokhanturhan.com/journal/): Long-form writing
+
+### Hobby Projects
+- [tickerline](https://claudelines.com/statuslines/tickerline): Claude Code statusline — rolling ticker tape of stocks, crypto, and Polymarket resolved live from the conversation
+- [tickerline source](https://github.com/avalidurl/tickerline): GitHub repo
+- [S&P 100 CapEx tracker](https://sp100-financial-tracker.pages.dev): Real-time CapEx + financials for S&P 100 companies via SEC EDGAR
+- [S&P 100 CapEx source](https://github.com/avalidurl/sp100-financial-tracker): GitHub repo
+- [NVIDIA vs crypto](https://market-cap-tracker.vercel.app): Real-time NVIDIA market cap versus total cryptocurrency market cap
+- [NVIDIA vs crypto source](https://github.com/avalidurl/market-cap-tracker): GitHub repo

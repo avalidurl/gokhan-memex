@@ -11,8 +11,12 @@ To refresh from captures and source repos (needs `/workspace/archive-plan`
 and, for a few assets, the still-live files on the retired hosts):
 
 ```
-python3 scripts/prepare-origins.py
+python3 scripts/prepare-origins.py          # phase 1 slugs
+python3 scripts/prepare-origins-more.py     # remaining slugs, Vocs docs, Launch bundle; does not wipe
 ```
 
-Do not run that on the Cloudflare Pages build; the prepared files are
+Do not run those on the Cloudflare Pages build; the prepared files are
 committed here so the build is self-contained.
+
+`origins/` is excluded from `astro check` / TypeScript (see `tsconfig.json`)
+so the bundled Vocs and Vite assets are not typechecked.

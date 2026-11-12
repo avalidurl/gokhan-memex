@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" role="img" aria-label="Atelier Gökhan Turhan boiling pot mark">
+  <defs>
+    <radialGradient id="boil" cx="50%" cy="50%" r="78%" fx="50%" fy="50%">
+      <stop offset="0%" stop-color="#141414"/>
+      <stop offset="55%" stop-color="#5a5a5a"/>
+      <stop offset="100%" stop-color="#7c7c7c"/>
+    </radialGradient>
+    <radialGradient id="hiFlare" cx="22%" cy="22%" r="60%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="loFlare" cx="78%" cy="82%" r="60%">
+      <stop offset="0%" stop-color="#141414" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#141414" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="core" cx="50%" cy="50%" r="38%">
+      <stop offset="0%" stop-color="#e7e7e7" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#e7e7e7" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect x="0" y="0" width="16" height="16" rx="1" ry="1" fill="#111111"/>
+  <rect x="1.5" y="1.5" width="13" height="13" rx="0.5" ry="0.5" fill="url(#boil)"/>
+  <rect x="1.5" y="1.5" width="13" height="13" rx="0.5" ry="0.5" fill="url(#hiFlare)"/>
+  <rect x="1.5" y="1.5" width="13" height="13" rx="0.5" ry="0.5" fill="url(#loFlare)"/>
+  <rect x="1.5" y="1.5" width="13" height="13" rx="0.5" ry="0.5" fill="url(#core)"/>
+  <rect x="1.5" y="1.5" width="13" height="13" rx="0.5" ry="0.5" fill="none" stroke="#111111" stroke-width="0.5" stroke-opacity="0.55"/>
+</svg>

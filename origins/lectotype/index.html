@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lectotype · draft</title>
+  <meta name="description" content="Internal plan draft. Settlement-layer type specimens." />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0c0b09" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+<link rel="canonical" href="https://gokhanturhan.com/lectotype/">
+<style>.gt-bar{all:initial;display:block;box-sizing:border-box;width:100%;border-bottom:1px solid #141414;background:#f6f5f1;color:#141414;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;padding:6px 14px;letter-spacing:.02em;z-index:9999;position:relative}
+.gt-bar a{color:#002fa7;text-decoration:none}.gt-bar a:hover{text-decoration:underline}.gt-bar b{font-weight:600}
+@media (prefers-color-scheme:dark){.gt-bar{background:#141414;color:#f3f2ec;border-color:#f3f2ec}.gt-bar a{color:#8eb0ff}}</style>
+</head>
+<body>
+<div class="gt-bar" role="navigation" aria-label="Bureau"><a href="/">Gökhan Turhan</a> · <a href="/products/">Products</a> · <b>Lectotype</b> · <a href="/lectotype/file/">Bureau file</a></div>
+  <div class="grain" aria-hidden="true"></div>
+  <header>
+    <span class="mark">Λ</span>
+    <span class="brand">Lectotype</span>
+    <span class="status">plan draft · v0</span>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="eyebrow">Settlement layer · type specimens</p>
+      <h1>One card per<br /><em>canonical object.</em></h1>
+      <p class="lede">
+        A registry of primary specimens on Ethereum L1.
+        Identity and lineage live in contract state.
+        Everything else is decoration.
+      </p>
+      <dl class="meta">
+        <div><dt>Codename</dt><dd>Lectotype</dd></div>
+        <div><dt>Layer</dt><dd>Ethereum L1</dd></div>
+        <div><dt>Form</dt><dd>ERC-721 + skinny storage</dd></div>
+        <div><dt>Status</dt><dd class="warn">draft — not shipping</dd></div>
+      </dl>
+    </section>
+
+    <section>
+      <h2>00 · pepe sees the stack</h2>
+      <pre class="pepe" aria-label="stack diagram">
+        .--.
+       |o_o |   pepe: "where is truth"
+       |:_/ |
+      //   \ \
+     (|     | )
+    /'\_   _/`\
+    \___)=(___/
+
+           |
+           v
+   ┌───────────────────┐
+   │   website / ui    │  ← feels
+   │   (not canon)     │
+   └─────────┬─────────┘
+             │ reads
+             v
+   ┌───────────────────┐
+   │  L1 Lectotype     │  ← IS canon
+   │  ERC-721 specimen │
+   │  + events         │
+   └─────────┬─────────┘
+             │ points at
+             v
+   ┌───────────────────┐
+   │ existing ERC-20   │
+   │ + Uni pair        │
+   └───────────────────┘
+
+   pepe rule: if not on L1, it didn't happen
+</pre>
+    </section>
+
+    <section>
+      <h2>01 · Doctrine</h2>
+      <ul class="rules">
+        <li>If it is not in L1 state or events, it is not canon.</li>
+        <li>No strings in storage — only <code>bytes32</code> contenthashes.</li>
+        <li>No AMM. No launcher. Pairs are pointers, not products.</li>
+        <li>One specimen per token address. Parent edge optional.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>02 · register flow (pepe path)</h2>
+      <pre class="pepe" aria-label="register flow">
+  pepe finds token on L1
+           |
+           v
+  ┌────────────────────┐
+  │ does Uni pair exist│
+  │ + liq floor ok?    │
+  └─────────┬──────────┘
+        no / \ yes
+          /   \
+         v     v
+   ┌────────┐  ┌─────────────────┐
+   │  sad   │  │ post bond       │
+   │  pepe  │  │ register(...)   │
+   │  exit  │  │ mint specimen   │
+   └────────┘  └────────┬────────┘
+                        |
+                        v
+              ┌─────────────────┐
+              │ challenge window│
+              │ (N days)        │
+              └────────┬────────┘
+                   /        \
+            nobody         someone
+            disputes       disputes
+                 |              |
+                 v              v
+        ┌────────────┐   ┌─────────────┐
+        │ bond back  │   │ arb writes  │
+        │ card final │   │ winning     │
+        │            │   │ contenthash │
+        └────────────┘   └─────────────┘
+
+   rare pepe: one specimen per token. forever.
+</pre>
+    </section>
+
+    <section>
+      <h2>03 · On-chain shape</h2>
+      <div class="grid">
+        <article>
+          <h3>Specimen (ERC-721)</h3>
+          <p>Registers an existing ERC-20 as a type card.</p>
+          <pre>token        address
+pair         address
+contenthash  bytes32
+templateId   uint32
+parentId     uint256
+bornBlock    uint64</pre>
+        </article>
+        <article>
+          <h3>Templates</h3>
+          <p>Archetype IDs. Thin enum, not lore.</p>
+          <pre>id → labelHash
+permissionless or gated</pre>
+        </article>
+        <article>
+          <h3>Relations</h3>
+          <p>Genealogy as state + events.</p>
+          <pre>Forked(child, parent)
+Migrated(from, to)
+parentId on specimen</pre>
+        </article>
+        <article>
+          <h3>Caught <span class="soft">(later)</span></h3>
+          <p>Proof of historical balance → stamp.</p>
+          <pre>storage / Merkle proof
+verify on L1
+soulbound or 1155</pre>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>04 · lineage brain (big brain pepe)</h2>
+      <pre class="pepe" aria-label="lineage diagram">
+                    ┌──────────┐
+                    │ template │
+                    │  #0001   │
+                    └────┬─────┘
+                         │
+            ┌────────────┼────────────┐
+            v            v            v
+      ┌──────────┐ ┌──────────┐ ┌──────────┐
+      │ specimen │ │ specimen │ │ specimen │
+      │  α       │ │  β       │ │  γ       │
+      │ parent:0 │ │ parent:α │ │ parent:α │
+      └────┬─────┘ └──────────┘ └──────────┘
+           │
+           v
+      ┌──────────┐
+      │ specimen │
+      │  δ       │
+      │ parent:α │   ← fork / rename / migrate
+      └──────────┘
+
+   galactus pepe: the graph IS the product
+   chart sites decorate. we own the edges.
+</pre>
+    </section>
+
+    <section>
+      <h2>05 · Anti-spam</h2>
+      <p class="body">Permissionless mint without friction fills the shelf with noise. Draft gate:</p>
+      <ol class="steps">
+        <li><strong>Bond</strong> — posted at register; returned if unchallenged after <em>N</em> days.</li>
+        <li><strong>Liquidity floor</strong> — primary pair must clear a minimum at register time.</li>
+        <li><strong>Challenge window</strong> — contested <code>contenthash</code> / parent / template can be disputed; winner written back on L1.</li>
+      </ol>
+      <pre class="pepe" aria-label="spam filter">
+  spam pepe ──post──► [register]
+                         |
+                    liq too smol?
+                     /         \
+                   yes          no
+                    |            |
+                    v            v
+              REVERT        bond locked
+                                 |
+                            wait N days
+                                 |
+                          challenged?
+                           /        \
+                         yes         no
+                          |           |
+                          v           v
+                     resolve      bond → pepe
+                     on L1        card stays
+</pre>
+    </section>
+
+    <section>
+      <h2>06 · Cost posture</h2>
+      <p class="body">Expect roughly 200–400k gas per register. Pack structs. Fat events for indexers; skinny <code>SSTORE</code>. Multicall for curator backfill of historical specimens. Immutable v1 preferred; if upgradeable, UUPS + timelock.</p>
+      <pre class="pepe" aria-label="gas">
+  ┌─────────────────────────────────────┐
+  │  fat EVENT logs     cheap to emit   │
+  │  skinny SSTORE      expensive, rare │
+  │  bytes32 only       no strings fren │
+  │  multicall backfill curator pays    │
+  └─────────────────────────────────────┘
+         |
+         v
+   pepe pays gas once → canon forever
+</pre>
+    </section>
+
+    <section>
+      <h2>07 · Ship ladder</h2>
+      <ol class="ladder">
+        <li>Specimen NFT + one-per-token + contenthash + parentId</li>
+        <li>Curator-funded backfill of the historical set (so the shelf isn’t empty)</li>
+        <li>Permissionless register with bond + liquidity floor</li>
+        <li>Read-only explorer (state + logs only)</li>
+        <li>Caught proofs, if collection gameplay is wanted</li>
+      </ol>
+      <pre class="pepe" aria-label="ship ladder">
+  [1 NFT] → [2 backfill] → [3 open mint]
+                                |
+                                v
+                         [4 explorer]
+                                |
+                                v
+                         [5 caught?]
+
+  apu: "we ship when pepe can read a card on-chain"
+</pre>
+    </section>
+
+    <section>
+      <h2>08 · Explicit non-goals</h2>
+      <ul class="rules dim">
+        <li>Basket / index token</li>
+        <li>Off-chain “source of truth” with a decorative registry</li>
+        <li>Trading UI, bonding curves, launch pads</li>
+        <li>Discoverable public name in this draft</li>
+      </ul>
+      <pre class="pepe" aria-label="non goals">
+   ┌─────────┐     ┌─────────┐     ┌─────────┐
+   │  basket │     │  launch │     │  trade  │
+   │  token  │     │  pad    │     │  ui     │
+   └────┬────┘     └────┬────┘     └────┬────┘
+        │               │               │
+        └───────────────┴───────────────┘
+                        |
+                        v
+                 NO.  (clueless pepe leaves)
+</pre>
+    </section>
+
+    <footer>
+      <p>Lectotype · internal plan draft · Ethereum L1</p>
+      <p class="fine">Codename only. No contract. No token. No promises.</p>
+    </footer>
+  </main>
+</body>
+</html>
