@@ -14,6 +14,13 @@ export const originSlugs = [
   'rebase',
   'apex',
   'booster',
+  'gokhan-vc',
+  'coins',
+  'jesus',
+  '',
+  '',
+  'foreguild-fao-plan',
+  'hypersitition',
 ] as const
 
 export type OriginSlug = (typeof originSlugs)[number]

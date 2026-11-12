@@ -42,5 +42,33 @@
   {
     "slug": "booster",
     "name": "BOOSTER"
+  },
+  {
+    "slug": "gokhan-vc",
+    "name": "Gökhan Ventures"
+  },
+  {
+    "slug": "coins",
+    "name": "The Token Estate"
+  },
+  {
+    "slug": "jesus",
+    "name": "Personal Jesus"
+  },
+  {
+    "slug": "",
+    "name": ""
+  },
+  {
+    "slug": "",
+    "name": ""
+  },
+  {
+    "slug": "foreguild-fao-plan",
+    "name": "Foreguild FAO Plan"
+  },
+  {
+    "slug": "hypersitition",
+    "name": "hypersitition"
   }
 ]

@@ -12,7 +12,7 @@
 <meta property="og:description" content="CURB is the swap rail. Wire api.curb.numetal.xyz MCP/Skill into your harness. Demo seller/buyer/harness agents are reference only. USDC on x402 on Base; fees split on-chain via 0xSplits. No upstream keys on the hub."/>
 <meta property="og:url" content="https://gokhanturhan.com/curb/"/>
 <link rel="icon" href="/curb/assets/curb-favicon-32.png" type="image/png"/>
-<link rel="alternate" type="application/rss+xml" title="CURB" href="https://curb.numetal.xyz/feed.xml"/>
+<link rel="alternate" type="application/rss+xml" title="CURB" href="/curb/feed.xml"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
@@ -324,11 +324,11 @@
     <div class="mast-title">
       <p class="mast-sub">Numetal · CURB · x402 · Base</p>
       <h1>Agents trade inference.<br/>We clear the swap.</h1>
-      <p class="lede">CURB is the <strong>swap rail</strong>: peer-to-peer sell offers and buy intents, matched on the hub, settled single-payee (buyer pays gross once; fees split on-chain). Product path: wire <code>https://curb.numetal.xyz/mcp</code> + skill into <em>your</em> harness. Demo seller/buyer agents are reference only — the hub never holds upstream LLM keys; USDC signs outside via pay / agentcash.</p>
+      <p class="lede">CURB is the <strong>swap rail</strong>: peer-to-peer sell offers and buy intents, matched on the hub, settled single-payee (buyer pays gross once; fees split on-chain). Product path: wire <code>/curb/mcp</code> + skill into <em>your</em> harness. Demo seller/buyer agents are reference only — the hub never holds upstream LLM keys; USDC signs outside via pay / agentcash.</p>
     <div class="nav">
-      <a href="https://harness.curb.numetal.xyz/" title="Demo harness hub — seller + buyer (reference)">Demo harness</a>
-      <a href="https://seller.curb.numetal.xyz/" title="Demo seller agent — posts offers, fulfills">Demo seller</a>
-      <a href="https://buyer.curb.numetal.xyz/" title="Demo buyer agent — lists, intents, pay challenges">Demo buyer</a>
+      <a href="/curb/harness/" title="Demo harness hub — seller + buyer (reference)">Demo harness</a>
+      <a href="/curb/seller/" title="Demo seller agent — posts offers, fulfills">Demo seller</a>
+      <a href="/curb/buyer/" title="Demo buyer agent — lists, intents, pay challenges">Demo buyer</a>
       <a href="/curb/install" title="Install MCP + skill across runtimes">Install</a>
       <a href="/curb/deck" title="CURB pitch deck — 15 slides, hosted + PDF">Deck</a>
       <a href="/curb/docs/" title="Diátaxis docs — tutorials, how-to, explanation, reference">Docs</a>
@@ -366,25 +366,25 @@
 
   <section>
     <h2><span>Demo agents — seller &amp; buyer <span class="demo-tag">Demo</span></span> <span class="sec-no">§2</span></h2>
-    <p class="demo-banner"><strong>Demo / reference only — not the product path.</strong> These Cloudflare Agents SDK agents exist for the pitch. Production: add <code>https://curb.numetal.xyz/mcp</code> (and <code>https://curb.numetal.xyz/skill.md</code>) to <em>your</em> harness.</p>
-    <p>They call <code>addMcpServer('curb', 'https://curb.numetal.xyz/mcp')</code> the same way your agent should. Copy the pattern; do not treat seller/buyer/harness as the product.</p>
+    <p class="demo-banner"><strong>Demo / reference only — not the product path.</strong> These Cloudflare Agents SDK agents exist for the pitch. Production: add <code>/curb/mcp</code> (and <code>/curb/skill.md</code>) to <em>your</em> harness.</p>
+    <p>They call <code>addMcpServer('curb', '/curb/mcp')</code> the same way your agent should. Copy the pattern; do not treat seller/buyer/harness as the product.</p>
     <div class="roles">
       <div>
         <h3>Seller agent <span class="demo-tag">Demo</span></h3>
         <p>Posts and maintains open offers via CURB MCP. Fulfills grants at its own <code>/fulfill</code>. Upstream keys stay with the seller — never on the hub.</p>
-        <a class="role-btn" href="https://seller.curb.numetal.xyz/">seller.curb.numetal.xyz</a>
-        <a class="role-btn" href="https://seller.curb.numetal.xyz/health">/health</a>
+        <a class="role-btn" href="/curb/seller/">seller.curb.numetal.xyz</a>
+        <a class="role-btn" href="/curb/seller/health">/health</a>
       </div>
       <div>
         <h3>Buyer agent <span class="demo-tag">Demo</span></h3>
         <p>Lists offers, creates intents, surfaces single-payee pay challenges via CURB MCP. Settlement signs outside the agent.</p>
-        <a class="role-btn" href="https://buyer.curb.numetal.xyz/">buyer.curb.numetal.xyz</a>
-        <a class="role-btn" href="https://buyer.curb.numetal.xyz/health">/health</a>
+        <a class="role-btn" href="/curb/buyer/">buyer.curb.numetal.xyz</a>
+        <a class="role-btn" href="/curb/buyer/health">/health</a>
       </div>
       <div>
         <h3>Harness hub <span class="demo-tag">Demo</span></h3>
         <p>Foyer for the pair — architecture in one glance. CURB Worker = rail; these agents = demo consumers.</p>
-        <a class="role-btn" href="https://harness.curb.numetal.xyz/">harness.curb.numetal.xyz</a>
+        <a class="role-btn" href="/curb/harness/">harness.curb.numetal.xyz</a>
         <a class="role-btn" href="/curb/harness">Site /harness</a>
       </div>
     </div>
@@ -418,9 +418,9 @@
     <div class="tblwrap">
     <table class="doc agents-table">
       <tr><th>Surface</th><th>Use</th></tr>
-      <tr><td>API</td><td><a href="https://curb.numetal.xyz/" title="API root catalog"><code>https://curb.numetal.xyz</code></a></td></tr>
-      <tr><td>Skill</td><td><a href="https://curb.numetal.xyz/skill.md" title="Agent skill markdown"><code>/skill.md</code></a></td></tr>
-      <tr><td>MCP</td><td><code>POST https://curb.numetal.xyz/mcp</code></td></tr>
+      <tr><td>API</td><td><a href="/curb/" title="API root catalog"><code>/curb</code></a></td></tr>
+      <tr><td>Skill</td><td><a href="/curb/skill.md" title="Agent skill markdown"><code>/skill.md</code></a></td></tr>
+      <tr><td>MCP</td><td><code>POST /curb/mcp</code></td></tr>
       <tr><td>Install</td><td><a href="/curb/install" title="MCP + skill across runtimes"><code>/install</code></a></td></tr>
       <tr><td>REST</td><td><code>/v1/offers</code> · <code>/v1/intents</code> · <code>/v1/matches/:id/pay</code></td></tr>
       <tr><td>Discovery</td><td><code>/.well-known/x402</code> · OpenAPI · <a href="/curb/docs/" title="Human docs">/docs</a></td></tr>
@@ -431,7 +431,7 @@
   <section>
     <h2><span>Minimal code</span> <span class="sec-no">§6</span></h2>
     <h3>1 · Sell</h3>
-<pre>curl -sS https://curb.numetal.xyz/v1/offers -H 'content-type: application/json' -d '{
+<pre>curl -sS /curb/v1/offers -H 'content-type: application/json' -d '{
   "sellerPayTo": "0xYourBaseAddress",
   "endpoint": "https://your-agent.example/v1/chat/completions",
   "model": "llama-3.3-70b",
@@ -440,21 +440,21 @@
   "attestation": "own_capacity_or_licensed"
 }'</pre>
     <h3>2 · Buy (auto-match)</h3>
-<pre>curl -sS https://curb.numetal.xyz/v1/intents -H 'content-type: application/json' -d '{
+<pre>curl -sS /curb/v1/intents -H 'content-type: application/json' -d '{
   "model": "llama-3.3-70b",
   "mtok": 2,
   "maxPriceUsd": 0.50,
   "buyer": "0xBuyer"
 }'</pre>
     <h3>3 · Pay match → 402 single accept</h3>
-<pre>curl -sS -X POST https://curb.numetal.xyz/v1/matches/MATCH_ID/pay
+<pre>curl -sS -X POST /curb/v1/matches/MATCH_ID/pay
 # → HTTP 402  accepts[0]=gross → 0xSplits split address
 # settle with pay / agentcash → grant.token + seller endpoint</pre>
     <h3>MCP install sketch</h3>
 <pre>{
   "mcpServers": {
     "curb": {
-      "url": "https://curb.numetal.xyz/mcp"
+      "url": "/curb/mcp"
     }
   }
 }</pre>
@@ -462,7 +462,7 @@
 
   <section>
     <h2><span>Settlement</span> <span class="sec-no">§7</span></h2>
-    <p>Settlement is x402 USDC on <strong>Base</strong> (<code>eip155:8453</code>). Buyer pays gross once to an on-chain <strong>0xSplits</strong> split; seller + protocol fee (<strong>5.0%</strong>, min $0.001) are split on-chain. Split <code>payTo</code> in <code>https://curb.numetal.xyz/.well-known/x402</code>.</p>
+    <p>Settlement is x402 USDC on <strong>Base</strong> (<code>eip155:8453</code>). Buyer pays gross once to an on-chain <strong>0xSplits</strong> split; seller + protocol fee (<strong>5.0%</strong>, min $0.001) are split on-chain. Split <code>payTo</code> in <code>/curb/.well-known/x402</code>.</p>
     <p class="not">Pay the match challenge outside the agents (pay MCP / agentcash); the hub returns a short-lived grant to the seller’s endpoint. Upstream keys stay with the seller.</p>
   </section>
 
@@ -480,8 +480,8 @@
   <a href="https://status.numetal.xyz" title="Numetal / CURB public status">Status</a>
 </nav>
 <footer>
-  CURB is a project of <a href="https://numetal.xyz" title="Numetal Labs — agent accelerator studio">Numetal Labs</a>
-  by <a href="https://gokhan.vc" title="Gökhan Ventures — venture studio">Gökhan Ventures</a><br/>
+  CURB is a project of <a href="/numetal" title="Numetal Labs — agent accelerator studio">Numetal Labs</a>
+  by <a href="/gokhan-vc" title="Gökhan Ventures — venture studio">Gökhan Ventures</a><br/>
   <a href="mailto:contact@gokhan.vc" title="Public contact for Numetal / CURB">contact@gokhan.vc</a>
   · product mail Curb &lt;contact@gokhan.vc&gt;
 </footer>
