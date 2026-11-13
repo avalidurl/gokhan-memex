@@ -5,6 +5,7 @@ import PageHead from '@/components/PageHead.astro'
 import Snapshot from '@/components/Snapshot.astro'
 import CoinsRegister from '@/components/coins/CoinsRegister.astro'
 import CoinsLeaderboard from '@/components/coins/CoinsLeaderboard.astro'
+import CoinsFileGuide from '@/components/coins/CoinsFileGuide.astro'
 import { pageActions, widePages } from '@/data/page-actions'
 import { pageProducts, drafts, draftTags, bySlug, products, type Product, type Draft } from '@/data/estate'
 import { isOriginSlug } from '@/data/origins'
@@ -103,7 +104,6 @@ const crumbs = (() => {
 const isProduct = props.kind === 'product'
 const sectionKids = props.kind === 'page' && !html ? siteMap.filter((k) => k !== path && k.startsWith(path) && k.slice(path.length).split('/').filter(Boolean).length === 1) : []
 const title = d ? d.name : isProduct ? p!.name : (page?.title || page?.doc_title || segName(path))
-const description = d ? d.line : isProduct ? p!.line : (page?.description || `${title} — ${p!.name}`)
 const DHTML = import.meta.glob('/src/archive/drafts/*/index.html', { query: '?raw', import: 'default', eager: true }) as Record<string, string>
 const DSNAP = import.meta.glob('/src/archive/drafts/*/snapshot.json', { import: 'default', eager: true }) as Record<string, any>
 const dHtml = d ? DHTML[`/src/archive/drafts/${d.slug}/index.html`]?.trim() : undefined
@@ -114,9 +114,13 @@ const legal = p && isProduct
       .map(([f, mod]) => ({ slug: f.split('/').pop()!.replace(/\.md$/, ''), title: mod.frontmatter.title as string }))
   : []
 const isFile = Boolean('isFile' in props && props.isFile)
-const wide = widePages.has(path)
-const acts = pageActions[path] ?? []
-const custom = path === '/coins/' ? 'coins' : path === '/coins/leaderboard/' ? 'leaderboard' : null
+const isCoinsFile = isFile && ((p && p.slug === 'coins') || (d && d.slug === 'coins'))
+const wide = widePages.has(path) && !isFile
+const acts = isCoinsFile ? [] : (pageActions[path] ?? [])
+const custom = path === '/coins/' && !isFile ? 'coins' : path === '/coins/leaderboard/' ? 'leaderboard' : null
+const description = isCoinsFile
+  ? 'How to read The Token Estate (BIS-926): what the register is, where the figures come from, and how they are updated.'
+  : (d ? d.line : isProduct ? p!.line : (page?.description || `${title} — ${p!.name}`))
 const stripCount = siteMap.length > 1 ? siteMap.length : undefined
 const children = p && isProduct ? products.filter((c) => c.slug.startsWith(`${p.slug}/`) && c.slug.split('/').length === p.slug.split('/').length + 1) : []
 ---
@@ -129,8 +133,8 @@ const children = p && isProduct ? products.filter((c) => c.slug.startsWith(`${p.
   <div class={`es${wide ? ' wide' : ''}`}>
     {p && (
       <>
-        <PageHead crumbs={[{ label: 'Products', href: '/products/' }, ...crumbs, { label: isFile ? 'Bureau file' : (isProduct ? p.family : title) }]} title={title} lead={isProduct ? p.line : (page?.description || p.line)} tags={isProduct ? undefined : p.tags} />
-        {isFile && (
+        <PageHead crumbs={[{ label: 'Products', href: '/products/' }, ...crumbs, { label: isFile ? 'Bureau file' : (isProduct ? p.family : title) }]} title={title} lead={isCoinsFile ? 'A short guide to the live register at /coins/.' : (isProduct ? p.line : (page?.description || p.line))} tags={isProduct ? undefined : p.tags} />
+        {isFile && !isCoinsFile && (
           <p class="lead" style="margin:0 0 1rem">This is the Bureau file. <a href={`/${p.slug}/`}>Open the original {p.name} site</a>.</p>
         )}
 
@@ -191,7 +195,8 @@ const children = p && isProduct ? products.filter((c) => c.slug.startsWith(`${p.
         <div class="pbody">
           {custom === 'coins' && <CoinsRegister />}
           {custom === 'leaderboard' && <CoinsLeaderboard />}
-          {!custom && html && (
+          {isCoinsFile && <CoinsFileGuide />}
+          {!custom && !isCoinsFile && html && (
             <section class="cx" aria-label="Page">
               <div class="cx-h"><b>{isProduct ? p.name : title}</b><span>gokhanturhan.com{path}</span></div>
               <div class="cx-b prose ported" set:html={html} />
@@ -205,16 +210,16 @@ const children = p && isProduct ? products.filter((c) => c.slug.startsWith(`${p.
             </section>
           )}
 
-          {snap && <Snapshot snap={snap} />}
+          {snap && !isCoinsFile && <Snapshot snap={snap} />}
 
-          {isProduct && !html && p.about && p.about.length > 0 && (
+          {isProduct && !isCoinsFile && !html && p.about && p.about.length > 0 && (
             <section class="cx" aria-label="About">
               <div class="cx-h"><b>About</b></div>
               <div class="cx-b body">{p.about.map((t) => <p>{t}</p>)}</div>
             </section>
           )}
 
-          {Content && (
+          {Content && !isCoinsFile && (
             <section class="cx" aria-label="Project file">
               <div class="cx-h"><b>Project file</b></div>
               <div class="cx-b prose file"><Content /></div>

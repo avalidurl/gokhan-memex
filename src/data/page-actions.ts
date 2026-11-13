@@ -2,7 +2,7 @@
 export interface PageAction { label?: string; links: { text: string; href: string; download?: boolean }[] }
 
 export const pageActions: Record<string, PageAction[]> = {
-  '/coins/': [{ links: [{ text: 'Leaderboard →', href: '/coins/leaderboard/' }] }],
+  '/coins/': [{ links: [{ text: 'Leaderboard →', href: '/coins/leaderboard/' }, { text: 'How to read this register →', href: '/coins/file/' }] }],
   '/coins/leaderboard/': [{ links: [{ text: '← Back to all coins', href: '/coins/' }] }],
   '/ubu/reader/': [
     {

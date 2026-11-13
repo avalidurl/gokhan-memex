@@ -7,6 +7,11 @@ product is kept at `/<slug>/file/`.
 After `astro build`, `scripts/mount-origins.mjs` copies this tree over
 `dist/<slug>/` (it never overwrites `dist/<slug>/file/`).
 
+**Coins is not in this tree.** `/coins/` is the Astro register
+(`src/components/coins/`, data in `src/data/coins.json`), and
+`/coins/file/` is a short guide. `mount-origins.mjs` will skip `coins`
+even if a stale origin copy is put back here.
+
 To refresh from captures and source repos (needs `/workspace/archive-plan`
 and, for a few assets, the still-live files on the retired hosts):
 
