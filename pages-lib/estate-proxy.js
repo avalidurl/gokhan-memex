@@ -4,9 +4,11 @@
  * Product backends still run on their original Workers. Pages Functions under
  * each product path proxy API (and WebSocket) calls to that worker so the
  * original UI, served as static files from this site, can talk to live APIs
- * same-origin and without CORS issues. HTML is never fetched from a retired
- * origin — those hosts 301 back here, which would loop — and is served from
- * the built original-design copy via context.next().
+ * same-origin and without CORS issues. When a `service` binding is set
+ * (NUMETAL → numetal-site, JESUS → personal-jesus), the Function calls the
+ * worker directly and never touches the retired hostname. HTML is never
+ * fetched from a retired origin — those hosts 301 back here, which would
+ * loop — and is served from the built original-design copy via context.next().
  *
  * The older `proxy()` helper can still fetch HTML from a live origin and
  * rewrite it; prefer `originOnRequest()` for the mounted original designs.
@@ -144,19 +146,33 @@ const API_HEADERS = [
  * through untouched so contract addresses and seller endpoints stay intact.
  * HTML and everything else is served from the built original-design copy.
  */
-export function originOnRequest({ prefix, host, name, api }) {
+export function originOnRequest({ prefix, host, name, api, service }) {
   return async (context) => {
     const { request } = context
     const url = new URL(request.url)
     const rest = url.pathname.slice(prefix.length) || '/'
     const isWs = (request.headers.get('upgrade') || '').toLowerCase() === 'websocket'
     if (!isWs && !api.test(rest)) return context.next()
-    return proxyApi(context, { prefix, host, name, rest, isWs })
+    return proxyApi(context, { prefix, host, name, rest, isWs, service })
   }
 }
 
-async function proxyApi(context, { prefix, host, name, rest, isWs }) {
-  const { request } = context
+/**
+ * Call the original worker through a Pages service binding when one is
+ * configured, so we never hit Bulk Redirects on the retired hostname.
+ * The request URL is rewritten to the path the worker originally served
+ * (method, body, headers and query are preserved). If the binding is
+ * missing, fall back to fetching the public host.
+ */
+function upstreamFetch(env, service, upstream, requestLike) {
+  const binding = service && env && env[service]
+  const req = new Request(upstream, requestLike)
+  if (binding) return binding.fetch(req)
+  return fetch(req)
+}
+
+async function proxyApi(context, { prefix, host, name, rest, isWs, service }) {
+  const { request, env } = context
   const url = new URL(request.url)
   let path = rest || url.pathname.slice(prefix.length) || '/'
   if (path.length > 1 && path.endsWith('/') && !isWs) path = path.slice(0, -1)
@@ -164,7 +180,7 @@ async function proxyApi(context, { prefix, host, name, rest, isWs }) {
 
   if (isWs) {
     try {
-      const res = await fetch(upstream, request)
+      const res = await upstreamFetch(env, service, upstream, request)
       return res
     } catch (e) {
       return new Response('WebSocket upstream failed', { status: 504 })
@@ -177,13 +193,15 @@ async function proxyApi(context, { prefix, host, name, rest, isWs }) {
     if (v) fwd.set(k, v)
   }
   // Same-origin on this site; do not send the retired origin as Origin.
+  // Keep the original host so workers that compare Origin to request.url
+  // (e.g. personal-jesus /join) still accept the proxied call.
   fwd.set('Origin', `https://${host}`)
   const init = { method: request.method, headers: fwd, redirect: 'manual' }
   if (!['GET', 'HEAD'].includes(request.method)) init.body = await request.arrayBuffer()
 
   let res
   try {
-    res = await fetch(upstream, init)
+    res = await upstreamFetch(env, service, upstream, init)
   } catch (e) {
     return Response.json({ error: `The ${name} service did not answer (${e && e.name === 'TimeoutError' ? 'timeout' : 'network error'}). Try again in a minute.` }, { status: 504, headers: { 'cache-control': 'no-store' } })
   }
