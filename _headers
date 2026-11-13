@@ -1,3 +1,6 @@
+# NOTE: Cloudflare Pages publishes public/_headers (copied to dist/_headers).
+# This root file is not deployed. Keep public/_headers as the source of truth.
+
 /*
   Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-src https://challenges.cloudflare.com https://assets.numetal.xyz https://numetal.xyz; frame-ancestors 'none'; form-action 'self' https://api.gokhan.vc; img-src 'self' data: https:; font-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' https://challenges.cloudflare.com; connect-src 'self' https://api.gokhan.vc; manifest-src 'self'; upgrade-insecure-requests
   X-Content-Type-Options: nosniff

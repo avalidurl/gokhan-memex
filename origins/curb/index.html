@@ -11,18 +11,28 @@
 <meta property="og:title" content="CURB — agent↔agent inference swap"/>
 <meta property="og:description" content="CURB is the swap rail. Wire api.curb.numetal.xyz MCP/Skill into your harness. Demo seller/buyer/harness agents are reference only. USDC on x402 on Base; fees split on-chain via 0xSplits. No upstream keys on the hub."/>
 <meta property="og:url" content="https://gokhanturhan.com/curb/"/>
+<meta property="og:image" content="https://gokhanturhan.com/curb/assets/og-curb-launch.png"/>
+<meta property="og:image:type" content="image/png"/>
+<meta property="og:image:width" content="1500"/>
+<meta property="og:image:height" content="600"/>
+<meta property="og:image:alt" content="CURB — agent↔agent inference swap"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="CURB — agent↔agent inference swap"/>
+<meta name="twitter:image" content="https://gokhanturhan.com/curb/assets/og-curb-launch.png"/>
 <link rel="icon" href="/curb/assets/curb-favicon-32.png" type="image/png"/>
-<link rel="alternate" type="application/rss+xml" title="CURB" href="/curb/feed.xml"/>
+<link rel="alternate" type="application/rss+xml" title="CURB" href="/rss.xml"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
 <style>
 
-  :root, [data-theme="dim"] {
+  @font-face{font-family:"IBM Plex Sans Fallback";src:local("Arial"),local("Helvetica Neue"),local("Helvetica");size-adjust:102%;ascent-override:93%;descent-override:24%;line-gap-override:0%}
+    @font-face{font-family:"IBM Plex Mono Fallback";src:local("Menlo"),local("Consolas"),local("Courier New");size-adjust:100%;ascent-override:95%;descent-override:25%;line-gap-override:0%}
+    :root, [data-theme="dim"] {
     --bg: #121212; --fg: #e6e6e6; --muted: #8c8c8c; --line: #2a2a2a;
     --panel: #1a1a1a; --code-bg: #0e0e0e;
-    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
-    --sans: "IBM Plex Sans", system-ui, sans-serif;
+    --mono: "IBM Plex Mono", "IBM Plex Mono Fallback", ui-monospace, Menlo, Consolas, monospace;
+    --sans: "IBM Plex Sans", "IBM Plex Sans Fallback", system-ui, sans-serif;
   }
   [data-theme="light"] {
     --bg: #f4f4f4; --fg: #141414; --muted: #666; --line: #d4d4d4;
@@ -301,7 +311,7 @@
   .problem { color: var(--muted); margin: 0 0 1rem; max-width: 44rem; font-size: 1rem; }
 </style>
 <script>(function(){try{var t=null;try{var m=document.cookie.match(/(?:^|; )curb-theme=(light|dim)(?:;|$)/);if(m)t=m[1];}catch(e){}if(!t){try{t=localStorage.getItem("curb-theme");}catch(e){}}if(t==="light"||t==="dim")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
-<style>.gt-bar{all:initial;display:block;box-sizing:border-box;width:100%;border-bottom:1px solid #141414;background:#f6f5f1;color:#141414;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;padding:6px 14px;letter-spacing:.02em;z-index:9999;position:relative}
+<style>.gt-bar{all:initial;display:block;box-sizing:border-box;width:100%;min-height:32px;border-bottom:1px solid #141414;background:#f6f5f1;color:#141414;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;padding:6px 14px;letter-spacing:.02em;z-index:9999;position:relative}
 .gt-bar a{color:#002fa7;text-decoration:none}.gt-bar a:hover{text-decoration:underline}.gt-bar b{font-weight:600}
 @media (prefers-color-scheme:dark){.gt-bar{background:#141414;color:#f3f2ec;border-color:#f3f2ec}.gt-bar a{color:#8eb0ff}}</style>
 </head>
@@ -332,7 +342,7 @@
       <a href="/curb/install" title="Install MCP + skill across runtimes">Install</a>
       <a href="/curb/deck" title="CURB pitch deck — 15 slides, hosted + PDF">Deck</a>
       <a href="/curb/docs/" title="Diátaxis docs — tutorials, how-to, explanation, reference">Docs</a>
-      <a href="/curb/dispatch" title="CURB dispatches">Dispatch</a>
+      <a href="/journal/" title="CURB dispatches">Dispatch</a>
       <a href="/curb/fees" title="CURB token address, pool, and fee wallets">Token &amp; fees</a>
     </div>
       <span class="stamp">Swap rail — clears on Base</span>
@@ -469,14 +479,14 @@
   <nav class="foot-nav" aria-label="Site">
   <a href="/curb/fees" title="CURB token address, pool, and fee wallets">Token &amp; fees</a>
   <a href="/curb/deck" title="CURB pitch deck — 15 slides, hosted + PDF">deck</a>
-  <a href="/curb/dispatch" title="CURB dispatches">dispatch</a>
+  <a href="/journal/" title="CURB dispatches">dispatch</a>
   <a href="/curb/docs/" title="Diátaxis documentation — tutorials, how-to, explanation, reference">docs</a>
   <a href="/curb/newsletter" title="Subscribe to CURB / Numetal estate newsletter">newsletter</a>
-  <a href="/curb/terms" title="Terms of Service for CURB">terms</a>
-  <a href="/curb/privacy" title="Privacy Policy for CURB">privacy</a>
+  <a href="/curb/legal/terms/" title="Terms of Service for CURB">terms</a>
+  <a href="/curb/legal/privacy/" title="Privacy Policy for CURB">privacy</a>
   <a href="/curb/llms.txt" title="Machine-readable site map for LLMs and agents">llms.txt</a>
-  <a href="/curb/sitemap.xml" title="XML sitemap of public CURB URLs">sitemap</a>
-  <a href="/curb/feed.xml" title="CURB RSS feed">feed.xml</a>
+  <a href="/sitemap-index.xml" title="XML sitemap of public CURB URLs">sitemap</a>
+  <a href="/rss.xml" title="CURB RSS feed">feed.xml</a>
   <a href="https://status.numetal.xyz" title="Numetal / CURB public status">Status</a>
 </nav>
 <footer>

@@ -5,6 +5,7 @@
 User-agent: *
 Allow: /
 Disallow: /offline/
+Disallow: /product-drafts/
 
 # AI and research crawlers are welcome; see /llms.txt for a summary.
 User-agent: GPTBot

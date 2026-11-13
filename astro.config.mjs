@@ -81,7 +81,7 @@ export default defineConfig({
       customPages: ['https://gokhanturhan.com/', 'https://gokhanturhan.com/turkish-art-blob/', 'https://gokhanturhan.com/ethereum-doomsday/', 'https://gokhanturhan.com/turkish-art-blob/tr/'],
       // Archived legal copies are noindex; keep them out of the sitemap.
       filter: (page) => !/\/legal\/[^/]+\/$/.test(page) && !/\/(offline|404|moved)\/?$/.test(page)
-        && !/\/file\/$/.test(page)
+        && !/\/product-drafts(\/|$)/.test(page)
         // noindex listing pages (year/month archives, tag and category lists)
         && !/\/journal\/\d{4}\/(\d{2}\/)?$/.test(page) && !/\/archive\/(tags\/|categories\/)?([^/]+\/)?$/.test(page),
       serialize(item) {
