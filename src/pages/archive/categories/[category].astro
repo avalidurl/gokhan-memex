@@ -42,7 +42,6 @@ const posts: PostEntry[] = allPosts
 <BaseLayout
   title={`${humanizeKebab(category)} - Archive`}
   description={`${posts.length} posts in the ${category} category.`}
-  robots="noindex, follow"
 >
   <div class="es">
     <PageHead crumbs={[{ label: 'Archive', href: '/archive/' }, { label: 'Categories', href: '/archive/#categories' }]} title={humanizeKebab(category)} count={`${posts.length} post${posts.length !== 1 ? 's' : ''}`} />

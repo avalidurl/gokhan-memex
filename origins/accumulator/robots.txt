@@ -1,5 +1,5 @@
+# robots.txt for https://gokhanturhan.com/accumulator/
 User-agent: *
 Allow: /
-Disallow: /api/
 
-Sitemap: https://accumulator.numetal.xyz/sitemap.xml
+Sitemap: https://gokhanturhan.com/sitemap-index.xml

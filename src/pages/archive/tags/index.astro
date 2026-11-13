@@ -10,7 +10,7 @@ const groups = [
 const other = idx.filter((b) => !b.def).sort((a, b) => total(b) - total(a))
 ---
 
-<BaseLayout title="Tags" description={`All ${idx.length} tags across products, journal posts, drafts, tools and APIs.`} robots="noindex, follow">
+<BaseLayout title="Tags" description={`All ${idx.length} tags across products, journal posts, drafts, tools and APIs.`}>
   <div class="es">
     <PageHead crumbs={[{ label: 'Archive', href: '/archive/' }, { label: 'Tags' }]} title="Tags" lead="One set of tags for the whole site. Each opens a page with its products, posts, drafts, tools and APIs." count={idx.length} />
     {groups.map(([g, label]) => {
