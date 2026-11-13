@@ -8,9 +8,9 @@
      Two accent stamps ride along: signal red and IKB. Accents mark kickers
      and signal labels only — running ink stays monochrome. */
   --ink: #141414;
-  --paper: #FAFAF8;
+  --paper: #ffffff;
   --dim: #6f6f6f;
-  --faint: #d8d8d4;
+  --faint: #e0e0e0;
   --red: #e10600;
   --ikb: #002FA7;
 
@@ -88,7 +88,7 @@
 
 .dark {
   /* The four tokens (dark — the same Bureau palette, paper and ink swapped) */
-  --ink: #FAFAF8;
+  --ink: #ffffff;
   --paper: #141414;
   --dim: #9a9a9a;
   --faint: #2a2a2a;
@@ -130,7 +130,7 @@
    paper tokens over this media block. Token-for-token identical to .dark. */
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-    --ink: #FAFAF8;
+    --ink: #ffffff;
     --paper: #141414;
     --dim: #9a9a9a;
     --faint: #2a2a2a;
