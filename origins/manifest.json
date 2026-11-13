@@ -98,5 +98,9 @@
   {
     "slug": "lectotype",
     "name": "Lectotype"
+  },
+  {
+    "slug": "agentbounty",
+    "name": "AgentBounty"
   }
 ]

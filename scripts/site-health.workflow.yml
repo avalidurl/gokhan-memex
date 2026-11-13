@@ -1,6 +1,6 @@
-# Weekly health check for gokhanturhan.com and the retired numetal.xyz /
-# gokhan.vc roots. Fails the workflow when something important breaks so
-# GitHub can notify; it stays quiet on success.
+# Weekly health check for gokhanturhan.com and the retired numetal.xyz,
+# gokhan.vc and agentbounty.dev roots. Fails the workflow when something
+# important breaks so GitHub can notify; it stays quiet on success.
 name: Site health
 on:
   schedule:

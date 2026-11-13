@@ -34,7 +34,7 @@ SKIP_PREFIX = (
     "accumulator", "rebase", "apex", "booster", "clank-tape", "heartprefs",
     "gokhan-vc", "coins", "jesus", "llmcraft", "llmlivesmatter",
     "onbots", "tape-exchange", "clankdog", "ai-ipo", "belief-systems",
-    "foreguild-fao-plan", "hypersitition", "lectotype",
+    "foreguild-fao-plan", "hypersitition", "lectotype", "agentbounty",
     "turkish-art-blob", "ethereum-doomsday",
     "products", "product-drafts", "journal", "media", "publishing", "about",
     "cv", "archive", "_astro", "register", "home.js", "register-boot",
