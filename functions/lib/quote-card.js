@@ -79,7 +79,7 @@ export function wrapApprox(text, size, width, maxLines, italic) {
   return lines
 }
 
-export function cardSvg({ quote, source, kicker, footer, meta, avatarBase64 }) {
+export function cardSvg({ quote, source, kicker, footer, meta }) {
   const innerLeft = 88
   const colW = 1112 - 88
   const q = String(quote || '').trim()
@@ -102,11 +102,9 @@ export function cardSvg({ quote, source, kicker, footer, meta, avatarBase64 }) {
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="630" viewBox="0 0 1200 630">
   <rect width="1200" height="630" fill="${PAPER}"/>
   <rect x="36" y="28" width="1128" height="${frameBottom - 28}" fill="none" stroke="${INK}" stroke-width="3"/>
-  <image x="88" y="54" width="80" height="80" href="data:image/png;base64,${avatarBase64}" preserveAspectRatio="xMidYMid slice"/>
-  <rect x="88" y="54" width="80" height="80" fill="none" stroke="${INK}" stroke-width="2"/>
-  <rect x="184" y="70" width="12" height="12" fill="${RED}"/>
-  <text x="204" y="82" font-size="22" font-family="Source Sans 3" font-weight="600" fill="${INK}" letter-spacing="2.2">GÖKHAN TURHAN</text>
-  <text x="184" y="116" font-size="18" font-family="Source Sans 3" fill="${DIM}" letter-spacing="2.4">${esc(kick)}</text>
+  <rect x="88" y="70" width="12" height="12" fill="${RED}"/>
+  <text x="108" y="82" font-size="22" font-family="Source Sans 3" font-weight="600" fill="${INK}" letter-spacing="2.2">GÖKHAN TURHAN</text>
+  <text x="88" y="116" font-size="18" font-family="Source Sans 3" fill="${DIM}" letter-spacing="2.4">${esc(kick)}</text>
   <text x="${innerLeft - 4}" y="208" font-size="110" font-family="EB Garamond" fill="${IKB}">“</text>
   ${quoteText}
   ${srcLines.map((l, i) => `<text x="${innerLeft}" y="${srcY + i * 28}" font-size="22" font-family="Source Sans 3" fill="${DIM}">${esc(l)}</text>`).join('')}

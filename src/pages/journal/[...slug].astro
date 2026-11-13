@@ -6,6 +6,9 @@ import PostTitle from '@/components/PostTitle.astro'
 import ResponsiveImage from '@/components/ResponsiveImage.astro'
 import JournalSubscribe from '@/components/JournalSubscribe.astro'
 import { formatDate, humanizeKebab, plainPostTitle } from '@/lib/utils'
+import { personRef } from '@/lib/person'
+import { datesDiffer, journalFilePath, modifiedDate } from '@/lib/post-dates'
+
 
 export async function getStaticPaths() {
   const posts = (await getCollection('blog')).filter((post) => !post.data.draft)
@@ -27,6 +30,14 @@ type Props = CollectionEntry<'blog'> & { docNumber: number }
 
 const post = Astro.props
 const { Content, headings } = await post.render()
+const publishedAt = post.data.publishDate
+const modifiedAt = modifiedDate({
+  updatedDate: post.data.updatedDate,
+  publishDate: publishedAt,
+  filePath: journalFilePath(post.id),
+})
+const showUpdated = datesDiffer(modifiedAt, publishedAt)
+
 
 // Doc-strip identifiers — plain mono labels in the datasheet register.
 const docId = `JOURNAL-${String(post.docNumber).padStart(3, '0')}`
@@ -40,20 +51,10 @@ const defaultArticleSchema = {
   "@type": "BlogPosting",
   "headline": plainPostTitle(post.data.title),
   "description": post.data.description,
-  "author": {
-    "@type": "Person",
-    "@id": "https://gokhanturhan.com/#person",
-    "name": "Gökhan Turhan",
-    "url": "https://gokhanturhan.com/"
-  },
-  "publisher": {
-    "@type": "Person",
-    "@id": "https://gokhanturhan.com/#person",
-    "name": "Gökhan Turhan",
-    "url": "https://gokhanturhan.com/"
-  },
-  "datePublished": post.data.publishDate.toISOString(),
-  "dateModified": post.data.publishDate.toISOString(),
+  "author": { "@type": "Person", ...personRef, "name": "Gökhan Turhan" },
+  "publisher": { "@type": "Person", ...personRef, "name": "Gökhan Turhan" },
+  "datePublished": publishedAt.toISOString(),
+  "dateModified": modifiedAt.toISOString(),
   "url": `https://gokhanturhan.com/journal/${post.slug}/`,
   "mainEntityOfPage": {
     "@type": "WebPage",
@@ -97,8 +98,8 @@ const showToc = tocHeadings.length >= 2
   {post.data.seoKeywords && (
     <meta name="keywords" content={post.data.seoKeywords.join(', ')} slot="head" />
   )}
-  <meta property="article:published_time" content={post.data.publishDate.toISOString()} slot="head" />
-  <meta property="article:modified_time" content={post.data.publishDate.toISOString()} slot="head" />
+  <meta property="article:published_time" content={publishedAt.toISOString()} slot="head" />
+  <meta property="article:modified_time" content={modifiedAt.toISOString()} slot="head" />
   <meta property="article:author" content="Gökhan Turhan" slot="head" />
   {post.data.category && <meta property="article:section" content={post.data.category} slot="head" />}
   <script src="/quote-share.js" defer slot="head"></script>
@@ -191,7 +192,7 @@ const showToc = tocHeadings.length >= 2
       <footer class="mt-8 pt-8 border-t border-border">
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-sm text-muted-foreground">
           <span>
-            Published on {formatDate(post.data.publishDate)}
+            Published on {formatDate(publishedAt)}{showUpdated ? ` · Updated ${formatDate(modifiedAt)}` : ''}
           </span>
           <div class="flex items-center gap-6">
             <a
