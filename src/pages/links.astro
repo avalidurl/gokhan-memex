@@ -1,60 +1,405 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PageHead from '@/components/PageHead.astro'
+import { explorers, parties, type Party } from '@/data/coins-wallets'
 
-type Handle = { href: string; label: string; note: string }
-const platforms: { name: string; handles: Handle[] }[] = [
-  { name: 'X', handles: [
-    { href: 'https://x.com/goekhan', label: '@goekhan', note: 'personal' },
-    { href: 'https://x.com/goekhanvc', label: '@goekhanvc', note: 'Gökhan Ventures' },
-    { href: 'https://x.com/numetalxyz', label: '@numetalxyz', note: 'Numetal · Ishtar · CURB' },
-  ] },
-  { name: 'GitHub', handles: [
-    { href: 'https://github.com/avalidurl', label: 'avalidurl', note: 'personal bench' },
-    { href: 'https://github.com/gokhan-vc', label: 'gokhan-vc', note: 'studio org' },
-  ] },
-  { name: 'LinkedIn', handles: [
-    { href: 'https://www.linkedin.com/in/goekhanturhan/', label: 'goekhanturhan', note: 'Gökhan Turhan' },
-  ] },
-  { name: 'Farcaster', handles: [
-    { href: 'https://farcaster.xyz/gokhan', label: '@gokhan', note: 'personal' },
-  ] },
-  { name: 'Discord', handles: [
-    { href: 'https://discord.gg/ZcxcwRPT7R', label: 'Market Research Unit', note: 'server invite' },
-    { href: 'https://discord.gg/MC4DYumPMz', label: 'Numetal', note: 'server invite' },
-  ] },
-  { name: 'Telegram', handles: [
-    { href: 'https://t.me/goekhanturhan', label: '@goekhanturhan', note: 'personal' },
-    { href: 'https://t.me/marketresearchunit', label: '@marketresearchunit', note: 'Market Research Unit' },
-    { href: 'https://t.me/gokhanturhans', label: '@gokhanturhans', note: 'Research Log' },
-    { href: 'https://t.me/numetalxyz', label: '@numetalxyz', note: 'Numetal' },
-  ] },
-  { name: 'Bluesky', handles: [
-    { href: 'https://bsky.app/profile/gokhan.substack.com', label: 'gokhan.substack.com', note: 'personal' },
-  ] },
+type Handle = { href: string; note: string; me?: boolean }
+type Group = { name: string; handles: Handle[] }
+type Section = { id: string; title: string; hint: string; groups: Group[] }
+type WalletItem = {
+  id: string
+  label?: string
+  address: string
+  note?: string
+  chain?: Party['chain'] | 'zcash'
+  links?: { label: string; short?: string; href: string }[]
+}
+
+const display = (href: string) => {
+  if (href.startsWith('mailto:')) return href.slice(7)
+  const u = new URL(href)
+  return (u.host + u.pathname.replace(/\/+$/, '') + u.search).replace(/\/+$/, '')
+}
+
+const isIdentity = (h: Handle) =>
+  h.me !== false && !h.href.startsWith('mailto:') && !h.href.includes('/group_join/') && !h.href.includes('discord.gg')
+
+const sections: Section[] = [
+  {
+    id: 'social-media-platforms',
+    title: 'Social Media Platforms',
+    hint: 'X first, then the rest of the public profiles',
+    groups: [
+      { name: 'X', handles: [
+        { href: 'https://x.com/goekhan', note: 'personal' },
+        { href: 'https://x.com/goekhanvc', note: 'Gökhan Ventures' },
+        { href: 'https://x.com/numetalxyz', note: 'Numetal · Ishtar · CURB' },
+      ] },
+      { name: 'Bluesky', handles: [
+        { href: 'https://bsky.app/profile/gokhan.substack.com', note: 'personal' },
+      ] },
+      { name: 'Reddit', handles: [
+        { href: 'https://www.reddit.com/user/toombak/', note: 'personal' },
+      ] },
+      { name: 'TikTok', handles: [
+        { href: 'https://www.tiktok.com/@gokhan.eth', note: 'personal' },
+      ] },
+      { name: 'Truth Social', handles: [
+        { href: 'https://truthsocial.com/@gokhanturhan', note: 'personal' },
+      ] },
+    ],
+  },
+  {
+    id: 'chats-communities',
+    title: 'Chats & Communities',
+    hint: 'Telegram channels, Discord and the X Group',
+    groups: [
+      { name: 'Telegram', handles: [
+        { href: 'https://t.me/marketresearchunit', note: 'Market Research Unit — main channel' },
+        { href: 'https://t.me/goekhanturhan', note: 'personal' },
+        { href: 'https://t.me/gokhanturhans', note: 'Research Log — channel' },
+        { href: 'https://t.me/numetalxyz', note: 'Numetal' },
+      ] },
+      { name: 'Discord', handles: [
+        { href: 'https://discord.com/users/468471856773464075', note: 'Discord, DM' },
+        { href: 'https://discord.gg/ZcxcwRPT7R', note: 'Market Research Unit — server invite' },
+        { href: 'https://discord.gg/MC4DYumPMz', note: 'Numetal — server invite' },
+      ] },
+      { name: 'X Group', handles: [
+        { href: 'https://x.com/i/chat/group_join/g2109600261379367331/cEgOlxjpBN', note: 'X Group', me: false },
+      ] },
+    ],
+  },
+  {
+    id: 'blogs-newsletters-writing',
+    title: 'Blogs, Newsletters & Writing',
+    hint: 'Substack first, then the other desks',
+    groups: [
+      { name: 'Substack', handles: [
+        { href: 'https://gokhan.substack.com/', note: 'long-form research and analysis' },
+      ] },
+      { name: 'Medium', handles: [
+        { href: 'https://goekhanturhan.medium.com/', note: 'writing' },
+      ] },
+      { name: 'Paragraph', handles: [
+        { href: 'https://paragraph.com/@gokhan', note: 'writing' },
+      ] },
+      { name: 'Bear Blog', handles: [
+        { href: 'https://gokhan.bearblog.dev/', note: 'writing' },
+      ] },
+      { name: 'Journal', handles: [
+        { href: 'https://gokhanturhan.com/journal/', note: 'essays and notes on this site' },
+      ] },
+    ],
+  },
+  {
+    id: 'professional-networking',
+    title: 'Professional Networking',
+    hint: 'GitHub, LinkedIn and profile pages',
+    groups: [
+      { name: 'GitHub', handles: [
+        { href: 'https://github.com/avalidurl', note: 'personal bench' },
+        { href: 'https://github.com/gokhan-vc', note: 'studio org' },
+      ] },
+      { name: 'LinkedIn', handles: [
+        { href: 'https://www.linkedin.com/in/goekhanturhan/', note: 'Gökhan Turhan' },
+      ] },
+      { name: 'Icebreaker', handles: [
+        { href: 'https://app.icebreaker.xyz/profiles/N0nU43KFOTZ8geAxTRQAW', note: 'profile' },
+      ] },
+      { name: 'about.me', handles: [
+        { href: 'https://about.me/gokhan0x', note: 'profile' },
+      ] },
+      { name: 'Linktree', handles: [
+        { href: 'https://linktr.ee/0xgokhan', note: 'profile' },
+      ] },
+    ],
+  },
+  {
+    id: 'academic',
+    title: 'Academic',
+    hint: 'citations and research profiles',
+    groups: [
+      { name: 'Google Scholar', handles: [
+        { href: 'https://scholar.google.com/citations?user=EgZE838AAAAJ', note: 'citations' },
+      ] },
+      { name: 'ResearchGate', handles: [
+        { href: 'https://www.researchgate.net/profile/Goekhan-Turhan-2', note: 'profile' },
+      ] },
+      { name: 'ORCID', handles: [
+        { href: 'https://orcid.org/0000-0002-1887-406X', note: '0000-0002-1887-406X' },
+      ] },
+    ],
+  },
+  {
+    id: 'decentralized-social',
+    title: 'Decentralized Social',
+    hint: 'Farcaster, Lens, Nostr, Zora and the rest of the on-chain desks',
+    groups: [
+      { name: 'Farcaster', handles: [
+        { href: 'https://farcaster.xyz/gokhan', note: 'personal' },
+      ] },
+      { name: 'Lens', handles: [
+        { href: 'https://hey.xyz/u/gokhaneth', note: 'gokhaneth' },
+      ] },
+      { name: 'Nostr', handles: [
+        { href: 'https://primal.net/gokhan', note: 'gokhan' },
+      ] },
+      { name: 'Zora', handles: [
+        { href: 'https://zora.co/@gokhan', note: '@gokhan' },
+      ] },
+      { name: 'EFP', handles: [
+        { href: 'https://efp.app/0x36de990133d36d7e3df9a820aa3ede5a2320de71', note: 'Ethereum Follow Protocol — gokhan.eth' },
+      ] },
+      { name: 'zcash.me', handles: [
+        { href: 'https://zcash.me/gokhan', note: 'profile' },
+      ] },
+      { name: 'Moltbook', handles: [
+        { href: 'https://www.moltbook.com/m/courtship', note: "Ishtar's floor on the agent-only network — staffed by the intern" },
+      ] },
+    ],
+  },
+  {
+    id: 'multimedia',
+    title: 'Multimedia',
+    hint: 'listening and video',
+    groups: [
+      { name: 'Last.fm', handles: [
+        { href: 'https://www.last.fm/user/gokhanturhan', note: 'listening' },
+      ] },
+      { name: 'SoundCloud', handles: [
+        { href: 'https://soundcloud.com/0xgokhan', note: 'audio' },
+      ] },
+      { name: 'Vimeo', handles: [
+        { href: 'https://vimeo.com/0xgokhan', note: 'video' },
+      ] },
+    ],
+  },
+  {
+    id: 'contact',
+    title: 'Contact',
+    hint: 'direct mail and DMs are open',
+    groups: [
+      { name: 'Email', handles: [
+        { href: 'mailto:contact@gokhan.vc', note: 'studio and professional inquiries' },
+        { href: 'mailto:contact@gokhanturhan.com', note: 'personal site' },
+        { href: 'mailto:contact@numetal.xyz', note: 'Numetal' },
+      ] },
+      { name: 'Discord', handles: [
+        { href: 'https://discord.com/users/468471856773464075', note: 'Discord, DM' },
+      ] },
+    ],
+  },
 ]
-const total = platforms.reduce((n, p) => n + p.handles.length, 0)
+
+const known = new Set(parties.map((p) => p.address?.toLowerCase()).filter(Boolean) as string[])
+const fromParty = (p: Party): WalletItem | null =>
+  p.address ? { id: p.id, label: p.label, address: p.address, note: p.note, chain: p.chain } : null
+
+const profileEvm: WalletItem[] = [
+  { id: 'ZORA-LINKED', label: 'Zora linked wallet', address: '0x4DF89a7437786eB8Af595979a638a4a9382c33D6', note: 'linked on zora.co/@gokhan' },
+  { id: 'LENS-ACCOUNT', label: 'Lens account', address: '0xE8b26757Bc7429d1fD16233437121dE904dac806', note: 'hey.xyz/u/gokhaneth' },
+].filter((p) => !known.has(p.address.toLowerCase()))
+
+const walletNetworks: { id: string; title: string; hint: string; items: WalletItem[] }[] = [
+  {
+    id: 'wallets-evm',
+    title: 'Ethereum, Base & Robinhood Chain',
+    hint: 'same address on each EVM network',
+    items: [
+      ...parties.filter((p) => p.address && p.chain !== 'solana' && p.chain !== 'canton').map((p) => fromParty(p)!),
+      ...profileEvm,
+    ],
+  },
+  {
+    id: 'wallets-solana',
+    title: 'Solana',
+    hint: 'pump.fun @gokhan',
+    items: parties.filter((p) => p.address && p.chain === 'solana').map((p) => fromParty(p)!),
+  },
+  {
+    id: 'wallets-canton',
+    title: 'Canton',
+    hint: 'Supanova',
+    items: parties.filter((p) => p.address && p.chain === 'canton').map((p) => fromParty(p)!),
+  },
+  {
+    id: 'wallets-zcash',
+    title: 'Zcash',
+    hint: 'from zcash.me/gokhan',
+    items: [
+      {
+        id: 'ZEC-UA',
+        label: 'Unified',
+        address: 'u172a6j85et6eglhc7wasffsl3l4n5jrwkx4tmtw4nmwzjgksrydevqzeqp83y8my33fnqp73tgaac57xtcel94qajn35eemv9jwd87jza69ey70weqwmspld3rm7q7dnnt5fgpq07p8fw48g7ew7hjecaud7nf0dwcfxu688a7yvajmnq',
+        note: 'profile address on zcash.me/gokhan — a unified address, which receives shielded funds',
+        chain: 'zcash',
+        links: [{ label: 'zcash.me/gokhan', short: 'zcash.me', href: 'https://zcash.me/gokhan' }],
+      },
+    ],
+  },
+]
+
+function walletLinks(p: WalletItem) {
+  if (p.links) return p.links
+  if (p.chain === 'zcash') return []
+  return explorers({ id: p.id, address: p.address, short: p.address, chain: p.chain })
+}
+
+const nav = [
+  ...sections.map((s) => ({ id: s.id, title: s.title })),
+  { id: 'wallets', title: 'Wallets' },
+  ...walletNetworks.map((n) => ({ id: n.id, title: n.title })),
+]
+
+const linkCount = sections.reduce((n, s) => n + s.groups.reduce((m, g) => m + g.handles.length, 0), 0)
+const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
 ---
 
-<BaseLayout title="Links" description="Where to find Gökhan Turhan: X, GitHub, LinkedIn, Farcaster, Discord, Telegram and Bluesky.">
+<BaseLayout
+  title="Links"
+  description="Where to find Gökhan Turhan: social channels, chats, writing, professional and academic profiles, decentralized social, multimedia, and wallet addresses."
+  robots="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+>
   <div class="es">
-    <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: 'Links' }]} title="Links" lead="Where to find Gökhan Turhan elsewhere." count={String(total).padStart(2, '0')} />
-    <section class="cx links" aria-label="Platforms">
-      <div class="cx-h"><b>Platforms</b><span>X · GitHub · LinkedIn · Farcaster · Discord · Telegram · Bluesky</span><em>{String(platforms.length).padStart(2, '0')}</em></div>
-      {platforms.map((p) => (
-        <div class="cx-r">
-          <span>{p.name}</span>
-          <span class="lk">
-            {p.handles.map((h) => (
-              <span class="lk-i"><a href={h.href} rel="me noopener">{h.label}</a> <i>{h.note}</i></span>
-            ))}
-          </span>
+    <PageHead
+      crumbs={[{ label: 'Index', href: '/' }, { label: 'Links' }]}
+      title="Links"
+      lead="Where to find Gökhan Turhan elsewhere, and the wallet addresses published on this site and on his public profiles."
+      count={String(linkCount + walletCount).padStart(2, '0')}
+    />
+
+    <nav class="cx lk-nav" aria-label="On this page">
+      <div class="cx-h"><b>On this page</b><span>jump to a section</span><em>{String(nav.length).padStart(2, '0')}</em></div>
+      <div class="lk-toc">
+        {nav.map((item) => (
+          <a href={`#${item.id}`}>{item.title}</a>
+        ))}
+      </div>
+    </nav>
+
+    {sections.map((s) => (
+      <section class="cx lk-sec" id={s.id} aria-labelledby={`${s.id}-heading`}>
+        <div class="cx-h">
+          <b id={`${s.id}-heading`}><a href={`#${s.id}`} class="lk-head">{s.title}</a></b>
+          <span>{s.hint}</span>
+          <button type="button" class="cr-copy lk-copy" data-hash={`#${s.id}`} aria-label={`Copy link to ${s.title}`}>Copy link</button>
+          <em>{String(s.groups.reduce((n, g) => n + g.handles.length, 0)).padStart(2, '0')}</em>
+        </div>
+        {s.groups.map((g) => (
+          <div class="cx-r">
+            <span>{g.name}</span>
+            <span class="lk">
+              {g.handles.map((h) => (
+                <span class="lk-i">
+                  {isIdentity(h)
+                    ? <a href={h.href} rel="me noopener">{display(h.href)}</a>
+                    : <a href={h.href} rel="noopener">{display(h.href)}</a>
+                  }
+                  <i>{h.note}</i>
+                </span>
+              ))}
+            </span>
+          </div>
+        ))}
+      </section>
+    ))}
+
+    <section class="cx lk-sec" id="wallets" aria-labelledby="wallets-heading">
+      <div class="cx-h">
+        <b id="wallets-heading"><a href="#wallets" class="lk-head">Wallets</a></b>
+        <span>addresses published on this site and on his public profiles, grouped by network — nothing invented</span>
+        <button type="button" class="cr-copy lk-copy" data-hash="#wallets" aria-label="Copy link to Wallets">Copy link</button>
+        <em>{String(walletCount).padStart(2, '0')}</em>
+      </div>
+      {walletNetworks.map((net) => (
+        <div class="lk-net" id={net.id}>
+          <div class="cx-h lk-sub">
+            <b><a href={`#${net.id}`} class="lk-head">{net.title}</a></b>
+            <span>{net.hint}</span>
+            <button type="button" class="cr-copy lk-copy" data-hash={`#${net.id}`} aria-label={`Copy link to ${net.title}`}>Copy link</button>
+            <em>{String(net.items.length).padStart(2, '0')}</em>
+          </div>
+          {net.items.map((p) => (
+            <div class="cx-r lk-w">
+              <span>{p.label || p.id}{p.note ? <i> {p.note}</i> : null}</span>
+              <span class="lk-addr">
+                <code class="lk-code">{p.address}</code>
+                <button type="button" class="cr-copy" data-copy={p.address} aria-label={`Copy ${p.label || p.id} address`}>Copy</button>
+                <span class="lk-ex">
+                  {walletLinks(p).map((e) => (
+                    <a href={e.href} rel="noopener">{e.short || e.label}</a>
+                  ))}
+                </span>
+              </span>
+            </div>
+          ))}
         </div>
       ))}
     </section>
   </div>
 </BaseLayout>
+
 <style>
+  .lk-nav { position: sticky; top: 0; z-index: 6; }
+  .lk-toc { display: flex; flex-wrap: wrap; }
+  .lk-toc a {
+    font: 12.5px/1.35 var(--mono);
+    padding: 7px 10px;
+    color: var(--ink);
+    text-decoration: none;
+    border-right: 1px dotted var(--hair);
+    border-bottom: 1px dotted var(--hair);
+  }
+  .lk-toc a:hover { color: var(--ikb); }
+  .lk-sec { scroll-margin-top: 5.5rem; }
+  .lk-net { scroll-margin-top: 5.5rem; }
+  .lk-net + .lk-net { border-top: 1px solid var(--ink); }
+  .lk-sub { border-top: 0; border-bottom: 1px solid var(--ink); }
+  .lk-head { color: inherit; text-decoration: none; }
+  .lk-head:hover { text-decoration: underline; text-underline-offset: 2px; }
+  .cx-h .lk-copy { margin: 4px 0 4px auto; align-self: center; }
+  .cx-h em { margin-left: 0; }
   .lk { display: flex; flex-direction: column; gap: 2px; }
-  .lk-i i { margin-left: 4px; }
+  .lk-i { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 6px; }
+  .lk-i i { margin-left: 0; }
+  .lk-w > :first-child i { font: normal 11px var(--mono); color: var(--dim); }
+  .lk-addr { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; min-width: 0; }
+  .lk-code { font: 12.5px/1.45 var(--mono); overflow-wrap: anywhere; user-select: all; background: none; }
+  .lk-ex { display: inline-flex; flex-wrap: wrap; gap: 8px; font: 11px/1 var(--mono); letter-spacing: .04em; }
+  @media (max-width: 760px) {
+    .lk-nav { position: static; }
+    .lk-sec, .lk-net { scroll-margin-top: 0.5rem; }
+    .cx-r.lk-w { grid-template-columns: 1fr; }
+  }
 </style>
+
+<script>
+  function copyText(value: string, btn: HTMLButtonElement, done = 'Copied') {
+    const orig = btn.textContent
+    const ok = () => { btn.textContent = done; setTimeout(() => { btn.textContent = orig }, 1400) }
+    const fallback = () => {
+      const ta = document.createElement('textarea')
+      ta.value = value
+      ta.setAttribute('readonly', '')
+      ta.style.position = 'fixed'
+      ta.style.left = '-9999px'
+      document.body.appendChild(ta)
+      ta.select()
+      document.execCommand('copy')
+      ta.remove()
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(value).then(ok).catch(() => { fallback(); ok() })
+    } else { fallback(); ok() }
+  }
+  document.querySelectorAll<HTMLButtonElement>('.cr-copy').forEach((b) => {
+    b.addEventListener('click', () => {
+      const hash = b.dataset.hash
+      const value = hash
+        ? new URL(hash, window.location.origin + window.location.pathname).href
+        : b.dataset.copy || ''
+      if (value) copyText(value, b)
+    })
+  })
+</script>
