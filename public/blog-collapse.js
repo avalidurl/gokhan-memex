@@ -1,5 +1,5 @@
 /* Collapsible headings for blog/newsletter articles and the homepage hero —
-   click a heading (or its chevron mark) to fold everything under it down to
+   click a heading (or its red triangle) to fold everything under it down to
    the next same-or-higher heading. The mark carries a hover tooltip:
    "Collapse this heading" when open, "Expand this heading" when collapsed.
    Scoped to the first matching container, so it no-ops elsewhere. External
@@ -14,9 +14,10 @@
 
   var css =
     '.hcoll{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;' +
-    'width:1.25em;height:1.25em;margin-right:.32em;vertical-align:baseline;color:var(--ink,#0a0a0a);font-size:.66em;' +
-    'line-height:1;position:relative;opacity:.5;transition:opacity .12s}' +
-    'h1:hover>.hcoll,h2:hover>.hcoll,h3:hover>.hcoll,.hcoll:hover,.hcoll:focus-visible{opacity:1}' +
+    'width:1.25em;height:1.25em;margin-right:.32em;vertical-align:baseline;color:var(--red,#e10600);font-size:1.05rem;' +
+    'line-height:1;position:relative}' +
+    '.hcoll::before{content:"▾";display:inline-block;width:1.1em;color:var(--red,#e10600);font-weight:400}' +
+    '.hcoll[aria-expanded="false"]::before{content:"▸"}' +
     '.hcoll::after{content:attr(data-tip);position:absolute;left:0;top:135%;white-space:nowrap;' +
     'background:var(--ink,#0a0a0a);color:var(--paper,#ffffff);font:500 10px/1.4 var(--font-data,ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace);letter-spacing:.03em;' +
     'padding:3px 7px;border-radius:0;opacity:0;pointer-events:none;transition:opacity .1s;z-index:9999}' +
@@ -40,7 +41,7 @@
     var btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'hcoll';
-    btn.textContent = '−';
+    btn.textContent = '';
     btn.setAttribute('aria-label', 'Toggle this section');
     btn.setAttribute('aria-expanded', 'true');
     btn.setAttribute('data-tip', 'Collapse this heading');
@@ -52,7 +53,6 @@
       if (e) { e.preventDefault(); e.stopPropagation(); }
       collapsed = !collapsed;
       for (var i = 0; i < body.length; i++) { body[i].style.display = collapsed ? 'none' : ''; }
-      btn.textContent = collapsed ? '+' : '−';
       btn.setAttribute('aria-expanded', String(!collapsed));
       btn.setAttribute('data-tip', collapsed ? 'Expand this heading' : 'Collapse this heading');
     }
