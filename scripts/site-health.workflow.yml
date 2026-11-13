@@ -1,0 +1,16 @@
+# Weekly health check for gokhanturhan.com and the retired numetal.xyz /
+# gokhan.vc roots. Fails the workflow when something important breaks so
+# GitHub can notify; it stays quiet on success.
+name: Site health
+on:
+  schedule:
+    # Monday 06:00 UTC — 09:00 Europe/Istanbul (standard time).
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run health checks
+        run: bash scripts/site-health.sh

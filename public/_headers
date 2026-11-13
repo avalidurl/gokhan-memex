@@ -1,3 +1,47 @@
+# Security headers for every path. Cloudflare Pages publishes this file
+# (the repo-root _headers is not copied into dist/). Do not set
+# Access-Control-Allow-Origin on HTML.
+/*
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self' https:; frame-src 'self' https://challenges.cloudflare.com https://assets.numetal.xyz https://numetal.xyz; child-src 'self' https://challenges.cloudflare.com; img-src 'self' data: blob: https:; font-src 'self' data: https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https:; connect-src 'self' https: wss:; manifest-src 'self'; worker-src 'self' blob:; upgrade-insecure-requests
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  Cross-Origin-Opener-Policy: same-origin-allow-popups
+
+/rss.xml
+  Content-Type: application/rss+xml; charset=UTF-8
+
+/ishtar/rss.xml
+  Content-Type: application/rss+xml; charset=UTF-8
+
+/sitemap-index.xml
+  Content-Type: application/xml; charset=UTF-8
+
+/sitemap-0.xml
+  Content-Type: application/xml; charset=UTF-8
+
+/ishtar/sitemap.xml
+  Content-Type: application/xml; charset=UTF-8
+
+/llms.txt
+  Content-Type: text/plain; charset=UTF-8
+  Cache-Control: public, max-age=86400
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/favicon.ico
+  Cache-Control: public, max-age=86400
+
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/sw.js
+  Cache-Control: public, max-age=0, must-revalidate
+
 /
   Cache-Control: public, max-age=0, must-revalidate
 

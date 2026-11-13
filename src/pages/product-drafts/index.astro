@@ -13,6 +13,7 @@ const allTags = [...new Set(drafts.flatMap((d) => draftTags[d.slug] ?? []))].sor
 <BaseLayout
   title="Product drafts"
   description="Drafts, experiments and live tools: one line each, with tags for status, kind, chain and where it is published."
+  robots="noindex, follow"
 >
   <div class="es">
     <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: 'one line each' }]} title="Product drafts" lead="Experiments, concepts and small live tools. One line each, tagged." />
