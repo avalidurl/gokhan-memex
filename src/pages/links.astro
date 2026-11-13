@@ -306,7 +306,7 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
           <b id={`${s.id}-heading`}><a href={`#${s.id}`} class="lk-head">{s.title}</a></b>
           {s.hint ? <span>{s.hint}</span> : null}
           <button type="button" class="cr-copy lk-copy" data-hash={`#${s.id}`} aria-label="Copy link to section" title={`Copy link to ${s.title}`}>
-            <svg class="lk-ico lk-chain" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M7.775 3.275a.75.75 0 0 0 1.06 1.06l1.036-1.036a3.25 3.25 0 1 1 4.596 4.596l-3.03 3.03a3.25 3.25 0 0 1-4.697-.2.75.75 0 0 0-1.082 1.04 4.75 4.75 0 0 0 6.86.29l3.03-3.03a4.75 4.75 0 0 0-6.716-6.717L7.775 3.275Zm1.45 9.45a.75.75 0 0 0-1.06-1.06l-1.036 1.036a3.25 3.25 0 1 1-4.596-4.596l3.03-3.03a3.25 3.25 0 0 1 4.697.2.75.75 0 0 0 1.082-1.04 4.75 4.75 0 0 0-6.86-.29l-3.03 3.03a4.75 4.75 0 0 0 6.716 6.717l1.036-1.036Z"/></svg>
+            <svg class="lk-ico lk-chain" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
             <svg class="lk-ico lk-check" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/></svg>
           </button>
           <em>{String(s.groups.reduce((n, g) => n + g.handles.length, 0)).padStart(2, '0')}</em>
@@ -335,7 +335,7 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
         <b id="wallets-heading"><a href="#wallets" class="lk-head">Wallets</a></b>
         <span>addresses published on this site and on his public profiles, grouped by network — nothing invented</span>
         <button type="button" class="cr-copy lk-copy" data-hash="#wallets" aria-label="Copy link to section" title="Copy link to Wallets">
-          <svg class="lk-ico lk-chain" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M7.775 3.275a.75.75 0 0 0 1.06 1.06l1.036-1.036a3.25 3.25 0 1 1 4.596 4.596l-3.03 3.03a3.25 3.25 0 0 1-4.697-.2.75.75 0 0 0-1.082 1.04 4.75 4.75 0 0 0 6.86.29l3.03-3.03a4.75 4.75 0 0 0-6.716-6.717L7.775 3.275Zm1.45 9.45a.75.75 0 0 0-1.06-1.06l-1.036 1.036a3.25 3.25 0 1 1-4.596-4.596l3.03-3.03a3.25 3.25 0 0 1 4.697.2.75.75 0 0 0 1.082-1.04 4.75 4.75 0 0 0-6.86-.29l-3.03 3.03a4.75 4.75 0 0 0 6.716 6.717l1.036-1.036Z"/></svg>
+          <svg class="lk-ico lk-chain" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
           <svg class="lk-ico lk-check" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/></svg>
         </button>
         <em>{String(walletCount).padStart(2, '0')}</em>
@@ -346,7 +346,7 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
             <b><a href={`#${net.id}`} class="lk-head">{net.title}</a></b>
             {net.hint ? <span>{net.hint}</span> : null}
             <button type="button" class="cr-copy lk-copy" data-hash={`#${net.id}`} aria-label="Copy link to section" title={`Copy link to ${net.title}`}>
-              <svg class="lk-ico lk-chain" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M7.775 3.275a.75.75 0 0 0 1.06 1.06l1.036-1.036a3.25 3.25 0 1 1 4.596 4.596l-3.03 3.03a3.25 3.25 0 0 1-4.697-.2.75.75 0 0 0-1.082 1.04 4.75 4.75 0 0 0 6.86.29l3.03-3.03a4.75 4.75 0 0 0-6.716-6.717L7.775 3.275Zm1.45 9.45a.75.75 0 0 0-1.06-1.06l-1.036 1.036a3.25 3.25 0 1 1-4.596-4.596l3.03-3.03a3.25 3.25 0 0 1 4.697.2.75.75 0 0 0 1.082-1.04 4.75 4.75 0 0 0-6.86-.29l-3.03 3.03a4.75 4.75 0 0 0 6.716 6.717l1.036-1.036Z"/></svg>
+              <svg class="lk-ico lk-chain" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
               <svg class="lk-ico lk-check" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/></svg>
             </button>
             <em>{String(net.items.length).padStart(2, '0')}</em>
