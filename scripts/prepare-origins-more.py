@@ -360,6 +360,17 @@ def vocs_bar_script(prefix: str, name: str) -> str:
     )
 
 
+def restyle_existing_bar(html: str) -> str:
+    """Repaint a Bureau bar that was already baked in (skip-if-present path)."""
+    def repl(m):
+        s = m.group(0)
+        s = s.replace("background:#f6f5f1", "background:#ffffff")
+        s = s.replace("color:#f3f2ec", "color:#f5f5f5")
+        s = s.replace("border-color:#f3f2ec", "border-color:#f5f5f5")
+        return s
+    return re.sub(r"\.gt-bar\{[^}]+\}", repl, html)
+
+
 def add_vocs_chrome(html: str, prefix: str, name: str) -> str:
     html = MAILBOX.sub("contact@gokhan.vc", html)
     # never leave a static first-child bar — it trips React #418
@@ -379,6 +390,8 @@ def add_vocs_chrome(html: str, prefix: str, name: str) -> str:
                 count=1,
                 flags=re.I,
             )
+    else:
+        html = restyle_existing_bar(html)
     if "setProperty('--gt-bar-h'" not in html:
         script = vocs_bar_script(prefix, name)
         idx = html.lower().rfind("</body>")

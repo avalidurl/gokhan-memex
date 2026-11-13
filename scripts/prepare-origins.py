@@ -114,6 +114,18 @@ def bar(prefix: str, name: str) -> str:
     )
 
 
+
+def restyle_existing_bar(html: str) -> str:
+    """Repaint a Bureau bar that was already baked in (skip-if-present path)."""
+    def repl(m):
+        s = m.group(0)
+        s = s.replace("background:#f6f5f1", "background:#ffffff")
+        s = s.replace("color:#f3f2ec", "color:#f5f5f5")
+        s = s.replace("border-color:#f3f2ec", "border-color:#f5f5f5")
+        return s
+    return re.sub(r"\.gt-bar\{[^}]+\}", repl, html)
+
+
 def process_html(html: str, *, prefix: str, name: str, canonical: str, extra: str = "") -> str:
     html = MAILBOX.sub("contact@gokhan.vc", html)
     html = rewrite_root(html, prefix)
@@ -148,6 +160,8 @@ def process_html(html: str, *, prefix: str, name: str, canonical: str, extra: st
             html = re.sub(r"(<body[^>]*>)", rf"\1\n{bar(prefix, name)}", html, count=1, flags=re.I)
         else:
             html = bar(prefix, name) + html
+    else:
+        html = restyle_existing_bar(html)
     if extra:
         if re.search(r"</body>", html, re.I):
             html = re.sub(r"</body>", extra + "\n</body>", html, count=1, flags=re.I)
