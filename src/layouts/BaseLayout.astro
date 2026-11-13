@@ -7,6 +7,13 @@ import OfflineStatus from '@/components/OfflineStatus.astro'
 import criticalStyles from '@/styles/critical.css?inline'
 import '@/styles/globals.css'
 
+/** Path of the generated page card. Journal posts pass `/og/<slug>.png` explicitly. */
+function pageCardPath(pathname: string) {
+  const clean = (pathname || '/').replace(/\/+/g, '/').replace(/^\//, '').replace(/\/$/, '') || 'home'
+  const key = clean.replace(/[^a-zA-Z0-9/_-]+/g, '-').replace(/\//g, '--')
+  return `/og/pages/${key}.png`
+}
+
 export interface Props {
   title: string
   description: string
@@ -27,7 +34,7 @@ export interface Props {
 const {
   title,
   description,
-  image = '/og/gokhan-turhan-v2.png',
+  image = pageCardPath(Astro.url.pathname),
   canonicalURL = new URL(Astro.url.pathname, Astro.site),
   type = 'website',
   robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
@@ -122,11 +129,14 @@ const tableDeskVersion = createHash('sha256')
     <meta property="og:site_name" content={siteName} />
     <meta name="author" content={siteName} />
     <meta property="og:image:alt" content={fullTitle} />
-    {image === "/og/gokhan-turhan-v2.png" && <>
-      <meta property="og:image:type" content="image/png" />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
-    </>}
+    {(/\.(png|jpe?g|webp)(\?|$)/i.test(image) || image.includes('/og/')) && (
+      <>
+        <meta property="og:image:type" content={image.endsWith('.webp') ? 'image/webp' : image.endsWith('.jpg') || image.endsWith('.jpeg') ? 'image/jpeg' : 'image/png'} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+      </>
+    )}
+    <meta property="og:locale" content="en_US" />
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -150,8 +160,8 @@ const tableDeskVersion = createHash('sha256')
     <meta name="apple-mobile-web-app-title" content={siteName} />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="msapplication-config" content="/browserconfig.xml" />
-    <meta name="msapplication-TileColor" content="#FAFAF8" />
-    <meta name="theme-color" content="#FAFAF8" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="theme-color" content="#ffffff" />
     
     <!-- Apple Touch Icons — root paths by convention (and outside the /icons/* edge cleanup rule) -->
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -252,9 +262,37 @@ const tableDeskVersion = createHash('sha256')
 
     <!-- Per-page head content passed via slot="head" (Article JSON-LD, custom schemas, seoKeywords meta). -->
     <slot name="head" />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://gokhanturhan.com/#website",
+          "name": "Gökhan Turhan",
+          "url": "https://gokhanturhan.com/",
+          "inLanguage": "en",
+          "publisher": { "@id": "https://gokhanturhan.com/#person" },
+        },
+        {
+          "@type": "Person",
+          "@id": "https://gokhanturhan.com/#person",
+          "name": "Gökhan Turhan",
+          "url": "https://gokhanturhan.com/",
+          "image": "https://gokhanturhan.com/avatar-icon-512.png",
+          "jobTitle": "Full-stack builder",
+          "sameAs": [
+            "https://x.com/goekhan",
+            "https://github.com/avalidurl",
+            "https://www.linkedin.com/in/goekhanturhan/",
+            "https://scholar.google.com/citations?user=EgZE838AAAAJ",
+            "https://gokhan.substack.com/",
+          ],
+        },
+      ],
+    })} />
     <link rel="preload" href="/fonts/source-sans-3/source-sans-3-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/eb-garamond/eb-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/register.css?v=20261112-fonts" />
+    <link rel="stylesheet" href="/register.css?v=20261113-og" />
   </head>
 
   <body class="register">

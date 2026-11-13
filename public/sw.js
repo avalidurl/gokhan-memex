@@ -319,7 +319,7 @@ function createOfflineResponse() {
           padding: 20px;
           text-align: left;
           color: #0a0a0a;
-          background: #f4f4f2;
+          background: #ffffff;
         }
         .offline-icon {
           font-size: 4rem;
