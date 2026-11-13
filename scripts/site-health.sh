@@ -99,6 +99,14 @@ check sitemap_drafts    "https://gokhanturhan.com/sitemap-0.xml"       200 "gokh
 check robots_txt        "https://gokhanturhan.com/robots.txt"          200 "Sitemap: https://gokhanturhan.com/sitemap-index.xml"
 check_absent robots_no_drafts_disallow "https://gokhanturhan.com/robots.txt" 200 "Disallow:"
 
+echo "== product APIs =="
+check numetal_fees        "https://gokhanturhan.com/numetal/fees/data"    200 '"price"'
+check numetal_events      "https://gokhanturhan.com/numetal/fees/events"  200
+check jesus_join_get      "https://gokhanturhan.com/jesus/join"           405 "method not allowed"
+check reclaim_health      "https://gokhanturhan.com/reclaim/health"       200 '"ok":true'
+check curb_health         "https://gokhanturhan.com/curb/health"          200 '"ok":true'
+check ishtar_api          "https://gokhanturhan.com/ishtar/api/"          403 "locked"
+
 echo "== retired roots (archive page) =="
 check numetal_root      "https://numetal.xyz/"                         200 "archived"
 check numetal_www       "https://www.numetal.xyz/"                     200 "archived"
