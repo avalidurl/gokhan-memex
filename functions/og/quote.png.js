@@ -1,4 +1,5 @@
 import { initWasm, Resvg } from '@resvg/resvg-wasm'
+import wasmModule from '../lib/index_bg.wasm'
 import { sanitizeQuote, cardSvg } from '../lib/quote-card.js'
 
 let wasmReady
@@ -21,10 +22,9 @@ async function loadBytes(env, request, path) {
 
 async function boot(env, request) {
   if (!wasmReady) {
-    const wasmRes = await env.ASSETS.fetch(new URL('/og-lib/index_bg.wasm', request.url))
-    if (!wasmRes.ok) throw new Error(`wasm ${wasmRes.status}`)
-    const buf = await wasmRes.arrayBuffer()
-    wasmReady = initWasm(buf)
+    // Cloudflare Workers only allow WebAssembly compiled from a module
+    // import — instantiate() on raw bytes is blocked by the embedder.
+    wasmReady = initWasm(wasmModule)
   }
   await wasmReady
   if (!cache) {
