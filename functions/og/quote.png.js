@@ -21,8 +21,10 @@ async function loadBytes(env, request, path) {
 
 async function boot(env, request) {
   if (!wasmReady) {
-    const wasm = await loadBytes(env, request, '/og-lib/index_bg.wasm')
-    wasmReady = initWasm(wasm)
+    const wasmRes = await env.ASSETS.fetch(new URL('/og-lib/index_bg.wasm', request.url))
+    if (!wasmRes.ok) throw new Error(`wasm ${wasmRes.status}`)
+    const buf = await wasmRes.arrayBuffer()
+    wasmReady = initWasm(buf)
   }
   await wasmReady
   if (!cache) {
@@ -78,6 +80,7 @@ export async function onRequest(context) {
     })
   } catch (err) {
     console.error('quote card', err)
-    return new Response('quote card failed', { status: 500, headers: { 'content-type': 'text/plain' } })
+    const msg = (err && (err.stack || err.message)) ? String(err.stack || err.message) : String(err)
+    return new Response('quote card failed: ' + msg.slice(0, 2000), { status: 500, headers: { 'content-type': 'text/plain; charset=utf-8' } })
   }
 }
