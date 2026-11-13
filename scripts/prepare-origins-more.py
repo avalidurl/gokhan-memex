@@ -202,6 +202,8 @@ def prepare_gokhan_vc():
 
 
 def prepare_coins():
+    # Historical capture only. /coins/ is the Astro register; this origin is
+    # not mounted. Left here in case a recapture is needed for the archive.
     prefix, name = "/coins", "The Token Estate"
     html = (RAW / "sub_coins.numetal.xyz.html").read_text(encoding="utf-8", errors="replace")
     html = process_html(html, prefix=prefix, name=name, canonical=f"{SITE}/coins/")
@@ -604,7 +606,7 @@ def main():
         return 1
     jobs = [
         ("gokhan-vc", prepare_gokhan_vc, "Gökhan Ventures"),
-        ("coins", prepare_coins, "The Token Estate"),
+        # coins is not mounted: the live page is the Astro register.
         ("jesus", prepare_jesus, "Personal Jesus"),
         ("llmcraft", prepare_llmcraft, "LLMCraft"),
         ("llmlivesmatter", prepare_llmlivesmatter, "LLM LIVES MATTER"),

@@ -1,0 +1,41 @@
+---
+/** Filing guide for The Token Estate. The live register lives at /coins/; this page does not repeat the coin list. */
+import coins from '@/data/coins.json'
+
+type Coin = { date: string }
+const rows = coins as Coin[]
+const count = rows.length
+const newest = rows.reduce((a, r) => (r.date > a ? r.date : a), '')
+---
+
+<section class="cx" aria-label="How to read the register">
+  <div class="cx-h"><b>How to read the register</b><span>this filing is a guide, not a second copy of the list</span></div>
+  <div class="cx-b prose">
+    <h2 id="what-this-is">What this is</h2>
+    <p>
+      The Token Estate, filed as BIS-926, is a register of {count} token issuances launched from watched wallets.
+      The live page is <a href="/coins/">gokhanturhan.com/coins/</a>: a wallet check, the watched addresses, filters, and a sortable table of every issuance.
+      A ranking by lifetime volume is at <a href="/coins/leaderboard/">/coins/leaderboard/</a>.
+      This filing tells you how to read those pages. It does not repeat the coin list.
+    </p>
+
+    <h2 id="how-to-read-it">How to read it</h2>
+    <p>
+      Start at the table. Filter by ticker, name or contract, set a minimum volume, or narrow by launcher and chain.
+      The “By” column is the watched wallet that launched the coin; open Watched addresses for the full address, a copy button and explorer links, or click the count to show only that wallet’s rows.
+      Click a column head to sort.
+      “Check a wallet” looks up any address in your browser and marks tokens that appear in this register.
+      Volume is lifetime DEX USD. A dash means the chain is not in the snapshot, or the row was added after it.
+    </p>
+
+    <h2 id="where-the-figures-come-from">Where the figures come from</h2>
+    <p>
+      The issuances are a static register in the site source (<code>src/data/coins.json</code>), last extended through {newest}.
+      Opening the page does not fetch a live market API for the list.
+      Volume is a Dune <code>dex.trades</code> snapshot dated 2026-08-26; Robinhood, Elysium, Arc and Canton are not indexed, so those cells read —.
+      Updating the register means editing that file and redeploying the site.
+      The wallet check is the exception: it queries public Blockscout explorers (Base, Robinhood Chain, Ethereum, Unichain) and Solana’s public RPC in your browser, and nothing is stored.
+    </p>
+    <p><a href="/coins/">Open the register →</a></p>
+  </div>
+</section>
