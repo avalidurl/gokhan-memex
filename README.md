@@ -7,7 +7,7 @@ This README is written so you can fork the repo and stand up your own site. Ever
 **Live site:** [https://gokhanturhan.com](https://gokhanturhan.com)
 
 - Journal posts as an Astro content collection, with RSS and generated Open Graph cards.
-- Product pattern: `/<slug>/` is the original standalone app (Bureau bar on top); `/<slug>/file/` is the register filing.
+- Product pattern: `/<slug>/` is the original standalone app (Bureau bar on top); `/<slug>/file/` is the register filing. Exception: `/coins/` is the Astro register and `/coins/file/` is a short guide, not a second copy of the list.
 - Live product data is fetched same-origin through Cloudflare Pages Functions, so the apps do not send visitors off to `*.pages.dev` or retired hosts.
 - Retired domains (`numetal.xyz`, `gokhan.vc`, `agentbounty.dev`) show a 10-second archive landing or a mapped 301 onto this site.
 - Discoverability: sitemap, RSS, `llms.txt` / `llms-full.txt`, `search.json`, and CV as HTML, JSON, Markdown, and PDF.
@@ -63,6 +63,8 @@ For every product whose slug is in `src/data/origins.ts`:
 3. After the Astro build, `scripts/mount-origins.mjs` copies the original standalone app from `origins/<slug>/` over `dist/<slug>/`, and **never overwrites** `dist/<slug>/file/`. The live app is therefore `/<slug>/`; the filing is `/<slug>/file/`.
 
 The mounted HTML carries a Bureau bar (`.gt-bar`): a one-line strip with links to Gökhan Turhan, Products, the product name, and “Bureau file” at `/<slug>/file/`. `origins/` is committed; `scripts/prepare-origins.py` is a rebuild tool used when an original design is recaptured, not part of the everyday `npm run build`.
+
+**Exception — The Token Estate (`/coins/`).** The live page is the Astro register (`src/components/coins/CoinsRegister.astro`, `WalletCheck.astro`, data in `src/data/coins.json` and `src/data/coins-wallets.ts`), served with the site’s Bureau chrome. `/coins/leaderboard/` is the volume ranking (`CoinsLeaderboard.astro`). `/coins/file/` is a short guide to those pages — what the register is, how to read it, and where the figures come from — not a second copy of the coin list. `mount-origins.mjs` never copies an origin tree over `dist/coins/`.
 
 Two apps are static trees under `public/` rather than origin mounts: [Turkish Art Blob](https://gokhanturhan.com/turkish-art-blob/) and [Ethereum Doomsday Tracker](https://gokhanturhan.com/ethereum-doomsday/). Short aliases in `public/_redirects` include `/sp100` → `/sp100-capex-dashboard/` and `/nvidia-vs-crypto` → `/market-cap-tracker/`. Former `/projects/…` URLs 301 to the top-level product paths.
 
@@ -128,7 +130,7 @@ gokhan-memex/
 │   ├── content/projects/       Filing bodies shown at /<slug>/file/
 │   ├── content/config.ts       Collection schemas (blog + projects)
 │   ├── data/estate.ts          Product register: slugs, lines, former hosts, facts
-│   ├── data/origins.ts         Slugs whose original UI is mounted at /<slug>/
+│   ├── data/origins.ts         Slugs that have a /<slug>/file/ filing (most also mount origins/<slug>/ at /<slug>/; coins does not)
 │   ├── data/cv.ts              CV source (HTML, JSON, Markdown, and the PDF all read this)
 │   ├── lib/person.ts           Person JSON-LD and the single sameAs list
 │   ├── lib/post-dates.ts       dateModified = updatedDate ?? git commit ?? publishDate
