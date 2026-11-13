@@ -520,6 +520,61 @@ DRAFTS = [
 ]
 
 
+
+def rewrite_estate_hosts(text: str) -> str:
+    """Point retired hosts at their gokhanturhan.com copies."""
+    pairs = (
+        ("https://www.numetal.xyz", "https://gokhanturhan.com/numetal"),
+        ("https://numetal.xyz", "https://gokhanturhan.com/numetal"),
+        ("http://www.numetal.xyz", "https://gokhanturhan.com/numetal"),
+        ("http://numetal.xyz", "https://gokhanturhan.com/numetal"),
+        ("https://www.gokhan.vc", "https://gokhanturhan.com/gokhan-vc"),
+        ("https://gokhan.vc", "https://gokhanturhan.com/gokhan-vc"),
+        ("http://www.gokhan.vc", "https://gokhanturhan.com/gokhan-vc"),
+        ("http://gokhan.vc", "https://gokhanturhan.com/gokhan-vc"),
+        ("https://www.agentbounty.dev", "https://gokhanturhan.com/agentbounty"),
+        ("https://agentbounty.dev", "https://gokhanturhan.com/agentbounty"),
+        ("http://www.agentbounty.dev", "https://gokhanturhan.com/agentbounty"),
+        ("http://agentbounty.dev", "https://gokhanturhan.com/agentbounty"),
+    )
+    for a, b in pairs:
+        text = text.replace(a, b)
+    return text
+
+
+def prepare_agentbounty():
+    """Mirror agentbounty.dev as it is now: the June 2026 rebrand page."""
+    prefix, name = "/agentbounty", "AgentBounty"
+    dest = OUT / "agentbounty"
+    if dest.exists():
+        shutil.rmtree(dest)
+    dest.mkdir(parents=True)
+
+    src = "https://agentbountydev.pages.dev"
+    html_path = dest / "index.html"
+    if not download(f"{src}/", html_path):
+        raise SystemExit("failed to fetch agentbounty.dev homepage")
+    html = html_path.read_text(encoding="utf-8", errors="replace")
+    html = rewrite_estate_hosts(html)
+    html = process_html(
+        html,
+        prefix=prefix,
+        name=name,
+        canonical=f"{SITE}/agentbounty/",
+    )
+    # process_html may run before host rewrite of og:image if we rewrite after;
+    # run host rewrite once more so any leftover absolute URLs are moved.
+    html = rewrite_estate_hosts(html)
+    write(dest / "index.html", html)
+
+    for asset in ("og.png", "feed.xml"):
+        target = dest / asset
+        if download(f"{src}/{asset}", target):
+            if asset.endswith(".xml"):
+                text = rewrite_estate_hosts(process_text(target.read_text(encoding="utf-8", errors="replace"), prefix))
+                write(target, text)
+
+
 def prepare_draft(slug, name, repo_name):
     prefix = f"/{slug}"
     src = REPOS / repo_name
@@ -558,6 +613,7 @@ def main():
         ("curb-docs", prepare_curb_docs, None),
         ("ishtar-docs", prepare_ishtar_docs, None),
         ("launch-bundle", prepare_launch_bundle, None),
+        ("agentbounty", prepare_agentbounty, "AgentBounty"),
     ]
     items = []
     for slug, fn, name in jobs:
