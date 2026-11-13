@@ -432,7 +432,7 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
   details.lk-sec.fold > summary.lk-sum,
   details.lk-net.fold > summary.lk-sum {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: flex-start;
     gap: 0.65rem 1rem;
     cursor: pointer;
@@ -452,8 +452,11 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
   details.lk-sec.fold > summary.lk-sum::before,
   details.lk-net.fold > summary.lk-sum::before {
     content: "▸";
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     width: 1.1em;
+    height: 1.05rem;
     flex: none;
     padding: 0;
     color: var(--red);
@@ -475,6 +478,7 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
     font-family: var(--sans);
     font-weight: 700;
     font-size: 1.05rem;
+    line-height: 1.2;
     letter-spacing: 0.01em;
     text-transform: none;
   }
@@ -484,6 +488,7 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
     color: var(--dim);
     font-family: var(--read);
     font-size: 0.92rem;
+    line-height: 1.3;
     letter-spacing: 0;
     text-transform: none;
   }
@@ -494,6 +499,7 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
     border: 0;
     font-family: var(--mono);
     font-size: 0.8rem;
+    line-height: 1;
     font-style: normal;
     font-weight: 500;
     color: var(--ikb);
@@ -526,23 +532,31 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin: 4px 0 4px auto;
+    flex: none;
     align-self: center;
-    width: 32px;
-    height: 32px;
+    margin: 0 0 0 auto;
+    width: 1.05rem;
+    height: 1.05rem;
     min-width: 32px;
     min-height: 32px;
+    line-height: 0;
     cursor: pointer;
     color: var(--dim);
     border-radius: 0;
     text-decoration: none;
+    vertical-align: middle;
+  }
+  .lk-ico {
+    display: block;
+    width: 1.05rem;
+    height: 1.05rem;
+    flex: none;
   }
   body.register main a.lk-copy:hover,
   body.register main a.lk-copy:focus-visible,
   a.lk-copy:hover,
   a.lk-copy:focus-visible { color: var(--ikb); }
   a.lk-copy:focus-visible { outline: 2px solid var(--ikb); outline-offset: 1px; }
-  .lk-ico { display: block; }
   .lk-copy .lk-check { display: none; }
   .lk-copy.is-copied { color: var(--ikb); }
   .lk-copy.is-copied .lk-chain { display: none; }
