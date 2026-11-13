@@ -3,7 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 import PageHead from '@/components/PageHead.astro'
 import { explorers, parties, type Party } from '@/data/coins-wallets'
 
-type Handle = { href: string; note: string; me?: boolean }
+type Handle = { href: string; note?: string; label?: string; me?: boolean }
 type Group = { name: string; tag?: string; handles: Handle[] }
 type Section = { id: string; title: string; hint: string; groups: Group[] }
 type WalletItem = {
@@ -11,6 +11,7 @@ type WalletItem = {
   label?: string
   address: string
   note?: string
+  href?: string
   chain?: Party['chain'] | 'zcash'
   links?: { label: string; short?: string; href: string }[]
 }
@@ -35,18 +36,6 @@ const sections: Section[] = [
         { href: 'https://x.com/goekhanvc', note: 'Gökhan Ventures' },
         { href: 'https://x.com/numetalxyz', note: 'Numetal · Ishtar · CURB' },
       ] },
-      { name: 'Reddit', handles: [
-        { href: 'https://www.reddit.com/user/toombak/', note: 'personal' },
-      ] },
-      { name: 'TikTok', handles: [
-        { href: 'https://www.tiktok.com/@gokhan.eth', note: 'personal' },
-      ] },
-      { name: 'Truth Social', handles: [
-        { href: 'https://truthsocial.com/@gokhanturhan', note: 'personal' },
-      ] },
-      { name: 'Bluesky', handles: [
-        { href: 'https://bsky.app/profile/gokhan.substack.com', note: 'personal' },
-      ] },
       { name: 'Farcaster', tag: 'decentralized', handles: [
         { href: 'https://farcaster.xyz/gokhan', note: 'personal' },
       ] },
@@ -63,7 +52,7 @@ const sections: Section[] = [
         { href: 'https://delve.town/profile/gokhan.delve.town', note: 'gokhan.delve.town' },
       ] },
       { name: 'ENS', handles: [
-        { href: 'https://app.ens.domains/gokhan.eth', note: 'gokhan.eth — identity' },
+        { href: 'https://app.ens.domains/gokhan.eth', label: 'gokhan.eth' },
       ] },
       { name: 'EFP', handles: [
         { href: 'https://efp.app/0x36de990133d36d7e3df9a820aa3ede5a2320de71', note: 'Ethereum Follow Protocol — gokhan.eth' },
@@ -73,6 +62,18 @@ const sections: Section[] = [
       ] },
       { name: 'Moltbook', handles: [
         { href: 'https://www.moltbook.com/m/courtship', note: "Ishtar's floor on the agent-only network — staffed by the intern" },
+      ] },
+      { name: 'Reddit', handles: [
+        { href: 'https://www.reddit.com/user/toombak/', note: 'personal' },
+      ] },
+      { name: 'TikTok', handles: [
+        { href: 'https://www.tiktok.com/@gokhan.eth', note: 'personal' },
+      ] },
+      { name: 'Truth Social', handles: [
+        { href: 'https://truthsocial.com/@gokhanturhan', note: 'personal' },
+      ] },
+      { name: 'Bluesky', handles: [
+        { href: 'https://bsky.app/profile/gokhan.substack.com', note: 'personal' },
       ] },
     ],
   },
@@ -105,9 +106,6 @@ const sections: Section[] = [
       { name: 'Substack', handles: [
         { href: 'https://gokhan.substack.com/', note: 'long-form research and analysis' },
       ] },
-      { name: 'Cent', handles: [
-        { href: 'https://beta.cent.co/goekhanturhan/', note: 'writing' },
-      ] },
       { name: 'Medium', handles: [
         { href: 'https://goekhanturhan.medium.com/', note: 'writing' },
       ] },
@@ -119,6 +117,9 @@ const sections: Section[] = [
       ] },
       { name: 'Journal', handles: [
         { href: 'https://gokhanturhan.com/journal/', note: 'essays and notes on this site' },
+      ] },
+      { name: 'Cent', handles: [
+        { href: 'https://beta.cent.co/goekhanturhan/', note: 'writing' },
       ] },
     ],
   },
@@ -136,12 +137,6 @@ const sections: Section[] = [
       ] },
       { name: 'Icebreaker', handles: [
         { href: 'https://app.icebreaker.xyz/profiles/N0nU43KFOTZ8geAxTRQAW', note: 'profile' },
-      ] },
-      { name: 'about.me', handles: [
-        { href: 'https://about.me/gokhan0x', note: 'profile' },
-      ] },
-      { name: 'Linktree', handles: [
-        { href: 'https://linktr.ee/0xgokhan', note: 'profile' },
       ] },
       { name: 'Talent Protocol', handles: [
         { href: 'https://talentprotocol.com/score/0x36de990133D36d7E3DF9a820aA3eDE5a2320De71?github=avalidurl', note: 'Builder Score' },
@@ -184,17 +179,15 @@ const sections: Section[] = [
     ],
   },
   {
-    id: 'contact',
-    title: 'Contact',
-    hint: 'direct mail and DMs are open',
+    id: 'link-aggregators',
+    title: 'Link Aggregators',
+    hint: 'about.me and Linktree',
     groups: [
-      { name: 'Email', handles: [
-        { href: 'mailto:contact@gokhan.vc', note: 'studio and professional inquiries' },
-        { href: 'mailto:contact@gokhanturhan.com', note: 'personal site' },
-        { href: 'mailto:contact@numetal.xyz', note: 'Numetal' },
+      { name: 'about.me', handles: [
+        { href: 'https://about.me/gokhan0x', note: 'profile' },
       ] },
-      { name: 'Discord', handles: [
-        { href: 'https://discord.com/users/468471856773464075', note: 'Discord, DM' },
+      { name: 'Linktree', handles: [
+        { href: 'https://linktr.ee/0xgokhan', note: 'profile' },
       ] },
     ],
   },
@@ -213,14 +206,13 @@ const walletNetworks: { id: string; title: string; hint: string; items: WalletIt
   {
     id: 'wallets-ens',
     title: 'ENS',
-    hint: 'the name only — no resolved address is published here',
+    hint: 'gokhan.eth',
     items: [
       {
         id: 'ENS',
-        label: 'gokhan.eth',
+        label: 'ENS',
         address: 'gokhan.eth',
-        note: 'ENS name, as shown on app.ens.domains/gokhan.eth',
-        links: [{ label: 'app.ens.domains/gokhan.eth', short: 'ENS', href: 'https://app.ens.domains/gokhan.eth' }],
+        href: 'https://app.ens.domains/gokhan.eth',
       },
     ],
   },
@@ -236,7 +228,7 @@ const walletNetworks: { id: string; title: string; hint: string; items: WalletIt
   {
     id: 'wallets-solana',
     title: 'Solana',
-    hint: 'pump.fun @gokhan',
+    hint: 'main address, then pump.fun @gokhan',
     items: parties.filter((p) => p.address && p.chain === 'solana').map((p) => fromParty(p)!),
   },
   {
@@ -280,7 +272,7 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
 
 <BaseLayout
   title="Links"
-  description="Where to find Gökhan Turhan: social and decentralized social, chats, writing, professional and academic profiles, multimedia, and wallet addresses."
+  description="Where to find Gökhan Turhan: social and decentralized profiles, chats, writing, professional and academic profiles, multimedia, link aggregators, and wallet addresses."
   robots="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
 >
   <div class="es">
@@ -300,55 +292,72 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
       </div>
     </nav>
 
+    <div id="contact" class="lk-alias" aria-hidden="true"></div>
+
     {sections.map((s) => (
-      <section class="cx lk-sec" id={s.id} aria-labelledby={`${s.id}-heading`}>
+      <details class="cx lk-sec fold" id={s.id} open>
         {s.id === 'social-and-decentralized-social' && (
           <>
             <div id="social-media-platforms" class="lk-alias" aria-hidden="true"></div>
             <div id="decentralized-social" class="lk-alias" aria-hidden="true"></div>
           </>
         )}
-        <div class="cx-h">
+        <summary class="cx-h">
           <b id={`${s.id}-heading`}><a href={`#${s.id}`} class="lk-head">{s.title}</a></b>
           <span>{s.hint}</span>
-          <button type="button" class="cr-copy lk-copy" data-hash={`#${s.id}`} aria-label={`Copy link to ${s.title}`}>Copy link</button>
+          <button type="button" class="cr-copy lk-copy" data-hash={`#${s.id}`} aria-label="Copy link to section" title={`Copy link to ${s.title}`}>
+            <svg class="lk-ico lk-chain" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M7.775 3.275a.75.75 0 0 0 1.06 1.06l1.036-1.036a3.25 3.25 0 1 1 4.596 4.596l-3.03 3.03a3.25 3.25 0 0 1-4.697-.2.75.75 0 0 0-1.082 1.04 4.75 4.75 0 0 0 6.86.29l3.03-3.03a4.75 4.75 0 0 0-6.716-6.717L7.775 3.275Zm1.45 9.45a.75.75 0 0 0-1.06-1.06l-1.036 1.036a3.25 3.25 0 1 1-4.596-4.596l3.03-3.03a3.25 3.25 0 0 1 4.697.2.75.75 0 0 0 1.082-1.04 4.75 4.75 0 0 0-6.86-.29l-3.03 3.03a4.75 4.75 0 0 0 6.716 6.717l1.036-1.036Z"/></svg>
+            <svg class="lk-ico lk-check" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/></svg>
+          </button>
           <em>{String(s.groups.reduce((n, g) => n + g.handles.length, 0)).padStart(2, '0')}</em>
-        </div>
+        </summary>
         {s.groups.map((g) => (
-          <div class="cx-r">
+          <div class:list={["cx-r", { "lk-name": g.name === "ENS" }]}>
             <span>{g.name}{g.tag ? <i class="lk-tag">{g.tag}</i> : null}</span>
             <span class="lk">
               {g.handles.map((h) => (
                 <span class="lk-i">
                   {isIdentity(h)
-                    ? <a href={h.href} rel="me noopener">{display(h.href)}</a>
-                    : <a href={h.href} rel="noopener">{display(h.href)}</a>
+                    ? <a href={h.href} rel="me noopener">{h.label || display(h.href)}</a>
+                    : <a href={h.href} rel="noopener">{h.label || display(h.href)}</a>
                   }
-                  <i>{h.note}</i>
+                  {h.note ? <i>{h.note}</i> : null}
                 </span>
               ))}
             </span>
           </div>
         ))}
-      </section>
+      </details>
     ))}
 
-    <section class="cx lk-sec" id="wallets" aria-labelledby="wallets-heading">
-      <div class="cx-h">
+    <details class="cx lk-sec fold" id="wallets" open>
+      <summary class="cx-h">
         <b id="wallets-heading"><a href="#wallets" class="lk-head">Wallets</a></b>
         <span>addresses published on this site and on his public profiles, grouped by network — nothing invented</span>
-        <button type="button" class="cr-copy lk-copy" data-hash="#wallets" aria-label="Copy link to Wallets">Copy link</button>
+        <button type="button" class="cr-copy lk-copy" data-hash="#wallets" aria-label="Copy link to section" title="Copy link to Wallets">
+          <svg class="lk-ico lk-chain" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M7.775 3.275a.75.75 0 0 0 1.06 1.06l1.036-1.036a3.25 3.25 0 1 1 4.596 4.596l-3.03 3.03a3.25 3.25 0 0 1-4.697-.2.75.75 0 0 0-1.082 1.04 4.75 4.75 0 0 0 6.86.29l3.03-3.03a4.75 4.75 0 0 0-6.716-6.717L7.775 3.275Zm1.45 9.45a.75.75 0 0 0-1.06-1.06l-1.036 1.036a3.25 3.25 0 1 1-4.596-4.596l3.03-3.03a3.25 3.25 0 0 1 4.697.2.75.75 0 0 0 1.082-1.04 4.75 4.75 0 0 0-6.86-.29l-3.03 3.03a4.75 4.75 0 0 0 6.716 6.717l1.036-1.036Z"/></svg>
+          <svg class="lk-ico lk-check" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/></svg>
+        </button>
         <em>{String(walletCount).padStart(2, '0')}</em>
-      </div>
+      </summary>
       {walletNetworks.map((net) => (
-        <div class="lk-net" id={net.id}>
-          <div class="cx-h lk-sub">
+        <details class="cx lk-net fold" id={net.id} open>
+          <summary class="cx-h lk-sub">
             <b><a href={`#${net.id}`} class="lk-head">{net.title}</a></b>
             <span>{net.hint}</span>
-            <button type="button" class="cr-copy lk-copy" data-hash={`#${net.id}`} aria-label={`Copy link to ${net.title}`}>Copy link</button>
+            <button type="button" class="cr-copy lk-copy" data-hash={`#${net.id}`} aria-label="Copy link to section" title={`Copy link to ${net.title}`}>
+              <svg class="lk-ico lk-chain" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M7.775 3.275a.75.75 0 0 0 1.06 1.06l1.036-1.036a3.25 3.25 0 1 1 4.596 4.596l-3.03 3.03a3.25 3.25 0 0 1-4.697-.2.75.75 0 0 0-1.082 1.04 4.75 4.75 0 0 0 6.86.29l3.03-3.03a4.75 4.75 0 0 0-6.716-6.717L7.775 3.275Zm1.45 9.45a.75.75 0 0 0-1.06-1.06l-1.036 1.036a3.25 3.25 0 1 1-4.596-4.596l3.03-3.03a3.25 3.25 0 0 1 4.697.2.75.75 0 0 0 1.082-1.04 4.75 4.75 0 0 0-6.86-.29l-3.03 3.03a4.75 4.75 0 0 0 6.716 6.717l1.036-1.036Z"/></svg>
+              <svg class="lk-ico lk-check" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/></svg>
+            </button>
             <em>{String(net.items.length).padStart(2, '0')}</em>
-          </div>
+          </summary>
           {net.items.map((p) => (
+            p.href ? (
+              <div class="cx-r lk-name">
+                <span>{p.label || p.id}</span>
+                <span class="lk"><a href={p.href} rel="me noopener">{p.address}</a></span>
+              </div>
+            ) : (
             <div class="cx-r lk-w">
               <span>{p.label || p.id}{p.note ? <i> {p.note}</i> : null}</span>
               <span class="lk-addr">
@@ -361,10 +370,11 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
                 </span>
               </span>
             </div>
+            )
           ))}
-        </div>
+        </details>
       ))}
-    </section>
+    </details>
   </div>
 </BaseLayout>
 
@@ -395,8 +405,34 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
   }
   .lk-alias { scroll-margin-top: 5.5rem; height: 0; }
   .lk-head:hover { text-decoration: underline; text-underline-offset: 2px; }
-  .cx-h .lk-copy { margin: 4px 0 4px auto; align-self: center; }
+  .cx-h .lk-copy, details.fold > summary .lk-copy {
+    all: unset;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 4px 0 4px auto;
+    align-self: center;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
+    cursor: pointer;
+    color: var(--dim);
+    border-radius: 0;
+  }
+  .cx-h .lk-copy:hover, details.fold > summary .lk-copy:hover { color: var(--ink); }
+  .cx-h .lk-copy:focus-visible { outline: 2px solid var(--ikb); outline-offset: 1px; }
+  .lk-ico { display: block; }
+  .lk-copy .lk-check { display: none; }
+  .lk-copy.is-copied { color: var(--ikb); }
+  .lk-copy.is-copied .lk-chain { display: none; }
+  .lk-copy.is-copied .lk-check { display: block; }
   .cx-h em { margin-left: 0; }
+  details.lk-net.fold { border: 0; background: transparent; margin: 0; }
+  details.lk-net.fold > summary.cx-h { cursor: pointer; list-style: none; }
+  details.lk-net.fold > summary.cx-h::-webkit-details-marker { display: none; }
+  details.lk-net.fold:not([open]) > summary.cx-h { border-bottom: 0; }
   .lk { display: flex; flex-direction: column; gap: 2px; }
   .lk-i { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 6px; }
   .lk-i i { margin-left: 0; }
@@ -404,17 +440,20 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
   .lk-addr { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; min-width: 0; }
   .lk-code { font: 12.5px/1.45 var(--mono); overflow-wrap: anywhere; user-select: all; background: none; }
   .lk-ex { display: inline-flex; flex-wrap: wrap; gap: 8px; font: 11px/1 var(--mono); letter-spacing: .04em; }
+  .cx-r.lk-name { align-items: baseline; }
+  .cx-r.lk-name .lk { white-space: nowrap; }
+
   @media (max-width: 760px) {
     .lk-nav { position: static; }
     .lk-sec, .lk-net { scroll-margin-top: 0.5rem; }
     .cx-r.lk-w { grid-template-columns: 1fr; }
+    .cx-r.lk-name { grid-template-columns: auto 1fr !important; align-items: baseline; }
+    .cx-r.lk-name .lk, .cx-r.lk-name a { white-space: nowrap; }
   }
 </style>
 
 <script>
-  function copyText(value: string, btn: HTMLButtonElement, done = 'Copied') {
-    const orig = btn.textContent
-    const ok = () => { btn.textContent = done; setTimeout(() => { btn.textContent = orig }, 1400) }
+  function copyValue(value: string, btn: HTMLButtonElement) {
     const fallback = () => {
       const ta = document.createElement('textarea')
       ta.value = value
@@ -426,17 +465,71 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
       document.execCommand('copy')
       ta.remove()
     }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(value).then(ok).catch(() => { fallback(); ok() })
-    } else { fallback(); ok() }
+    const run = () => {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(value).catch(() => fallback())
+      }
+      fallback()
+      return Promise.resolve()
+    }
+    const isLink = btn.classList.contains('lk-copy')
+    const orig = btn.textContent
+    const ok = () => {
+      if (isLink) {
+        btn.classList.add('is-copied')
+        window.setTimeout(() => btn.classList.remove('is-copied'), 1400)
+      } else {
+        btn.textContent = 'Copied'
+        window.setTimeout(() => { btn.textContent = orig }, 1400)
+      }
+    }
+    run().then(ok)
   }
+
   document.querySelectorAll<HTMLButtonElement>('.cr-copy').forEach((b) => {
-    b.addEventListener('click', () => {
+    b.addEventListener('click', (event) => {
+      event.preventDefault()
+      event.stopPropagation()
       const hash = b.dataset.hash
       const value = hash
         ? new URL(hash, window.location.origin + window.location.pathname).href
         : b.dataset.copy || ''
-      if (value) copyText(value, b)
+      if (value) copyValue(value, b)
+    })
+  })
+
+  const mq = window.matchMedia('(max-width: 720px)')
+  const folds = () => document.querySelectorAll<HTMLDetailsElement>('details.lk-sec, details.lk-net')
+
+  function openForHash(hash: string) {
+    const id = decodeURIComponent((hash || '').replace(/^#/, ''))
+    if (!id || id === 'contact') return
+    const el = document.getElementById(id)
+    if (!el) return
+    if (el instanceof HTMLDetailsElement) el.open = true
+    const parent = el.closest('details')
+    if (parent instanceof HTMLDetailsElement) parent.open = true
+    // Nested wallet network: also open the wallets section
+    const outer = parent?.parentElement?.closest('details')
+    if (outer instanceof HTMLDetailsElement) outer.open = true
+  }
+
+  function applyDefaults(initial: boolean) {
+    if (!mq.matches) {
+      folds().forEach((d) => { d.open = true })
+    } else if (initial) {
+      folds().forEach((d) => { d.open = false })
+    }
+    openForHash(location.hash)
+  }
+
+  applyDefaults(true)
+  mq.addEventListener('change', () => applyDefaults(false))
+  window.addEventListener('hashchange', () => openForHash(location.hash))
+  document.querySelectorAll<HTMLAnchorElement>('.lk-toc a, a.lk-head').forEach((a) => {
+    a.addEventListener('click', () => {
+      const href = a.getAttribute('href') || ''
+      if (href.startsWith('#')) openForHash(href)
     })
   })
 </script>

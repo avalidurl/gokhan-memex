@@ -207,6 +207,52 @@ body.register ::selection { background: var(--ikb); color: var(--paper); }
   cursor: pointer;
 }
 .reg-modes button:hover { color: var(--ink); border-color: var(--ink); }
+.reg-menu {
+  display: none;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--ink);
+  padding: 0.35rem 0.65rem;
+  min-height: 32px;
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+.reg-menu:hover { background: var(--ink); color: var(--paper); }
+.reg-menu:focus-visible { outline: 2px solid var(--ikb); outline-offset: 2px; }
+
+@media (max-width: 720px) {
+  .reg-bar { flex-wrap: wrap; align-items: center; }
+  .reg-menu { display: inline-flex; align-items: center; margin-left: auto; margin-bottom: 0.35rem; }
+  .reg-bar nav { display: none; }
+  .reg-modes { display: none; }
+  .reg-bar.is-open nav {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 100%;
+    order: 3;
+    overflow: visible;
+    width: 100%;
+    border-top: 1px solid var(--ink);
+    padding: 0.2rem 0 0.15rem;
+  }
+  .reg-bar.is-open nav a {
+    min-height: 44px;
+    padding: 0.45rem 0;
+    border-bottom: 1px dotted var(--hair);
+  }
+  .reg-bar.is-open .reg-modes {
+    display: flex;
+    order: 4;
+    width: 100%;
+    padding: 0.5rem 0 0.7rem;
+    gap: 0.4rem;
+  }
+}
+
 
 body.register main {
   font-family: var(--read);

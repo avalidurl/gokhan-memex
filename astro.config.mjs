@@ -5,6 +5,7 @@ import sitemap from '@astrojs/sitemap';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import { visit } from 'unist-util-visit';
+import { journalLastmodByUrl } from './src/lib/post-dates.ts';
 
 /**
  * Rewrite local content images to Cloudflare Images at build time.
@@ -66,6 +67,8 @@ function rehypeTableWrap() {
   };
 }
 
+const journalLastmod = journalLastmodByUrl();
+
 export default defineConfig({
   site: 'https://gokhanturhan.com',
   output: 'static',
@@ -82,8 +85,8 @@ export default defineConfig({
       // 404 pages must not be indexed; every other public page is in the sitemap.
       filter: (page) => !/\/404\/?$/.test(page),
       serialize(item) {
-        // Update lastmod to current time for better indexing
-        item.lastmod = new Date();
+        const journalMod = journalLastmod[item.url] || journalLastmod[item.url?.endsWith('/') ? item.url : item.url + '/'];
+        item.lastmod = journalMod || new Date();
         // Set higher priority for important pages
         if (item.url === '' || item.url === '/' || item.url === 'https://gokhanturhan.com/' || item.url.includes('/journal/')) {
           item.priority = 1.0;

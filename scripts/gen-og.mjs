@@ -133,7 +133,6 @@ async function copyOgLib(root) {
     [join(ROOT, 'scripts/fonts/EBGaramond-Italic.ttf'), 'EBGaramond-Italic.ttf'],
     [join(ROOT, 'scripts/fonts/SourceSans3-Regular.ttf'), 'SourceSans3-Regular.ttf'],
     [join(ROOT, 'scripts/fonts/SourceSans3-Semibold.ttf'), 'SourceSans3-Semibold.ttf'],
-    [join(ROOT, 'scripts/fonts/avatar-gray.png'), 'avatar-gray.png'],
     [join(ROOT, 'node_modules/@resvg/resvg-wasm/index_bg.wasm'), 'index_bg.wasm'],
   ]
   for (const [src, name] of files) {
