@@ -1,16 +1,17 @@
 /**
- * Archive page for the retired apex/www roots of numetal.xyz and gokhan.vc.
+ * Archive page for the retired apex/www of numetal.xyz and gokhan.vc.
  *
- * Routes should be the exact roots only:
- *   numetal.xyz/, www.numetal.xyz/, gokhan.vc/, www.gokhan.vc/
+ * Routes: numetal.xyz/*, www.numetal.xyz/*, gokhan.vc/*, www.gokhan.vc/*
  *
- * Every other path on those hosts is handled by the existing Bulk Redirect
- * list (old_estate_moved) or by a zone Redirect Rule that falls back to
- * /numetal/ or /gokhan-vc/. This worker must not be bound to /* or it
- * would steal API traffic from the original Workers (numetal-site, etc.).
+ * Exact roots serve a 10-second archive page. Every other path that is not
+ * an excluded API path 301s to the gokhanturhan.com copy. Mapped page
+ * paths never reach this worker: they are handled first by the
+ * old_estate_moved Bulk Redirect list.
  *
- * If this worker does receive a non-root path (mis-routed), it 301s to the
- * matching gokhanturhan.com copy and never serves the archive page.
+ * API paths (/api, /health, /fees/data, etc.) on numetal.xyz are passed
+ * through to the numetal-site Worker via a service binding so the Pages
+ * Functions on gokhanturhan.com can still reach the original backends
+ * where Bulk Redirects already leave those paths alone.
  */
 
 const HOME = 'https://gokhanturhan.com/'
@@ -20,8 +21,28 @@ const ARCHIVE_HOSTS = new Set([
   'gokhan.vc',
   'www.gokhan.vc',
 ])
+const API_PREFIXES = [
+  '/api',
+  '/v1/',
+  '/mcp',
+  '/.well-known/',
+  '/health',
+  '/admin',
+  '/x402-live',
+  '/cdn-cgi/',
+  '/vault',
+  '/fees/data',
+  '/fees/events',
+  '/join',
+]
 
-const HTML = (host) => `<!DOCTYPE html>
+function escapeHost(host) {
+  return String(host).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+}
+
+function html(host) {
+  const h = escapeHost(host)
+  return `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -52,7 +73,7 @@ const HTML = (host) => `<!DOCTYPE html>
 <body>
 <main>
 <h1>This website has been archived.</h1>
-<p>${escapeHost(host)} is no longer served here. Everything now lives at <a href="${HOME}">gokhanturhan.com</a>.</p>
+<p>${h} is no longer served here. Everything now lives at <a href="${HOME}">gokhanturhan.com</a>.</p>
 <p>Redirecting in <span id="t">10</span> seconds.</p>
 <p><a href="${HOME}">Go there now</a>.</p>
 </main>
@@ -71,16 +92,18 @@ const HTML = (host) => `<!DOCTYPE html>
 })();
 </script>
 </body>
-</html>
-`
-
-function escapeHost(host) {
-  return String(host).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+</html>`
 }
 
 function isExactRoot(url) {
   const path = url.pathname
   return ARCHIVE_HOSTS.has(url.hostname.toLowerCase()) && (path === '/' || path === '')
+}
+
+function isApi(url, method) {
+  if (!['GET', 'HEAD'].includes(method)) return true
+  const p = url.pathname
+  return API_PREFIXES.some((x) => p === x || p.startsWith(x.endsWith('/') ? x : x + '/'))
 }
 
 function fallbackTarget(url) {
@@ -102,10 +125,14 @@ const HEADERS = {
 }
 
 export default {
-  async fetch(request) {
+  async fetch(request, env) {
     const url = new URL(request.url)
     if (isExactRoot(url)) {
-      return new Response(HTML(url.hostname.toLowerCase()), { status: 200, headers: HEADERS })
+      return new Response(html(url.hostname.toLowerCase()), { status: 200, headers: HEADERS })
+    }
+    if (isApi(url, request.method) && env && env.NUMETAL_SITE) {
+      const host = url.hostname.toLowerCase().replace(/^www\./, '')
+      if (host === 'numetal.xyz') return env.NUMETAL_SITE.fetch(request)
     }
     return Response.redirect(fallbackTarget(url), 301)
   },
