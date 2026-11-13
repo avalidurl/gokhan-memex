@@ -70,7 +70,7 @@ Discovery: [openapi.json](https://api.gokhan.vc/openapi.json) · [/.well-known/x
 ### Hobby Projects
 - [tickerline](https://claudelines.com/statuslines/tickerline): Claude Code statusline — rolling ticker tape of stocks, crypto, and Polymarket resolved live from the conversation
 - [tickerline source](https://github.com/avalidurl/tickerline): GitHub repo
-- [S&P 100 CapEx tracker](https://sp100-financial-tracker.pages.dev): Real-time CapEx + financials for S&P 100 companies via SEC EDGAR
+- [S&P 100 CapEx tracker](https://gokhanturhan.com/sp100-capex-dashboard/): Real-time CapEx + financials for S&P 100 companies via SEC EDGAR
 - [S&P 100 CapEx source](https://github.com/avalidurl/sp100-financial-tracker): GitHub repo
-- [NVIDIA vs crypto](https://gokhan-market-cap-tracker.pages.dev): Real-time NVIDIA market cap versus total cryptocurrency market cap
+- [NVIDIA vs crypto](https://gokhanturhan.com/market-cap-tracker/): Real-time NVIDIA market cap versus total cryptocurrency market cap
 - [NVIDIA vs crypto source](https://github.com/avalidurl/market-cap-tracker): GitHub repo

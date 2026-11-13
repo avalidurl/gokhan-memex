@@ -310,13 +310,13 @@ export const products: Product[] = [
   {
     slug: 'market-cap-tracker', name: 'Market Cap Tracker', status: 'current', family: 'Personal',
     line: 'Live market caps: NVIDIA against crypto.',
-    links: [{ label: 'Open the tracker', href: 'https://gokhan-market-cap-tracker.pages.dev' }, { label: 'Source · avalidurl/market-cap-tracker', href: `${GH}/avalidurl/market-cap-tracker` }],
+    links: [{ label: 'Open the tracker', href: '/market-cap-tracker/' }, { label: 'Source · avalidurl/market-cap-tracker', href: `${GH}/avalidurl/market-cap-tracker` }],
     file: 'market-cap-tracker', legacy: ['market-cap-tracker'], tags: ['dashboard', 'markets', 'crypto', 'open-source'],
   },
   {
     slug: 'sp100-capex-dashboard', name: 'S&P 100 CapEx Dashboard', status: 'current', family: 'Personal',
     line: 'Capital expenditure through the S&P 100.',
-    links: [{ label: 'Source · avalidurl/sp100-financial-tracker', href: `${GH}/avalidurl/sp100-financial-tracker` }],
+    links: [{ label: 'Open the dashboard', href: '/sp100-capex-dashboard/' }, { label: 'Source · avalidurl/sp100-financial-tracker', href: `${GH}/avalidurl/sp100-financial-tracker` }],
     file: 'sp100-capex-dashboard', legacy: ['sp100-capex-dashboard'], tags: ['dashboard', 'markets', 'open-source'],
   },
   {

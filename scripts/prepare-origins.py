@@ -35,6 +35,7 @@ SKIP_PREFIX = (
     "gokhan-vc", "coins", "jesus", "", "",
     "foreguild-fao-plan", "hypersitition", "agentbounty",
     "turkish-art-blob", "ethereum-doomsday",
+    "sp100-capex-dashboard", "market-cap-tracker",
     "products", "product-drafts", "journal", "media", "publishing", "about",
     "cv", "archive", "_astro", "register", "home.js", "register-boot",
     "register.css", "register.js", "table-desk", "sw.js", "manifest.json",

@@ -74,5 +74,13 @@
   {
     "slug": "agentbounty",
     "name": "AgentBounty"
+  },
+  {
+    "slug": "sp100-capex-dashboard",
+    "name": "S&P 100 CapEx"
+  },
+  {
+    "slug": "market-cap-tracker",
+    "name": "Market Cap Tracker"
   }
 ]
