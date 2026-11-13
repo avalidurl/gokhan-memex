@@ -22,7 +22,7 @@ function head(): string[] {
     '',
     '> Personal site of Gökhan Turhan: founder, researcher and conceptual artist. Products (UBU · CLINAMEN, Ishtar, CURB, Reclaim, plaintext and more), the journal, publishing and CV, all under gokhanturhan.com.',
     '',
-    'Every product, draft and work has its own page at gokhanturhan.com/<slug>/. Former product hosts (numetal.xyz, gokhan.vc and their subdomains) redirect here; their addresses appear only as "former address" on each page.',
+    'Every product, draft and work has its own page at gokhanturhan.com/<slug>/. Former product hosts (numetal.xyz, gokhan.vc, agentbounty.dev and their subdomains) redirect here; their addresses appear only as "former address" on each page.',
     '',
   ]
 }

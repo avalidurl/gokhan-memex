@@ -119,6 +119,13 @@ check curb_old          "https://curb.numetal.xyz/"                    301 "gokh
 check curb_docs_old     "https://curb.numetal.xyz/docs"                301 "gokhanturhan.com/curb/docs"
 check ishtar_old        "https://ishtar.numetal.xyz/"                  301 "gokhanturhan.com/ishtar/"
 check gokhanvc_blog     "https://gokhan.vc/blog"                       301 "gokhanturhan.com/journal"
+check agentbounty_root      "https://agentbounty.dev/"                         200 "archived"
+check agentbounty_www       "https://www.agentbounty.dev/"                     200 "archived"
+check agentbounty_countdown "https://agentbounty.dev/"                         200 "10"
+check agentbounty_blog      "https://agentbounty.dev/blog"                     301 "gokhanturhan.com/agentbounty/blog"
+check agentbounty_random    "https://agentbounty.dev/this-path-is-not-mapped"  301 "gokhanturhan.com/agentbounty/"
+check agentbounty_live      "https://gokhanturhan.com/agentbounty/"            200
+check agentbounty_file      "https://gokhanturhan.com/agentbounty/file/"       200
 
 echo
 printf "%b" "$REPORT"

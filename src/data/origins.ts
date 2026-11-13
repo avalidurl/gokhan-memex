@@ -21,6 +21,7 @@ export const originSlugs = [
   '',
   'foreguild-fao-plan',
   'hypersitition',
+  'agentbounty',
 ] as const
 
 export type OriginSlug = (typeof originSlugs)[number]

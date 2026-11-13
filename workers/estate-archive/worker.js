@@ -1,7 +1,9 @@
 /**
- * Archive page for the retired apex/www of numetal.xyz and gokhan.vc.
+ * Archive page for the retired apex/www of numetal.xyz, gokhan.vc
+ * and agentbounty.dev.
  *
- * Routes: numetal.xyz/*, www.numetal.xyz/*, gokhan.vc/*, www.gokhan.vc/*
+ * Routes: numetal.xyz/*, www.numetal.xyz/*, gokhan.vc/*, www.gokhan.vc/*,
+ * agentbounty.dev/*, www.agentbounty.dev/*
  *
  * Exact roots serve a 10-second archive page. Every other path that is not
  * an excluded API path 301s to the gokhanturhan.com copy. Mapped page
@@ -20,6 +22,8 @@ const ARCHIVE_HOSTS = new Set([
   'www.numetal.xyz',
   'gokhan.vc',
   'www.gokhan.vc',
+  'agentbounty.dev',
+  'www.agentbounty.dev',
 ])
 const API_PREFIXES = [
   '/api',
@@ -108,7 +112,7 @@ function isApi(url, method) {
 
 function fallbackTarget(url) {
   const host = url.hostname.toLowerCase().replace(/^www\./, '')
-  const prefix = host === 'gokhan.vc' ? '/gokhan-vc' : '/numetal'
+  const prefix = host === 'gokhan.vc' ? '/gokhan-vc' : host === 'agentbounty.dev' ? '/agentbounty' : '/numetal'
   let path = url.pathname || '/'
   if (path.length > 1 && !path.endsWith('/') && !/\.[a-zA-Z0-9]{1,8}$/.test(path)) {
     path += '/'

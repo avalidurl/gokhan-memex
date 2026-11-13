@@ -33,7 +33,7 @@ SKIP_PREFIX = (
     "curb", "ishtar", "ubu", "reclaim", "plaintext", "numetal", "launch",
     "accumulator", "rebase", "apex", "booster", "heartprefs",
     "gokhan-vc", "coins", "jesus", "", "",
-    "foreguild-fao-plan", "hypersitition",
+    "foreguild-fao-plan", "hypersitition", "agentbounty",
     "turkish-art-blob", "ethereum-doomsday",
     "products", "product-drafts", "journal", "media", "publishing", "about",
     "cv", "archive", "_astro", "register", "home.js", "register-boot",
