@@ -310,7 +310,7 @@ export const products: Product[] = [
   {
     slug: 'market-cap-tracker', name: 'Market Cap Tracker', status: 'current', family: 'Personal',
     line: 'Live market caps: NVIDIA against crypto.',
-    links: [{ label: 'Open the tracker', href: 'https://market-cap-tracker.vercel.app' }, { label: 'Source · avalidurl/market-cap-tracker', href: `${GH}/avalidurl/market-cap-tracker` }],
+    links: [{ label: 'Open the tracker', href: 'https://gokhan-market-cap-tracker.pages.dev' }, { label: 'Source · avalidurl/market-cap-tracker', href: `${GH}/avalidurl/market-cap-tracker` }],
     file: 'market-cap-tracker', legacy: ['market-cap-tracker'], tags: ['dashboard', 'markets', 'crypto', 'open-source'],
   },
   {
