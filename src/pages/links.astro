@@ -27,6 +27,20 @@ const isIdentity = (h: Handle) =>
 
 const sections: Section[] = [
   {
+    id: 'code',
+    title: 'Code',
+    hint: 'GitHub and Hugging Face',
+    groups: [
+      { name: 'GitHub', handles: [
+        { href: 'https://github.com/avalidurl', note: 'personal bench' },
+        { href: 'https://github.com/gokhan-vc', note: 'studio org' },
+      ] },
+      { name: 'Hugging Face', handles: [
+        { href: 'https://huggingface.co/gokhanturhan' },
+      ] },
+    ],
+  },
+  {
     id: 'social-and-decentralized-social',
     title: 'Social & Decentralized Social',
     hint: 'X first; decentralized profiles are marked',
@@ -126,12 +140,8 @@ const sections: Section[] = [
   {
     id: 'professional-networking',
     title: 'Professional Networking',
-    hint: 'GitHub, LinkedIn and profile pages',
+    hint: 'LinkedIn and profile pages',
     groups: [
-      { name: 'GitHub', handles: [
-        { href: 'https://github.com/avalidurl', note: 'personal bench' },
-        { href: 'https://github.com/gokhan-vc', note: 'studio org' },
-      ] },
       { name: 'LinkedIn', handles: [
         { href: 'https://www.linkedin.com/in/goekhanturhan/', note: 'Gökhan Turhan' },
       ] },
