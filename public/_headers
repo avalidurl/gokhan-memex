@@ -81,10 +81,16 @@
 /ethereum-doomsday/assets/*
   Cache-Control: public, max-age=31536000, immutable
 
+# Unhashed card paths are aliases so old links keep working. Short
+# cache so a replaced file is visible within an hour even if a crawler
+# still has the old URL. Meta tags point at /og/v/<hash>.png instead.
 /og/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=3600
 
 /og-default.png
+  Cache-Control: public, max-age=3600
+
+/og/v/*
   Cache-Control: public, max-age=31536000, immutable
 
 /og-lib/*

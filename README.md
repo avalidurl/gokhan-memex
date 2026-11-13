@@ -38,7 +38,7 @@ A visual sitemap of every live page is at [avalidurl.github.io](https://avalidur
 
 **Person JSON-LD.** One Person entity, `@id` `https://gokhanturhan.com/#person`, with a **single `sameAs` list** defined in `src/lib/person.ts`. `BaseLayout.astro` puts that object in a schema.org `@graph` (WebSite + Person) on every Astro page so profiles are not duplicated per route. The static homepage in `public/index.html` carries the same graph.
 
-**Open Graph cards** are generated after `astro build` by `scripts/gen-og.mjs` (renderer: `scripts/og-render.mjs`), using `@resvg/resvg-js` and the house fonts — no Chrome. Journal posts get `/og/<slug>.png`; the homepage gets `/og/home.png` (aliased as `/og-default.png`); other Astro pages whose `og:image` points at `/og/pages/<key>.png` get a card from their title and description. Origin-mounted product sites keep their own cards. The plate is a white ground, black frame, EB Garamond headline, Source Sans 3 labels, signal red (`#e10600`) and International Klein Blue (`#002FA7`).
+**Open Graph cards** are generated after `astro build` by `scripts/gen-og.mjs` (renderer: `scripts/og-render.mjs`), using `@resvg/resvg-js` and the house fonts — no Chrome. Journal posts get `/og/<slug>.png`; the homepage gets `/og/home.png` (aliased as `/og-default.png`); other Astro pages whose `og:image` points at `/og/pages/<key>.png` get a card from their title and description. Origin-mounted product sites keep their own cards. The plate is a white ground, black frame, EB Garamond headline, Source Sans 3 labels, signal red (`#e10600`) and International Klein Blue (`#002FA7`). After the cards are written, each one is also copied to a content-hashed URL (`/og/v/<sha256-12>.png`) and `og:image` / `twitter:image` (and JSON-LD image) references are rewritten to that URL, so crawlers that cache by filename pick up a new card when the image changes. The unhashed paths stay in place and are cached for an hour; the hashed paths are immutable. A final `node scripts/gen-og.mjs --stamp` pass after `mount-origins` versions any origin-mounted HTML that points at these cards. Quote cards at `/og/quote.png` are rendered at the edge and are not hashed.
 
 **Quote cards** for shared highlights. Selecting text in a journal article shows a “Share quote” chip (`public/quote-share.js`). The share URL has `?q=` and a `#:~:text=` fragment. A Pages Function at `/og/quote.png` (`functions/og/quote.png.js`) renders a 1200×630 PNG; `functions/_middleware.js` rewrites the page’s Open Graph and Twitter meta so social crawlers, which do not run JavaScript, preview that card.
 
@@ -106,7 +106,7 @@ Former addresses are stored as plain text on each product page (`estate.ts` `for
 Production is the Cloudflare Pages project **`gokhan-memex`**, Git-connected to this repository. A push to `main` starts a new production build: `npm run build`, output directory `dist/`. The build is:
 
 ```text
-astro check && astro build && node scripts/gen-og.mjs && node scripts/generate-cv-pdf.mjs && node scripts/stamp-sw.mjs && node scripts/mount-origins.mjs
+astro check && astro build && node scripts/gen-og.mjs && node scripts/generate-cv-pdf.mjs && node scripts/stamp-sw.mjs && node scripts/mount-origins.mjs && node scripts/gen-og.mjs --stamp
 ```
 
 Pages automatically serves `functions/` as Pages Functions. The deployed header and redirect files are **`public/_headers`** and **`public/_redirects`** (copied into `dist/`). The repo-root `_headers` and `_redirects` are not published — do not edit those as if they were live.
