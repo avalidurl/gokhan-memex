@@ -2,7 +2,7 @@
 # (the repo-root _headers is not copied into dist/). Do not set
 # Access-Control-Allow-Origin on HTML.
 /*
-  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self' https:; frame-src 'self' https://challenges.cloudflare.com https://assets.numetal.xyz https://numetal.xyz; child-src 'self' https://challenges.cloudflare.com; img-src 'self' data: blob: https:; font-src 'self' data: https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https:; connect-src 'self' https: wss:; manifest-src 'self'; worker-src 'self' blob:; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self' https:; frame-src 'self' https://challenges.cloudflare.com https://assets.numetal.xyz https://numetal.xyz; child-src 'self' https://challenges.cloudflare.com; img-src 'self' data: blob: https:; font-src 'self' data: https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' https:; connect-src 'self' https: wss:; manifest-src 'self'; worker-src 'self' blob:; upgrade-insecure-requests
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
   X-XSS-Protection: 1; mode=block
