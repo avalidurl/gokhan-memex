@@ -56,7 +56,6 @@ function rewriteHeaders(src, prefix, host) {
     h.append('set-cookie', c.replace(/;\s*domain=[^;]*/i, '').replace(/;\s*path=\/(?=;|$)/i, `; Path=${prefix}/`))
   }
   h.set('cache-control', 'no-store')
-  h.set('x-robots-tag', 'noindex')
   return h
 }
 

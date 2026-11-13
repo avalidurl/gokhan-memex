@@ -8,7 +8,7 @@ const { product, title, former, retrieved, others } = Astro.props
 const p = bySlug(product)!
 ---
 
-<BaseLayout title={`${title} · ${p.name}`} description={`The ${p.name} ${title}.`} robots="noindex, follow">
+<BaseLayout title={`${title} · ${p.name}`} description={`The ${p.name} ${title}.`}>
   <div class="es">
     <PageHead crumbs={[{ label: 'Products', href: '/products/' }, { label: p.name, href: `/${p.slug}/` }, { label: 'Legal' }]} title={title} lead={`Copy retrieved ${retrieved}.`} tags={p.tags} />
     <section class="cx" aria-label="About this copy">

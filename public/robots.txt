@@ -1,11 +1,8 @@
 # robots.txt for https://gokhanturhan.com
-# Every public page may be crawled. Archived legal copies and the API
-# preview copy carry their own noindex tags.
+# Every public page may be crawled. All crawlers are welcome.
 
 User-agent: *
 Allow: /
-Disallow: /offline/
-Disallow: /product-drafts/
 
 # AI and research crawlers are welcome; see /llms.txt for a summary.
 User-agent: GPTBot

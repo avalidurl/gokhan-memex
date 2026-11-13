@@ -40,6 +40,37 @@ check() {
   rm -f "$body" "$hdr" "${body}.meta" "${body}.err"
 }
 
+
+check_absent() {
+  local name="$1" url="$2" expect_code="$3" absent_re="$4"
+  local hdr body code
+  body=$(mktemp)
+  hdr=$(mktemp)
+  if ! curl -sS -o "$body" -D "$hdr" -m 25 --max-redirs 0 -A 'gokhan-memex-health/1.0' \
+      -w '%{http_code}' "$url" > "${body}.meta" 2>"${body}.err"; then
+    REPORT+="FAIL  $name  curl error: $(tr '\n' ' ' < "${body}.err")\n"
+    FAIL=1
+    rm -f "$body" "$hdr" "${body}.meta" "${body}.err"
+    return
+  fi
+  code=$(cat "${body}.meta")
+  local ok=1
+  if [[ "$code" != "$expect_code" ]]; then
+    ok=0
+    REPORT+="FAIL  $name  $url  got HTTP $code (want $expect_code)\n"
+  fi
+  if grep -E -q -- "$absent_re" "$body" "$hdr"; then
+    ok=0
+    REPORT+="FAIL  $name  $url  response unexpectedly matched /$absent_re/\n"
+  fi
+  if [[ $ok -eq 1 ]]; then
+    REPORT+="OK    $name  HTTP $code (no /$absent_re/)\n"
+  else
+    FAIL=1
+  fi
+  rm -f "$body" "$hdr" "${body}.meta" "${body}.err"
+}
+
 echo "== gokhanturhan.com =="
 check homepage          "https://gokhanturhan.com/"                    200 "Gökhan Turhan"
 check rss               "https://gokhanturhan.com/rss.xml"             200 "Gökhan Turhan"
@@ -62,7 +93,11 @@ check ishtar_privacy    "https://gokhanturhan.com/ishtar/docs/legal/privacy-poli
 check file_numetal      "https://gokhanturhan.com/numetal/file/"       200
 check file_ubu          "https://gokhanturhan.com/ubu/file/"           200
 check file_gokhan_vc    "https://gokhanturhan.com/gokhan-vc/file/"     200
-check drafts_noindex    "https://gokhanturhan.com/product-drafts/"     200 "noindex"
+check drafts_index      "https://gokhanturhan.com/product-drafts/"     200 'name="robots" content="index, follow'
+check_absent drafts_noindex_gone "https://gokhanturhan.com/product-drafts/" 200 "noindex"
+check sitemap_drafts    "https://gokhanturhan.com/sitemap-0.xml"       200 "gokhanturhan.com/product-drafts/"
+check robots_txt        "https://gokhanturhan.com/robots.txt"          200 "Sitemap: https://gokhanturhan.com/sitemap-index.xml"
+check_absent robots_no_drafts_disallow "https://gokhanturhan.com/robots.txt" 200 "Disallow:"
 
 echo "== retired roots (archive page) =="
 check numetal_root      "https://numetal.xyz/"                         200 "archived"
