@@ -326,13 +326,13 @@ VOCS_BAR_CSS = (
     "html{--gt-bar-h:31px;--vocs-spacing-banner:var(--gt-bar-h)!important}"
     ".gt-bar{all:initial;display:block;box-sizing:border-box;width:100%;"
     "position:fixed;top:0;left:0;right:0;z-index:99999;"
-    "border-bottom:1px solid #141414;background:#f6f5f1;color:#141414;"
+    "border-bottom:1px solid #141414;background:#ffffff;color:#141414;"
     "font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;padding:6px 14px;"
     "letter-spacing:.02em}"
     ".gt-bar a{color:#002fa7;text-decoration:none}"
     ".gt-bar a:hover{text-decoration:underline}.gt-bar b{font-weight:600}"
-    "@media (prefers-color-scheme:dark){.gt-bar{background:#141414;color:#f3f2ec;"
-    "border-color:#f3f2ec}.gt-bar a{color:#8eb0ff}}"
+    "@media (prefers-color-scheme:dark){.gt-bar{background:#141414;color:#f5f5f5;"
+    "border-color:#f5f5f5}.gt-bar a{color:#8eb0ff}}"
 )
 
 

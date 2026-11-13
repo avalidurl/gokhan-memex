@@ -41,9 +41,9 @@ SKIP_PREFIX = (
     "register.css", "register.js", "table-desk", "sw.js", "manifest.json",
 )
 
-BAR_CSS = """.gt-bar{all:initial;display:block;box-sizing:border-box;width:100%;border-bottom:1px solid #141414;background:#f6f5f1;color:#141414;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;padding:6px 14px;letter-spacing:.02em;z-index:9999;position:relative}
+BAR_CSS = """.gt-bar{all:initial;display:block;box-sizing:border-box;width:100%;border-bottom:1px solid #141414;background:#ffffff;color:#141414;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;padding:6px 14px;letter-spacing:.02em;z-index:9999;position:relative}
 .gt-bar a{color:#002fa7;text-decoration:none}.gt-bar a:hover{text-decoration:underline}.gt-bar b{font-weight:600}
-@media (prefers-color-scheme:dark){.gt-bar{background:#141414;color:#f3f2ec;border-color:#f3f2ec}.gt-bar a{color:#8eb0ff}}"""
+@media (prefers-color-scheme:dark){.gt-bar{background:#141414;color:#f5f5f5;border-color:#f5f5f5}.gt-bar a{color:#8eb0ff}}"""
 
 CURB_STATS = """
 <script>

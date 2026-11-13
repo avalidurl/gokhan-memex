@@ -37,9 +37,9 @@ export function rewriteText(text, prefix, host) {
   return t
 }
 
-const BAR_CSS = `.gt-bar{all:initial;display:block;box-sizing:border-box;width:100%;border-bottom:1px solid #141414;background:#f6f5f1;color:#141414;font:12px/1.5 ui-monospace,Menlo,monospace;padding:6px 12px;letter-spacing:.02em}
-.gt-bar a{color:#002fa7;text-decoration:none}.gt-bar a:hover{text-decoration:underline}.gt-bar b{font-weight:600}.gt-bar i{font-style:normal;color:#4a4a46}
-@media (prefers-color-scheme:dark){.gt-bar{background:#141414;color:#f3f2ec;border-color:#f3f2ec}.gt-bar a{color:#8eb0ff}.gt-bar i{color:#b4b3ab}}`
+const BAR_CSS = `.gt-bar{all:initial;display:block;box-sizing:border-box;width:100%;border-bottom:1px solid #141414;background:#ffffff;color:#141414;font:12px/1.5 ui-monospace,Menlo,monospace;padding:6px 12px;letter-spacing:.02em}
+.gt-bar a{color:#002fa7;text-decoration:none}.gt-bar a:hover{text-decoration:underline}.gt-bar b{font-weight:600}.gt-bar i{font-style:normal;color:#4a4a4a}
+@media (prefers-color-scheme:dark){.gt-bar{background:#141414;color:#f5f5f5;border-color:#f5f5f5}.gt-bar a{color:#8eb0ff}.gt-bar i{color:#b3b3b3}}`
 
 function bar(prefix, name, host) {
   return `<div class="gt-bar" role="navigation" aria-label="Site"><a href="/">Gökhan Turhan</a> · <a href="/products/">Products</a> · <b>${name}</b> · <a href="${prefix}/">gokhanturhan.com${prefix}/</a> · <i>former address ${host}</i></div>`
