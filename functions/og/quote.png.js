@@ -79,8 +79,7 @@ export async function onRequest(context) {
       },
     })
   } catch (err) {
-    console.error('quote card', err)
-    const msg = (err && (err.stack || err.message)) ? String(err.stack || err.message) : String(err)
-    return new Response('quote card failed: ' + msg.slice(0, 2000), { status: 500, headers: { 'content-type': 'text/plain; charset=utf-8' } })
+    console.error('quote card', err && (err.stack || err.message) || err)
+    return new Response('quote card failed', { status: 500, headers: { 'content-type': 'text/plain' } })
   }
 }
