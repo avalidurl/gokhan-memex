@@ -74,6 +74,15 @@
 # Canonical sitemap
 /sitemap.xml /sitemap-index.xml 301
 
+
+# S&P 100 dashboard short alias
+/sp100 /sp100-capex-dashboard/ 301
+/sp100/ /sp100-capex-dashboard/ 301
+
+# NVIDIA vs crypto market-cap tracker (live app is on this site)
+/nvidia-vs-crypto /market-cap-tracker/ 301
+/nvidia-vs-crypto/ /market-cap-tracker/ 301
+
 # Fallback for SPA-like behavior (not needed for static Astro but good to have)
 /* /404.html 404
 
@@ -81,6 +90,3 @@
 /journal/ai%CC%87/ /journal/on-work/ 301
 /journal/ai%CC%87 /journal/on-work/ 301
 
-# NVIDIA vs crypto market-cap tracker (live tool; writeup stays at /market-cap-tracker/)
-/nvidia-vs-crypto    https://gokhan-market-cap-tracker.pages.dev/  302
-/nvidia-vs-crypto/   https://gokhan-market-cap-tracker.pages.dev/  302
