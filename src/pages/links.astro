@@ -1,11 +1,19 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PageHead from '@/components/PageHead.astro'
-import { explorers, parties } from '@/data/coins-wallets'
+import { explorers, parties, type Party } from '@/data/coins-wallets'
 
-type Handle = { href: string; note: string }
+type Handle = { href: string; note: string; me?: boolean }
 type Group = { name: string; handles: Handle[] }
 type Section = { id: string; title: string; hint: string; groups: Group[] }
+type WalletItem = {
+  id: string
+  label?: string
+  address: string
+  note?: string
+  chain?: Party['chain'] | 'zcash'
+  links?: { label: string; short?: string; href: string }[]
+}
 
 const display = (href: string) => {
   if (href.startsWith('mailto:')) return href.slice(7)
@@ -13,29 +21,22 @@ const display = (href: string) => {
   return (u.host + u.pathname.replace(/\/+$/, '') + u.search).replace(/\/+$/, '')
 }
 
+const isIdentity = (h: Handle) =>
+  h.me !== false && !h.href.startsWith('mailto:') && !h.href.includes('/group_join/') && !h.href.includes('discord.gg')
+
 const sections: Section[] = [
   {
     id: 'social-media-platforms',
     title: 'Social Media Platforms',
-    hint: 'X first, then the rest of the public channels',
+    hint: 'X first, then the rest of the public profiles',
     groups: [
       { name: 'X', handles: [
         { href: 'https://x.com/goekhan', note: 'personal' },
         { href: 'https://x.com/goekhanvc', note: 'Gökhan Ventures' },
         { href: 'https://x.com/numetalxyz', note: 'Numetal · Ishtar · CURB' },
       ] },
-      { name: 'Telegram', handles: [
-        { href: 'https://t.me/marketresearchunit', note: 'Market Research Unit — main channel' },
-        { href: 'https://t.me/goekhanturhan', note: 'personal' },
-        { href: 'https://t.me/gokhanturhans', note: 'Research Log — channel' },
-        { href: 'https://t.me/numetalxyz', note: 'Numetal' },
-      ] },
       { name: 'Bluesky', handles: [
         { href: 'https://bsky.app/profile/gokhan.substack.com', note: 'personal' },
-      ] },
-      { name: 'Discord', handles: [
-        { href: 'https://discord.gg/ZcxcwRPT7R', note: 'Market Research Unit — server invite' },
-        { href: 'https://discord.gg/MC4DYumPMz', note: 'Numetal — server invite' },
       ] },
       { name: 'Reddit', handles: [
         { href: 'https://www.reddit.com/user/toombak/', note: 'personal' },
@@ -45,6 +46,27 @@ const sections: Section[] = [
       ] },
       { name: 'Truth Social', handles: [
         { href: 'https://truthsocial.com/@gokhanturhan', note: 'personal' },
+      ] },
+    ],
+  },
+  {
+    id: 'chats-communities',
+    title: 'Chats & Communities',
+    hint: 'Telegram channels, Discord and the X Group',
+    groups: [
+      { name: 'Telegram', handles: [
+        { href: 'https://t.me/marketresearchunit', note: 'Market Research Unit — main channel' },
+        { href: 'https://t.me/goekhanturhan', note: 'personal' },
+        { href: 'https://t.me/gokhanturhans', note: 'Research Log — channel' },
+        { href: 'https://t.me/numetalxyz', note: 'Numetal' },
+      ] },
+      { name: 'Discord', handles: [
+        { href: 'https://discord.com/users/468471856773464075', note: 'Discord, DM' },
+        { href: 'https://discord.gg/ZcxcwRPT7R', note: 'Market Research Unit — server invite' },
+        { href: 'https://discord.gg/MC4DYumPMz', note: 'Numetal — server invite' },
+      ] },
+      { name: 'X Group', handles: [
+        { href: 'https://x.com/i/chat/group_join/g2109600261379367331/cEgOlxjpBN', note: 'X Group', me: false },
       ] },
     ],
   },
@@ -156,37 +178,73 @@ const sections: Section[] = [
   {
     id: 'contact',
     title: 'Contact',
-    hint: 'direct mail, DMs are open',
+    hint: 'direct mail and DMs are open',
     groups: [
       { name: 'Email', handles: [
         { href: 'mailto:contact@gokhan.vc', note: 'studio and professional inquiries' },
         { href: 'mailto:contact@gokhanturhan.com', note: 'personal site' },
         { href: 'mailto:contact@numetal.xyz', note: 'Numetal' },
       ] },
+      { name: 'Discord', handles: [
+        { href: 'https://discord.com/users/468471856773464075', note: 'Discord, DM' },
+      ] },
     ],
   },
 ]
 
-const walletNetworks: { id: string; title: string; hint: string; items: typeof parties }[] = [
+const known = new Set(parties.map((p) => p.address?.toLowerCase()).filter(Boolean) as string[])
+const fromParty = (p: Party): WalletItem | null =>
+  p.address ? { id: p.id, label: p.label, address: p.address, note: p.note, chain: p.chain } : null
+
+const profileEvm: WalletItem[] = [
+  { id: 'ZORA-LINKED', label: 'Zora linked wallet', address: '0x4DF89a7437786eB8Af595979a638a4a9382c33D6', note: 'linked on zora.co/@gokhan' },
+  { id: 'LENS-ACCOUNT', label: 'Lens account', address: '0xE8b26757Bc7429d1fD16233437121dE904dac806', note: 'hey.xyz/u/gokhaneth' },
+].filter((p) => !known.has(p.address.toLowerCase()))
+
+const walletNetworks: { id: string; title: string; hint: string; items: WalletItem[] }[] = [
   {
     id: 'wallets-evm',
     title: 'Ethereum, Base & Robinhood Chain',
     hint: 'same address on each EVM network',
-    items: parties.filter((p) => p.address && p.chain !== 'solana' && p.chain !== 'canton'),
+    items: [
+      ...parties.filter((p) => p.address && p.chain !== 'solana' && p.chain !== 'canton').map((p) => fromParty(p)!),
+      ...profileEvm,
+    ],
   },
   {
     id: 'wallets-solana',
     title: 'Solana',
     hint: 'pump.fun @gokhan',
-    items: parties.filter((p) => p.address && p.chain === 'solana'),
+    items: parties.filter((p) => p.address && p.chain === 'solana').map((p) => fromParty(p)!),
   },
   {
     id: 'wallets-canton',
     title: 'Canton',
     hint: 'Supanova',
-    items: parties.filter((p) => p.address && p.chain === 'canton'),
+    items: parties.filter((p) => p.address && p.chain === 'canton').map((p) => fromParty(p)!),
+  },
+  {
+    id: 'wallets-zcash',
+    title: 'Zcash',
+    hint: 'from zcash.me/gokhan',
+    items: [
+      {
+        id: 'ZEC-UA',
+        label: 'Unified',
+        address: 'u172a6j85et6eglhc7wasffsl3l4n5jrwkx4tmtw4nmwzjgksrydevqzeqp83y8my33fnqp73tgaac57xtcel94qajn35eemv9jwd87jza69ey70weqwmspld3rm7q7dnnt5fgpq07p8fw48g7ew7hjecaud7nf0dwcfxu688a7yvajmnq',
+        note: 'profile address on zcash.me/gokhan — a unified address, which receives shielded funds',
+        chain: 'zcash',
+        links: [{ label: 'zcash.me/gokhan', short: 'zcash.me', href: 'https://zcash.me/gokhan' }],
+      },
+    ],
   },
 ]
+
+function walletLinks(p: WalletItem) {
+  if (p.links) return p.links
+  if (p.chain === 'zcash') return []
+  return explorers({ id: p.id, address: p.address, short: p.address, chain: p.chain })
+}
 
 const nav = [
   ...sections.map((s) => ({ id: s.id, title: s.title })),
@@ -200,14 +258,14 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
 
 <BaseLayout
   title="Links"
-  description="Where to find Gökhan Turhan: social channels, writing, professional and academic profiles, decentralized social, multimedia, and wallet addresses."
+  description="Where to find Gökhan Turhan: social channels, chats, writing, professional and academic profiles, decentralized social, multimedia, and wallet addresses."
   robots="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
 >
   <div class="es">
     <PageHead
       crumbs={[{ label: 'Index', href: '/' }, { label: 'Links' }]}
       title="Links"
-      lead="Where to find Gökhan Turhan elsewhere, and the wallet addresses published on this site."
+      lead="Where to find Gökhan Turhan elsewhere, and the wallet addresses published on this site and on his public profiles."
       count={String(linkCount + walletCount).padStart(2, '0')}
     />
 
@@ -234,9 +292,9 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
             <span class="lk">
               {g.handles.map((h) => (
                 <span class="lk-i">
-                  {h.href.startsWith('mailto:')
-                    ? <a href={h.href}>{display(h.href)}</a>
-                    : <a href={h.href} rel="me noopener">{display(h.href)}</a>
+                  {isIdentity(h)
+                    ? <a href={h.href} rel="me noopener">{display(h.href)}</a>
+                    : <a href={h.href} rel="noopener">{display(h.href)}</a>
                   }
                   <i>{h.note}</i>
                 </span>
@@ -250,7 +308,7 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
     <section class="cx lk-sec" id="wallets" aria-labelledby="wallets-heading">
       <div class="cx-h">
         <b id="wallets-heading"><a href="#wallets" class="lk-head">Wallets</a></b>
-        <span>addresses already published on this site, grouped by network — nothing invented</span>
+        <span>addresses published on this site and on his public profiles, grouped by network — nothing invented</span>
         <button type="button" class="cr-copy lk-copy" data-hash="#wallets" aria-label="Copy link to Wallets">Copy link</button>
         <em>{String(walletCount).padStart(2, '0')}</em>
       </div>
@@ -269,7 +327,7 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
                 <code class="lk-code">{p.address}</code>
                 <button type="button" class="cr-copy" data-copy={p.address} aria-label={`Copy ${p.label || p.id} address`}>Copy</button>
                 <span class="lk-ex">
-                  {explorers(p).map((e) => (
+                  {walletLinks(p).map((e) => (
                     <a href={e.href} rel="noopener">{e.short || e.label}</a>
                   ))}
                 </span>
