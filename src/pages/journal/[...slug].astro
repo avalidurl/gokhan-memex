@@ -34,30 +34,36 @@ const docCategory = (post.data.category || 'JOURNAL').toUpperCase()
 const docDate = post.data.publishDate.toISOString().slice(0, 10)
 
 // Default Article schema - always present for SEO
+const ogImage = `https://gokhanturhan.com/og/${post.slug}.png`
 const defaultArticleSchema = {
   "@context": "https://schema.org",
-  "@type": "Article",
+  "@type": "BlogPosting",
   "headline": plainPostTitle(post.data.title),
   "description": post.data.description,
   "author": {
     "@type": "Person",
-    "name": post.data.author,
-    "url": "https://gokhanturhan.com"
+    "@id": "https://gokhanturhan.com/#person",
+    "name": "Gökhan Turhan",
+    "url": "https://gokhanturhan.com/"
   },
   "publisher": {
     "@type": "Person",
+    "@id": "https://gokhanturhan.com/#person",
     "name": "Gökhan Turhan",
-    "url": "https://gokhanturhan.com"
+    "url": "https://gokhanturhan.com/"
   },
   "datePublished": post.data.publishDate.toISOString(),
+  "dateModified": post.data.publishDate.toISOString(),
   "url": `https://gokhanturhan.com/journal/${post.slug}/`,
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": `https://gokhanturhan.com/journal/${post.slug}/`
   },
-  "image": post.data.heroImage ? `https://gokhanturhan.com${post.data.heroImage}` : "https://gokhanturhan.com/og/gokhan-turhan-v2.png",
+  "image": ogImage,
   "articleSection": post.data.category,
-  "keywords": post.data.tags?.join(', ') || ''
+  "keywords": post.data.tags?.join(', ') || '',
+  "inLanguage": "en",
+  "isPartOf": { "@id": "https://gokhanturhan.com/#website" }
 }
 
 // Additional custom schema from frontmatter (if any)
@@ -72,7 +78,7 @@ const showToc = tocHeadings.length >= 2
   title={plainPostTitle(post.data.title)}
   description={post.data.description}
   type="article"
-  image={post.data.heroImage || `/og/${post.slug}.png`}
+  image={`/og/${post.slug}.png`}
   canonicalURL={new URL(`/journal/${post.slug}/`, Astro.site).toString()}
   hideFooterSubscribe
 >
@@ -91,11 +97,16 @@ const showToc = tocHeadings.length >= 2
   {post.data.seoKeywords && (
     <meta name="keywords" content={post.data.seoKeywords.join(', ')} slot="head" />
   )}
+  <meta property="article:published_time" content={post.data.publishDate.toISOString()} slot="head" />
+  <meta property="article:modified_time" content={post.data.publishDate.toISOString()} slot="head" />
+  <meta property="article:author" content="Gökhan Turhan" slot="head" />
+  {post.data.category && <meta property="article:section" content={post.data.category} slot="head" />}
+  <script src="/quote-share.js" defer slot="head"></script>
 
   {/* max-w-3xl, not 2xl: at the 18px reading scale a 42rem sheet measures ~61ch,
       under the 65ch floor for comfortable long-form. 48rem lands it near 75ch. */}
   <div class="dispatch mx-auto max-w-3xl px-6 py-8 lg:py-12">
-    <article>
+    <article data-quote-share data-quote-title={plainPostTitle(post.data.title)} data-quote-url={`https://gokhanturhan.com/journal/${post.slug}/`}>
       <!-- (a) DOC-STRIP -->
       <div class="docstrip">
         <span class="docstrip-id"><span class="tick" aria-hidden="true">▮</span>&nbsp;DOC · {docId} · {docCategory}</span>
