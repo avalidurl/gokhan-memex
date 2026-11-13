@@ -124,7 +124,6 @@ const children = p && isProduct ? products.filter((c) => c.slug.startsWith(`${p.
 <BaseLayout
   title={isFile ? `${title} · Bureau file` : title}
   description={description}
-  robots={isFile ? 'noindex, follow' : undefined}
   canonicalURL={isFile && (p || d) ? new URL(`/${(p?.slug ?? d!.slug)}/file/`, Astro.site).href : undefined}
 >
   <div class={`es${wide ? ' wide' : ''}`}>

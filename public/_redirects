@@ -50,6 +50,30 @@
 /projects/biases-fallacies-lab/ /biases-fallacies-lab/ 301
 /projects/* /products/ 301
 
+
+# Retired CURB footer URLs (and bookmarks) → live pages.
+# Ishtar robots.txt and sitemap.xml are real files under origins/ishtar/.
+/curb/dispatch/curb-is-live /journal/curb-is-live/ 301
+/curb/dispatch/curb-is-live/ /journal/curb-is-live/ 301
+/curb/dispatch/tickerline /journal/tickerline-your-conversation-quoted/ 301
+/curb/dispatch/tickerline/ /journal/tickerline-your-conversation-quoted/ 301
+/curb/dispatch/x402-economy-july-2026 /journal/x402-economy-july-2026/ 301
+/curb/dispatch/x402-economy-july-2026/ /journal/x402-economy-july-2026/ 301
+/curb/dispatch/complementary-substitutions /journal/complementary-substitutions/ 301
+/curb/dispatch/complementary-substitutions/ /journal/complementary-substitutions/ 301
+/curb/dispatch /journal/ 301
+/curb/dispatch/ /journal/ 301
+/curb/dispatch/* /journal/:splat 301
+/curb/privacy /curb/legal/privacy/ 301
+/curb/privacy/ /curb/legal/privacy/ 301
+/curb/terms /curb/legal/terms/ 301
+/curb/terms/ /curb/legal/terms/ 301
+/curb/sitemap.xml /sitemap-index.xml 301
+/curb/feed.xml /rss.xml 301
+
+# Canonical sitemap
+/sitemap.xml /sitemap-index.xml 301
+
 # Fallback for SPA-like behavior (not needed for static Astro but good to have)
 /* /404.html 404
 
