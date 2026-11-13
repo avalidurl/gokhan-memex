@@ -70,5 +70,9 @@
   {
     "slug": "hypersitition",
     "name": "hypersitition"
+  },
+  {
+    "slug": "agentbounty",
+    "name": "AgentBounty"
   }
 ]
