@@ -41,6 +41,7 @@ const pathname = Astro.url.pathname
 const path = pathname.endsWith('/') ? pathname : `${pathname}/`
 const nav = [
   { name: 'About', href: '/about/', on: path.startsWith('/about') },
+  { name: 'Links', href: '/links/', on: path.startsWith('/links') },
   { name: 'CV', href: '/cv/', on: path.startsWith('/cv') },
   { name: 'Index', href: '/', on: path === '/', hover: 'Home' },
   { name: 'Journal', href: '/journal/', on: path.startsWith('/journal') || path.startsWith('/archive') || path.startsWith('/writing') },
