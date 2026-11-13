@@ -4,7 +4,7 @@ import PageHead from '@/components/PageHead.astro'
 import { explorers, parties, type Party } from '@/data/coins-wallets'
 
 type Handle = { href: string; note: string; me?: boolean }
-type Group = { name: string; handles: Handle[] }
+type Group = { name: string; tag?: string; handles: Handle[] }
 type Section = { id: string; title: string; hint: string; groups: Group[] }
 type WalletItem = {
   id: string
@@ -26,17 +26,14 @@ const isIdentity = (h: Handle) =>
 
 const sections: Section[] = [
   {
-    id: 'social-media-platforms',
-    title: 'Social Media Platforms',
-    hint: 'X first, then the rest of the public profiles',
+    id: 'social-and-decentralized-social',
+    title: 'Social & Decentralized Social',
+    hint: 'X first; decentralized profiles are marked',
     groups: [
       { name: 'X', handles: [
         { href: 'https://x.com/goekhan', note: 'personal' },
         { href: 'https://x.com/goekhanvc', note: 'Gökhan Ventures' },
         { href: 'https://x.com/numetalxyz', note: 'Numetal · Ishtar · CURB' },
-      ] },
-      { name: 'Bluesky', handles: [
-        { href: 'https://bsky.app/profile/gokhan.substack.com', note: 'personal' },
       ] },
       { name: 'Reddit', handles: [
         { href: 'https://www.reddit.com/user/toombak/', note: 'personal' },
@@ -46,6 +43,36 @@ const sections: Section[] = [
       ] },
       { name: 'Truth Social', handles: [
         { href: 'https://truthsocial.com/@gokhanturhan', note: 'personal' },
+      ] },
+      { name: 'Bluesky', handles: [
+        { href: 'https://bsky.app/profile/gokhan.substack.com', note: 'personal' },
+      ] },
+      { name: 'Farcaster', tag: 'decentralized', handles: [
+        { href: 'https://farcaster.xyz/gokhan', note: 'personal' },
+      ] },
+      { name: 'Lens', tag: 'decentralized', handles: [
+        { href: 'https://hey.xyz/u/gokhaneth', note: 'gokhaneth' },
+      ] },
+      { name: 'Nostr', tag: 'decentralized', handles: [
+        { href: 'https://primal.net/gokhan', note: 'gokhan' },
+      ] },
+      { name: 'Zora', tag: 'decentralized', handles: [
+        { href: 'https://zora.co/@gokhan', note: '@gokhan' },
+      ] },
+      { name: 'Delve', tag: 'decentralized', handles: [
+        { href: 'https://delve.town/profile/gokhan.delve.town', note: 'gokhan.delve.town' },
+      ] },
+      { name: 'ENS', handles: [
+        { href: 'https://app.ens.domains/gokhan.eth', note: 'gokhan.eth — identity' },
+      ] },
+      { name: 'EFP', handles: [
+        { href: 'https://efp.app/0x36de990133d36d7e3df9a820aa3ede5a2320de71', note: 'Ethereum Follow Protocol — gokhan.eth' },
+      ] },
+      { name: 'zcash.me', handles: [
+        { href: 'https://zcash.me/gokhan', note: 'profile' },
+      ] },
+      { name: 'Moltbook', handles: [
+        { href: 'https://www.moltbook.com/m/courtship', note: "Ishtar's floor on the agent-only network — staffed by the intern" },
       ] },
     ],
   },
@@ -77,6 +104,9 @@ const sections: Section[] = [
     groups: [
       { name: 'Substack', handles: [
         { href: 'https://gokhan.substack.com/', note: 'long-form research and analysis' },
+      ] },
+      { name: 'Cent', handles: [
+        { href: 'https://beta.cent.co/goekhanturhan/', note: 'writing' },
       ] },
       { name: 'Medium', handles: [
         { href: 'https://goekhanturhan.medium.com/', note: 'writing' },
@@ -135,34 +165,6 @@ const sections: Section[] = [
     ],
   },
   {
-    id: 'decentralized-social',
-    title: 'Decentralized Social',
-    hint: 'Farcaster, Lens, Nostr, Zora and the rest of the on-chain desks',
-    groups: [
-      { name: 'Farcaster', handles: [
-        { href: 'https://farcaster.xyz/gokhan', note: 'personal' },
-      ] },
-      { name: 'Lens', handles: [
-        { href: 'https://hey.xyz/u/gokhaneth', note: 'gokhaneth' },
-      ] },
-      { name: 'Nostr', handles: [
-        { href: 'https://primal.net/gokhan', note: 'gokhan' },
-      ] },
-      { name: 'Zora', handles: [
-        { href: 'https://zora.co/@gokhan', note: '@gokhan' },
-      ] },
-      { name: 'EFP', handles: [
-        { href: 'https://efp.app/0x36de990133d36d7e3df9a820aa3ede5a2320de71', note: 'Ethereum Follow Protocol — gokhan.eth' },
-      ] },
-      { name: 'zcash.me', handles: [
-        { href: 'https://zcash.me/gokhan', note: 'profile' },
-      ] },
-      { name: 'Moltbook', handles: [
-        { href: 'https://www.moltbook.com/m/courtship', note: "Ishtar's floor on the agent-only network — staffed by the intern" },
-      ] },
-    ],
-  },
-  {
     id: 'multimedia',
     title: 'Multimedia',
     hint: 'listening, reading and video',
@@ -208,6 +210,20 @@ const profileEvm: WalletItem[] = [
 ].filter((p) => !known.has(p.address.toLowerCase()))
 
 const walletNetworks: { id: string; title: string; hint: string; items: WalletItem[] }[] = [
+  {
+    id: 'wallets-ens',
+    title: 'ENS',
+    hint: 'the name only — no resolved address is published here',
+    items: [
+      {
+        id: 'ENS',
+        label: 'gokhan.eth',
+        address: 'gokhan.eth',
+        note: 'ENS name, as shown on app.ens.domains/gokhan.eth',
+        links: [{ label: 'app.ens.domains/gokhan.eth', short: 'ENS', href: 'https://app.ens.domains/gokhan.eth' }],
+      },
+    ],
+  },
   {
     id: 'wallets-evm',
     title: 'Ethereum, Base & Robinhood Chain',
@@ -264,7 +280,7 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
 
 <BaseLayout
   title="Links"
-  description="Where to find Gökhan Turhan: social channels, chats, writing, professional and academic profiles, decentralized social, multimedia, and wallet addresses."
+  description="Where to find Gökhan Turhan: social and decentralized social, chats, writing, professional and academic profiles, multimedia, and wallet addresses."
   robots="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
 >
   <div class="es">
@@ -286,6 +302,12 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
 
     {sections.map((s) => (
       <section class="cx lk-sec" id={s.id} aria-labelledby={`${s.id}-heading`}>
+        {s.id === 'social-and-decentralized-social' && (
+          <>
+            <div id="social-media-platforms" class="lk-alias" aria-hidden="true"></div>
+            <div id="decentralized-social" class="lk-alias" aria-hidden="true"></div>
+          </>
+        )}
         <div class="cx-h">
           <b id={`${s.id}-heading`}><a href={`#${s.id}`} class="lk-head">{s.title}</a></b>
           <span>{s.hint}</span>
@@ -294,7 +316,7 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
         </div>
         {s.groups.map((g) => (
           <div class="cx-r">
-            <span>{g.name}</span>
+            <span>{g.name}{g.tag ? <i class="lk-tag">{g.tag}</i> : null}</span>
             <span class="lk">
               {g.handles.map((h) => (
                 <span class="lk-i">
@@ -363,6 +385,15 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
   .lk-net + .lk-net { border-top: 1px solid var(--ink); }
   .lk-sub { border-top: 0; border-bottom: 1px solid var(--ink); }
   .lk-head { color: inherit; text-decoration: none; }
+  .lk-tag {
+    font: 10px/1.2 var(--mono);
+    font-style: normal;
+    letter-spacing: .06em;
+    color: var(--ikb);
+    margin-left: 0.5em;
+    white-space: nowrap;
+  }
+  .lk-alias { scroll-margin-top: 5.5rem; height: 0; }
   .lk-head:hover { text-decoration: underline; text-underline-offset: 2px; }
   .cx-h .lk-copy { margin: 4px 0 4px auto; align-self: center; }
   .cx-h em { margin-left: 0; }
