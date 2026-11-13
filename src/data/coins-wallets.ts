@@ -5,7 +5,11 @@ export interface Party { id: string; label?: string; address?: string; short: st
 export function explorers(p: Party): { label: string; short?: string; href: string }[] {
   if (p.link) return [{ label: 'Profile', short: 'profile', href: p.link }]
   if (!p.address) return []
-  if (p.chain === 'solana') return [{ label: 'Solscan', short: 'SOL', href: `https://solscan.io/account/${p.address}` }, { label: 'pump.fun profile', short: 'pump', href: 'https://pump.fun/profile/gokhan' }]
+  if (p.chain === 'solana') {
+    const links = [{ label: 'Solscan', short: 'SOL', href: `https://solscan.io/account/${p.address}` }]
+    if (p.id === 'SOL') links.push({ label: 'pump.fun profile', short: 'pump', href: 'https://pump.fun/profile/gokhan' })
+    return links
+  }
   if (p.chain === 'canton') return [{ label: 'CCView (Canton explorer)', short: 'CCV', href: `https://ccview.io/party/${p.address}` }]
   return [
     { label: 'Basescan', short: 'BASE', href: `https://basescan.org/address/${p.address}` },
@@ -31,6 +35,7 @@ export const parties: Party[] = [
   { id: 'W14', label: 'Canton (Supanova)', address: 'supa1::1220fee177fe9fb494a1b8b4ff0fb6d8882b80f4d0e55df1d90a2faf821fbff6ac61', short: 'supa1::1220fee1…fbff6ac61', chain: 'canton' },
   { id: 'ZORA', label: 'Zora / Base App wallet', address: '0xD071B9c281F789F85232Aa2264d54648Ac97c1d8', short: '0xD071…97c1d8', note: 'payout of all Zora coins' },
   { id: 'AUTH', label: 'Paragraph factory', short: 'author-side', note: 'coins minted by the Paragraph factory for his posts; no single wallet' },
+  { id: 'SOL-MAIN', label: 'Solana', address: 'J1ALikLy5TZ9tqZq5zxSem5P9G4Wo6fXXWSGGjEvd9Pg', short: 'J1ALik…vd9Pg', note: 'main Solana address', chain: 'solana' },
   { id: 'SOL', label: 'Solana signer', address: '2GvLgz2ovzNkrYEzJsZ1kRovXjVQnmm7WRWFd3vFzsma', short: '2GvLgz…FzsMa', note: 'pump.fun @gokhan; also signs his StonkFun launches', chain: 'solana' },
   { id: 'NX', label: 'numetalxyz-x', short: 'feel.cash/users/numetalxyz-x', note: 'Feel.cash account, no wallet address published', link: 'https://feel.cash/users/numetalxyz-x' },
 ]

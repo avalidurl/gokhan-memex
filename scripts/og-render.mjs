@@ -2,7 +2,7 @@
  * Shared OG card renderer for gokhanturhan.com.
  *
  * Ishtar-inspired filed plate: white ground, black frame, EB Garamond headline,
- * Source Sans 3 labels, the face photo in grayscale, and two house accents
+ * Source Sans 3 labels, a red square wordmark, and two house accents
  * used sparingly — signal red (#e10600) and International Klein Blue (#002FA7).
  * No cream or yellow. 1200×630 PNG via @resvg/resvg-js.
  */
@@ -29,8 +29,6 @@ const kit = {
   sans: create(readFileSync(FONTS.sans)),
   sansSemi: create(readFileSync(FONTS.sansSemi)),
 }
-
-const AVATAR = readFileSync(join(FONT_DIR, 'avatar-gray.png')).toString('base64')
 
 // House tokens — exact values from src/styles/critical.css (light).
 export const INK = '#141414'
@@ -203,11 +201,9 @@ export function cardSvg(opts) {
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${WIDTH}" height="${HEIGHT}" viewBox="0 0 ${WIDTH} ${HEIGHT}">
   <rect width="${WIDTH}" height="${HEIGHT}" fill="${PAPER}"/>
   <rect x="36" y="28" width="1128" height="${frameBottom - 28}" fill="none" stroke="${INK}" stroke-width="3"/>
-  <image x="88" y="54" width="80" height="80" href="data:image/png;base64,${AVATAR}" preserveAspectRatio="xMidYMid slice"/>
-  <rect x="88" y="54" width="80" height="80" fill="none" stroke="${INK}" stroke-width="2"/>
-  <rect x="184" y="70" width="12" height="12" fill="${RED}"/>
-  <text x="204" y="82" font-size="22" font-family="Source Sans 3" font-weight="600" fill="${INK}" letter-spacing="2.2">GÖKHAN TURHAN</text>
-  ${kicker ? `<text x="184" y="116" font-size="18" font-family="Source Sans 3" fill="${DIM}" letter-spacing="2.4">${esc(kicker)}</text>` : ''}
+  <rect x="88" y="70" width="12" height="12" fill="${RED}"/>
+  <text x="108" y="82" font-size="22" font-family="Source Sans 3" font-weight="600" fill="${INK}" letter-spacing="2.2">GÖKHAN TURHAN</text>
+  ${kicker ? `<text x="88" y="116" font-size="18" font-family="Source Sans 3" fill="${DIM}" letter-spacing="2.4">${esc(kicker)}</text>` : ''}
   ${body}
   <line x1="88" y1="${hairY}" x2="1112" y2="${hairY}" stroke="${FAINT}" stroke-width="1.5"/>
   <text x="88" y="${footerY}" font-size="22" font-family="Source Sans 3" font-weight="600" fill="${RED}" letter-spacing="0.4">${esc(footer)}</text>
@@ -232,4 +228,4 @@ export function renderCard(opts) {
   return resvg.render().asPng()
 }
 
-export const VERSION = 'card-v2-mono-accent'
+export const VERSION = 'card-v3-no-avatar'

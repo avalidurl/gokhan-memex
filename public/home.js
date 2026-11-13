@@ -56,3 +56,33 @@ faceBtn.addEventListener("click", () => {
   localStorage.setItem("gt-face", root.classList.contains("sans") ? "sans" : "serif");
   paint();
 });
+
+(function () {
+  var bar = document.getElementById("reg-bar");
+  var btn = document.getElementById("reg-menu");
+  var nav = document.getElementById("reg-nav");
+  if (!bar || !btn || !nav) return;
+  function setOpen(open) {
+    bar.classList.toggle("is-open", open);
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+    btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    btn.textContent = open ? "Close" : "Menu";
+  }
+  setOpen(false);
+  btn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    setOpen(btn.getAttribute("aria-expanded") !== "true");
+  });
+  nav.querySelectorAll("a").forEach(function (a) {
+    a.addEventListener("click", function () { setOpen(false); });
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") setOpen(false);
+  });
+  document.addEventListener("click", function (e) {
+    if (!bar.contains(e.target)) setOpen(false);
+  });
+  window.addEventListener("resize", function () {
+    if (window.matchMedia("(min-width: 721px)").matches) setOpen(false);
+  });
+})();

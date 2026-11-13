@@ -5,14 +5,6 @@ import { sanitizeQuote, cardSvg } from '../lib/quote-card.js'
 let wasmReady
 let cache
 
-function u8b64(u8) {
-  let s = ''
-  const chunk = 0x8000
-  for (let i = 0; i < u8.length; i += chunk) {
-    s += String.fromCharCode.apply(null, u8.subarray(i, i + chunk))
-  }
-  return btoa(s)
-}
 
 async function loadBytes(env, request, path) {
   const res = await env.ASSETS.fetch(new URL(path, request.url))
@@ -28,14 +20,13 @@ async function boot(env, request) {
   }
   await wasmReady
   if (!cache) {
-    const [garamond, garamondItalic, sans, sansSemi, avatar] = await Promise.all([
+    const [garamond, garamondItalic, sans, sansSemi] = await Promise.all([
       loadBytes(env, request, '/og-lib/EBGaramond-SemiBold.ttf'),
       loadBytes(env, request, '/og-lib/EBGaramond-Italic.ttf'),
       loadBytes(env, request, '/og-lib/SourceSans3-Regular.ttf'),
       loadBytes(env, request, '/og-lib/SourceSans3-Semibold.ttf'),
-      loadBytes(env, request, '/og-lib/avatar-gray.png'),
     ])
-    cache = { garamond, garamondItalic, sans, sansSemi, avatar, avatarB64: u8b64(avatar) }
+    cache = { garamond, garamondItalic, sans, sansSemi }
   }
   return cache
 }
@@ -59,7 +50,6 @@ export async function onRequest(context) {
       kicker: 'Quote  ·  Gökhan Turhan',
       footer: `gokhanturhan.com${path}`.replace(/\/$/, ''),
       meta: 'Highlight',
-      avatarBase64: f.avatarB64,
     })
     const resvg = new Resvg(svg, {
       fitTo: { mode: 'width', value: 1200 },

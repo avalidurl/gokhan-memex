@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import PrivacyNotice from '@/components/PrivacyNotice.astro'
+import { personSchema } from '@/lib/person'
 import OfflineStatus from '@/components/OfflineStatus.astro'
 import criticalStyles from '@/styles/critical.css?inline'
 import '@/styles/globals.css'
@@ -229,37 +230,6 @@ const tableDeskVersion = createHash('sha256')
       };
     </script>
     
-    <!-- Structured Data - Person Schema -->
-    <script is:inline type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Gökhan Turhan",
-      "alternateName": "goekhan",
-      "description": "T-shaped generalist founder, researcher, and Strategic Innovation Architect operating across fintech, deep tech, competitive governance, art markets, and investment strategies. His work sits at the junction of stablecoins, real-world assets, tokenization, cryptography, AGI timelines, and global systemic challenges—turning them into high-leverage opportunities through foresight, product growth strategy, and technology expertise.",
-      "jobTitle": ["Strategic Innovation Architect", "Founder", "Researcher", "Conceptual Artist"],
-      "url": "https://gokhanturhan.com",
-      "sameAs": [
-        "https://x.com/goekhan",
-        "https://github.com/avalidurl",
-        "https://linkedin.com/in/goekhanturhan",
-        "https://warpcast.com/gokhan",
-        "https://gokhan.substack.com",
-        "https://t.me/goekhanturhan"
-      ],
-      "knowsAbout": [
-        "Stablecoins", "Real World Assets", "RWA", "Tokenization", "Cryptography", 
-        "Artificial General Intelligence", "AGI timelines", "Investment Strategy", 
-        "Fintech", "Deep Tech", "Art Markets", "Information Markets", "Sabermetrics",
-        "Competitive Governance", "Global Systemic Challenges", "Strategic Innovation",
-        "Product Growth Strategy", "Technology Expertise", "Foresight"
-      ],
-      "hasOccupation": {
-        "@type": "Occupation",
-        "name": "Strategic Innovation Architect",
-        "description": "Turning global systemic challenges into high-leverage opportunities through foresight, product growth strategy, and technology expertise across fintech and deep tech"
-      }
-    })} />
-
     <!-- Per-page head content passed via slot="head" (Article JSON-LD, custom schemas, seoKeywords meta). -->
     <slot name="head" />
     <script is:inline type="application/ld+json" set:html={JSON.stringify({
@@ -273,26 +243,12 @@ const tableDeskVersion = createHash('sha256')
           "inLanguage": "en",
           "publisher": { "@id": "https://gokhanturhan.com/#person" },
         },
-        {
-          "@type": "Person",
-          "@id": "https://gokhanturhan.com/#person",
-          "name": "Gökhan Turhan",
-          "url": "https://gokhanturhan.com/",
-          "image": "https://gokhanturhan.com/avatar-icon-512.png",
-          "jobTitle": "Full-stack builder",
-          "sameAs": [
-            "https://x.com/goekhan",
-            "https://github.com/avalidurl",
-            "https://www.linkedin.com/in/goekhanturhan/",
-            "https://scholar.google.com/citations?user=EgZE838AAAAJ",
-            "https://gokhan.substack.com/",
-          ],
-        },
+        personSchema,
       ],
     })} />
     <link rel="preload" href="/fonts/source-sans-3/source-sans-3-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/eb-garamond/eb-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/register.css?v=20261113-og" />
+    <link rel="stylesheet" href="/register.css?v=20261113-nav" />
   </head>
 
   <body class="register">
@@ -305,14 +261,15 @@ const tableDeskVersion = createHash('sha256')
           </div>
           <p class="reg-doc"><b>{docNo}</b><span> · {docRev}</span></p>
         </div>
-        <div class="reg-bar">
-          <nav aria-label="Sections">
+        <div class="reg-bar" id="reg-bar">
+          <nav id="reg-nav" aria-label="Sections">
             {nav.map((item) => (
               item.hover
                 ? <a href={item.href} class="nav-swap" aria-current={item.on ? 'page' : 'false'} aria-label={`${item.name} (${item.hover})`}><span class="sw-a" aria-hidden="true">{item.name}</span><span class="sw-b" aria-hidden="true">{item.hover}</span></a>
                 : <a href={item.href} aria-current={item.on ? 'page' : 'false'}>{item.name}</a>
             ))}
           </nav>
+          <button type="button" class="reg-menu" id="reg-menu" aria-expanded="false" aria-controls="reg-nav" aria-label="Open menu">Menu</button>
           <div class="reg-modes">
             <button type="button" id="theme" aria-pressed="false">Ink</button>
             <button type="button" id="face" aria-pressed="false">Sans</button>
@@ -385,7 +342,7 @@ const tableDeskVersion = createHash('sha256')
       });
     </script>
     <!-- Collapsible article headings (blog/journal only; no-ops elsewhere). -->
-    <script is:inline src="/register.js" defer></script>
+    <script is:inline src="/register.js?v=20261113-nav" defer></script>
     <script is:inline src={`/blog-collapse.js?v=${collapseVersion}`} defer></script>
     <script is:inline src={`/table-desk.js?v=${tableDeskVersion}`} defer></script>
   </body>
