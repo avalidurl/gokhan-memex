@@ -9,7 +9,7 @@
   },
   {
     "slug": "ubu",
-    "name": "UBU \u00b7 CLINAMEN"
+    "name": "UBU · CLINAMEN"
   },
   {
     "slug": "reclaim",
@@ -49,7 +49,7 @@
   },
   {
     "slug": "gokhan-vc",
-    "name": "G\u00f6khan Ventures"
+    "name": "Gökhan Ventures"
   },
   {
     "slug": "coins",
@@ -102,5 +102,13 @@
   {
     "slug": "agentbounty",
     "name": "AgentBounty"
+  },
+  {
+    "slug": "sp100-capex-dashboard",
+    "name": "S&P 100 CapEx"
+  },
+  {
+    "slug": "market-cap-tracker",
+    "name": "Market Cap Tracker"
   }
 ]

@@ -36,6 +36,7 @@ SKIP_PREFIX = (
     "onbots", "tape-exchange", "clankdog", "ai-ipo", "belief-systems",
     "foreguild-fao-plan", "hypersitition", "lectotype", "agentbounty",
     "turkish-art-blob", "ethereum-doomsday",
+    "sp100-capex-dashboard", "market-cap-tracker",
     "products", "product-drafts", "journal", "media", "publishing", "about",
     "cv", "archive", "_astro", "register", "home.js", "register-boot",
     "register.css", "register.js", "table-desk", "sw.js", "manifest.json",

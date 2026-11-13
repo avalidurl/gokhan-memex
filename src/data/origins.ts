@@ -29,6 +29,8 @@ export const originSlugs = [
   'hypersitition',
   'lectotype',
   'agentbounty',
+  'sp100-capex-dashboard',
+  'market-cap-tracker',
 ] as const
 
 export type OriginSlug = (typeof originSlugs)[number]
