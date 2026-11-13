@@ -43,23 +43,25 @@
   <div class="wrap">
     <table>
       <thead>
-        <tr>
+        <tr id="heads">
           <th>Company</th>
           <th>Polymarket</th>
           <th>Kalshi</th>
           <th>Manifold</th>
-          <th>Metaculus</th>
         </tr>
       </thead>
       <tbody id="rows"></tbody>
     </table>
   </div>
   <footer>
-    <p>Polymarket contracts are “will the IPO happen by this date.” Kalshi contracts are “will the company officially announce an IPO before this date.” Manifold and Metaculus ask the question in the cell. These are not the same event, and this page does not average them.</p>
-    <p>Prices refresh every six hours from the public Polymarket, Kalshi, and Manifold APIs, and from Metaculus question pages. <a href="data.json">data.json</a></p>
+    <p>Polymarket contracts are “will the IPO happen by this date.” Kalshi contracts are “will the company officially announce an IPO before this date.” Manifold asks the question in the cell. These are not the same event, and this page does not average them.</p>
+    <p>Prices refresh once a day from the public Polymarket, Kalshi, and Manifold APIs. This page loads the live <a href="https://avalidurl.github.io/ai-ipo/data.json">data.json</a> and falls back to a bundled snapshot if that request fails.</p>
   </footer>
   <script>
+    const LIVE = "https://avalidurl.github.io/ai-ipo/data.json";
+    const FALLBACK = "data.json";
     const rows = document.querySelector("#rows");
+    const heads = document.querySelector("#heads");
     const updated = document.querySelector("#updated");
 
     function text(value) {
@@ -85,24 +87,44 @@
       return td;
     }
 
-    fetch("data.json")
-      .then((res) => {
+    function load(url) {
+      return fetch(url, { cache: "no-store" }).then((res) => {
         if (!res.ok) throw new Error(res.status);
         return res.json();
-      })
-      .then((data) => {
-        const when = new Date(data.updated);
-        updated.textContent = "Updated " + when.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short", timeZone: "UTC" }) + " UTC";
-        for (const company of data.companies) {
-          const tr = document.createElement("tr");
-          const name = document.createElement("td");
-          name.className = "company";
-          name.append(text(company.name));
-          tr.append(name);
-          for (const venue of company.venues) tr.append(cell(venue));
-          rows.append(tr);
-        }
-      })
+      });
+    }
+
+    function render(data, source) {
+      const when = new Date(data.updated);
+      const whenText = when.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short", timeZone: "UTC" }) + " UTC";
+      updated.textContent = source === "live"
+        ? "Updated " + whenText
+        : "Updated " + whenText + " (bundled snapshot; live feed unavailable)";
+
+      const venues = (data.companies && data.companies[0] && data.companies[0].venues) || [];
+      heads.replaceChildren(document.createElement("th"));
+      heads.firstChild.append(text("Company"));
+      for (const venue of venues) {
+        const th = document.createElement("th");
+        th.append(text(venue.name));
+        heads.append(th);
+      }
+
+      rows.replaceChildren();
+      for (const company of data.companies) {
+        const tr = document.createElement("tr");
+        const name = document.createElement("td");
+        name.className = "company";
+        name.append(text(company.name));
+        tr.append(name);
+        for (const venue of company.venues) tr.append(cell(venue));
+        rows.append(tr);
+      }
+    }
+
+    load(LIVE)
+      .then((data) => render(data, "live"))
+      .catch(() => load(FALLBACK).then((data) => render(data, "snapshot")))
       .catch((err) => {
         updated.textContent = "Could not load forecasts (" + err.message + ").";
       });

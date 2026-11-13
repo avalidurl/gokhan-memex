@@ -80,3 +80,7 @@
 # "On Work" was published under the slug "ai̇" (a stray combining dot from its Paragraph import)
 /journal/ai%CC%87/ /journal/on-work/ 301
 /journal/ai%CC%87 /journal/on-work/ 301
+
+# NVIDIA vs crypto market-cap tracker (live tool; writeup stays at /market-cap-tracker/)
+/nvidia-vs-crypto    https://gokhan-market-cap-tracker.pages.dev/  302
+/nvidia-vs-crypto/   https://gokhan-market-cap-tracker.pages.dev/  302
