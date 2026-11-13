@@ -19,7 +19,6 @@ const groupLabel: Record<string, string> = { family: 'Family', domain: 'Domain',
 <BaseLayout
   title={`${b.label} · Tag`}
   description={`Everything tagged ${b.label}: ${n} item${n === 1 ? '' : 's'} across products, journal posts, drafts, tools and APIs.`}
-  robots="noindex, follow"
 >
   <div class="es">
     <PageHead crumbs={[{ label: 'Archive', href: '/archive/' }, { label: 'Tags', href: '/archive/tags/' }, { label: b.def ? groupLabel[b.def.group] : 'Journal tag' }]} title={b.label} lead={b.def?.note} count={`${n} item${n === 1 ? '' : 's'}`} />

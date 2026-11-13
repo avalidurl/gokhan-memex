@@ -41,7 +41,6 @@ const sortedYears = Array.from(postsByYear.keys()).sort((a, b) => b - a)
 <BaseLayout
   title="Archive"
   description="Browse all journal posts by year, category and tag."
-  robots="noindex, follow"
 >
   <div class="es">
     <PageHead crumbs={[{ label: 'Journal', href: '/journal/' }, { label: 'Archive' }]} title="Archive" lead={`${allPosts.length} posts across ${sortedYears.length} years, ${sortedCategories.length} categories and ${sortedTags.length} tags.`} />

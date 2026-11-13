@@ -1,9 +1,6 @@
 # robots.txt for https://gokhanturhan.com/ishtar/
 User-agent: *
-Allow: /ishtar/
-Disallow: /ishtar/docs/RSC/
-Disallow: /ishtar/docs/404.d/
-Disallow: /ishtar/docs/_root.d/
+Allow: /
 
 Sitemap: https://gokhanturhan.com/ishtar/sitemap.xml
 Sitemap: https://gokhanturhan.com/sitemap-index.xml
