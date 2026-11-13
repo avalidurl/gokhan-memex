@@ -294,7 +294,12 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
     />
 
     <nav class="cx lk-nav" aria-label="On this page">
-      <div class="cx-h"><b>On this page</b><span>jump to a section</span><em>{String(nav.length).padStart(2, '0')}</em></div>
+      <div class="cx-h">
+        <b>On this page</b>
+        <span>jump to a section</span>
+        <button type="button" class="lk-all" id="lk-all">Collapse all</button>
+        <em>{String(nav.length).padStart(2, '0')}</em>
+      </div>
       <div class="lk-toc">
         {nav.map((item) => (
           <a href={`#${item.id}`}>{item.title}</a>
@@ -312,8 +317,7 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
             <div id="decentralized-social" class="lk-alias" aria-hidden="true"></div>
           </>
         )}
-        <summary class="lk-sum-sr">{s.title}</summary>
-        <div class="cx-h">
+        <summary class="cx-h lk-sum">
           <b id={`${s.id}-heading`}><a href={`/links/#${s.id}`} class="lk-head">{s.title}</a></b>
           {s.hint ? <span>{s.hint}</span> : null}
           <a class="lk-copy" href={`/links/#${s.id}`} aria-label={`Copy link to ${s.title}`} title={`Copy link to ${s.title}`}>
@@ -321,8 +325,7 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
             <svg class="lk-ico lk-check" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/></svg>
           </a>
           <em>{String(s.groups.reduce((n, g) => n + g.handles.length, 0)).padStart(2, '0')}</em>
-          <button type="button" class="lk-fold" aria-expanded="true" aria-label={`Collapse ${s.title}`}></button>
-        </div>
+        </summary>
         {s.groups.map((g) => (
           <div class:list={["cx-r", { "lk-name": g.name === "ENS" }]}>
             <span>{g.name}{g.tag ? <i class="lk-tag">{g.tag}</i> : null}</span>
@@ -343,8 +346,7 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
     ))}
 
     <details class="cx lk-sec fold" id="wallets" open>
-      <summary class="lk-sum-sr">Wallets</summary>
-      <div class="cx-h">
+      <summary class="cx-h lk-sum">
         <b id="wallets-heading"><a href="/links/#wallets" class="lk-head">Wallets</a></b>
         <span>addresses published on this site and on his public profiles, grouped by network — nothing invented</span>
         <a class="lk-copy" href="/links/#wallets" aria-label="Copy link to Wallets" title="Copy link to Wallets">
@@ -352,12 +354,10 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
           <svg class="lk-ico lk-check" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/></svg>
         </a>
         <em>{String(walletCount).padStart(2, '0')}</em>
-        <button type="button" class="lk-fold" aria-expanded="true" aria-label="Collapse Wallets"></button>
-      </div>
+      </summary>
       {walletNetworks.map((net) => (
         <details class="cx lk-net fold" id={net.id} open>
-          <summary class="lk-sum-sr">{net.title}</summary>
-          <div class="cx-h lk-sub">
+          <summary class="cx-h lk-sum lk-sub">
             <b><a href={`/links/#${net.id}`} class="lk-head">{net.title}</a></b>
             {net.hint ? <span>{net.hint}</span> : null}
             <a class="lk-copy" href={`/links/#${net.id}`} aria-label={`Copy link to ${net.title}`} title={`Copy link to ${net.title}`}>
@@ -365,8 +365,7 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
               <svg class="lk-ico lk-check" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/></svg>
             </a>
             <em>{String(net.items.length).padStart(2, '0')}</em>
-            <button type="button" class="lk-fold" aria-expanded="true" aria-label={`Collapse ${net.title}`}></button>
-          </div>
+          </summary>
           {net.items.map((p) => (
             p.href ? (
               <div class="cx-r lk-name">
@@ -421,33 +420,105 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
   }
   .lk-alias { scroll-margin-top: 5.5rem; height: 0; }
   .lk-head:hover { text-decoration: underline; text-underline-offset: 2px; }
+  /* Plain sitemap-style headers: no inverted black label, red triangle, count. */
   details.lk-sec.fold,
-  details.lk-net.fold { position: relative; }
-  details.lk-sec.fold > summary.lk-sum-sr,
-  details.lk-net.fold > summary.lk-sum-sr {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    clip-path: inset(50%);
+  details.lk-net.fold {
+    position: relative;
     border: 0;
-    white-space: nowrap;
-    pointer-events: none;
+    background: transparent;
+    margin: 0;
+    border-top: 1px solid var(--ink);
   }
-  details.lk-sec.fold > summary.lk-sum-sr::before,
-  details.lk-sec.fold > summary.lk-sum-sr::after,
-  details.lk-net.fold > summary.lk-sum-sr::before,
-  details.lk-net.fold > summary.lk-sum-sr::after {
-    content: none !important;
-    display: none !important;
+  details.lk-sec.fold > summary.lk-sum,
+  details.lk-net.fold > summary.lk-sum {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-start;
+    gap: 0.65rem 1rem;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    border: 0;
+    background: transparent;
+    padding: 0.85rem 0;
+    font: inherit;
+    letter-spacing: 0;
+    text-transform: none;
   }
-  details.lk-sec.fold:not([open]) > .cx-h,
-  details.lk-net.fold:not([open]) > .cx-h { border-bottom: 0; }
-  details.lk-sec.fold > .cx-h,
-  details.lk-net.fold > .cx-h { cursor: pointer; }
+  details.lk-sec.fold > summary.lk-sum::-webkit-details-marker,
+  details.lk-sec.fold > summary.lk-sum::marker,
+  details.lk-net.fold > summary.lk-sum::-webkit-details-marker,
+  details.lk-net.fold > summary.lk-sum::marker { display: none; content: none; }
+  details.lk-sec.fold > summary.lk-sum::before,
+  details.lk-net.fold > summary.lk-sum::before {
+    content: "▸";
+    display: inline-block;
+    width: 1.1em;
+    flex: none;
+    padding: 0;
+    color: var(--red);
+    font-family: var(--sans);
+    font-weight: 400;
+    font-size: 1.05rem;
+    line-height: 1;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  details.lk-sec.fold[open] > summary.lk-sum::before,
+  details.lk-net.fold[open] > summary.lk-sum::before { content: "▾"; }
+  details.lk-sec.fold > summary.lk-sum b,
+  details.lk-net.fold > summary.lk-sum b {
+    background: transparent;
+    color: var(--ink);
+    padding: 0;
+    border: 0;
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+    text-transform: none;
+  }
+  details.lk-sec.fold > summary.lk-sum span,
+  details.lk-net.fold > summary.lk-sum span {
+    padding: 0;
+    color: var(--dim);
+    font-family: var(--read);
+    font-size: 0.92rem;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  details.lk-sec.fold > summary.lk-sum em,
+  details.lk-net.fold > summary.lk-sum em {
+    margin-left: auto;
+    padding: 0;
+    border: 0;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    font-style: normal;
+    font-weight: 500;
+    color: var(--ikb);
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  details.lk-net.fold { margin-left: 1.15rem; border-top: 1px solid var(--hair); }
+  details.lk-sec.fold:not([open]) > summary.lk-sum,
+  details.lk-net.fold:not([open]) > summary.lk-sum { border-bottom: 0; }
+  .lk-all {
+    appearance: none;
+    margin-left: auto;
+    align-self: center;
+    padding: 0.35rem 0.55rem;
+    border: 0;
+    background: transparent;
+    color: var(--ikb);
+    font: 500 11px/1 var(--mono);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    min-height: 32px;
+  }
+  .lk-all:hover { text-decoration: underline; text-underline-offset: 2px; }
+  .lk-all:focus-visible { outline: 2px solid var(--ikb); outline-offset: 2px; }
   body.register main a.lk-copy,
   a.lk-copy {
     all: unset;
@@ -476,51 +547,10 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
   .lk-copy.is-copied { color: var(--ikb); }
   .lk-copy.is-copied .lk-chain { display: none; }
   .lk-copy.is-copied .lk-check { display: block; }
-  .cx-h em { margin-left: 0; }
-  .lk-fold {
-    box-sizing: border-box;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex: none;
-    align-self: center;
-    width: 24px;
-    height: 24px;
-    min-width: 24px;
-    min-height: 24px;
-    margin: 4px 6px 4px 6px;
-    padding: 0;
-    border: 1px solid var(--ink);
-    border-radius: 0;
-    background: var(--cx-bg);
-    color: var(--ink);
-    font: 700 16px/1 var(--mono);
-    letter-spacing: 0;
-    text-transform: none;
-    cursor: pointer;
-    transition: background-color .15s ease, color .15s ease, border-color .15s ease;
-  }
-  .lk-fold::before { content: "−"; }
-  details:not([open]) > .cx-h > .lk-fold::before { content: "+"; }
-  details.lk-sec.fold > .cx-h:hover .lk-fold,
-  details.lk-net.fold > .cx-h:hover .lk-fold {
-    background: var(--cx-bg);
-    border-color: var(--ink);
-    color: var(--ink);
-  }
-  details.lk-sec.fold > .cx-h:hover,
-  details.lk-net.fold > .cx-h:hover { background-color: transparent; }
-  details.lk-sec.fold > .cx-h:hover > b,
-  details.lk-net.fold > .cx-h:hover > b { text-decoration: none; }
-  .lk-fold:hover,
-  details.lk-sec.fold > .cx-h:hover .lk-fold:hover,
-  details.lk-net.fold > .cx-h:hover .lk-fold:hover {
-    background: var(--red);
-    border-color: var(--red);
-    color: var(--paper);
-  }
-  .lk-fold:focus-visible { outline: 2px solid var(--ikb); outline-offset: 2px; }
-  details.lk-net.fold { border: 0; background: transparent; margin: 0; }
+  details.lk-sec.fold > summary.lk-sum .lk-copy,
+  details.lk-net.fold > summary.lk-sum .lk-copy { margin: 0 0 0 auto; }
+  details.lk-sec.fold > summary.lk-sum:has(.lk-copy) em,
+  details.lk-net.fold > summary.lk-sum:has(.lk-copy) em { margin-left: 0; }
   .lk { display: flex; flex-direction: column; gap: 2px; }
   .lk-i { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 6px; }
   .lk-i i { margin-left: 0; }
@@ -537,41 +567,28 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
     .cx-r.lk-w { grid-template-columns: 1fr; }
     .cx-r.lk-name { grid-template-columns: auto 1fr !important; align-items: baseline; }
     .cx-r.lk-name .lk, .cx-r.lk-name a { white-space: nowrap; }
-    details.lk-sec > .cx-h,
-    details.lk-net > .cx-h {
+    details.lk-sec > summary.lk-sum,
+    details.lk-net > summary.lk-sum {
       flex-wrap: nowrap;
       align-items: center;
-      overflow: hidden;
     }
-    details.lk-sec > .cx-h > span,
-    details.lk-net > .cx-h > span { display: none; }
-    details.lk-sec > .cx-h > b,
-    details.lk-net > .cx-h > b {
+    details.lk-sec > summary.lk-sum > span,
+    details.lk-net > summary.lk-sum > span { display: none; }
+    details.lk-sec > summary.lk-sum > b,
+    details.lk-net > summary.lk-sum > b {
       flex: 1 1 auto;
       min-width: 0;
-      font-size: 10px;
-      letter-spacing: 0.02em;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-    details.lk-sec > .cx-h .lk-copy,
-    details.lk-net > .cx-h .lk-copy {
-      margin: 0;
-      flex: none;
-    }
-    details.lk-sec > .cx-h em,
-    details.lk-net > .cx-h em {
-      flex: none;
-      margin-left: 0;
-      padding-left: 7px;
-      padding-right: 7px;
-    }
-    details.lk-sec > .cx-h .lk-fold,
-    details.lk-net > .cx-h .lk-fold {
-      flex: none;
-      margin: 4px 6px 4px 0;
-    }
+    details.lk-sec > summary.lk-sum .lk-copy,
+    details.lk-net > summary.lk-sum .lk-copy { margin: 0; flex: none; }
+    details.lk-sec > summary.lk-sum em,
+    details.lk-net > summary.lk-sum em { flex: none; margin-left: 0; padding: 0 0 0 7px; }
+    .lk-nav .cx-h { flex-wrap: wrap; }
+    .lk-nav .cx-h > span { display: none; }
+    .lk-all { margin-left: auto; }
   }
 </style>
 
@@ -611,34 +628,40 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
     })
   })
 
-  function syncFold(d: HTMLDetailsElement) {
-    const btn = d.querySelector<HTMLButtonElement>(':scope > .cx-h > .lk-fold')
-    if (!btn) return
-    const title = d.querySelector(':scope > .cx-h .lk-head')?.textContent?.trim() || 'section'
-    btn.setAttribute('aria-expanded', String(d.open))
-    btn.setAttribute('aria-label', `${d.open ? 'Collapse' : 'Expand'} ${title}`)
+  const mq = window.matchMedia('(max-width: 720px)')
+  const folds = () => document.querySelectorAll<HTMLDetailsElement>('details.lk-sec, details.lk-net')
+  const allBtn = document.getElementById('lk-all') as HTMLButtonElement | null
+
+  function anyOpen() {
+    return Array.from(folds()).some((d) => d.open)
+  }
+
+  function syncAll() {
+    if (!allBtn) return
+    const open = anyOpen()
+    allBtn.textContent = open ? 'Collapse all' : 'Expand all'
+    allBtn.setAttribute('aria-expanded', String(open))
   }
 
   document.querySelectorAll<HTMLDetailsElement>('details.lk-sec, details.lk-net').forEach((d) => {
-    syncFold(d)
-    d.addEventListener('toggle', () => syncFold(d))
-    const head = d.querySelector<HTMLElement>(':scope > .cx-h')
-    const fold = d.querySelector<HTMLButtonElement>(':scope > .cx-h > .lk-fold')
-    fold?.addEventListener('click', (event) => {
-      event.preventDefault()
-      event.stopPropagation()
-      d.open = !d.open
-    })
+    const head = d.querySelector<HTMLElement>(':scope > summary.lk-sum')
     head?.addEventListener('click', (event) => {
       const t = event.target
       if (!(t instanceof Element)) return
-      if (t.closest('a, button, .cr-copy')) return
-      d.open = !d.open
+      // Links and copy keep their own action; don't also toggle the section.
+      if (t.closest('a, button, .cr-copy')) event.preventDefault()
     })
+    d.addEventListener('toggle', syncAll)
   })
 
-  const mq = window.matchMedia('(max-width: 720px)')
-  const folds = () => document.querySelectorAll<HTMLDetailsElement>('details.lk-sec, details.lk-net')
+  allBtn?.addEventListener('click', (event) => {
+    event.preventDefault()
+    event.stopPropagation()
+    const label = (allBtn.textContent || '').trim().toLowerCase()
+    const shouldOpen = label.startsWith('expand') || !anyOpen()
+    folds().forEach((d) => { d.open = shouldOpen })
+    syncAll()
+  })
 
   function openForHash(hash: string) {
     const id = decodeURIComponent((hash || '').replace(/^#/, ''))
@@ -653,23 +676,24 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
     if (outer instanceof HTMLDetailsElement) outer.open = true
   }
 
-  function applyDefaults(initial: boolean) {
-    if (!mq.matches) {
-      folds().forEach((d) => { d.open = true })
-    } else if (initial) {
-      folds().forEach((d) => { d.open = false })
-    }
+  function applyDefaults() {
+    // Desktop starts open, mobile starts collapsed. Later viewport changes
+    // must not reopen (or close) sections the reader already toggled.
+    if (!mq.matches) folds().forEach((d) => { d.open = true })
+    else folds().forEach((d) => { d.open = false })
     openForHash(location.hash)
   }
 
-  applyDefaults(true)
-  mq.addEventListener('change', () => applyDefaults(false))
-  window.addEventListener('hashchange', () => openForHash(location.hash))
+  applyDefaults()
+  syncAll()
+  mq.addEventListener('change', () => { openForHash(location.hash); syncAll() })
+  window.addEventListener('hashchange', () => { openForHash(location.hash); syncAll() })
   document.querySelectorAll<HTMLAnchorElement>('.lk-toc a, a.lk-head').forEach((a) => {
     a.addEventListener('click', () => {
       const href = a.getAttribute('href') || ''
       const hash = href.includes('#') ? `#${href.split('#').pop()}` : href
       if (hash.startsWith('#')) openForHash(hash)
+      syncAll()
     })
   })
 </script>
