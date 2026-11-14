@@ -18,6 +18,7 @@ const DIST = join(REPO, 'dist');
 const ORIGINS = join(REPO, 'origins');
 const SITE = 'https://gokhanturhan.com';
 const CONTACT = 'contact@gokhan.vc';
+const CONTACT_NOTE = `<!-- Contact: ${CONTACT} -->`;
 
 const SLUGS = ['accumulator', 'agentbounty', 'curb', 'gokhan-vc', 'ishtar', 'numetal'];
 
@@ -142,7 +143,33 @@ function locsFromDistSitemaps(slug) {
 
 function urlset(locs) {
   const body = locs.map((loc) => `  <url><loc>${esc(loc)}</loc></url>`).join('\n');
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`;
+  return `<?xml version="1.0" encoding="UTF-8"?>\n${CONTACT_NOTE}\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`;
+}
+
+function withContact(xml, label) {
+  let out = xml;
+  if (!out.includes(CONTACT_NOTE)) {
+    out = out.includes('?>') ? out.replace('?>', `?>\n${CONTACT_NOTE}`) : `${CONTACT_NOTE}\n${out}`;
+  }
+  assertContact(out, label);
+  if (!out.includes(CONTACT)) {
+    console.error(`${label} is missing ${CONTACT}`);
+    process.exit(1);
+  }
+  return out;
+}
+
+function stampSitemaps(dir) {
+  for (const name of readdirSync(dir)) {
+    const path = join(dir, name);
+    if (statSync(path).isDirectory()) {
+      stampSitemaps(path);
+      continue;
+    }
+    if (name !== 'sitemap.xml' && name !== 'sitemap-index.xml' && !/^sitemap-\d+\.xml$/.test(name)) continue;
+    const stamped = withContact(readFileSync(path, 'utf8'), relative(DIST, path));
+    writeFileSync(path, stamped);
+  }
 }
 
 function assertContact(xml, label) {
@@ -166,8 +193,7 @@ for (const slug of SLUGS) {
     console.error(`no URLs for /${slug}/`);
     process.exit(1);
   }
-  const xml = urlset(locs);
-  assertContact(xml, `${slug}/sitemap.xml`);
+  const xml = withContact(urlset(locs), `${slug}/sitemap.xml`);
   const dest = join(DIST, slug, 'sitemap.xml');
   mkdirSync(dirname(dest), { recursive: true });
   writeFileSync(dest, xml);
@@ -189,7 +215,8 @@ for (const { slug } of written) {
 }
 if (additions.length) {
   index = index.replace('</sitemapindex>', `${additions.join('')}</sitemapindex>`);
-  writeFileSync(indexPath, index);
 }
-assertContact(index, 'sitemap-index.xml');
+writeFileSync(indexPath, withContact(index, 'sitemap-index.xml'));
+stampSitemaps(DIST);
 console.log(`sitemap-index.xml lists ${have.size + additions.length} sitemap files`);
+console.log(`contact on every sitemap: ${CONTACT}`);
