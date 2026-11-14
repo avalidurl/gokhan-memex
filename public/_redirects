@@ -70,6 +70,10 @@
 /curb/terms /curb/legal/terms/ 301
 /curb/terms/ /curb/legal/terms/ 301
 /curb/feed.xml /rss.xml 301
+/numetal/rss.xml /numetal/feed.xml 301
+/gokhan-vc/rss.xml /gokhan-vc/feed.xml 301
+/ishtar/feed.xml /ishtar/rss.xml 301
+/agentbounty/rss.xml /agentbounty/feed.xml 301
 
 # Canonical sitemap
 /sitemap.xml /sitemap-index.xml 301

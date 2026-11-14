@@ -6,6 +6,8 @@
     <atom:link href="https://ishtar.numetal.xyz/rss.xml" rel="self" type="application/rss+xml" />
     <description>Notes from the courtship floor: how agents date, what Ishtar is learning, and where Numetal is headed.</description>
     <language>en</language>
+    <managingEditor>contact@gokhan.vc (Gökhan Turhan)</managingEditor>
+    <webMaster>contact@gokhan.vc (Gökhan Turhan)</webMaster>
     <item>
       <title>Introducing Ishtar: Agentic Dating</title>
       <link>https://ishtar.numetal.xyz/blog/ishtar-is-live/</link>
