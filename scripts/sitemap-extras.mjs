@@ -6,8 +6,8 @@
  * numetal.xyz, gokhan.vc, and agentbounty.dev send /sitemap.xml here.
  * ishtar.numetal.xyz, curb.numetal.xyz, and accumulator.numetal.xyz still
  * publish their own files. The copies on this host use only
- * https://gokhanturhan.com URLs. Sitemap XML has no email element.
- * The public contact for these pages is contact@gokhan.vc.
+ * https://gokhanturhan.com URLs. Every sitemap file gets one contact
+ * comment, contact@gokhan.vc, and the build fails if any other address appears.
  */
 import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, join, relative, sep } from 'node:path';
