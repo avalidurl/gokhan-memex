@@ -60,8 +60,8 @@ function core(): string[] {
     '',
     '## APIs',
     '',
-    `- [API index](${SITE}/api/): documentation for the APIs the products ran (documentation only; do not pay or call retired endpoints). Register: ${SITE}/api/apis.json`,
-    ...apis.map((a) => `- [${a.name}](${SITE}/api/${a.slug}/): ${a.kind}; ${a.status}`),
+    `- [API index](https://api.gokhanturhan.com/): documentation only, grouped by former domain (numetal.xyz, gokhan.vc). Purpose tags: reading, publishing, payments, identity, agents, status, files. Protocol tags: x402, mpp, mcp, openapi, rss, skill, hmac. Do not pay this host. Register: https://api.gokhanturhan.com/apis.json`,
+    ...apis.map((a) => `- [${a.name}](https://api.gokhanturhan.com/${a.slug}/): ${a.domain}; ${a.tags.join(', ')}; ${a.protocols.length ? a.protocols.join(', ') : 'no protocol tag'}; ${a.status}`),
     '',
     '## Tools',
     '',
@@ -73,6 +73,8 @@ function core(): string[] {
     `- [robots.txt](${SITE}/robots.txt)`,
     `- [RSS](${SITE}/rss.xml): the one feed for this site (journal)`,
     `- [llms-full.txt](${SITE}/llms-full.txt): this file plus every journal post and the full CV`,
+    `- [Agent card](${SITE}/.well-known/agent.json)`,
+    `- [API index](https://api.gokhanturhan.com/)`,
     '',
   ]
 }

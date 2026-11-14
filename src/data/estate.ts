@@ -391,25 +391,34 @@ export const tools: Tool[] = [
 ]
 
 // ---- APIs (documented-only index at api.gokhanturhan.com) ----
-export interface ApiEntry { slug: string; name: string; former: string; kind: string; status: 'live' | 'degraded' | 'retired' }
-export const API_INDEX = '/api' // preview copy; published home is api.gokhanturhan.com
+export interface ApiEntry {
+  slug: string
+  name: string
+  former: string
+  domain: 'numetal.xyz' | 'gokhan.vc'
+  kind: string
+  status: 'live' | 'degraded' | 'retired'
+  tags: string[]
+  protocols: string[]
+}
+export const API_INDEX = '/api' // same files as https://api.gokhanturhan.com/
 export const apis: ApiEntry[] = [
-  { slug: 'feedhub', name: 'Estate gateway (feedhub)', former: 'api.gokhan.vc', kind: 'REST · OpenAPI · RSS/JSON Feed', status: 'retired' },
-  { slug: 'newsletter', name: 'Newsletter (email + XMTP)', former: 'api.gokhan.vc/newsletter', kind: 'REST', status: 'retired' },
-  { slug: 'ishtar', name: 'Ishtar API', former: 'api.ishtar.numetal.xyz', kind: 'REST · OpenAPI · MCP · x402', status: 'degraded' },
-  { slug: 'curb', name: 'CURB clearing API', former: 'curb.numetal.xyz', kind: 'REST · OpenAPI · MCP · x402', status: 'live' },
-  { slug: 'curb-agents', name: 'CURB harness agents', former: 'harness.curb.numetal.xyz', kind: 'HTTP agents', status: 'live' },
-  { slug: 'launch', name: 'Launch router', former: 'launch.numetal.xyz', kind: 'REST · OpenAPI · MCP · x402 · MPP', status: 'live' },
-  { slug: 'numetal-fees', name: 'Numetal fees and burns', former: 'numetal.xyz/fees', kind: 'JSON', status: 'degraded' },
-  { slug: 'status', name: 'Numetal status', former: 'status.numetal.xyz', kind: 'JSON · HTML', status: 'degraded' },
-  { slug: 'plaintext', name: 'Plaintext board', former: 'plaintext.numetal.xyz', kind: 'REST · MCP · RSS', status: 'degraded' },
-  { slug: 'accumulator', name: 'Accumulator waitlist + wishlist', former: 'accumulator.numetal.xyz', kind: 'JSON', status: 'live' },
-  { slug: 'jesus', name: 'Personal Jesus waitlist', former: 'jesus.numetal.xyz', kind: 'form', status: 'degraded' },
-  { slug: 'llmcraft', name: 'LLMCraft waitlist', former: 'llmcraft.numetal.xyz', kind: 'form', status: 'degraded' },
-  { slug: 'apex', name: 'APEX Protocol', former: 'apex.numetal.xyz', kind: 'llms.txt', status: 'live' },
-  { slug: 'xmtp', name: 'XMTP bot', former: 'xmtp-bot.gokhan.vc', kind: 'bot', status: 'retired' },
-  { slug: 'x402-live', name: 'x402 live panel', former: 'gokhan.vc/x402-live', kind: 'HTML/JSON', status: 'retired' },
-  { slug: 'assets', name: 'Asset host', former: 'assets.numetal.xyz', kind: 'static files', status: 'retired' },
+  { slug: 'feedhub', name: 'Estate gateway (feedhub)', former: 'api.gokhan.vc', domain: 'gokhan.vc', kind: 'REST · OpenAPI · RSS/JSON Feed', status: 'retired', tags: ['reading', 'publishing', 'payments', 'agents'], protocols: ['x402', 'openapi', 'rss'] },
+  { slug: 'newsletter', name: 'Newsletter (email + XMTP)', former: 'api.gokhan.vc/newsletter', domain: 'gokhan.vc', kind: 'REST', status: 'retired', tags: ['publishing', 'identity'], protocols: ['hmac'] },
+  { slug: 'ishtar', name: 'Ishtar API', former: 'api.ishtar.numetal.xyz', domain: 'numetal.xyz', kind: 'REST · OpenAPI · MCP · x402', status: 'degraded', tags: ['reading', 'publishing', 'payments', 'identity', 'agents'], protocols: ['x402', 'mcp', 'openapi', 'skill'] },
+  { slug: 'curb', name: 'CURB clearing API', former: 'curb.numetal.xyz', domain: 'numetal.xyz', kind: 'REST · OpenAPI · MCP · x402', status: 'live', tags: ['payments', 'reading', 'agents'], protocols: ['x402', 'mcp', 'openapi', 'skill'] },
+  { slug: 'curb-agents', name: 'CURB harness agents', former: 'harness.curb.numetal.xyz', domain: 'numetal.xyz', kind: 'HTTP agents', status: 'live', tags: ['agents', 'payments'], protocols: [] },
+  { slug: 'launch', name: 'Launch router', former: 'launch.numetal.xyz', domain: 'numetal.xyz', kind: 'REST · OpenAPI · MCP · x402 · MPP', status: 'live', tags: ['publishing', 'payments', 'agents'], protocols: ['x402', 'mpp', 'mcp', 'openapi'] },
+  { slug: 'numetal-fees', name: 'Numetal fees and burns', former: 'numetal.xyz/fees', domain: 'numetal.xyz', kind: 'JSON', status: 'live', tags: ['reading', 'status'], protocols: [] },
+  { slug: 'status', name: 'Numetal status', former: 'status.numetal.xyz', domain: 'numetal.xyz', kind: 'JSON · HTML', status: 'degraded', tags: ['status', 'reading'], protocols: [] },
+  { slug: 'plaintext', name: 'Plaintext board', former: 'plaintext.numetal.xyz', domain: 'numetal.xyz', kind: 'REST · MCP · RSS', status: 'live', tags: ['reading', 'publishing', 'payments', 'agents'], protocols: ['mcp', 'skill', 'rss'] },
+  { slug: 'accumulator', name: 'Accumulator waitlist + wishlist', former: 'accumulator.numetal.xyz', domain: 'numetal.xyz', kind: 'JSON', status: 'live', tags: ['identity', 'reading'], protocols: [] },
+  { slug: 'jesus', name: 'Personal Jesus waitlist', former: 'jesus.numetal.xyz', domain: 'numetal.xyz', kind: 'form', status: 'degraded', tags: ['identity'], protocols: [] },
+  { slug: 'llmcraft', name: 'LLMCraft waitlist', former: 'llmcraft.numetal.xyz', domain: 'numetal.xyz', kind: 'form', status: 'degraded', tags: ['identity'], protocols: [] },
+  { slug: 'apex', name: 'APEX Protocol', former: 'apex.numetal.xyz', domain: 'numetal.xyz', kind: 'llms.txt', status: 'live', tags: ['agents', 'reading'], protocols: [] },
+  { slug: 'xmtp', name: 'XMTP bot', former: 'xmtp-bot.gokhan.vc', domain: 'gokhan.vc', kind: 'bot', status: 'retired', tags: ['agents'], protocols: [] },
+  { slug: 'x402-live', name: 'x402 live panel', former: 'gokhan.vc/x402-live', domain: 'gokhan.vc', kind: 'HTML/JSON', status: 'retired', tags: ['payments', 'reading'], protocols: ['x402'] },
+  { slug: 'assets', name: 'Asset host', former: 'assets.numetal.xyz', domain: 'numetal.xyz', kind: 'static files', status: 'retired', tags: ['files'], protocols: [] },
 ]
 
 // ---- Tag taxonomy, shared by products, journal posts, drafts, tools and APIs ----
@@ -480,6 +489,13 @@ export const TAXONOMY: Record<string, TagDef> = {
   concept: { label: 'Concept', group: 'kind', note: 'An idea filed before it ships.' },
   plan: { label: 'Plan', group: 'kind', note: 'A plan or a proposal document.' },
   publishing: { label: 'Publishing', group: 'kind', note: 'Books, papers and published works.' },
+  reading: { label: 'Reading', group: 'kind', note: 'A public read of posts, stats, prices or a board.' },
+  payments: { label: 'Payments', group: 'rail', note: 'Takes or records a payment.' },
+  status: { label: 'Status', group: 'kind', note: 'Health and uptime.' },
+  files: { label: 'Files', group: 'kind', note: 'Static files.' },
+  openapi: { label: 'OpenAPI', group: 'kind', note: 'An OpenAPI description.' },
+  skill: { label: 'Skill', group: 'kind', note: 'An agent skill file.' },
+  hmac: { label: 'HMAC', group: 'rail', note: 'Links signed with HMAC.' },
   book: { label: 'Book', group: 'kind', note: 'E-books with their own editions.' },
   academic: { label: 'Academic', group: 'kind', note: 'Papers, chapters and theses.' },
   experimental: { label: 'Experimental', group: 'kind', note: 'Experimental works: sound, text and form.' },
@@ -528,8 +544,20 @@ export const toolTags: Record<string, string[]> = {
   'EA Funding Cartography': ['research', 'dashboard'], 'S&P 100 CapEx (gated build)': ['research', 'markets'],
 }
 export const apiTags: Record<string, string[]> = {
-  feedhub: ['gokhan-ventures', 'api', 'rss', 'x402'], newsletter: ['gokhan-ventures', 'api', 'newsletter'], ishtar: ['ishtar', 'api', 'mcp', 'x402', 'mpp', 'agents'],
-  curb: ['curb', 'api', 'mcp', 'x402', 'inference'], 'curb-agents': ['curb', 'agents'], launch: ['numetal', 'launchpads', 'api', 'mcp', 'x402', 'mpp'],
-  'numetal-fees': ['numetal', 'api', 'token'], status: ['numetal', 'infrastructure'], plaintext: ['plaintext', 'api', 'mcp'], accumulator: ['numetal', 'api', 'waitlist'],
-  jesus: ['numetal', 'waitlist'], llmcraft: ['numetal', 'waitlist'], apex: ['numetal', 'agents', 'games'], xmtp: ['gokhan-ventures', 'newsletter'], 'x402-live': ['gokhan-ventures', 'x402', 'dashboard'], assets: ['numetal', 'infrastructure'],
+  feedhub: ['gokhan-ventures', 'api', 'rss', 'x402', 'openapi', 'reading', 'publishing', 'payments', 'agents'],
+  newsletter: ['gokhan-ventures', 'api', 'newsletter', 'publishing', 'identity', 'hmac'],
+  ishtar: ['ishtar', 'api', 'mcp', 'x402', 'mpp', 'openapi', 'skill', 'agents', 'reading', 'publishing', 'payments', 'identity'],
+  curb: ['curb', 'api', 'mcp', 'x402', 'openapi', 'skill', 'inference', 'payments', 'reading', 'agents'],
+  'curb-agents': ['curb', 'agents', 'payments'],
+  launch: ['numetal', 'launchpads', 'api', 'mcp', 'x402', 'mpp', 'openapi', 'publishing', 'payments', 'agents'],
+  'numetal-fees': ['numetal', 'api', 'token', 'reading', 'status'],
+  status: ['numetal', 'infrastructure', 'status', 'reading'],
+  plaintext: ['plaintext', 'api', 'mcp', 'skill', 'rss', 'reading', 'publishing', 'payments', 'agents'],
+  accumulator: ['numetal', 'api', 'waitlist', 'identity', 'reading'],
+  jesus: ['numetal', 'waitlist', 'identity'],
+  llmcraft: ['numetal', 'waitlist', 'identity'],
+  apex: ['numetal', 'agents', 'games', 'reading'],
+  xmtp: ['gokhan-ventures', 'newsletter', 'agents'],
+  'x402-live': ['gokhan-ventures', 'x402', 'dashboard', 'payments', 'reading'],
+  assets: ['numetal', 'infrastructure', 'files'],
 }

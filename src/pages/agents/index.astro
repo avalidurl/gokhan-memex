@@ -1,8 +1,61 @@
 ---
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PageHead from '@/components/PageHead.astro'
 
-const machine = "{\n  \"api_index\": \"https://api.gokhanturhan.com/apis.json\",\n  \"discovery\": {\n    \"index\": \"https://api.gokhanturhan.com/\",\n    \"openapi\": \"https://api.gokhanturhan.com/openapi.json\",\n    \"llms\": \"https://api.gokhanturhan.com/llms.txt\",\n    \"site_llms\": \"https://gokhanturhan.com/llms.txt\",\n    \"cv_md\": \"https://gokhanturhan.com/cv.md\",\n    \"feed_rss\": \"https://gokhanturhan.com/rss.xml\"\n  },\n  \"apis\": [\n    {\"slug\": \"feedhub\", \"name\": \"Estate gateway (feedhub)\", \"docs\": \"https://api.gokhanturhan.com/feedhub/\"},\n    {\"slug\": \"newsletter\", \"name\": \"Newsletter (email + XMTP)\", \"docs\": \"https://api.gokhanturhan.com/newsletter/\"},\n    {\"slug\": \"ishtar\", \"name\": \"Ishtar API\", \"docs\": \"https://api.gokhanturhan.com/ishtar/\"},\n    {\"slug\": \"curb\", \"name\": \"CURB clearing API\", \"docs\": \"https://api.gokhanturhan.com/curb/\"},\n    {\"slug\": \"curb-agents\", \"name\": \"CURB harness agents\", \"docs\": \"https://api.gokhanturhan.com/curb-agents/\"},\n    {\"slug\": \"launch\", \"name\": \"Launch router\", \"docs\": \"https://api.gokhanturhan.com/launch/\"},\n    {\"slug\": \"numetal-fees\", \"name\": \"Numetal fees and burns\", \"docs\": \"https://api.gokhanturhan.com/numetal-fees/\"},\n    {\"slug\": \"status\", \"name\": \"Numetal status\", \"docs\": \"https://api.gokhanturhan.com/status/\"},\n    {\"slug\": \"plaintext\", \"name\": \"Plaintext board\", \"docs\": \"https://api.gokhanturhan.com/plaintext/\"},\n    {\"slug\": \"accumulator\", \"name\": \"Accumulator waitlist + wishlist\", \"docs\": \"https://api.gokhanturhan.com/accumulator/\"},\n    {\"slug\": \"jesus\", \"name\": \"Personal Jesus waitlist\", \"docs\": \"https://api.gokhanturhan.com/jesus/\"},\n    {\"slug\": \"llmcraft\", \"name\": \"LLMCraft waitlist\", \"docs\": \"https://api.gokhanturhan.com/llmcraft/\"},\n    {\"slug\": \"apex\", \"name\": \"APEX Protocol\", \"docs\": \"https://api.gokhanturhan.com/apex/\"},\n    {\"slug\": \"xmtp\", \"name\": \"XMTP bot\", \"docs\": \"https://api.gokhanturhan.com/xmtp/\"},\n    {\"slug\": \"x402-live\", \"name\": \"x402 live panel\", \"docs\": \"https://api.gokhanturhan.com/x402-live/\"},\n    {\"slug\": \"assets\", \"name\": \"Asset host\", \"docs\": \"https://api.gokhanturhan.com/assets/\"}\n  ]\n}"
+type CatalogApi = {
+  slug: string
+  name: string
+  domain: string
+  former_base: string
+  status: string
+  tags: string[]
+  protocols: string[]
+  docs: string
+  check: { checked: string; method: string; result: string }
+}
+const register = JSON.parse(readFileSync(resolve(process.cwd(), 'public/api/apis.json'), 'utf8')) as {
+  checked: string
+  purpose_tags: string[]
+  protocol_tags: string[]
+  apis: CatalogApi[]
+}
+const domains = ['numetal.xyz', 'gokhan.vc']
+const grouped = domains.map((domain) => ({
+  domain,
+  apis: register.apis.filter((a) => a.domain === domain),
+}))
+const machine = JSON.stringify({
+  name: 'Gökhan Turhan',
+  documentation_only: true,
+  contact: 'mailto:contact@gokhan.vc',
+  checked: register.checked,
+  api_index: 'https://api.gokhanturhan.com/apis.json',
+  discovery: {
+    index: 'https://api.gokhanturhan.com/',
+    openapi: 'https://api.gokhanturhan.com/openapi.json',
+    llms: 'https://api.gokhanturhan.com/llms.txt',
+    agent: 'https://api.gokhanturhan.com/.well-known/agent.json',
+    site_llms: 'https://gokhanturhan.com/llms.txt',
+    site_agent: 'https://gokhanturhan.com/.well-known/agent.json',
+    cv_md: 'https://gokhanturhan.com/cv.md',
+    feed_rss: 'https://gokhanturhan.com/rss.xml',
+  },
+  purpose_tags: register.purpose_tags,
+  protocol_tags: register.protocol_tags,
+  apis: register.apis.map((a) => ({
+    slug: a.slug,
+    name: a.name,
+    domain: a.domain,
+    former_base: a.former_base,
+    status: a.status,
+    tags: a.tags,
+    protocols: a.protocols,
+    docs: a.docs,
+    check: a.check,
+  })),
+}, null, 2)
 ---
 
 <BaseLayout
@@ -10,31 +63,24 @@ const machine = "{\n  \"api_index\": \"https://api.gokhanturhan.com/apis.json\",
   description="API index and discovery files for agents: estate APIs, OpenAPI, llms.txt, cv.md and RSS."
 >
   <div class="es">
-    <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: 'Agents' }]} title="For agents" lead="The estate APIs are documented in one index. Their docs are kept as they were; nothing below takes payment." />
-      <div class="cx api">
-        <div class="cx-h"><b>API index</b><span>gokhanturhan.com/api/</span><em>16</em></div>
-        <a class="reg" href="/api/feedhub/"><span class="name">Estate gateway (feedhub)</span><span class="what">REST · OpenAPI · RSS/JSON Feed</span><span class="where">documented</span></a>
-        <a class="reg" href="/api/newsletter/"><span class="name">Newsletter (email + XMTP)</span><span class="what">REST</span><span class="where">documented</span></a>
-        <a class="reg" href="/api/ishtar/"><span class="name">Ishtar API</span><span class="what">REST · OpenAPI · MCP · x402</span><span class="where">documented</span></a>
-        <a class="reg" href="/api/curb/"><span class="name">CURB clearing API</span><span class="what">REST · OpenAPI · MCP · x402</span><span class="where">documented</span></a>
-        <a class="reg" href="/api/curb-agents/"><span class="name">CURB harness agents</span><span class="what">HTTP agents</span><span class="where">documented</span></a>
-        <a class="reg" href="/api/launch/"><span class="name">Launch router</span><span class="what">REST · OpenAPI · MCP · x402 · MPP</span><span class="where">documented</span></a>
-        <a class="reg" href="/api/numetal-fees/"><span class="name">Numetal fees and burns</span><span class="what">JSON</span><span class="where">documented</span></a>
-        <a class="reg" href="/api/status/"><span class="name">Numetal status</span><span class="what">JSON · HTML</span><span class="where">documented</span></a>
-        <a class="reg" href="/api/plaintext/"><span class="name">Plaintext board</span><span class="what">REST · MCP · RSS</span><span class="where">documented</span></a>
-        <a class="reg" href="/api/accumulator/"><span class="name">Accumulator waitlist + wishlist</span><span class="what">JSON</span><span class="where">documented</span></a>
-        <a class="reg" href="/api/jesus/"><span class="name">Personal Jesus waitlist</span><span class="what">form</span><span class="where">documented</span></a>
-        <a class="reg" href="/api/llmcraft/"><span class="name">LLMCraft waitlist</span><span class="what">form</span><span class="where">documented</span></a>
-        <a class="reg" href="/api/apex/"><span class="name">APEX Protocol</span><span class="what">llms.txt</span><span class="where">documented</span></a>
-        <a class="reg" href="/api/xmtp/"><span class="name">XMTP bot</span><span class="what">bot</span><span class="where">documented</span></a>
-        <a class="reg" href="/api/x402-live/"><span class="name">x402 live panel</span><span class="what">HTML/JSON</span><span class="where">retired</span></a>
-        <a class="reg" href="/api/assets/"><span class="name">Asset host</span><span class="what">static files</span><span class="where">documented</span></a>
-      </div>
-      <a class="more" href="/api/">Open the API index</a>
+    <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: 'Agents' }]} title="For agents" lead="The estate APIs are documented at api.gokhanturhan.com, grouped by the domain they used to run on. Nothing on that host takes a payment." />
+      {grouped.map((g) => (
+        <div class="cx api">
+          <div class="cx-h"><b>{g.domain}</b><span>former domain</span><em>{g.apis.length}</em></div>
+          {g.apis.map((a) => (
+            <a class="reg" href={`/api/${a.slug}/`}>
+              <span class="name">{a.name}</span>
+              <span class="what">{[...a.tags, ...a.protocols].join(' · ')}</span>
+              <span class="where">{a.status}</span>
+            </a>
+          ))}
+        </div>
+      ))}
+      <a class="more" href="https://api.gokhanturhan.com/">Open the API index</a>
 
       <div class="cx">
         <div class="cx-h"><b>Discovery</b><span>this site</span></div>
-        <div class="cv-line"><span>Index</span><b><a href="/api/apis.json">apis.json</a> · <a href="/api/openapi.json">openapi.json</a> · <a href="/api/llms.txt">llms.txt</a></b></div>
+        <div class="cv-line"><span>Index</span><b><a href="https://api.gokhanturhan.com/apis.json">apis.json</a> · <a href="https://api.gokhanturhan.com/openapi.json">openapi.json</a> · <a href="https://api.gokhanturhan.com/llms.txt">llms.txt</a> · <a href="https://api.gokhanturhan.com/.well-known/agent.json">agent.json</a></b></div>
         <div class="cv-line"><span>This site</span><b><a href="https://gokhanturhan.com/llms.txt">llms.txt</a> · <a href="https://gokhanturhan.com/cv.md">cv.md</a> · <a href="/rss.xml">RSS</a></b></div>
         <div class="cv-line"><span>Products</span><b><a href="/products/">current, studio and drafts</a></b></div>
       </div>

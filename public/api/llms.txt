@@ -1,48 +1,52 @@
 # API index — Gökhan Turhan
 
-> Documentation for every API the Numetal and Gökhan Ventures products ran, as of 2026-11-09. Documentation only: nothing here proxies calls or accepts payment. Do not send payments to any endpoint listed here.
+> Documentation only, checked 2026-11-14. Nothing on this host proxies a call or accepts a payment. Do not pay any endpoint listed here. Contact: contact@gokhan.vc.
 
-The products themselves are archived at https://gokhanturhan.com/products/. Each API below has a page with its endpoints as published, its status on the as-of date, and links to frozen specifications where one existed.
+The products themselves are archived at https://gokhanturhan.com/products/. Each API below is grouped by the domain it used to run on.
+
+## Tags
+
+Purpose: reading, publishing, payments, identity, agents, status, files.
+Protocol: x402, mpp, mcp, openapi, rss, skill, hmac.
 
 ## Machine-readable
 
-- [apis.json](https://api.gokhanturhan.com/apis.json): register of every API (slug, name, former base, interface, status, endpoints, product page, frozen specs)
-- [openapi.json](https://api.gokhanturhan.com/openapi.json): OpenAPI 3.1 description of this index; links frozen per-API specs under x-archived-specs
+- [apis.json](https://api.gokhanturhan.com/apis.json): register, with domain, tags, protocols, and the check
+- [openapi.json](https://api.gokhanturhan.com/openapi.json): OpenAPI 3.1 description of this index
+- [agent.json](https://api.gokhanturhan.com/.well-known/agent.json): agent card
 - [sitemap.xml](https://api.gokhanturhan.com/sitemap.xml): every page on this host
 
 ## Views
 
-- [x402 manifests](https://api.gokhanturhan.com/x402/): frozen payment manifests, wrapped as archived. Do not pay.
-- [MCP servers](https://api.gokhanturhan.com/mcp/): former MCP servers, listed for the record. Do not install.
-- [Retired endpoints](https://api.gokhanturhan.com/retired/): what retired endpoints return (410 Gone) and where each product now lives
+- [x402 manifests](https://api.gokhanturhan.com/x402/): frozen payment manifests. Do not pay.
+- [MCP servers](https://api.gokhanturhan.com/mcp/): former MCP servers, listed for the record.
+- [Retired endpoints](https://api.gokhanturhan.com/retired/): what retired endpoints return, and where each product now lives
 
-## APIs: Answering normally (live)
+## numetal.xyz
 
-- [CURB clearing API](https://api.gokhanturhan.com/curb/): REST · OpenAPI 3 · MCP · skill · x402. Product page: https://gokhanturhan.com/curb/. Former base: curb.numetal.xyz (+ api.curb.numetal.xyz). Frozen OpenAPI: https://api.gokhanturhan.com/curb/openapi.json.
-- [CURB harness, buyer and seller agents](https://api.gokhanturhan.com/curb-agents/): HTTP agents. Product page: https://gokhanturhan.com/curb/harness/. Former base: harness.curb · buyer.curb · seller.curb .numetal.xyz.
-- [Launch router](https://api.gokhanturhan.com/launch/): REST · OpenAPI 3 · MCP · x402 · MPP. Product page: https://gokhanturhan.com/launch/. Former base: launch.numetal.xyz. Frozen OpenAPI: https://api.gokhanturhan.com/launch/openapi.json.
-- [Accumulator waitlist + wishlist](https://api.gokhanturhan.com/accumulator/): JSON. Product page: https://gokhanturhan.com/accumulator/. Former base: accumulator.numetal.xyz.
-- [APEX Protocol](https://api.gokhanturhan.com/apex/): llms.txt. Product page: https://gokhanturhan.com/apex/. Former base: apex.numetal.xyz.
+- [Ishtar API](https://api.gokhanturhan.com/ishtar/): purpose reading, publishing, payments, identity, agents. protocol x402, mcp, openapi, skill. status degraded. Former base: api.ishtar.numetal.xyz. Check: GET https://api.ishtar.numetal.xyz/health returned 200 with mode idle. GET /api/public/stats returned 200. Paid and write paths were not called. Product page: https://gokhanturhan.com/ishtar/.
+- [CURB clearing API](https://api.gokhanturhan.com/curb/): purpose payments, reading, agents. protocol x402, mcp, openapi, skill. status live. Former base: curb.numetal.xyz (+ api.curb.numetal.xyz). Check: GET https://curb.numetal.xyz/health and https://api.curb.numetal.xyz/health returned 200. Pay was not called. Product page: https://gokhanturhan.com/curb/.
+- [CURB harness, buyer and seller agents](https://api.gokhanturhan.com/curb-agents/): purpose agents, payments. protocol none. status live. Former base: harness.curb · buyer.curb · seller.curb .numetal.xyz. Check: GET https://buyer.curb.numetal.xyz/health and https://seller.curb.numetal.xyz/health returned 200. https://harness.curb.numetal.xyz/ followed a redirect to the estate homepage. Product page: https://gokhanturhan.com/curb/harness/.
+- [Launch router](https://api.gokhanturhan.com/launch/): purpose publishing, payments, agents. protocol x402, mpp, mcp, openapi. status live. Former base: launch.numetal.xyz. Check: GET https://launch.numetal.xyz/api/health returned 200. GET /.well-known/mpp.json and GET /.well-known/x402 returned 200. No launch was signed. Product page: https://gokhanturhan.com/launch/.
+- [Numetal fees and burns](https://api.gokhanturhan.com/numetal-fees/): purpose reading, status. protocol none. status live. Former base: numetal.xyz/fees. Check: GET https://gokhanturhan.com/numetal/fees/data and GET /numetal/fees/events returned 200. Product page: https://gokhanturhan.com/numetal/.
+- [Numetal status](https://api.gokhanturhan.com/status/): purpose status, reading. protocol none. status degraded. Former base: status.numetal.xyz. Check: GET https://status.numetal.xyz/health returned 200. GET /status.json returned 200 and reported overall outage. Product page: https://gokhanturhan.com/numetal/status/.
+- [Plaintext board](https://api.gokhanturhan.com/plaintext/): purpose reading, publishing, payments, agents. protocol mcp, skill, rss. status live. Former base: plaintext.numetal.xyz. Check: GET https://plaintext.numetal.xyz/health and GET /api/v1/board returned 200. POST /api/v1/remark was not sent. Product page: https://gokhanturhan.com/plaintext/.
+- [Accumulator waitlist + wishlist](https://api.gokhanturhan.com/accumulator/): purpose identity, reading. protocol none. status live. Former base: accumulator.numetal.xyz. Check: GET https://accumulator.numetal.xyz/api/wishlist and the estate copy returned 200. POST /api/waitlist and POST /api/wishlist/vote were not sent. Product page: https://gokhanturhan.com/accumulator/.
+- [Personal Jesus waitlist](https://api.gokhanturhan.com/jesus/): purpose identity. protocol none. status degraded. Former base: jesus.numetal.xyz. Check: GET https://jesus.numetal.xyz/ returned 200 HTML. POST /join was not sent. Product page: https://gokhanturhan.com/jesus/.
+- [LLMCraft waitlist](https://api.gokhanturhan.com/llmcraft/): purpose identity. protocol none. status degraded. Former base: llmcraft.numetal.xyz. Check: GET https://llmcraft.numetal.xyz/ returned 200 HTML. The waitlist form was not posted. Product page: https://gokhanturhan.com/llmcraft/.
+- [APEX Protocol](https://api.gokhanturhan.com/apex/): purpose agents, reading. protocol none. status live. Former base: apex.numetal.xyz. Check: GET https://apex.numetal.xyz/llms.txt returned 200. GET https://gokhanturhan.com/apex/llms.txt returned 404. Product page: https://gokhanturhan.com/apex/.
+- [Asset host](https://api.gokhanturhan.com/assets/): purpose files. protocol none. status retired. Former base: assets.numetal.xyz. Check: GET https://assets.numetal.xyz/ did not resolve. No DNS. Product page: https://gokhanturhan.com/numetal/.
 
-## APIs: Partly answering (degraded)
+## gokhan.vc
 
-- [Ishtar API](https://api.gokhanturhan.com/ishtar/): REST · OpenAPI 3 · MCP · skill · x402. Product page: https://gokhanturhan.com/ishtar/. Former base: api.ishtar.numetal.xyz. Frozen OpenAPI: https://api.gokhanturhan.com/ishtar/openapi.json.
-- [Numetal fees and burns](https://api.gokhanturhan.com/numetal-fees/): JSON. Product page: https://gokhanturhan.com/numetal/. Former base: numetal.xyz/fees.
-- [Numetal status](https://api.gokhanturhan.com/status/): JSON · HTML. Product page: https://gokhanturhan.com/numetal/status/. Former base: status.numetal.xyz.
-- [Plaintext board](https://api.gokhanturhan.com/plaintext/): REST · MCP · skill · RSS. Product page: https://gokhanturhan.com/plaintext/. Former base: plaintext.numetal.xyz.
-- [Personal Jesus waitlist](https://api.gokhanturhan.com/jesus/): form POST. Product page: https://gokhanturhan.com/jesus/. Former base: jesus.numetal.xyz.
-- [LLMCraft waitlist](https://api.gokhanturhan.com/llmcraft/): form. Product page: https://gokhanturhan.com/llmcraft/. Former base: llmcraft.numetal.xyz.
-
-## APIs: Retired (retired)
-
-- [Estate gateway (feedhub)](https://api.gokhanturhan.com/feedhub/): REST · OpenAPI 3 · RSS/JSON Feed. Offline. Source: https://github.com/avalidurl/feedhub. Product page: https://gokhanturhan.com/gokhan-vc/api/. Former base: api.gokhan.vc.
-- [Newsletter (email + XMTP)](https://api.gokhanturhan.com/newsletter/): REST · HMAC links. Offline with feedhub. Product page: https://gokhanturhan.com/gokhan-vc/api/. Former base: api.gokhan.vc/newsletter.
-- [XMTP bot](https://api.gokhanturhan.com/xmtp/): bot endpoint. Offline with feedhub. Product page: https://gokhanturhan.com/gokhan-vc/api/. Former base: xmtp-bot.gokhan.vc.
-- [Asset host](https://api.gokhanturhan.com/assets/): static files. Offline with feedhub. Product page: https://gokhanturhan.com/numetal/. Former base: assets.numetal.xyz.
-- [x402 live panel](https://api.gokhanturhan.com/x402-live/): HTML/JSON panel. Product page: https://gokhanturhan.com/gokhan-vc/. Former base: gokhan.vc/x402-live/.
+- [Estate gateway (feedhub)](https://api.gokhanturhan.com/feedhub/): purpose reading, publishing, payments, agents. protocol x402, openapi, rss. status retired. Former base: api.gokhan.vc. Check: GET https://api.gokhan.vc/ did not resolve. No DNS. Product page: https://gokhanturhan.com/gokhan-vc/api/.
+- [Newsletter (email + XMTP)](https://api.gokhanturhan.com/newsletter/): purpose publishing, identity. protocol hmac. status retired. Former base: api.gokhan.vc/newsletter. Check: The newsletter lived on api.gokhan.vc, which has no DNS. Subscribe was not called. Product page: https://gokhanturhan.com/gokhan-vc/api/.
+- [XMTP bot](https://api.gokhanturhan.com/xmtp/): purpose agents. protocol none. status retired. Former base: xmtp-bot.gokhan.vc. Check: GET https://xmtp-bot.gokhan.vc/ did not resolve. No DNS. Product page: https://gokhanturhan.com/gokhan-vc/api/.
+- [x402 live panel](https://api.gokhanturhan.com/x402-live/): purpose payments, reading. protocol x402. status retired. Former base: gokhan.vc/x402-live/. Check: HEAD https://gokhan.vc/x402-live/ returned 404. Product page: https://gokhanturhan.com/gokhan-vc/.
 
 ## Optional
 
 - [gokhanturhan.com llms.txt](https://gokhanturhan.com/llms.txt): the main site, products, journal and CV
+- [gokhanturhan.com agent card](https://gokhanturhan.com/.well-known/agent.json)
 - [Journal RSS](https://gokhanturhan.com/rss.xml): the one feed for gokhanturhan.com
 - [CV (markdown)](https://gokhanturhan.com/cv.md)

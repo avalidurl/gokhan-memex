@@ -20,6 +20,10 @@ Allow: /
 # Agent-readable summaries
 #   https://gokhanturhan.com/llms.txt
 #   https://gokhanturhan.com/llms-full.txt
+#   https://gokhanturhan.com/.well-known/agent.json
+#   https://api.gokhanturhan.com/
+#   https://api.gokhanturhan.com/llms.txt
+#   https://api.gokhanturhan.com/apis.json
 # Feed
 #   https://gokhanturhan.com/rss.xml
 
