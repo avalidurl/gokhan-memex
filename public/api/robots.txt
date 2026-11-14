@@ -5,5 +5,6 @@ Allow: /
 
 # Agent-readable summary: https://api.gokhanturhan.com/llms.txt
 # Machine-readable register: https://api.gokhanturhan.com/apis.json
+# Agent card: https://api.gokhanturhan.com/.well-known/agent.json
 
 Sitemap: https://api.gokhanturhan.com/sitemap.xml

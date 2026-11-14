@@ -2,8 +2,12 @@
   "openapi": "3.1.0",
   "info": {
     "title": "API index (documentation only)",
-    "version": "2026-11-09",
-    "description": "Static index of the archived estate APIs. Frozen copies of each original specification are listed in x-archived-specs."
+    "version": "2026-11-14",
+    "description": "Static index of the estate APIs, grouped by former domain (numetal.xyz, gokhan.vc). Each API in apis.json has purpose tags (reading, publishing, payments, identity, agents, status, files) and protocol tags (x402, mpp, mcp, openapi, rss, skill, hmac). This host does not proxy a call or accept a payment. Contact: contact@gokhan.vc.",
+    "contact": {
+      "email": "contact@gokhan.vc",
+      "url": "https://gokhanturhan.com/"
+    }
   },
   "servers": [
     {
@@ -13,7 +17,7 @@
   "paths": {
     "/apis.json": {
       "get": {
-        "summary": "Register of archived APIs",
+        "summary": "Register of estate APIs, grouped and tagged",
         "responses": {
           "200": {
             "description": "JSON register"
@@ -23,15 +27,43 @@
     },
     "/llms.txt": {
       "get": {
-        "summary": "Agent notes",
+        "summary": "Agent notes, grouped by former domain",
         "responses": {
           "200": {
             "description": "text"
           }
         }
       }
+    },
+    "/.well-known/agent.json": {
+      "get": {
+        "summary": "Agent card",
+        "responses": {
+          "200": {
+            "description": "JSON card"
+          }
+        }
+      }
     }
   },
+  "x-purpose-tags": [
+    "reading",
+    "publishing",
+    "payments",
+    "identity",
+    "agents",
+    "status",
+    "files"
+  ],
+  "x-protocol-tags": [
+    "x402",
+    "mpp",
+    "mcp",
+    "openapi",
+    "rss",
+    "skill",
+    "hmac"
+  ],
   "x-archived-specs": {
     "feedhub": "https://api.gokhanturhan.com/feedhub/openapi.json",
     "ishtar": "https://api.gokhanturhan.com/ishtar/openapi.json",

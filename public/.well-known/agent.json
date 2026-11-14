@@ -1,0 +1,14 @@
+{
+  "name": "Gökhan Turhan",
+  "description": "Personal site of Gökhan Turhan. The estate API index is at https://api.gokhanturhan.com/. Documentation only. The only blog is the journal.",
+  "url": "https://gokhanturhan.com/",
+  "contact": "mailto:contact@gokhan.vc",
+  "website": "https://gokhanturhan.com/",
+  "checked": "2026-11-14",
+  "api_index": "https://api.gokhanturhan.com/apis.json",
+  "llms": "https://api.gokhanturhan.com/llms.txt",
+  "site_llms": "https://gokhanturhan.com/llms.txt",
+  "openapi": "https://api.gokhanturhan.com/openapi.json",
+  "journal": "https://gokhanturhan.com/journal/",
+  "rss": "https://gokhanturhan.com/rss.xml"
+}

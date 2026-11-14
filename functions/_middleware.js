@@ -6,9 +6,24 @@
 import { sanitizeQuote, decodeEntities, rewriteHead } from './lib/quote-card.js'
 
 const STATIC_EXT = /\.(png|jpe?g|webp|gif|svg|js|css|woff2?|ttf|otf|ico|xml|txt|json|map|wasm|pdf|mp4|webm|md)$/i
+const API_HOST = 'api.gokhanturhan.com'
+const API_PASS = new Set(['/fonts.css', '/favicon.svg', '/favicon.ico', '/register-boot.js'])
 
 export async function onRequest(context) {
   const url = new URL(context.request.url)
+  // The catalog is static files under /api. On the API host, map /curb/ to
+  // /api/curb/ and leave payment and product proxies on the apex alone.
+  // ASSETS.fetch does not re-enter Pages Functions.
+  if (url.hostname === API_HOST && !API_PASS.has(url.pathname)) {
+    const onCatalog = url.pathname === '/api' || url.pathname.startsWith('/api/')
+    if (!onCatalog) {
+      const dest = new URL(context.request.url)
+      let path = url.pathname
+      if (path !== '/' && !path.endsWith('/') && !path.split('/').pop().includes('.')) path += '/'
+      dest.pathname = path === '/' ? '/api/' : `/api${path}`
+      return context.env.ASSETS.fetch(new Request(dest, context.request))
+    }
+  }
   if (url.pathname.startsWith('/og/quote')) return context.next()
   if (STATIC_EXT.test(url.pathname)) return context.next()
   const raw = url.searchParams.get('q')
