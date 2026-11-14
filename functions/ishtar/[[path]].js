@@ -3,5 +3,5 @@ export const onRequest = originOnRequest({
   prefix: '/ishtar',
   host: 'api.ishtar.numetal.xyz',
   name: 'Ishtar',
-  api: /^\/api(\/|$)/,
+  api: /^\/(api|health|mcp|skill|openapi\.json|\.well-known)(\/|$)/,
 })
