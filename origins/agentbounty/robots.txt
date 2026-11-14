@@ -1,0 +1,6 @@
+# robots.txt for https://gokhanturhan.com/agentbounty/
+User-agent: *
+Allow: /
+
+Sitemap: https://gokhanturhan.com/agentbounty/sitemap.xml
+Sitemap: https://gokhanturhan.com/sitemap-index.xml

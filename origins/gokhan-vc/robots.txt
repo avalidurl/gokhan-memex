@@ -4,4 +4,5 @@
 User-agent: *
 Allow: /
 
+Sitemap: https://gokhanturhan.com/gokhan-vc/sitemap.xml
 Sitemap: https://gokhanturhan.com/sitemap-index.xml
