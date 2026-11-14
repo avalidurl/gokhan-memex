@@ -1,0 +1,6 @@
+# robots.txt for https://gokhanturhan.com/numetal/
+User-agent: *
+Allow: /
+
+Sitemap: https://gokhanturhan.com/numetal/sitemap.xml
+Sitemap: https://gokhanturhan.com/sitemap-index.xml

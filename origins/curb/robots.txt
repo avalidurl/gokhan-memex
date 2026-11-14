@@ -1,0 +1,6 @@
+# robots.txt for https://gokhanturhan.com/curb/
+User-agent: *
+Allow: /
+
+Sitemap: https://gokhanturhan.com/curb/sitemap.xml
+Sitemap: https://gokhanturhan.com/sitemap-index.xml

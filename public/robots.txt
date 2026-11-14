@@ -24,3 +24,9 @@ Allow: /
 #   https://gokhanturhan.com/rss.xml
 
 Sitemap: https://gokhanturhan.com/sitemap-index.xml
+Sitemap: https://gokhanturhan.com/accumulator/sitemap.xml
+Sitemap: https://gokhanturhan.com/agentbounty/sitemap.xml
+Sitemap: https://gokhanturhan.com/curb/sitemap.xml
+Sitemap: https://gokhanturhan.com/gokhan-vc/sitemap.xml
+Sitemap: https://gokhanturhan.com/ishtar/sitemap.xml
+Sitemap: https://gokhanturhan.com/numetal/sitemap.xml

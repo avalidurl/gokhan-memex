@@ -26,6 +26,21 @@
 /ishtar/sitemap.xml
   Content-Type: application/xml; charset=UTF-8
 
+/numetal/sitemap.xml
+  Content-Type: application/xml; charset=UTF-8
+
+/gokhan-vc/sitemap.xml
+  Content-Type: application/xml; charset=UTF-8
+
+/agentbounty/sitemap.xml
+  Content-Type: application/xml; charset=UTF-8
+
+/curb/sitemap.xml
+  Content-Type: application/xml; charset=UTF-8
+
+/accumulator/sitemap.xml
+  Content-Type: application/xml; charset=UTF-8
+
 /llms.txt
   Content-Type: text/plain; charset=UTF-8
   Cache-Control: public, max-age=86400

@@ -52,7 +52,8 @@
 
 
 # Retired CURB footer URLs (and bookmarks) → live pages.
-# Ishtar robots.txt and sitemap.xml are real files under origins/ishtar/.
+# Product sitemap.xml files are written at build time by scripts/sitemap-extras.mjs.
+# Ishtar robots.txt is a real file under origins/ishtar/.
 /curb/dispatch/curb-is-live /journal/curb-is-live/ 301
 /curb/dispatch/curb-is-live/ /journal/curb-is-live/ 301
 /curb/dispatch/tickerline /journal/tickerline-your-conversation-quoted/ 301
@@ -68,7 +69,6 @@
 /curb/privacy/ /curb/legal/privacy/ 301
 /curb/terms /curb/legal/terms/ 301
 /curb/terms/ /curb/legal/terms/ 301
-/curb/sitemap.xml /sitemap-index.xml 301
 /curb/feed.xml /rss.xml 301
 
 # Canonical sitemap

@@ -2,4 +2,5 @@
 User-agent: *
 Allow: /
 
+Sitemap: https://gokhanturhan.com/accumulator/sitemap.xml
 Sitemap: https://gokhanturhan.com/sitemap-index.xml
