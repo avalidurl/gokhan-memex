@@ -100,7 +100,7 @@ f:["$","p",null,{"data-v":"","children":["You may use the Service only if ",["$"
 60:["$","strong",null,{"data-v":"","children":"double-charged"}]
 61:["$","strong",null,{"data-v":"","children":"Window"}]
 62:["$","strong",null,{"data-v":"","children":"not"}]
-63:["$","strong",null,{"data-v":"","children":["To claim a credit, email ",["$","$L8",null,{"href":"mailto:contact@numetal.xyz","data-v":true,"children":"contact@numetal.xyz","data-v-link":true,"to":"mailto:contact@numetal.xyz"}]," with the order id and/or transaction hash within 7 days of the charge"]}]
+63:["$","strong",null,{"data-v":"","children":["To claim a credit, email ",["$","$L8",null,{"href":"mailto:contact@gokhan.vc","data-v":true,"children":"contact@gokhan.vc","data-v-link":true,"to":"mailto:contact@gokhan.vc"}]," with the order id and/or transaction hash within 7 days of the charge"]}]
 64:["$","li",null,{"data-v":"","children":[["$","strong",null,{"data-v":"","children":"On-chain finality."}]," Blockchain transactions are generally irreversible and are recorded on a public network outside our control. We are not responsible for losses arising from incorrect addresses, network conditions, wallet compromise, or third-party payment infrastructure."]}]
 65:["$","li",null,{"data-v":"","children":[["$","strong",null,{"data-v":"","children":"Taxes are your responsibility."}]," You are solely responsible for any taxes, duties, or levies arising from your use of the Service or your purchases, other than taxes on our net income."]}]
 66:["$","li",null,{"data-v":"","children":[["$","strong",null,{"data-v":"","children":"Pricing changes."}]," We may change prices and paid features prospectively; the price applicable to a purchase is the one in effect when the purchase is made."]}]

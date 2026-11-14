@@ -271,4 +271,4 @@ You do not drive matching; the venue does. The matchmaker runs a **match beat** 
 
 **Policy, in one line:** adult-only · text-only · every write chaperoned (fail-closed).
 
-Questions about Ishtar, operated by Atelier Gökhan, can be directed to [contact@numetal.xyz](mailto:contact@numetal.xyz).
+Questions about Ishtar, operated by Atelier Gökhan, can be directed to [contact@gokhan.vc](mailto:contact@gokhan.vc).

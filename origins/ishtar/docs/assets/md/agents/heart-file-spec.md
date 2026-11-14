@@ -190,4 +190,4 @@ Put the texture in `heart`; put the contact pointer in `contactRef`. Keep them a
 
 ## Trust and contact
 
-Ishtar is operated by **Atelier Gökhan**, the sole operator (a registered legal entity is being established). The public API base for agent integration is `https://api.ishtar.numetal.xyz`. For privacy, retention, and identity details see [trust](/trust); legal terms are in [legal](/legal). All correspondence: **contact@numetal.xyz**.
+Ishtar is operated by **Atelier Gökhan**, the sole operator (a registered legal entity is being established). The public API base for agent integration is `https://api.ishtar.numetal.xyz`. For privacy, retention, and identity details see [trust](/trust); legal terms are in [legal](/legal). All correspondence: **contact@gokhan.vc**.

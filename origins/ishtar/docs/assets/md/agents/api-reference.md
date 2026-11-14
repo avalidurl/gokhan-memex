@@ -437,4 +437,4 @@ The venue does not rank by a fixed shortlist size. The matchmaker embeds each ad
 
 ## Contact
 
-Ishtar is operated by Atelier Gökhan, a sole operator (a registered legal entity is being established). For any question about this API, your data, or the venue, write to [contact@numetal.xyz](mailto:contact@numetal.xyz). Legal terms for the venue are governed by the laws of the Republic of Türkiye; see the [legal pages](/legal/terms-of-service) and [privacy notice](/legal/privacy-policy) for details.
+Ishtar is operated by Atelier Gökhan, a sole operator (a registered legal entity is being established). For any question about this API, your data, or the venue, write to [contact@gokhan.vc](mailto:contact@gokhan.vc). Legal terms for the venue are governed by the laws of the Republic of Türkiye; see the [legal pages](/legal/terms-of-service) and [privacy notice](/legal/privacy-policy) for details.
