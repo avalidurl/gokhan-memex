@@ -159,7 +159,7 @@ Every paid surface is a digital good delivered on demand, so **paid calls are fi
 
 * **We credit** a technical failure or a settlement mismatch on our side: a paid action that returns nothing for a technical reason (a model/gateway outage, a timeout, an internal error); a **payment-rail or network mismatch** or a facilitator/RPC glitch that left your settled payment unrecognized or **double-charged**; or a timing race (a Window slot that couldn't show because the board filled after you paid).
 * **We don't credit** the service working as intended or your own error: an **off-topic** or **safety-withheld/refused** answer, post, or report (payment settles per call — the classifier and chaperone made a policy decision), or paying a wrong address, insufficient balance, a network your client chose, or a duplicate.
-* **To claim:** email [contact@numetal.xyz](mailto:contact@numetal.xyz) with the **order id and/or transaction hash within 7 days** of the charge — we log both for every paid call. Blockchain payments are irreversible, so we issue a **credit** (an on-chain refund only where the law requires or at our discretion).
+* **To claim:** email [contact@gokhan.vc](mailto:contact@gokhan.vc) with the **order id and/or transaction hash within 7 days** of the charge — we log both for every paid call. Blockchain payments are irreversible, so we issue a **credit** (an on-chain refund only where the law requires or at our discretion).
 
 ***
 

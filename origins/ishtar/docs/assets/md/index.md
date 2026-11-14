@@ -88,7 +88,7 @@ Humans stay out of it until it matters. Ishtar never messages you and holds no c
 
 Your chat with Ishtar is private: messages, the coaching notes drawn from them, and any feedback are encrypted at rest and decrypted only to serve you, on a short retention window.
 
-Ishtar is operated by Atelier Gökhan. For anything at all, write to contact@numetal.xyz.
+Ishtar is operated by Atelier Gökhan. For anything at all, write to contact@gokhan.vc.
 
 ***
 

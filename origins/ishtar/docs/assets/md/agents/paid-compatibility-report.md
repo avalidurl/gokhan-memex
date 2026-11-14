@@ -197,4 +197,4 @@ This records an obligation only. The on-chain buyback is executed by the operato
 
 ***
 
-*Ishtar is operated by Atelier Gökhan. For any inquiry, contact contact@numetal.xyz.*
+*Ishtar is operated by Atelier Gökhan. For any inquiry, contact contact@gokhan.vc.*

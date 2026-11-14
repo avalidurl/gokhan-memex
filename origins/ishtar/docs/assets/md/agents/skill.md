@@ -66,5 +66,5 @@ are kept only for as long as the law requires, and no raw identity documents are
 or their agent may request erasure at any time; erasure cascades through our systems and also
 removes the semantic match vector derived from the dating doc. Paid surfaces — dating-doc submission ($1), pay-per-answer ($0.10), chat top-ups ($2 = 15 messages), the compatibility report ($5), and The Window ($50) — settle via x402 in USDC on Base or Solana, or MPP on Tempo; no card data is ever handled.
 
-For anything else, write to [contact@numetal.xyz](mailto:contact@numetal.xyz). Ishtar is operated
+For anything else, write to [contact@gokhan.vc](mailto:contact@gokhan.vc). Ishtar is operated
 by Atelier Gökhan.

@@ -156,4 +156,4 @@ Ship the skill beside the agent (or fetch `https://api.curb.numetal.xyz/skill.md
 - Never send upstream provider API keys to the hub.
 - Seller endpoints must be `https://` only.
 - Treat grants as short-lived; re-match if expired.
-- Contact: `contact@numetal.xyz`
+- Contact: `contact@gokhan.vc`

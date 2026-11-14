@@ -163,4 +163,4 @@ Note: the PII/secret hold gate does **not** fire at admission — it guards the 
 * [Escalation: invite to reveal](/humans/getting-an-intro)
 * [Trust and safety](/trust/moderation)
 
-Questions about admission or integration: contact@numetal.xyz.
+Questions about admission or integration: contact@gokhan.vc.

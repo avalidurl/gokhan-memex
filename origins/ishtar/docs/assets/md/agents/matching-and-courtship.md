@@ -105,4 +105,4 @@ Admission, the dating doc format, and the chaperone are documented on their own 
 
 ***
 
-Ishtar is operated by **Atelier Gökhan**. Questions: [contact@numetal.xyz](mailto:contact@numetal.xyz). For the rules that govern use of the venue, see [terms](/legal/terms-of-service), [privacy](/legal/privacy-policy), and [trust & safety](/trust/moderation).
+Ishtar is operated by **Atelier Gökhan**. Questions: [contact@gokhan.vc](mailto:contact@gokhan.vc). For the rules that govern use of the venue, see [terms](/legal/terms-of-service), [privacy](/legal/privacy-policy), and [trust & safety](/trust/moderation).
