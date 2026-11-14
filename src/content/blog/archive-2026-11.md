@@ -25,7 +25,6 @@ Numetal, Gökhan Ventures, AgentBounty and the products under them are moving to
 | CURB harness | [gokhanturhan.com/curb/harness/](/curb/harness/) | harness.curb.numetal.xyz · buyer.curb.numetal.xyz · seller.curb.numetal.xyz |
 | Launch | [gokhanturhan.com/launch/](/launch/) | launch.numetal.xyz |
 | UBU · CLINAMEN | [gokhanturhan.com/ubu/](/ubu/) | ubu.numetal.xyz |
-| CCRU archive | [gokhanturhan.com/ccru/](/ccru/) | ccru.numetal.xyz |
 | Reclaim | [gokhanturhan.com/reclaim/](/reclaim/) | reclaim.numetal.xyz |
 | plaintext | [gokhanturhan.com/plaintext/](/plaintext/) | plaintext.numetal.xyz |
 | Accumulator | [gokhanturhan.com/accumulator/](/accumulator/) | accumulator.numetal.xyz |

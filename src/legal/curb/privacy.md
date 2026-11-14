@@ -16,7 +16,7 @@ This Privacy Policy explains how **Numetal Labs** / **Atelier Gökhan Turhan** (
 
 **Geolocation for compliance.** We use the approximate country/region that Cloudflare derives from your connection solely to enforce our sanctions and export-control geo-block (see the Terms). We do not store this for marketing and do not use it to profile you; it is evaluated at the edge to allow or block the request.
 
-**Newsletter.** If you subscribe, your email is processed by our estate newsletter hub (`api.gokhan.vc`) and Resend under double opt-in. Public contact remains **contact@gokhan.vc**.
+**Newsletter.** The estate email list is offline. Public contact remains **contact@gokhan.vc**.
 
 If you email us, we receive your message and address solely to respond.
 

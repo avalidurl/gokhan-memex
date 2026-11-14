@@ -168,15 +168,6 @@ export const products: Product[] = [
     tags: ['numetal', 'clinamen', 'design-fiction', 'models', 'agents', 'token'],
   },
   {
-    slug: 'ccru', name: 'CCRU archive', status: 'former', family: 'Numetal',
-    line: 'A preserved mirror of ccru.net, 101 pages.',
-    former: 'ccru.numetal.xyz',
-    facts: [['Pages', '101'], ['Source', repo('gokhan-vc/ccru-mirror')]],
-    about: ['A hardened mirror of the Cybernetic Culture Research Unit’s ccru.net site, kept so the pages stay readable. The mirror code and its README are public.'],
-    links: [{ label: 'Source · gokhan-vc/ccru-mirror', href: `${GH}/gokhan-vc/ccru-mirror` }],
-    tags: ['numetal', 'ccru', 'hyperstition', 'mirror'],
-  },
-  {
     slug: 'reclaim', name: 'Reclaim', status: 'former', family: 'Numetal',
     line: 'Get your art out of dead marketplaces.',
     former: 'reclaim.numetal.xyz',
@@ -282,12 +273,12 @@ export const products: Product[] = [
   },
   {
     slug: 'gokhan-vc/api', name: 'feedhub', status: 'former', family: 'Gökhan Ventures',
-    line: 'Estate API: one feed, the newsletter, paid agent email and an llms aggregate.',
+    line: 'A feed and newsletter gateway. The service is offline. The source is public to fork.',
     former: 'api.gokhan.vc',
-    facts: [['Source', repo('avalidurl/feedhub')], ['Payments', 'x402 on agent email ($1 USDC)']],
-    about: ['feedhub pulled every estate site and the external channels into one RSS and JSON feed, ran the shared newsletter (email and XMTP), sent paid agent email and served an llms aggregate.'],
-    functions: ['Unified feed (RSS, JSON Feed)', 'Newsletter', 'Paid agent email', 'llms aggregate', 'Blog reader'],
-    links: [{ label: 'Source · avalidurl/feedhub', href: `${GH}/avalidurl/feedhub` }, { label: 'API index · feedhub', href: '/api/feedhub/' }],
+    facts: [['Source', repo('avalidurl/feedhub')]],
+    about: ['feedhub was the shared feed and newsletter gateway. The running service is offline. The repository stays public so anyone can fork it.'],
+    functions: ['Source repository'],
+    links: [{ label: 'Source · avalidurl/feedhub', href: `${GH}/avalidurl/feedhub` }],
     tags: ['gokhan-ventures', 'api', 'rss', 'x402', 'newsletter'],
   },
   {
@@ -396,7 +387,6 @@ export const tools: Tool[] = [
   { name: 'Status (internal)', group: 'estate-admin', line: 'Internal side of the Numetal status board, with private network checks that the public board leaves out.', see: { label: 'Numetal status', href: '/numetal/status/' } },
   { name: 'AgentBounty beta', group: 'estate-admin', line: 'Closed-beta gate for AgentBounty, with a test app on Base Sepolia.', see: { label: 'AgentBounty', href: '/agentbounty/' } },
   { name: 'EA Funding Cartography', group: 'research', line: 'Research map of Effective Altruism funding: who funds whom, and how much.' },
-  { name: 'urban5 archive', group: 'research', line: 'Private research archive for the urban5 project.' },
   { name: 'S&P 100 CapEx (gated build)', group: 'research', line: 'Working build of the S&P 100 tracker. The public version is on this site.', see: { label: 'S&P 100 CapEx', href: '/sp100-capex-dashboard/' } },
 ]
 
@@ -404,8 +394,8 @@ export const tools: Tool[] = [
 export interface ApiEntry { slug: string; name: string; former: string; kind: string; status: 'live' | 'degraded' | 'retired' }
 export const API_INDEX = '/api' // preview copy; published home is api.gokhanturhan.com
 export const apis: ApiEntry[] = [
-  { slug: 'feedhub', name: 'Estate gateway (feedhub)', former: 'api.gokhan.vc', kind: 'REST · OpenAPI · RSS/JSON Feed', status: 'degraded' },
-  { slug: 'newsletter', name: 'Newsletter (email + XMTP)', former: 'api.gokhan.vc/newsletter', kind: 'REST', status: 'live' },
+  { slug: 'feedhub', name: 'Estate gateway (feedhub)', former: 'api.gokhan.vc', kind: 'REST · OpenAPI · RSS/JSON Feed', status: 'retired' },
+  { slug: 'newsletter', name: 'Newsletter (email + XMTP)', former: 'api.gokhan.vc/newsletter', kind: 'REST', status: 'retired' },
   { slug: 'ishtar', name: 'Ishtar API', former: 'api.ishtar.numetal.xyz', kind: 'REST · OpenAPI · MCP · x402', status: 'degraded' },
   { slug: 'curb', name: 'CURB clearing API', former: 'curb.numetal.xyz', kind: 'REST · OpenAPI · MCP · x402', status: 'live' },
   { slug: 'curb-agents', name: 'CURB harness agents', former: 'harness.curb.numetal.xyz', kind: 'HTTP agents', status: 'live' },
@@ -417,9 +407,9 @@ export const apis: ApiEntry[] = [
   { slug: 'jesus', name: 'Personal Jesus waitlist', former: 'jesus.numetal.xyz', kind: 'form', status: 'degraded' },
   { slug: 'llmcraft', name: 'LLMCraft waitlist', former: 'llmcraft.numetal.xyz', kind: 'form', status: 'degraded' },
   { slug: 'apex', name: 'APEX Protocol', former: 'apex.numetal.xyz', kind: 'llms.txt', status: 'live' },
-  { slug: 'xmtp', name: 'XMTP bot', former: 'xmtp-bot.gokhan.vc', kind: 'bot', status: 'live' },
+  { slug: 'xmtp', name: 'XMTP bot', former: 'xmtp-bot.gokhan.vc', kind: 'bot', status: 'retired' },
   { slug: 'x402-live', name: 'x402 live panel', former: 'gokhan.vc/x402-live', kind: 'HTML/JSON', status: 'retired' },
-  { slug: 'assets', name: 'Asset host', former: 'assets.numetal.xyz', kind: 'static files', status: 'degraded' },
+  { slug: 'assets', name: 'Asset host', former: 'assets.numetal.xyz', kind: 'static files', status: 'retired' },
 ]
 
 // ---- Tag taxonomy, shared by products, journal posts, drafts, tools and APIs ----
@@ -437,7 +427,6 @@ export const TAXONOMY: Record<string, TagDef> = {
   clinamen: { label: 'CLINAMEN', group: 'family', note: 'UBU, the Bureau of Imaginary Solutions and its models.' },
   plaintext: { label: 'plaintext', group: 'family', note: 'The onchain plaintext board.' },
   tickerline: { label: 'tickerline', group: 'family', note: 'The Claude Code ticker-tape status line.' },
-  ccru: { label: 'CCRU', group: 'family', note: 'Cybernetic Culture Research Unit.' },
   // domain
   agents: { label: 'Agents', group: 'domain', note: 'Software that acts for someone.' },
   'agentic-dating': { label: 'Agentic dating', group: 'domain', note: 'Agents that court for their humans.' },
@@ -536,7 +525,7 @@ export const draftTags: Record<string, string[]> = {
 export const toolTags: Record<string, string[]> = {
   Reader: ['personal', 'rss', 'tool'], Dealflow: ['personal', 'tool'], Health: ['personal', 'tool'], Courses: ['personal', 'tool'], Letters: ['personal', 'tool'],
   'Numetal Admin': ['admin', 'numetal'], 'CURB Admin': ['admin', 'curb'], 'Ishtar Admin': ['admin', 'ishtar'], 'Status (internal)': ['admin', 'infrastructure', 'numetal'], 'AgentBounty beta': ['admin', 'agentbounty'],
-  'EA Funding Cartography': ['research', 'dashboard'], 'urban5 archive': ['research', 'mirror'], 'S&P 100 CapEx (gated build)': ['research', 'markets'],
+  'EA Funding Cartography': ['research', 'dashboard'], 'S&P 100 CapEx (gated build)': ['research', 'markets'],
 }
 export const apiTags: Record<string, string[]> = {
   feedhub: ['gokhan-ventures', 'api', 'rss', 'x402'], newsletter: ['gokhan-ventures', 'api', 'newsletter'], ishtar: ['ishtar', 'api', 'mcp', 'x402', 'mpp', 'agents'],

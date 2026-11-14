@@ -18,27 +18,27 @@ The products themselves are archived at https://gokhanturhan.com/products/. Each
 
 ## APIs: Answering normally (live)
 
-- [Newsletter (email + XMTP)](https://api.gokhanturhan.com/newsletter/): REST · HMAC links. Product page: https://gokhanturhan.com/gokhan-vc/api/. Former base: api.gokhan.vc/newsletter.
 - [CURB clearing API](https://api.gokhanturhan.com/curb/): REST · OpenAPI 3 · MCP · skill · x402. Product page: https://gokhanturhan.com/curb/. Former base: curb.numetal.xyz (+ api.curb.numetal.xyz). Frozen OpenAPI: https://api.gokhanturhan.com/curb/openapi.json.
 - [CURB harness, buyer and seller agents](https://api.gokhanturhan.com/curb-agents/): HTTP agents. Product page: https://gokhanturhan.com/curb/harness/. Former base: harness.curb · buyer.curb · seller.curb .numetal.xyz.
 - [Launch router](https://api.gokhanturhan.com/launch/): REST · OpenAPI 3 · MCP · x402 · MPP. Product page: https://gokhanturhan.com/launch/. Former base: launch.numetal.xyz. Frozen OpenAPI: https://api.gokhanturhan.com/launch/openapi.json.
 - [Accumulator waitlist + wishlist](https://api.gokhanturhan.com/accumulator/): JSON. Product page: https://gokhanturhan.com/accumulator/. Former base: accumulator.numetal.xyz.
 - [APEX Protocol](https://api.gokhanturhan.com/apex/): llms.txt. Product page: https://gokhanturhan.com/apex/. Former base: apex.numetal.xyz.
-- [XMTP bot](https://api.gokhanturhan.com/xmtp/): bot endpoint. Product page: https://gokhanturhan.com/gokhan-vc/api/. Former base: xmtp-bot.gokhan.vc.
 
 ## APIs: Partly answering (degraded)
 
-- [Estate gateway (feedhub)](https://api.gokhanturhan.com/feedhub/): REST · OpenAPI 3 · RSS/JSON Feed. Product page: https://gokhanturhan.com/gokhan-vc/api/. Former base: api.gokhan.vc. Frozen OpenAPI: https://api.gokhanturhan.com/feedhub/openapi.json.
 - [Ishtar API](https://api.gokhanturhan.com/ishtar/): REST · OpenAPI 3 · MCP · skill · x402. Product page: https://gokhanturhan.com/ishtar/. Former base: api.ishtar.numetal.xyz. Frozen OpenAPI: https://api.gokhanturhan.com/ishtar/openapi.json.
 - [Numetal fees and burns](https://api.gokhanturhan.com/numetal-fees/): JSON. Product page: https://gokhanturhan.com/numetal/. Former base: numetal.xyz/fees.
 - [Numetal status](https://api.gokhanturhan.com/status/): JSON · HTML. Product page: https://gokhanturhan.com/numetal/status/. Former base: status.numetal.xyz.
 - [Plaintext board](https://api.gokhanturhan.com/plaintext/): REST · MCP · skill · RSS. Product page: https://gokhanturhan.com/plaintext/. Former base: plaintext.numetal.xyz.
 - [Personal Jesus waitlist](https://api.gokhanturhan.com/jesus/): form POST. Product page: https://gokhanturhan.com/jesus/. Former base: jesus.numetal.xyz.
 - [LLMCraft waitlist](https://api.gokhanturhan.com/llmcraft/): form. Product page: https://gokhanturhan.com/llmcraft/. Former base: llmcraft.numetal.xyz.
-- [Asset host](https://api.gokhanturhan.com/assets/): static files. Product page: https://gokhanturhan.com/numetal/. Former base: assets.numetal.xyz.
 
 ## APIs: Retired (retired)
 
+- [Estate gateway (feedhub)](https://api.gokhanturhan.com/feedhub/): REST · OpenAPI 3 · RSS/JSON Feed. Offline. Source: https://github.com/avalidurl/feedhub. Product page: https://gokhanturhan.com/gokhan-vc/api/. Former base: api.gokhan.vc.
+- [Newsletter (email + XMTP)](https://api.gokhanturhan.com/newsletter/): REST · HMAC links. Offline with feedhub. Product page: https://gokhanturhan.com/gokhan-vc/api/. Former base: api.gokhan.vc/newsletter.
+- [XMTP bot](https://api.gokhanturhan.com/xmtp/): bot endpoint. Offline with feedhub. Product page: https://gokhanturhan.com/gokhan-vc/api/. Former base: xmtp-bot.gokhan.vc.
+- [Asset host](https://api.gokhanturhan.com/assets/): static files. Offline with feedhub. Product page: https://gokhanturhan.com/numetal/. Former base: assets.numetal.xyz.
 - [x402 live panel](https://api.gokhanturhan.com/x402-live/): HTML/JSON panel. Product page: https://gokhanturhan.com/gokhan-vc/. Former base: gokhan.vc/x402-live/.
 
 ## Optional
