@@ -7,7 +7,8 @@
     "contact": {
       "email": "contact@gokhan.vc",
       "url": "https://gokhanturhan.com/"
-    }
+    },
+    "x-guidance": "Free reads on this host are health checks, fee JSON, status, and the catalog files. They are not payment routes. The paid discovery probe on this host is POST /curb/v1/pay: a bare POST returns HTTP 402 before body validation. The challenge resource URL is still https://curb.numetal.xyz/v1/pay because that worker signs its own host. POST /ishtar/api/chat/ask and POST /launch/api/v1/health are not listed here: a probe of those paths on this host currently receives a Cloudflare challenge instead of the worker 402. Contact: contact@gokhan.vc."
   },
   "servers": [
     {
@@ -22,7 +23,9 @@
           "200": {
             "description": "JSON register"
           }
-        }
+        },
+        "security": [],
+        "operationId": "free_apis_json_get"
       }
     },
     "/llms.txt": {
@@ -32,7 +35,9 @@
           "200": {
             "description": "text"
           }
-        }
+        },
+        "security": [],
+        "operationId": "free_llms_txt_get"
       }
     },
     "/.well-known/agent.json": {
@@ -42,7 +47,9 @@
           "200": {
             "description": "JSON card"
           }
-        }
+        },
+        "security": [],
+        "operationId": "free__well-known_agent_json_get"
       }
     },
     "/ishtar/health": {
@@ -52,7 +59,9 @@
           "200": {
             "description": "Upstream body, passed through"
           }
-        }
+        },
+        "security": [],
+        "operationId": "free_ishtar_health_get"
       }
     },
     "/curb/health": {
@@ -62,7 +71,9 @@
           "200": {
             "description": "Upstream body, passed through"
           }
-        }
+        },
+        "security": [],
+        "operationId": "free_curb_health_get"
       }
     },
     "/launch/.well-known/mpp.json": {
@@ -72,7 +83,9 @@
           "200": {
             "description": "Upstream body, passed through"
           }
-        }
+        },
+        "security": [],
+        "operationId": "free_launch__well-known_mpp_json_get"
       }
     },
     "/plaintext/health": {
@@ -82,7 +95,9 @@
           "200": {
             "description": "Upstream body, passed through"
           }
-        }
+        },
+        "security": [],
+        "operationId": "free_plaintext_health_get"
       }
     },
     "/accumulator/api/wishlist": {
@@ -92,7 +107,9 @@
           "200": {
             "description": "Upstream body, passed through"
           }
-        }
+        },
+        "security": [],
+        "operationId": "free_accumulator_api_wishlist_get"
       }
     },
     "/numetal/fees/data": {
@@ -102,7 +119,9 @@
           "200": {
             "description": "Upstream body, passed through"
           }
-        }
+        },
+        "security": [],
+        "operationId": "free_numetal_fees_data_get"
       }
     },
     "/status/health": {
@@ -112,7 +131,9 @@
           "200": {
             "description": "Upstream body, passed through"
           }
-        }
+        },
+        "security": [],
+        "operationId": "free_status_health_get"
       }
     },
     "/status/status.json": {
@@ -121,6 +142,85 @@
         "responses": {
           "200": {
             "description": "Upstream body, passed through"
+          }
+        },
+        "security": [],
+        "operationId": "free_status_status_json_get"
+      }
+    },
+    "/ishtar/": {
+      "get": {
+        "operationId": "free_ishtar_docs",
+        "summary": "Ishtar API index page. Not a payment route.",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "HTML index"
+          }
+        }
+      }
+    },
+    "/curb/v1/pay": {
+      "post": {
+        "operationId": "curb_discovery_pay",
+        "summary": "CURB discovery probe. Bare POST returns 402. No side effects. Real settlement is POST /curb/v1/matches/{id}/pay.",
+        "x-payment-info": {
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ],
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.10"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "note": {
+                    "type": "string",
+                    "description": "Optional. Ignored on an unpaid probe."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "402": {
+            "description": "Payment Required"
+          },
+          "200": {
+            "description": "Paid probe acknowledgement",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "probe",
+                    "message"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "probe": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
