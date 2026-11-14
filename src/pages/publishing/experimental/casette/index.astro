@@ -4,6 +4,7 @@ import PageHead from '@/components/PageHead.astro'
 import Tags from '@/components/Tags.astro'
 import { experimentalWorks } from '@/data/publishing'
 import { works } from '@/data/works'
+import { cdnImage } from '@/lib/cdn-image'
 
 const work = experimentalWorks.find((entry) => entry.detailHref === '/publishing/experimental/casette/')
 if (!work) throw new Error('CASSETTE entry not found in experimentalWorks')
@@ -18,7 +19,7 @@ const others = works.filter((x) => x !== w)
       <div class="pmain">
         <section class="cx" aria-label="Cover">
           <div class="cx-h"><b>Cover</b><span>{work.coverAlt}</span></div>
-          <div class="cx-b"><img src={work.coverImage} alt={work.coverAlt} class="work-cover" loading="eager" /></div>
+          <div class="cx-b"><img src={cdnImage(work.coverImage, 1200)} alt={work.coverAlt} class="work-cover" loading="eager" /></div>
         </section>
         {work.audioHref && work.audioMimeType && (
           <section class="cx" aria-label="Listen">

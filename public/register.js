@@ -110,3 +110,17 @@
     copyText(url).then(function () { markCopied(el); });
   });
 })();
+
+// A link or button inside a disclosure header keeps its own action.
+// The summary would toggle after the click; put the open state back.
+document.querySelectorAll("details > summary").forEach(function (summary) {
+  summary.addEventListener("click", function (event) {
+    var t = event.target;
+    if (t && t.nodeType !== 1) t = t.parentElement;
+    if (!t || !t.closest || !t.closest("a, button")) return;
+    var details = summary.parentElement;
+    if (!details || details.tagName !== "DETAILS") return;
+    var open = details.open;
+    setTimeout(function () { details.open = open; }, 0);
+  });
+});

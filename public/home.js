@@ -86,3 +86,14 @@ faceBtn.addEventListener("click", () => {
     if (window.matchMedia("(min-width: 721px)").matches) setOpen(false);
   });
 })();
+
+// A link inside a section header keeps the section as it was.
+document.querySelectorAll("summary a").forEach(function (a) {
+  a.addEventListener("click", function () {
+    var summary = a.closest("summary");
+    var details = summary && summary.parentElement;
+    if (!details || details.tagName !== "DETAILS") return;
+    var open = details.open;
+    setTimeout(function () { details.open = open; }, 0);
+  });
+});

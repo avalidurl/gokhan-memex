@@ -47,7 +47,7 @@ export const experimentalWorks: ExperimentalWork[] = [
     detailHref: '/publishing/experimental/casette/',
     creators: 'Gökhan Turhan',
     year: '2023',
-    coverImage: 'https://ipfs.io/ipfs/bafybeihak4ytvarr2h5nsrouhenoqctpdrnn5laur3kd5hgkcjm3ymd7by',
+    coverImage: '/publishing/experimental/casette/cover.jpg',
     coverAlt: 'Cover art for CASSETTE',
     sourceHref:
       'https://zora.co/collect/zora:0xc51e1c9166f3ac33e4ee0a68e0339abcd202a773?source=post_page-----491d9ac49dcd---------------------------------------',

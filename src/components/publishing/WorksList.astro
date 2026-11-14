@@ -2,6 +2,7 @@
 /** Boxed listing of publishing works; every entry opens its own page. */
 import Tags from '@/components/Tags.astro'
 import { works, type WorkKind } from '@/data/works'
+import { cdnImage } from '@/lib/cdn-image'
 
 interface Props { kind: WorkKind; note: string; index?: string }
 const { kind, note, index } = Astro.props
@@ -13,7 +14,7 @@ const title = kind === 'E-book' ? 'E-books' : kind
   <div class="cx-h"><b>{index ? <a href={index}>{title}</a> : title}</b><span>{note}</span><em>{String(list.length).padStart(2, '0')}</em></div>
   {list.map((w) => (
     <div class={`cx-r${w.cover ? ' withthumb' : ''}`}>
-      <span>{w.cover ? <a href={w.href}><img class="work-thumb" src={w.cover} alt={`Cover for ${w.title}`} loading="lazy" /></a> : `${w.year}`}</span>
+      <span>{w.cover ? <a href={w.href}><img class="work-thumb" src={cdnImage(w.cover, 400)} alt={`Cover for ${w.title}`} loading="lazy" /></a> : `${w.year}`}</span>
       <span>
         <a class="nm" href={w.href}>{w.title}</a> — {w.line}{w.cover && <i> · {w.year}</i>}
         {w.external && <><br /><i><a href={w.external.href} target="_blank" rel="noopener noreferrer">{w.external.label}</a></i></>}
