@@ -103,7 +103,7 @@ const sections: Section[] = [
         { href: 'https://t.me/numetalxyz', note: 'Numetal' },
       ] },
       { name: 'Discord', handles: [
-        { href: 'https://discord.com/users/468471856773464075', note: 'Discord, DM' },
+        { href: 'https://discord.com/users/468471856773464075', label: 'goekhanturhan', note: 'profile' },
         { href: 'https://discord.gg/ZcxcwRPT7R', note: 'Market Research Unit — server invite' },
         { href: 'https://discord.gg/MC4DYumPMz', note: 'Numetal — server invite' },
       ] },
@@ -119,6 +119,18 @@ const sections: Section[] = [
     groups: [
       { name: 'Substack', handles: [
         { href: 'https://gokhan.substack.com/', note: 'long-form research and analysis' },
+      ] },
+      { name: 'Blyg', handles: [
+        { href: 'https://blyg.gokhanturhan.com/', note: 'studio' },
+      ] },
+      { name: 'Hermes', handles: [
+        { href: 'https://hermes.teleport.computer/u/gokhan', note: 'profile' },
+      ] },
+      { name: 'midnight.pub', handles: [
+        { href: 'https://midnight.pub/~gokhan', note: 'writing' },
+      ] },
+      { name: 'LessWrong', handles: [
+        { href: 'https://www.lesswrong.com/users/gokhan', note: 'writing' },
       ] },
       { name: 'Medium', handles: [
         { href: 'https://goekhanturhan.medium.com/', note: 'writing' },
@@ -182,6 +194,12 @@ const sections: Section[] = [
       ] },
       { name: 'SoundCloud', handles: [
         { href: 'https://soundcloud.com/0xgokhan', note: 'audio' },
+      ] },
+      { name: 'Bandcamp', handles: [
+        { href: 'https://bandcamp.com/gokhangokhan', note: 'music' },
+      ] },
+      { name: 'Twitch', handles: [
+        { href: 'https://www.twitch.tv/goekhanturhan', note: 'live' },
       ] },
       { name: 'Vimeo', handles: [
         { href: 'https://vimeo.com/0xgokhan', note: 'video' },
@@ -662,8 +680,11 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
     head?.addEventListener('click', (event) => {
       const t = event.target
       if (!(t instanceof Element)) return
-      // Links and copy keep their own action; don't also toggle the section.
-      if (t.closest('a, button, .cr-copy')) event.preventDefault()
+      if (!t.closest('a, button, .cr-copy')) return
+      // A link or button inside the header keeps its own action.
+      // The disclosure would toggle after that; put the open state back.
+      const open = d.open
+      window.setTimeout(() => { d.open = open }, 0)
     })
     d.addEventListener('toggle', syncAll)
   })

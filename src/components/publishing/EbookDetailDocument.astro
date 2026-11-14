@@ -4,6 +4,7 @@ import PageHead from '@/components/PageHead.astro'
 import Tags from '@/components/Tags.astro'
 import type { Ebook } from '@/data/ebooks'
 import { works } from '@/data/works'
+import { cdnImage } from '@/lib/cdn-image'
 
 const { ebook } = Astro.props as { ebook: Ebook }
 const publishedLabel = new Date(ebook.publishedOn).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
@@ -35,7 +36,7 @@ const others = works.filter((w) => w !== work)
 
         <section class="cx" aria-label="Cover">
           <div class="cx-h"><b>Cover</b></div>
-          <div class="cx-b"><img src={ebook.coverImage} alt={`Cover art for ${ebook.title}`} class="work-cover" /></div>
+          <div class="cx-b"><img src={cdnImage(ebook.coverImage, 1200)} alt={`Cover art for ${ebook.title}`} class="work-cover" /></div>
         </section>
       </div>
 
