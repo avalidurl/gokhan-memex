@@ -267,7 +267,7 @@ Public product repos this site mounts, files, or points to:
 | [avalidurl/sp100-financial-tracker](https://github.com/avalidurl/sp100-financial-tracker) | S&P 100 dashboard (data upstream for `/sp100-capex-dashboard/`) |
 | [avalidurl/market-cap-tracker](https://github.com/avalidurl/market-cap-tracker) | NVIDIA vs crypto tracker (source for `/market-cap-tracker/`) |
 
-Also public and linked from the register: [gokhan-vc/ccru-mirror](https://github.com/gokhan-vc/ccru-mirror), [gokhan-vc/rebase](https://github.com/gokhan-vc/rebase), [avalidurl/feedhub](https://github.com/avalidurl/feedhub), [avalidurl/greek-alphabet-anki](https://github.com/avalidurl/greek-alphabet-anki).
+Also public and linked from the register: [gokhan-vc/rebase](https://github.com/gokhan-vc/rebase), [avalidurl/feedhub](https://github.com/avalidurl/feedhub), [avalidurl/greek-alphabet-anki](https://github.com/avalidurl/greek-alphabet-anki).
 
 ## License
 

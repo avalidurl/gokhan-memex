@@ -1,31 +1,17 @@
 ---
 /**
- * One-line subscribe, same shape as avalidurl.github.io: email + Subscribe.
- * Native POST to the existing newsletter endpoint. No Turnstile, no extra chrome.
+ * The email list ran on feedhub. That service is offline.
+ * The journal stays on this site; RSS is the follow path.
  */
 interface Props { where?: 'index' | 'post' }
 const { where = 'post' } = Astro.props
-const endpoint = 'https://api.gokhan.vc/newsletter/subscribe'
 ---
-<form
-  method="POST"
-  action={endpoint}
+<p
   class={`subscribe subscribe-${where}`}
   id={where === 'index' ? 'subscribe' : undefined}
-  title="Subscribe to the newsletter — occasional and low-frequency, no spam"
 >
-  <input
-    type="email"
-    name="email"
-    required
-    placeholder="you@email.com"
-    autocomplete="email"
-    aria-label="Email"
-    id={`subscribe-email-${where}`}
-  />
-  <input type="hidden" name="site" value="memex" />
-  <button type="submit">Subscribe</button>
-</form>
+  The email list is offline. Follow the journal by <a href="/rss.xml">RSS</a>.
+</p>
 
 <style>
   .subscribe {

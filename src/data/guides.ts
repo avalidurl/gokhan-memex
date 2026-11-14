@@ -22,8 +22,6 @@ export const QUADS: { key: Quad; title: string; mode: string }[] = [
   { key: 'reference', title: 'Reference', mode: 'information · give me the facts' },
 ]
 
-const API = 'https://api.gokhan.vc'
-
 export const guides: Guide[] = [
   // ---------- Tutorials ----------
   {
@@ -55,42 +53,29 @@ export const guides: Guide[] = [
 
   // ---------- How-to ----------
   {
-    slug: 'subscribe', quad: 'how-to', title: 'Subscribe to the journal by email',
-    lead: 'Get new journal posts by email: one field, one button.',
+    slug: 'subscribe', quad: 'how-to', title: 'Follow the journal',
+    lead: 'The email list is offline. The journal stays on this site, and RSS is how to follow it.',
     steps: [
-      'Open the <a href="/journal/#subscribe">subscribe box on the Journal</a>. The same box is at the end of every post.',
-      'Type your email address and press <b>Subscribe</b>. If a verification check appears, complete it first.',
-      'That is all. New posts arrive at that address. If the sending service asks you to verify the address once, click the link in that email.',
-      'Nothing arriving? Check spam. The list accepts one sign-up per address per hour, so wait before trying again.',
+      'Open the <a href="/journal/">Journal</a>. New posts are on that page.',
+      'Follow them in a reader: <a href="/rss.xml">rss.xml</a>. The steps are in <a href="/about/follow-by-rss/">Follow by RSS</a>.',
     ],
     notes: [
-      'If the verification check cannot load in your browser, the button opens the newsletter’s own sign-up form instead. It does the same thing.',
-      'Prefer no email? Follow <a href="/rss.xml">the RSS feed</a> instead. See <a href="/about/follow-by-rss/">Follow by RSS</a>.',
+      'The old email and XMTP list ran on feedhub. That service is offline, and the repository stays public to fork.',
     ],
-    next: [{ label: 'Unsubscribe', href: '/about/unsubscribe/' }, { label: 'Journal', href: '/journal/' }],
+    next: [{ label: 'Follow by RSS', href: '/about/follow-by-rss/' }, { label: 'Journal', href: '/journal/' }],
   },
   {
-    slug: 'unsubscribe', quad: 'how-to', title: 'Unsubscribe from the newsletter',
-    lead: 'Stop the newsletter in one click from any email it sent you. You do not need an account or a password, and you do not need the sign-up form.',
+    slug: 'unsubscribe', quad: 'how-to', title: 'The email list is closed',
+    lead: 'The newsletter service is offline, so it sends nothing further.',
     tags: ['newsletter'],
     steps: [
-      'Open any newsletter email from Gökhan Turhan.',
-      'Scroll to the end and click <b>Unsubscribe</b>. That link is signed for your address alone, so one click removes you at once.',
-      'Or use your mail app’s own <b>Unsubscribe</b> button beside the sender’s name (Gmail, Apple Mail and Outlook show it). The newsletter supports one-click unsubscribe (RFC 8058), so the mail app does it for you.',
-      'The page that opens says “You’ve been unsubscribed.” No further newsletter email will be sent to that address.',
-      'If you subscribed a wallet over XMTP, every XMTP message carries its own unsubscribe link. Open it the same way; it stops the wallet channel only.',
-    ],
-    rows: [
-      ['Unsubscribe path', `<code>${API}/newsletter/unsubscribe?t=…</code> (older emails: <code>${API}/unsubscribe?t=…</code>). Both work only with the signed <code>t=</code> token from your own email.`],
-      ['Confirm path', `<code>${API}/newsletter/confirm?t=…</code>. This verifies a sign-up; it is not an unsubscribe.`],
-      ['Docs', '<a href="/api/newsletter/">Newsletter API reference</a>'],
+      'No new list mail will be sent. An unsubscribe link in an old email no longer reaches a live service.',
+      'If a message still arrives, write to <a href="mailto:contact@gokhan.vc?subject=Unsubscribe">contact@gokhan.vc</a> from that address with the subject “Unsubscribe”.',
     ],
     notes: [
-      '“Invalid link” means the token was cut off. Copy the whole link from the email, or use the mail app’s Unsubscribe button.',
-      'No email to hand? Write to <a href="mailto:contact@gokhan.vc?subject=Unsubscribe">contact@gokhan.vc</a> from the subscribed address with the subject “Unsubscribe”, and you will be removed by hand.',
-      'The subscribe box on the Journal does not unsubscribe you. Do not use it for this.',
+      'Follow new posts by <a href="/rss.xml">RSS</a> instead. See <a href="/about/follow-by-rss/">Follow by RSS</a>.',
     ],
-    next: [{ label: 'Privacy', href: '/privacy/' }, { label: 'Subscribe again later', href: '/about/subscribe/' }],
+    next: [{ label: 'Privacy', href: '/privacy/' }, { label: 'Follow by RSS', href: '/about/follow-by-rss/' }],
   },
   {
     slug: 'follow-by-rss', quad: 'how-to', title: 'Follow by RSS',
@@ -243,17 +228,14 @@ export const guides: Guide[] = [
   },
   {
     slug: 'newsletter-reference', quad: 'reference', title: 'Newsletter',
-    lead: 'How the newsletter works, in facts.',
+    lead: 'The email and XMTP list is offline.',
     tags: ['newsletter'],
     rows: [
-      ['Sign up', '<a href="/journal/#subscribe">Journal subscribe box</a> (email field and Subscribe button)'],
-      ['Verify', `only if the sending service asks, by a link in an email (<code>${API}/newsletter/confirm?t=…</code>)`],
-      ['Unsubscribe', `the link at the end of every email, or the mail app’s Unsubscribe button (<code>${API}/newsletter/unsubscribe?t=…</code>). <a href="/about/unsubscribe/">How to unsubscribe</a>`],
-      ['Wallet delivery', 'XMTP, optional; each message has its own unsubscribe link'],
-      ['Sending service', 'run by the studio newsletter API; addresses are not shared'],
-      ['API docs', '<a href="/api/newsletter/">Newsletter API</a>'],
+      ['Status', 'offline'],
+      ['Follow', '<a href="/rss.xml">RSS</a> · <a href="/about/follow-by-rss/">how to follow</a>'],
+      ['Record', '<a href="/api/newsletter/">Newsletter API page</a>, marked retired'],
     ],
-    next: [{ label: 'Subscribe', href: '/about/subscribe/' }, { label: 'Unsubscribe', href: '/about/unsubscribe/' }, { label: 'Privacy', href: '/privacy/' }],
+    next: [{ label: 'Follow the journal', href: '/about/subscribe/' }, { label: 'Privacy', href: '/privacy/' }],
   },
   {
     slug: 'colophon', quad: 'reference', title: 'Colophon',
