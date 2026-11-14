@@ -13,6 +13,8 @@ type CatalogApi = {
   tags: string[]
   protocols: string[]
   docs: string
+  rail?: string
+  base?: string
   check: { checked: string; method: string; result: string }
 }
 const register = JSON.parse(readFileSync(resolve(process.cwd(), 'public/api/apis.json'), 'utf8')) as {
@@ -21,6 +23,7 @@ const register = JSON.parse(readFileSync(resolve(process.cwd(), 'public/api/apis
   protocol_tags: string[]
   apis: CatalogApi[]
 }
+const published = register.apis.filter((a) => a.rail)
 const domains = ['numetal.xyz', 'gokhan.vc']
 const grouped = domains.map((domain) => ({
   domain,
@@ -28,7 +31,7 @@ const grouped = domains.map((domain) => ({
 }))
 const machine = JSON.stringify({
   name: 'Gökhan Turhan',
-  documentation_only: true,
+  pages_accept_payment: false,
   contact: 'mailto:contact@gokhan.vc',
   checked: register.checked,
   api_index: 'https://api.gokhanturhan.com/apis.json',
@@ -44,11 +47,14 @@ const machine = JSON.stringify({
   },
   purpose_tags: register.purpose_tags,
   protocol_tags: register.protocol_tags,
+  published: published.map((a) => ({ slug: a.slug, name: a.name, rail: a.rail, base: a.base, status: a.status })),
   apis: register.apis.map((a) => ({
     slug: a.slug,
     name: a.name,
     domain: a.domain,
     former_base: a.former_base,
+    rail: a.rail,
+    base: a.base,
     status: a.status,
     tags: a.tags,
     protocols: a.protocols,
@@ -63,7 +69,17 @@ const machine = JSON.stringify({
   description="API index and discovery files for agents: estate APIs, OpenAPI, llms.txt, cv.md and RSS."
 >
   <div class="es">
-    <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: 'Agents' }]} title="For agents" lead="The estate APIs are documented at api.gokhanturhan.com, grouped by the domain they used to run on. Nothing on that host takes a payment." />
+    <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: 'Agents' }]} title="For agents" lead="Seven APIs are published at api.gokhanturhan.com, above the archive of the domains they used to run on. A call under /ishtar, /curb, /launch, /plaintext, /accumulator, /numetal or /status is proxied to the live worker. These pages do not take a payment." />
+      <div class="cx api">
+        <div class="cx-h"><b>gokhanturhan.com</b><span>published on this host</span><em>{published.length}</em></div>
+        {published.map((a) => (
+          <a class="reg" href={`/api/${a.slug}/`}>
+            <span class="name">{a.name}</span>
+            <span class="what">{[...a.tags, ...a.protocols].join(' · ')}</span>
+            <span class="where">{a.rail} · {a.status}</span>
+          </a>
+        ))}
+      </div>
       {grouped.map((g) => (
         <div class="cx api">
           <div class="cx-h"><b>{g.domain}</b><span>former domain</span><em>{g.apis.length}</em></div>
