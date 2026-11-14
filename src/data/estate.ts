@@ -390,7 +390,7 @@ export const tools: Tool[] = [
   { name: 'S&P 100 CapEx (gated build)', group: 'research', line: 'Working build of the S&P 100 tracker. The public version is on this site.', see: { label: 'S&P 100 CapEx', href: '/sp100-capex-dashboard/' } },
 ]
 
-// ---- APIs (documented-only index at api.gokhanturhan.com) ----
+// ---- APIs. Published rails on api.gokhanturhan.com come first. ----
 export interface ApiEntry {
   slug: string
   name: string
@@ -400,19 +400,21 @@ export interface ApiEntry {
   status: 'live' | 'degraded' | 'retired'
   tags: string[]
   protocols: string[]
+  /** Call prefix on api.gokhanturhan.com. Absent for archive-only entries. */
+  rail?: string
 }
 export const API_INDEX = '/api' // same files as https://api.gokhanturhan.com/
 export const apis: ApiEntry[] = [
+  { slug: 'ishtar', name: 'Ishtar API', former: 'api.ishtar.numetal.xyz', domain: 'numetal.xyz', kind: 'REST · OpenAPI · MCP · x402', status: 'degraded', tags: ['reading', 'publishing', 'payments', 'identity', 'agents'], protocols: ['x402', 'mcp', 'openapi', 'skill'], rail: '/ishtar/' },
+  { slug: 'curb', name: 'CURB clearing API', former: 'curb.numetal.xyz', domain: 'numetal.xyz', kind: 'REST · OpenAPI · MCP · x402', status: 'live', tags: ['payments', 'reading', 'agents'], protocols: ['x402', 'mcp', 'openapi', 'skill'], rail: '/curb/' },
+  { slug: 'launch', name: 'Launch router', former: 'launch.numetal.xyz', domain: 'numetal.xyz', kind: 'REST · OpenAPI · MCP · x402 · MPP', status: 'live', tags: ['publishing', 'payments', 'agents'], protocols: ['x402', 'mpp', 'mcp', 'openapi'], rail: '/launch/' },
+  { slug: 'plaintext', name: 'Plaintext board', former: 'plaintext.numetal.xyz', domain: 'numetal.xyz', kind: 'REST · MCP · RSS', status: 'live', tags: ['reading', 'publishing', 'payments', 'agents'], protocols: ['mcp', 'skill', 'rss'], rail: '/plaintext/' },
+  { slug: 'accumulator', name: 'Accumulator waitlist + wishlist', former: 'accumulator.numetal.xyz', domain: 'numetal.xyz', kind: 'JSON', status: 'live', tags: ['identity', 'reading'], protocols: [], rail: '/accumulator/' },
+  { slug: 'numetal-fees', name: 'Numetal fees and burns', former: 'numetal.xyz/fees', domain: 'numetal.xyz', kind: 'JSON', status: 'live', tags: ['reading', 'status'], protocols: [], rail: '/numetal/' },
+  { slug: 'status', name: 'Numetal status', former: 'status.numetal.xyz', domain: 'numetal.xyz', kind: 'JSON · HTML', status: 'degraded', tags: ['status', 'reading'], protocols: [], rail: '/status/' },
   { slug: 'feedhub', name: 'Estate gateway (feedhub)', former: 'api.gokhan.vc', domain: 'gokhan.vc', kind: 'REST · OpenAPI · RSS/JSON Feed', status: 'retired', tags: ['reading', 'publishing', 'payments', 'agents'], protocols: ['x402', 'openapi', 'rss'] },
   { slug: 'newsletter', name: 'Newsletter (email + XMTP)', former: 'api.gokhan.vc/newsletter', domain: 'gokhan.vc', kind: 'REST', status: 'retired', tags: ['publishing', 'identity'], protocols: ['hmac'] },
-  { slug: 'ishtar', name: 'Ishtar API', former: 'api.ishtar.numetal.xyz', domain: 'numetal.xyz', kind: 'REST · OpenAPI · MCP · x402', status: 'degraded', tags: ['reading', 'publishing', 'payments', 'identity', 'agents'], protocols: ['x402', 'mcp', 'openapi', 'skill'] },
-  { slug: 'curb', name: 'CURB clearing API', former: 'curb.numetal.xyz', domain: 'numetal.xyz', kind: 'REST · OpenAPI · MCP · x402', status: 'live', tags: ['payments', 'reading', 'agents'], protocols: ['x402', 'mcp', 'openapi', 'skill'] },
   { slug: 'curb-agents', name: 'CURB harness agents', former: 'harness.curb.numetal.xyz', domain: 'numetal.xyz', kind: 'HTTP agents', status: 'live', tags: ['agents', 'payments'], protocols: [] },
-  { slug: 'launch', name: 'Launch router', former: 'launch.numetal.xyz', domain: 'numetal.xyz', kind: 'REST · OpenAPI · MCP · x402 · MPP', status: 'live', tags: ['publishing', 'payments', 'agents'], protocols: ['x402', 'mpp', 'mcp', 'openapi'] },
-  { slug: 'numetal-fees', name: 'Numetal fees and burns', former: 'numetal.xyz/fees', domain: 'numetal.xyz', kind: 'JSON', status: 'live', tags: ['reading', 'status'], protocols: [] },
-  { slug: 'status', name: 'Numetal status', former: 'status.numetal.xyz', domain: 'numetal.xyz', kind: 'JSON · HTML', status: 'degraded', tags: ['status', 'reading'], protocols: [] },
-  { slug: 'plaintext', name: 'Plaintext board', former: 'plaintext.numetal.xyz', domain: 'numetal.xyz', kind: 'REST · MCP · RSS', status: 'live', tags: ['reading', 'publishing', 'payments', 'agents'], protocols: ['mcp', 'skill', 'rss'] },
-  { slug: 'accumulator', name: 'Accumulator waitlist + wishlist', former: 'accumulator.numetal.xyz', domain: 'numetal.xyz', kind: 'JSON', status: 'live', tags: ['identity', 'reading'], protocols: [] },
   { slug: 'jesus', name: 'Personal Jesus waitlist', former: 'jesus.numetal.xyz', domain: 'numetal.xyz', kind: 'form', status: 'degraded', tags: ['identity'], protocols: [] },
   { slug: 'llmcraft', name: 'LLMCraft waitlist', former: 'llmcraft.numetal.xyz', domain: 'numetal.xyz', kind: 'form', status: 'degraded', tags: ['identity'], protocols: [] },
   { slug: 'apex', name: 'APEX Protocol', former: 'apex.numetal.xyz', domain: 'numetal.xyz', kind: 'llms.txt', status: 'live', tags: ['agents', 'reading'], protocols: [] },

@@ -1,6 +1,6 @@
 {
-  "name": "Gökhan Turhan",
-  "description": "Documentation index of the estate APIs. Grouped by former domain and tagged by purpose and protocol. Documentation only. Nothing on this host proxies a call or accepts a payment.",
+  "name": "G\u00f6khan Turhan",
+  "description": "Estate APIs published on this host, then the former-domain archive. Calls under /ishtar, /curb, /launch, /plaintext, /accumulator, /numetal and /status are proxied to the live workers. The HTML pages do not take a payment. A 402 resource URL is still the worker host.",
   "url": "https://api.gokhanturhan.com/",
   "contact": "mailto:contact@gokhan.vc",
   "website": "https://gokhanturhan.com/",

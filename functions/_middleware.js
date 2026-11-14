@@ -22,20 +22,22 @@ const RAILS = [
   ['/launch', 'launch.numetal.xyz', /^\/(api|telegram|mcp|openapi\.json|llms\.txt|skill\.md|\.well-known)(\/|$)/],
   ['/plaintext', 'plaintext.numetal.xyz', /^\/(api|health|mcp|feed\.xml)(\/|$)/],
   ['/accumulator', 'accumulator.numetal.xyz', /^\/api(\/|$)/],
-  ['/numetal', 'numetal.xyz', /^\/(fees\/data|fees\/events|api)(\/|$)/],
+  // Public numetal.xyz/fees/data is a bulk redirect. The site already reaches
+  // the fee JSON through the NUMETAL service binding. Use that same binding.
+  ['/numetal', 'numetal.xyz', /^\/(fees\/data|fees\/events|api)(\/|$)/, 'NUMETAL'],
   ['/status', 'status.numetal.xyz', /^\/(health|status\.json|api)(\/|$)/],
 ]
 
 function matchRail(pathname) {
-  for (const [prefix, host, api] of RAILS) {
+  for (const [prefix, host, api, service] of RAILS) {
     if (pathname !== prefix && !pathname.startsWith(`${prefix}/`)) continue
     const rest = pathname.slice(prefix.length) || '/'
-    if (api.test(rest)) return { host, rest }
+    if (api.test(rest)) return { host, rest, service }
   }
   return null
 }
 
-async function proxyRail(request, { host, rest }) {
+async function proxyRail(request, env, { host, rest, service }) {
   const url = new URL(request.url)
   let path = rest || '/'
   if (path.length > 1 && path.endsWith('/')) path = path.slice(0, -1)
@@ -50,7 +52,8 @@ async function proxyRail(request, { host, rest }) {
   if (!['GET', 'HEAD'].includes(request.method)) init.body = await request.arrayBuffer()
   let res
   try {
-    res = await fetch(upstream, init)
+    const binding = service && env && env[service]
+    res = binding ? await binding.fetch(new Request(upstream, init)) : await fetch(upstream, init)
   } catch (e) {
     return Response.json({ error: `The service at ${host} did not answer.` }, { status: 504, headers: { 'cache-control': 'no-store' } })
   }
@@ -67,7 +70,7 @@ export async function onRequest(context) {
   // Pages Functions, so this proxy is the rail.
   if (url.hostname === API_HOST && !API_PASS.has(url.pathname)) {
     const rail = matchRail(url.pathname)
-    if (rail) return proxyRail(context.request, rail)
+    if (rail) return proxyRail(context.request, context.env, rail)
     const onCatalog = url.pathname === '/api' || url.pathname.startsWith('/api/')
     if (!onCatalog) {
       const dest = new URL(context.request.url)

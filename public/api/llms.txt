@@ -1,8 +1,8 @@
 # API index — Gökhan Turhan
 
-> Documentation only, checked 2026-11-14. Nothing on this host proxies a call or accepts a payment. Do not pay any endpoint listed here. Contact: contact@gokhan.vc.
+> Checked 2026-11-14. Seven product APIs are published on this host, above the former-domain archive. A call under /ishtar, /curb, /launch, /plaintext, /accumulator, /numetal or /status is proxied to the live worker. These pages do not take a payment. A 402 on a paid path is the worker's challenge, and its resource URL still names the worker host. Contact: contact@gokhan.vc.
 
-The products themselves are archived at https://gokhanturhan.com/products/. Each API below is grouped by the domain it used to run on.
+The products are at https://gokhanturhan.com/products/. Live calls omit the /api prefix. The /api/ pages are this index.
 
 ## Tags
 
@@ -21,6 +21,18 @@ Protocol: x402, mpp, mcp, openapi, rss, skill, hmac.
 - [x402 manifests](https://api.gokhanturhan.com/x402/): frozen payment manifests. Do not pay.
 - [MCP servers](https://api.gokhanturhan.com/mcp/): former MCP servers, listed for the record.
 - [Retired endpoints](https://api.gokhanturhan.com/retired/): what retired endpoints return, and where each product now lives
+
+## gokhanturhan.com
+
+Published call prefixes. Docs for each one stay at /api/<slug>/.
+
+- [Ishtar API](https://api.gokhanturhan.com/ishtar/): call https://api.gokhanturhan.com/ishtar/. GET /ishtar/health returned 200 with mode idle. Status degraded. An unpaid POST /ishtar/api/chat/ask is the worker 402. The signed resource is still https://api.ishtar.numetal.xyz/api/chat/ask. Docs: https://api.gokhanturhan.com/ishtar/. Product: https://gokhanturhan.com/ishtar/.
+- [CURB clearing API](https://api.gokhanturhan.com/curb/): call https://api.gokhanturhan.com/curb/. GET /curb/health returned 200. Status live. An unpaid POST /curb/v1/pay is the worker 402. The signed resource is still https://curb.numetal.xyz/v1/pay. Docs: https://api.gokhanturhan.com/curb/. Product: https://gokhanturhan.com/curb/.
+- [Launch router](https://api.gokhanturhan.com/launch/): call https://api.gokhanturhan.com/launch/. GET /launch/.well-known/mpp.json returned 200. Status live. The origin field is still https://launch.numetal.xyz. Docs: https://api.gokhanturhan.com/launch/. Product: https://gokhanturhan.com/launch/.
+- [Plaintext board](https://api.gokhanturhan.com/plaintext/): call https://api.gokhanturhan.com/plaintext/. GET /plaintext/health and GET /plaintext/api/v1/board returned 200. Status live. POST /api/v1/remark was not sent. Docs: https://api.gokhanturhan.com/plaintext/. Product: https://gokhanturhan.com/plaintext/.
+- [Accumulator waitlist + wishlist](https://api.gokhanturhan.com/accumulator/): call https://api.gokhanturhan.com/accumulator/. GET https://accumulator.numetal.xyz/api/wishlist returned 200. GET /accumulator/api/wishlist on this host returned a Cloudflare challenge on 2026-11-14. Status live. Docs: https://api.gokhanturhan.com/accumulator/. Product: https://gokhanturhan.com/accumulator/.
+- [Numetal fees and burns](https://api.gokhanturhan.com/numetal-fees/): call https://api.gokhanturhan.com/numetal/. GET https://gokhanturhan.com/numetal/fees/data returned 200 JSON. Status live. Docs: https://api.gokhanturhan.com/numetal-fees/. Product: https://gokhanturhan.com/numetal/.
+- [Numetal status](https://api.gokhanturhan.com/status/): call https://api.gokhanturhan.com/status/. GET /status/health returned 200. GET /status/status.json returned 200 and reported overall outage. Status degraded. Docs: https://api.gokhanturhan.com/status/. Product: https://gokhanturhan.com/numetal/status/.
 
 ## numetal.xyz
 

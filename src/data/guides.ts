@@ -44,7 +44,7 @@ export const guides: Guide[] = [
       'Fetch the summary: <code>curl https://gokhanturhan.com/llms.txt</code>. It lists the main products, drafts, publishing, the API index and recent posts, each with a link. <a href="/llms.txt">Open llms.txt</a>.',
       'For the long version, fetch <a href="/llms-full.txt">llms-full.txt</a>. It adds product notes, every journal post with its description, and the whole CV.',
       'Read the CV as Markdown: <code>curl https://gokhanturhan.com/cv.md</code> (<a href="/cv.md">cv.md</a>). <a href="/cv.json">cv.json</a> holds the same data as JSON.',
-      'Read the API register: <a href="/api/apis.json">apis.json</a> lists every API the products ran, with its status and its documentation page. It is documentation only: do not call or pay the retired endpoints it lists.',
+      'Read the API register: <a href="/api/apis.json">apis.json</a> lists the published rails first (/ishtar, /curb, /launch, /plaintext, /accumulator, /numetal, /status on api.gokhanturhan.com), then the former-domain archive. The index pages do not take a payment. Do not pay a retired endpoint. A 402 on a live rail is the worker's challenge and still names the worker host.',
       'Follow new posts with the feed: <a href="/rss.xml">rss.xml</a>.',
     ],
     notes: ['The site is static. There is no search API; use <a href="/sitemap-index.xml">the sitemap</a> to list every public page.'],

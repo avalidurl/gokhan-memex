@@ -1,9 +1,9 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "API index (documentation only)",
+    "title": "API index",
     "version": "2026-11-14",
-    "description": "Static index of the estate APIs, grouped by former domain (numetal.xyz, gokhan.vc). Each API in apis.json has purpose tags (reading, publishing, payments, identity, agents, status, files) and protocol tags (x402, mpp, mcp, openapi, rss, skill, hmac). This host does not proxy a call or accept a payment. Contact: contact@gokhan.vc.",
+    "description": "Seven product APIs are published on this host under /ishtar, /curb, /launch, /plaintext, /accumulator, /numetal and /status. Those paths are proxied to the live workers. The HTML pages do not take a payment. A 402 on a paid path is the worker's challenge and still names the worker host. The remaining entries are the former-domain archive (numetal.xyz, gokhan.vc). Contact: contact@gokhan.vc.",
     "contact": {
       "email": "contact@gokhan.vc",
       "url": "https://gokhanturhan.com/"
@@ -27,7 +27,7 @@
     },
     "/llms.txt": {
       "get": {
-        "summary": "Agent notes, grouped by former domain",
+        "summary": "Agent notes, published rails first",
         "responses": {
           "200": {
             "description": "text"
@@ -41,6 +41,86 @@
         "responses": {
           "200": {
             "description": "JSON card"
+          }
+        }
+      }
+    },
+    "/ishtar/health": {
+      "get": {
+        "summary": "Proxied Ishtar health. Paid challenges on this rail still name api.ishtar.numetal.xyz.",
+        "responses": {
+          "200": {
+            "description": "Upstream body, passed through"
+          }
+        }
+      }
+    },
+    "/curb/health": {
+      "get": {
+        "summary": "Proxied CURB health. Paid challenges on this rail still name curb.numetal.xyz.",
+        "responses": {
+          "200": {
+            "description": "Upstream body, passed through"
+          }
+        }
+      }
+    },
+    "/launch/.well-known/mpp.json": {
+      "get": {
+        "summary": "Proxied Launch MPP discovery. The origin field still names launch.numetal.xyz.",
+        "responses": {
+          "200": {
+            "description": "Upstream body, passed through"
+          }
+        }
+      }
+    },
+    "/plaintext/health": {
+      "get": {
+        "summary": "Proxied plaintext health.",
+        "responses": {
+          "200": {
+            "description": "Upstream body, passed through"
+          }
+        }
+      }
+    },
+    "/accumulator/api/wishlist": {
+      "get": {
+        "summary": "Proxied accumulator wishlist. A check on 2026-11-14 returned a Cloudflare challenge; the origin GET returned 200.",
+        "responses": {
+          "200": {
+            "description": "Upstream body, passed through"
+          }
+        }
+      }
+    },
+    "/numetal/fees/data": {
+      "get": {
+        "summary": "Proxied Numetal fee JSON, via the same service binding the site uses.",
+        "responses": {
+          "200": {
+            "description": "Upstream body, passed through"
+          }
+        }
+      }
+    },
+    "/status/health": {
+      "get": {
+        "summary": "Proxied Numetal status health.",
+        "responses": {
+          "200": {
+            "description": "Upstream body, passed through"
+          }
+        }
+      }
+    },
+    "/status/status.json": {
+      "get": {
+        "summary": "Proxied Numetal status report.",
+        "responses": {
+          "200": {
+            "description": "Upstream body, passed through"
           }
         }
       }
