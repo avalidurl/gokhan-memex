@@ -85,10 +85,10 @@ const groupLabel: Record<string, string> = { family: 'Family', domain: 'Domain',
 
     {b.apis.length > 0 && (
       <details class="cx fold api" aria-label="APIs" open>
-        <summary class="cx-h"><b>APIs</b><span>documented</span><em>{pad(b.apis.length)}</em></summary>
+        <summary class="cx-h"><b>APIs</b><span>by function</span><em>{pad(b.apis.length)}</em></summary>
         {b.apis.map((a) => (
           <div class="cx-r">
-            <span>{a.kind}</span>
+            <span>{a.tags.join(' · ')}</span>
             <span><a class="nm" href={`${API_INDEX}/${a.slug}/`}>{a.name}</a><br /><Tags tags={apiTags[a.slug] ?? []} current={b.slug} /></span>
           </div>
         ))}
