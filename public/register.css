@@ -314,10 +314,15 @@ body.register .prose :where(pre) {
   border-radius: 0 !important;
   color: var(--ink) !important;
 }
+body.register .prose :where(blockquote),
+body.register .prose :where(blockquote p),
+body.register .prose :where(q) {
+  color: var(--ink) !important;
+  font-style: normal !important;
+}
 body.register .prose :where(blockquote) {
-  border-left: 1px solid var(--hair) !important;
-  color: var(--dim) !important;
-  font-style: italic;
+  border-left: 3px solid var(--ink) !important;
+  padding-left: 1rem !important;
 }
 body.register .prose :where(img),
 body.register article img {
