@@ -55,12 +55,15 @@ function latestBlygItems(blygXml) {
   for (const { item } of chosen.values()) {
     const link = tagText(item, 'link')
     if (!link.startsWith('https://blyg.gokhanturhan.com/')) continue
-    const guid = `<guid isPermaLink="true">${escapeXml(link)}</guid>`
-    let next = item.replace(/<guid\b[^>]*>[\s\S]*?<\/guid>/, guid)
-    if (!next.includes('<category>Blyg</category>')) {
-      next = next.replace(/<\/item>$/, '<category>Blyg</category></item>')
-    }
-    out.push(next)
+    const title = tagText(item, 'title')
+    const pubDate = tagText(item, 'pubDate')
+    const descMatch = item.match(/<description\b[^>]*>[\s\S]*?<\/description>/)
+    const description = descMatch ? descMatch[0] : '<description></description>'
+    out.push(
+      `<item><title>${escapeXml(title)}</title><link>${escapeXml(link)}</link>` +
+      `<guid isPermaLink="true">${escapeXml(link)}</guid>` +
+      `<pubDate>${escapeXml(pubDate)}</pubDate><category>Blyg</category>${description}</item>`
+    )
   }
   return out
 }

@@ -175,7 +175,7 @@ const showToc = tocHeadings.length >= 2
       )}
 
       <!-- Article Content -->
-      <div class="dispatch-prose prose dark:prose-invert max-w-none prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-foreground prose-a:underline prose-a:decoration-1 prose-a:underline-offset-2 hover:prose-a:decoration-2 prose-p:text-foreground/90 prose-li:text-foreground/90 prose-blockquote:border-l-2 prose-blockquote:border-muted-foreground/30 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-muted-foreground prose-code:text-sm prose-code:bg-muted/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:before:content-none prose-code:after:content-none prose-pre:bg-muted/30 prose-pre:border prose-pre:border-border">
+      <div class="dispatch-prose prose dark:prose-invert max-w-none prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-foreground prose-a:underline prose-a:decoration-1 prose-a:underline-offset-2 hover:prose-a:decoration-2 prose-p:text-foreground/90 prose-li:text-foreground/90 prose-blockquote:border-l-[3px] prose-blockquote:border-foreground prose-blockquote:pl-4 prose-blockquote:not-italic prose-blockquote:font-normal prose-blockquote:text-foreground prose-code:text-sm prose-code:bg-muted/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:before:content-none prose-code:after:content-none prose-pre:bg-muted/30 prose-pre:border prose-pre:border-border">
         <Content />
       </div>
 
@@ -323,7 +323,7 @@ const showToc = tocHeadings.length >= 2
     max-width: 48ch;
   }
   .epigraph p {
-    font-style: italic;
+    font-style: normal;
     margin: 0 0 0.35rem;
   }
   .epigraph cite,
@@ -343,7 +343,7 @@ const showToc = tocHeadings.length >= 2
     max-width: 48ch;
   }
   .dispatch-prose :global(.epigraph p) {
-    font-style: italic;
+    font-style: normal;
     margin: 0 0 0.35rem;
   }
   .dispatch-prose :global(.epigraph .epigraph-cite),
