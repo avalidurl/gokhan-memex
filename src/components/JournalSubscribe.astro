@@ -1,17 +1,28 @@
 ---
 /**
- * The email list ran on feedhub. That service is offline.
- * The journal stays on this site; RSS is the follow path.
+ * Same-origin subscribe. The Pages function writes the address and sends the confirmation.
  */
 interface Props { where?: 'index' | 'post' }
 const { where = 'post' } = Astro.props
 ---
-<p
+<form
+  method="POST"
+  action="/newsletter/subscribe"
   class={`subscribe subscribe-${where}`}
   id={where === 'index' ? 'subscribe' : undefined}
 >
-  The email list is offline. Follow the journal by <a href="/rss.xml">RSS</a>.
-</p>
+  <input
+    type="email"
+    name="email"
+    required
+    placeholder="you@email.com"
+    autocomplete="email"
+    aria-label="Email"
+  />
+  <input type="hidden" name="site" value="memex" />
+  <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" />
+  <button type="submit">Subscribe</button>
+</form>
 
 <style>
   .subscribe {
@@ -57,5 +68,10 @@ const { where = 'post' } = Astro.props
   .subscribe button:focus-visible {
     background: transparent;
     color: var(--ink, #111);
+  }
+  .hp {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
   }
 </style>

@@ -6,18 +6,18 @@ import JournalSubscribe from '@/components/JournalSubscribe.astro'
 
 <BaseLayout
   title="Newsletter"
-  description="The estate email list is offline. Follow the journal by RSS."
+  description="Occasional letters from the journal. Leave an address, or follow by RSS."
   hideFooterSubscribe
 >
   <div class="nl mx-auto max-w-2xl px-6 py-12 lg:py-16">
-    <p class="doc-eyebrow mb-3">Doc MX-090 · List offline</p>
+    <p class="doc-eyebrow mb-3">Doc MX-090</p>
     <h1 class="mb-3">Newsletter</h1>
     <p class="mb-8 max-w-2xl text-lg text-foreground/90">
-      The email list is offline. The journal stays on this site.
+      Occasional letters from the journal. Leave an address. A confirmation comes back to it.
     </p>
 
     <JournalSubscribe where="index" />
-    <p class="nl-more mt-3 text-sm text-muted-foreground">An old unsubscribe link no longer reaches a live service. See <a href="/about/unsubscribe/" class="doc-link">the closed list</a>.</p>
+    <p class="nl-more mt-3 text-sm text-muted-foreground">RSS is <a href="/rss.xml" class="doc-link">/rss.xml</a>. To leave the list, write to <a href="mailto:contact@gokhan.vc?subject=Unsubscribe" class="doc-link">contact@gokhan.vc</a>.</p>
 
     <p class="nl-more mt-8 text-sm text-muted-foreground">
       Latest: <a
