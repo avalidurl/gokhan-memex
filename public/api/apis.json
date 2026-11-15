@@ -58,7 +58,7 @@
       "check": {
         "checked": "2026-11-14",
         "method": "GET",
-        "result": "GET https://api.gokhanturhan.com/ishtar/health returned 200 with mode idle. An unpaid POST /ishtar/api/chat/ask is the worker 402. The signed resource is still https://api.ishtar.numetal.xyz/api/chat/ask."
+        "result": "GET https://api.gokhanturhan.com/ishtar/health returned 200 with mode idle. An unpaid POST /ishtar/api/chat/ask is the worker 402. The signed resource is https://api.gokhanturhan.com/ishtar/api/chat/ask. The MPP realm is api.gokhanturhan.com."
       },
       "rail": "/ishtar/",
       "base": "https://api.gokhanturhan.com/ishtar/"
@@ -611,7 +611,7 @@
     "skill",
     "hmac"
   ],
-  "note": "Calls under the published prefixes are proxied to the live workers. The HTML pages do not take a payment. A 402 resource URL is still the worker host. Entries without a rail are the former-domain archive.",
+  "note": "Calls under the published prefixes are proxied to the live workers. The HTML pages do not take a payment. Ishtar's 402 names api.gokhanturhan.com. CURB and Launch 402s still name their worker hosts. Entries without a rail are the former-domain archive.",
   "pages_accept_payment": false,
   "published_prefixes": [
     "/ishtar/",

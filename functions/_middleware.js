@@ -48,7 +48,7 @@ async function proxyRail(request, env, { host, rest, service }) {
     if (v) fwd.set(k, v)
   }
   fwd.set('Origin', `https://${host}`)
-  const init = { method: request.method, headers: fwd, redirect: 'manual' }
+  const init = { method: request.method, headers: fwd, redirect: 'manual', cache: 'no-store' }
   if (!['GET', 'HEAD'].includes(request.method)) init.body = await request.arrayBuffer()
   let res
   try {
@@ -60,6 +60,8 @@ async function proxyRail(request, env, { host, rest, service }) {
   const headers = new Headers(res.headers)
   for (const k of ['content-length', 'content-encoding', 'transfer-encoding', 'alt-svc', 'report-to', 'nel', 'strict-transport-security']) headers.delete(k)
   headers.set('cache-control', 'no-store')
+  headers.set('cdn-cache-control', 'no-store')
+  headers.set('cloudflare-cdn-cache-control', 'no-store')
   return new Response(res.body, { status: res.status, headers })
 }
 

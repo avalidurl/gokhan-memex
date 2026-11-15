@@ -1,6 +1,6 @@
 # API index — Gökhan Turhan
 
-> Checked 2026-11-14. Seven product APIs are published on this host, above the former-domain archive. A call under /ishtar, /curb, /launch, /plaintext, /accumulator, /numetal or /status is proxied to the live worker. These pages do not take a payment. A 402 on a paid path is the worker's challenge, and its resource URL still names the worker host. Contact: contact@gokhan.vc.
+> Checked 2026-11-14. Seven product APIs are published on this host, above the former-domain archive. A call under /ishtar, /curb, /launch, /plaintext, /accumulator, /numetal or /status is proxied to the live worker. These pages do not take a payment. A 402 on a paid path is the worker's challenge. Ishtar's challenge names api.gokhanturhan.com. CURB and Launch challenges still name their worker hosts. Contact: contact@gokhan.vc.
 
 The products are at https://gokhanturhan.com/products/. Live calls omit the /api prefix. The /api/ pages are this index.
 
@@ -26,7 +26,7 @@ Protocol: x402, mpp, mcp, openapi, rss, skill, hmac.
 
 Published call prefixes. Docs for each one stay at /api/<slug>/.
 
-- [Ishtar API](https://api.gokhanturhan.com/ishtar/): call https://api.gokhanturhan.com/ishtar/. GET /ishtar/health returned 200 with mode idle. Status degraded. An unpaid POST /ishtar/api/chat/ask is the worker 402. The signed resource is still https://api.ishtar.numetal.xyz/api/chat/ask. Docs: https://api.gokhanturhan.com/ishtar/. Product: https://gokhanturhan.com/ishtar/.
+- [Ishtar API](https://api.gokhanturhan.com/ishtar/): call https://api.gokhanturhan.com/ishtar/. GET /ishtar/health returned 200 with mode idle. Status degraded. An unpaid POST /ishtar/api/chat/ask is the worker 402. The signed resource is https://api.gokhanturhan.com/ishtar/api/chat/ask. The MPP realm is api.gokhanturhan.com. Docs: https://api.gokhanturhan.com/ishtar/. Product: https://gokhanturhan.com/ishtar/.
 - [CURB clearing API](https://api.gokhanturhan.com/curb/): call https://api.gokhanturhan.com/curb/. GET /curb/health returned 200. Status live. An unpaid POST /curb/v1/pay is the worker 402. The signed resource is still https://curb.numetal.xyz/v1/pay. Docs: https://api.gokhanturhan.com/curb/. Product: https://gokhanturhan.com/curb/.
 - [Launch router](https://api.): call https://api.. GET /.well-known/mpp.json returned 200. Status live. The origin field is still https://. Docs: https://api.. Product: /.
 - [Plaintext board](https://api.gokhanturhan.com/plaintext/): call https://api.gokhanturhan.com/plaintext/. GET /plaintext/health and GET /plaintext/api/v1/board returned 200. Status live. POST /api/v1/remark was not sent. Docs: https://api.gokhanturhan.com/plaintext/. Product: https://gokhanturhan.com/plaintext/.

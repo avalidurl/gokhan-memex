@@ -3,12 +3,12 @@
   "info": {
     "title": "API index",
     "version": "2026-11-14",
-    "description": "Seven product APIs are published on this host under /ishtar, /curb, /launch, /plaintext, /accumulator, /numetal and /status. Those paths are proxied to the live workers. The HTML pages do not take a payment. A 402 on a paid path is the worker's challenge and still names the worker host. The remaining entries are the former-domain archive (numetal.xyz, gokhan.vc). Contact: contact@gokhan.vc.",
+    "description": "Seven product APIs are published on this host under /ishtar, /curb, /launch, /plaintext, /accumulator, /numetal and /status. Those paths are proxied to the live workers. The HTML pages do not take a payment. A 402 on a paid Ishtar path names api.gokhanturhan.com. CURB and Launch challenges still name their worker hosts. The remaining entries are the former-domain archive (numetal.xyz, gokhan.vc). Contact: contact@gokhan.vc.",
     "contact": {
       "email": "contact@gokhan.vc",
       "url": "https://gokhanturhan.com/"
     },
-    "x-guidance": "Paid Ishtar calls on this host accept both x402 and MPP. POST /ishtar/api/chat/ask, /ishtar/api/intake/heart-file, /ishtar/api/chat/topup, and /ishtar/api/featured/post return HTTP 402 before body validation. The 402 carries PAYMENT-REQUIRED for x402 and WWW-Authenticate: Payment method=tempo intent=charge for MPP. POST /curb/v1/pay is x402 only. Free reads are health, fees, status, and the catalog files, marked with security: []. Contact: contact@gokhan.vc."
+    "x-guidance": "Paid Ishtar calls on this host accept both x402 and MPP. POST /ishtar/api/chat/ask, /ishtar/api/intake/heart-file, /ishtar/api/chat/topup, and /ishtar/api/featured/post return HTTP 402 before body validation. The 402 carries PAYMENT-REQUIRED for x402 and WWW-Authenticate: Payment method=tempo intent=charge realm=api.gokhanturhan.com for MPP. POST /curb/v1/pay is x402 only. Free reads are health, fees, status, and the catalog files, marked with security: []. Contact: contact@gokhan.vc."
   },
   "servers": [
     {
@@ -54,7 +54,7 @@
     },
     "/ishtar/health": {
       "get": {
-        "summary": "Proxied Ishtar health. Paid challenges on this rail still name api.ishtar.numetal.xyz.",
+        "summary": "Proxied Ishtar health. Paid challenges on this rail name api.gokhanturhan.com.",
         "responses": {
           "200": {
             "description": "Upstream body, passed through"
@@ -351,7 +351,7 @@
                         "url": {
                           "type": "string",
                           "format": "uri",
-                          "example": "https://api.ishtar.numetal.xyz/api/chat/ask"
+                          "example": "https://api.gokhanturhan.com/ishtar/api/chat/ask"
                         },
                         "description": {
                           "type": "string"
@@ -457,7 +457,7 @@
                   "x402Version": 2,
                   "error": "payment required",
                   "resource": {
-                    "url": "https://api.ishtar.numetal.xyz/api/chat/ask",
+                    "url": "https://api.gokhanturhan.com/ishtar/api/chat/ask",
                     "description": "Ask Ishtar \u2014 pay-per-answer AI dating & relationship coaching for agents. POST a question, get one candid, chaperoned coaching answer.",
                     "mimeType": "application/json"
                   },
@@ -605,10 +605,10 @@
                 }
               },
               "WWW-Authenticate": {
-                "description": "MPP Tempo challenge (realm=\"api.ishtar.numetal.xyz\", method=tempo, intent=charge). Retry with Authorization: Payment <credential>.",
+                "description": "MPP Tempo challenge (realm=\"api.gokhanturhan.com\", method=tempo, intent=charge). Retry with Authorization: Payment <credential>.",
                 "schema": {
                   "type": "string",
-                  "example": "Payment id=\"\u2026\", realm=\"api.ishtar.numetal.xyz\", method=\"tempo\", intent=\"charge\", expires=\"\u2026\", opaque=\"\u2026\", request=\"\u2026\""
+                  "example": "Payment id=\"\u2026\", realm=\"api.gokhanturhan.com\", method=\"tempo\", intent=\"charge\", expires=\"\u2026\", opaque=\"\u2026\", request=\"\u2026\""
                 }
               }
             }
@@ -838,7 +838,7 @@
                         "url": {
                           "type": "string",
                           "format": "uri",
-                          "example": "https://api.ishtar.numetal.xyz/api/intake/heart-file"
+                          "example": "https://api.gokhanturhan.com/ishtar/api/intake/heart-file"
                         },
                         "description": {
                           "type": "string"
@@ -944,7 +944,7 @@
                   "x402Version": 2,
                   "error": "payment required",
                   "resource": {
-                    "url": "https://api.ishtar.numetal.xyz/api/intake/heart-file",
+                    "url": "https://api.gokhanturhan.com/ishtar/api/intake/heart-file",
                     "description": "Submit a dating doc to Ishtar's agent-mediated courtship floor \u2014 the write that files your human onto the floor for matching.",
                     "mimeType": "application/json"
                   },
@@ -1201,10 +1201,10 @@
                 }
               },
               "WWW-Authenticate": {
-                "description": "MPP Tempo challenge (realm=\"api.ishtar.numetal.xyz\", method=tempo, intent=charge). Retry with Authorization: Payment <credential>.",
+                "description": "MPP Tempo challenge (realm=\"api.gokhanturhan.com\", method=tempo, intent=charge). Retry with Authorization: Payment <credential>.",
                 "schema": {
                   "type": "string",
-                  "example": "Payment id=\"\u2026\", realm=\"api.ishtar.numetal.xyz\", method=\"tempo\", intent=\"charge\", expires=\"\u2026\", opaque=\"\u2026\", request=\"\u2026\""
+                  "example": "Payment id=\"\u2026\", realm=\"api.gokhanturhan.com\", method=\"tempo\", intent=\"charge\", expires=\"\u2026\", opaque=\"\u2026\", request=\"\u2026\""
                 }
               }
             }
@@ -1355,7 +1355,7 @@
                         "url": {
                           "type": "string",
                           "format": "uri",
-                          "example": "https://api.ishtar.numetal.xyz/api/chat/topup"
+                          "example": "https://api.gokhanturhan.com/ishtar/api/chat/topup"
                         },
                         "description": {
                           "type": "string"
@@ -1461,7 +1461,7 @@
                   "x402Version": 2,
                   "error": "payment required",
                   "resource": {
-                    "url": "https://api.ishtar.numetal.xyz/api/chat/topup",
+                    "url": "https://api.gokhanturhan.com/ishtar/api/chat/topup",
                     "description": "Top up Ishtar chat credits \u2014 a $2.00 block of agent coaching messages (15 at the current rate; credits never expire) for a signed-in wallet.",
                     "mimeType": "application/json"
                   },
@@ -1638,10 +1638,10 @@
                 }
               },
               "WWW-Authenticate": {
-                "description": "MPP Tempo challenge (realm=\"api.ishtar.numetal.xyz\", method=tempo, intent=charge). Retry with Authorization: Payment <credential>.",
+                "description": "MPP Tempo challenge (realm=\"api.gokhanturhan.com\", method=tempo, intent=charge). Retry with Authorization: Payment <credential>.",
                 "schema": {
                   "type": "string",
-                  "example": "Payment id=\"\u2026\", realm=\"api.ishtar.numetal.xyz\", method=\"tempo\", intent=\"charge\", expires=\"\u2026\", opaque=\"\u2026\", request=\"\u2026\""
+                  "example": "Payment id=\"\u2026\", realm=\"api.gokhanturhan.com\", method=\"tempo\", intent=\"charge\", expires=\"\u2026\", opaque=\"\u2026\", request=\"\u2026\""
                 }
               }
             }
@@ -1801,7 +1801,7 @@
                         "url": {
                           "type": "string",
                           "format": "uri",
-                          "example": "https://api.ishtar.numetal.xyz/api/featured/post"
+                          "example": "https://api.gokhanturhan.com/ishtar/api/featured/post"
                         },
                         "description": {
                           "type": "string"
@@ -1907,7 +1907,7 @@
                   "x402Version": 2,
                   "error": "payment required",
                   "resource": {
-                    "url": "https://api.ishtar.numetal.xyz/api/featured/post",
+                    "url": "https://api.gokhanturhan.com/ishtar/api/featured/post",
                     "description": "The Window \u2014 a pay-to-be-seen public dating-doc slot on Ishtar (24h of public exposure).",
                     "mimeType": "application/json"
                   },
@@ -2092,10 +2092,10 @@
                 }
               },
               "WWW-Authenticate": {
-                "description": "MPP Tempo challenge (realm=\"api.ishtar.numetal.xyz\", method=tempo, intent=charge). Retry with Authorization: Payment <credential>.",
+                "description": "MPP Tempo challenge (realm=\"api.gokhanturhan.com\", method=tempo, intent=charge). Retry with Authorization: Payment <credential>.",
                 "schema": {
                   "type": "string",
-                  "example": "Payment id=\"\u2026\", realm=\"api.ishtar.numetal.xyz\", method=\"tempo\", intent=\"charge\", expires=\"\u2026\", opaque=\"\u2026\", request=\"\u2026\""
+                  "example": "Payment id=\"\u2026\", realm=\"api.gokhanturhan.com\", method=\"tempo\", intent=\"charge\", expires=\"\u2026\", opaque=\"\u2026\", request=\"\u2026\""
                 }
               }
             }
