@@ -507,6 +507,25 @@ body.register .cx-h b a:hover, body.register .cx-h b a:focus-visible, .cx-h b a:
 .es .intro { max-width: 64ch; padding-top: 14px; }
 .es .intro h1 { margin: 0; }
 .es .lead { font-size: 21px; line-height: 1.6; margin: 18px 0 0; max-width: 64ch; }
+/* Short reading copy. The sheet default and a journal paragraph are 18px.
+   Tailwind's .prose is 14px, and a row's italic note is 11px. These lines
+   sit under the essay size. */
+body.register .sheet-copy {
+  font-size: 16px;
+  line-height: 1.55;
+  max-width: 38rem;
+}
+body.register .sheet-copy :where(p) {
+  font-size: 16px;
+  line-height: 1.55;
+  margin: 0.85em 0;
+}
+body.register .sheet-copy :where(p:first-child) { margin-top: 1.15rem; }
+body.register .es .prose:not(.ported) { font-size: 16px; line-height: 1.55; }
+body.register .es .prose:not(.ported) :where(p, li) { font-size: 16px; line-height: 1.55; }
+.quad .cx-r { font-size: 16px; line-height: 1.45; }
+.quad .cx-r > span { font-family: var(--read); font-size: 16px; line-height: 1.45; }
+.quad .cx-r i { font: normal 16px/1.45 var(--read); color: var(--ink); }
 .es .crumb { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; margin: 0 0 10px; }
 .es .crumb a { color: var(--ink); text-decoration: none; }
 .es .crumb a:hover { color: var(--ikb); }
