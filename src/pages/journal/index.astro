@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content'
+import { entrySlug } from '@/lib/entry-slug'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PageHead from '@/components/PageHead.astro'
 import PostTitle from '@/components/PostTitle.astro'
@@ -50,7 +51,7 @@ const years = Object.keys(postsByYear).map(Number).sort((a, b) => b - a)
           <summary class="cx-h"><b><a href={`/journal/${year}/`}>{year}</a></b><em data-count>{postsByYear[year].length}</em></summary>
           <div data-list>
             {postsByYear[year].map((post) => (
-              <a class="file" data-row={`${iso(post.data.publishDate)} ${plain(post.data.title)}`} href={`/journal/${post.slug}/`}>
+              <a class="file" data-row={`${iso(post.data.publishDate)} ${plain(post.data.title)}`} href={`/journal/${entrySlug(post)}/`}>
                 <span class="dt">{iso(post.data.publishDate)}</span>
                 <PostTitle title={post.data.title} class="ttl" />
               </a>

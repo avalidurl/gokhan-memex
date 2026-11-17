@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import { unified } from '@astrojs/markdown-remark';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import { visit } from 'unist-util-visit';
@@ -72,10 +72,13 @@ const journalLastmod = journalLastmodByUrl();
 export default defineConfig({
   site: 'https://gokhanturhan.com',
   output: 'static',
+  // Keep the current whitespace. The v7 default drops spaces between inline elements.
+  compressHTML: true,
+  // Journal routes still read entry.slug and entry.render().
+  legacy: {
+    collectionsBackwardsCompat: true,
+  },
   integrations: [
-    tailwind({
-      applyBaseStyles: false,
-    }),
     mdx(),
     sitemap({
       changefreq: 'weekly',
@@ -109,18 +112,20 @@ export default defineConfig({
       theme: 'css-variables',
       wrap: true
     },
-    rehypePlugins: [
-      rehypeCdnImages,
-      rehypeTableWrap,
-      rehypeSlug,
-      [rehypeAutolinkHeadings, {
-        behavior: 'wrap',
-        properties: {
-          className: ['anchor-link'],
-          ariaLabel: 'Link to section'
-        }
-      }]
-    ]
+    processor: unified({
+      rehypePlugins: [
+        rehypeCdnImages,
+        rehypeTableWrap,
+        rehypeSlug,
+        [rehypeAutolinkHeadings, {
+          behavior: 'wrap',
+          properties: {
+            className: ['anchor-link'],
+            ariaLabel: 'Link to section'
+          }
+        }]
+      ]
+    })
   },
   vite: {
     optimizeDeps: {

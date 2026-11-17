@@ -11,15 +11,15 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.3.4",
-    "@astrojs/rss": "^4.0.7",
-    "@astrojs/sitemap": "^3.2.0",
-    "@astrojs/tailwind": "^5.1.1",
+    "@astrojs/markdown-remark": "^7.3.9",
+    "@astrojs/mdx": "^8.1.6",
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.5",
     "@fontsource-variable/archivo": "^5.2.8",
     "@fontsource-variable/geist-mono": "^5.2.8",
     "@fontsource-variable/jetbrains-mono": "^5.2.8",
     "@tailwindcss/typography": "^0.5.15",
-    "astro": "^5.13.2",
+    "astro": "^7.4.12",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-astro": "^0.456.0",
@@ -31,13 +31,30 @@
     "@resvg/resvg-wasm": "^2.6.2"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.4",
+    "@astrojs/check": "^0.9.12",
     "@resvg/resvg-js": "^2.6.2",
     "@types/node": "^22.8.6",
+    "autoprefixer": "^10.6.2",
     "fontkit": "^3.0.0",
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.3.2",
+    "postcss": "^8.5.33"
   },
   "engines": {
-    "node": ">=18.20.8"
+    "node": ">=22.23.4"
+  },
+  "overrides": {
+    "glob": "14.0.6",
+    "minimatch": "11.0.9",
+    "mdast-util-to-hast": "13.2.2",
+    "postcss-selector-parser": "6.1.5",
+    "anymatch": {
+      "picomatch": "2.3.2"
+    },
+    "micromatch": {
+      "picomatch": "2.3.2"
+    },
+    "readdirp": {
+      "picomatch": "2.3.2"
+    }
   }
 }

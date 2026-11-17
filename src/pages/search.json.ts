@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro'
 import { getCollection } from 'astro:content'
+import { entrySlug } from '@/lib/entry-slug'
 import { cvPlainText, cvMeta } from '@/data/cv'
 import { ebooks } from '@/data/ebooks'
 import { plainPostTitle } from '@/lib/utils'
@@ -37,7 +38,7 @@ export const GET: APIRoute = async () => {
 
   const documents: SearchDocument[] = posts.map(post => ({
     title: plainPostTitle(post.data.title),
-    link: `/journal/${post.slug}/`,
+    link: `/journal/${entrySlug(post)}/`,
     description: post.data.description,
     excerpt: post.data.excerpt ?? '',
     date: post.data.publishDate.toISOString(),

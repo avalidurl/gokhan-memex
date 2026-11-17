@@ -1,5 +1,6 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content'
+import { entrySlug } from '@/lib/entry-slug'
 import type { GetStaticPaths } from 'astro'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PostTitle from '@/components/PostTitle.astro'
@@ -49,7 +50,7 @@ const posts: PostEntry[] = allPosts
       <summary class="cx-h"><b>Posts</b><span>newest first</span><em>{String(posts.length).padStart(2, '0')}</em></summary>
       {posts.length > 0
         ? posts.map((post: PostEntry) => (
-            <div class="cx-r"><span>{post.data.publishDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</span><span><a href={`/journal/${post.slug}/`}><PostTitle title={post.data.title} /></a></span></div>
+            <div class="cx-r"><span>{post.data.publishDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</span><span><a href={`/journal/${entrySlug(post)}/`}><PostTitle title={post.data.title} /></a></span></div>
           ))
         : <div class="cx-b"><p>No posts in this category.</p></div>}
     </details>

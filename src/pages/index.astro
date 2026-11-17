@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content'
+import { entrySlug } from '@/lib/entry-slug'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PostTitle from '@/components/PostTitle.astro'
 
@@ -68,7 +69,7 @@ const iso = (d: Date | string) => new Date(d).toISOString().slice(0, 10)
       <details class="cx fold" open>
         <summary class="cx-h"><b>Latest</b><span><a href="/journal/">journal</a></span></summary>
         {latest.map((post) => (
-          <a class="file" href={`/journal/${post.slug}/`}>
+          <a class="file" href={`/journal/${entrySlug(post)}/`}>
             <span class="dt">{iso(post.data.publishDate)}</span>
             <PostTitle title={post.data.title} class="ttl" />
           </a>

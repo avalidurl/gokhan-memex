@@ -1,5 +1,6 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content'
+import { render, type CollectionEntry, getCollection } from 'astro:content'
+import { entrySlug } from '@/lib/entry-slug'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import SocialShare from '@/components/SocialShare.astro'
 import PostTitle from '@/components/PostTitle.astro'
@@ -17,19 +18,20 @@ export async function getStaticPaths() {
   // stable when two posts share a date.
   const ordered = [...posts].sort((a, b) => {
     const d = a.data.publishDate.getTime() - b.data.publishDate.getTime()
-    return d !== 0 ? d : a.slug.localeCompare(b.slug)
+    return d !== 0 ? d : entrySlug(a).localeCompare(entrySlug(b))
   })
-  const docNumber = new Map(ordered.map((p, i) => [p.slug, i + 1]))
+  const docNumber = new Map(ordered.map((p, i) => [entrySlug(p), i + 1]))
   return posts.map(post => ({
-    params: { slug: post.slug },
-    props: { ...post, docNumber: docNumber.get(post.slug) ?? 0 },
+    params: { slug: entrySlug(post) },
+    props: { ...post, docNumber: docNumber.get(entrySlug(post)) ?? 0 },
   }))
 }
 
 type Props = CollectionEntry<'blog'> & { docNumber: number }
 
 const post = Astro.props
-const { Content, headings } = await post.render()
+const slug = entrySlug(post)
+const { Content, headings } = await render(post)
 const publishedAt = post.data.publishDate
 const modifiedAt = modifiedDate({
   updatedDate: post.data.updatedDate,
@@ -45,7 +47,7 @@ const docCategory = (post.data.category || 'JOURNAL').toUpperCase()
 const docDate = post.data.publishDate.toISOString().slice(0, 10)
 
 // Default Article schema - always present for SEO
-const ogImage = `https://gokhanturhan.com/og/${post.slug}.png`
+const ogImage = `https://gokhanturhan.com/og/${slug}.png`
 const defaultArticleSchema = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
@@ -55,10 +57,10 @@ const defaultArticleSchema = {
   "publisher": { "@type": "Person", ...personRef, "name": "Gökhan Turhan" },
   "datePublished": publishedAt.toISOString(),
   "dateModified": modifiedAt.toISOString(),
-  "url": `https://gokhanturhan.com/journal/${post.slug}/`,
+  "url": `https://gokhanturhan.com/journal/${slug}/`,
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": `https://gokhanturhan.com/journal/${post.slug}/`
+    "@id": `https://gokhanturhan.com/journal/${slug}/`
   },
   "image": ogImage,
   "articleSection": post.data.category,
@@ -79,8 +81,8 @@ const showToc = tocHeadings.length >= 2
   title={plainPostTitle(post.data.title)}
   description={post.data.description}
   type="article"
-  image={`/og/${post.slug}.png`}
-  canonicalURL={new URL(`/journal/${post.slug}/`, Astro.site).toString()}
+  image={`/og/${slug}.png`}
+  canonicalURL={new URL(`/journal/${slug}/`, Astro.site).toString()}
   hideFooterSubscribe
 >
   {/* Default Article Schema - always present */}
@@ -107,7 +109,7 @@ const showToc = tocHeadings.length >= 2
   {/* max-w-3xl, not 2xl: at the 18px reading scale a 42rem sheet measures ~61ch,
       under the 65ch floor for comfortable long-form. 48rem lands it near 75ch. */}
   <div class="dispatch mx-auto max-w-3xl px-6 py-8 lg:py-12">
-    <article data-quote-share data-quote-title={plainPostTitle(post.data.title)} data-quote-url={`https://gokhanturhan.com/journal/${post.slug}/`}>
+    <article data-quote-share data-quote-title={plainPostTitle(post.data.title)} data-quote-url={`https://gokhanturhan.com/journal/${slug}/`}>
       <!-- (a) DOC-STRIP -->
       <div class="docstrip">
         <span class="docstrip-id"><span class="tick" aria-hidden="true">▮</span>&nbsp;DOC · {docId} · {docCategory}</span>
@@ -132,7 +134,7 @@ const showToc = tocHeadings.length >= 2
         <!-- (c) big bold H1 -->
         <PostTitle title={post.data.title} as="h1" class="dispatch-title" />
 
-        {(post.slug === 'not-raising-a-preseed' || post.slug === 'universal-sex-layer') && (
+        {(slug === 'not-raising-a-preseed' || slug === 'universal-sex-layer') && (
           <p class="deck-links">
             <a class="deck-pdf" href="/media/archive/ishtar/ishtar-deck-not-a-preseed.pdf" download>Download PDF</a>
             <span class="deck-sep" aria-hidden="true">·</span>

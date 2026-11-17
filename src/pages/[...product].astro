@@ -1,5 +1,6 @@
 ---
-import { getCollection } from 'astro:content'
+import { getCollection, render } from 'astro:content'
+import { entrySlug } from '@/lib/entry-slug'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PageHead from '@/components/PageHead.astro'
 import Snapshot from '@/components/Snapshot.astro'
@@ -28,7 +29,7 @@ export async function getStaticPaths() {
     [...pageProducts].sort((a, b) => b.slug.length - a.slug.length).find((p) => path === `/${p.slug}/` || path.startsWith(`/${p.slug}/`))
   const productPaths = pageProducts.map((p) => ({
     params: { product: p.slug },
-    props: { kind: 'product' as const, path: `/${p.slug}/`, p, file: p.file ? files.find((f) => f.slug === p.file) : undefined },
+    props: { kind: 'product' as const, path: `/${p.slug}/`, p, file: p.file ? files.find((f) => entrySlug(f) === p.file) : undefined },
   }))
   const pagePaths = Object.keys(manifest)
     .filter((path) => !slugs.has(path) && !/\/legal\/[^/]+\/$/.test(path) || (!slugs.has(path) && /^\/(accumulator|agentbounty)\/legal\//.test(path)))
@@ -50,7 +51,7 @@ export async function getStaticPaths() {
     .filter((prod) => isOriginSlug(prod.slug))
     .map((prod) => ({
       params: { product: `${prod.slug}/file` },
-      props: { kind: 'product' as const, path: `/${prod.slug}/`, p: prod, file: prod.file ? files.find((f) => f.slug === prod.file) : undefined, isFile: true },
+      props: { kind: 'product' as const, path: `/${prod.slug}/`, p: prod, file: prod.file ? files.find((f) => entrySlug(f) === prod.file) : undefined, isFile: true },
     }))
   const draftFilePaths = drafts
     .filter((d) => d.page && isOriginSlug(d.slug))
@@ -70,7 +71,7 @@ const d = props.kind === 'draft' ? props.d : undefined
 const page: Page | undefined = MAN[path]
 const html = HTML[`/src/archive${path}index.html`]
 const snap = SNAP[`/src/archive${path}snapshot.json`]
-const Content = props.kind === 'product' && props.file && !html ? (await props.file.render()).Content : null
+const Content = props.kind === 'product' && props.file && !html ? (await render(props.file)).Content : null
 
 const segName = (k: string) => { const s = k.split('/').filter(Boolean).pop()!; return s.charAt(0).toUpperCase() + s.slice(1).replace(/-/g, ' ') }
 const top = p ? topOf(p) : undefined

@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content'
+import { entrySlug } from '@/lib/entry-slug'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PostTitle from '@/components/PostTitle.astro'
 import PageHead from '@/components/PageHead.astro'
@@ -37,7 +38,7 @@ const groups = [
       <details class="cx fold" id={g.id} open>
         <summary class="cx-h"><b>{g.label}</b><span>{g.sub}</span><em>{g.posts.length}</em></summary>
         {g.posts.map((post) => (
-          <a class="file" href={`/journal/${post.slug}/`}>
+          <a class="file" href={`/journal/${entrySlug(post)}/`}>
             <span class="dt">{iso(post.data.publishDate)}</span>
             <PostTitle title={post.data.title} class="ttl" />
           </a>

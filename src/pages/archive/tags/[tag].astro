@@ -1,4 +1,5 @@
 ---
+import { entrySlug } from '@/lib/entry-slug'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PageHead from '@/components/PageHead.astro'
 import Tags from '@/components/Tags.astro'
@@ -41,7 +42,7 @@ const groupLabel: Record<string, string> = { family: 'Family', domain: 'Domain',
         {b.posts.map((p) => (
           <div class="cx-r">
             <span>{p.data.publishDate.toISOString().slice(0, 10)}</span>
-            <span><a class="nm" href={`/journal/${p.slug}/`}>{p.data.title}</a>{p.data.tags && <><br /><Tags tags={p.data.tags.slice(0, 8)} current={b.slug} /></>}</span>
+            <span><a class="nm" href={`/journal/${entrySlug(p)}/`}>{p.data.title}</a>{p.data.tags && <><br /><Tags tags={p.data.tags.slice(0, 8)} current={b.slug} /></>}</span>
           </div>
         ))}
       </details>

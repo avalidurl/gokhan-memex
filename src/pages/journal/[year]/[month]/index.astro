@@ -1,5 +1,6 @@
 ---
 import { type CollectionEntry, getCollection } from 'astro:content'
+import { entrySlug } from '@/lib/entry-slug'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PostTitle from '@/components/PostTitle.astro'
 import PageHead from '@/components/PageHead.astro'
@@ -70,7 +71,7 @@ const iso = (d: Date | string) => new Date(d).toISOString().slice(0, 10)
       <section class="cx" aria-label={`${monthName} ${year}`}>
         <div class="cx-h"><b>{monthName}</b><span><a href={`/journal/${year}/`}>{year}</a></span><em>{monthPosts.length}</em></div>
         {monthPosts.map((post) => (
-          <a class="file" href={`/journal/${post.slug}/`}>
+          <a class="file" href={`/journal/${entrySlug(post)}/`}>
             <span class="dt">{iso(post.data.publishDate)}</span>
             <PostTitle title={post.data.title} class="ttl" />
           </a>

@@ -1,5 +1,6 @@
 /** llms.txt and llms-full.txt (llmstxt.org format), built from the same data as the site. */
 import { getCollection } from 'astro:content'
+import { entrySlug } from '@/lib/entry-slug'
 import { products, topLevel, drafts, tools, apis } from '@/data/estate'
 import { works } from '@/data/works'
 import { cvMarkdown } from '@/lib/cv-md'
@@ -105,7 +106,7 @@ export async function llmsTxt(): Promise<string> {
     ...core(),
     '## Recent journal posts',
     '',
-    ...ps.slice(0, 15).map((p) => `- [${plainPostTitle(p.data.title)}](${SITE}/journal/${p.slug}/): ${day(p.data.publishDate)}`),
+    ...ps.slice(0, 15).map((p) => `- [${plainPostTitle(p.data.title)}](${SITE}/journal/${entrySlug(p)}/): ${day(p.data.publishDate)}`),
     `- [All ${ps.length} posts](${SITE}/journal/)`,
     '',
     ...contact(),
@@ -123,7 +124,7 @@ export async function llmsFullTxt(): Promise<string> {
     ...byP.flatMap((p) => [`### ${p.name}`, '', `${SITE}/${p.slug}/${p.former ? ` · former address: ${p.former}` : ''}`, '', ...p.about!.map((a) => a), '']),
     `## Journal (${ps.length} posts)`,
     '',
-    ...ps.flatMap((p) => [`### ${plainPostTitle(p.data.title)}`, '', `${SITE}/journal/${p.slug}/ · ${day(p.data.publishDate)}${p.data.category ? ` · ${p.data.category}` : ''}${p.data.tags?.length ? ` · ${p.data.tags.join(', ')}` : ''}`, '', p.data.description || '', '']),
+    ...ps.flatMap((p) => [`### ${plainPostTitle(p.data.title)}`, '', `${SITE}/journal/${entrySlug(p)}/ · ${day(p.data.publishDate)}${p.data.category ? ` · ${p.data.category}` : ''}${p.data.tags?.length ? ` · ${p.data.tags.join(', ')}` : ''}`, '', p.data.description || '', '']),
     '## CV',
     '',
     cvMarkdown().replace(/^# /m, '### ').replace(/^## /gm, '#### '),
