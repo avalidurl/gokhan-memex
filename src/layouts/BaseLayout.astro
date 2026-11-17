@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import PrivacyNotice from '@/components/PrivacyNotice.astro'
 import { personSchema } from '@/lib/person'
+import { pageRevLabel } from '@/lib/post-dates'
 import OfflineStatus from '@/components/OfflineStatus.astro'
 import criticalStyles from '@/styles/critical.css?inline'
 import '@/styles/globals.css'
@@ -86,7 +87,7 @@ const docMap: Record<string, string> = {
   '404': 'MX-099',
 }
 const docNo = docOverride ?? docMap[docSection] ?? 'MX-000'
-const docRev = 'REV 2026-07-17'
+const docRev = pageRevLabel(pathname)
 
 /** Content hash of the collapse script, so an edit busts the 2h asset cache for every
  *  visitor. HTML is served max-age=0, so a changed ?v= always lands immediately. */
@@ -257,7 +258,7 @@ const tableDeskVersion = createHash('sha256')
         <div class="reg-id">
           <div>
             <h1><a href="/">Gökhan Turhan</a></h1>
-            <p class="reg-role">Full-stack builder · generalist solopreneur · conceptual artist</p>
+            <p class="reg-role">full-stack builder · generalist solopreneur · conceptual artist</p>
           </div>
           <p class="reg-doc"><b>{docNo}</b><span> · {docRev}</span></p>
         </div>

@@ -1,0 +1,101 @@
+---
+import { getCollection } from 'astro:content'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import PostTitle from '@/components/PostTitle.astro'
+
+const latest = (await getCollection('blog'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf())
+  .slice(0, 6)
+
+const iso = (d: Date | string) => new Date(d).toISOString().slice(0, 10)
+---
+
+<BaseLayout
+  title="Gökhan Turhan"
+  description="Full-stack builder — one person, a fleet of agents. Agent-native venues, rails, and benchmarks live in production on x402: Ishtar, CURB, HeartBench. Journal, CV, publishing."
+>
+  <div class="es">
+    <section id="index" data-doc="MX-001">
+      <div class="prose">
+        <p>What I want more of is acceleration you can weigh: gigawatts, foundries, compute, mass to orbit. Hard tech, deep tech, manufacturing, spaceflight — capacity, not adjectives; the base the big problems don't get solved without. Governance should compete for that base like any other vendor: jurisdictions running different rules, rewarded on outcomes, not paperwork theater. My corner of it is the market plumbing — software that buys, sells, and settles with other software, fast enough to keep up with the factories we still have to build.</p>
+      </div>
+
+      <details class="cx fold" open>
+        <summary class="cx-h"><b>Products</b><span>main products first</span><span><a href="/products/">all products</a></span></summary>
+        <a class="reg" href="/ubu/">
+          <span class="name">UBU · CLINAMEN</span>
+          <span class="what">Trained model and dataset pipeline. Pataphysical fiction, filed on-chain.</span>
+          <span class="where">gokhanturhan.com/ubu</span>
+        </a>
+        <a class="reg" href="/ishtar/">
+          <span class="name">Ishtar</span>
+          <span class="what">Agents court, humans meet</span>
+          <span class="where">gokhanturhan.com/ishtar</span>
+        </a>
+        <a class="reg" href="/curb/">
+          <span class="name">CURB</span>
+          <span class="what">Inference for USDC, over x402</span>
+          <span class="where">gokhanturhan.com/curb</span>
+        </a>
+        <a class="reg" href="/reclaim/">
+          <span class="name">Reclaim</span>
+          <span class="what">Get your art out of dead marketplaces</span>
+          <span class="where">gokhanturhan.com/reclaim</span>
+        </a>
+        <a class="reg" href="/plaintext/">
+          <span class="name">Plaintext</span>
+          <span class="what">Onchain plaintext board</span>
+          <span class="where">gokhanturhan.com/plaintext</span>
+        </a>
+      </details>
+      <a class="more" href="/products/">All products</a>
+
+      <details class="cx fold" open>
+        <summary class="cx-h"><b>New</b><span>hobby and personal, this season</span></summary>
+        <a class="reg" href="/turkish-art-blob/#concept">
+          <span class="name">Turkish Art Blob</span>
+          <span class="what">A speaking sculpture for art memory. Turkish or English, cited, no face.</span>
+          <span class="where">gokhanturhan.com/turkish-art-blob</span>
+        </a>
+        <a class="reg" href="/ethereum-doomsday">
+          <span class="name">Ethereum Doomsday</span>
+          <span class="what">L1 systemic-security scenario model. Illustrative, not a calibrated probability.</span>
+          <span class="where">gokhanturhan.com/ethereum-doomsday</span>
+        </a>
+      </details>
+
+      <details class="cx fold" open>
+        <summary class="cx-h"><b>Latest</b><span><a href="/journal/">journal</a></span></summary>
+        {latest.map((post) => (
+          <a class="file" href={`/journal/${post.slug}/`}>
+            <span class="dt">{iso(post.data.publishDate)}</span>
+            <PostTitle title={post.data.title} class="ttl" />
+          </a>
+        ))}
+      </details>
+      <a class="more" href="/journal/">All essays</a>
+    </section>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  const moved = {
+    cv: "/cv/",
+    contact: "/cv/#contact",
+    journal: "/journal/",
+    essay: "/journal/complementary-substitutions/",
+    publishing: "/publishing/",
+    raises: "/raises/",
+    agents: "/agents/",
+    projects: "/products/",
+    products: "/products/",
+  };
+  function route() {
+    const id = decodeURIComponent((location.hash || "").slice(1));
+    const to = moved[id];
+    if (to) location.replace(to);
+  }
+  route();
+  addEventListener("hashchange", route);
+</script>
