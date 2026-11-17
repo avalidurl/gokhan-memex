@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process'
-import { existsSync, readdirSync, readFileSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '../..')
@@ -53,6 +53,35 @@ export function modifiedDate(opts: {
 
 export function datesDiffer(a: Date, b: Date): boolean {
   return dayStamp(a) !== dayStamp(b)
+}
+
+/** REV stamp for the masthead. The date is the last commit of the page's own source. */
+export function pageRevLabel(pathname: string): string {
+  const path = pathname.endsWith('/') ? pathname : `${pathname}/`
+  const rel = path.replace(/^\/+|\/+$/g, '')
+  const candidates: string[] = []
+  if (!rel) candidates.push(join(ROOT, 'src/pages/index.astro'))
+  else {
+    candidates.push(join(ROOT, 'src/pages', rel, 'index.astro'))
+    candidates.push(join(ROOT, 'src/pages', `${rel}.astro`))
+    if (rel.startsWith('journal/')) {
+      const id = rel.slice('journal/'.length)
+      if (id && !id.includes('/')) candidates.push(journalFilePath(id))
+    }
+    candidates.push(join(ROOT, 'src/archive', rel, 'index.html'))
+  }
+  candidates.push(join(ROOT, 'src/layouts/BaseLayout.astro'))
+  for (const file of candidates) {
+    if (!existsSync(file)) continue
+    const git = gitCommitDate(file)
+    if (git) return `REV ${dayStamp(git)}`
+    try {
+      return `REV ${dayStamp(statSync(file).mtime)}`
+    } catch {
+      /* try the next candidate */
+    }
+  }
+  return 'REV 2026-07-17'
 }
 
 export function journalFilePath(id: string): string {
