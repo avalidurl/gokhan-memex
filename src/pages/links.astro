@@ -29,7 +29,7 @@ const sections: Section[] = [
   {
     id: 'code',
     title: 'Code',
-    hint: 'GitHub and Hugging Face',
+    hint: 'GitHub, Hugging Face, and Cursor',
     groups: [
       { name: 'GitHub', handles: [
         { href: 'https://github.com/avalidurl', note: 'personal bench' },
@@ -37,6 +37,9 @@ const sections: Section[] = [
       ] },
       { name: 'Hugging Face', handles: [
         { href: 'https://huggingface.co/gokhanturhan' },
+      ] },
+      { name: 'Cursor', handles: [
+        { href: 'https://cursor.com/gokhan' },
       ] },
     ],
   },
@@ -442,11 +445,11 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
   details.lk-sec.fold,
   details.lk-net.fold {
     position: relative;
-    border: 0;
-    background: transparent;
-    margin: 0;
-    border-top: 1px solid var(--ink);
+    border: 1px solid var(--ink);
+    background: var(--cx-bg);
+    margin: 0 0 16px;
   }
+  details.lk-net.fold { margin: 10px 10px 12px; }
   details.lk-sec.fold > summary.lk-sum,
   details.lk-net.fold > summary.lk-sum {
     display: flex;
@@ -457,8 +460,9 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
     list-style: none;
     user-select: none;
     border: 0;
+    border-bottom: 1px solid var(--ink);
     background: transparent;
-    padding: 0.85rem 0;
+    padding: 0.7rem 10px;
     font: inherit;
     letter-spacing: 0;
     text-transform: none;
@@ -524,7 +528,6 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
     letter-spacing: 0;
     text-transform: none;
   }
-  details.lk-net.fold { margin-left: 1.15rem; border-top: 1px solid var(--hair); }
   details.lk-sec.fold:not([open]) > summary.lk-sum,
   details.lk-net.fold:not([open]) > summary.lk-sum { border-bottom: 0; }
   .lk-all {
