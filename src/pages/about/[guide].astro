@@ -35,7 +35,7 @@ const siblings = guides.filter((x) => x.quad === g.quad && x.slug !== g.slug)
         {g.notes && (
           <section class="cx arch" aria-label="Notes">
             <div class="cx-h"><b>If something goes wrong</b></div>
-            {g.notes.map((n) => <div class="cx-r" style="grid-template-columns:1fr"><span style="font-family:inherit;font-size:inherit" set:html={n} /></div>)}
+            {g.notes.map((n) => <div class="cx-r gnote"><span set:html={n} /></div>)}
           </section>
         )}
       </div>
@@ -58,5 +58,8 @@ const siblings = guides.filter((x) => x.quad === g.quad && x.slug !== g.slug)
 </BaseLayout>
 <style>
   .gstep { grid-template-columns: 2.5rem 1fr; }
+  .gnote { grid-template-columns: 1fr; }
+  .gstep > span:last-child,
+  .gnote > span { font-family: var(--read); font-size: 16px; line-height: 1.5; }
   .guide code { font-size: 12.5px; overflow-wrap: anywhere; }
 </style>
