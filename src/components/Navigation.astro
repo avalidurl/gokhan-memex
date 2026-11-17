@@ -7,7 +7,7 @@ interface Props {
   docRev?: string
 }
 
-const { docNo = 'MX-000', docRev = 'REV 2026-07-17' } = Astro.props
+const { docNo = 'MX-000', docRev = '' } = Astro.props
 
 const currentPath = Astro.url.pathname
 const isArticle = currentPath.startsWith('/journal/') && currentPath !== '/journal/' && currentPath !== '/journal'

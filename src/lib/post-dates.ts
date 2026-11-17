@@ -2,7 +2,22 @@ import { execFileSync } from 'node:child_process'
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
 import { join, dirname, relative } from 'node:path'
 import { fileURLToPath } from 'node:url'
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), '../..')
+import { entrySlug } from './entry-slug'
+
+/** Repo root. Vite bundles this module, so import.meta.url is the chunk, not this file. */
+function findRoot(): string {
+  const cwd = process.cwd()
+  if (existsSync(join(cwd, 'src/generated/source-dates.json'))) return cwd
+  let dir = dirname(fileURLToPath(import.meta.url))
+  for (let i = 0; i < 8; i++) {
+    if (existsSync(join(dir, 'src/generated/source-dates.json'))) return dir
+    const parent = dirname(dir)
+    if (parent === dir) break
+    dir = parent
+  }
+  return cwd
+}
+const ROOT = findRoot()
 const POSTS_DIR = join(ROOT, 'src/content/blog')
 
 const gitCache = new Map<string, Date | null>()
@@ -115,7 +130,10 @@ export function pageRevLabel(pathname: string): string {
     candidates.push(join(ROOT, 'src/pages', `${rel}.astro`))
     if (rel.startsWith('journal/')) {
       const id = rel.slice('journal/'.length)
-      if (id && !id.includes('/')) candidates.push(journalFilePath(id))
+      if (id && !id.includes('/')) {
+        const source = journalSource(id)
+        if (source) candidates.push(source)
+      }
     }
     candidates.push(join(ROOT, 'src/archive', rel, 'index.html'))
   }
@@ -141,7 +159,41 @@ export function pageRevLabel(pathname: string): string {
       /* try the next candidate */
     }
   }
-  return 'REV 2026-07-17'
+  const head = headCommitDate()
+  return head ? `REV ${dayStamp(head)}` : 'REV'
+}
+
+let journalBySlug: Map<string, string> | null = null
+
+/** URL slug to the post file. Filenames and slugs differ when the name has spaces or punctuation. */
+function journalSource(slug: string): string | undefined {
+  const direct = journalFilePath(slug)
+  if (existsSync(direct)) return direct
+  if (!journalBySlug) {
+    journalBySlug = new Map()
+    if (existsSync(POSTS_DIR)) {
+      for (const file of readdirSync(POSTS_DIR)) {
+        if (!/\.(md|mdx)$/i.test(file)) continue
+        journalBySlug.set(entrySlug({ id: file }), join(POSTS_DIR, file))
+      }
+    }
+  }
+  return journalBySlug.get(slug)
+}
+
+function headCommitDate(): Date | null {
+  try {
+    const out = execFileSync('git', ['log', '-1', '--format=%cI', 'HEAD'], {
+      cwd: ROOT,
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+    }).trim()
+    if (!out) return null
+    const d = new Date(out)
+    return Number.isNaN(d.getTime()) ? null : d
+  } catch {
+    return null
+  }
 }
 
 export function journalFilePath(id: string): string {
