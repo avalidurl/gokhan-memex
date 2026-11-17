@@ -316,9 +316,18 @@ body.register .prose :where(pre) {
 }
 body.register .prose :where(blockquote),
 body.register .prose :where(blockquote p),
-body.register .prose :where(q) {
+body.register .prose :where(q),
+body.register .epigraph,
+body.register .epigraph p {
   color: var(--ink) !important;
   font-style: normal !important;
+  quotes: none !important;
+}
+body.register .prose :where(blockquote p)::before,
+body.register .prose :where(blockquote p)::after,
+body.register .prose :where(blockquote)::before,
+body.register .prose :where(blockquote)::after {
+  content: none !important;
 }
 body.register .prose :where(blockquote) {
   border-left: 3px solid var(--ink) !important;

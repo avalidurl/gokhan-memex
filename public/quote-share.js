@@ -71,7 +71,7 @@
           st.hidden = true
         }, 2000)
       }
-      var shareData = { title: '“' + q + '” — ' + title, text: q, url: url }
+      var shareData = { title: title ? q + ' — ' + title : q, text: q, url: url }
       if (navigator.share) {
         navigator.share(shareData).then(function () { done('Shared') }).catch(function () {
           copy(url).then(function () { done('Link copied') })

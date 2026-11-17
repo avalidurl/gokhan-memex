@@ -20,13 +20,12 @@ async function boot(env, request) {
   }
   await wasmReady
   if (!cache) {
-    const [garamond, garamondItalic, sans, sansSemi] = await Promise.all([
+    const [garamond, sans, sansSemi] = await Promise.all([
       loadBytes(env, request, '/og-lib/EBGaramond-SemiBold.ttf'),
-      loadBytes(env, request, '/og-lib/EBGaramond-Italic.ttf'),
       loadBytes(env, request, '/og-lib/SourceSans3-Regular.ttf'),
       loadBytes(env, request, '/og-lib/SourceSans3-Semibold.ttf'),
     ])
-    cache = { garamond, garamondItalic, sans, sansSemi }
+    cache = { garamond, sans, sansSemi }
   }
   return cache
 }
@@ -55,7 +54,7 @@ export async function onRequest(context) {
       fitTo: { mode: 'width', value: 1200 },
       font: {
         loadSystemFonts: false,
-        fontBuffers: [f.garamond, f.garamondItalic, f.sans, f.sansSemi],
+        fontBuffers: [f.garamond, f.sans, f.sansSemi],
         defaultFontFamily: 'Source Sans 3',
       },
       background: '#ffffff',

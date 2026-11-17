@@ -42,7 +42,7 @@ export function decodeEntities(s) {
   })
 }
 
-/** Conservative width estimate for EB Garamond italic / Source Sans. */
+/** Conservative width estimate for EB Garamond roman / Source Sans. */
 function charW(ch, size, italic) {
   if (ch === ' ') return size * 0.3
   if ('.,;:\'’!|'.includes(ch)) return size * 0.28
@@ -84,10 +84,13 @@ export function cardSvg({ quote, source, kicker, footer, meta }) {
   const colW = 1112 - 88
   const q = String(quote || '').trim()
   const qSize = q.length <= 80 ? 54 : q.length <= 160 ? 44 : q.length <= 260 ? 36 : 32
-  const qLines = wrapApprox(q, qSize, colW - 24, q.length <= 80 ? 4 : 6, true)
-  const firstY = 230
+  const qLines = wrapApprox(q, qSize, colW - 36, q.length <= 80 ? 4 : 6, false)
+  const firstY = 188
+  const lineH = qSize * 1.2
+  const barTop = firstY - qSize * 0.82
+  const barH = Math.max(lineH, qLines.length * lineH)
   const quoteText = qLines
-    .map((l, i) => `<text x="${innerLeft + 8}" y="${firstY + i * qSize * 1.2}" font-size="${qSize}" font-family="EB Garamond" font-style="italic" fill="${INK}">${esc(l)}</text>`)
+    .map((l, i) => `<text x="${innerLeft + 18}" y="${firstY + i * lineH}" font-size="${qSize}" font-family="EB Garamond" fill="${INK}">${esc(l)}</text>`)
     .join('')
   const srcLines = source ? wrapApprox(source, 22, colW, 2, false) : []
   const srcY = Math.min(528 - Math.max(0, srcLines.length - 1) * 28, firstY + qLines.length * qSize * 1.2 + 36)
@@ -105,7 +108,7 @@ export function cardSvg({ quote, source, kicker, footer, meta }) {
   <rect x="88" y="70" width="12" height="12" fill="${RED}"/>
   <text x="108" y="82" font-size="22" font-family="Source Sans 3" font-weight="600" fill="${INK}" letter-spacing="2.2">GÖKHAN TURHAN</text>
   <text x="88" y="116" font-size="18" font-family="Source Sans 3" fill="${DIM}" letter-spacing="2.4">${esc(kick)}</text>
-  <text x="${innerLeft - 4}" y="208" font-size="110" font-family="EB Garamond" fill="${IKB}">“</text>
+  <rect x="${innerLeft}" y="${barTop}" width="3" height="${barH}" fill="${INK}"/>
   ${quoteText}
   ${srcLines.map((l, i) => `<text x="${innerLeft}" y="${srcY + i * 28}" font-size="22" font-family="Source Sans 3" fill="${DIM}">${esc(l)}</text>`).join('')}
   <line x1="88" y1="${hairY}" x2="1112" y2="${hairY}" stroke="${FAINT}" stroke-width="1.5"/>
@@ -126,7 +129,7 @@ function setMeta(html, attr, key, value) {
 
 export function rewriteHead(html, { quote, title, image, url }) {
   const clipped = quote.length > 140 ? `${quote.slice(0, 137)}…` : quote
-  const ogTitle = `“${clipped}” — ${title || 'Gökhan Turhan'}`
+  const ogTitle = title ? `${clipped} — ${title}` : clipped
   let out = html
   out = setMeta(out, 'property', 'og:title', ogTitle)
   out = setMeta(out, 'property', 'og:description', quote)

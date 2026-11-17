@@ -346,6 +346,17 @@ const showToc = tocHeadings.length >= 2
     font-style: normal;
     margin: 0 0 0.35rem;
   }
+  .dispatch-prose :global(blockquote),
+  .dispatch-prose :global(blockquote p) {
+    font-style: normal;
+    quotes: none;
+  }
+  .dispatch-prose :global(blockquote::before),
+  .dispatch-prose :global(blockquote::after),
+  .dispatch-prose :global(blockquote p::before),
+  .dispatch-prose :global(blockquote p::after) {
+    content: none;
+  }
   .dispatch-prose :global(.epigraph .epigraph-cite),
   .dispatch-prose :global(.epigraph cite) {
     font-family: var(--font-mono);
