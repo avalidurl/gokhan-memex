@@ -29,7 +29,7 @@
 
   function annFor(a) {
     var raw = a.getAttribute("href") || "";
-    if (!raw || raw.indexOf("mailto:") === 0 || raw.indexOf("javascript:") === 0 || raw.charAt(0) === "#") return null;
+    if (!raw || /^\s*(?:mailto|javascript|data|vbscript):/i.test(raw) || raw.charAt(0) === "#") return null;
     var u; try { u = new URL(a.href); } catch (e) { return null; }
     var hrefKey = a.href.replace(/\/+$/, "");
     if (ANN[hrefKey]) return ANN[hrefKey];

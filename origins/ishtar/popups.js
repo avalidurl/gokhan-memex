@@ -57,7 +57,7 @@
 
   function annFor(a) {
     var raw = a.getAttribute("href") || "";
-    if (!raw || raw.indexOf("mailto:") === 0 || raw.indexOf("javascript:") === 0) return null;
+    if (!raw || /^\s*(?:mailto|javascript|data|vbscript):/i.test(raw)) return null;
     var u; try { u = new URL(a.href); } catch (e) { return null; }
     if (u.hash === "#wl") return WL;
     if (raw.charAt(0) === "#") return null;

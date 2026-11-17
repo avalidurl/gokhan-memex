@@ -51,7 +51,7 @@ async function stockPrice(request) {
       dayLow: meta.regularMarketDayLow || null,
     })
   } catch (err) {
-    return json({ error: String(err && err.message ? err.message : err) }, 502)
+    return json({ error: 'Unable to fetch stock price' }, 502)
   }
 }
 
