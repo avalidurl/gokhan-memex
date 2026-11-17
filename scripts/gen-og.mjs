@@ -346,7 +346,7 @@ async function main() {
       kind: 'home',
       title: 'Gökhan Turhan',
       description:
-        'Full-stack builder — one person, a fleet of agents. Agent-native venues, rails, and benchmarks live in production on x402: Ishtar, CURB, HeartBench. Journal, CV, publishing.',
+        'Full-stack builder—one person, a fleet of agents. aligning incentives ~ self recursive wetware prologue',
       kicker: 'Full-stack builder  ·  Journal  ·  Products',
       footer: 'gokhanturhan.com',
       meta: 'Journal  ·  Products  ·  CV',
