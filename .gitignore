@@ -86,6 +86,11 @@ temp/
 .claude/
 *.claude.md
 .internal/
+/AGENTS.md
+/CLAUDE.md
+/CLAUDE.local.md
+/.cursor/
+/docs/architecture-notes.md
 tasks.md
 notes.md
 IMPLEMENTATION_TASKS.md
