@@ -1,11 +1,60 @@
 import { execFileSync } from 'node:child_process'
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
-import { join, dirname } from 'node:path'
+import { join, dirname, relative } from 'node:path'
 import { fileURLToPath } from 'node:url'
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '../..')
 const POSTS_DIR = join(ROOT, 'src/content/blog')
 
 const gitCache = new Map<string, Date | null>()
+const DATES_FILE = join(ROOT, 'src/generated/source-dates.json')
+let dateMap: Record<string, string> | null = null
+let shallowCache: boolean | null = null
+
+/** A Pages checkout has one commit, and git then dates every file to that commit. */
+function historyIsShallow(): boolean {
+  if (shallowCache !== null) return shallowCache
+  try {
+    const out = execFileSync('git', ['rev-parse', '--is-shallow-repository'], {
+      cwd: ROOT,
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+    }).trim()
+    shallowCache = out === 'true'
+  } catch {
+    shallowCache = true
+  }
+  return shallowCache
+}
+
+/** Commit dates recorded in the repo. Pages clones are shallow, so git log
+ *  cannot see an older commit, and a fresh checkout's mtime is the build time. */
+function committedSourceDate(filePath: string): Date | null {
+  if (!dateMap) {
+    try {
+      dateMap = JSON.parse(readFileSync(DATES_FILE, 'utf8')) as Record<string, string>
+    } catch {
+      dateMap = {}
+    }
+  }
+  const rel = relative(ROOT, filePath).split('\\').join('/')
+  const iso = dateMap ? dateMap[rel] : undefined
+  if (!iso) return null
+  const d = new Date(iso)
+  return Number.isNaN(d.getTime()) ? null : d
+}
+
+function trackedInHead(filePath: string): boolean {
+  const rel = relative(ROOT, filePath).split('\\').join('/')
+  try {
+    execFileSync('git', ['cat-file', '-e', `HEAD:${rel}`], {
+      cwd: ROOT,
+      stdio: 'ignore',
+    })
+    return true
+  } catch {
+    return false
+  }
+}
 
 export function dayStamp(d: Date): string {
   return d.toISOString().slice(0, 10)
@@ -73,8 +122,19 @@ export function pageRevLabel(pathname: string): string {
   candidates.push(join(ROOT, 'src/layouts/BaseLayout.astro'))
   for (const file of candidates) {
     if (!existsSync(file)) continue
-    const git = gitCommitDate(file)
-    if (git) return `REV ${dayStamp(git)}`
+    if (!historyIsShallow()) {
+      const git = gitCommitDate(file)
+      if (git) return `REV ${dayStamp(git)}`
+    }
+    const recorded = committedSourceDate(file)
+    if (recorded) return `REV ${dayStamp(recorded)}`
+    if (historyIsShallow()) {
+      const tip = gitCommitDate(file)
+      if (tip) return `REV ${dayStamp(tip)}`
+    }
+    // A tracked file with no date yet is missing from this clone's history.
+    // Its checkout mtime is the build clock, so keep looking.
+    if (trackedInHead(file)) continue
     try {
       return `REV ${dayStamp(statSync(file).mtime)}`
     } catch {
