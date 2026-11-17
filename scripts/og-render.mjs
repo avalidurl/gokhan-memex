@@ -155,15 +155,18 @@ export function cardSvg(opts) {
   if (kind === 'quote') {
     const quote = String(opts.quote || '').trim()
     const qSize = quote.length <= 80 ? 54 : quote.length <= 160 ? 44 : quote.length <= 260 ? 36 : 32
-    const qLines = wrap('garamondItalic', quote, qSize, colW - 24, quote.length <= 80 ? 4 : 6)
-    const firstY = 230
+    const qLines = wrap('garamond', quote, qSize, colW - 36, quote.length <= 80 ? 4 : 6)
+    const firstY = 188
+    const lineH = qSize * 1.2
+    const barTop = firstY - qSize * 0.82
+    const barH = Math.max(lineH, qLines.length * lineH)
     const quoteText = qLines
-      .map((l, i) => `<text x="${innerLeft + 8}" y="${firstY + i * qSize * 1.2}" font-size="${qSize}" font-family="EB Garamond" font-style="italic" fill="${INK}">${esc(l)}</text>`)
+      .map((l, i) => `<text x="${innerLeft + 18}" y="${firstY + i * lineH}" font-size="${qSize}" font-family="EB Garamond" fill="${INK}">${esc(l)}</text>`)
       .join('')
     const source = opts.source ? wrap('sans', opts.source, 22, colW, 2) : []
-    const srcY = Math.min(descLimit - (source.length - 1) * 28, firstY + qLines.length * qSize * 1.2 + 36)
+    const srcY = Math.min(descLimit - (source.length - 1) * 28, firstY + qLines.length * lineH + 36)
     body = `
-      <text x="${innerLeft - 4}" y="208" font-size="110" font-family="EB Garamond" fill="${IKB}">“</text>
+      <rect x="${innerLeft}" y="${barTop}" width="3" height="${barH}" fill="${INK}"/>
       ${quoteText}
       ${source.map((l, i) => `<text x="${innerLeft}" y="${srcY + i * 28}" font-size="22" font-family="Source Sans 3" fill="${DIM}">${esc(l)}</text>`).join('')}
     `
