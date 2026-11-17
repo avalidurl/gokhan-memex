@@ -222,7 +222,7 @@
   "src/pages/disclaimer/index.astro": "2026-11-10T03:04:07+03:00",
   "src/pages/gokhan-vc/legal/[doc].astro": "2026-11-09T18:04:57+03:00",
   "src/pages/haleanbar.astro": "2026-11-10T03:04:07+03:00",
-  "src/pages/index.astro": "2026-11-17T16:05:22+03:00",
+  "src/pages/index.astro": "2026-11-17T16:12:16+03:00",
   "src/pages/ishtar/legal/[doc].astro": "2026-11-09T18:04:57+03:00",
   "src/pages/journal/[...slug].astro": "2026-11-15T18:21:22+03:00",
   "src/pages/journal/[year]/[month]/index.astro": "2026-11-13T03:33:55+03:00",
