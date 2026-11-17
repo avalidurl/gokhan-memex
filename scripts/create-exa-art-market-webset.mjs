@@ -4,7 +4,7 @@
  * Create a first-pass art-market Webset in Exa.
  *
  * Usage:
- *   set -a; source /Users/gokhanturhan/GitHub/gokhan-memex/.env; set +a
+ *   export EXA_API_KEY
  *   node scripts/create-exa-art-market-webset.mjs
  *
  * Optional env vars:
