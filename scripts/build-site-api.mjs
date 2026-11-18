@@ -291,7 +291,7 @@ footer{margin-top:28px;border-top:1px solid var(--ink);padding-top:10px;font:12p
 <main><p class="lead">A read-only API for the public site. The journal, the CV, the product index, drafts, the about guides, every public link, and publishing. No payment. Contact is <a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a>.</p>
 <section class="cx"><div class="cx-h"><b>Resources</b><span>GET · application/json</span></div>${rows}</section>
 </main>
-<footer><p><a href="/api/">API index</a> · <a href="/api/site/openapi.json">openapi.json</a> · <a href="/.well-known/api-catalog">api-catalog</a></p></footer>
+<footer><p><a href="/api/">API index</a> · <a href="/sitemap-index.xml">Sitemap</a> · <a href="/robots.txt">robots.txt</a> · <a href="/llms.txt">llms.txt</a> · <a href="/api/apis.json">apis.json</a> · <a href="/api/openapi.json">openapi.json</a> · <a href="/.well-known/api-catalog">api-catalog</a></p></footer>
 </div></body></html>
 `
 writeFileSync(join(out, 'index.html'), html)
