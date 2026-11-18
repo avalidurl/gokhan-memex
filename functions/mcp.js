@@ -181,9 +181,18 @@ async function load(env, path) {
 
 async function textFromHtml(response) {
   const pieces = []
+  let skip = 0
+  const skipper = {
+    element(el) {
+      skip += 1
+      el.onEndTag(() => { skip -= 1 })
+    },
+  }
   const rewriter = new HTMLRewriter()
-    .on("script, style, noscript", { element(el) { el.remove() } })
-    .on("*", { text(chunk) { pieces.push(chunk.text) } })
+    .on("script", skipper)
+    .on("style", skipper)
+    .on("noscript", skipper)
+    .on("*", { text(chunk) { if (skip === 0) pieces.push(chunk.text) } })
   await rewriter.transform(response).arrayBuffer()
   return pieces.join("").replace(/\s+/g, " ").trim()
 }
