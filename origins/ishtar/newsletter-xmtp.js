@@ -1,6 +1,6 @@
-/** Wallet subscribe for studio newsletter over XMTP — same-origin proxy → api.gokhan.vc */
+/** Wallet subscribe for studio newsletter over XMTP — POST api.gokhan.vc/newsletter/xmtp/subscribe */
 (function () {
-  var API = '/newsletter/xmtp/subscribe';
+  var API = 'https://api.gokhan.vc/newsletter/xmtp/subscribe';
   var provider = null;
 
   function subMessage(wallet) {
