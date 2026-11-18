@@ -95,7 +95,7 @@ button:not(.theme-btn):hover,.btn:hover{background:var(--fg);color:var(--bg)}
   <header>
     <p class="eyebrow">Numetal · CURB · Demo · Cloudflare Agents SDK</p>
     <h1>curb-seller</h1>
-    <p>Demo seller agent (reference). MCP: <code>https://api.curb.numetal.xyz/mcp</code>. Origin: <code>/curb/seller/</code>.</p>
+    <p>Demo seller agent (reference). MCP: <code>https://api.curb.numetal.xyz/mcp</code>. Origin: <code>/curb/seller</code>.</p>
     <span class="badge">DEMO</span>
     <span class="badge">REFERENCE</span>
   </header>
@@ -103,42 +103,17 @@ button:not(.theme-btn):hover,.btn:hover{background:var(--fg);color:var(--bg)}
     <h2>Status</h2>
     <pre id="status">{
   "agent": "curb-seller",
-  "mcpReady": true,
-  "lastOfferId": "offer_mw4h8a8k_1d0da0ea",
-  "lastEnsureAt": "2026-11-09T12:15:41.379Z",
-  "fulfillCount": 0,
-  "lastError": null
+  "note": "brochure copy, no live agent state"
 }</pre>
   </section>
   <section>
     <h2>Actions</h2>
-    
-            <div class="row">
-              <button type="button" onclick="run('/ensure')">Ensure open offer</button>
-              <button type="button" onclick="run('/list')">List offers (MCP)</button>
-              <a class="btn" href="/curb/health">GET /health</a>
-              <a class="btn" href="/curb/mcp-tools">GET /mcp-tools</a>
-            </div>
-            <p style="color:var(--muted);font-size:.9rem;margin:.75rem 0 0">Fulfill: <code>POST /fulfill</code> (OpenAI-compat stub). Cron + schedule keep the book filled.</p>
-          
+    <p>Demo actions stay on <a href="/curb/seller/">seller.curb.numetal.xyz</a>. This page does not post them.</p>
     <pre id="out">// action output</pre>
   </section>
   <div class="perf" role="presentation" aria-hidden="true"></div>
 <div class="colophon"><span>Numetal Labs · CURB · Doc CB-081 · Rev 2026-07-17</span><span>Filed at seller.curb.numetal.xyz · contact@gokhan.vc</span></div>
 </div>
-<script>
-async function run(path, body){
-  const out=document.getElementById('out');
-  out.textContent='…';
-  try{
-    const r=await fetch(path,{method:'POST',headers:{'content-type':'application/json'},body:body?JSON.stringify(body):'{}'});
-    const t=await r.text();
-    out.textContent=t;
-    const s=await fetch('/curb/health');
-    document.getElementById('status').textContent=await s.text();
-  }catch(e){out.textContent=String(e)}
-}
-</script>
 <script>(function(){var root=document.documentElement;var btn=document.getElementById("theme-toggle");if(!btn)return;function label(){btn.textContent=root.getAttribute("data-theme")==="light"?"Dim":"Light";}function persist(v){try{localStorage.setItem("curb-theme",v);}catch(e){}try{var host=location.hostname;var domain=host==="curb.numetal.xyz"||host.endsWith(".curb.numetal.xyz")?"; domain=.curb.numetal.xyz":"";document.cookie="curb-theme="+v+"; path=/; max-age=31536000; SameSite=Lax"+domain;}catch(e){}}label();btn.addEventListener("click",function(){var next=root.getAttribute("data-theme")==="light"?"dim":"light";root.setAttribute("data-theme",next);persist(next);label();});})();</script>
 </body>
 </html>

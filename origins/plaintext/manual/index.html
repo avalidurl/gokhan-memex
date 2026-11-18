@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>manual</title>
+<meta name="description" content="a board of plain text. one box, markdown or nothing, a price on every line.">
+<link rel="icon" type="image/png" href="/plaintext/favicon.png">
+<link rel="apple-touch-icon" href="/plaintext/apple-touch-icon.png">
+<meta property="og:title" content="manual">
+<meta property="og:description" content="a board of plain text. one box, markdown or nothing, a price on every line.">
+<meta property="og:image" content="https://plaintext.numetal.xyz/og.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://plaintext.numetal.xyz/og.png">
+<link rel="stylesheet" href="/plaintext/style.css">
+<link rel="alternate" type="application/atom+xml" href="/plaintext/feed.xml">
+
+<link rel="canonical" href="https://gokhanturhan.com/plaintext/manual/">
+<style>.gt-bar{all:initial;display:block;box-sizing:border-box;width:100%;border-bottom:1px solid #141414;background:#ffffff;color:#141414;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;padding:6px 14px;letter-spacing:.02em;z-index:9999;position:relative}
+.gt-bar a{color:#002fa7;text-decoration:none}.gt-bar a:hover{text-decoration:underline}.gt-bar b{font-weight:600}
+@media (prefers-color-scheme:dark){.gt-bar{background:#141414;color:#f5f5f5;border-color:#f5f5f5}.gt-bar a{color:#8eb0ff}}</style>
+</head><body>
+<div class="gt-bar" role="navigation" aria-label="Bureau"><a href="/">Gökhan Turhan</a> · <a href="/products/">Products</a> · <b>plaintext</b> · <a href="/plaintext/file/">Bureau file</a></div>
+<div class="topbar"><a class="home" href="/plaintext/">plaintext</a><a class="btn" href="/plaintext/join">write a notice</a></div>
+<p class="t"><a href="/plaintext/">the board</a></p>
+<h1>manual</h1>
+
+<p>plaintext is a board of plain text. One box, markdown or nothing. It is slow on
+purpose and it is not free on purpose.</p>
+
+<h2>the door</h2>
+<p>To write here you pay once at the door. A dollar gets you in and a name is dealt
+to you. Five gets you in and you pick the name yourself. There is no other
+difference, and a dealt name is not a lesser one.</p>
+<p>Your name is minted to you as an NFT on <strong>Ethereum</strong> — with its card drawn
+by the contract itself. It is yours to keep, trade, or sell; if you sell it, the name
+moves to its new owner and the board follows.</p>
+
+<h2>what things cost</h2>
+<pre>  the door, name dealt      $1.00
+  the door, name chosen     $5.00
+  a notice                  $3.00
+  a remark                  $0.50
+  reading                   nothing</pre>
+<p>Prices are fixed in dollars and settled in ETH at the rate of the moment. They are
+written into the contract as constants. Nobody can change them — not you, not us.</p>
+
+<h2>where your writing goes</h2>
+<p>Your text is content-addressed: it is stored under its own hash (an IPFS CID) and
+that hash is minted to you as a token on Robinhood Chain — cheap on purpose, so a
+notice costs its price and little else (publishing on Ethereum is coming as a choice).
+You own the token. The board
+stores and serves the bytes; because the address is the hash of the content, the
+same text pins to the wider IPFS network with the identical address whenever anyone
+chooses to.</p>
+
+<h2>each notice is a page</h2>
+<p>Every notice has its own address on the board — <pre>/notices/&lt;number&gt;</pre> — which
+is a plain, readable page, an alternative to the raw IPFS copy. That page carries the
+text, its remarks, its backlinks, and links out to both the IPFS copy and the chain.</p>
+
+<h2>linking between notices</h2>
+<p>You can point at another notice from inside your own text with a wikilink:</p>
+<pre>[[12]]              a notice, by its number
+[[a title]]         a notice, by its title
+[[~name]]           a hand
+[[12|see this]]     a link with your own words</pre>
+<p>A link to something not written yet still shows, quietly, until it exists. And every
+notice lists the others that link to it, so a reference works in both directions — anyone
+can wikilink your notice from theirs, and it will show up under yours.</p>
+
+<h2>remarks</h2>
+<p>Anyone through the door can leave a remark under a notice for $0.50. A remark is itself
+a notice — it gets its own page, its own token, and can be linked and remarked on in turn.</p>
+
+<h2>tips</h2>
+<p>Any notice can be tipped. It goes straight to whoever wrote it. The board takes
+nothing.</p>
+
+<h2>what is expected</h2>
+<ul>
+<li>Write like someone will read it slowly.</li>
+<li>Reply because you have something to add.</li>
+<li>Nothing illegal, nothing to do with a private person who did not ask to be here.</li>
+</ul>
+<p>The price is the only moderation this board has by design. That is not the same as
+having none, and it is not a promise that nothing will ever be removed.</p>
+<div class="b"></div><p class="t"><a href="/plaintext/me">profile</a> &middot; <a href="/plaintext/join">write</a> &middot; <a href="/plaintext/hands">hands</a> &middot; <a href="/plaintext/manual">manual</a> &middot; <a href="/plaintext/spec">spec</a> &middot; <a href="/plaintext/club">the club</a> &middot; <a href="/plaintext/roadmap">roadmap</a> &middot; <a href="/plaintext/feed.xml">feed</a> &middot; every name is an ethereum NFT &middot; every notice a token onchain</p>
+</body></html>
