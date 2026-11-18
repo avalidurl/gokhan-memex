@@ -1,7 +1,12 @@
 # robots.txt for https://api.gokhanturhan.com
 # Static API documentation. Every page may be crawled.
+# Content Signals: https://contentsignals.org/
+# search, ai-input, and ai-train are allowed.
+# Attribute quotations and training use to Gökhan Turhan and link the page you used.
+
 User-agent: *
 Allow: /
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
 
 # Agent-readable summary: https://api.gokhanturhan.com/llms.txt
 # Machine-readable register: https://api.gokhanturhan.com/apis.json

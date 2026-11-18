@@ -1,0 +1,139 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Gökhan Turhan site content",
+    "version": "2026-11-18",
+    "description": "Read-only JSON for the public site. Journal posts, the CV, the product index, drafts, the about guides, every public link, and publishing. No payment. Contact: contact@gokhan.vc.",
+    "contact": {
+      "email": "contact@gokhan.vc",
+      "url": "https://gokhanturhan.com/"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://gokhanturhan.com"
+    }
+  ],
+  "paths": {
+    "/api/site/index.json": {
+      "get": {
+        "operationId": "site_index_get",
+        "summary": "Index",
+        "responses": {
+          "200": {
+            "description": "JSON"
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/site/journal.json": {
+      "get": {
+        "operationId": "site_journal_get",
+        "summary": "Journal",
+        "responses": {
+          "200": {
+            "description": "JSON"
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/site/cv.json": {
+      "get": {
+        "operationId": "site_cv_get",
+        "summary": "CV",
+        "responses": {
+          "200": {
+            "description": "JSON"
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/site/products.json": {
+      "get": {
+        "operationId": "site_products_get",
+        "summary": "Products",
+        "responses": {
+          "200": {
+            "description": "JSON"
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/site/drafts.json": {
+      "get": {
+        "operationId": "site_drafts_get",
+        "summary": "Drafts",
+        "responses": {
+          "200": {
+            "description": "JSON"
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/site/about.json": {
+      "get": {
+        "operationId": "site_about_get",
+        "summary": "About",
+        "responses": {
+          "200": {
+            "description": "JSON"
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/site/links.json": {
+      "get": {
+        "operationId": "site_links_get",
+        "summary": "Links",
+        "responses": {
+          "200": {
+            "description": "JSON"
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/site/publishing.json": {
+      "get": {
+        "operationId": "site_publishing_get",
+        "summary": "Publishing",
+        "responses": {
+          "200": {
+            "description": "JSON"
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/site/pages.json": {
+      "get": {
+        "operationId": "site_pages_get",
+        "summary": "Every public page",
+        "responses": {
+          "200": {
+            "description": "JSON"
+          }
+        },
+        "security": []
+      }
+    },
+    "/mcp": {
+      "post": {
+        "operationId": "site_mcp",
+        "summary": "Read-only MCP JSON-RPC",
+        "responses": {
+          "200": {
+            "description": "JSON-RPC"
+          }
+        },
+        "security": []
+      }
+    }
+  }
+}

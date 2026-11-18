@@ -1,0 +1,565 @@
+{
+  "name": "About",
+  "url": "https://gokhanturhan.com/about/",
+  "description": "How to find your way around this site: tutorials, how-to guides, explanation and reference.",
+  "quads": [
+    {
+      "key": "tutorials",
+      "title": "Tutorials",
+      "mode": "learning · do this with me",
+      "guides": [
+        {
+          "title": "Read the site in ten minutes",
+          "lead": "A first walk through the site, in the order most people find useful.",
+          "url": "https://gokhanturhan.com/about/read-the-site/",
+          "tags": [],
+          "steps": [
+            "Open the home page . It is a register: one boxed section each for products, new work and the latest journal posts. Every name in a box opens that item’s own page; CV, Journal, Publishing, Raises and Agents each have their own page in the top bar.",
+            "Go to Products . The five main products come first: UBU , Ishtar , CURB , Reclaim and plaintext . Product families follow, and hobby projects come last.",
+            "Open UBU . Open the File strip under the title to see its address, its former address (plain text), its models and datasets. The Bureau Reader is linked under Read, and the whole book downloads from the reader page as one PDF or EPUB.",
+            "Click a tag chip, for example agents . A tag page gathers products, journal posts, drafts, tools and APIs that share it.",
+            "Open the Journal and read one post. The subscribe box is at the top of the journal and at the end of every post.",
+            "Finish on the CV . The PDF button is at the top, and cv.md is the same CV as Markdown."
+          ],
+          "rows": [],
+          "notes": [],
+          "next": [
+            {
+              "label": "Find an old project",
+              "href": "https://gokhanturhan.com/about/find-an-old-project/"
+            },
+            {
+              "label": "How the products are organised",
+              "href": "https://gokhanturhan.com/about/how-products-are-organised/"
+            }
+          ]
+        },
+        {
+          "title": "Your first agent read",
+          "lead": "Point an agent or a script at the plain-text files this site publishes for machines. Everything here is a static file; nothing needs a key.",
+          "url": "https://gokhanturhan.com/about/first-agent-read/",
+          "tags": [],
+          "steps": [
+            "Fetch the summary: curl https://gokhanturhan.com/llms.txt . It lists the main products, drafts, publishing, the API index and recent posts, each with a link. Open llms.txt .",
+            "For the long version, fetch llms-full.txt . It adds product notes, every journal post with its description, and the whole CV.",
+            "Read the CV as Markdown: curl https://gokhanturhan.com/cv.md ( cv.md ). cv.json holds the same data as JSON.",
+            "Read the API register: apis.json lists the published rails first (/ishtar, /curb, /launch, /plaintext, /accumulator, /numetal, /status on api.gokhanturhan.com), then the former-domain archive. The index pages do not take a payment. Do not pay a retired endpoint. A 402 on a live rail is the worker challenge. The Ishtar challenge names api.gokhanturhan.com. CURB and Launch challenges still name their worker hosts.",
+            "Follow new posts with the feed: rss.xml ."
+          ],
+          "rows": [],
+          "notes": [
+            "The site is static. There is no search API; use the sitemap to list every public page."
+          ],
+          "next": [
+            {
+              "label": "Feeds and files",
+              "href": "https://gokhanturhan.com/about/feeds-and-files/"
+            },
+            {
+              "label": "API index",
+              "href": "https://gokhanturhan.com/api/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "how-to",
+      "title": "How-to guides",
+      "mode": "tasks · help me do this",
+      "guides": [
+        {
+          "title": "Follow the journal",
+          "lead": "The email list is offline. The journal stays on this site, and RSS is how to follow it.",
+          "url": "https://gokhanturhan.com/about/subscribe/",
+          "tags": [],
+          "steps": [
+            "Open the Journal . New posts are on that page.",
+            "Follow them in a reader: rss.xml . The steps are in Follow by RSS ."
+          ],
+          "rows": [],
+          "notes": [
+            "The old email and XMTP list ran on feedhub. That service is offline, and the repository stays public to fork."
+          ],
+          "next": [
+            {
+              "label": "Follow by RSS",
+              "href": "https://gokhanturhan.com/about/follow-by-rss/"
+            },
+            {
+              "label": "Journal",
+              "href": "https://gokhanturhan.com/journal/"
+            }
+          ]
+        },
+        {
+          "title": "The email list is closed",
+          "lead": "The newsletter service is offline, so it sends nothing further.",
+          "url": "https://gokhanturhan.com/about/unsubscribe/",
+          "tags": [
+            "newsletter"
+          ],
+          "steps": [
+            "No new list mail will be sent. An unsubscribe link in an old email no longer reaches a live service.",
+            "If a message still arrives, write to contact@gokhan.vc from that address with the subject “Unsubscribe”."
+          ],
+          "rows": [],
+          "notes": [
+            "Follow new posts by RSS instead. See Follow by RSS ."
+          ],
+          "next": [
+            {
+              "label": "Privacy",
+              "href": "https://gokhanturhan.com/privacy/"
+            },
+            {
+              "label": "Follow by RSS",
+              "href": "https://gokhanturhan.com/about/follow-by-rss/"
+            }
+          ]
+        },
+        {
+          "title": "Follow by RSS",
+          "lead": "One feed covers the whole site: the journal.",
+          "url": "https://gokhanturhan.com/about/follow-by-rss/",
+          "tags": [],
+          "steps": [
+            "Copy the feed address: https://gokhanturhan.com/rss.xml ( open it ).",
+            "In your feed reader, choose Add feed or Subscribe and paste the address. Most readers also find it from https://gokhanturhan.com/ , because every page advertises it.",
+            "Each item links to the post at gokhanturhan.com/journal/<slug>/ , with its date, description and tags."
+          ],
+          "rows": [],
+          "notes": [
+            "Older product sites had their own feeds. Those products are now pages here, and this is the one feed to follow."
+          ],
+          "next": [
+            {
+              "label": "Journal",
+              "href": "https://gokhanturhan.com/journal/"
+            },
+            {
+              "label": "Feeds and files",
+              "href": "https://gokhanturhan.com/about/feeds-and-files/"
+            }
+          ]
+        },
+        {
+          "title": "Find an old project",
+          "lead": "Every product, draft and experiment now has a page under gokhanturhan.com, even if you knew it by an older address.",
+          "url": "https://gokhanturhan.com/about/find-an-old-project/",
+          "tags": [],
+          "steps": [
+            "Open Products and search the page (Ctrl+F or ⌘F) for the old name or the old address. Each row shows the new address and, in italics, the former one.",
+            "Not there? Try Drafts . Experiments first published on GitHub Pages are listed there, each with its own page.",
+            "Know the topic but not the name? Open Tags and pick one, for example agents or token .",
+            "Looking for an API rather than a page? The API index lists each interface with its former base and a link to its product page.",
+            "On a product page, the File strip under the title gives the address to use from now on. Use that link when you cite or share it."
+          ],
+          "rows": [],
+          "notes": [],
+          "next": [
+            {
+              "label": "Why addresses moved",
+              "href": "https://gokhanturhan.com/about/why-addresses-moved/"
+            },
+            {
+              "label": "Cite or link a page",
+              "href": "https://gokhanturhan.com/about/cite-a-page/"
+            }
+          ]
+        },
+        {
+          "title": "Cite or link a page",
+          "lead": "Every page has a stable address and a document number in its header strip.",
+          "url": "https://gokhanturhan.com/about/cite-a-page/",
+          "tags": [],
+          "steps": [
+            "Use the address in the browser bar, with its trailing slash, for example https://gokhanturhan.com/ubu/ . Product pages also print it in their File strip as Address .",
+            "The header strip shows a document number such as MX-010 . Add it to a citation if you want a short handle.",
+            "For a journal post, cite the author (Gökhan Turhan), the title, the date shown on the post, and its address.",
+            "For papers and books, open the item’s own page from Publishing : Academic , E-books or Experimental .",
+            "For a formal CV reference, link the CV or its PDF."
+          ],
+          "rows": [],
+          "notes": [
+            "Do not cite a former address (numetal.xyz, gokhan.vc and their subdomains). Use the gokhanturhan.com page instead."
+          ],
+          "next": [
+            {
+              "label": "Publishing",
+              "href": "https://gokhanturhan.com/publishing/"
+            },
+            {
+              "label": "Find an old project",
+              "href": "https://gokhanturhan.com/about/find-an-old-project/"
+            }
+          ]
+        },
+        {
+          "title": "Get the CV",
+          "lead": "The CV comes in four forms, all built from the same data.",
+          "url": "https://gokhanturhan.com/about/get-the-cv/",
+          "tags": [],
+          "steps": [
+            "Read it on the page: gokhanturhan.com/cv/ .",
+            "Download the PDF with the PDF button at the top of the CV page, or directly: Gokhan_Turhan_CV.pdf .",
+            "For an agent or a parser, use cv.md (Markdown), cv.json (JSON) or plain.txt ."
+          ],
+          "rows": [],
+          "notes": [],
+          "next": [
+            {
+              "label": "Contact",
+              "href": "https://gokhanturhan.com/about/contact/"
+            },
+            {
+              "label": "CV",
+              "href": "https://gokhanturhan.com/cv/"
+            }
+          ]
+        },
+        {
+          "title": "Get in touch",
+          "lead": "Email Gökhan Turhan at contact@gokhan.vc, or send a DM: DMs are open on X, LinkedIn and Telegram.",
+          "url": "https://gokhanturhan.com/about/contact/",
+          "tags": [],
+          "steps": [
+            "Email: contact@gokhan.vc . One address for everything: questions, press, collaboration and pitches.",
+            "DMs are open. Message @goekhan on X , Gökhan Turhan on LinkedIn or @goekhanturhan on Telegram .",
+            "Pitches and investment questions go to the same address. Raises shows what is open."
+          ],
+          "rows": [
+            {
+              "label": "Email",
+              "value": "contact@gokhan.vc"
+            },
+            {
+              "label": "LinkedIn",
+              "value": "linkedin.com/in/goekhanturhan · DMs open"
+            },
+            {
+              "label": "X",
+              "value": "@goekhan · DMs open"
+            },
+            {
+              "label": "Telegram",
+              "value": "@goekhanturhan · DMs open"
+            }
+          ],
+          "notes": [],
+          "next": [
+            {
+              "label": "CV",
+              "href": "https://gokhanturhan.com/cv/"
+            },
+            {
+              "label": "Products",
+              "href": "https://gokhanturhan.com/products/"
+            }
+          ]
+        },
+        {
+          "title": "Read the legal pages",
+          "lead": "Site-wide terms sit in the footer. Each product kept its own legal copies, as they were published.",
+          "url": "https://gokhanturhan.com/about/read-the-legal-pages/",
+          "tags": [],
+          "steps": [
+            "For this site: Privacy (including analytics and opt-out) and Disclaimer .",
+            "For a product, open its legal index: Ishtar terms , Numetal terms , Gökhan Ventures terms or AgentBounty legal .",
+            "Each product legal page is an archived copy. Its box shows the address and the former address it was published at."
+          ],
+          "rows": [],
+          "notes": [],
+          "next": [
+            {
+              "label": "Unsubscribe",
+              "href": "https://gokhanturhan.com/about/unsubscribe/"
+            },
+            {
+              "label": "Products",
+              "href": "https://gokhanturhan.com/products/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "explanation",
+      "title": "Explanation",
+      "mode": "understanding · tell me about it",
+      "guides": [
+        {
+          "title": "What this site is",
+          "lead": "One person’s register: writing, products, publishing and CV in one place.",
+          "url": "https://gokhanturhan.com/about/what-this-site-is/",
+          "tags": [],
+          "steps": [
+            "gokhanturhan.com is the single home for the work of Gökhan Turhan. The journal holds essays and notes going back to 2020. The products are the things built along the way, each with its own page. Publishing collects books, papers and experimental works. The CV ties it together.",
+            "The products used to live on their own domains under numetal.xyz and gokhan.vc. They now live here, at gokhanturhan.com/<name>/, and the old domains are being mapped to these pages.",
+            "Private tools, such as the reader and the admin consoles, are listed on Tools by what they do. They are not linked, because they sit behind sign-in."
+          ],
+          "rows": [],
+          "notes": [],
+          "next": [
+            {
+              "label": "How the products are organised",
+              "href": "https://gokhanturhan.com/about/how-products-are-organised/"
+            },
+            {
+              "label": "Read the site in ten minutes",
+              "href": "https://gokhanturhan.com/about/read-the-site/"
+            }
+          ]
+        },
+        {
+          "title": "How the products are organised",
+          "lead": "Products, drafts, tools and APIs are four lists from one register, joined by shared tags.",
+          "url": "https://gokhanturhan.com/about/how-products-are-organised/",
+          "tags": [],
+          "steps": [
+            "Products opens with the five main products (UBU, Ishtar, CURB, Reclaim, plaintext), then the families they belong to (Numetal, Gökhan Ventures and others), then hobby and personal projects such as dashboards and decks.",
+            "Drafts are experiments and early pages that never became products. Each still has its own page with what it was.",
+            "Tools are private and described only. The API index documents the interfaces the products exposed.",
+            "Tags cut across all four lists. A tag such as agents shows every product, post, draft, tool and API that carries it."
+          ],
+          "rows": [],
+          "notes": [],
+          "next": [
+            {
+              "label": "Products",
+              "href": "https://gokhanturhan.com/products/"
+            },
+            {
+              "label": "Tags",
+              "href": "https://gokhanturhan.com/archive/tags/"
+            }
+          ]
+        },
+        {
+          "title": "Why addresses moved",
+          "lead": "Everything now lives under gokhanturhan.com; older domains only point here.",
+          "url": "https://gokhanturhan.com/about/why-addresses-moved/",
+          "tags": [],
+          "steps": [
+            "Running a domain per product meant many hosts to keep alive. Moving every product to gokhanturhan.com/<name>/ keeps one address to remember and one place to maintain.",
+            "Each page keeps its history: the File strip shows the former address as plain text, so you can recognise it, but every link goes to the new page.",
+            "Interfaces that were live APIs are documented in the API index rather than kept running."
+          ],
+          "rows": [],
+          "notes": [],
+          "next": [
+            {
+              "label": "Find an old project",
+              "href": "https://gokhanturhan.com/about/find-an-old-project/"
+            },
+            {
+              "label": "Products",
+              "href": "https://gokhanturhan.com/products/"
+            }
+          ]
+        },
+        {
+          "title": "Design notes",
+          "lead": "The site is set like a register sheet: boxed sections, document numbers, monochrome with one blue for links.",
+          "url": "https://gokhanturhan.com/about/design-notes/",
+          "tags": [],
+          "steps": [
+            "Every section is a box with a black label strip. The strip names the box on the left, says what it holds in grey, and gives a count on the right.",
+            "Rows inside a box are separated by dotted rules. The left column is the field name, the right column is the value.",
+            "Tags are small outlined chips. Links are blue; everything else is ink on paper. Former addresses are grey plain text.",
+            "Each page has a document number in its header strip (MX-…), so it can be referred to briefly."
+          ],
+          "rows": [],
+          "notes": [],
+          "next": [
+            {
+              "label": "Colophon",
+              "href": "https://gokhanturhan.com/about/colophon/"
+            },
+            {
+              "label": "Home",
+              "href": "https://gokhanturhan.com/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "reference",
+      "title": "Reference",
+      "mode": "information · give me the facts",
+      "guides": [
+        {
+          "title": "Site sections",
+          "lead": "Every top-level section and what it holds.",
+          "url": "https://gokhanturhan.com/about/site-sections/",
+          "tags": [],
+          "steps": [],
+          "rows": [
+            {
+              "label": "Home",
+              "value": "/ — the register: products, journal, publishing, CV"
+            },
+            {
+              "label": "Products",
+              "value": "/products/ — main products, families, hobby projects"
+            },
+            {
+              "label": "Drafts",
+              "value": "/product-drafts/ — experiments and early pages"
+            },
+            {
+              "label": "Journal",
+              "value": "/journal/ — every post, newest first"
+            },
+            {
+              "label": "Publishing",
+              "value": "/publishing/ — e-books, academic, experimental"
+            },
+            {
+              "label": "CV",
+              "value": "/cv/ — with PDF, Markdown and JSON"
+            },
+            {
+              "label": "Tags",
+              "value": "/archive/tags/ — shared tags across everything"
+            },
+            {
+              "label": "Tools",
+              "value": "/tools/ — private tools, described only"
+            },
+            {
+              "label": "APIs",
+              "value": "/api/ — documentation of former product APIs"
+            },
+            {
+              "label": "About",
+              "value": "/about/ — these guides"
+            }
+          ],
+          "notes": [],
+          "next": [
+            {
+              "label": "Feeds and files",
+              "href": "https://gokhanturhan.com/about/feeds-and-files/"
+            }
+          ]
+        },
+        {
+          "title": "Feeds and files",
+          "lead": "Machine-readable files published by this site.",
+          "url": "https://gokhanturhan.com/about/feeds-and-files/",
+          "tags": [],
+          "steps": [],
+          "rows": [
+            {
+              "label": "RSS",
+              "value": "/rss.xml — the journal; the one feed for this site"
+            },
+            {
+              "label": "Sitemap",
+              "value": "/sitemap-index.xml — every public, indexable page"
+            },
+            {
+              "label": "robots.txt",
+              "value": "/robots.txt — crawl rules; points at the sitemap"
+            },
+            {
+              "label": "llms.txt",
+              "value": "/llms.txt — summary for agents"
+            },
+            {
+              "label": "llms-full.txt",
+              "value": "/llms-full.txt — summary, every post, the CV"
+            },
+            {
+              "label": "CV",
+              "value": "/cv.md · /cv.json · /cv/plain.txt"
+            },
+            {
+              "label": "APIs",
+              "value": "/api/apis.json · /api/openapi.json · /api/llms.txt"
+            }
+          ],
+          "notes": [],
+          "next": [
+            {
+              "label": "Your first agent read",
+              "href": "https://gokhanturhan.com/about/first-agent-read/"
+            }
+          ]
+        },
+        {
+          "title": "Newsletter",
+          "lead": "The email and XMTP list is offline.",
+          "url": "https://gokhanturhan.com/about/newsletter-reference/",
+          "tags": [
+            "newsletter"
+          ],
+          "steps": [],
+          "rows": [
+            {
+              "label": "Status",
+              "value": "offline"
+            },
+            {
+              "label": "Follow",
+              "value": "RSS · how to follow"
+            },
+            {
+              "label": "Record",
+              "value": "Newsletter API page , marked retired"
+            }
+          ],
+          "notes": [],
+          "next": [
+            {
+              "label": "Follow the journal",
+              "href": "https://gokhanturhan.com/about/subscribe/"
+            },
+            {
+              "label": "Privacy",
+              "href": "https://gokhanturhan.com/privacy/"
+            }
+          ]
+        },
+        {
+          "title": "Colophon",
+          "lead": "How the site is built.",
+          "url": "https://gokhanturhan.com/about/colophon/",
+          "tags": [],
+          "steps": [],
+          "rows": [
+            {
+              "label": "Framework",
+              "value": "Astro, static output"
+            },
+            {
+              "label": "Hosting",
+              "value": "Cloudflare Pages"
+            },
+            {
+              "label": "Source",
+              "value": "github.com/avalidurl/gokhan-memex"
+            },
+            {
+              "label": "Analytics",
+              "value": "Google Analytics, with an opt-out on every page; see Privacy"
+            },
+            {
+              "label": "Offline",
+              "value": "a service worker keeps recently read posts available offline"
+            }
+          ],
+          "notes": [],
+          "next": [
+            {
+              "label": "Design notes",
+              "href": "https://gokhanturhan.com/about/design-notes/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

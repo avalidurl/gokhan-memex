@@ -5,6 +5,46 @@
   "index": "https://api.gokhanturhan.com/",
   "apis": [
     {
+      "slug": "site",
+      "name": "Site content",
+      "domain": "gokhanturhan.com",
+      "former_base": "gokhanturhan.com",
+      "kind": "REST \u00b7 OpenAPI 3 \u00b7 MCP",
+      "status": "live",
+      "as_of": "2026-11-18",
+      "tags": [
+        "reading",
+        "publishing"
+      ],
+      "protocols": [
+        "openapi",
+        "mcp"
+      ],
+      "payments": "none",
+      "endpoints": [
+        "POST /mcp",
+        "GET /api/site/pages.json",
+        "GET /api/site/journal.json",
+        "GET /api/site/cv.json",
+        "GET /api/site/products.json",
+        "GET /api/site/drafts.json",
+        "GET /api/site/about.json",
+        "GET /api/site/links.json",
+        "GET /api/site/publishing.json",
+        "GET /api/site/openapi.json"
+      ],
+      "docs": "https://gokhanturhan.com/api/site/",
+      "product_page": "https://gokhanturhan.com/",
+      "openapi": "https://gokhanturhan.com/api/site/openapi.json",
+      "check": {
+        "checked": "2026-11-18",
+        "method": "GET",
+        "result": "Read-only JSON and a read-only MCP for the journal, CV, products, drafts, about, links, and publishing."
+      },
+      "rail": "/api/site/",
+      "base": "https://gokhanturhan.com/api/site/"
+    },
+    {
       "slug": "ishtar",
       "name": "Ishtar API",
       "domain": "numetal.xyz",

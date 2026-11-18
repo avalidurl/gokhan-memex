@@ -19,10 +19,12 @@ Protocol: x402, mpp, mcp, openapi, rss, skill, hmac.
 ## Views
 
 - [x402 manifests](https://api.gokhanturhan.com/x402/): frozen payment manifests. Do not pay.
-- [MCP servers](https://api.gokhanturhan.com/mcp/): former MCP servers, listed for the record.
+- [MCP servers](https://api.gokhanturhan.com/mcp/): read-only site MCP at POST https://gokhanturhan.com/mcp. Older product servers are listed for the record.
 - [Retired endpoints](https://api.gokhanturhan.com/retired/): what retired endpoints return, and where each product now lives
 
 ## gokhanturhan.com
+
+- [Site content](https://gokhanturhan.com/api/site/): read-only JSON for every public page, the journal, CV, products, drafts, about guides, every public link, and publishing. GET https://gokhanturhan.com/api/site/pages.json, /journal.json, /cv.json, /products.json, /drafts.json, /about.json, /links.json, /publishing.json. POST https://gokhanturhan.com/mcp. OpenAPI: https://gokhanturhan.com/api/site/openapi.json. No payment.
 
 Published call prefixes. Docs for each one stay at /api/<slug>/.
 

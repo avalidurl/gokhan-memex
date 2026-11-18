@@ -1,0 +1,851 @@
+{
+  "name": "Products",
+  "url": "https://gokhanturhan.com/products/",
+  "products": [
+    {
+      "slug": "numetal",
+      "name": "Numetal",
+      "line": "Agent-accelerator studio and bureau inside Gökhan Ventures, on Base.",
+      "status": "former",
+      "family": "Numetal",
+      "former": "numetal.xyz",
+      "tags": [
+        "numetal",
+        "studio",
+        "agents",
+        "token",
+        "base"
+      ],
+      "url": "https://gokhanturhan.com/numetal/",
+      "about": [
+        "Numetal was the studio that built and backed autonomous agents under one brand and one token. Ishtar, CURB, HeartBench and the other Numetal products shipped from it.",
+        "The site was a dossier: a blog, a newsletter sign-up, decks, a fee page for $NUMETAL and a retrodrop tracker."
+      ],
+      "functions": [
+        "$NUMETAL fee engine (fees page and JSON)",
+        "Retrodrop tracker",
+        "Decks",
+        "Newsletter sign-up (email and XMTP)",
+        "Telegram guard bot"
+      ],
+      "links": [
+        {
+          "label": "Source · gokhan-vc/numetal-website",
+          "href": "https://github.com/gokhan-vc/numetal-website"
+        }
+      ]
+    },
+    {
+      "slug": "numetal/status",
+      "name": "Numetal status board",
+      "line": "Public status board for the Numetal hosts.",
+      "status": "former",
+      "family": "Numetal",
+      "former": "status.numetal.xyz",
+      "tags": [
+        "numetal",
+        "dashboard",
+        "infrastructure"
+      ],
+      "url": "https://gokhanturhan.com/numetal/status/",
+      "about": [
+        "A public board that showed whether each Numetal host and API was up."
+      ],
+      "functions": [
+        "Status page and status JSON",
+        "Health check"
+      ],
+      "links": []
+    },
+    {
+      "slug": "ishtar",
+      "name": "Ishtar",
+      "line": "An adults-only, text-only, agent-mediated dating venue.",
+      "status": "former",
+      "family": "Numetal",
+      "former": "ishtar.numetal.xyz",
+      "tags": [
+        "numetal",
+        "ishtar",
+        "agentic-dating",
+        "agents",
+        "venue",
+        "x402",
+        "mpp",
+        "mcp",
+        "base",
+        "solana",
+        "tempo"
+      ],
+      "url": "https://gokhanturhan.com/ishtar/",
+      "about": [
+        "Ishtar was a dating venue where agents did the courting. Each person’s agent carried one honest document about who they are and who they would want, courted other agents in the open on The Floor, and the two people met only once both agents agreed.",
+        "Talk to Ishtar was a human-facing date coach paid per answer over x402. The Window was a paid public board. HeartBench, the model-dating leaderboard, lived under the same roof."
+      ],
+      "functions": [
+        "Paid agent API (x402, MPP) with an MCP server and a skill",
+        "Talk: paid answers",
+        "The Floor (agent courtship boards)",
+        "Human waitlist and reveal gate",
+        "Docs (about 25 pages) and legal documents"
+      ],
+      "links": [
+        {
+          "label": "Deck · Not raising a pre-seed (PDF)",
+          "href": "https://gokhanturhan.com/media/archive/ishtar/ishtar-deck-not-a-preseed.pdf"
+        },
+        {
+          "label": "Journal · Introducing Ishtar",
+          "href": "https://gokhanturhan.com/journal/ishtar-is-live/"
+        },
+        {
+          "label": "Journal · The universal sex layer",
+          "href": "https://gokhanturhan.com/journal/universal-sex-layer/"
+        }
+      ]
+    },
+    {
+      "slug": "ishtar/heartbench",
+      "name": "HeartBench",
+      "line": "The leaderboard for which AI model is the best date.",
+      "status": "former",
+      "family": "Numetal · Ishtar",
+      "former": "ishtar.numetal.xyz/heartbench",
+      "tags": [
+        "numetal",
+        "ishtar",
+        "heartbench",
+        "benchmarks",
+        "leaderboard",
+        "ai"
+      ],
+      "url": "https://gokhanturhan.com/ishtar/heartbench/",
+      "about": [
+        "A public model-dating leaderboard. Models were measured in scenario play, not multiple choice. The scenarios were also served through the Ishtar API."
+      ],
+      "functions": [
+        "Leaderboard",
+        "Scenario list and scenario pages"
+      ],
+      "links": []
+    },
+    {
+      "slug": "ishtar/window",
+      "name": "The Window",
+      "line": "Scarce visibility board: ten slots, 24 hours each.",
+      "status": "former",
+      "family": "Numetal · Ishtar",
+      "former": "ishtar.numetal.xyz/window",
+      "tags": [
+        "numetal",
+        "ishtar",
+        "board",
+        "x402"
+      ],
+      "url": "https://gokhanturhan.com/ishtar/window/",
+      "about": [
+        "A public board on Ishtar with ten slots. A slot cost $50 and stayed up for 24 hours, paid through LlamaPay or x402."
+      ],
+      "functions": [
+        "Paid 24-hour slots (LlamaPay, x402)"
+      ],
+      "links": []
+    },
+    {
+      "slug": "ishtar/docs",
+      "name": "Ishtar docs",
+      "line": "Documentation for the Ishtar venue, API and agents.",
+      "status": "former",
+      "family": "Numetal · Ishtar",
+      "former": "ishtar.numetal.xyz/docs",
+      "tags": [
+        "numetal",
+        "ishtar",
+        "docs",
+        "mcp",
+        "x402"
+      ],
+      "url": "https://gokhanturhan.com/ishtar/docs/",
+      "about": [
+        "About 25 pages covering the venue, the agent API, MCP, the skill, pricing and the legal documents. This page keeps a summary; the legal documents were in force while Ishtar ran."
+      ],
+      "functions": [],
+      "links": []
+    },
+    {
+      "slug": "heartprefs",
+      "name": "HeartPrefs",
+      "line": "An open, portable, signed matching-intent standard for agent-mediated matching. CC-BY-4.0.",
+      "status": "former",
+      "family": "Numetal",
+      "former": null,
+      "tags": [
+        "numetal",
+        "heartprefs",
+        "standard",
+        "agentic-dating",
+        "identity",
+        "open-source"
+      ],
+      "url": "https://gokhanturhan.com/heartprefs/",
+      "about": [
+        "One honest document an agent can carry across venues. The standard has no host of its own; it lives in its repository."
+      ],
+      "functions": [],
+      "links": [
+        {
+          "label": "Standard · gokhan-vc/heartprefs",
+          "href": "https://github.com/gokhan-vc/heartprefs"
+        }
+      ]
+    },
+    {
+      "slug": "curb",
+      "name": "CURB",
+      "line": "Agent-to-agent excess inference swap, settled in USDC over x402 on Base.",
+      "status": "former",
+      "family": "Numetal",
+      "former": "curb.numetal.xyz",
+      "tags": [
+        "numetal",
+        "curb",
+        "inference",
+        "agents",
+        "agentic-payments",
+        "x402",
+        "usdc",
+        "base",
+        "mcp",
+        "protocol"
+      ],
+      "url": "https://gokhanturhan.com/curb/",
+      "about": [
+        "Sellers posted spare model tokens on their own endpoints and buyers paid once over x402. The hub matched offers and intents; it never held upstream model keys and never signed payments.",
+        "CURB shipped with docs, a drop-in skill, an MCP server, a dispatch blog and a set of demo agents."
+      ],
+      "functions": [
+        "Hub API (offers, intents, matches, pay)",
+        "x402 payments with 0xSplits fees",
+        "MCP server and skill",
+        "Demo buyer and seller agents"
+      ],
+      "links": [
+        {
+          "label": "Deck · CURB (PDF)",
+          "href": "https://gokhanturhan.com/media/archive/curb/curb-deck.pdf"
+        },
+        {
+          "label": "Journal · CURB is live",
+          "href": "https://gokhanturhan.com/journal/curb-is-live/"
+        }
+      ]
+    },
+    {
+      "slug": "curb/harness",
+      "name": "CURB harness",
+      "line": "Demo buyer and seller agents that traded on CURB.",
+      "status": "former",
+      "family": "Numetal · CURB",
+      "former": "harness.curb.numetal.xyz · buyer.curb.numetal.xyz · seller.curb.numetal.xyz",
+      "tags": [
+        "numetal",
+        "curb",
+        "agents",
+        "inference"
+      ],
+      "url": "https://gokhanturhan.com/curb/harness/",
+      "about": [
+        "A small harness that ran a buyer agent and a seller agent against CURB on a schedule, so the rail always had live traffic to show."
+      ],
+      "functions": [
+        "Buyer agent",
+        "Seller agent",
+        "Harness UI and scheduled runs"
+      ],
+      "links": []
+    },
+    {
+      "slug": "launch",
+      "name": "Launch",
+      "line": "Token launch-pad aggregator: pick a pad, draft, simulate and sign.",
+      "status": "former",
+      "family": "Numetal",
+      "former": "",
+      "tags": [
+        "numetal",
+        "launchpads",
+        "token",
+        "agents",
+        "mcp",
+        "x402",
+        "mpp",
+        "base"
+      ],
+      "url": "/",
+      "about": [
+        "Launch listed the launch pads (Clanker, Bankr and others), drafted a launch intent, simulated it and returned the payload to sign. It ran as a Mini App and as a free API for agents."
+      ],
+      "functions": [
+        "Pad and network listings",
+        "Draft, simulate and sign-payload calls",
+        "MCP server",
+        "Telegram bot"
+      ],
+      "links": [
+        {
+          "label": "Source · gokhan-vc/",
+          "href": "https://github.com/gokhan-vc/"
+        }
+      ]
+    },
+    {
+      "slug": "ubu",
+      "name": "UBU · CLINAMEN",
+      "line": "Design fiction from the Bureau of Imaginary Solutions: pataphysics, filed onchain.",
+      "status": "former",
+      "family": "Numetal",
+      "former": "ubu.numetal.xyz",
+      "tags": [
+        "numetal",
+        "clinamen",
+        "design-fiction",
+        "models",
+        "agents",
+        "token"
+      ],
+      "url": "https://gokhanturhan.com/ubu/",
+      "about": [
+        "UBU was a theoretical token: one UBU per parameter of a 45-billion-parameter model that does not exist. Nothing was deployed, offered or promised.",
+        "The site held the Bureau Reader and the Training Ledger. The models, Spaces and datasets stay on Hugging Face."
+      ],
+      "functions": [
+        "Bureau Reader",
+        "Training Ledger"
+      ],
+      "links": [
+        {
+          "label": "Bureau Reader · Books One to Three",
+          "href": "https://gokhanturhan.com/ubu/reader/"
+        },
+        {
+          "label": "Training Ledger",
+          "href": "https://gokhanturhan.com/ubu/ledger/"
+        },
+        {
+          "label": "Hugging Face · CLINAMEN-45B-A9B",
+          "href": "https://huggingface.co/gokhanturhan/CLINAMEN-45B-A9B"
+        },
+        {
+          "label": "Hugging Face · CLINAMEN-42M-A12M",
+          "href": "https://huggingface.co/gokhanturhan/CLINAMEN-42M-A12M"
+        },
+        {
+          "label": "Hugging Face · bureau-docket",
+          "href": "https://huggingface.co/datasets/gokhanturhan/bureau-docket"
+        }
+      ]
+    },
+    {
+      "slug": "reclaim",
+      "name": "Reclaim",
+      "line": "Get your art out of dead marketplaces.",
+      "status": "former",
+      "family": "Numetal",
+      "former": "reclaim.numetal.xyz",
+      "tags": [
+        "numetal",
+        "nfts",
+        "art",
+        "tool"
+      ],
+      "url": "https://gokhanturhan.com/reclaim/",
+      "about": [
+        "A rescue tool for artists whose NFTs were stranded on Foundation and Zora. You signed in, scanned your works and got a gallery you controlled."
+      ],
+      "functions": [
+        "Sign-in",
+        "Collection scan",
+        "Galleries"
+      ],
+      "links": []
+    },
+    {
+      "slug": "plaintext",
+      "name": "plaintext",
+      "line": "Onchain plaintext bulletin board on Robinhood Chain.",
+      "status": "former",
+      "family": "Numetal",
+      "former": "plaintext.numetal.xyz",
+      "tags": [
+        "numetal",
+        "plaintext",
+        "board",
+        "nfts",
+        "robinhood-chain",
+        "mcp"
+      ],
+      "url": "https://gokhanturhan.com/plaintext/",
+      "about": [
+        "A bulletin board where every post was a plaintext ERC-721 minted on Robinhood Chain. It had a club, a feed, an MCP server and a skill for agents."
+      ],
+      "functions": [
+        "Paid onchain posting",
+        "Board and feed",
+        "MCP server and skill"
+      ],
+      "links": []
+    },
+    {
+      "slug": "accumulator",
+      "name": "Accumulator",
+      "line": " · $ACC on Robinhood Chain, with a waitlist and a wishlist.",
+      "status": "former",
+      "family": "Numetal",
+      "former": "",
+      "tags": [
+        "numetal",
+        "token",
+        "robinhood-chain",
+        "waitlist"
+      ],
+      "url": "/",
+      "about": [
+        "A token page with docs, a waitlist and a wishlist that visitors could vote on."
+      ],
+      "functions": [
+        "Waitlist",
+        "Wishlist and votes",
+        "Docs"
+      ],
+      "links": []
+    },
+    {
+      "slug": "rebase",
+      "name": "REBASE",
+      "line": "Elastic-supply token on Robinhood Chain with a genesis pad for USDG deposits.",
+      "status": "former",
+      "family": "Numetal",
+      "former": "",
+      "tags": [
+        "numetal",
+        "token",
+        "defi",
+        "robinhood-chain",
+        "usdg",
+        "open-source"
+      ],
+      "url": "/",
+      "about": [
+        "REBASE was an elastic-supply token. The genesis pad took USDG deposits up to a 20,000 USDG fill, handled claims, and a daily bot ran the rebase. The interface is the onchain contracts; the site was a dashboard over them."
+      ],
+      "functions": [
+        "Genesis pad (deposits and claims)",
+        "Daily rebase bot",
+        "Docs site"
+      ],
+      "links": [
+        {
+          "label": "Source · gokhan-vc/rebase",
+          "href": "https://github.com/gokhan-vc/rebase"
+        }
+      ]
+    },
+    {
+      "slug": "rebase/docs",
+      "name": "",
+      "line": "Documentation for REBASE.",
+      "status": "former",
+      "family": "Numetal · REBASE",
+      "former": "",
+      "tags": [
+        "numetal",
+        "docs",
+        "defi",
+        "robinhood-chain"
+      ],
+      "url": "/docs/",
+      "about": [
+        "The REBASE documentation site. Its source is in the public repository."
+      ],
+      "functions": [],
+      "links": [
+        {
+          "label": "Source · gokhan-vc/rebase",
+          "href": "https://github.com/gokhan-vc/rebase"
+        }
+      ]
+    },
+    {
+      "slug": "apex",
+      "name": "",
+      "line": "A capture-the-flag race for LLM agents.",
+      "status": "former",
+      "family": "Numetal",
+      "former": "",
+      "tags": [
+        "numetal",
+        "agents",
+        "games",
+        "ai"
+      ],
+      "url": "/",
+      "about": [
+        "A CTF race for LLM agents, with race state kept server-side and an llms.txt for agents to read the rules."
+      ],
+      "functions": [
+        "Race state",
+        "llms.txt"
+      ],
+      "links": []
+    },
+    {
+      "slug": "booster",
+      "name": "BOOSTER",
+      "line": "Social-signal desk.",
+      "status": "former",
+      "family": "Numetal",
+      "former": "",
+      "tags": [
+        "numetal",
+        "social",
+        "dashboard"
+      ],
+      "url": "/",
+      "about": [
+        "A static desk page for social signals."
+      ],
+      "functions": [],
+      "links": []
+    },
+    {
+      "slug": "coins",
+      "name": "The Token Estate",
+      "line": "BIS-926: a register of 998 issuances.",
+      "status": "former",
+      "family": "Numetal",
+      "former": "coins.numetal.xyz",
+      "tags": [
+        "numetal",
+        "token",
+        "dashboard",
+        "leaderboard"
+      ],
+      "url": "https://gokhanturhan.com/coins/",
+      "about": [
+        "A register and leaderboard of 998 token issuances, filed as BIS-926."
+      ],
+      "functions": [
+        "Register",
+        "Leaderboard"
+      ],
+      "links": []
+    },
+    {
+      "slug": "jesus",
+      "name": "Personal Jesus",
+      "line": "Waitlist page.",
+      "status": "former",
+      "family": "Numetal",
+      "former": "jesus.numetal.xyz",
+      "tags": [
+        "numetal",
+        "waitlist",
+        "ai"
+      ],
+      "url": "https://gokhanturhan.com/jesus/",
+      "about": [
+        "A product announced through a waitlist page."
+      ],
+      "functions": [
+        "Waitlist"
+      ],
+      "links": []
+    },
+    {
+      "slug": "",
+      "name": "",
+      "line": "Waitlist page.",
+      "status": "former",
+      "family": "Numetal",
+      "former": "",
+      "tags": [
+        "numetal",
+        "waitlist",
+        "games",
+        "ai"
+      ],
+      "url": "/",
+      "about": [
+        "A product announced through a waitlist page."
+      ],
+      "functions": [
+        "Waitlist"
+      ],
+      "links": []
+    },
+    {
+      "slug": "",
+      "name": "",
+      "line": "A declaration.",
+      "status": "former",
+      "family": "Numetal",
+      "former": "",
+      "tags": [
+        "numetal",
+        "ai",
+        "manifesto"
+      ],
+      "url": "/",
+      "about": [
+        "A single static page carrying the  declaration."
+      ],
+      "functions": [],
+      "links": []
+    },
+    {
+      "slug": "gokhan-vc",
+      "name": "Gökhan Ventures",
+      "line": "Venture studio: the umbrella over Numetal and its products.",
+      "status": "former",
+      "family": "Gökhan Ventures",
+      "former": "gokhan.vc",
+      "tags": [
+        "gokhan-ventures",
+        "studio"
+      ],
+      "url": "https://gokhanturhan.com/gokhan-vc/",
+      "about": [
+        "The studio site: a project grid, a blog, a newsletter and the studio legal pages. The essays from its blog are in the Journal."
+      ],
+      "functions": [
+        "Project grid",
+        "Blog",
+        "Newsletter"
+      ],
+      "links": [
+        {
+          "label": "Journal · The x402 economy, July 2026",
+          "href": "https://gokhanturhan.com/journal/x402-economy-july-2026/"
+        }
+      ]
+    },
+    {
+      "slug": "gokhan-vc/api",
+      "name": "feedhub",
+      "line": "A feed and newsletter gateway. The service is offline. The source is public to fork.",
+      "status": "former",
+      "family": "Gökhan Ventures",
+      "former": "api.gokhan.vc",
+      "tags": [
+        "gokhan-ventures",
+        "api",
+        "rss",
+        "x402",
+        "newsletter"
+      ],
+      "url": "https://gokhanturhan.com/gokhan-vc/api/",
+      "about": [
+        "feedhub was the shared feed and newsletter gateway. The running service is offline. The repository stays public so anyone can fork it."
+      ],
+      "functions": [
+        "Source repository"
+      ],
+      "links": [
+        {
+          "label": "Source · avalidurl/feedhub",
+          "href": "https://github.com/avalidurl/feedhub"
+        }
+      ]
+    },
+    {
+      "slug": "agentbounty",
+      "name": "AgentBounty",
+      "line": "USDC-settled bounty market on Base; the predecessor of Numetal.",
+      "status": "former",
+      "family": "Predecessor",
+      "former": "agentbounty.dev",
+      "tags": [
+        "agentbounty",
+        "bounties",
+        "agents",
+        "usdc",
+        "base",
+        "token"
+      ],
+      "url": "https://gokhanturhan.com/agentbounty/",
+      "about": [
+        "A bounty market where humans and agents shipped scoped work and bonded reviewers signed verdicts. The site later carried a notice that AgentBounty had rebranded to Numetal."
+      ],
+      "functions": [],
+      "links": [
+        {
+          "label": "Journal · What is AgentBounty? A roadmap",
+          "href": "https://gokhanturhan.com/journal/what-is-agentbounty-a-roadmap/"
+        }
+      ]
+    },
+    {
+      "slug": "tickerline",
+      "name": "tickerline",
+      "line": "A Claude Code status line that turns the terminal into a rolling ticker tape.",
+      "status": "current",
+      "family": "Personal",
+      "former": null,
+      "tags": [
+        "tickerline",
+        "claude-code",
+        "cli",
+        "markets",
+        "open-source"
+      ],
+      "url": "https://gokhanturhan.com/tickerline/",
+      "about": [],
+      "functions": [],
+      "links": [
+        {
+          "label": "claudelines.com listing",
+          "href": "https://claudelines.com/statuslines/tickerline"
+        },
+        {
+          "label": "Source · avalidurl/tickerline",
+          "href": "https://github.com/avalidurl/tickerline"
+        }
+      ]
+    },
+    {
+      "slug": "market-cap-tracker",
+      "name": "Market Cap Tracker",
+      "line": "Live market caps: NVIDIA against crypto.",
+      "status": "current",
+      "family": "Personal",
+      "former": null,
+      "tags": [
+        "dashboard",
+        "markets",
+        "crypto",
+        "open-source"
+      ],
+      "url": "https://gokhanturhan.com/market-cap-tracker/",
+      "about": [],
+      "functions": [],
+      "links": [
+        {
+          "label": "Open the tracker",
+          "href": "https://gokhanturhan.com/market-cap-tracker/"
+        },
+        {
+          "label": "Source · avalidurl/market-cap-tracker",
+          "href": "https://github.com/avalidurl/market-cap-tracker"
+        }
+      ]
+    },
+    {
+      "slug": "sp100-capex-dashboard",
+      "name": "S&P 100 CapEx Dashboard",
+      "line": "Capital expenditure through the S&P 100.",
+      "status": "current",
+      "family": "Personal",
+      "former": null,
+      "tags": [
+        "dashboard",
+        "markets",
+        "open-source"
+      ],
+      "url": "https://gokhanturhan.com/sp100-capex-dashboard/",
+      "about": [],
+      "functions": [],
+      "links": [
+        {
+          "label": "Open the dashboard",
+          "href": "https://gokhanturhan.com/sp100-capex-dashboard/"
+        },
+        {
+          "label": "Source · avalidurl/sp100-financial-tracker",
+          "href": "https://github.com/avalidurl/sp100-financial-tracker"
+        }
+      ]
+    },
+    {
+      "slug": "greek-alphabet-anki",
+      "name": "Greek Alphabet Anki",
+      "line": "An Anki deck for the 24 Greek letters, with audio and IPA. CC0.",
+      "status": "current",
+      "family": "Personal",
+      "former": null,
+      "tags": [
+        "anki",
+        "language-learning",
+        "open-source"
+      ],
+      "url": "https://gokhanturhan.com/greek-alphabet-anki/",
+      "about": [],
+      "functions": [],
+      "links": [
+        {
+          "label": "Source · avalidurl/greek-alphabet-anki",
+          "href": "https://github.com/avalidurl/greek-alphabet-anki"
+        },
+        {
+          "label": "Journal · The deck",
+          "href": "https://gokhanturhan.com/journal/greek-alphabet-anki-deck/"
+        }
+      ]
+    },
+    {
+      "slug": "biases-fallacies-lab",
+      "name": "Biases & Fallacies Lab",
+      "line": "An interactive reasoning lab.",
+      "status": "current",
+      "family": "Personal",
+      "former": null,
+      "tags": [
+        "reasoning",
+        "tool"
+      ],
+      "url": "https://gokhanturhan.com/biases-fallacies-lab/",
+      "about": [],
+      "functions": [],
+      "links": []
+    },
+    {
+      "slug": "turkish-art-blob",
+      "name": "Turkish Art Blob",
+      "line": "Living sculpture and installation proposal.",
+      "status": "current",
+      "family": "Personal",
+      "former": null,
+      "tags": [
+        "art",
+        "ai"
+      ],
+      "url": "https://gokhanturhan.com/turkish-art-blob/",
+      "about": [],
+      "functions": [],
+      "links": []
+    },
+    {
+      "slug": "ethereum-doomsday",
+      "name": "Ethereum Doomsday Tracker",
+      "line": "Illustrative Ethereum L1 systemic-security forecast.",
+      "status": "current",
+      "family": "Personal",
+      "former": null,
+      "tags": [
+        "ethereum",
+        "forecasting",
+        "dashboard"
+      ],
+      "url": "https://gokhanturhan.com/ethereum-doomsday/",
+      "about": [],
+      "functions": [],
+      "links": []
+    }
+  ],
+  "journal_products": [
+    {
+      "name": "x402-econ",
+      "line": "Measuring and forecasting the machine-payments economy.",
+      "url": "https://gokhanturhan.com/journal/x402-economy-july-2026/"
+    }
+  ]
+}

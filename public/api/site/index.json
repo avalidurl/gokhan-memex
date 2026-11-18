@@ -1,0 +1,63 @@
+{
+  "name": "Gökhan Turhan — site content",
+  "description": "Read-only JSON for the public site: journal, CV, products, drafts, about, links, and publishing.",
+  "docs": "https://gokhanturhan.com/api/site/",
+  "openapi": "https://gokhanturhan.com/api/site/openapi.json",
+  "page": "https://gokhanturhan.com/",
+  "resources": [
+    {
+      "slug": "pages",
+      "name": "Every public page",
+      "href": "https://gokhanturhan.com/api/site/pages.json",
+      "page": "https://gokhanturhan.com/"
+    },
+    {
+      "slug": "index",
+      "name": "Index",
+      "href": "https://gokhanturhan.com/api/site/index.json",
+      "page": "https://gokhanturhan.com/api/"
+    },
+    {
+      "slug": "journal",
+      "name": "Journal",
+      "href": "https://gokhanturhan.com/api/site/journal.json",
+      "page": "https://gokhanturhan.com/journal/"
+    },
+    {
+      "slug": "cv",
+      "name": "CV",
+      "href": "https://gokhanturhan.com/api/site/cv.json",
+      "page": "https://gokhanturhan.com/cv/"
+    },
+    {
+      "slug": "products",
+      "name": "Products",
+      "href": "https://gokhanturhan.com/api/site/products.json",
+      "page": "https://gokhanturhan.com/products/"
+    },
+    {
+      "slug": "drafts",
+      "name": "Drafts",
+      "href": "https://gokhanturhan.com/api/site/drafts.json",
+      "page": "https://gokhanturhan.com/product-drafts/"
+    },
+    {
+      "slug": "about",
+      "name": "About",
+      "href": "https://gokhanturhan.com/api/site/about.json",
+      "page": "https://gokhanturhan.com/about/"
+    },
+    {
+      "slug": "links",
+      "name": "Links",
+      "href": "https://gokhanturhan.com/api/site/links.json",
+      "page": "https://gokhanturhan.com/links/"
+    },
+    {
+      "slug": "publishing",
+      "name": "Publishing",
+      "href": "https://gokhanturhan.com/api/site/publishing.json",
+      "page": "https://gokhanturhan.com/publishing/"
+    }
+  ]
+}

@@ -7,7 +7,33 @@ import { sanitizeQuote, decodeEntities, rewriteHead } from './lib/quote-card.js'
 
 const STATIC_EXT = /\.(png|jpe?g|webp|gif|svg|js|css|woff2?|ttf|otf|ico|xml|txt|json|map|wasm|pdf|mp4|webm|md)$/i
 const API_HOST = 'api.gokhanturhan.com'
-const API_PASS = new Set(['/fonts.css', '/favicon.svg', '/favicon.ico', '/register-boot.js'])
+const API_PASS = new Set(['/fonts.css', '/favicon.svg', '/favicon.ico', '/register-boot.js', '/.well-known/api-catalog', '/mcp'])
+const DISCOVERY_LINK = [
+  '</.well-known/api-catalog>; rel="api-catalog"',
+  '</api/site/openapi.json>; rel="service-desc"; type="application/json"',
+  '</api/site/>; rel="service-doc"; type="text/html"',
+  '</llms.txt>; rel="describedby"; type="text/plain"',
+  '</mcp>; rel="service"; type="application/json"',
+  '</api/site/pages.json>; rel="index"; type="application/json"',
+  '</api/site/pages.json>; rel="contents"; type="application/json"',
+  '</api/site/journal.json>; rel="item"; type="application/json"',
+  '</api/site/cv.json>; rel="item"; type="application/json"',
+  '</api/site/products.json>; rel="item"; type="application/json"',
+  '</api/site/drafts.json>; rel="item"; type="application/json"',
+  '</api/site/about.json>; rel="item"; type="application/json"',
+  '</api/site/links.json>; rel="item"; type="application/json"',
+  '</api/site/publishing.json>; rel="item"; type="application/json"',
+  '</rss.xml>; rel="alternate"; type="application/rss+xml"',
+].join(', ')
+
+function withDiscovery(response, url) {
+  if (url.pathname !== '/' && url.pathname !== '/index.html') return response
+  const headers = new Headers(response.headers)
+  const prior = headers.get('link')
+  if (prior && prior.includes('/api/site/pages.json')) return response
+  headers.set('link', DISCOVERY_LINK)
+  return new Response(response.body, { status: response.status, statusText: response.statusText, headers })
+}
 const RAIL_HEADERS = [
   'accept', 'accept-language', 'content-type', 'cookie', 'user-agent',
   'authorization', 'payment-signature', 'x-payment',
@@ -85,7 +111,7 @@ export async function onRequest(context) {
   if (url.pathname.startsWith('/og/quote')) return context.next()
   if (STATIC_EXT.test(url.pathname)) return context.next()
   const raw = url.searchParams.get('q')
-  if (!raw) return context.next()
+  if (!raw) return withDiscovery(await context.next(), url)
   const quote = sanitizeQuote(raw)
   if (!quote) return context.next()
 
@@ -111,5 +137,5 @@ export async function onRequest(context) {
   const headers = new Headers(res.headers)
   headers.set('cache-control', 'public, max-age=300, s-maxage=86400')
   headers.delete('content-length')
-  return new Response(html, { status: res.status, statusText: res.statusText, headers })
+  return withDiscovery(new Response(html, { status: res.status, statusText: res.statusText, headers }), url)
 }

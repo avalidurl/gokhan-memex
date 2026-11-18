@@ -388,7 +388,7 @@ export interface ApiEntry {
   slug: string
   name: string
   former: string
-  domain: 'numetal.xyz' | 'gokhan.vc'
+  domain: 'numetal.xyz' | 'gokhan.vc' | 'gokhanturhan.com'
   kind: string
   status: 'live' | 'degraded' | 'retired'
   tags: string[]
@@ -398,6 +398,7 @@ export interface ApiEntry {
 }
 export const API_INDEX = '/api' // same files as https://api.gokhanturhan.com/
 export const apis: ApiEntry[] = [
+  { slug: 'site', name: 'Site content', former: 'gokhanturhan.com', domain: 'gokhanturhan.com', kind: 'REST · OpenAPI · MCP', status: 'live', tags: ['reading', 'publishing'], protocols: ['openapi', 'mcp'], rail: '/api/site/' },
   { slug: 'ishtar', name: 'Ishtar API', former: 'api.ishtar.numetal.xyz', domain: 'numetal.xyz', kind: 'REST · OpenAPI · MCP · x402', status: 'degraded', tags: ['reading', 'publishing', 'payments', 'identity', 'agents'], protocols: ['x402', 'mcp', 'openapi', 'skill'], rail: '/ishtar/' },
   { slug: 'curb', name: 'CURB clearing API', former: 'curb.numetal.xyz', domain: 'numetal.xyz', kind: 'REST · OpenAPI · MCP · x402', status: 'live', tags: ['payments', 'reading', 'agents'], protocols: ['x402', 'mcp', 'openapi', 'skill'], rail: '/curb/' },
   { slug: 'launch', name: 'Launch router', former: '', domain: 'numetal.xyz', kind: 'REST · OpenAPI · MCP · x402 · MPP', status: 'live', tags: ['publishing', 'payments', 'agents'], protocols: ['x402', 'mpp', 'mcp', 'openapi'], rail: '/' },

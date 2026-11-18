@@ -1,0 +1,243 @@
+{
+  "name": "CV",
+  "url": "https://gokhanturhan.com/cv/",
+  "markdown": "https://gokhanturhan.com/cv.md",
+  "pdf": "https://gokhanturhan.com/cv/Gokhan_Turhan_CV.pdf",
+  "plain": "https://gokhanturhan.com/cv/plain.txt",
+  "cv": {
+    "version": "1.0",
+    "updated": "2026-07-30",
+    "person": {
+      "name": "Gökhan Turhan",
+      "title": "Full-stack builder & solopreneur",
+      "tagline": "Full-stack builder and solopreneur — one person, a fleet of agents. Ships agent-native products end to end (venue, payment rail, benchmark, open standard, security program) across fintech infrastructure, AI-native tooling, and tokenized markets — live, in production, taking real machine payments.",
+      "contact": {
+        "location": "İstanbul, Türkiye",
+        "email": "mailto:contact@gokhan.vc",
+        "studio": "/gokhan-vc/",
+        "website": "https://gokhanturhan.com/",
+        "lab": "/numetal/",
+        "linkedin": "https://linkedin.com/in/goekhanturhan",
+        "x": "https://x.com/goekhan",
+        "telegram": "https://t.me/goekhanturhan",
+        "dms": "Open",
+        "github": "https://github.com/avalidurl",
+        "github_(gokhan-vc)": "https://github.com/gokhan-vc",
+        "substack": "https://gokhan.substack.com/"
+      }
+    },
+    "profile": [
+      "Growth and business development operator building engines that compound distribution, conversion, and revenue — performance marketing, partnerships, CRM orchestration, and experimentation, from strategy to measurable outcome.",
+      "Founder-technologist shipping full-stack apps end to end — architecture, code, deployment, distribution — across AI, crypto, and startup verticals, from smart contracts to landing pages.",
+      "AI-native execution with memetic engineering: message architecture, platform-native storytelling, feedback-scaled campaigns. Taste in art, classical and jazz music, a serious home-chef practice, a consistent training discipline."
+    ],
+    "experience": [
+      {
+        "role": "Founder & CTO",
+        "organization": "Gökhan Ventures",
+        "location": "İstanbul",
+        "start": "2024",
+        "end": "Present",
+        "highlights": [
+          "Founder and sole technologist — chief technical officer, developer, coder, and bootstrapper in one, shipping the entire stack from smart contract to landing page.",
+          "Gökhan Ventures is a venture research studio into AGI and human coexistence, incubating products at the seam of AI, crypto, and startups.",
+          "Ship full-stack apps end-to-end — architecture, code, deployment, and growth — across AI, crypto, and startup verticals."
+        ]
+      },
+      {
+        "role": "Founder",
+        "organization": "Numetal",
+        "location": "İstanbul",
+        "start": "2026",
+        "end": "Present",
+        "highlights": [
+          "Numetal is the Agent Accelerator Studio & Bureau within Gökhan Ventures — chain-agnostic, building and backing autonomous agents under one brand and one token ($NUMETAL).",
+          "Lead architect, developer, and operator across product, protocol, and distribution — \"we ship machines that ship themselves.\""
+        ]
+      },
+      {
+        "role": "Head of Growth & Marketing",
+        "organization": "Kingpost.io + Quake Cash",
+        "start": "Sep 2024",
+        "end": "Aug 2025",
+        "highlights": [
+          "Led growth strategy across a hybrid fintech product spanning custodial RWA issuance and DeFi-native perpetual markets.",
+          "Built GTM positioning, CRM pipelines, partnership funnels, and content-driven acquisition using AI-assisted workflows.",
+          "Operated across product, BD, marketing, and social media, connective tissue between technical teams and market execution.",
+          "Prototyped internal tools, landing pages, and documentation."
+        ]
+      },
+      {
+        "role": "Independent Researcher & Advisor",
+        "organization": "Freelance",
+        "location": "İstanbul",
+        "start": "Jan 2020",
+        "end": "Oct 2024",
+        "highlights": [
+          "Published research on DeFi protocol mechanics, tokenization frameworks, and distributed systems governance.",
+          "Advisory engagements across fintech and deep-tech verticals on product positioning, org design, and market entry.",
+          "Technical copywriting, documentation, and newsletter production for protocol and infrastructure clients."
+        ]
+      },
+      {
+        "role": "Content Specialist & Client Success",
+        "organization": "GoDaddy Türkiye (via Artı İletişim) & MCAN Health",
+        "location": "İstanbul",
+        "start": "2019",
+        "end": "2020",
+        "highlights": [
+          "Content strategy, copywriting, and customer success across health tourism and domain services markets."
+        ]
+      },
+      {
+        "role": "NGO Volunteer & Contributor",
+        "organization": "Helsinki Citizens' Assembly",
+        "location": "İstanbul",
+        "start": "2009",
+        "end": "2017",
+        "highlights": [
+          "Long-term civic engagement in human rights advocacy, cross-cultural dialogue, and community organizing."
+        ]
+      },
+      {
+        "role": "English Language Instructor",
+        "organization": "İstanbul Nişantaşı Üniversitesi & Çanakkale 18 Mart Üniversitesi",
+        "start": "2013",
+        "end": "2016",
+        "highlights": [
+          "University-level EFL/ESL instruction; curriculum development and cross-cultural communication."
+        ]
+      }
+    ],
+    "education": [
+      {
+        "degree": "M.A. Comparative Literature",
+        "honors": "Top of Class",
+        "years": "2014–2017",
+        "school": "İstanbul Bilgi University",
+        "detail": "Thesis: \"The Importance and Function of Media Laboratories for the Preservation of Works of Digital and Electronic Literature\"",
+        "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=EgZE838AAAAJ&citation_for_view=EgZE838AAAAJ:W7OEmFMy1HYC",
+        "linkLabel": "Google Scholar"
+      },
+      {
+        "degree": "B.A. American Culture & Literature",
+        "years": "2006–2012",
+        "school": "Bahçeşehir University"
+      }
+    ],
+    "publications": [
+      "Published author and exhibited conceptual artist.",
+      "\"On the Hyperstitional Implications of Memes as Digital Objects in Turkey\""
+    ],
+    "skills": [
+      {
+        "category": "Agents & orchestration",
+        "items": [
+          "Multi-agent fleets: orchestrator + subagent patterns, drop-in skills, scheduled and autonomous runs",
+          "MCP — building and shipping servers, clients, and agent skills",
+          "Agent-to-agent protocols: A2A negotiation, agent identity (ERC-8004 · DID · VC)",
+          "Computer-use, browser automation, and headless verification loops"
+        ]
+      },
+      {
+        "category": "Agentic payments",
+        "items": [
+          "x402 · HTTP 402 · MPP — machine-to-machine settlement, running in production (USDC on Base)",
+          "Paid agent surfaces: metered APIs, per-call pricing, payment-gated MCP and skills",
+          "Stablecoin rails, treasury design, and fee-flow mechanics for agent economies"
+        ]
+      },
+      {
+        "category": "AI · LLM · AGI infrastructure",
+        "items": [
+          "Model routing and inference economics — token markets, cost/latency arbitrage across providers",
+          "Evals and benchmarks — designing and operating public leaderboards",
+          "Embeddings, retrieval, vector search; context and memory architecture for agents",
+          "Tool-agnostic across the stack — coding agents, IDEs, model APIs, local inference; new tools absorbed the week they ship"
+        ]
+      },
+      {
+        "category": "Quantitative & protocol research",
+        "items": [
+          "Onchain analytics and token-flow forensics — SQL over chain data, explorer archaeology",
+          "Market microstructure: AMMs, auction mechanisms, prediction markets, fee mechanics",
+          "Open-standards authorship and API/spec design (OpenAPI, CC-licensed schemas)"
+        ]
+      },
+      {
+        "category": "Security & hardening",
+        "items": [
+          "Red-teaming agent systems: prompt injection, tool abuse, egress control",
+          "Product security programs: audits, fuzzing, key hygiene, least-privilege operations"
+        ]
+      },
+      {
+        "category": "Web design · UX · UI",
+        "items": [
+          "End-to-end front-of-house: design system → code → deploy, no handoffs",
+          "Typography-first, monochrome design systems; print-grade information design"
+        ]
+      },
+      {
+        "category": "Fintech domain",
+        "items": [
+          "RWA Tokenization (Custodial & Non-Custodial)",
+          "Perpetuals · AMMs · Stablecoins",
+          "Hybrid Fintech Architecture"
+        ]
+      },
+      {
+        "category": "Stack",
+        "items": [
+          "Solidity · Rust · Python · TypeScript — read, review, pair; the fleet types, I sign off",
+          "EVM · SVM · BTC Core — from bytecode to block data",
+          "Edge-first: the whole estate runs on Cloudflare Workers, DNS to deploy"
+        ]
+      },
+      {
+        "category": "Studio practice",
+        "items": [
+          "Identity, motion, and sound produced in-house — brand system to shipped film to score",
+          "Exhibited conceptual artist; the taste is load-bearing"
+        ]
+      },
+      {
+        "category": "Growth engine",
+        "items": [
+          "The full revenue loop, solo: CRM, pipeline, analytics, retention — agent-orchestrated, portable to whatever stack is already paid for",
+          "Instrumentation before intuition: events and funnels wired at launch, not after",
+          "Knowledge is plumbed, not stored — a working memex feeds the fleet"
+        ]
+      },
+      {
+        "category": "Distribution",
+        "items": [
+          "Every rail that moves attention: mainstream, decentralized, alt, and agent-only networks",
+          "Memetic engineering — message architecture, platform-native storytelling, feedback-scaled",
+          "Technical prose that ships product: docs, specs, dispatches, newsletters — search-optimized without smelling of it"
+        ]
+      }
+    ],
+    "languages": [
+      {
+        "name": "Turkish",
+        "level": "Native"
+      },
+      {
+        "name": "English",
+        "level": "IELTS 8/9"
+      },
+      {
+        "name": "Japanese",
+        "level": "Elementary"
+      }
+    ],
+    "documents": {
+      "html": "https://gokhanturhan.com/cv/",
+      "pdf": "https://gokhanturhan.com/cv/Gokhan_Turhan_CV.pdf",
+      "plainText": "https://gokhanturhan.com/cv/plain.txt",
+      "rawHtml": "https://gokhanturhan.com/cv/raw.html",
+      "json": "https://gokhanturhan.com/cv.json"
+    }
+  }
+}

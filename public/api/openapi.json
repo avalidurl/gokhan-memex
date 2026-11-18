@@ -3,7 +3,7 @@
   "info": {
     "title": "API index",
     "version": "2026-11-14",
-    "description": "Seven product APIs are published on this host under /ishtar, /curb, /launch, /plaintext, /accumulator, /numetal and /status. Those paths are proxied to the live workers. The HTML pages do not take a payment. A 402 on a paid Ishtar path names api.gokhanturhan.com. CURB and Launch challenges still name their worker hosts. The remaining entries are the former-domain archive (numetal.xyz, gokhan.vc). Contact: contact@gokhan.vc.",
+    "description": "The site content API is at /site/ (journal, CV, products, about, links, publishing). Read-only MCP is POST /mcp. Seven product APIs are published on this host under /ishtar, /curb, /launch, /plaintext, /accumulator, /numetal and /status. Those paths are proxied to the live workers. The HTML pages do not take a payment. A 402 on a paid Ishtar path names api.gokhanturhan.com. CURB and Launch challenges still name their worker hosts. The remaining entries are the former-domain archive (numetal.xyz, gokhan.vc). Contact: contact@gokhan.vc.",
     "contact": {
       "email": "contact@gokhan.vc",
       "url": "https://gokhanturhan.com/"
@@ -2104,6 +2104,18 @@
             "description": "The board is full (10 live slots) \u2014 no charge was made."
           }
         }
+      }
+    },
+    "/site/openapi.json": {
+      "get": {
+        "summary": "OpenAPI for the site content API: journal, CV, products, about, links, publishing",
+        "responses": {
+          "200": {
+            "description": "OpenAPI JSON"
+          }
+        },
+        "security": [],
+        "operationId": "free_site_openapi_json_get"
       }
     }
   },

@@ -1,0 +1,66 @@
+{
+  "name": "Publishing",
+  "url": "https://gokhanturhan.com/publishing/",
+  "works": [
+    {
+      "kind": "E-book",
+      "slug": "the-guy-with-compute",
+      "title": "The Guy with Compute",
+      "year": "2026",
+      "line": "An Unbounded Raga — a Bhagavad-Gita-form saga in eight cantos and three hundred twenty lines",
+      "url": "https://gokhanturhan.com/publishing/ebooks/the-guy-with-compute/"
+    },
+    {
+      "kind": "E-book",
+      "slug": "gradient-descent-into-chaotic-happiness",
+      "title": "Gradient Descent into Happiness",
+      "year": "2026",
+      "line": "An Oulipian canto in twenty-two movements and four hundred forty lines",
+      "url": "https://gokhanturhan.com/publishing/ebooks/gradient-descent-into-chaotic-happiness/"
+    },
+    {
+      "kind": "E-book",
+      "slug": "an-essay-concerning-the-inbox",
+      "title": "An Essay Concerning the Inbox",
+      "year": "2026",
+      "line": "A Lockean poem in twenty cantos and one thousand lines",
+      "url": "https://gokhanturhan.com/publishing/ebooks/an-essay-concerning-the-inbox/"
+    },
+    {
+      "kind": "Academic",
+      "slug": "on-the-hyperstitional-implications-of-memes-as-digital",
+      "title": "On the Hyperstitional Implications of Memes as Digital Objects in Turkey",
+      "year": "2019",
+      "line": "Book Chapter · Yeni Medya Çalışmaları V: Türkiye İnternet Tarihi",
+      "url": "https://gokhanturhan.com/publishing/academic/on-the-hyperstitional-implications-of-memes-as-digital/",
+      "external": {
+        "label": "Source",
+        "href": "https://www.academia.edu/38354264/_T%C3%BCm_Kitap_T%C3%BCrkiye_%C4%B0nternet_Tarihi_Yeni_Medya_%C3%87al%C4%B1%C5%9Fmalar%C4%B1_V"
+      }
+    },
+    {
+      "kind": "Academic",
+      "slug": "the-importance-and-function-of-media-laboratories-for",
+      "title": "The Importance and Function of Media Laboratories for the Preservation of Works of Digital and Electronic Literature",
+      "year": "2017",
+      "line": "MA Thesis · Istanbul Bilgi University",
+      "url": "https://gokhanturhan.com/publishing/academic/the-importance-and-function-of-media-laboratories-for/",
+      "external": {
+        "label": "PDF",
+        "href": "https://openaccess.bilgi.edu.tr/server/api/core/bitstreams/f36d4016-ad5a-4e69-bdce-b79a084dd47b/content"
+      }
+    },
+    {
+      "kind": "Experimental",
+      "slug": "casette",
+      "title": "CASSETTE",
+      "year": "2023",
+      "line": "Gökhan Turhan",
+      "url": "https://gokhanturhan.com/publishing/experimental/casette/",
+      "external": {
+        "label": "View on Zora",
+        "href": "https://zora.co/collect/zora:0xc51e1c9166f3ac33e4ee0a68e0339abcd202a773?source=post_page-----491d9ac49dcd---------------------------------------"
+      }
+    }
+  ]
+}

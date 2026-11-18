@@ -111,3 +111,8 @@
 /og-lib/*
   Cache-Control: public, max-age=31536000, immutable
 
+/.well-known/api-catalog
+  Content-Type: application/linkset+json
+  X-Content-Type-Options: nosniff
+  Cache-Control: public, max-age=300
+

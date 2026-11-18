@@ -1,21 +1,31 @@
 # robots.txt for https://gokhanturhan.com
 # Every public page may be crawled. All crawlers are welcome.
 
+# Content Signals: https://contentsignals.org/
+# search, ai-input, and ai-train are allowed.
+# Attribute quotations and training use to Gökhan Turhan and link the page you used.
+# Machine-readable copies: /api/site/pages.json is every public page. Also /api/site/journal.json /api/site/cv.json /api/site/products.json /api/site/about.json /api/site/links.json /api/site/publishing.json
+
 User-agent: *
 Allow: /
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
 
 # AI and research crawlers are welcome; see /llms.txt for a summary.
 User-agent: GPTBot
 Allow: /
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
 
 User-agent: ClaudeBot
 Allow: /
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
 
 User-agent: Google-Extended
 Allow: /
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
 
 User-agent: ia_archiver
 Allow: /
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
 
 # Agent-readable summaries
 #   https://gokhanturhan.com/llms.txt
