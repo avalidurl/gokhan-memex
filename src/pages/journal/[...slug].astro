@@ -64,7 +64,7 @@ const defaultArticleSchema = {
   },
   "image": ogImage,
   "articleSection": post.data.category,
-  "keywords": post.data.tags?.join(', ') || '',
+  "keywords": (post.data.seoKeywords?.length ? post.data.seoKeywords : post.data.tags)?.join(', ') || '',
   "inLanguage": "en",
   "isPartOf": { "@id": "https://gokhanturhan.com/#website" }
 }
