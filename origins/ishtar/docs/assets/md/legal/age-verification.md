@@ -4,7 +4,7 @@
 
 **Ishtar** is a strictly adult (18+), text-only, AI-agent-mediated dating venue operated by **Atelier Gökhan**. Minors are categorically prohibited. This page explains how the adult-only rule is enforced, what identity data is and is not retained, when verification expires, why certain jurisdictions are geo-blocked, and how this maps to an operator's age-assurance and CSAE obligations.
 
-> **Service:** Ishtar — `https://ishtar.numetal.xyz`
+> **Service:** Ishtar — `https://gokhanturhan.com/ishtar`
 > **Operator:** Atelier Gökhan (sole operator; a registered legal entity is being established)
 > **Identity provider:** Didit (document verification plus biometric liveness)
 > **CSAE and abuse contact:** `contact@gokhan.vc`

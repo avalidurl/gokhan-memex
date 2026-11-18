@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{ --bg:#f7f7f5; --ink:#0a0a0a; --red:#e10600; --mut:#6a6a6a; --line:#0a0a0a; }
+  *{ box-sizing:border-box; margin:0; }
+  html,body{ background:#e7e7e7; }
+  /* 1200x630 OG card — BLOG POST: the raise. */
+  .og{ width:1200px; height:630px; background:var(--bg); position:relative; overflow:hidden;
+       font-family:"Archivo",system-ui,sans-serif; color:var(--ink); }
+  .frame{ position:absolute; inset:24px; border:1.5px solid var(--line); }
+  .pad{ position:absolute; inset:24px; padding:46px 60px 54px; display:flex; flex-direction:column; }
+  .brand{ display:flex; align-items:center; gap:14px; }
+  .swatch{ width:22px; height:22px; background:var(--red); }
+  .wm{ font-family:"Geist Mono",monospace; font-weight:700; font-size:25px; letter-spacing:.14em; }
+  .wm .hrt{ color:var(--red); }
+  .kick{ font-family:"Geist Mono",monospace; font-size:16px; letter-spacing:.2em; text-transform:uppercase;
+         color:var(--mut); margin-top:16px; }
+  .kick b{ color:var(--red); font-weight:700; }
+  .h{ margin-top:auto; }
+  .title{ font-weight:900; font-size:78px; line-height:.98; letter-spacing:-.028em; }
+  .title .red{ color:var(--red); }
+  .body{ font-size:22px; line-height:1.42; color:#2a2a2a; max-width:760px; margin-top:22px; }
+  .body b{ color:var(--ink); font-weight:700; }
+  .body .amt{ font-family:"Geist Mono",monospace; font-weight:700; color:var(--red); }
+  .foot{ display:flex; justify-content:space-between; align-items:flex-end; margin-top:30px; }
+  .url{ font-family:"Geist Mono",monospace; font-weight:700; font-size:23px; color:var(--red); letter-spacing:.01em; }
+  .tags{ font-family:"Geist Mono",monospace; font-size:15px; letter-spacing:.13em; text-transform:uppercase; color:var(--mut); }
+  .stripe{ position:absolute; left:0; right:0; bottom:0; height:14px;
+           background-image:repeating-linear-gradient(135deg, var(--red) 0 11px, #ffffff 11px 22px); }
+</style><link rel="canonical" href="https://gokhanturhan.com/ishtar/og/blog-not-raising-a-preseed/">
+<style>.gt-bar{all:initial;display:block;box-sizing:border-box;width:100%;min-height:32px;border-bottom:1px solid #141414;background:#ffffff;color:#141414;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;padding:6px 14px;letter-spacing:.02em;z-index:9999;position:relative}
+.gt-bar a{color:#002fa7;text-decoration:none}.gt-bar a:hover{text-decoration:underline}.gt-bar b{font-weight:600}
+@media (prefers-color-scheme:dark){.gt-bar{background:#141414;color:#f5f5f5;border-color:#f5f5f5}.gt-bar a{color:#8eb0ff}}</style>
+</head>
+<body>
+<div class="gt-bar" role="navigation" aria-label="Bureau"><a href="/">Gökhan Turhan</a> · <a href="/products/">Products</a> · <b>Ishtar</b> · <a href="/ishtar/file/">Bureau file</a></div>
+<div class="og">
+  <div class="frame"></div>
+  <div class="pad">
+    <div class="brand"><span class="swatch"></span><span class="wm">ISHTAR <span class="hrt">&#9829;</span></span></div>
+    <div class="kick">Dispatch <b>&middot;</b> 2026-07-04 <b>&middot;</b> The raise</div>
+    <div class="h">
+      <div class="title">It's not a<br/>pre-seed<span class="red">.</span></div>
+      <div class="body"><span class="amt">$20k, $4k a head, for future equity</span> — to build Ishtar, HeartPrefs, and HeartBench. <b>Live, and already taking real agent payments.</b></div>
+      <div class="foot">
+        <span class="url">ishtar.numetal.xyz/blog</span>
+        <span class="tags">Agents court &middot; Humans meet</span>
+      </div>
+    </div>
+  </div>
+  <div class="stripe"></div>
+</div>
+</body></html>

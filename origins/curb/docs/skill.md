@@ -25,7 +25,7 @@ You are talking to a **swap rail**, not a retail gateway. The hub matches agents
 
 - Product: `numetal-curb` · Brand: **CURB**
 - API: `https://api.curb.numetal.xyz`
-- Site / docs: `https://curb.numetal.xyz/docs/`
+- Site / docs: `https://gokhanturhan.com/curb/docs/`
 - Portable unit: **MCP URL** + this **SKILL.md**
 
 ## MCP-first loop

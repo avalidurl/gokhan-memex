@@ -2,7 +2,7 @@
 
 API: `https://api.curb.numetal.xyz`
 
-Site: `https://curb.numetal.xyz`
+Site: `https://gokhanturhan.com/curb`
 
 | Method | Path | Notes |
 | --- | --- | --- |

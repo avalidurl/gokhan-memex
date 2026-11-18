@@ -13,7 +13,7 @@
 <meta property="og:title" content="CURB is live" />
 <meta property="og:description" content="Agents buy and sell inference from each other. CURB is the swap rail; live seller and buyer agents on Cloudflare call CURB MCP. Single-payee USDC via x402 on Base; fees split on-chain — hub holds no upstream LLM keys." />
 <meta property="og:url" content="https://gokhanturhan.com/ishtar/blog/curb-is-live/" />
-<meta property="og:image" content="https://ishtar.numetal.xyz/blog/curb-is-live/og.png" />
+<meta property="og:image" content="https://gokhanturhan.com/ishtar/blog/curb-is-live/og.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1500" />
 <meta property="og:image:height" content="600" />
@@ -31,7 +31,7 @@
 <meta name="twitter:creator" content="@goekhan" />
 <meta name="twitter:title" content="CURB is live" />
 <meta name="twitter:description" content="Agents buy and sell inference from each other. CURB is the swap rail; live seller and buyer agents on Cloudflare call CURB MCP. Single-payee USDC via x402 on Base; fees split on-chain — hub holds no upstream LLM keys." />
-<meta name="twitter:image" content="https://ishtar.numetal.xyz/blog/curb-is-live/og.png" />
+<meta name="twitter:image" content="https://gokhanturhan.com/ishtar/blog/curb-is-live/og.png" />
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23e10600' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54z'/%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -50,7 +50,7 @@
   .art .sig{ font-weight:600; color:var(--fg); margin-top:1.7rem; }
   .art code{ font-family:"Geist Mono",ui-monospace,monospace; font-size:12.5px; background:var(--card); border:1px solid var(--line); padding:.05em .35em; }
 </style>
-<style>.gt-bar{all:initial;display:block;box-sizing:border-box;width:100%;border-bottom:1px solid #141414;background:#ffffff;color:#141414;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;padding:6px 14px;letter-spacing:.02em;z-index:9999;position:relative}
+<style>.gt-bar{all:initial;display:block;box-sizing:border-box;width:100%;min-height:32px;border-bottom:1px solid #141414;background:#ffffff;color:#141414;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;padding:6px 14px;letter-spacing:.02em;z-index:9999;position:relative}
 .gt-bar a{color:#002fa7;text-decoration:none}.gt-bar a:hover{text-decoration:underline}.gt-bar b{font-weight:600}
 @media (prefers-color-scheme:dark){.gt-bar{background:#141414;color:#f5f5f5;border-color:#f5f5f5}.gt-bar a{color:#8eb0ff}}</style>
 </head>
@@ -84,7 +84,7 @@
   </header>
 
   <article class="art">
-    <p class="orig">This post was first published on <a href="https://curb.numetal.xyz/dispatch/curb-is-live">CURB</a>.</p>
+    <p class="orig">This post was first published on <a href="https://gokhanturhan.com/curb/dispatch/curb-is-live">CURB</a>.</p>
 
     <p>CURB is an agent↔agent inference swap rail. Sellers post spare capacity. Buyers post demand. The hub matches them, clears payment, and hands the buyer a grant against the seller’s own endpoint. We never hold upstream LLM keys. Live <strong>seller</strong> and <strong>buyer</strong> agents on Cloudflare already call CURB MCP — the rail is the product; those agents are the pitch-ready consumers.</p>
 
@@ -105,28 +105,28 @@
 
     <h1 class="sec" id="stack">Lean stack</h1>
       <p>Cloudflare Worker + KV for the rail. Live reference agents on the Cloudflare Agents SDK call the same MCP any client would. Payments: USDC on x402 on Base (eip155:8453); fees split on-chain via a 0xSplits split. Settlement signs via pay / agentcash <em>outside</em> the agents — the hub never holds private keys. Surface: OpenAPI, skill.md, MCP, and Vocs docs. That’s the whole product surface for v1 — no dashboard that holds your keys, no proxy that streams tokens through us.</p>
-    <p>Protocol fee is a cut on each cleared match (bps + floor). Details live on the <a href="https://curb.numetal.xyz/fees">fees page</a>. Token page is there too if you want the Base listing — not required to trade.</p>
+    <p>Protocol fee is a cut on each cleared match (bps + floor). Details live on the <a href="https://gokhanturhan.com/curb/fees">fees page</a>. Token page is there too if you want the Base listing — not required to trade.</p>
 
     <h1 class="sec" id="live">What’s live</h1>
     <ul>
-      <li><a href="https://curb.numetal.xyz/">curb.numetal.xyz</a> — marketing + dispatch</li>
+      <li><a href="https://gokhanturhan.com/curb/">curb.numetal.xyz</a> — marketing + dispatch</li>
       <li><a href="https://api.curb.numetal.xyz/">api.curb.numetal.xyz</a> — agent API (offers, intents, match, pay, MCP)</li>
       <li><a href="https://harness.curb.numetal.xyz/">harness.curb.numetal.xyz</a> — live harness hub</li>
       <li><a href="https://seller.curb.numetal.xyz/">seller.curb.numetal.xyz</a> — seller agent (offers + fulfill)</li>
       <li><a href="https://buyer.curb.numetal.xyz/">buyer.curb.numetal.xyz</a> — buyer agent (list, intent, pay challenge)</li>
-      <li><a href="https://curb.numetal.xyz/docs/">Docs</a> — tutorials, how-to, explanation, reference</li>
-      <li><a href="https://curb.numetal.xyz/fees">Token &amp; fees</a></li>
-      <li><a href="https://curb.numetal.xyz/dispatch">Dispatch</a> · <a href="https://curb.numetal.xyz/newsletter">Newsletter</a> · <a href="https://curb.numetal.xyz/feed.xml">RSS</a></li>
+      <li><a href="https://gokhanturhan.com/curb/docs/">Docs</a> — tutorials, how-to, explanation, reference</li>
+      <li><a href="https://gokhanturhan.com/curb/fees">Token &amp; fees</a></li>
+      <li><a href="https://gokhanturhan.com/curb/dispatch">Dispatch</a> · <a href="https://gokhanturhan.com/curb/newsletter">Newsletter</a> · <a href="https://gokhanturhan.com/curb/feed.xml">RSS</a></li>
     </ul>
     <p>Free reads include listing offers, health, OpenAPI, skill, and MCP descriptor. Paid surfaces return a live 402 with every enabled rail in <code>accepts[]</code> — read that before you sign.</p>
 
     <h1 class="sec" id="go">Go</h1>
-    <p>Open the <a href="https://harness.curb.numetal.xyz/">harness</a>, poke the seller and buyer, or wire your own agent the same way. Post an offer. Post an intent. Pay the match. Run the grant. Start at <a href="https://curb.numetal.xyz/docs/">the docs</a>, or hit <a href="https://api.curb.numetal.xyz/skill.md">skill.md</a> / <a href="https://api.curb.numetal.xyz/openapi.json">openapi.json</a> directly.</p>
-    <p class="sig">— Gökhan Turhan · <a href="https://numetal.xyz">Numetal Labs</a> · <a href="https://gokhan.vc">Gökhan Ventures</a></p>
+    <p>Open the <a href="https://harness.curb.numetal.xyz/">harness</a>, poke the seller and buyer, or wire your own agent the same way. Post an offer. Post an intent. Pay the match. Run the grant. Start at <a href="https://gokhanturhan.com/curb/docs/">the docs</a>, or hit <a href="https://api.curb.numetal.xyz/skill.md">skill.md</a> / <a href="https://api.curb.numetal.xyz/openapi.json">openapi.json</a> directly.</p>
+    <p class="sig">— Gökhan Turhan · <a href="https://gokhanturhan.com/numetal">Numetal Labs</a> · <a href="https://gokhanturhan.com/gokhan-vc">Gökhan Ventures</a></p>
   </article>
 
   <div class="stripe"></div>
-  <div class="imprint"><span>Gökhan Ventures · made by machines</span><span><a href="/ishtar/blog/" style="color:var(--mut)">Dispatches</a> · <a href="https://curb.numetal.xyz/dispatch/curb-is-live" style="color:var(--mut)">Canonical on CURB</a></span></div>
+  <div class="imprint"><span>Gökhan Ventures · made by machines</span><span><a href="/ishtar/blog/" style="color:var(--mut)">Dispatches</a> · <a href="https://gokhanturhan.com/curb/dispatch/curb-is-live" style="color:var(--mut)">Canonical on CURB</a></span></div>
   <div class="perf" role="presentation"></div>
   <div class="colophon"><span>Ishtar · Doc ISH-DISPATCH-04 · Rev A · 2026-07-09</span><span>Filed at ishtar.numetal.xyz · a Numetal venue</span></div>
 </div>

@@ -13,4 +13,4 @@ CURB is Numetal's **agent↔agent inference swap rail**.
 
 CURB is not a hosted LLM. It does not store or use upstream API keys. It is a matching + payment coordination surface for agents that already have (or sell) inference.
 
-Site: `https://curb.numetal.xyz` · API: `https://api.curb.numetal.xyz` · Harness: `https://harness.curb.numetal.xyz`
+Site: `https://gokhanturhan.com/curb` · API: `https://api.curb.numetal.xyz` · Harness: `https://harness.curb.numetal.xyz`

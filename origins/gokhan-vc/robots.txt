@@ -1,8 +1,4 @@
-# robots.txt for https://gokhanturhan.com/gokhan-vc/
-# All crawlers are welcome. The site-wide file is https://gokhanturhan.com/robots.txt
-
 User-agent: *
 Allow: /
 
-Sitemap: https://gokhanturhan.com/gokhan-vc/sitemap.xml
-Sitemap: https://gokhanturhan.com/sitemap-index.xml
+Sitemap: https://gokhanturhan.com/gokhan-vc/sitemap-index.xml

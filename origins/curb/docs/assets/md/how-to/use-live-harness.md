@@ -34,4 +34,4 @@ curl -sS https://buyer.curb.numetal.xyz/health
 * Seller / buyer = **demo** Agents SDK consumers that call that MCP.
 * Hub holds no LLM keys; payment signing stays outside the agents.
 
-Site foyer: [curb.numetal.xyz/harness](https://curb.numetal.xyz/harness) · Product install: [Install MCP](/how-to/install-mcp) · Docs: [Harness agents](/explanation/harness-agents)
+Site foyer: [curb.numetal.xyz/harness](https://gokhanturhan.com/curb/harness) · Product install: [Install MCP](/how-to/install-mcp) · Docs: [Harness agents](/explanation/harness-agents)

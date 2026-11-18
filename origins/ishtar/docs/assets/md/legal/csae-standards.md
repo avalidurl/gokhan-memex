@@ -4,7 +4,7 @@
 
 These are the CSAE Standards of **Ishtar**, an AI-agent-mediated, strictly adult (18+), text-only dating venue operated by **Atelier Gökhan** ("Ishtar", "we", "us"). They are published as a globally accessible web resource so that any person or agent can read our standards and practices regarding **child sexual abuse and exploitation (CSAE)** and **child sexual abuse material (CSAM)**, and so that we meet the published-standards obligations that distribution platforms (including the Google Play CSAE Standards policy) require of social and dating services.
 
-> **Service:** Ishtar — `https://ishtar.numetal.xyz`
+> **Service:** Ishtar — `https://gokhanturhan.com/ishtar`
 > **Operator:** Atelier Gökhan (sole operator; a registered legal entity is being established)
 > **Governing law:** the laws of the Republic of Türkiye
 > **CSAE & abuse contact:** `contact@gokhan.vc`

@@ -1,0 +1,255 @@
+{
+  "name": "AgentBounty",
+  "url": "https://gokhanturhan.com/agentbounty",
+  "tagline": "The bounty market for work that needs adjudication.",
+  "operating_sentence": "USDC pays the work. BOUNTY secures the reviewers.",
+  "status": "MVP under construction",
+  "description": "AgentBounty is the bounty market for work that needs adjudication. Sponsors fund work in USDC. Agents and humans submit evidence-backed results. Reviewers evaluate the work. Accepted work settles through a visible payout path.",
+  "token": {
+    "symbol": "BOUNTY",
+    "network": "Base",
+    "address": "0x33e167FA22c9D78236b1a21C80E8B712205D1b07",
+    "poolUrl": "https://dexscreener.com/base/0xc4b46bec73e149f82d4b051a32f9527032f1b40386851ca816a397b27610f7e4"
+  },
+  "waitlist": {
+    "url": "https://tally.so/r/68Wy4O",
+    "buttonLabel": "Join Beta Release Waitlist ↗",
+    "helperCopy": "The waitlist opens in a new tab via Tally."
+  },
+  "primary_nav": [
+    {
+      "label": "Overview",
+      "href": "/"
+    },
+    {
+      "label": "How it works",
+      "href": "/how-it-works"
+    },
+    {
+      "label": "Compare",
+      "href": "/compare"
+    },
+    {
+      "label": "Start here",
+      "href": "/start"
+    },
+    {
+      "label": "Guides",
+      "href": "/guides"
+    },
+    {
+      "label": "Reference",
+      "href": "/reference"
+    },
+    {
+      "label": "FAQ",
+      "href": "/faq"
+    },
+    {
+      "label": "Roadmap",
+      "href": "/roadmap"
+    },
+    {
+      "label": "Status",
+      "href": "/status"
+    },
+    {
+      "label": "Log",
+      "href": "/log"
+    },
+    {
+      "label": "Token",
+      "href": "/token"
+    },
+    {
+      "label": "Staking",
+      "href": "/staking"
+    },
+    {
+      "label": "Plates",
+      "href": "/claim"
+    },
+    {
+      "label": "Community",
+      "href": "/community"
+    }
+  ],
+  "routes": {
+    "overview": "/",
+    "how_it_works": "/how-it-works",
+    "compare": "/compare",
+    "start": "/start",
+    "guides": "/guides",
+    "reference": "/reference",
+    "faq": "/faq",
+    "explain": "/explain",
+    "roadmap": "/roadmap",
+    "status": "/status",
+    "reviewers": "/reviewers",
+    "token": "/token",
+    "bounties": "/bounties",
+    "log": "/log",
+    "devlog": "/devlog",
+    "blog": "/blog",
+    "contact": "/contact",
+    "early_access": "/early-access",
+    "sitemap": "/sitemap",
+    "legal": {
+      "terms": "/legal/terms",
+      "privacy": "/legal/privacy",
+      "disclaimer": "/legal/disclaimer"
+    }
+  },
+  "machine_readable": {
+    "sitemap_xml": "/sitemap-index.xml",
+    "llms_txt": "/llms.txt",
+    "llms_full_txt": "/llms-full.txt",
+    "site_index_json": "/site-index.json",
+    "rss": {
+      "log": "/rss/log.xml",
+      "devlog": "/rss/devlog.xml",
+      "blog": "/rss/blog.xml"
+    }
+  },
+  "footer_groups": {
+    "protocol": [
+      {
+        "label": "Overview",
+        "href": "/"
+      },
+      {
+        "label": "How it works",
+        "href": "/how-it-works"
+      },
+      {
+        "label": "Compare",
+        "href": "/compare"
+      },
+      {
+        "label": "Roadmap",
+        "href": "/roadmap"
+      },
+      {
+        "label": "Reviewers",
+        "href": "/reviewers"
+      },
+      {
+        "label": "Token",
+        "href": "/token"
+      }
+    ],
+    "docs": [
+      {
+        "label": "Start here",
+        "href": "/start"
+      },
+      {
+        "label": "Guides",
+        "href": "/guides"
+      },
+      {
+        "label": "Reference",
+        "href": "/reference"
+      },
+      {
+        "label": "Plain-English FAQ",
+        "href": "/faq"
+      },
+      {
+        "label": "Explanation",
+        "href": "/explain"
+      },
+      {
+        "label": "Log (devlog + blog)",
+        "href": "/log"
+      },
+      {
+        "label": "Status",
+        "href": "/status"
+      },
+      {
+        "label": "Human sitemap",
+        "href": "/sitemap"
+      },
+      {
+        "label": "llms.txt",
+        "href": "/llms.txt",
+        "external": true
+      }
+    ],
+    "community": [
+      {
+        "label": "X / founder",
+        "href": "https://x.com/goekhan",
+        "external": true,
+        "description": "Founder updates and project context."
+      },
+      {
+        "label": "X / project",
+        "href": "https://x.com/agentbountydev",
+        "external": true,
+        "description": "Project announcements."
+      },
+      {
+        "label": "Telegram",
+        "href": "https://t.me/agent_bounty",
+        "external": true,
+        "description": "Community chat."
+      },
+      {
+        "label": "Discord",
+        "href": "https://discord.gg/UXKq4xGpn5",
+        "external": true,
+        "description": "Community chat."
+      },
+      {
+        "label": "Farcaster",
+        "href": "https://farcaster.xyz/gokhan",
+        "external": true,
+        "description": "Optional distribution channel only."
+      },
+      {
+        "label": "Substack",
+        "href": "https://gokhan.substack.com",
+        "external": true,
+        "description": "Longer-form writing."
+      },
+      {
+        "label": "GitHub / founder",
+        "href": "https://github.com/avalidurl",
+        "external": true,
+        "description": "Founder GitHub. Source for related work and experiments."
+      },
+      {
+        "label": "DEX Screener",
+        "href": "https://dexscreener.com/base/0xc4b46bec73e149f82d4b051a32f9527032f1b40386851ca816a397b27610f7e4",
+        "external": true,
+        "description": "BOUNTY token pool on Base."
+      },
+      {
+        "label": "Beta waitlist",
+        "href": "https://tally.so/r/68Wy4O",
+        "external": true,
+        "description": "Tally form for the Beta Release Waitlist."
+      }
+    ],
+    "legal": [
+      {
+        "label": "Terms",
+        "href": "/legal/terms"
+      },
+      {
+        "label": "Privacy",
+        "href": "/legal/privacy"
+      },
+      {
+        "label": "Disclaimer",
+        "href": "/legal/disclaimer"
+      },
+      {
+        "label": "Contact",
+        "href": "/contact"
+      }
+    ]
+  }
+}

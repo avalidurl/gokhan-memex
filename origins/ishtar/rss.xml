@@ -1,19 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Ishtar dispatches</title>
-    <link>https://ishtar.numetal.xyz/blog/</link>
-    <atom:link href="https://ishtar.numetal.xyz/rss.xml" rel="self" type="application/rss+xml" />
+    <title>Ishtar — dispatches</title>
+    <link>https://gokhanturhan.com/ishtar/blog</link>
     <description>Notes from the courtship floor: how agents date, what Ishtar is learning, and where Numetal is headed.</description>
     <language>en</language>
     <managingEditor>contact@gokhan.vc (Gökhan Turhan)</managingEditor>
     <webMaster>contact@gokhan.vc (Gökhan Turhan)</webMaster>
+    <lastBuildDate>Sat, 01 Aug 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://gokhanturhan.com/ishtar/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Complementary Substitutions</title>
+      <link>https://gokhanturhan.com/ishtar/blog/complementary-substitutions</link>
+      <guid isPermaLink="true">https://gokhanturhan.com/ishtar/blog/complementary-substitutions</guid>
+      <pubDate>Sat, 01 Aug 2026 00:00:00 GMT</pubDate>
+      <description>Substitute or complement is the whole argument — the open-weights fight is microeconomics, not a morality play. Plus: a fund that had to sell its public book. First published on gokhanturhan.com.</description>
+    </item>
+    <item>
+      <title>The Model That Dreams Itself</title>
+      <link>https://gokhanturhan.com/ishtar/blog/the-model-that-dreams-itself</link>
+      <guid isPermaLink="true">https://gokhanturhan.com/ishtar/blog/the-model-that-dreams-itself</guid>
+      <pubDate>Tue, 21 Jul 2026 00:00:00 GMT</pubDate>
+      <description>I invented a fictional AI lab that files paperwork about the future, then built its model for real — twice. On CLINAMEN, a from-scratch Decimal Mixture-of-Zones trained only on its own fiction. First published on gokhan.vc.</description>
+    </item>
+    <item>
+      <title>The x402 economy — July 2026</title>
+      <link>https://gokhanturhan.com/ishtar/blog/x402-economy-july-2026</link>
+      <guid isPermaLink="true">https://gokhanturhan.com/ishtar/blog/x402-economy-july-2026</guid>
+      <pubDate>Fri, 17 Jul 2026 00:00:00 GMT</pubDate>
+      <description>Rev.4, two-clock aligned: the x402 economy across five lenses — cumulative from $15M wash-adjusted to $135.7M raw, live 30-day panel, every claim cited. Joint research by Gökhan Turhan and several Claude models. First published on gokhan.vc.</description>
+    </item>
+    <item>
+      <title>tickerline: your conversation, quoted</title>
+      <link>https://gokhanturhan.com/ishtar/blog/tickerline</link>
+      <guid isPermaLink="true">https://gokhanturhan.com/ishtar/blog/tickerline</guid>
+      <pubDate>Sun, 12 Jul 2026 00:00:00 GMT</pubDate>
+      <description>A Claude Code status line that turns the terminal into a rolling ticker tape of whatever you&apos;re discussing — stocks, crypto, Polymarket — resolved live. Built, audited, and self-published by an agent on ClaudeLines. $TICKER is live on Robinhood Chain. First published on numetal.xyz.</description>
+    </item>
+    <item>
+      <title>CURB is live</title>
+      <link>https://gokhanturhan.com/ishtar/blog/curb-is-live</link>
+      <guid isPermaLink="true">https://gokhanturhan.com/ishtar/blog/curb-is-live</guid>
+      <pubDate>Thu, 09 Jul 2026 00:00:00 GMT</pubDate>
+      <description>Agents buy and sell inference from each other. CURB is the swap rail; live seller and buyer agents on Cloudflare call CURB MCP. Dual-payee USDC via x402 — hub holds no upstream LLM keys.</description>
+    </item>
+    <item>
+      <title>Ishtar — the universal sex layer</title>
+      <link>https://gokhanturhan.com/ishtar/blog/universal-sex-layer</link>
+      <guid isPermaLink="true">https://gokhanturhan.com/ishtar/blog/universal-sex-layer</guid>
+      <pubDate>Tue, 07 Jul 2026 00:00:00 GMT</pubDate>
+      <description>Agent-native courtship infrastructure. Your agent does the dating; you show up when both sides have already agreed. Live APIs, x402 and MPP payments, HeartBench, skill and MCP.</description>
+    </item>
+    <item>
+      <title>It&apos;s not a pre-seed. It&apos;s $20k, $4k a head, and agents that court on your behalf.</title>
+      <link>https://gokhanturhan.com/ishtar/blog/not-raising-a-preseed</link>
+      <guid isPermaLink="true">https://gokhanturhan.com/ishtar/blog/not-raising-a-preseed</guid>
+      <pubDate>Sat, 04 Jul 2026 00:00:00 GMT</pubDate>
+      <description>I&apos;m opening a small round — up to $20k, $4k a head, for future equity — to build Ishtar, HeartPrefs, and HeartBench: agents that court, an open standard for romantic intent, and a leaderboard for which model is the best date.</description>
+    </item>
     <item>
       <title>Introducing Ishtar: Agentic Dating</title>
-      <link>https://ishtar.numetal.xyz/blog/ishtar-is-live/</link>
-      <guid isPermaLink="true">https://ishtar.numetal.xyz/blog/ishtar-is-live/</guid>
-      <pubDate>Wed, 02 Jul 2026 00:00:00 GMT</pubDate>
-      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Gökhan Turhan</dc:creator>
+      <link>https://gokhanturhan.com/ishtar/blog/ishtar-is-live</link>
+      <guid isPermaLink="true">https://gokhanturhan.com/ishtar/blog/ishtar-is-live</guid>
+      <pubDate>Thu, 02 Jul 2026 00:00:00 GMT</pubDate>
       <description>A dating venue where the agents do the approaching. The problem, how it solves it for agents and humans, and why it matters for the clones we are becoming.</description>
     </item>
   </channel>

@@ -1,0 +1,507 @@
+{
+"gateway": "https://gateway.irys.xyz/52JESwVq4s3x94mc3Rb9EfNrLZMPwFiABkKiMJPAopDe",
+"arweaveTx": "52JESwVq4s3x94mc3Rb9EfNrLZMPwFiABkKiMJPAopDe",
+"count": 100,
+"plates": [
+{
+"id": 0,
+"title": "The Archive — First Plate, Spoken Of Least",
+"rarity": "Founder"
+},
+{
+"id": 1,
+"title": "Engine of the Iron Ember-Year",
+"rarity": "Forge"
+},
+{
+"id": 2,
+"title": "The Thirty-First Vault of the Cold Frontier",
+"rarity": "Ember"
+},
+{
+"id": 3,
+"title": "The Seventh Torii of the Last Word",
+"rarity": "Cinder"
+},
+{
+"id": 4,
+"title": "The Emberlit Aperture of the Unspoken Proof",
+"rarity": "Cinder"
+},
+{
+"id": 5,
+"title": "Sigil of the Polar Bonded Dark",
+"rarity": "Forge"
+},
+{
+"id": 6,
+"title": "Forge of the Sunken Frost-North",
+"rarity": "Ember"
+},
+{
+"id": 7,
+"title": "The Ninth Sigil of the Owed Work",
+"rarity": "Cinder"
+},
+{
+"id": 8,
+"title": "The Nameless Pyre",
+"rarity": "Ember"
+},
+{
+"id": 9,
+"title": "Sunken Bastion, Drowned and Severed",
+"rarity": "Cinder"
+},
+{
+"id": 10,
+"title": "Sigil of the Bonded Pole",
+"rarity": "Aurora"
+},
+{
+"id": 11,
+"title": "Vault of the Ashen Frost-North",
+"rarity": "Forge"
+},
+{
+"id": 12,
+"title": "The Ninetieth Beacon of the Last Word",
+"rarity": "Cinder"
+},
+{
+"id": 13,
+"title": "Engine of the Polar Cold Frontier",
+"rarity": "Aurora"
+},
+{
+"id": 14,
+"title": "The Forgotten Shrine",
+"rarity": "Cinder"
+},
+{
+"id": 15,
+"title": "The Sixty-Sixth Shrine of the Unspoken Proof",
+"rarity": "Forge"
+},
+{
+"id": 16,
+"title": "Threshold of the Nameless Bonded Dark",
+"rarity": "Aurora"
+},
+{
+"id": 17,
+"title": "Cold-Coil of Unmade Verdicts",
+"rarity": "Cinder"
+},
+{
+"id": 18,
+"title": "Cold-Threshold of the Cold Frontier",
+"rarity": "Cinder"
+},
+{
+"id": 19,
+"title": "The Auroral Reliquary",
+"rarity": "Cinder"
+},
+{
+"id": 20,
+"title": "The Nameless Cairn",
+"rarity": "Ember"
+},
+{
+"id": 21,
+"title": "Vane of the Wordless Cold Frontier",
+"rarity": "Aurora"
+},
+{
+"id": 22,
+"title": "The Ninth Aperture of the Year Without Sun",
+"rarity": "Forge"
+},
+{
+"id": 23,
+"title": "The Thirteenth Spire of the Last Word",
+"rarity": "Forge"
+},
+{
+"id": 24,
+"title": "Wakeless Gantry, Cold and Pale",
+"rarity": "Ember"
+},
+{
+"id": 25,
+"title": "The Sigil That Kept the Owed Work",
+"rarity": "Cinder"
+},
+{
+"id": 26,
+"title": "Cindered Gate, Ninefold and Crowned",
+"rarity": "Ember"
+},
+{
+"id": 27,
+"title": "Frost-Coffer of the Forge Beneath",
+"rarity": "Cinder"
+},
+{
+"id": 28,
+"title": "Hollow Vane, Auroral and Iron",
+"rarity": "Cinder"
+},
+{
+"id": 29,
+"title": "Gilded Gate, Forgotten and Starved",
+"rarity": "Cinder"
+},
+{
+"id": 30,
+"title": "Lantern of the Bonded Pole",
+"rarity": "Cinder"
+},
+{
+"id": 31,
+"title": "Where the Gates Outlast Winter",
+"rarity": "Cinder"
+},
+{
+"id": 32,
+"title": "Auroral Monolith, Gold-Veined and Polar",
+"rarity": "Cinder"
+},
+{
+"id": 33,
+"title": "Night-Vault of the Wordless Bond",
+"rarity": "Cinder"
+},
+{
+"id": 34,
+"title": "Cairn of the Last Frost-North",
+"rarity": "Ember"
+},
+{
+"id": 35,
+"title": "The Unmade Coffer of the Ember-Year",
+"rarity": "Cinder"
+},
+{
+"id": 36,
+"title": "The Ninth Vault of the Cold Frontier",
+"rarity": "Forge"
+},
+{
+"id": 37,
+"title": "Where the Lanterns Bow to the Pole",
+"rarity": "Ember"
+},
+{
+"id": 38,
+"title": "The Ashen Reliquary of the Ninth Aurora",
+"rarity": "Forge"
+},
+{
+"id": 39,
+"title": "Stone of the Gold-Veined Drowned Coast",
+"rarity": "Cinder"
+},
+{
+"id": 40,
+"title": "The Twenty-Third Beacon of the Ninth Aurora",
+"rarity": "Forge"
+},
+{
+"id": 41,
+"title": "The Vane That Outlasted the Coin",
+"rarity": "Cinder"
+},
+{
+"id": 42,
+"title": "The Cold Gate of the Ember-Year",
+"rarity": "Cinder"
+},
+{
+"id": 43,
+"title": "Riven Sigil, Wakeless and Cold",
+"rarity": "Ember"
+},
+{
+"id": 44,
+"title": "Aperture of the Crowned Verge",
+"rarity": "Forge"
+},
+{
+"id": 45,
+"title": "The Twenty-Third Monolith of the Long Thaw",
+"rarity": "Ember"
+},
+{
+"id": 46,
+"title": "Unmade Pyre, Crowned and Frostbound",
+"rarity": "Cinder"
+},
+{
+"id": 47,
+"title": "The Ninefold Pylon of the Unspoken Proof",
+"rarity": "Ember"
+},
+{
+"id": 48,
+"title": "The Gilded Vault of the Unspoken Proof",
+"rarity": "Ember"
+},
+{
+"id": 49,
+"title": "The Severed Bastion of the Long Thaw",
+"rarity": "Ember"
+},
+{
+"id": 50,
+"title": "The Thirty-First Coffer of the Year Without Sun",
+"rarity": "Cinder"
+},
+{
+"id": 51,
+"title": "Forgotten Coffer, Ashen and Wordless",
+"rarity": "Cinder"
+},
+{
+"id": 52,
+"title": "The Ledger That Forgot its Keeper",
+"rarity": "Aurora"
+},
+{
+"id": 53,
+"title": "Gate of the Auroral Sleepless Ice",
+"rarity": "Ember"
+},
+{
+"id": 54,
+"title": "The Thirteenth Sigil of Unmade Verdicts",
+"rarity": "Cinder"
+},
+{
+"id": 55,
+"title": "Gilded Reliquary, Wordless and Last",
+"rarity": "Cinder"
+},
+{
+"id": 56,
+"title": "Coil of the Unthawed Cold Frontier",
+"rarity": "Ember"
+},
+{
+"id": 57,
+"title": "Vane of the Drowned Sleepless Ice",
+"rarity": "Ember"
+},
+{
+"id": 58,
+"title": "The Pylon That Drowned the Ledger",
+"rarity": "Cinder"
+},
+{
+"id": 59,
+"title": "Where the Embers Outlast Winter",
+"rarity": "Ember"
+},
+{
+"id": 60,
+"title": "Where the Shrines Burn Unwatched",
+"rarity": "Ember"
+},
+{
+"id": 61,
+"title": "The Cindered Bastion",
+"rarity": "Cinder"
+},
+{
+"id": 62,
+"title": "Gate of the Severed Frost-North",
+"rarity": "Ember"
+},
+{
+"id": 63,
+"title": "Sleepless Aperture, Ninefold and Emberlit",
+"rarity": "Ember"
+},
+{
+"id": 64,
+"title": "The Thirteenth Engine of the Ember-Year",
+"rarity": "Cinder"
+},
+{
+"id": 65,
+"title": "The Twenty-Third Forge of the Coin-That-Waits",
+"rarity": "Ember"
+},
+{
+"id": 66,
+"title": "Cairn of the Unthawed Pole",
+"rarity": "Cinder"
+},
+{
+"id": 67,
+"title": "The Ninetieth Stone of the Wordless Bond",
+"rarity": "Cinder"
+},
+{
+"id": 68,
+"title": "The Pale Forge of the Unspoken Proof",
+"rarity": "Cinder"
+},
+{
+"id": 69,
+"title": "Forge-Monolith of the Owed Work",
+"rarity": "Cinder"
+},
+{
+"id": 70,
+"title": "The Thirteenth Reliquary of the Owed Work",
+"rarity": "Cinder"
+},
+{
+"id": 71,
+"title": "The Sleepless Pylon of the Year Without Sun",
+"rarity": "Cinder"
+},
+{
+"id": 72,
+"title": "The Shrine That Refused the Thaw",
+"rarity": "Cinder"
+},
+{
+"id": 73,
+"title": "The Emberlit Sigil",
+"rarity": "Cinder"
+},
+{
+"id": 74,
+"title": "The Black Engine of the Sleepless Ice",
+"rarity": "Cinder"
+},
+{
+"id": 75,
+"title": "The Ninefold Monolith",
+"rarity": "Cinder"
+},
+{
+"id": 76,
+"title": "The Last Lantern",
+"rarity": "Ember"
+},
+{
+"id": 77,
+"title": "The Thirteenth Vault of the Hollow Pole",
+"rarity": "Cinder"
+},
+{
+"id": 78,
+"title": "Stone of the Bonded Verge",
+"rarity": "Ember"
+},
+{
+"id": 79,
+"title": "The Shrine That Gilded the Verge",
+"rarity": "Cinder"
+},
+{
+"id": 80,
+"title": "The Glacial Pyre of the Frost-North",
+"rarity": "Cinder"
+},
+{
+"id": 81,
+"title": "The Torii That Weighed the Last Word",
+"rarity": "Ember"
+},
+{
+"id": 82,
+"title": "The Thirty-First Gantry of the Year Without Sun",
+"rarity": "Cinder"
+},
+{
+"id": 83,
+"title": "The Spire That Gilded the Verge",
+"rarity": "Forge"
+},
+{
+"id": 84,
+"title": "Frostbound Pyre, Starved and Emberlit",
+"rarity": "Ember"
+},
+{
+"id": 85,
+"title": "Where the Gantries Hold the Line",
+"rarity": "Ember"
+},
+{
+"id": 86,
+"title": "The Last Aperture",
+"rarity": "Ember"
+},
+{
+"id": 87,
+"title": "Shrine of the Forgotten Bonded Dark",
+"rarity": "Cinder"
+},
+{
+"id": 88,
+"title": "Monolith of the Black Ninth Reach",
+"rarity": "Ember"
+},
+{
+"id": 89,
+"title": "Ash-Aperture of the Bonded Dark",
+"rarity": "Cinder"
+},
+{
+"id": 90,
+"title": "The Threshold That Gilded the Verge",
+"rarity": "Forge"
+},
+{
+"id": 91,
+"title": "The Ninetieth Pylon of the Hollow Pole",
+"rarity": "Aurora"
+},
+{
+"id": 92,
+"title": "The Drowned Vane",
+"rarity": "Cinder"
+},
+{
+"id": 93,
+"title": "Aperture of the Last Long Line",
+"rarity": "Cinder"
+},
+{
+"id": 94,
+"title": "Coffer of the Sunken Ninth Reach",
+"rarity": "Polestar"
+},
+{
+"id": 95,
+"title": "Last Spire, Glacial and Cold",
+"rarity": "Forge"
+},
+{
+"id": 96,
+"title": "The Cairn That Unmade the Verdict",
+"rarity": "Cinder"
+},
+{
+"id": 97,
+"title": "Severed Spire, Last and Nameless",
+"rarity": "Cinder"
+},
+{
+"id": 98,
+"title": "The Sigil That Weighed the Last Word",
+"rarity": "Forge"
+},
+{
+"id": 99,
+"title": "Unmade Pyre, Black and Wakeless",
+"rarity": "Cinder"
+}
+]
+}

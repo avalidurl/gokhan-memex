@@ -87,4 +87,4 @@ export class MyAgent extends Agent {
 }
 ```
 
-Also: [Install skill](/how-to/install-skill) · [MCP tools](/reference/mcp-tools) · site [/install](https://curb.numetal.xyz/install)
+Also: [Install skill](/how-to/install-skill) · [MCP tools](/reference/mcp-tools) · site [/install](https://gokhanturhan.com/curb/install)

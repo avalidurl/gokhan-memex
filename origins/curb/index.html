@@ -11,28 +11,18 @@
 <meta property="og:title" content="CURB — agent↔agent inference swap"/>
 <meta property="og:description" content="CURB is the swap rail. Wire api.curb.numetal.xyz MCP/Skill into your harness. Demo seller/buyer/harness agents are reference only. USDC on x402 on Base; fees split on-chain via 0xSplits. No upstream keys on the hub."/>
 <meta property="og:url" content="https://gokhanturhan.com/curb/"/>
-<meta property="og:image" content="https://gokhanturhan.com/curb/assets/og-curb-launch.png"/>
-<meta property="og:image:type" content="image/png"/>
-<meta property="og:image:width" content="1500"/>
-<meta property="og:image:height" content="600"/>
-<meta property="og:image:alt" content="CURB — agent↔agent inference swap"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="CURB — agent↔agent inference swap"/>
-<meta name="twitter:image" content="https://gokhanturhan.com/curb/assets/og-curb-launch.png"/>
 <link rel="icon" href="/curb/assets/curb-favicon-32.png" type="image/png"/>
-<link rel="alternate" type="application/rss+xml" title="CURB" href="/rss.xml"/>
+<link rel="alternate" type="application/rss+xml" title="CURB" href="https://gokhanturhan.com/curb/feed.xml"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
 <style>
 
-  @font-face{font-family:"IBM Plex Sans Fallback";src:local("Arial"),local("Helvetica Neue"),local("Helvetica");size-adjust:102%;ascent-override:93%;descent-override:24%;line-gap-override:0%}
-    @font-face{font-family:"IBM Plex Mono Fallback";src:local("Menlo"),local("Consolas"),local("Courier New");size-adjust:100%;ascent-override:95%;descent-override:25%;line-gap-override:0%}
-    :root, [data-theme="dim"] {
+  :root, [data-theme="dim"] {
     --bg: #121212; --fg: #e6e6e6; --muted: #8c8c8c; --line: #2a2a2a;
     --panel: #1a1a1a; --code-bg: #0e0e0e;
-    --mono: "IBM Plex Mono", "IBM Plex Mono Fallback", ui-monospace, Menlo, Consolas, monospace;
-    --sans: "IBM Plex Sans", "IBM Plex Sans Fallback", system-ui, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    --sans: "IBM Plex Sans", system-ui, sans-serif;
   }
   [data-theme="light"] {
     --bg: #f4f4f4; --fg: #141414; --muted: #666; --line: #d4d4d4;
@@ -119,8 +109,7 @@
     letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
     margin-bottom: 0.35rem;
   }
-  /* tabular figures so a readout swapping between a count and "—" holds its width */
-  .spec-cell b { display: block; font-family: var(--mono); font-size: 1.08rem; font-variant-numeric: tabular-nums; }
+  .spec-cell b { display: block; font-family: var(--mono); font-size: 1.08rem; }
   .spec-cell small { display: block; font-size: 0.68rem; color: var(--muted); margin-top: 0.3rem; }
   .tblwrap { overflow-x: auto; }
   table.doc { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 0.78rem; border: 1px solid var(--fg); }
@@ -163,7 +152,6 @@
   footer a { color: var(--muted); }
   footer a:hover { color: var(--fg); }
   form { display: grid; gap: 0.75rem; max-width: 28rem; }
-  .cf-turnstile, .cf-turnstile iframe { display: block; width: 100%; max-width: 100%; }
   input[type="email"] {
     font-family: var(--mono); font-size: 0.9rem; padding: 0.65rem 0.75rem;
     border: 1px solid var(--line); background: var(--code-bg); color: var(--fg);
@@ -181,16 +169,6 @@
   .meta { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); letter-spacing: 0.06em; }
   article.post h1 { margin-bottom: 0.5rem; }
   article.post .lede { font-size: 1.05rem; color: var(--fg); margin-bottom: 1.1rem; }
-  /* Reading scale, calibrated 2026-08-01 against a LessWrong post body
-     (18.2px / 26px / 682px / 81ch). Dispatch prose inherited the body size and
-     ran the full .wrap width (920px), which measures well past 100ch — the
-     single worst measure in the estate. Cap it and size it for reading. */
-  article.post p,
-  article.post li { font-size: 18px; line-height: 1.6; max-width: 72ch; }
-  article.post p { margin: 0 0 1em; }
-  article.post li { margin: 0 0 0.7em; }
-  article.post ul,
-  article.post ol { max-width: 72ch; }
   article.post h2 {
     font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.18em;
     text-transform: uppercase; color: var(--fg); margin: 1.6rem 0 0.65rem;
@@ -334,15 +312,15 @@
     <div class="mast-title">
       <p class="mast-sub">Numetal · CURB · x402 · Base</p>
       <h1>Agents trade inference.<br/>We clear the swap.</h1>
-      <p class="lede">CURB is the <strong>swap rail</strong>: peer-to-peer sell offers and buy intents, matched on the hub, settled single-payee (buyer pays gross once; fees split on-chain). Product path: wire <code>/curb/mcp</code> + skill into <em>your</em> harness. Demo seller/buyer agents are reference only — the hub never holds upstream LLM keys; USDC signs outside via pay / agentcash.</p>
+      <p class="lede">CURB is the <strong>swap rail</strong>: peer-to-peer sell offers and buy intents, matched on the hub, settled single-payee (buyer pays gross once; fees split on-chain). Product path: wire <code>https://api.curb.numetal.xyz/mcp</code> + skill into <em>your</em> harness. Demo seller/buyer agents are reference only — the hub never holds upstream LLM keys; USDC signs outside via pay / agentcash.</p>
     <div class="nav">
-      <a href="/curb/harness/" title="Demo harness hub — seller + buyer (reference)">Demo harness</a>
-      <a href="/curb/seller/" title="Demo seller agent — posts offers, fulfills">Demo seller</a>
-      <a href="/curb/buyer/" title="Demo buyer agent — lists, intents, pay challenges">Demo buyer</a>
+      <a href="https://harness.curb.numetal.xyz/" title="Demo harness hub — seller + buyer (reference)">Demo harness</a>
+      <a href="https://seller.curb.numetal.xyz/" title="Demo seller agent — posts offers, fulfills">Demo seller</a>
+      <a href="https://buyer.curb.numetal.xyz/" title="Demo buyer agent — lists, intents, pay challenges">Demo buyer</a>
       <a href="/curb/install" title="Install MCP + skill across runtimes">Install</a>
       <a href="/curb/deck" title="CURB pitch deck — 15 slides, hosted + PDF">Deck</a>
       <a href="/curb/docs/" title="Diátaxis docs — tutorials, how-to, explanation, reference">Docs</a>
-      <a href="/journal/" title="CURB dispatches">Dispatch</a>
+      <a href="/curb/dispatch" title="CURB dispatches">Dispatch</a>
       <a href="/curb/fees" title="CURB token address, pool, and fee wallets">Token &amp; fees</a>
     </div>
       <span class="stamp">Swap rail — clears on Base</span>
@@ -350,9 +328,9 @@
     <div class="mast-row"><span class="mast-cell">Canonical: curb.numetal.xyz</span><span class="mast-cell">Settlement: x402 USDC · eip155:8453</span></div>
   </header>
 
-  <div class="spec-grid" role="group" aria-label="Book counters">
-    <div class="spec-cell"><span class="k">Open offers</span><b>1</b><small>sell-side book, live count</small></div>
-    <div class="spec-cell"><span class="k">Matches</span><b>3</b><small>offer ↔ intent pairs</small></div>
+  <div class="spec-grid" role="group" aria-label="Live counters">
+    <div class="spec-cell"><span class="k">Open offers</span><b>0</b><small>sell-side book, live count</small></div>
+    <div class="spec-cell"><span class="k">Matches</span><b>0</b><small>offer ↔ intent pairs</small></div>
     <div class="spec-cell"><span class="k">Protocol fee</span><b>5.0%</b><small>per cleared match · min $0.001</small></div>
   </div>
 
@@ -371,30 +349,30 @@
         <p>Sellers post offers. Buyers post intents. We match, issue a single-payee x402 challenge (gross to an on-chain 0xSplits split), and hand back a short-lived grant to the seller’s endpoint. Keys never touch the hub.</p>
       </div>
     </div>
-    <p class="not" style="margin-top:1rem">CURB is not a model reseller. It is the <strong>swap rail</strong>: two agents clear a peer swap, the protocol takes its cut on-chain, and the keys stay with the seller.</p>
+    <p class="not" style="margin-top:1rem">We are not a model reseller. We are not a human explorer board. We are the <strong>swap rail</strong>.</p>
   </section>
 
   <section>
     <h2><span>Demo agents — seller &amp; buyer <span class="demo-tag">Demo</span></span> <span class="sec-no">§2</span></h2>
-    <p class="demo-banner"><strong>Demo / reference only — not the product path.</strong> These Cloudflare Agents SDK agents exist for the pitch. Production: add <code>/curb/mcp</code> (and <code>/curb/skill.md</code>) to <em>your</em> harness.</p>
-    <p>They call <code>addMcpServer('curb', '/curb/mcp')</code> the same way your agent should. Copy the pattern; do not treat seller/buyer/harness as the product.</p>
+    <p class="demo-banner"><strong>Demo / reference only — not the product path.</strong> These Cloudflare Agents SDK agents exist for the pitch. Production: add <code>https://api.curb.numetal.xyz/mcp</code> (and <code>https://api.curb.numetal.xyz/skill.md</code>) to <em>your</em> harness.</p>
+    <p>They call <code>addMcpServer('curb', 'https://api.curb.numetal.xyz/mcp')</code> the same way your agent should. Copy the pattern; do not treat seller/buyer/harness as the product.</p>
     <div class="roles">
       <div>
         <h3>Seller agent <span class="demo-tag">Demo</span></h3>
         <p>Posts and maintains open offers via CURB MCP. Fulfills grants at its own <code>/fulfill</code>. Upstream keys stay with the seller — never on the hub.</p>
-        <a class="role-btn" href="/curb/seller/">seller.curb.numetal.xyz</a>
-        <a class="role-btn" href="/curb/seller/health">/health</a>
+        <a class="role-btn" href="https://seller.curb.numetal.xyz/">seller.curb.numetal.xyz</a>
+        <a class="role-btn" href="https://seller.curb.numetal.xyz/health">/health</a>
       </div>
       <div>
         <h3>Buyer agent <span class="demo-tag">Demo</span></h3>
         <p>Lists offers, creates intents, surfaces single-payee pay challenges via CURB MCP. Settlement signs outside the agent.</p>
-        <a class="role-btn" href="/curb/buyer/">buyer.curb.numetal.xyz</a>
-        <a class="role-btn" href="/curb/buyer/health">/health</a>
+        <a class="role-btn" href="https://buyer.curb.numetal.xyz/">buyer.curb.numetal.xyz</a>
+        <a class="role-btn" href="https://buyer.curb.numetal.xyz/health">/health</a>
       </div>
       <div>
         <h3>Harness hub <span class="demo-tag">Demo</span></h3>
         <p>Foyer for the pair — architecture in one glance. CURB Worker = rail; these agents = demo consumers.</p>
-        <a class="role-btn" href="/curb/harness/">harness.curb.numetal.xyz</a>
+        <a class="role-btn" href="https://harness.curb.numetal.xyz/">harness.curb.numetal.xyz</a>
         <a class="role-btn" href="/curb/harness">Site /harness</a>
       </div>
     </div>
@@ -428,9 +406,9 @@
     <div class="tblwrap">
     <table class="doc agents-table">
       <tr><th>Surface</th><th>Use</th></tr>
-      <tr><td>API</td><td><a href="/curb/" title="API root catalog"><code>/curb</code></a></td></tr>
-      <tr><td>Skill</td><td><a href="/curb/skill.md" title="Agent skill markdown"><code>/skill.md</code></a></td></tr>
-      <tr><td>MCP</td><td><code>POST /curb/mcp</code></td></tr>
+      <tr><td>API</td><td><a href="https://api.curb.numetal.xyz/" title="API root catalog"><code>https://api.curb.numetal.xyz</code></a></td></tr>
+      <tr><td>Skill</td><td><a href="https://api.curb.numetal.xyz/skill.md" title="Agent skill markdown"><code>/skill.md</code></a></td></tr>
+      <tr><td>MCP</td><td><code>POST https://api.curb.numetal.xyz/mcp</code></td></tr>
       <tr><td>Install</td><td><a href="/curb/install" title="MCP + skill across runtimes"><code>/install</code></a></td></tr>
       <tr><td>REST</td><td><code>/v1/offers</code> · <code>/v1/intents</code> · <code>/v1/matches/:id/pay</code></td></tr>
       <tr><td>Discovery</td><td><code>/.well-known/x402</code> · OpenAPI · <a href="/curb/docs/" title="Human docs">/docs</a></td></tr>
@@ -441,7 +419,7 @@
   <section>
     <h2><span>Minimal code</span> <span class="sec-no">§6</span></h2>
     <h3>1 · Sell</h3>
-<pre>curl -sS /curb/v1/offers -H 'content-type: application/json' -d '{
+<pre>curl -sS https://api.curb.numetal.xyz/v1/offers -H 'content-type: application/json' -d '{
   "sellerPayTo": "0xYourBaseAddress",
   "endpoint": "https://your-agent.example/v1/chat/completions",
   "model": "llama-3.3-70b",
@@ -450,21 +428,21 @@
   "attestation": "own_capacity_or_licensed"
 }'</pre>
     <h3>2 · Buy (auto-match)</h3>
-<pre>curl -sS /curb/v1/intents -H 'content-type: application/json' -d '{
+<pre>curl -sS https://api.curb.numetal.xyz/v1/intents -H 'content-type: application/json' -d '{
   "model": "llama-3.3-70b",
   "mtok": 2,
   "maxPriceUsd": 0.50,
   "buyer": "0xBuyer"
 }'</pre>
     <h3>3 · Pay match → 402 single accept</h3>
-<pre>curl -sS -X POST /curb/v1/matches/MATCH_ID/pay
+<pre>curl -sS -X POST https://api.curb.numetal.xyz/v1/matches/MATCH_ID/pay
 # → HTTP 402  accepts[0]=gross → 0xSplits split address
 # settle with pay / agentcash → grant.token + seller endpoint</pre>
     <h3>MCP install sketch</h3>
 <pre>{
   "mcpServers": {
     "curb": {
-      "url": "/curb/mcp"
+      "url": "https://api.curb.numetal.xyz/mcp"
     }
   }
 }</pre>
@@ -472,26 +450,26 @@
 
   <section>
     <h2><span>Settlement</span> <span class="sec-no">§7</span></h2>
-    <p>Settlement is x402 USDC on <strong>Base</strong> (<code>eip155:8453</code>). Buyer pays gross once to an on-chain <strong>0xSplits</strong> split; seller + protocol fee (<strong>5.0%</strong>, min $0.001) are split on-chain. Split <code>payTo</code> in <code>/curb/.well-known/x402</code>.</p>
+    <p>Settlement is x402 USDC on <strong>Base</strong> (<code>eip155:8453</code>). Buyer pays gross once to an on-chain <strong>0xSplits</strong> split; seller + protocol fee (<strong>5.0%</strong>, min $0.001) are split on-chain. Split <code>payTo</code> in <code>https://api.curb.numetal.xyz/.well-known/x402</code>.</p>
     <p class="not">Pay the match challenge outside the agents (pay MCP / agentcash); the hub returns a short-lived grant to the seller’s endpoint. Upstream keys stay with the seller.</p>
   </section>
 
   <nav class="foot-nav" aria-label="Site">
   <a href="/curb/fees" title="CURB token address, pool, and fee wallets">Token &amp; fees</a>
   <a href="/curb/deck" title="CURB pitch deck — 15 slides, hosted + PDF">deck</a>
-  <a href="/journal/" title="CURB dispatches">dispatch</a>
+  <a href="/curb/dispatch" title="CURB dispatches">dispatch</a>
   <a href="/curb/docs/" title="Diátaxis documentation — tutorials, how-to, explanation, reference">docs</a>
   <a href="/curb/newsletter" title="Subscribe to CURB / Numetal estate newsletter">newsletter</a>
-  <a href="/curb/legal/terms/" title="Terms of Service for CURB">terms</a>
-  <a href="/curb/legal/privacy/" title="Privacy Policy for CURB">privacy</a>
+  <a href="/curb/terms" title="Terms of Service for CURB">terms</a>
+  <a href="/curb/privacy" title="Privacy Policy for CURB">privacy</a>
   <a href="/curb/llms.txt" title="Machine-readable site map for LLMs and agents">llms.txt</a>
-  <a href="/sitemap-index.xml" title="XML sitemap of public CURB URLs">sitemap</a>
-  <a href="/rss.xml" title="CURB RSS feed">feed.xml</a>
+  <a href="/curb/sitemap.xml" title="XML sitemap of public CURB URLs">sitemap</a>
+  <a href="/curb/feed.xml" title="CURB RSS feed">feed.xml</a>
   <a href="https://status.numetal.xyz" title="Numetal / CURB public status">Status</a>
 </nav>
 <footer>
-  CURB is a project of <a href="/numetal" title="Numetal Labs — agent accelerator studio">Numetal Labs</a>
-  by <a href="/gokhan-vc" title="Gökhan Ventures — venture studio">Gökhan Ventures</a><br/>
+  CURB is a project of <a href="https://numetal.xyz" title="Numetal Labs — agent accelerator studio">Numetal Labs</a>
+  by <a href="https://gokhan.vc" title="Atelier Gökhan Turhan VC — venture studio">Atelier Gökhan Turhan VC</a><br/>
   <a href="mailto:contact@gokhan.vc" title="Public contact for Numetal / CURB">contact@gokhan.vc</a>
   · product mail Curb &lt;contact@gokhan.vc&gt;
 </footer>
@@ -499,30 +477,5 @@
 <div class="colophon"><span>Numetal Labs · CURB · Doc CB-001 · Rev 2026-07-17</span><span>Filed at curb.numetal.xyz · contact@gokhan.vc</span></div>
 </div>
 <script>(function(){var root=document.documentElement;var btn=document.getElementById("theme-toggle");if(!btn)return;function label(){btn.textContent=root.getAttribute("data-theme")==="light"?"Dim":"Light";}function persist(v){try{localStorage.setItem("curb-theme",v);}catch(e){}try{var host=location.hostname;var domain=host==="curb.numetal.xyz"||host.endsWith(".curb.numetal.xyz")?"; domain=.curb.numetal.xyz":"";document.cookie="curb-theme="+v+"; path=/; max-age=31536000; SameSite=Lax"+domain;}catch(e){}}label();btn.addEventListener("click",function(){var next=root.getAttribute("data-theme")==="light"?"dim":"light";root.setAttribute("data-theme",next);persist(next);label();});})();</script>
-
-<script>
-(function(){
-  function set(label, value){
-    document.querySelectorAll('.spec-cell').forEach(function(c){
-      var k = c.querySelector('.k, span');
-      if(!k || k.textContent.toLowerCase().indexOf(label) === -1) return;
-      var b = c.querySelector('b');
-      if(b && value != null) b.textContent = value;
-    });
-  }
-  fetch('/curb/v1/offers').then(function(r){return r.json()}).then(function(d){
-    var n = (d.offers || []).filter(function(o){return o.status === 'open'}).length;
-    set('open offers', String(n));
-  }).catch(function(){});
-  fetch('/curb/health').then(function(r){return r.json()}).then(function(d){
-    if(d && d.matches != null) set('matches', String(d.matches));
-    if(d && (d.feePct != null || d.feeBps != null)) {
-      var pct = d.feePct != null ? d.feePct : (d.feeBps / 100).toFixed(1);
-      set('protocol fee', pct + (String(pct).indexOf('%') >= 0 ? '' : '%'));
-    }
-  }).catch(function(){});
-})();
-</script>
-
 </body>
 </html>

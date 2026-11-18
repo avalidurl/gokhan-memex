@@ -1,6 +1,5 @@
-# robots.txt for https://gokhanturhan.com/ishtar/
 User-agent: *
 Allow: /
+Disallow: /og/
 
 Sitemap: https://gokhanturhan.com/ishtar/sitemap.xml
-Sitemap: https://gokhanturhan.com/sitemap-index.xml

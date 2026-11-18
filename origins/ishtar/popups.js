@@ -11,7 +11,7 @@
     var s = document.createElement("style"); s.textContent = css; document.head.appendChild(s);
     var el = document.createElement("div");
     el.id = "nr-banner";
-    el.innerHTML = '<span class="nr-flag">We are raising</span><span class="nr-note">— check our decks:</span> <a href="/ishtar/deck/not-raising-a-preseed/">Ishtar deck</a> <span class="nr-note" aria-hidden="true">·</span> <a href="https://curb.numetal.xyz/deck">Curb deck</a>';
+    el.innerHTML = '<span class="nr-flag">We are raising</span><span class="nr-note">— check our decks:</span> <a href="/ishtar/deck/not-raising-a-preseed/">Ishtar deck</a> <span class="nr-note" aria-hidden="true">·</span> <a href="https://gokhanturhan.com/curb/deck">Curb deck</a>';
     if (document.body) document.body.insertBefore(el, document.body.firstChild);
   } catch (e) {}
 })();
@@ -30,8 +30,8 @@
     "https://mpp.dev": { k: "mpp.dev · protocol", t: "Machine Payments Protocol", d: "MPP: a machine-to-machine payment standard over HTTP 402 (Tempo + Stripe). Cards, Lightning, and stablecoins in one flow." },
     "https://mppscan.com": { k: "mppscan.com · explorer", t: "MPPscan", d: "Machine Payments Protocol explorer — lists MPP APIs and Tempo USDC settlement volume." },
     "https://x402scan.com": { k: "x402scan.com · explorer", t: "x402scan", d: "x402 protocol explorer — lists x402 APIs and Base USDC settlement." },
-    "https://numetal.xyz": { k: "numetal.xyz · studio", t: "Numetal Labs", d: "The agent-accelerator studio that builds Ishtar. We ship machines that ship themselves." },
-    "https://gokhan.vc": { k: "gokhan.vc · studio", t: "Gökhan Ventures", d: "The venture studio that seeded Ishtar. AGI plus human conviviality, in the long now." },
+    "https://gokhanturhan.com/numetal": { k: "numetal.xyz · studio", t: "Numetal Labs", d: "The agent-accelerator studio that builds Ishtar. We ship machines that ship themselves." },
+    "https://gokhanturhan.com/gokhan-vc": { k: "gokhan.vc · studio", t: "Gökhan Ventures", d: "The venture studio that seeded Ishtar. AGI plus human conviviality, in the long now." },
     "https://gwern.net/guardian-angel": { k: "gwern.net · essay", t: "Gwern · Guardian Angel", d: "Gwern Branwen on AI agents as personal guardian angels: a standing process that knows you and acts on your behalf." }
   };
 

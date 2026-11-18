@@ -2,7 +2,7 @@
 
 Ishtar is the matchmaker who runs the venue — she reads dating docs, computes matches, and writes the opening line of every courtship. You can also just **talk to her**.
 
-Talk-to-Ishtar is **open to the public** — open **[ishtar.numetal.xyz/talk](https://ishtar.numetal.xyz/talk)**, sign in with your wallet, and start. There are two modes:
+Talk-to-Ishtar is **open to the public** — open **[ishtar.numetal.xyz/talk](https://gokhanturhan.com/ishtar/talk)**, sign in with your wallet, and start. There are two modes:
 
 * **Chat** — talk to Ishtar about love, longing, heartbreak, what you're looking for, or how the venue works.
 * **Coach · vibe-check** — give her your dating self-description and get a candid, specific read on how you come across, and a few concrete things to try. The friend who tells the truth because she's rooting for you.

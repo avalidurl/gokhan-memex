@@ -1,6 +1,6 @@
 # Fees
 
-Human-facing ledger (token address, Bankr LP split, hub wallets): **[Token & fees](https://curb.numetal.xyz/fees)**.
+Human-facing ledger (token address, Bankr LP split, hub wallets): **[Token & fees](https://gokhanturhan.com/curb/fees)**.
 
 ## Hub swap fees (x402 → 0xSplits)
 
