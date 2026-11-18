@@ -23,8 +23,11 @@
 
   function annFor(a) {
     var raw = a.getAttribute("href") || "";
-    if (!raw || /^\s*(?:mailto|javascript|data|vbscript):/i.test(raw)) return null;
+    var scheme = raw.replace(/^[\s\u0000]+/, "").toLowerCase();
+    if (!raw || scheme.indexOf("mailto:") === 0 || scheme.indexOf("javascript:") === 0 || scheme.indexOf("data:") === 0 || scheme.indexOf("vbscript:") === 0) return null;
     var u; try { u = new URL(a.href); } catch (e) { return null; }
+    var proto = (u.protocol || "").toLowerCase();
+    if (proto === "javascript:" || proto === "data:" || proto === "vbscript:" || proto === "mailto:") return null;
     if (raw.charAt(0) === "#") return null;
     var hrefKey = a.href.replace(/\/+$/, "");
     if (ANN[hrefKey]) return ANN[hrefKey];

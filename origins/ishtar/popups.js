@@ -57,7 +57,8 @@
 
   function annFor(a) {
     var raw = a.getAttribute("href") || "";
-    if (!raw || /^\s*(?:mailto|javascript|data|vbscript):/i.test(raw)) return null;
+    var head = raw.replace(/^\s+/, "").toLowerCase();
+    if (!raw || head.indexOf("mailto:") === 0 || head.indexOf("javascript:") === 0 || head.indexOf("data:") === 0 || head.indexOf("vbscript:") === 0) return null;
     var u; try { u = new URL(a.href); } catch (e) { return null; }
     if (u.hash === "#wl") return WL;
     if (raw.charAt(0) === "#") return null;
