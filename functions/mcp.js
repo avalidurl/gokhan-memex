@@ -135,10 +135,15 @@ function matches(query, ...parts) {
 
 function sitePath(input) {
   if (typeof input !== "string") return null
-  let path = input.trim()
-  if (!path) return null
-  if (path.startsWith(SITE)) path = path.slice(SITE.length) || "/"
-  else if (/^https?:/i.test(path)) return null
+  const raw = input.trim()
+  if (!raw) return null
+  let path = raw
+  if (/^[a-z][a-z0-9+.-]*:/i.test(raw)) {
+    let url
+    try { url = new URL(raw) } catch { return null }
+    if (url.protocol !== "https:" || url.hostname !== "gokhanturhan.com") return null
+    path = url.pathname || "/"
+  }
   if (!path.startsWith("/")) path = `/${path}`
   path = path.split("?")[0].split("#")[0]
   if (path.includes("..") || path.includes("\\") || path.includes("\0")) return null
@@ -174,19 +179,13 @@ async function load(env, path) {
   return data
 }
 
-function textFromHtml(html) {
-  return html
-    .replace(/<script[\s\S]*?<\/script>/gi, " ")
-    .replace(/<style[\s\S]*?<\/style>/gi, " ")
-    .replace(/<[^>]+>/g, " ")
-    .replace(/&nbsp;/g, " ")
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;|&apos;/g, "'")
-    .replace(/\s+/g, " ")
-    .trim()
+async function textFromHtml(response) {
+  const pieces = []
+  const rewriter = new HTMLRewriter()
+    .on("script, style, noscript", { element(el) { el.remove() } })
+    .on("*", { text(chunk) { pieces.push(chunk.text) } })
+  await rewriter.transform(response).arrayBuffer()
+  return pieces.join("").replace(/\s+/g, " ").trim()
 }
 
 async function callTool(env, name, args) {
@@ -212,8 +211,7 @@ async function callTool(env, name, args) {
     const res = await env.ASSETS.fetch(new Request(`${SITE}${path}`))
     if (!res.ok) return toolError(`${path} returned ${res.status}`)
     const type = res.headers.get("content-type") || ""
-    const raw = await res.text()
-    const text = type.includes("json") || type.includes("text/plain") ? raw : textFromHtml(raw)
+    const text = type.includes("html") ? await textFromHtml(res) : await res.text()
     return pack({
       url: page?.url || `${SITE}${path}`,
       path: page?.path || path,

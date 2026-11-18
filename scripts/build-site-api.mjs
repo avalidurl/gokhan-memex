@@ -19,7 +19,8 @@ const SITE = 'https://gokhanturhan.com'
 const out = join(root, 'public/api/site')
 mkdirSync(out, { recursive: true })
 
-const textOf = (html) => String(html || '').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/\s+/g, ' ').trim()
+const ENTITIES = { '&nbsp;': ' ', '&amp;': '&', '&lt;': '<', '&gt;': '>' }
+const textOf = (html) => String(html || '').replace(/<[^>]+>/g, ' ').replace(/&(?:nbsp|amp|lt|gt);/g, (m) => ENTITIES[m] || m).replace(/\s+/g, ' ').trim()
 const abs = (href) => {
   if (!href) return href
   if (href.startsWith('mailto:')) return href.toLowerCase() === 'mailto:contact@gokhan.vc' ? href : null

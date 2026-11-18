@@ -45,11 +45,12 @@ const urls = new Set()
 for (const file of walk(DIST)) {
   const xml = readFileSync(file, 'utf8')
   for (const loc of xml.matchAll(/<loc>([^<]+)<\/loc>/g)) {
-    const url = loc[1].trim()
-    if (!url.startsWith(SITE)) continue
-    if (url.endsWith('.xml')) continue
-    if (url.includes('admin.') || url.includes('/cdn-cgi/')) continue
-    urls.add(url.split('#')[0])
+    let parsed
+    try { parsed = new URL(loc[1].trim()) } catch { continue }
+    if (parsed.protocol !== 'https:' || parsed.hostname !== 'gokhanturhan.com') continue
+    if (parsed.pathname.endsWith('.xml') || parsed.pathname.startsWith('/cdn-cgi/')) continue
+    parsed.hash = ''
+    urls.add(parsed.href)
   }
 }
 
