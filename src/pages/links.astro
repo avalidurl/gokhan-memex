@@ -259,7 +259,7 @@ const walletNetworks: { id: string; title: string; hint: string; items: WalletIt
   {
     id: 'wallets-solana',
     title: 'Solana',
-    hint: 'main address, then  @gokhan',
+    hint: 'main address, then the signer',
     items: parties.filter((p) => p.address && p.chain === 'solana').map((p) => fromParty(p)!),
   },
   {

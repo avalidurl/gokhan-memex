@@ -993,17 +993,12 @@
           "id": "SOL",
           "label": "Solana signer",
           "address": "2GvLgz2ovzNkrYEzJsZ1kRovXjVQnmm7WRWFd3vFzsma",
-          "note": " @gokhan; also signs his StonkFun launches",
+          "note": "signs his StonkFun launches",
           "links": [
             {
               "label": "Solscan",
               "short": "SOL",
               "href": "https://solscan.io/account/2GvLgz2ovzNkrYEzJsZ1kRovXjVQnmm7WRWFd3vFzsma"
-            },
-            {
-              "label": " profile",
-              "short": "pump",
-              "href": "https:///profile/gokhan"
             }
           ]
         }
