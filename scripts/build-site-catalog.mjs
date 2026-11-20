@@ -114,7 +114,6 @@ const catalog = {
     api(`${SITE}/api/`, `${SITE}/api/`, [{ href: `${SITE}/api/openapi.json`, type: 'application/json' }]),
     api(`${SITE}/ishtar/`, `${SITE}/api/ishtar/`, [{ href: `${SITE}/ishtar/openapi.json`, type: 'application/json' }]),
     api(`${SITE}/curb/`, `${SITE}/curb/docs/reference/api/`, [{ href: `${SITE}/curb/openapi.json`, type: 'application/json' }]),
-    api(`${SITE}/`, `${SITE}/`, [{ href: `${SITE}/openapi.json`, type: 'application/json' }]),
   ],
 }
 catalog.linkset[2].alternate = [{ href: `${SITE}/sitemap-index.xml`, type: 'application/xml' }]

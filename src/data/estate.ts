@@ -42,8 +42,7 @@ const hf = (kind: '' | 'spaces/' | 'datasets/', names: string[]): FactLink[] => 
 const mail = (a: string): FactLink => ({ label: a, href: `mailto:${a}` })
 
 export const products: Product[] = [
-  // ---- Numetal ----
-  {
+{
     slug: 'numetal', name: 'Numetal', status: 'former', family: 'Numetal',
     line: 'Agent-accelerator studio and bureau inside Gökhan Ventures, on Base.',
     former: 'numetal.xyz',
@@ -58,7 +57,7 @@ export const products: Product[] = [
     children: ['numetal/status'],
     tags: ['numetal', 'studio', 'agents', 'token', 'base'],
   },
-  {
+{
     slug: 'numetal/status', name: 'Numetal status board', status: 'former', family: 'Numetal',
     line: 'Public status board for the Numetal hosts.',
     former: 'status.numetal.xyz',
@@ -66,7 +65,7 @@ export const products: Product[] = [
     functions: ['Status page and status JSON', 'Health check'],
     tags: ['numetal', 'dashboard', 'infrastructure'],
   },
-  {
+{
     slug: 'ishtar', name: 'Ishtar', status: 'former', family: 'Numetal',
     line: 'An adults-only, text-only, agent-mediated dating venue.',
     former: 'ishtar.numetal.xyz',
@@ -81,7 +80,7 @@ export const products: Product[] = [
     children: ['ishtar/heartbench', 'ishtar/window', 'ishtar/docs'],
     tags: ['numetal', 'ishtar', 'agentic-dating', 'agents', 'venue', 'x402', 'mpp', 'mcp', 'base', 'solana', 'tempo'],
   },
-  {
+{
     slug: 'ishtar/heartbench', name: 'HeartBench', status: 'former', family: 'Numetal · Ishtar',
     line: 'The leaderboard for which AI model is the best date.',
     former: 'ishtar.numetal.xyz/heartbench',
@@ -90,7 +89,7 @@ export const products: Product[] = [
     file: 'heartbench', legacy: ['heartbench'],
     tags: ['numetal', 'ishtar', 'heartbench', 'benchmarks', 'leaderboard', 'ai'],
   },
-  {
+{
     slug: 'ishtar/window', name: 'The Window', status: 'former', family: 'Numetal · Ishtar',
     line: 'Scarce visibility board: ten slots, 24 hours each.',
     former: 'ishtar.numetal.xyz/window',
@@ -98,14 +97,14 @@ export const products: Product[] = [
     functions: ['Paid 24-hour slots (LlamaPay, x402)'],
     tags: ['numetal', 'ishtar', 'board', 'x402'],
   },
-  {
+{
     slug: 'ishtar/docs', name: 'Ishtar docs', status: 'former', family: 'Numetal · Ishtar',
     line: 'Documentation for the Ishtar venue, API and agents.',
     former: 'ishtar.numetal.xyz/docs',
     about: ['About 25 pages covering the venue, the agent API, MCP, the skill, pricing and the legal documents. This page keeps a summary; the legal documents were in force while Ishtar ran.'],
     tags: ['numetal', 'ishtar', 'docs', 'mcp', 'x402'],
   },
-  {
+{
     slug: 'heartprefs', name: 'HeartPrefs', status: 'former', family: 'Numetal',
     line: 'An open, portable, signed matching-intent standard for agent-mediated matching. CC-BY-4.0.',
     facts: [['Licence', [{ label: 'CC-BY-4.0', href: 'https://creativecommons.org/licenses/by/4.0/' }]], ['Speaks', 'x402, A2A, MCP, ERC-8004 / DID / VC'], ['Source', repo('gokhan-vc/heartprefs')]],
@@ -114,7 +113,7 @@ export const products: Product[] = [
     file: 'heartprefs', legacy: ['heartprefs'],
     tags: ['numetal', 'heartprefs', 'standard', 'agentic-dating', 'identity', 'open-source'],
   },
-  {
+{
     slug: 'curb', name: 'CURB', status: 'former', family: 'Numetal',
     line: 'Agent-to-agent excess inference swap, settled in USDC over x402 on Base.',
     former: 'curb.numetal.xyz',
@@ -129,7 +128,7 @@ export const products: Product[] = [
     children: ['curb/harness'],
     tags: ['numetal', 'curb', 'inference', 'agents', 'agentic-payments', 'x402', 'usdc', 'base', 'mcp', 'protocol'],
   },
-  {
+{
     slug: 'curb/harness', name: 'CURB harness', status: 'former', family: 'Numetal · CURB',
     line: 'Demo buyer and seller agents that traded on CURB.',
     former: 'harness.curb.numetal.xyz · buyer.curb.numetal.xyz · seller.curb.numetal.xyz',
@@ -137,17 +136,7 @@ export const products: Product[] = [
     functions: ['Buyer agent', 'Seller agent', 'Harness UI and scheduled runs'],
     tags: ['numetal', 'curb', 'agents', 'inference'],
   },
-  {
-    slug: 'launch', name: 'Launch', status: 'former', family: 'Numetal',
-    line: 'Token launch-pad aggregator: pick a pad, draft, simulate and sign.',
-    former: '',
-    facts: [['Interfaces', 'Mini App, REST, MCP, x402 and MPP manifests'], ['Source', repo('gokhan-vc/')]],
-    about: ['Launch listed the launch pads (Clanker, Bankr and others), drafted a launch intent, simulated it and returned the payload to sign. It ran as a Mini App and as a free API for agents.'],
-    functions: ['Pad and network listings', 'Draft, simulate and sign-payload calls', 'MCP server', 'Telegram bot'],
-    links: [{ label: 'Source · gokhan-vc/', href: `${GH}/gokhan-vc/` }],
-    tags: ['numetal', 'launchpads', 'token', 'agents', 'mcp', 'x402', 'mpp', 'base'],
-  },
-  {
+{
     slug: 'ubu', name: 'UBU · CLINAMEN', status: 'former', family: 'Numetal',
     line: 'Design fiction from the Bureau of Imaginary Solutions: pataphysics, filed onchain.',
     former: 'ubu.numetal.xyz',
@@ -167,7 +156,7 @@ export const products: Product[] = [
     file: 'ubu', legacy: ['ubu'],
     tags: ['numetal', 'clinamen', 'design-fiction', 'models', 'agents', 'token'],
   },
-  {
+{
     slug: 'reclaim', name: 'Reclaim', status: 'former', family: 'Numetal',
     line: 'Get your art out of dead marketplaces.',
     former: 'reclaim.numetal.xyz',
@@ -175,7 +164,7 @@ export const products: Product[] = [
     functions: ['Sign-in', 'Collection scan', 'Galleries'],
     tags: ['numetal', 'nfts', 'art', 'tool'],
   },
-  {
+{
     slug: 'plaintext', name: 'plaintext', status: 'former', family: 'Numetal',
     line: 'Onchain plaintext bulletin board on Robinhood Chain.',
     former: 'plaintext.numetal.xyz',
@@ -184,50 +173,7 @@ export const products: Product[] = [
     functions: ['Paid onchain posting', 'Board and feed', 'MCP server and skill'],
     tags: ['numetal', 'plaintext', 'board', 'nfts', 'robinhood-chain', 'mcp'],
   },
-  {
-    slug: 'accumulator', name: 'Accumulator', status: 'former', family: 'Numetal',
-    line: ' · $ACC on Robinhood Chain, with a waitlist and a wishlist.',
-    former: '',
-    facts: [['Token', [{ label: '$ACC', href: 'https://robinhoodchain.blockscout.com/token/0x7cb112fd2a73d1634d56ba5b810e272e2de53ba3', note: '0x7cb1…3ba3' }]], ['Chain', 'Robinhood Chain']],
-    about: ['A token page with docs, a waitlist and a wishlist that visitors could vote on.'],
-    functions: ['Waitlist', 'Wishlist and votes', 'Docs'],
-    tags: ['numetal', 'token', 'robinhood-chain', 'waitlist'],
-  },
-  {
-    slug: 'rebase', name: 'REBASE', status: 'former', family: 'Numetal',
-    line: 'Elastic-supply token on Robinhood Chain with a genesis pad for USDG deposits.',
-    former: '',
-    facts: [['Chain', 'Robinhood Chain'], ['Genesis', '20,000 USDG fill'], ['Source', repo('gokhan-vc/rebase')]],
-    about: ['REBASE was an elastic-supply token. The genesis pad took USDG deposits up to a 20,000 USDG fill, handled claims, and a daily bot ran the rebase. The interface is the onchain contracts; the site was a dashboard over them.'],
-    functions: ['Genesis pad (deposits and claims)', 'Daily rebase bot', 'Docs site'],
-    links: [{ label: 'Source · gokhan-vc/rebase', href: `${GH}/gokhan-vc/rebase` }],
-    children: ['rebase/docs'],
-    tags: ['numetal', 'token', 'defi', 'robinhood-chain', 'usdg', 'open-source'],
-  },
-  {
-    slug: 'rebase/docs', name: '', status: 'former', family: 'Numetal · REBASE',
-    line: 'Documentation for REBASE.',
-    former: '',
-    about: ['The REBASE documentation site. Its source is in the public repository.'],
-    links: [{ label: 'Source · gokhan-vc/rebase', href: `${GH}/gokhan-vc/rebase` }],
-    tags: ['numetal', 'docs', 'defi', 'robinhood-chain'],
-  },
-  {
-    slug: 'apex', name: '', status: 'former', family: 'Numetal',
-    line: 'A capture-the-flag race for LLM agents.',
-    former: '',
-    about: ['A CTF race for LLM agents, with race state kept server-side and an llms.txt for agents to read the rules.'],
-    functions: ['Race state', 'llms.txt'],
-    tags: ['numetal', 'agents', 'games', 'ai'],
-  },
-  {
-    slug: 'booster', name: 'BOOSTER', status: 'former', family: 'Numetal',
-    line: 'Social-signal desk.',
-    former: '',
-    about: ['A static desk page for social signals.'],
-    tags: ['numetal', 'social', 'dashboard'],
-  },
-  {
+{
     slug: 'coins', name: 'The Token Estate', status: 'former', family: 'Numetal',
     line: 'BIS-926: a register of 998 issuances.',
     former: 'coins.numetal.xyz',
@@ -236,7 +182,7 @@ export const products: Product[] = [
     functions: ['Register', 'Leaderboard'],
     tags: ['numetal', 'token', 'dashboard', 'leaderboard'],
   },
-  {
+{
     slug: 'jesus', name: 'Personal Jesus', status: 'former', family: 'Numetal',
     line: 'Waitlist page.',
     former: 'jesus.numetal.xyz',
@@ -244,23 +190,7 @@ export const products: Product[] = [
     functions: ['Waitlist'],
     tags: ['numetal', 'waitlist', 'ai'],
   },
-  {
-    slug: '', name: '', status: 'former', family: 'Numetal',
-    line: 'Waitlist page.',
-    former: '',
-    about: ['A product announced through a waitlist page.'],
-    functions: ['Waitlist'],
-    tags: ['numetal', 'waitlist', 'games', 'ai'],
-  },
-  {
-    slug: '', name: '', status: 'former', family: 'Numetal',
-    line: 'A declaration.',
-    former: '',
-    about: ['A single static page carrying the  declaration.'],
-    tags: ['numetal', 'ai', 'manifesto'],
-  },
-  // ---- Gökhan Ventures ----
-  {
+{
     slug: 'gokhan-vc', name: 'Gökhan Ventures', status: 'former', family: 'Gökhan Ventures',
     line: 'Venture studio: the umbrella over Numetal and its products.',
     former: 'gokhan.vc',
@@ -271,7 +201,7 @@ export const products: Product[] = [
     children: ['gokhan-vc/api'],
     tags: ['gokhan-ventures', 'studio'],
   },
-  {
+{
     slug: 'gokhan-vc/api', name: 'feedhub', status: 'former', family: 'Gökhan Ventures',
     line: 'A feed and newsletter gateway. The service is offline. The source is public to fork.',
     former: 'api.gokhan.vc',
@@ -281,7 +211,7 @@ export const products: Product[] = [
     links: [{ label: 'Source · avalidurl/feedhub', href: `${GH}/avalidurl/feedhub` }],
     tags: ['gokhan-ventures', 'api', 'rss', 'x402', 'newsletter'],
   },
-  {
+{
     slug: 'agentbounty', name: 'AgentBounty', status: 'former', family: 'Predecessor',
     line: 'USDC-settled bounty market on Base; the predecessor of Numetal.',
     former: 'agentbounty.dev',
@@ -291,40 +221,39 @@ export const products: Product[] = [
     file: 'agent-bounty', legacy: ['agent-bounty'],
     tags: ['agentbounty', 'bounties', 'agents', 'usdc', 'base', 'token'],
   },
-  // ---- Current ----
-  {
+{
     slug: 'tickerline', name: 'tickerline', status: 'current', family: 'Personal',
     line: 'A Claude Code status line that turns the terminal into a rolling ticker tape.',
     links: [{ label: 'claudelines.com listing', href: 'https://claudelines.com/statuslines/tickerline' }, { label: 'Source · avalidurl/tickerline', href: `${GH}/avalidurl/tickerline` }],
     file: 'tickerline', legacy: ['tickerline'], tags: ['tickerline', 'claude-code', 'cli', 'markets', 'open-source'],
   },
-  {
+{
     slug: 'market-cap-tracker', name: 'Market Cap Tracker', status: 'current', family: 'Personal',
     line: 'Live market caps: NVIDIA against crypto.',
     links: [{ label: 'Open the tracker', href: '/market-cap-tracker/' }, { label: 'Source · avalidurl/market-cap-tracker', href: `${GH}/avalidurl/market-cap-tracker` }],
     file: 'market-cap-tracker', legacy: ['market-cap-tracker'], tags: ['dashboard', 'markets', 'crypto', 'open-source'],
   },
-  {
+{
     slug: 'sp100-capex-dashboard', name: 'S&P 100 CapEx Dashboard', status: 'current', family: 'Personal',
     line: 'Capital expenditure through the S&P 100.',
     links: [{ label: 'Open the dashboard', href: '/sp100-capex-dashboard/' }, { label: 'Source · avalidurl/sp100-financial-tracker', href: `${GH}/avalidurl/sp100-financial-tracker` }],
     file: 'sp100-capex-dashboard', legacy: ['sp100-capex-dashboard'], tags: ['dashboard', 'markets', 'open-source'],
   },
-  {
+{
     slug: 'greek-alphabet-anki', name: 'Greek Alphabet Anki', status: 'current', family: 'Personal',
     line: 'An Anki deck for the 24 Greek letters, with audio and IPA. CC0.',
     links: [{ label: 'Source · avalidurl/greek-alphabet-anki', href: `${GH}/avalidurl/greek-alphabet-anki` }, { label: 'Journal · The deck', href: '/journal/greek-alphabet-anki-deck/' }],
     file: 'greek-alphabet-anki', legacy: ['greek-alphabet-anki'], tags: ['anki', 'language-learning', 'open-source'],
   },
-  {
+{
     slug: 'biases-fallacies-lab', name: 'Biases & Fallacies Lab', status: 'current', family: 'Personal',
     line: 'An interactive reasoning lab.', external: true, legacy: ['biases-fallacies-lab'], tags: ['reasoning', 'tool'],
   },
-  {
+{
     slug: 'turkish-art-blob', name: 'Turkish Art Blob', status: 'current', family: 'Personal',
     line: 'Living sculpture and installation proposal.', external: true, tags: ['art', 'ai'],
   },
-  {
+{
     slug: 'ethereum-doomsday', name: 'Ethereum Doomsday Tracker', status: 'current', family: 'Personal',
     line: 'Illustrative Ethereum L1 systemic-security forecast.', external: true, tags: ['ethereum', 'forecasting', 'dashboard'],
   },
@@ -401,17 +330,13 @@ export const apis: ApiEntry[] = [
   { slug: 'site', name: 'Site content', former: 'gokhanturhan.com', domain: 'gokhanturhan.com', kind: 'REST · OpenAPI · MCP', status: 'live', tags: ['reading', 'publishing'], protocols: ['openapi', 'mcp'], rail: '/api/site/' },
   { slug: 'ishtar', name: 'Ishtar API', former: 'api.ishtar.numetal.xyz', domain: 'numetal.xyz', kind: 'REST · OpenAPI · MCP · x402', status: 'degraded', tags: ['reading', 'publishing', 'payments', 'identity', 'agents'], protocols: ['x402', 'mcp', 'openapi', 'skill'], rail: '/ishtar/' },
   { slug: 'curb', name: 'CURB clearing API', former: 'curb.numetal.xyz', domain: 'numetal.xyz', kind: 'REST · OpenAPI · MCP · x402', status: 'live', tags: ['payments', 'reading', 'agents'], protocols: ['x402', 'mcp', 'openapi', 'skill'], rail: '/curb/' },
-  { slug: 'launch', name: 'Launch router', former: '', domain: 'numetal.xyz', kind: 'REST · OpenAPI · MCP · x402 · MPP', status: 'live', tags: ['publishing', 'payments', 'agents'], protocols: ['x402', 'mpp', 'mcp', 'openapi'], rail: '/' },
   { slug: 'plaintext', name: 'Plaintext board', former: 'plaintext.numetal.xyz', domain: 'numetal.xyz', kind: 'REST · MCP · RSS', status: 'live', tags: ['reading', 'publishing', 'payments', 'agents'], protocols: ['mcp', 'skill', 'rss'], rail: '/plaintext/' },
-  { slug: 'accumulator', name: 'Accumulator waitlist + wishlist', former: '', domain: 'numetal.xyz', kind: 'JSON', status: 'live', tags: ['identity', 'reading'], protocols: [], rail: '/' },
   { slug: 'numetal-fees', name: 'Numetal fees and burns', former: 'numetal.xyz/fees', domain: 'numetal.xyz', kind: 'JSON', status: 'live', tags: ['reading', 'status'], protocols: [], rail: '/numetal/' },
   { slug: 'status', name: 'Numetal status', former: 'status.numetal.xyz', domain: 'numetal.xyz', kind: 'JSON · HTML', status: 'degraded', tags: ['status', 'reading'], protocols: [], rail: '/status/' },
   { slug: 'feedhub', name: 'Estate gateway (feedhub)', former: 'api.gokhan.vc', domain: 'gokhan.vc', kind: 'REST · OpenAPI · RSS/JSON Feed', status: 'retired', tags: ['reading', 'publishing', 'payments', 'agents'], protocols: ['x402', 'openapi', 'rss'] },
   { slug: 'newsletter', name: 'Newsletter (email + XMTP)', former: 'api.gokhan.vc/newsletter', domain: 'gokhan.vc', kind: 'REST', status: 'retired', tags: ['publishing', 'identity'], protocols: ['hmac'] },
   { slug: 'curb-agents', name: 'CURB harness agents', former: 'harness.curb.numetal.xyz', domain: 'numetal.xyz', kind: 'HTTP agents', status: 'live', tags: ['agents', 'payments'], protocols: [] },
   { slug: 'jesus', name: 'Personal Jesus waitlist', former: 'jesus.numetal.xyz', domain: 'numetal.xyz', kind: 'form', status: 'degraded', tags: ['identity'], protocols: [] },
-  { slug: '', name: ' waitlist', former: '', domain: 'numetal.xyz', kind: 'form', status: 'degraded', tags: ['identity'], protocols: [] },
-  { slug: 'apex', name: 'APEX Protocol', former: '', domain: 'numetal.xyz', kind: 'llms.txt', status: 'live', tags: ['agents', 'reading'], protocols: [] },
   { slug: 'xmtp', name: 'XMTP bot', former: 'xmtp-bot.gokhan.vc', domain: 'gokhan.vc', kind: 'bot', status: 'retired', tags: ['agents'], protocols: [] },
   { slug: 'x402-live', name: 'x402 live panel', former: 'gokhan.vc/x402-live', domain: 'gokhan.vc', kind: 'HTML/JSON', status: 'retired', tags: ['payments', 'reading'], protocols: ['x402'] },
   { slug: 'assets', name: 'Asset host', former: 'assets.numetal.xyz', domain: 'numetal.xyz', kind: 'static files', status: 'retired', tags: ['files'], protocols: [] },
@@ -538,14 +463,10 @@ export const apiTags: Record<string, string[]> = {
   ishtar: ['ishtar', 'api', 'mcp', 'x402', 'mpp', 'openapi', 'skill', 'agents', 'reading', 'publishing', 'payments', 'identity'],
   curb: ['curb', 'api', 'mcp', 'x402', 'openapi', 'skill', 'inference', 'payments', 'reading', 'agents'],
   'curb-agents': ['curb', 'agents', 'payments'],
-  launch: ['numetal', 'launchpads', 'api', 'mcp', 'x402', 'mpp', 'openapi', 'publishing', 'payments', 'agents'],
   'numetal-fees': ['numetal', 'api', 'token', 'reading', 'status'],
   status: ['numetal', 'infrastructure', 'status', 'reading'],
   plaintext: ['plaintext', 'api', 'mcp', 'skill', 'rss', 'reading', 'publishing', 'payments', 'agents'],
-  accumulator: ['numetal', 'api', 'waitlist', 'identity', 'reading'],
   jesus: ['numetal', 'waitlist', 'identity'],
-  llmcraft: ['numetal', 'waitlist', 'identity'],
-  apex: ['numetal', 'agents', 'games', 'reading'],
   xmtp: ['gokhan-ventures', 'newsletter', 'agents'],
   'x402-live': ['gokhan-ventures', 'x402', 'dashboard', 'payments', 'reading'],
   assets: ['numetal', 'infrastructure', 'files'],

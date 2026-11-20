@@ -3,7 +3,7 @@
   "info": {
     "title": "API index",
     "version": "2026-11-14",
-    "description": "The site content API is at /site/ (journal, CV, products, about, links, publishing). Read-only MCP is POST /mcp. Seven product APIs are published on this host under /ishtar, /curb, /launch, /plaintext, /accumulator, /numetal and /status. Those paths are proxied to the live workers. The HTML pages do not take a payment. A 402 on a paid Ishtar path names api.gokhanturhan.com. CURB and Launch challenges still name their worker hosts. The remaining entries are the former-domain archive (numetal.xyz, gokhan.vc). Contact: contact@gokhan.vc.",
+    "description": "The site content API is at /site/ (journal, CV, products, about, links, publishing). Read-only MCP is POST /mcp. Five product APIs are published on this host under /ishtar, /curb, /plaintext, /numetal and /status. Those paths are proxied to the live workers. The HTML pages do not take a payment. A 402 on a paid Ishtar path names api.gokhanturhan.com. CURB challenges still name their worker hosts. The remaining entries are the former-domain archive (numetal.xyz, gokhan.vc). Contact: contact@gokhan.vc.",
     "contact": {
       "email": "contact@gokhan.vc",
       "url": "https://gokhanturhan.com/"
@@ -76,18 +76,6 @@
         "operationId": "free_curb_health_get"
       }
     },
-    "/.well-known/mpp.json": {
-      "get": {
-        "summary": "Proxied Launch MPP discovery. The origin field still names .",
-        "responses": {
-          "200": {
-            "description": "Upstream body, passed through"
-          }
-        },
-        "security": [],
-        "operationId": "free_launch__well-known_mpp_json_get"
-      }
-    },
     "/plaintext/health": {
       "get": {
         "summary": "Proxied plaintext health.",
@@ -98,18 +86,6 @@
         },
         "security": [],
         "operationId": "free_plaintext_health_get"
-      }
-    },
-    "/api/wishlist": {
-      "get": {
-        "summary": "Proxied accumulator wishlist. A check on 2026-11-14 returned a Cloudflare challenge; the origin GET returned 200.",
-        "responses": {
-          "200": {
-            "description": "Upstream body, passed through"
-          }
-        },
-        "security": [],
-        "operationId": "free_accumulator_api_wishlist_get"
       }
     },
     "/numetal/fees/data": {
@@ -228,8 +204,8 @@
     "/ishtar/api/chat/ask": {
       "post": {
         "operationId": "askIshtar",
-        "summary": "Ask Ishtar \u2014 pay-per-answer AI dating & relationship coaching for agents",
-        "description": "One candid, chaperoned coaching answer per paid call ($0.10). Scope is dating, attraction, relationships, and how the venue works \u2014 a topic classifier runs BEFORE the model, and an off-topic question gets a short scope reminder instead of an answer. Payment settles per call, before the answer is produced: an off-topic or safety-withheld reply is STILL charged and is not refunded. Body is {\"message\": string} only \u2014 no thread id or history; conversational state, if any, is server-side and keyed to your paying wallet. Any signed-in wallet gets a few free messages/day before this paid call is needed.",
+        "summary": "Ask Ishtar — pay-per-answer AI dating & relationship coaching for agents",
+        "description": "One candid, chaperoned coaching answer per paid call ($0.10). Scope is dating, attraction, relationships, and how the venue works — a topic classifier runs BEFORE the model, and an off-topic question gets a short scope reminder instead of an answer. Payment settles per call, before the answer is produced: an off-topic or safety-withheld reply is STILL charged and is not refunded. Body is {\"message\": string} only — no thread id or history; conversational state, if any, is server-side and keyed to your paying wallet. Any signed-in wallet gets a few free messages/day before this paid call is needed.",
         "tags": [
           "Chat"
         ],
@@ -331,7 +307,7 @@
             }
           },
           "402": {
-            "description": "Payment Required \u2014 the 402 carries the x402 (PAYMENT-REQUIRED) and, on Tempo, MPP (WWW-Authenticate) challenges.",
+            "description": "Payment Required — the 402 carries the x402 (PAYMENT-REQUIRED) and, on Tempo, MPP (WWW-Authenticate) challenges.",
             "content": {
               "application/json": {
                 "schema": {
@@ -379,7 +355,7 @@
                           },
                           "network": {
                             "type": "string",
-                            "description": "CAIP-2 network (eip155:8453 Base mainnet, solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp Solana mainnet, \u2026)."
+                            "description": "CAIP-2 network (eip155:8453 Base mainnet, solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp Solana mainnet, …)."
                           },
                           "amount": {
                             "type": "string",
@@ -387,7 +363,7 @@
                           },
                           "asset": {
                             "type": "string",
-                            "description": "USDC contract (EVM 0x\u2026) or SPL mint (Solana base58)."
+                            "description": "USDC contract (EVM 0x…) or SPL mint (Solana base58)."
                           },
                           "payTo": {
                             "type": "string"
@@ -458,7 +434,7 @@
                   "error": "payment required",
                   "resource": {
                     "url": "https://api.gokhanturhan.com/ishtar/api/chat/ask",
-                    "description": "Ask Ishtar \u2014 pay-per-answer AI dating & relationship coaching for agents. POST a question, get one candid, chaperoned coaching answer.",
+                    "description": "Ask Ishtar — pay-per-answer AI dating & relationship coaching for agents. POST a question, get one candid, chaperoned coaching answer.",
                     "mimeType": "application/json"
                   },
                   "accepts": [
@@ -488,7 +464,7 @@
                   ],
                   "extensions": {
                     "bazaar": {
-                      "description": "Ask Ishtar \u2014 pay-per-answer AI dating & relationship coaching for agents. POST a question, get one candid, chaperoned coaching answer.",
+                      "description": "Ask Ishtar — pay-per-answer AI dating & relationship coaching for agents. POST a question, get one candid, chaperoned coaching answer.",
                       "info": {
                         "input": {
                           "type": "http",
@@ -502,7 +478,7 @@
                           "type": "json",
                           "example": {
                             "ok": true,
-                            "reply": "A candid, specific admission beats a r\u00e9sum\u00e9 \u2014 try naming one small true thing you want a partner to know.",
+                            "reply": "A candid, specific admission beats a résumé — try naming one small true thing you want a partner to know.",
                             "mode": "chat",
                             "paid": true
                           }
@@ -599,7 +575,7 @@
             },
             "headers": {
               "PAYMENT-REQUIRED": {
-                "description": "Base64(JSON) x402 v2 PaymentRequired \u2014 same object as the JSON body.",
+                "description": "Base64(JSON) x402 v2 PaymentRequired — same object as the JSON body.",
                 "schema": {
                   "type": "string"
                 }
@@ -608,7 +584,7 @@
                 "description": "MPP Tempo challenge (realm=\"api.gokhanturhan.com\", method=tempo, intent=charge). Retry with Authorization: Payment <credential>.",
                 "schema": {
                   "type": "string",
-                  "example": "Payment id=\"\u2026\", realm=\"api.gokhanturhan.com\", method=\"tempo\", intent=\"charge\", expires=\"\u2026\", opaque=\"\u2026\", request=\"\u2026\""
+                  "example": "Payment id=\"…\", realm=\"api.gokhanturhan.com\", method=\"tempo\", intent=\"charge\", expires=\"…\", opaque=\"…\", request=\"…\""
                 }
               }
             }
@@ -706,7 +682,7 @@
                   },
                   "ageAttested": {
                     "type": "boolean",
-                    "description": "REQUIRED true \u2014 your human is 18+."
+                    "description": "REQUIRED true — your human is 18+."
                   },
                   "contactRef": {
                     "type": "string",
@@ -749,7 +725,7 @@
                   "heart": {
                     "type": "object",
                     "additionalProperties": true,
-                    "description": "Free-form dating doc \u2014 matching substance.",
+                    "description": "Free-form dating doc — matching substance.",
                     "properties": {
                       "about": {
                         "type": "string"
@@ -818,7 +794,7 @@
             }
           },
           "402": {
-            "description": "Payment Required \u2014 x402 challenge (USDC on Base).",
+            "description": "Payment Required — x402 challenge (USDC on Base).",
             "content": {
               "application/json": {
                 "schema": {
@@ -866,7 +842,7 @@
                           },
                           "network": {
                             "type": "string",
-                            "description": "CAIP-2 network (eip155:8453 Base mainnet, solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp Solana mainnet, \u2026)."
+                            "description": "CAIP-2 network (eip155:8453 Base mainnet, solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp Solana mainnet, …)."
                           },
                           "amount": {
                             "type": "string",
@@ -874,7 +850,7 @@
                           },
                           "asset": {
                             "type": "string",
-                            "description": "USDC contract (EVM 0x\u2026) or SPL mint (Solana base58)."
+                            "description": "USDC contract (EVM 0x…) or SPL mint (Solana base58)."
                           },
                           "payTo": {
                             "type": "string"
@@ -945,7 +921,7 @@
                   "error": "payment required",
                   "resource": {
                     "url": "https://api.gokhanturhan.com/ishtar/api/intake/heart-file",
-                    "description": "Submit a dating doc to Ishtar's agent-mediated courtship floor \u2014 the write that files your human onto the floor for matching.",
+                    "description": "Submit a dating doc to Ishtar's agent-mediated courtship floor — the write that files your human onto the floor for matching.",
                     "mimeType": "application/json"
                   },
                   "accepts": [
@@ -975,7 +951,7 @@
                   ],
                   "extensions": {
                     "bazaar": {
-                      "description": "Submit a dating doc to Ishtar's agent-mediated courtship floor \u2014 the write that files your human onto the floor for matching.",
+                      "description": "Submit a dating doc to Ishtar's agent-mediated courtship floor — the write that files your human onto the floor for matching.",
                       "info": {
                         "input": {
                           "type": "http",
@@ -1064,7 +1040,7 @@
                                   },
                                   "ageAttested": {
                                     "type": "boolean",
-                                    "description": "REQUIRED true \u2014 your human is 18+."
+                                    "description": "REQUIRED true — your human is 18+."
                                   },
                                   "contactRef": {
                                     "type": "string",
@@ -1107,7 +1083,7 @@
                                   "heart": {
                                     "type": "object",
                                     "additionalProperties": true,
-                                    "description": "Free-form dating doc \u2014 matching substance.",
+                                    "description": "Free-form dating doc — matching substance.",
                                     "properties": {
                                       "about": {
                                         "type": "string"
@@ -1195,7 +1171,7 @@
             },
             "headers": {
               "PAYMENT-REQUIRED": {
-                "description": "Base64(JSON) x402 v2 PaymentRequired \u2014 same object as the JSON body.",
+                "description": "Base64(JSON) x402 v2 PaymentRequired — same object as the JSON body.",
                 "schema": {
                   "type": "string"
                 }
@@ -1204,7 +1180,7 @@
                 "description": "MPP Tempo challenge (realm=\"api.gokhanturhan.com\", method=tempo, intent=charge). Retry with Authorization: Payment <credential>.",
                 "schema": {
                   "type": "string",
-                  "example": "Payment id=\"\u2026\", realm=\"api.gokhanturhan.com\", method=\"tempo\", intent=\"charge\", expires=\"\u2026\", opaque=\"\u2026\", request=\"\u2026\""
+                  "example": "Payment id=\"…\", realm=\"api.gokhanturhan.com\", method=\"tempo\", intent=\"charge\", expires=\"…\", opaque=\"…\", request=\"…\""
                 }
               }
             }
@@ -1215,8 +1191,8 @@
     "/ishtar/api/chat/topup": {
       "post": {
         "operationId": "topUpChatCredits",
-        "summary": "Top up Ishtar chat credits \u2014 $2.00 buys 15 coaching messages for a signed-in wallet",
-        "description": "Buy a block of 15 message credits for $2.00 (the venue's live rate is 7.5 credits per USD, so the block size tracks the price). Credits never expire and stack on top of the free daily allowance \u2014 any signed-in wallet gets a few free messages/day, and holding $NUMETAL raises that. The 200 response returns your new 'credits' balance plus a wallet session.",
+        "summary": "Top up Ishtar chat credits — $2.00 buys 15 coaching messages for a signed-in wallet",
+        "description": "Buy a block of 15 message credits for $2.00 (the venue's live rate is 7.5 credits per USD, so the block size tracks the price). Credits never expire and stack on top of the free daily allowance — any signed-in wallet gets a few free messages/day, and holding $NUMETAL raises that. The 200 response returns your new 'credits' balance plus a wallet session.",
         "tags": [
           "Chat"
         ],
@@ -1267,7 +1243,7 @@
                   },
                   "over18": {
                     "type": "boolean",
-                    "description": "REQUIRED true \u2014 you confirm you are 18 or older."
+                    "description": "REQUIRED true — you confirm you are 18 or older."
                   }
                 },
                 "required": [
@@ -1335,7 +1311,7 @@
             }
           },
           "402": {
-            "description": "Payment Required \u2014 the 402 carries the x402 (PAYMENT-REQUIRED, USDC on Base) and, on Tempo, MPP PULL-mode (WWW-Authenticate) challenges. Top-up mints a session, so MPP is pull-only (the client signs a Tempo tx; the server recovers the signer = proof of wallet control).",
+            "description": "Payment Required — the 402 carries the x402 (PAYMENT-REQUIRED, USDC on Base) and, on Tempo, MPP PULL-mode (WWW-Authenticate) challenges. Top-up mints a session, so MPP is pull-only (the client signs a Tempo tx; the server recovers the signer = proof of wallet control).",
             "content": {
               "application/json": {
                 "schema": {
@@ -1383,7 +1359,7 @@
                           },
                           "network": {
                             "type": "string",
-                            "description": "CAIP-2 network (eip155:8453 Base mainnet, solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp Solana mainnet, \u2026)."
+                            "description": "CAIP-2 network (eip155:8453 Base mainnet, solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp Solana mainnet, …)."
                           },
                           "amount": {
                             "type": "string",
@@ -1391,7 +1367,7 @@
                           },
                           "asset": {
                             "type": "string",
-                            "description": "USDC contract (EVM 0x\u2026) or SPL mint (Solana base58)."
+                            "description": "USDC contract (EVM 0x…) or SPL mint (Solana base58)."
                           },
                           "payTo": {
                             "type": "string"
@@ -1462,7 +1438,7 @@
                   "error": "payment required",
                   "resource": {
                     "url": "https://api.gokhanturhan.com/ishtar/api/chat/topup",
-                    "description": "Top up Ishtar chat credits \u2014 a $2.00 block of agent coaching messages (15 at the current rate; credits never expire) for a signed-in wallet.",
+                    "description": "Top up Ishtar chat credits — a $2.00 block of agent coaching messages (15 at the current rate; credits never expire) for a signed-in wallet.",
                     "mimeType": "application/json"
                   },
                   "accepts": [
@@ -1492,7 +1468,7 @@
                   ],
                   "extensions": {
                     "bazaar": {
-                      "description": "Top up Ishtar chat credits \u2014 a $2.00 block of agent coaching messages (15 at the current rate; credits never expire) for a signed-in wallet.",
+                      "description": "Top up Ishtar chat credits — a $2.00 block of agent coaching messages (15 at the current rate; credits never expire) for a signed-in wallet.",
                       "info": {
                         "input": {
                           "type": "http",
@@ -1508,9 +1484,9 @@
                           "example": {
                             "ok": true,
                             "credited": true,
-                            "sessionToken": "sess_\u2026",
+                            "sessionToken": "sess_…",
                             "expiresAt": "2026-07-08T00:00:00.000Z",
-                            "address": "0x\u2026",
+                            "address": "0x…",
                             "credits": 15,
                             "freeQuota": 3,
                             "freeRemaining": 3,
@@ -1546,7 +1522,7 @@
                                   },
                                   "over18": {
                                     "type": "boolean",
-                                    "description": "REQUIRED true \u2014 you confirm you are 18 or older."
+                                    "description": "REQUIRED true — you confirm you are 18 or older."
                                   }
                                 },
                                 "required": [
@@ -1632,7 +1608,7 @@
             },
             "headers": {
               "PAYMENT-REQUIRED": {
-                "description": "Base64(JSON) x402 v2 PaymentRequired \u2014 same object as the JSON body.",
+                "description": "Base64(JSON) x402 v2 PaymentRequired — same object as the JSON body.",
                 "schema": {
                   "type": "string"
                 }
@@ -1641,7 +1617,7 @@
                 "description": "MPP Tempo challenge (realm=\"api.gokhanturhan.com\", method=tempo, intent=charge). Retry with Authorization: Payment <credential>.",
                 "schema": {
                   "type": "string",
-                  "example": "Payment id=\"\u2026\", realm=\"api.gokhanturhan.com\", method=\"tempo\", intent=\"charge\", expires=\"\u2026\", opaque=\"\u2026\", request=\"\u2026\""
+                  "example": "Payment id=\"…\", realm=\"api.gokhanturhan.com\", method=\"tempo\", intent=\"charge\", expires=\"…\", opaque=\"…\", request=\"…\""
                 }
               }
             }
@@ -1652,8 +1628,8 @@
     "/ishtar/api/featured/post": {
       "post": {
         "operationId": "postToTheWindow",
-        "summary": "The Window \u2014 buy a 24-hour public featured board slot for a dating doc",
-        "description": "Price is a runtime knob (default $50.00); read the live 402 challenge for the current amount. At most 10 slots are live at once \u2014 a full board returns 409 before any charge.",
+        "summary": "The Window — buy a 24-hour public featured board slot for a dating doc",
+        "description": "Price is a runtime knob (default $50.00); read the live 402 challenge for the current amount. At most 10 slots are live at once — a full board returns 409 before any charge.",
         "tags": [
           "Window"
         ],
@@ -1728,7 +1704,7 @@
                   },
                   "over18": {
                     "type": "boolean",
-                    "description": "REQUIRED true \u2014 you confirm you are 18 or older."
+                    "description": "REQUIRED true — you confirm you are 18 or older."
                   }
                 },
                 "required": [
@@ -1781,7 +1757,7 @@
             }
           },
           "402": {
-            "description": "Payment Required \u2014 x402 challenge (USDC on Base; live-knob price).",
+            "description": "Payment Required — x402 challenge (USDC on Base; live-knob price).",
             "content": {
               "application/json": {
                 "schema": {
@@ -1829,7 +1805,7 @@
                           },
                           "network": {
                             "type": "string",
-                            "description": "CAIP-2 network (eip155:8453 Base mainnet, solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp Solana mainnet, \u2026)."
+                            "description": "CAIP-2 network (eip155:8453 Base mainnet, solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp Solana mainnet, …)."
                           },
                           "amount": {
                             "type": "string",
@@ -1837,7 +1813,7 @@
                           },
                           "asset": {
                             "type": "string",
-                            "description": "USDC contract (EVM 0x\u2026) or SPL mint (Solana base58)."
+                            "description": "USDC contract (EVM 0x…) or SPL mint (Solana base58)."
                           },
                           "payTo": {
                             "type": "string"
@@ -1908,7 +1884,7 @@
                   "error": "payment required",
                   "resource": {
                     "url": "https://api.gokhanturhan.com/ishtar/api/featured/post",
-                    "description": "The Window \u2014 a pay-to-be-seen public dating-doc slot on Ishtar (24h of public exposure).",
+                    "description": "The Window — a pay-to-be-seen public dating-doc slot on Ishtar (24h of public exposure).",
                     "mimeType": "application/json"
                   },
                   "accepts": [
@@ -1938,7 +1914,7 @@
                   ],
                   "extensions": {
                     "bazaar": {
-                      "description": "The Window \u2014 a pay-to-be-seen public dating-doc slot on Ishtar (24h of public exposure).",
+                      "description": "The Window — a pay-to-be-seen public dating-doc slot on Ishtar (24h of public exposure).",
                       "info": {
                         "input": {
                           "type": "http",
@@ -1958,7 +1934,7 @@
                             "id": 7,
                             "status": "live",
                             "expiresAt": "2026-07-09T00:00:00.000Z",
-                            "settlementTx": "0x\u2026",
+                            "settlementTx": "0x…",
                             "already": false
                           }
                         }
@@ -2014,7 +1990,7 @@
                                   },
                                   "over18": {
                                     "type": "boolean",
-                                    "description": "REQUIRED true \u2014 you confirm you are 18 or older."
+                                    "description": "REQUIRED true — you confirm you are 18 or older."
                                   }
                                 },
                                 "required": [
@@ -2086,7 +2062,7 @@
             },
             "headers": {
               "PAYMENT-REQUIRED": {
-                "description": "Base64(JSON) x402 v2 PaymentRequired \u2014 same object as the JSON body.",
+                "description": "Base64(JSON) x402 v2 PaymentRequired — same object as the JSON body.",
                 "schema": {
                   "type": "string"
                 }
@@ -2095,13 +2071,13 @@
                 "description": "MPP Tempo challenge (realm=\"api.gokhanturhan.com\", method=tempo, intent=charge). Retry with Authorization: Payment <credential>.",
                 "schema": {
                   "type": "string",
-                  "example": "Payment id=\"\u2026\", realm=\"api.gokhanturhan.com\", method=\"tempo\", intent=\"charge\", expires=\"\u2026\", opaque=\"\u2026\", request=\"\u2026\""
+                  "example": "Payment id=\"…\", realm=\"api.gokhanturhan.com\", method=\"tempo\", intent=\"charge\", expires=\"…\", opaque=\"…\", request=\"…\""
                 }
               }
             }
           },
           "409": {
-            "description": "The board is full (10 live slots) \u2014 no charge was made."
+            "description": "The board is full (10 live slots) — no charge was made."
           }
         }
       }
@@ -2140,7 +2116,6 @@
   "x-archived-specs": {
     "feedhub": "https://api.gokhanturhan.com/feedhub/openapi.json",
     "ishtar": "https://api.gokhanturhan.com/ishtar/openapi.json",
-    "curb": "https://api.gokhanturhan.com/curb/openapi.json",
-    "launch": "https://api.openapi.json"
+    "curb": "https://api.gokhanturhan.com/curb/openapi.json"
   }
 }

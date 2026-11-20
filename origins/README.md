@@ -19,8 +19,8 @@ The CURB pages other than the home page and the docs, and the plaintext
 pages other than the join app, refresh with
 `scripts/refresh-product-snapshots.py`. It reads the product checkouts
 you pass in. It does not crawl, and it does not copy the join app.
-Jesus and accumulator already match their public files aside from the
-Bureau bar, so the script leaves them alone. A product patch does not
+Jesus already matches its public files aside from the
+Bureau bar, so the script leaves it alone. A product patch does not
 move the apex until that output is committed and pushed.
 
 Do not run either prepare script on the Cloudflare Pages build; the

@@ -32,7 +32,7 @@ export async function getStaticPaths() {
     props: { kind: 'product' as const, path: `/${p.slug}/`, p, file: p.file ? files.find((f) => entrySlug(f) === p.file) : undefined },
   }))
   const pagePaths = Object.keys(manifest)
-    .filter((path) => !slugs.has(path) && !/\/legal\/[^/]+\/$/.test(path) || (!slugs.has(path) && /^\/(accumulator|agentbounty)\/legal\//.test(path)))
+    .filter((path) => !slugs.has(path) && !/\/legal\/[^/]+\/$/.test(path) || (!slugs.has(path) && /^\/agentbounty\/legal\//.test(path)))
     .filter((path) => ownerOf(path))
     .map((path) => ({ params: { product: path.slice(1, -1) }, props: { kind: 'page' as const, path, p: ownerOf(path)! } }))
   // Section indexes: intermediate folders (e.g. /curb/docs/reference/) that the ported pages link to as breadcrumbs.

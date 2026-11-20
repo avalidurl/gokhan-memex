@@ -4,7 +4,7 @@
  * those files from dist/sitemap-index.xml.
  *
  * numetal.xyz, gokhan.vc, and agentbounty.dev send /sitemap.xml here.
- * ishtar.numetal.xyz, curb.numetal.xyz, and  still
+ * ishtar.numetal.xyz and curb.numetal.xyz still
  * publish their own files. The copies on this host use only
  * https://gokhanturhan.com URLs. Every sitemap file gets one contact
  * comment, contact@gokhan.vc, and the build fails if any other address appears.
@@ -20,12 +20,11 @@ const SITE = 'https://gokhanturhan.com';
 const CONTACT = 'contact@gokhan.vc';
 const CONTACT_NOTE = `<!-- Contact: ${CONTACT} -->`;
 
-const SLUGS = ['accumulator', 'agentbounty', 'curb', 'gokhan-vc', 'ishtar', 'numetal'];
+const SLUGS = ['agentbounty', 'curb', 'gokhan-vc', 'ishtar', 'numetal'];
 
 const HOSTS = [
   [/^https:\/\/(?:www\.)?ishtar\.numetal\.xyz(?=\/|$)/i, `${SITE}/ishtar`],
   [/^https:\/\/(?:www\.)?curb\.numetal\.xyz(?=\/|$)/i, `${SITE}/curb`],
-  [/^https:\/\/(?:www\.)?accumulator\.numetal\.xyz(?=\/|$)/i, `${SITE}/accumulator`],
   [/^https:\/\/(?:www\.)?numetal\.xyz(?=\/|$)/i, `${SITE}/numetal`],
   [/^https:\/\/(?:www\.)?gokhan\.vc(?=\/|$)/i, `${SITE}/gokhan-vc`],
   [/^https:\/\/(?:www\.)?agentbounty\.dev(?=\/|$)/i, `${SITE}/agentbounty`],

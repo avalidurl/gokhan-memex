@@ -60,9 +60,6 @@ def target(url, own):
         if p in ('/feed.xml', '/rss.xml'): return '/rss.xml' + tail
         if p == '/dispatch': return '/journal/' + tail
         return J('/dispatch', '/curb/') + tail
-    if host == '':
-        if p in ('/mcp', '/skill.md', '/openapi.json') or p.startswith('/.well-known'): return f'{API}/' + tail
-        return '/' + tail
     if host == 'ishtar.numetal.xyz':
         if p.startswith('/heartbench'): return '/ishtar/heartbench/' + tail
         if p.startswith('/window'): return '/ishtar/window/' + tail
@@ -70,7 +67,6 @@ def target(url, own):
         if p == '/blog': return '/journal/' + tail
         return J('/blog', '/ishtar/') + tail
     if host == 'status.numetal.xyz': return '/numetal/status/' + tail
-    if host == '': return '/docs/' + tail
     if host == 'numetal.xyz':
         if p == '/blog': return '/journal/' + tail
         return J('/blog', '/numetal/') + tail
@@ -82,7 +78,15 @@ def target(url, own):
         if p.startswith('/rss'): return '/rss.xml' + tail
         return '/agentbounty/' + tail
     if host.endswith('.numetal.xyz'):
-        return '/' + host.split('.')[0] + '/' + tail
+        sub = host[:-len('.numetal.xyz')]
+        # Only map subdomains that still have a page on this site.
+        kept = {
+            'curb', 'ishtar', 'plaintext', 'jesus', 'status',
+            'reclaim', 'ubu', 'coins',
+        }
+        if sub not in kept:
+            return None
+        return '/' + sub + '/' + tail
     return None
 
 def absolute(t, mode):

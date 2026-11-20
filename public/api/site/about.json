@@ -43,7 +43,7 @@
             "Fetch the summary: curl https://gokhanturhan.com/llms.txt . It lists the main products, drafts, publishing, the API index and recent posts, each with a link. Open llms.txt .",
             "For the long version, fetch llms-full.txt . It adds product notes, every journal post with its description, and the whole CV.",
             "Read the CV as Markdown: curl https://gokhanturhan.com/cv.md ( cv.md ). cv.json holds the same data as JSON.",
-            "Read the API register: apis.json lists the published rails first (/ishtar, /curb, /launch, /plaintext, /accumulator, /numetal, /status on api.gokhanturhan.com), then the former-domain archive. The index pages do not take a payment. Do not pay a retired endpoint. A 402 on a live rail is the worker challenge. The Ishtar challenge names api.gokhanturhan.com. CURB and Launch challenges still name their worker hosts.",
+            "Read the API register: apis.json lists the published rails first (/ishtar, /curb, /plaintext, /numetal, /status on api.gokhanturhan.com), then the former-domain archive. The index pages do not take a payment. Do not pay a retired endpoint. A 402 on a live rail is the worker challenge. The Ishtar challenge names api.gokhanturhan.com. CURB challenges still name their worker hosts.",
             "Follow new posts with the feed: rss.xml ."
           ],
           "rows": [],

@@ -30,9 +30,9 @@ MAILBOX = re.compile(
 # Only skip paths that already belong to the host site (memex chrome),
 # not names the original products used on their own hosts (/blog, /favicon, …).
 SKIP_PREFIX = (
-    "curb", "ishtar", "ubu", "reclaim", "plaintext", "numetal", "launch",
-    "accumulator", "rebase", "apex", "booster", "heartprefs",
-    "gokhan-vc", "coins", "jesus", "", "",
+    "curb", "ishtar", "ubu", "reclaim", "plaintext", "numetal",
+    "heartprefs",
+    "gokhan-vc", "coins", "jesus",
     "foreguild-fao-plan", "hypersitition", "agentbounty",
     "turkish-art-blob", "ethereum-doomsday",
     "sp100-capex-dashboard", "market-cap-tracker",
@@ -353,111 +353,6 @@ def prepare_numetal():
             write(OUT / "numetal" / fname, data, binary=True)
 
 
-def prepare_launch():
-    prefix, name = "/launch", "Launch"
-    html = (RAW / "sub_.html").read_text(encoding="utf-8", errors="replace")
-    html = process_html(html, prefix=prefix, name=name, canonical=f"{SITE}/")
-    write(OUT / "launch/index.html", html)
-    tg = REPOS / "/packages/telegram"
-    for fname in ("favicon.svg", "nautilus.svg"):
-        src = tg / "public" / fname
-        if src.exists():
-            copy_file(src, OUT / "launch" / fname)
-    skill = REPO / "skill.md"
-    if skill.exists():
-        copy_file(skill, OUT / "launch/skill.md")
-    # Mini-app: landing is the main design. Copy app.html + its CSS so /app.html works.
-    app = tg / "app.html"
-    css = tg / "src/miniapp.css"
-    if app.exists():
-        ahtml = app.read_text(encoding="utf-8")
-        ahtml = ahtml.replace("./src/miniapp.css", "miniapp.css")
-        ahtml = process_html(ahtml, prefix=prefix, name=name, canonical=f"{SITE}/app/")
-        write(OUT / "launch/app/index.html", ahtml)
-        write(OUT / "launch/app.html", ahtml)
-    if css.exists():
-        write(OUT / "launch/app/miniapp.css", process_text(css.read_text(encoding="utf-8"), prefix))
-        write(OUT / "launch/miniapp.css", process_text(css.read_text(encoding="utf-8"), prefix))
-
-
-def prepare_accumulator():
-    prefix, name = "/accumulator", "Accumulator"
-    pub = REPOS / "/public"
-    for src in pub.rglob("*"):
-        if not src.is_file():
-            continue
-        rel = src.relative_to(pub)
-        dest = OUT / "accumulator" / rel
-        # Serve docs/terms/privacy at clean paths as well as *.html
-        if src.suffix.lower() == ".html":
-            html = src.read_text(encoding="utf-8", errors="replace")
-            sub = "/" if src.name == "index.html" else f"/{src.stem}/"
-            html = process_html(html, prefix=prefix, name=name, canonical=f"{SITE}/accumulator{sub}")
-            write(dest, html)
-            if src.name != "index.html" and src.name != "404.html":
-                write(OUT / "accumulator" / src.stem / "index.html", html)
-        elif src.suffix.lower() in {".css", ".js"}:
-            write(dest, process_text(src.read_text(encoding="utf-8"), prefix))
-        else:
-            copy_file(src, dest)
-
-
-def prepare_rebase():
-    prefix, name = "/rebase", "REBASE"
-    html = (RAW / "sub_.html").read_text(encoding="utf-8", errors="replace")
-    html = process_html(html, prefix=prefix, name=name, canonical=f"{SITE}/")
-    write(OUT / "rebase/index.html", html)
-    docs = (RAW / "sub_.html").read_text(encoding="utf-8", errors="replace")
-    docs = process_html(docs, prefix=prefix, name=name, canonical=f"{SITE}/docs/")
-    write(OUT / "rebase/docs/index.html", docs)
-    site = REPOS / "rebase/site"
-    if (site / "logo.png").exists():
-        copy_file(site / "logo.png", OUT / "rebase/logo.png")
-    if (site / "addresses.json").exists():
-        copy_file(site / "addresses.json", OUT / "rebase/addresses.json")
-
-
-def prepare_apex():
-    prefix, name = "/apex", ""
-    html = (RAW / "sub_.html").read_text(encoding="utf-8", errors="replace")
-    html = process_html(html, prefix=prefix, name=name, canonical=f"{SITE}/")
-    # Use the gifs already in this repo instead of duplicating ~6 MB.
-    html = relink_media(html, {
-        "/gifs/lights_out.gif": "/media/archive/lights_out.gif",
-        "/gifs/box_box_box.gif": "/media/archive/box_box_box.gif",
-        "/gifs/night_stint.gif": "/media/archive/night_stint.gif",
-        "/gifs/yellow_sector_2.gif": "/media/archive/yellow_sector_2.gif",
-    })
-    write(OUT / "apex/index.html", html)
-    for path in (
-        "style.css",
-        "app.js",
-        "favicon.svg",
-        "fonts/PixelifySans-var.woff2",
-        "fonts/IBMPlexSans-var.woff2",
-        "fonts/IBMPlexSans-Italic-var.woff2",
-    ):
-        dest = OUT / "apex" / path
-        ok = download(f"https:///{path}", dest)
-        if ok and path.endswith((".css", ".js")):
-            write(dest, process_text(dest.read_text(encoding="utf-8", errors="replace"), prefix))
-
-
-def prepare_booster():
-    prefix, name = "/booster", "BOOSTER"
-    html = (RAW / "sub_.html").read_text(encoding="utf-8", errors="replace")
-    html = process_html(html, prefix=prefix, name=name, canonical=f"{SITE}/")
-    write(OUT / "booster/index.html", html)
-    for path in ("style.css", "favicon.svg", "logo-1024.png"):
-        dest = OUT / "booster" / path
-        media = REPO / "" / Path(path).name
-        if media.exists():
-            copy_file(media, dest)
-        else:
-            download(f"https:///{path}", dest)
-        if dest.exists() and path.endswith(".css"):
-            write(dest, process_text(dest.read_text(encoding="utf-8"), prefix))
-
 
 PREPARE = [
     ("curb", prepare_curb),
@@ -466,11 +361,6 @@ PREPARE = [
     ("reclaim", prepare_reclaim),
     ("plaintext", prepare_plaintext),
     ("numetal", prepare_numetal),
-    ("launch", prepare_launch),
-    ("accumulator", prepare_accumulator),
-    ("rebase", prepare_rebase),
-    ("apex", prepare_apex),
-    ("booster", prepare_booster),
 ]
 
 
@@ -490,11 +380,6 @@ def main():
         "reclaim": "Reclaim",
         "plaintext": "plaintext",
         "numetal": "Numetal",
-        "launch": "Launch",
-        "accumulator": "Accumulator",
-        "rebase": "REBASE",
-        "apex": "",
-        "booster": "BOOSTER",
     }
     for m in manifest:
         m["name"] = names[m["slug"]]

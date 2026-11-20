@@ -234,7 +234,7 @@ async function* walkHtml(dir) {
     const path = join(dir, ent.name)
     if (ent.isDirectory()) {
       // Origin-mounted product sites keep their own cards.
-      if (['ishtar', 'curb', 'numetal', 'jesus', 'ubu', 'plaintext', 'reclaim', 'accumulator', 'apex', 'launch', '', 'gokhan-vc', 'media', 'fonts', 'icons'].includes(ent.name) && dir === DIST) {
+      if (['ishtar', 'curb', 'numetal', 'jesus', 'ubu', 'plaintext', 'reclaim', 'gokhan-vc', 'media', 'fonts', 'icons'].includes(ent.name) && dir === DIST) {
         continue
       }
       yield* walkHtml(path)

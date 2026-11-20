@@ -45,9 +45,7 @@ const RAIL_HEADERS = [
 const RAILS = [
   ['/curb', 'curb.numetal.xyz', /^\/(v1|health|mcp|skill\.md|openapi\.json|llms\.txt|llms-full\.txt|\.well-known)(\/|$)/],
   ['/ishtar', 'api.ishtar.numetal.xyz', /^\/(api|health|mcp|skill|openapi\.json|llms\.txt|llms-full\.txt|\.well-known)(\/|$)/],
-  ['/launch', '', /^\/(api|telegram|mcp|openapi\.json|llms\.txt|skill\.md|\.well-known)(\/|$)/],
   ['/plaintext', 'plaintext.numetal.xyz', /^\/(api|health|mcp|feed\.xml)(\/|$)/],
-  ['/accumulator', '', /^\/api(\/|$)/],
   // Public numetal.xyz/fees/data is a bulk redirect. The site already reaches
   // the fee JSON through the NUMETAL service binding. Use that same binding.
   ['/numetal', 'numetal.xyz', /^\/(fees\/data|fees\/events|api)(\/|$)/, 'NUMETAL'],

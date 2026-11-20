@@ -4,7 +4,7 @@
    variable names are kept and remapped onto the four tokens so every
    component keeps working. */
 :root {
-  /* The four tokens (light — Bureau register paper, per ).
+  /* The four tokens (light — Bureau register paper).
      Two accent stamps ride along: signal red and IKB. Accents mark kickers
      and signal labels only — running ink stays monochrome. */
   --ink: #141414;
@@ -218,7 +218,7 @@ body {
   text-align: left;
 }
 
-/* The filed sheet — booster's .wrap: one 980px column, ruled horizontally
+/* The filed sheet: one 980px column, ruled horizontally
    (docstrips and foot rules), never at the sides. */
 .site-sheet {
   max-width: 980px;
@@ -375,7 +375,7 @@ body {
   background-image: repeating-linear-gradient(90deg, var(--ink) 0 6px, transparent 6px 12px);
 }
 
-/* Colophon — booster's foot: 3px top rule, mono 12.5px dim strings pushed
+/* Colophon: 3px top rule, mono 12.5px dim strings pushed
    apart. R4: it carries the doc number and the revision, so it is the data face. */
 .colophon {
   border-top: 3px solid var(--ink);
@@ -466,7 +466,7 @@ body {
   width: 100%;
 }
 
-/* R4 — control labels. Booster's .btn: 2px rule, mono 15px, invert on hover. */
+/* R4 — control labels: 2px rule, mono 15px, invert on hover. */
 .foot-sub-btn {
   padding: 12px 26px;
   border: 2px solid var(--ink);
@@ -522,7 +522,7 @@ body {
 }
 
 /* Header nav reads as uppercase index stamps — R4, so it keeps the data face
-   while the sheet body around it runs in the text face. Booster docstrip
+   while the sheet body around it runs in the text face. Docstrip
    metrics: mono 12.5px, 0.04em track. */
 .site-sheet header nav a {
   text-transform: uppercase;

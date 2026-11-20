@@ -111,18 +111,6 @@
         "security": []
       }
     },
-    "/api/site/pages.json": {
-      "get": {
-        "operationId": "site_pages_get",
-        "summary": "Every public page",
-        "responses": {
-          "200": {
-            "description": "JSON"
-          }
-        },
-        "security": []
-      }
-    },
     "/mcp": {
       "post": {
         "operationId": "site_mcp",
@@ -130,6 +118,18 @@
         "responses": {
           "200": {
             "description": "JSON-RPC"
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/site/pages.json": {
+      "get": {
+        "operationId": "site_pages_get",
+        "summary": "Every public page",
+        "responses": {
+          "200": {
+            "description": "JSON"
           }
         },
         "security": []

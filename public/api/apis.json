@@ -1,5 +1,5 @@
 {
-  "name": "G\u00f6khan Turhan \u2014 estate APIs",
+  "name": "Gökhan Turhan — estate APIs",
   "documentation_only": false,
   "as_of": "2026-11-14",
   "index": "https://api.gokhanturhan.com/",
@@ -9,7 +9,7 @@
       "name": "Site content",
       "domain": "gokhanturhan.com",
       "former_base": "gokhanturhan.com",
-      "kind": "REST \u00b7 OpenAPI 3 \u00b7 MCP",
+      "kind": "REST · OpenAPI 3 · MCP",
       "status": "live",
       "as_of": "2026-11-18",
       "tags": [
@@ -49,7 +49,7 @@
       "name": "Ishtar API",
       "domain": "numetal.xyz",
       "former_base": "api.ishtar.numetal.xyz",
-      "kind": "REST \u00b7 OpenAPI 3 \u00b7 MCP \u00b7 skill \u00b7 x402",
+      "kind": "REST · OpenAPI 3 · MCP · skill · x402",
       "status": "degraded",
       "as_of": "2026-11-14",
       "tags": [
@@ -108,7 +108,7 @@
       "name": "CURB clearing API",
       "domain": "numetal.xyz",
       "former_base": "curb.numetal.xyz (+ api.curb.numetal.xyz)",
-      "kind": "REST \u00b7 OpenAPI 3 \u00b7 MCP \u00b7 skill \u00b7 x402",
+      "kind": "REST · OpenAPI 3 · MCP · skill · x402",
       "status": "live",
       "as_of": "2026-11-14",
       "tags": [
@@ -153,61 +153,11 @@
       "base": "https://api.gokhanturhan.com/curb/"
     },
     {
-      "slug": "launch",
-      "name": "Launch router",
-      "domain": "numetal.xyz",
-      "former_base": "",
-      "kind": "REST \u00b7 OpenAPI 3 \u00b7 MCP \u00b7 x402 \u00b7 MPP",
-      "status": "live",
-      "as_of": "2026-11-14",
-      "tags": [
-        "publishing",
-        "payments",
-        "agents"
-      ],
-      "protocols": [
-        "x402",
-        "mpp",
-        "mcp",
-        "openapi"
-      ],
-      "payments": "x402 manifest (8 resources); MPP prices 0",
-      "endpoints": [
-        "POST /mcp",
-        "POST /api/v1/list_pads",
-        "POST /api/v1/list_networks",
-        "POST /api/v1/get_capabilities",
-        "POST /api/v1/draft_intent",
-        "POST /api/v1/simulate_launch",
-        "POST /api/v1/get_sign_payload",
-        "POST /api/v1/check_bankr_split",
-        "GET /openapi.json",
-        "GET /.well-known/x402",
-        "GET /.well-known/mpp.json",
-        "GET /.well-known/mcp.json",
-        "GET /api/health",
-        "POST /api/session",
-        "POST /telegram/webhook"
-      ],
-      "docs": "https://api.",
-      "product_page": "/",
-      "openapi": "https://api.openapi.json",
-      "x402_manifest": "https://api.x402.json",
-      "mcp": "/mcp",
-      "check": {
-        "checked": "2026-11-14",
-        "method": "GET",
-        "result": "GET https://api..well-known/mpp.json returned 200. The origin field is still https://."
-      },
-      "rail": "/",
-      "base": "https://api."
-    },
-    {
       "slug": "plaintext",
       "name": "Plaintext board",
       "domain": "numetal.xyz",
       "former_base": "plaintext.numetal.xyz",
-      "kind": "REST \u00b7 MCP \u00b7 skill \u00b7 RSS",
+      "kind": "REST · MCP · skill · RSS",
       "status": "live",
       "as_of": "2026-11-14",
       "tags": [
@@ -247,38 +197,6 @@
       "base": "https://api.gokhanturhan.com/plaintext/"
     },
     {
-      "slug": "accumulator",
-      "name": "Accumulator waitlist + wishlist",
-      "domain": "numetal.xyz",
-      "former_base": "",
-      "kind": "JSON",
-      "status": "live",
-      "as_of": "2026-11-14",
-      "tags": [
-        "identity",
-        "reading"
-      ],
-      "protocols": [],
-      "payments": null,
-      "endpoints": [
-        "POST /api/waitlist",
-        "GET /api/wishlist",
-        "POST /api/wishlist/vote"
-      ],
-      "docs": "https://api.",
-      "product_page": "/",
-      "openapi": null,
-      "x402_manifest": null,
-      "mcp": null,
-      "check": {
-        "checked": "2026-11-14",
-        "method": "GET",
-        "result": "GET https:///api/wishlist returned 200. GET https://api.api/wishlist returned a Cloudflare challenge on 2026-11-14. POST /api/waitlist was not sent."
-      },
-      "rail": "/",
-      "base": "https://api."
-    },
-    {
       "slug": "numetal-fees",
       "name": "Numetal fees and burns",
       "domain": "numetal.xyz",
@@ -314,7 +232,7 @@
       "name": "Numetal status",
       "domain": "numetal.xyz",
       "former_base": "status.numetal.xyz",
-      "kind": "JSON \u00b7 HTML",
+      "kind": "JSON · HTML",
       "status": "degraded",
       "as_of": "2026-11-14",
       "tags": [
@@ -344,7 +262,7 @@
       "slug": "curb-agents",
       "name": "CURB harness, buyer and seller agents",
       "domain": "numetal.xyz",
-      "former_base": "harness.curb \u00b7 buyer.curb \u00b7 seller.curb .numetal.xyz",
+      "former_base": "harness.curb · buyer.curb · seller.curb .numetal.xyz",
       "kind": "HTTP agents",
       "status": "live",
       "as_of": "2026-11-14",
@@ -398,62 +316,6 @@
       }
     },
     {
-      "slug": "",
-      "name": " waitlist",
-      "domain": "numetal.xyz",
-      "former_base": "",
-      "kind": "form",
-      "status": "degraded",
-      "as_of": "2026-11-14",
-      "tags": [
-        "identity"
-      ],
-      "protocols": [],
-      "payments": null,
-      "endpoints": [
-        "waitlist form"
-      ],
-      "docs": "https://api.",
-      "product_page": "/",
-      "openapi": null,
-      "x402_manifest": null,
-      "mcp": null,
-      "check": {
-        "checked": "2026-11-14",
-        "method": "GET",
-        "result": "GET https:/// returned 200 HTML. The waitlist form was not posted."
-      }
-    },
-    {
-      "slug": "apex",
-      "name": "APEX Protocol",
-      "domain": "numetal.xyz",
-      "former_base": "",
-      "kind": "llms.txt",
-      "status": "live",
-      "as_of": "2026-11-14",
-      "tags": [
-        "agents",
-        "reading"
-      ],
-      "protocols": [],
-      "payments": null,
-      "endpoints": [
-        "GET /llms.txt",
-        "race state"
-      ],
-      "docs": "https://api.",
-      "product_page": "/",
-      "openapi": null,
-      "x402_manifest": null,
-      "mcp": null,
-      "check": {
-        "checked": "2026-11-14",
-        "method": "GET",
-        "result": "GET https:///llms.txt returned 200. GET /llms.txt returned 404."
-      }
-    },
-    {
       "slug": "assets",
       "name": "Asset host",
       "domain": "numetal.xyz",
@@ -486,7 +348,7 @@
       "name": "Estate gateway (feedhub)",
       "domain": "gokhan.vc",
       "former_base": "api.gokhan.vc",
-      "kind": "REST \u00b7 OpenAPI 3 \u00b7 RSS/JSON Feed",
+      "kind": "REST · OpenAPI 3 · RSS/JSON Feed",
       "status": "retired",
       "as_of": "2026-11-14",
       "tags": [
@@ -541,7 +403,7 @@
       "name": "Newsletter (email + XMTP)",
       "domain": "gokhan.vc",
       "former_base": "api.gokhan.vc/newsletter",
-      "kind": "REST \u00b7 HMAC links",
+      "kind": "REST · HMAC links",
       "status": "retired",
       "as_of": "2026-11-14",
       "tags": [
@@ -559,7 +421,7 @@
         "POST /newsletter/xmtp/subscribe",
         "GET /newsletter/unsubscribe",
         "POST /newsletter/unsubscribe",
-        "legacy GET/POST /subscribe \u00b7 /confirm \u00b7 /unsubscribe \u00b7 /xmtp/subscribe",
+        "legacy GET/POST /subscribe · /confirm · /unsubscribe · /xmtp/subscribe",
         "POST /webhooks/resend"
       ],
       "docs": "https://api.gokhanturhan.com/newsletter/",
@@ -651,14 +513,12 @@
     "skill",
     "hmac"
   ],
-  "note": "Calls under the published prefixes are proxied to the live workers. The HTML pages do not take a payment. Ishtar's 402 names api.gokhanturhan.com. CURB and Launch 402s still name their worker hosts. Entries without a rail are the former-domain archive.",
+  "note": "Calls under the published prefixes are proxied to the live workers. The HTML pages do not take a payment. Ishtar's 402 names api.gokhanturhan.com. CURB 402s still name their worker hosts. Entries without a rail are the former-domain archive.",
   "pages_accept_payment": false,
   "published_prefixes": [
     "/ishtar/",
     "/curb/",
-    "/",
     "/plaintext/",
-    "/",
     "/numetal/",
     "/status/"
   ]

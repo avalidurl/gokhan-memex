@@ -77,7 +77,7 @@ Dashboard-specific proxies:
 - **S&P 100** (`functions/sp100-capex-dashboard/[[path]].js`). `/sp100-capex-dashboard/data/*` is proxied to `https://sp100-financial-tracker.pages.dev` (that project’s GitHub Actions refresh the JSON on weekdays). If the upstream fetch fails or returns non-JSON, the bundled snapshot in the origin tree is served. `/sp100-capex-dashboard/api/stock-price` is answered here from Yahoo Finance, no key required.
 - **Market-cap tracker** (`functions/market-cap-tracker/api/nvidia.js`). NVIDIA’s quote comes from Alpha Vantage when `ALPHA_VANTAGE_API_KEY` is set on the Pages project, otherwise from Yahoo Finance. Results are cached for one hour. Crypto prices are fetched by the app itself from CoinGecko.
 
-Other product Functions (`functions/curb/`, `functions/ishtar/`, `functions/`, `functions/numetal/`, and so on) follow the same `originOnRequest` pattern: only API, health, MCP, feed, and similar paths are proxied; everything else is the static mount.
+Other product Functions (`functions/curb/`, `functions/ishtar/`, `functions/numetal/`, and so on) follow the same `originOnRequest` pattern: only API, health, MCP, feed, and similar paths are proxied; everything else is the static mount.
 
 ## Domain retirement
 
@@ -260,14 +260,13 @@ Public product repos this site mounts, files, or points to:
 | --- | --- |
 | [gokhan-vc/heartprefs](https://github.com/gokhan-vc/heartprefs) | HeartPrefs signed matching-intent standard |
 | [gokhan-vc/numetal-website](https://github.com/gokhan-vc/numetal-website) | Numetal studio site and fee engine |
-| [gokhan-vc/](https://github.com/gokhan-vc/) | Launch pad aggregator |
 | [avalidurl/tickerline](https://github.com/avalidurl/tickerline) | Claude Code ticker-tape status line |
 | [avalidurl/turkish-art-blob](https://github.com/avalidurl/turkish-art-blob) | Source for `/turkish-art-blob/` |
 | [avalidurl/ethereum-doomsday-tracker](https://github.com/avalidurl/ethereum-doomsday-tracker) | Source for `/ethereum-doomsday/` |
 | [avalidurl/sp100-financial-tracker](https://github.com/avalidurl/sp100-financial-tracker) | S&P 100 dashboard (data upstream for `/sp100-capex-dashboard/`) |
 | [avalidurl/market-cap-tracker](https://github.com/avalidurl/market-cap-tracker) | NVIDIA vs crypto tracker (source for `/market-cap-tracker/`) |
 
-Also public and linked from the register: [gokhan-vc/rebase](https://github.com/gokhan-vc/rebase), [avalidurl/feedhub](https://github.com/avalidurl/feedhub), [avalidurl/greek-alphabet-anki](https://github.com/avalidurl/greek-alphabet-anki).
+Also public and linked from the register: [avalidurl/feedhub](https://github.com/avalidurl/feedhub), [avalidurl/greek-alphabet-anki](https://github.com/avalidurl/greek-alphabet-anki).
 
 ## License
 

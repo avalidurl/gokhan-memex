@@ -41,7 +41,7 @@ rewrite_root = ns["rewrite_root"]
 # Extend SKIP so already-prefixed paths stay intact. ATTR_RE was compiled
 # at import from the original SKIP_PREFIX — rebuild it.
 EXTRA_SKIP = (
-    "gokhan-vc", "coins", "jesus", "", "",
+    "gokhan-vc", "coins", "jesus",
     "foreguild-fao-plan", "hypersitition",
     "turkish-art-blob", "ethereum-doomsday",
 )
@@ -234,40 +234,6 @@ def prepare_jesus():
         if not (OUT / "jesus" / f).exists():
             download(f"https://jesus.numetal.xyz/{f}", OUT / "jesus" / f)
 
-
-def prepare_llmcraft():
-    prefix, name = "/llmcraft", ""
-    html = (RAW / "sub_.html").read_text(encoding="utf-8", errors="replace")
-    html = process_html(html, prefix=prefix, name=name, canonical=f"{SITE}/")
-    # large gifs already in the media archive
-    gifs = [
-        "strike_the_earth.gif", "magma_forges.gif", "the_breach.gif",
-        "a_vile_force_of_darkness.gif", "strange_mood.gif",
-        "the_caravan_has_arrived.gif", "candy_descent.gif",
-    ]
-    mapping = {f"/gifs/{g}": f"/media/archive/{g}" for g in gifs}
-    html = relink_media(html, mapping)
-    write(OUT / "llmcraft/index.html", html)
-    for path in (
-        "style.css", "app.js", "favicon.svg",
-        "fonts/PixelifySans-var.woff2", "fonts/IBMPlexSans-var.woff2",
-    ):
-        dest = OUT / "" / path
-        if download(f"https:///{path}", dest) and path.endswith((".css", ".js")):
-            text = process_text(dest.read_text(encoding="utf-8", errors="replace"), prefix)
-            # waitlist API stays at /api/… after process_text
-            write(dest, text)
-
-
-def prepare_llmlivesmatter():
-    prefix, name = "/llmlivesmatter", ""
-    html = (RAW / "sub_.html").read_text(encoding="utf-8", errors="replace")
-    html = process_html(html, prefix=prefix, name=name, canonical=f"{SITE}/")
-    write(OUT / "llmlivesmatter/index.html", html)
-    for path in ("style.css", "app.js", "favicon.svg"):
-        dest = OUT / "" / path
-        if download(f"https:///{path}", dest) and path.endswith((".css", ".js")):
-            write(dest, process_text(dest.read_text(encoding="utf-8", errors="replace"), prefix))
 
 
 def prepare_numetal_subpages():
@@ -472,50 +438,6 @@ def prepare_ishtar_docs():
     print("  ishtar docs ingested")
 
 
-def prepare_launch_bundle():
-    """Overlay the Vite-built mini-app JS bundle onto the existing Launch origin."""
-    src = Path("/tmp/builds//packages/telegram/dist")
-    if not src.exists():
-        print("  SKIP launch bundle: vite build missing")
-        return
-    prefix, name = "/launch", "Launch"
-    # assets (already /assets/… from vite base)
-    assets = src / "assets"
-    if assets.exists():
-        for p in assets.iterdir():
-            if p.is_file():
-                copy_file(p, OUT / "launch" / "assets" / p.name)
-    for fname in ("favicon.svg", "nautilus.svg", "skill.md"):
-        if (src / fname).exists() and not (OUT / "launch" / fname).exists():
-            copy_file(src / fname, OUT / "launch" / fname)
-    # app.html — the Sign mini-app, now with the JS bundle
-    app = src / "app.html"
-    if app.exists():
-        html = app.read_text(encoding="utf-8")
-        # already uses /favicon and /assets; / is home
-        html = html.replace('href="/"', 'href="/"')
-        html = MAILBOX.sub("contact@gokhan.vc", html)
-        html = process_html(html, prefix=prefix, name=name, canonical=f"{SITE}/app/")
-        write(OUT / "launch" / "app" / "index.html", html)
-        write(OUT / "launch" / "app.html", html)
-    # Keep the Nov 9 landing (already mounted). Fix /app.html links if needed.
-    landing = OUT / "launch" / "index.html"
-    if landing.exists():
-        t = landing.read_text(encoding="utf-8")
-        t2 = t.replace('href="/app.html"', 'href="/app/"').replace("href='/app.html'", "href='/app/'")
-        t2 = t2.replace('href="/app.html"', 'href="/app/"')
-        if t2 != t:
-            write(landing, t2)
-    print("  launch mini-app bundle ingested")
-
-
-DRAFTS = [
-    ( "Onbots",),
-    ("foreguild-fao-plan", "Foreguild FAO Plan", "foreguild-fao-plan"),
-    ("hypersitition", "hypersitition", "hypersitition"),
-]
-
-
 
 def rewrite_estate_hosts(text: str) -> str:
     """Point retired hosts at their gokhanturhan.com copies."""
@@ -602,13 +524,10 @@ def main():
         ("gokhan-vc", prepare_gokhan_vc, "Gökhan Ventures"),
         # coins is not mounted: the live page is the Astro register.
         ("jesus", prepare_jesus, "Personal Jesus"),
-        ("", prepare_llmcraft, ""),
-        ("", prepare_llmlivesmatter, ""),
         ("numetal-subpages", prepare_numetal_subpages, None),
         ("curb-agents", prepare_curb_agents, None),
         ("curb-docs", prepare_curb_docs, None),
         ("ishtar-docs", prepare_ishtar_docs, None),
-        ("launch-bundle", prepare_launch_bundle, None),
         ("agentbounty", prepare_agentbounty, "AgentBounty"),
     ]
     items = []

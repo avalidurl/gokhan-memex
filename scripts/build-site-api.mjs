@@ -16,8 +16,11 @@ const academicSlug = (title) =>
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const SITE = 'https://gokhanturhan.com'
-const out = join(root, 'public/api/site')
-mkdirSync(out, { recursive: true })
+const outDirs = [join(root, 'public/api/site')]
+const distSite = join(root, 'dist/api/site')
+if (existsSync(join(root, 'dist'))) outDirs.push(distSite)
+for (const dir of outDirs) mkdirSync(dir, { recursive: true })
+const out = outDirs[0]
 
 const ENTITIES = { '&nbsp;': ' ', '&amp;': '&', '&lt;': '<', '&gt;': '>' }
 const textOf = (html) => String(html || '').replace(/<[^>]+>/g, ' ').replace(/&(?:nbsp|amp|lt|gt);/g, (m) => ENTITIES[m] || m).replace(/\s+/g, ' ').trim()
@@ -255,7 +258,8 @@ const files = {
   'openapi.json': openapi,
 }
 for (const [name, data] of Object.entries(files)) {
-  writeFileSync(join(out, name), JSON.stringify(data, null, 2) + '\n')
+  const body = JSON.stringify(data, null, 2) + '\n'
+  for (const dir of outDirs) writeFileSync(join(dir, name), body)
 }
 
 const rows = resources.filter(([slug]) => slug !== 'index').map(([slug, name, href, page]) =>
@@ -294,7 +298,7 @@ footer{margin-top:28px;border-top:1px solid var(--ink);padding-top:10px;font:12p
 <footer><p><a href="/api/">API index</a> · <a href="/sitemap-index.xml">Sitemap</a> · <a href="/robots.txt">robots.txt</a> · <a href="/llms.txt">llms.txt</a> · <a href="/api/apis.json">apis.json</a> · <a href="/api/openapi.json">openapi.json</a> · <a href="/.well-known/api-catalog">api-catalog</a></p></footer>
 </div></body></html>
 `
-writeFileSync(join(out, 'index.html'), html)
+for (const dir of outDirs) writeFileSync(join(dir, 'index.html'), html)
 
 const status = [{ href: 'https://status.gokhanturhan.com/', type: 'text/html' }]
 const spec = [{ href: `${SITE}/api/site/openapi.json`, type: 'application/json' }]
@@ -318,16 +322,19 @@ const catalog = {
     entry(`${SITE}/api/`, `${SITE}/api/`),
     entry(`${SITE}/ishtar/`, `${SITE}/api/ishtar/`),
     entry(`${SITE}/curb/`, `${SITE}/curb/docs/reference/api/`),
-    entry(`${SITE}/`, `${SITE}/`),
   ],
 }
 catalog.linkset[9]['service-desc'] = [{ href: `${SITE}/api/openapi.json`, type: 'application/json' }]
 catalog.linkset[10]['service-desc'] = [{ href: `${SITE}/ishtar/openapi.json`, type: 'application/json' }]
 catalog.linkset[11]['service-desc'] = [{ href: `${SITE}/curb/openapi.json`, type: 'application/json' }]
-catalog.linkset[12]['service-desc'] = [{ href: `${SITE}/openapi.json`, type: 'application/json' }]
 catalog.linkset[1].alternate = [{ href: `${SITE}/rss.xml`, type: 'application/rss+xml' }]
 catalog.linkset[0].describedby = [{ href: `${SITE}/llms.txt`, type: 'text/plain' }]
-writeFileSync(join(root, 'public/.well-known/api-catalog'), JSON.stringify(catalog, null, 2) + '\n')
+const catalogJson = JSON.stringify(catalog, null, 2) + '\n'
+writeFileSync(join(root, 'public/.well-known/api-catalog'), catalogJson)
+if (existsSync(join(root, 'dist'))) {
+  mkdirSync(join(root, 'dist/.well-known'), { recursive: true })
+  writeFileSync(join(root, 'dist/.well-known/api-catalog'), catalogJson)
+}
 
 const linkCount = links.sections.reduce((n, s) => n + s.groups.reduce((m, g) => m + g.links.length, 0), 0)
 const walletCount = links.wallets.reduce((n, w) => n + w.items.length, 0)
