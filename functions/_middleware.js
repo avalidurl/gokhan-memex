@@ -91,6 +91,26 @@ async function proxyRail(request, env, { host, rest, service }) {
 
 export async function onRequest(context) {
   const url = new URL(context.request.url)
+  // These product routes were removed. A stale Pages CDN object can still
+  // answer the exact URL; return a 404 here before assets are fetched.
+  const removed = [
+    '/llmcraft', '/llmlivesmatter', '/launch', '/accumulator', '/rebase',
+    '/apex', '/booster', '/api/launch', '/api/accumulator',
+    '/media/archive/gokhan-vc/launch',
+  ]
+  if (removed.some((p) => url.pathname === p || url.pathname.startsWith(`${p}/`))) {
+    const headers = { 'cache-control': 'no-store', 'cdn-cache-control': 'no-store', 'cloudflare-cdn-cache-control': 'no-store' }
+    try {
+      const notFound = await context.env.ASSETS.fetch(new Request(new URL('/404', url), context.request))
+      const out = new Headers(notFound.headers)
+      for (const [k, v] of Object.entries(headers)) out.set(k, v)
+      out.delete('content-length')
+      return new Response(notFound.body, { status: 404, statusText: 'Not Found', headers: out })
+    } catch {
+      return new Response('Not found', { status: 404, headers })
+    }
+  }
+
   // Catalog HTML stays under /api. A real API path on this host is fetched
   // from the worker that still signs the 402. ASSETS.fetch does not re-enter
   // Pages Functions, so this proxy is the rail.
