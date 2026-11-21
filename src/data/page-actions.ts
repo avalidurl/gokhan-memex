@@ -2,6 +2,8 @@
 export interface PageAction { label?: string; links: { text: string; href: string; download?: boolean }[] }
 
 export const pageActions: Record<string, PageAction[]> = {
+  '/coins/': [{ links: [{ text: 'Leaderboard →', href: '/coins/leaderboard/' }, { text: 'How to read this register →', href: '/coins/file/' }] }],
+  '/coins/leaderboard/': [{ links: [{ text: '← Back to all coins', href: '/coins/' }] }],
   '/ubu/reader/': [
     {
       label: 'Download the whole book',
@@ -14,4 +16,4 @@ export const pageActions: Record<string, PageAction[]> = {
 }
 
 /** Data pages: tables and tools get the whole width instead of the reading measure. */
-export const widePages = new Set<string>([])
+export const widePages = new Set<string>(['/coins/', '/coins/leaderboard/'])

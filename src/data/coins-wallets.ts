@@ -1,4 +1,4 @@
-/** Public wallets, listed on /links/ and in links.json. */
+/** Watched wallets: the "By" column of the coin register. Full addresses, so the lookup can match them. */
 export interface Party { id: string; label?: string; address?: string; short: string; note?: string; chain?: 'evm' | 'solana' | 'canton'; link?: string }
 
 /** Explorer links for a party: EVM wallets get Base, Robinhood Chain and Ethereum; Solana gets Solscan; Canton gets CCView. */
@@ -32,6 +32,8 @@ export const parties: Party[] = [
   { id: 'W13', label: 'Kernel 7702', address: '0xcd3Ef09Df10d2B18BF836E93d3F228f6A4C3ab9B', short: '0xcd3E…A4C3ab9B', note: 'was KERNEL' },
   { id: 'W14', label: 'Canton (Supanova)', address: 'supa1::1220fee177fe9fb494a1b8b4ff0fb6d8882b80f4d0e55df1d90a2faf821fbff6ac61', short: 'supa1::1220fee1…fbff6ac61', chain: 'canton' },
   { id: 'ZORA', label: 'Zora / Base App wallet', address: '0xD071B9c281F789F85232Aa2264d54648Ac97c1d8', short: '0xD071…97c1d8', note: 'payout of all Zora coins' },
+  { id: 'AUTH', label: 'Paragraph factory', short: 'author-side', note: 'coins minted by the Paragraph factory for his posts; no single wallet' },
   { id: 'SOL-MAIN', label: 'Solana', address: 'J1ALikLy5TZ9tqZq5zxSem5P9G4Wo6fXXWSGGjEvd9Pg', short: 'J1ALik…vd9Pg', note: 'main Solana address', chain: 'solana' },
   { id: 'SOL', label: 'Solana signer', address: '2GvLgz2ovzNkrYEzJsZ1kRovXjVQnmm7WRWFd3vFzsma', short: '2GvLgz…FzsMa', note: 'signs his StonkFun launches', chain: 'solana' },
+  { id: 'NX', label: 'numetalxyz-x', short: 'feel.cash/users/numetalxyz-x', note: 'Feel.cash account, no wallet address published', link: 'https://feel.cash/users/numetalxyz-x' },
 ]

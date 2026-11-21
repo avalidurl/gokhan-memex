@@ -14,7 +14,7 @@ const TOOLS = [
       type: "object",
       properties: {
         query: { type: "string", description: "Words to find in the title or path." },
-        kind: { type: "string", description: "Optional first path segment, such as journal, art, or publishing." },
+        kind: { type: "string", description: "Optional first path segment, such as journal, coins, art, or publishing." },
         limit: { type: "integer", minimum: 1, maximum: 50, description: "How many matches to return. Default 20." },
       },
       required: ["query"],
@@ -26,7 +26,7 @@ const TOOLS = [
     inputSchema: {
       type: "object",
       properties: {
-        path: { type: "string", description: "Site path, such as /ishtar/ or /ethereum-doomsday/." },
+        path: { type: "string", description: "Site path, such as /coins/ or /ethereum-doomsday/." },
         url: { type: "string", description: "Full https://gokhanturhan.com URL." },
       },
     },

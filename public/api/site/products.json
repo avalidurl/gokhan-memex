@@ -213,6 +213,19 @@
       "name": "Markets, research and trackers",
       "items": [
         {
+          "slug": "coins",
+          "name": "The Token Estate",
+          "line": "BIS-926: a register of 998 issuances.",
+          "url": "https://gokhanturhan.com/coins/",
+          "former": "coins.numetal.xyz",
+          "tags": [
+            "numetal",
+            "token",
+            "dashboard",
+            "leaderboard"
+          ]
+        },
+        {
           "slug": "x402-econ",
           "name": "x402-econ",
           "line": "Measuring and forecasting the machine-payments economy.",
@@ -676,6 +689,30 @@
         "Paid onchain posting",
         "Board and feed",
         "MCP server and skill"
+      ],
+      "links": []
+    },
+    {
+      "slug": "coins",
+      "name": "The Token Estate",
+      "line": "BIS-926: a register of 998 issuances.",
+      "status": "former",
+      "family": "Numetal",
+      "category": "Markets, research and trackers",
+      "former": "coins.numetal.xyz",
+      "tags": [
+        "numetal",
+        "token",
+        "dashboard",
+        "leaderboard"
+      ],
+      "url": "https://gokhanturhan.com/coins/",
+      "about": [
+        "A register and leaderboard of 998 token issuances, filed as BIS-926."
+      ],
+      "functions": [
+        "Register",
+        "Leaderboard"
       ],
       "links": []
     },
