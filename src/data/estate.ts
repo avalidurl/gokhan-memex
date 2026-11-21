@@ -1,4 +1,4 @@
-// Single source for the product register: /products/, /product-drafts/, /tools/,
+// Single source for the product register: /products/ (Projects & Products), /tools/,
 // every /[slug]/ product page, the home page lists and the redirects.
 // Former addresses are kept as plain text on purpose; they are never linked.
 
@@ -268,7 +268,8 @@ export const pageProducts = products.filter((p) => !p.external)
 export const topLevel = (s: Status) => products.filter((p) => p.status === s && !p.slug.includes('/'))
 export const bySlug = (slug: string) => products.find((p) => p.slug === slug)
 
-// ---- Drafts ----
+// ---- More projects (first published on GitHub Pages; each has its own page). ----
+// The `status` field is internal history and is not shown on the public site.
 export interface Draft {
   slug: string
   name: string
@@ -285,7 +286,7 @@ export interface Draft {
 const AV = 'https://avalidurl.github.io'
 export const drafts: Draft[] = [
   { slug: 'foreguild-fao-plan', name: 'Foreguild FAO revenue plan', line: 'A revenue operating plan; contest submission.', status: 'document', kind: 'plan', origin: 'avalidurl.github.io', href: `${AV}/foreguild-fao-plan/`, page: true },
-  { slug: 'hypersitition', name: 'hypersitition', line: 'Placeholder.', status: 'coming-soon', kind: 'concept', origin: 'avalidurl.github.io', href: `${AV}/hypersitition/`, page: true },
+  { slug: 'hypersitition', name: 'hypersitition', line: 'A terminal splash page for agent swarms.', status: 'coming-soon', kind: 'concept', origin: 'avalidurl.github.io', href: `${AV}/hypersitition/`, page: true },
   { slug: 'turkish-art-blob', name: 'Turkish Art Blob', line: 'Living sculpture and installation proposal.', status: 'draft', kind: 'art', origin: 'gokhanturhan.com', href: '/turkish-art-blob/', page: false },
   { slug: 'ethereum-doomsday', name: 'Ethereum Doomsday Tracker', line: 'Illustrative systemic-security forecast.', status: 'live-tool', kind: 'dashboard', chain: 'ethereum', origin: 'gokhanturhan.com', href: '/ethereum-doomsday/', page: false },
   { slug: 'biases-fallacies-lab', name: 'Biases & Fallacies Lab', line: 'Interactive reasoning lab.', status: 'live-tool', kind: 'interactive', origin: 'gokhanturhan.com', href: '/biases-fallacies-lab/', page: false },
@@ -470,4 +471,81 @@ export const apiTags: Record<string, string[]> = {
   xmtp: ['gokhan-ventures', 'newsletter', 'agents'],
   'x402-live': ['gokhan-ventures', 'x402', 'dashboard', 'payments', 'reading'],
   assets: ['numetal', 'infrastructure', 'files'],
+}
+
+// ---- Projects & Products: one listing, grouped by category. ----
+// Order is the site's established order: the five lead products, the rest of
+// the studio products by family, the journal product, the personal projects,
+// then the projects first published on GitHub Pages. Categories are ordered by
+// where their first item appears; items keep that order inside each category.
+export interface Category { id: string; name: string; note: string }
+export const CATEGORIES: Category[] = [
+  { id: 'art-fiction', name: 'Art and fiction', note: 'models, sculpture and art that outlives its marketplace' },
+  { id: 'dating-matching', name: 'Dating, matching and companions', note: 'agents that court, match and listen' },
+  { id: 'agent-commerce', name: 'Agent commerce and work', note: 'agents that buy, sell, settle and get paid' },
+  { id: 'onchain', name: 'Onchain boards and tokens', note: 'boards, registers and token designs' },
+  { id: 'studios', name: 'Studios', note: 'the studio and lab behind the products' },
+  { id: 'markets-research', name: 'Markets, research and trackers', note: 'dashboards, forecasts and tickers' },
+  { id: 'learning', name: 'Learning and reasoning', note: 'decks and labs for thinking better' },
+]
+export const CATEGORY_OF: Record<string, string> = {
+  ubu: 'art-fiction', reclaim: 'art-fiction', 'turkish-art-blob': 'art-fiction', hypersitition: 'art-fiction',
+  ishtar: 'dating-matching', heartprefs: 'dating-matching', jesus: 'dating-matching',
+  curb: 'agent-commerce', agentbounty: 'agent-commerce', 'foreguild-fao-plan': 'agent-commerce',
+  plaintext: 'onchain', coins: 'onchain',
+  numetal: 'studios', 'gokhan-vc': 'studios',
+  'x402-econ': 'markets-research', tickerline: 'markets-research', 'market-cap-tracker': 'markets-research', 'sp100-capex-dashboard': 'markets-research', 'ethereum-doomsday': 'markets-research',
+  'greek-alphabet-anki': 'learning', 'biases-fallacies-lab': 'learning',
+}
+
+export interface CatalogEntry {
+  slug: string
+  name: string
+  line: string
+  href: string
+  /** Former or original address, shown as plain text. */
+  former?: string
+  tags: string[]
+  category: string
+  /** Child pages shown as "also:". */
+  subs: { name: string; href: string }[]
+}
+
+const LEAD = ['ubu', 'ishtar', 'curb', 'reclaim', 'plaintext']
+const fromProduct = (p: Product): CatalogEntry => ({
+  slug: p.slug, name: p.name, line: p.line, href: `/${p.slug}/`, former: p.former, tags: p.tags,
+  category: CATEGORY_OF[p.slug],
+  subs: products.filter((c) => c.slug.startsWith(`${p.slug}/`)).map((c) => ({ name: c.name, href: `/${c.slug}/` })),
+})
+const orderedCatalog = (): CatalogEntry[] => {
+  const main = topLevel('former')
+  const lead = LEAD.map((s) => main.find((p) => p.slug === s)!).filter(Boolean)
+  const rest = main.filter((p) => !LEAD.includes(p.slug))
+  const families = [...new Set(rest.map((p) => p.family))]
+  const out: CatalogEntry[] = lead.map(fromProduct)
+  for (const fam of families) {
+    for (const p of rest.filter((x) => x.family === fam)) out.push(fromProduct(p))
+    if (fam === 'Gökhan Ventures') {
+      for (const j of journalProducts) out.push({ slug: 'x402-econ', name: j.name, line: j.line, href: j.href, tags: ['x402', 'research', 'payments'], category: CATEGORY_OF['x402-econ'], subs: [] })
+    }
+  }
+  out.push(...topLevel('current').map(fromProduct))
+  const seen = new Set(out.map((e) => e.slug))
+  for (const d of drafts) {
+    if (seen.has(d.slug)) continue
+    out.push({
+      slug: d.slug, name: d.name, line: d.line, href: d.page ? `/${d.slug}/` : d.href,
+      former: d.origin !== 'gokhanturhan.com' ? d.href.replace(/^https:\/\//, '').replace(/\/$/, '') : undefined,
+      tags: draftTags[d.slug] ?? [], category: CATEGORY_OF[d.slug], subs: [],
+    })
+  }
+  for (const e of out) if (!e.category) throw new Error(`estate: no category for ${e.slug}`)
+  return out
+}
+export const catalog: CatalogEntry[] = orderedCatalog()
+export const categoryOf = (slug: string) => CATEGORIES.find((c) => c.id === CATEGORY_OF[slug])
+/** Categories in order of their first item, each with its items in site order. */
+export const catalogByCategory = () => {
+  const order = [...new Set(catalog.map((e) => e.category))]
+  return order.map((id) => ({ ...CATEGORIES.find((c) => c.id === id)!, items: catalog.filter((e) => e.category === id) }))
 }

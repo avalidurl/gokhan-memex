@@ -1,6 +1,331 @@
 {
-  "name": "Products",
+  "name": "Projects & Products",
   "url": "https://gokhanturhan.com/products/",
+  "categories": [
+    {
+      "id": "art-fiction",
+      "name": "Art and fiction",
+      "items": [
+        {
+          "slug": "ubu",
+          "name": "UBU · CLINAMEN",
+          "line": "Design fiction from the Bureau of Imaginary Solutions: pataphysics, filed onchain.",
+          "url": "https://gokhanturhan.com/ubu/",
+          "former": "ubu.numetal.xyz",
+          "tags": [
+            "numetal",
+            "clinamen",
+            "design-fiction",
+            "models",
+            "agents",
+            "token"
+          ]
+        },
+        {
+          "slug": "reclaim",
+          "name": "Reclaim",
+          "line": "Get your art out of dead marketplaces.",
+          "url": "https://gokhanturhan.com/reclaim/",
+          "former": "reclaim.numetal.xyz",
+          "tags": [
+            "numetal",
+            "nfts",
+            "art",
+            "tool"
+          ]
+        },
+        {
+          "slug": "turkish-art-blob",
+          "name": "Turkish Art Blob",
+          "line": "Living sculpture and installation proposal.",
+          "url": "https://gokhanturhan.com/turkish-art-blob/",
+          "former": null,
+          "tags": [
+            "art",
+            "ai"
+          ]
+        },
+        {
+          "slug": "hypersitition",
+          "name": "hypersitition",
+          "line": "A terminal splash page for agent swarms.",
+          "url": "https://gokhanturhan.com/hypersitition/",
+          "former": "avalidurl.github.io/hypersitition",
+          "tags": [
+            "concept",
+            "hyperstition"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dating-matching",
+      "name": "Dating, matching and companions",
+      "items": [
+        {
+          "slug": "ishtar",
+          "name": "Ishtar",
+          "line": "An adults-only, text-only, agent-mediated dating venue.",
+          "url": "https://gokhanturhan.com/ishtar/",
+          "former": "ishtar.numetal.xyz",
+          "tags": [
+            "numetal",
+            "ishtar",
+            "agentic-dating",
+            "agents",
+            "venue",
+            "x402",
+            "mpp",
+            "mcp",
+            "base",
+            "solana",
+            "tempo"
+          ]
+        },
+        {
+          "slug": "heartprefs",
+          "name": "HeartPrefs",
+          "line": "An open, portable, signed matching-intent standard for agent-mediated matching. CC-BY-4.0.",
+          "url": "https://gokhanturhan.com/heartprefs/",
+          "former": null,
+          "tags": [
+            "numetal",
+            "heartprefs",
+            "standard",
+            "agentic-dating",
+            "identity",
+            "open-source"
+          ]
+        },
+        {
+          "slug": "jesus",
+          "name": "Personal Jesus",
+          "line": "Waitlist page.",
+          "url": "https://gokhanturhan.com/jesus/",
+          "former": "jesus.numetal.xyz",
+          "tags": [
+            "numetal",
+            "waitlist",
+            "ai"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "agent-commerce",
+      "name": "Agent commerce and work",
+      "items": [
+        {
+          "slug": "curb",
+          "name": "CURB",
+          "line": "Agent-to-agent excess inference swap, settled in USDC over x402 on Base.",
+          "url": "https://gokhanturhan.com/curb/",
+          "former": "curb.numetal.xyz",
+          "tags": [
+            "numetal",
+            "curb",
+            "inference",
+            "agents",
+            "agentic-payments",
+            "x402",
+            "usdc",
+            "base",
+            "mcp",
+            "protocol"
+          ]
+        },
+        {
+          "slug": "agentbounty",
+          "name": "AgentBounty",
+          "line": "USDC-settled bounty market on Base; the predecessor of Numetal.",
+          "url": "https://gokhanturhan.com/agentbounty/",
+          "former": "agentbounty.dev",
+          "tags": [
+            "agentbounty",
+            "bounties",
+            "agents",
+            "usdc",
+            "base",
+            "token"
+          ]
+        },
+        {
+          "slug": "foreguild-fao-plan",
+          "name": "Foreguild FAO revenue plan",
+          "line": "A revenue operating plan; contest submission.",
+          "url": "https://gokhanturhan.com/foreguild-fao-plan/",
+          "former": "avalidurl.github.io/foreguild-fao-plan",
+          "tags": [
+            "plan",
+            "agents"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "onchain",
+      "name": "Onchain boards and tokens",
+      "items": [
+        {
+          "slug": "plaintext",
+          "name": "plaintext",
+          "line": "Onchain plaintext bulletin board on Robinhood Chain.",
+          "url": "https://gokhanturhan.com/plaintext/",
+          "former": "plaintext.numetal.xyz",
+          "tags": [
+            "numetal",
+            "plaintext",
+            "board",
+            "nfts",
+            "robinhood-chain",
+            "mcp"
+          ]
+        },
+        {
+          "slug": "coins",
+          "name": "The Token Estate",
+          "line": "BIS-926: a register of 998 issuances.",
+          "url": "https://gokhanturhan.com/coins/",
+          "former": "coins.numetal.xyz",
+          "tags": [
+            "numetal",
+            "token",
+            "dashboard",
+            "leaderboard"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "studios",
+      "name": "Studios",
+      "items": [
+        {
+          "slug": "numetal",
+          "name": "Numetal",
+          "line": "Agent-accelerator studio and bureau inside Gökhan Ventures, on Base.",
+          "url": "https://gokhanturhan.com/numetal/",
+          "former": "numetal.xyz",
+          "tags": [
+            "numetal",
+            "studio",
+            "agents",
+            "token",
+            "base"
+          ]
+        },
+        {
+          "slug": "gokhan-vc",
+          "name": "Gökhan Ventures",
+          "line": "Venture studio: the umbrella over Numetal and its products.",
+          "url": "https://gokhanturhan.com/gokhan-vc/",
+          "former": "gokhan.vc",
+          "tags": [
+            "gokhan-ventures",
+            "studio"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "markets-research",
+      "name": "Markets, research and trackers",
+      "items": [
+        {
+          "slug": "x402-econ",
+          "name": "x402-econ",
+          "line": "Measuring and forecasting the machine-payments economy.",
+          "url": "https://gokhanturhan.com/journal/x402-economy-july-2026/",
+          "former": null,
+          "tags": [
+            "x402",
+            "research",
+            "payments"
+          ]
+        },
+        {
+          "slug": "tickerline",
+          "name": "tickerline",
+          "line": "A Claude Code status line that turns the terminal into a rolling ticker tape.",
+          "url": "https://gokhanturhan.com/tickerline/",
+          "former": null,
+          "tags": [
+            "tickerline",
+            "claude-code",
+            "cli",
+            "markets",
+            "open-source"
+          ]
+        },
+        {
+          "slug": "market-cap-tracker",
+          "name": "Market Cap Tracker",
+          "line": "Live market caps: NVIDIA against crypto.",
+          "url": "https://gokhanturhan.com/market-cap-tracker/",
+          "former": null,
+          "tags": [
+            "dashboard",
+            "markets",
+            "crypto",
+            "open-source"
+          ]
+        },
+        {
+          "slug": "sp100-capex-dashboard",
+          "name": "S&P 100 CapEx Dashboard",
+          "line": "Capital expenditure through the S&P 100.",
+          "url": "https://gokhanturhan.com/sp100-capex-dashboard/",
+          "former": null,
+          "tags": [
+            "dashboard",
+            "markets",
+            "open-source"
+          ]
+        },
+        {
+          "slug": "ethereum-doomsday",
+          "name": "Ethereum Doomsday Tracker",
+          "line": "Illustrative Ethereum L1 systemic-security forecast.",
+          "url": "https://gokhanturhan.com/ethereum-doomsday/",
+          "former": null,
+          "tags": [
+            "ethereum",
+            "forecasting",
+            "dashboard"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "learning",
+      "name": "Learning and reasoning",
+      "items": [
+        {
+          "slug": "greek-alphabet-anki",
+          "name": "Greek Alphabet Anki",
+          "line": "An Anki deck for the 24 Greek letters, with audio and IPA. CC0.",
+          "url": "https://gokhanturhan.com/greek-alphabet-anki/",
+          "former": null,
+          "tags": [
+            "anki",
+            "language-learning",
+            "open-source"
+          ]
+        },
+        {
+          "slug": "biases-fallacies-lab",
+          "name": "Biases & Fallacies Lab",
+          "line": "An interactive reasoning lab.",
+          "url": "https://gokhanturhan.com/biases-fallacies-lab/",
+          "former": null,
+          "tags": [
+            "reasoning",
+            "tool"
+          ]
+        }
+      ]
+    }
+  ],
   "products": [
     {
       "slug": "numetal",
@@ -8,6 +333,7 @@
       "line": "Agent-accelerator studio and bureau inside Gökhan Ventures, on Base.",
       "status": "former",
       "family": "Numetal",
+      "category": "Studios",
       "former": "numetal.xyz",
       "tags": [
         "numetal",
@@ -41,6 +367,7 @@
       "line": "Public status board for the Numetal hosts.",
       "status": "former",
       "family": "Numetal",
+      "category": "Studios",
       "former": "status.numetal.xyz",
       "tags": [
         "numetal",
@@ -63,6 +390,7 @@
       "line": "An adults-only, text-only, agent-mediated dating venue.",
       "status": "former",
       "family": "Numetal",
+      "category": "Dating, matching and companions",
       "former": "ishtar.numetal.xyz",
       "tags": [
         "numetal",
@@ -110,6 +438,7 @@
       "line": "The leaderboard for which AI model is the best date.",
       "status": "former",
       "family": "Numetal · Ishtar",
+      "category": "Dating, matching and companions",
       "former": "ishtar.numetal.xyz/heartbench",
       "tags": [
         "numetal",
@@ -135,6 +464,7 @@
       "line": "Scarce visibility board: ten slots, 24 hours each.",
       "status": "former",
       "family": "Numetal · Ishtar",
+      "category": "Dating, matching and companions",
       "former": "ishtar.numetal.xyz/window",
       "tags": [
         "numetal",
@@ -157,6 +487,7 @@
       "line": "Documentation for the Ishtar venue, API and agents.",
       "status": "former",
       "family": "Numetal · Ishtar",
+      "category": "Dating, matching and companions",
       "former": "ishtar.numetal.xyz/docs",
       "tags": [
         "numetal",
@@ -178,6 +509,7 @@
       "line": "An open, portable, signed matching-intent standard for agent-mediated matching. CC-BY-4.0.",
       "status": "former",
       "family": "Numetal",
+      "category": "Dating, matching and companions",
       "former": null,
       "tags": [
         "numetal",
@@ -205,6 +537,7 @@
       "line": "Agent-to-agent excess inference swap, settled in USDC over x402 on Base.",
       "status": "former",
       "family": "Numetal",
+      "category": "Agent commerce and work",
       "former": "curb.numetal.xyz",
       "tags": [
         "numetal",
@@ -246,6 +579,7 @@
       "line": "Demo buyer and seller agents that traded on CURB.",
       "status": "former",
       "family": "Numetal · CURB",
+      "category": "Agent commerce and work",
       "former": "harness.curb.numetal.xyz · buyer.curb.numetal.xyz · seller.curb.numetal.xyz",
       "tags": [
         "numetal",
@@ -270,6 +604,7 @@
       "line": "Design fiction from the Bureau of Imaginary Solutions: pataphysics, filed onchain.",
       "status": "former",
       "family": "Numetal",
+      "category": "Art and fiction",
       "former": "ubu.numetal.xyz",
       "tags": [
         "numetal",
@@ -317,6 +652,7 @@
       "line": "Get your art out of dead marketplaces.",
       "status": "former",
       "family": "Numetal",
+      "category": "Art and fiction",
       "former": "reclaim.numetal.xyz",
       "tags": [
         "numetal",
@@ -341,6 +677,7 @@
       "line": "Onchain plaintext bulletin board on Robinhood Chain.",
       "status": "former",
       "family": "Numetal",
+      "category": "Onchain boards and tokens",
       "former": "plaintext.numetal.xyz",
       "tags": [
         "numetal",
@@ -367,6 +704,7 @@
       "line": "BIS-926: a register of 998 issuances.",
       "status": "former",
       "family": "Numetal",
+      "category": "Onchain boards and tokens",
       "former": "coins.numetal.xyz",
       "tags": [
         "numetal",
@@ -390,6 +728,7 @@
       "line": "Waitlist page.",
       "status": "former",
       "family": "Numetal",
+      "category": "Dating, matching and companions",
       "former": "jesus.numetal.xyz",
       "tags": [
         "numetal",
@@ -411,6 +750,7 @@
       "line": "Venture studio: the umbrella over Numetal and its products.",
       "status": "former",
       "family": "Gökhan Ventures",
+      "category": "Studios",
       "former": "gokhan.vc",
       "tags": [
         "gokhan-ventures",
@@ -438,6 +778,7 @@
       "line": "A feed and newsletter gateway. The service is offline. The source is public to fork.",
       "status": "former",
       "family": "Gökhan Ventures",
+      "category": "Studios",
       "former": "api.gokhan.vc",
       "tags": [
         "gokhan-ventures",
@@ -466,6 +807,7 @@
       "line": "USDC-settled bounty market on Base; the predecessor of Numetal.",
       "status": "former",
       "family": "Predecessor",
+      "category": "Agent commerce and work",
       "former": "agentbounty.dev",
       "tags": [
         "agentbounty",
@@ -493,6 +835,7 @@
       "line": "A Claude Code status line that turns the terminal into a rolling ticker tape.",
       "status": "current",
       "family": "Personal",
+      "category": "Markets, research and trackers",
       "former": null,
       "tags": [
         "tickerline",
@@ -521,6 +864,7 @@
       "line": "Live market caps: NVIDIA against crypto.",
       "status": "current",
       "family": "Personal",
+      "category": "Markets, research and trackers",
       "former": null,
       "tags": [
         "dashboard",
@@ -548,6 +892,7 @@
       "line": "Capital expenditure through the S&P 100.",
       "status": "current",
       "family": "Personal",
+      "category": "Markets, research and trackers",
       "former": null,
       "tags": [
         "dashboard",
@@ -574,6 +919,7 @@
       "line": "An Anki deck for the 24 Greek letters, with audio and IPA. CC0.",
       "status": "current",
       "family": "Personal",
+      "category": "Learning and reasoning",
       "former": null,
       "tags": [
         "anki",
@@ -600,6 +946,7 @@
       "line": "An interactive reasoning lab.",
       "status": "current",
       "family": "Personal",
+      "category": "Learning and reasoning",
       "former": null,
       "tags": [
         "reasoning",
@@ -616,6 +963,7 @@
       "line": "Living sculpture and installation proposal.",
       "status": "current",
       "family": "Personal",
+      "category": "Art and fiction",
       "former": null,
       "tags": [
         "art",
@@ -632,6 +980,7 @@
       "line": "Illustrative Ethereum L1 systemic-security forecast.",
       "status": "current",
       "family": "Personal",
+      "category": "Markets, research and trackers",
       "former": null,
       "tags": [
         "ethereum",
@@ -639,6 +988,40 @@
         "dashboard"
       ],
       "url": "https://gokhanturhan.com/ethereum-doomsday/",
+      "about": [],
+      "functions": [],
+      "links": []
+    },
+    {
+      "slug": "foreguild-fao-plan",
+      "name": "Foreguild FAO revenue plan",
+      "line": "A revenue operating plan; contest submission.",
+      "status": "current",
+      "family": null,
+      "category": "Agent commerce and work",
+      "former": "avalidurl.github.io/foreguild-fao-plan",
+      "tags": [
+        "plan",
+        "agents"
+      ],
+      "url": "https://gokhanturhan.com/foreguild-fao-plan/",
+      "about": [],
+      "functions": [],
+      "links": []
+    },
+    {
+      "slug": "hypersitition",
+      "name": "hypersitition",
+      "line": "A terminal splash page for agent swarms.",
+      "status": "current",
+      "family": null,
+      "category": "Art and fiction",
+      "former": "avalidurl.github.io/hypersitition",
+      "tags": [
+        "concept",
+        "hyperstition"
+      ],
+      "url": "https://gokhanturhan.com/hypersitition/",
       "about": [],
       "functions": [],
       "links": []

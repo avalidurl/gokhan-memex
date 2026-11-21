@@ -1,7 +1,7 @@
 /** llms.txt and llms-full.txt (llmstxt.org format), built from the same data as the site. */
 import { getCollection } from 'astro:content'
 import { entrySlug } from '@/lib/entry-slug'
-import { products, topLevel, drafts, tools, apis } from '@/data/estate'
+import { products, topLevel, catalogByCategory, tools, apis } from '@/data/estate'
 import { works } from '@/data/works'
 import { cvMarkdown } from '@/lib/cv-md'
 import { plainPostTitle } from '@/lib/utils'
@@ -23,7 +23,7 @@ function head(): string[] {
     '',
     '> Personal site of Gökhan Turhan: founder, researcher and conceptual artist. Products (UBU · CLINAMEN, Ishtar, CURB, Reclaim, plaintext and more), the journal, publishing and CV, all under gokhanturhan.com.',
     '',
-    'Every product, draft and work has its own page at gokhanturhan.com/<slug>/. Former product hosts (numetal.xyz, gokhan.vc, agentbounty.dev and their subdomains) redirect here; their addresses appear only as "former address" on each page.',
+    'Every project, product and work has its own page at gokhanturhan.com/<slug>/. Former product hosts (numetal.xyz, gokhan.vc, agentbounty.dev and their subdomains) redirect here; their addresses appear only as "former address" on each page.',
     '',
   ]
 }
@@ -35,7 +35,7 @@ function core(): string[] {
     '## Start here',
     '',
     `- [Home](${SITE}/): index of products, journal and CV`,
-    `- [Products](${SITE}/products/): main products first, then families, then hobby projects`,
+    `- [Projects & Products](${SITE}/products/): every project and product, grouped by category`,
     `- [Journal](${SITE}/journal/): essays and notes; RSS at ${SITE}/rss.xml`,
     `- [CV (Markdown)](${SITE}/cv.md): the CV for agents; HTML at ${SITE}/cv/, PDF at ${SITE}/cv/Gokhan_Turhan_CV.pdf`,
     `- [About](${SITE}/about/)`,
@@ -49,9 +49,9 @@ function core(): string[] {
     ...rest.map((p) => `- [${p.name}](${SITE}/${p.slug}/): ${p.line}`),
     ...topLevel('former').map((p) => `- [${p.name}](${SITE}/${p.slug}/): ${p.line} (archived)`),
     '',
-    '## Drafts and experiments',
+    '## Projects & Products by category',
     '',
-    ...drafts.map((d) => `- [${d.name}](${SITE}/${d.slug}/): ${d.line} (${d.status})`),
+    ...catalogByCategory().flatMap((c) => [`- ${c.name}: ${c.items.map((e) => `[${e.name}](${e.href.startsWith('/') ? SITE + e.href : e.href})`).join(', ')}`]),
     '',
     '## Publishing',
     '',

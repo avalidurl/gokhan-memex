@@ -4,7 +4,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 import PageHead from '@/components/PageHead.astro'
 import Tags from '@/components/Tags.astro'
 import { tagIndex, total, type TagBucket } from '@/lib/tags'
-import { draftTags, toolTags, apiTags, API_INDEX } from '@/data/estate'
+import { toolTags, apiTags, API_INDEX } from '@/data/estate'
 
 export async function getStaticPaths() {
   const idx = await tagIndex()
@@ -19,18 +19,18 @@ const groupLabel: Record<string, string> = { family: 'Family', domain: 'Domain',
 
 <BaseLayout
   title={`${b.label} · Tag`}
-  description={`Everything tagged ${b.label}: ${n} item${n === 1 ? '' : 's'} across products, journal posts, drafts, tools and APIs.`}
+  description={`Everything tagged ${b.label}: ${n} item${n === 1 ? '' : 's'} across projects and products, journal posts, tools and APIs.`}
 >
   <div class="es">
     <PageHead crumbs={[{ label: 'Archive', href: '/archive/' }, { label: 'Tags', href: '/archive/tags/' }, { label: b.def ? groupLabel[b.def.group] : 'Journal tag' }]} title={b.label} lead={b.def?.note} count={`${n} item${n === 1 ? '' : 's'}`} />
 
     {b.projects.length > 0 && (
-      <details class="cx fold" aria-label="Products" open>
-        <summary class="cx-h"><b>Products</b><span>by family</span><em>{pad(b.projects.length)}</em></summary>
+      <details class="cx fold" aria-label="Projects and products" open>
+        <summary class="cx-h"><b>Projects &amp; Products</b><span>by category</span><em>{pad(b.projects.length)}</em></summary>
         {b.projects.map((p) => (
           <div class="cx-r">
-            <span>{p.family}</span>
-            <span><a class="nm" href={`/${p.slug}/`}>{p.name}</a> — {p.line}<br /><Tags tags={p.tags} current={b.slug} /></span>
+            <span>{p.group}</span>
+            <span><a class="nm" href={p.href}>{p.name}</a> — {p.line}<br /><Tags tags={p.tags} current={b.slug} /></span>
           </div>
         ))}
       </details>
@@ -55,18 +55,6 @@ const groupLabel: Record<string, string> = { family: 'Family', domain: 'Domain',
           <div class="cx-r">
             <span>{w.year} · {w.kind}</span>
             <span><a class="nm" href={w.href}>{w.title}</a> — {w.line}<br /><Tags tags={w.tags} current={b.slug} /></span>
-          </div>
-        ))}
-      </details>
-    )}
-
-    {b.drafts.length > 0 && (
-      <details class="cx fold draft" aria-label="Product drafts" open>
-        <summary class="cx-h"><b>Product drafts</b><span>experiments and small tools</span><em>{pad(b.drafts.length)}</em></summary>
-        {b.drafts.map((d) => (
-          <div class="cx-r">
-            <span>{d.origin}</span>
-            <span><a class="nm" href={d.page ? `/${d.slug}/` : d.href}>{d.name}</a> — {d.line}<br /><Tags tags={draftTags[d.slug] ?? []} current={b.slug} /></span>
           </div>
         ))}
       </details>

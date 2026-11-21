@@ -31,7 +31,7 @@ export const guides: Guide[] = [
       'Open the <a href="/">home page</a>. It is a register: one boxed section each for products, new work and the latest journal posts. Every name in a box opens that item’s own page; CV, Journal, Publishing, Raises and Agents each have their own page in the top bar.',
       'Go to <a href="/products/">Products</a>. The five main products come first: <a href="/ubu/">UBU</a>, <a href="/ishtar/">Ishtar</a>, <a href="/curb/">CURB</a>, <a href="/reclaim/">Reclaim</a> and <a href="/plaintext/">plaintext</a>. Product families follow, and hobby projects come last.',
       'Open <a href="/ubu/">UBU</a>. Open the File strip under the title to see its address, its former address (plain text), its models and datasets. The <a href="/ubu/reader/">Bureau Reader</a> is linked under Read, and the whole book downloads from the reader page as one PDF or EPUB.',
-      'Click a tag chip, for example <a href="/archive/tags/agents/">agents</a>. A tag page gathers products, journal posts, drafts, tools and APIs that share it.',
+      'Click a tag chip, for example <a href="/archive/tags/agents/">agents</a>. A tag page gathers projects and products, journal posts, tools and APIs that share it.',
       'Open the <a href="/journal/">Journal</a> and read one post. The subscribe box is at the top of the journal and at the end of every post.',
       'Finish on the <a href="/cv/">CV</a>. The PDF button is at the top, and <a href="/cv.md">cv.md</a> is the same CV as Markdown.',
     ],
@@ -41,7 +41,7 @@ export const guides: Guide[] = [
     slug: 'first-agent-read', quad: 'tutorials', title: 'Your first agent read',
     lead: 'Point an agent or a script at the plain-text files this site publishes for machines. Everything here is a static file; nothing needs a key.',
     steps: [
-      'Fetch the summary: <code>curl https://gokhanturhan.com/llms.txt</code>. It lists the main products, drafts, publishing, the API index and recent posts, each with a link. <a href="/llms.txt">Open llms.txt</a>.',
+      'Fetch the summary: <code>curl https://gokhanturhan.com/llms.txt</code>. It lists the main products, every project by category, publishing, the API index and recent posts, each with a link. <a href="/llms.txt">Open llms.txt</a>.',
       'For the long version, fetch <a href="/llms-full.txt">llms-full.txt</a>. It adds product notes, every journal post with its description, and the whole CV.',
       'Read the CV as Markdown: <code>curl https://gokhanturhan.com/cv.md</code> (<a href="/cv.md">cv.md</a>). <a href="/cv.json">cv.json</a> holds the same data as JSON.',
       'Read the API register: <a href="/api/apis.json">apis.json</a> lists the published rails first (/ishtar, /curb, /plaintext, /numetal, /status on api.gokhanturhan.com), then the former-domain archive. The index pages do not take a payment. Do not pay a retired endpoint. A 402 on a live rail is the worker challenge. The Ishtar challenge names api.gokhanturhan.com. CURB challenges still name their worker hosts.',
@@ -90,10 +90,10 @@ export const guides: Guide[] = [
   },
   {
     slug: 'find-an-old-project', quad: 'how-to', title: 'Find an old project',
-    lead: 'Every product, draft and experiment now has a page under gokhanturhan.com, even if you knew it by an older address.',
+    lead: 'Every project and product now has a page under gokhanturhan.com, even if you knew it by an older address.',
     steps: [
       'Open <a href="/products/">Products</a> and search the page (Ctrl+F or ⌘F) for the old name or the old address. Each row shows the new address and, in italics, the former one.',
-      'Not there? Try <a href="/product-drafts/">Drafts</a>. Experiments first published on GitHub Pages are listed there, each with its own page.',
+      'Not there? Try <a href="/products/">Projects &amp; Products</a>. Projects first published on GitHub Pages are listed there too, each with its own page.',
       'Know the topic but not the name? Open <a href="/archive/tags/">Tags</a> and pick one, for example <a href="/archive/tags/agents/">agents</a> or <a href="/archive/tags/token/">token</a>.',
       'Looking for an API rather than a page? The <a href="/api/">API index</a> lists each interface with its former base and a link to its product page.',
       'On a product page, the File strip under the title gives the address to use from now on. Use that link when you cite or share it.',
@@ -163,14 +163,13 @@ export const guides: Guide[] = [
   },
   {
     slug: 'how-products-are-organised', quad: 'explanation', title: 'How the products are organised',
-    lead: 'Products, drafts, tools and APIs are four lists from one register, joined by shared tags.',
+    lead: 'Projects and products, tools and APIs are three lists from one register, joined by shared tags.',
     steps: [
-      '<a href="/products/">Products</a> opens with the five main products (UBU, Ishtar, CURB, Reclaim, plaintext), then the families they belong to (Numetal, Gökhan Ventures and others), then hobby and personal projects such as dashboards and decks.',
-      '<a href="/product-drafts/">Drafts</a> are experiments and early pages that never became products. Each still has its own page with what it was.',
+      '<a href="/products/">Projects &amp; Products</a> is one page for everything built, in one order and grouped by category: art and fiction, dating and matching, agent commerce, onchain boards and tokens, studios, markets and research, and learning tools. Each item has its own page.',
       '<a href="/tools/">Tools</a> are private and described only. The <a href="/api/">API index</a> documents the interfaces the products exposed.',
-      'Tags cut across all four lists. A tag such as <a href="/archive/tags/agents/">agents</a> shows every product, post, draft, tool and API that carries it.',
+      'Tags cut across all three lists. A tag such as <a href="/archive/tags/agents/">agents</a> shows every project, post, tool and API that carries it.',
     ],
-    next: [{ label: 'Products', href: '/products/' }, { label: 'Tags', href: '/archive/tags/' }],
+    next: [{ label: 'Projects & Products', href: '/products/' }, { label: 'Tags', href: '/archive/tags/' }],
   },
   {
     slug: 'why-addresses-moved', quad: 'explanation', title: 'Why addresses moved',
@@ -200,8 +199,7 @@ export const guides: Guide[] = [
     lead: 'Every top-level section and what it holds.',
     rows: [
       ['Home', '<a href="/">/</a> — the register: products, journal, publishing, CV'],
-      ['Products', '<a href="/products/">/products/</a> — main products, families, hobby projects'],
-      ['Drafts', '<a href="/product-drafts/">/product-drafts/</a> — experiments and early pages'],
+      ['Projects & Products', '<a href="/products/">/products/</a> — every project and product, by category'],
       ['Journal', '<a href="/journal/">/journal/</a> — every post, newest first'],
       ['Publishing', '<a href="/publishing/">/publishing/</a> — e-books, academic, experimental'],
       ['CV', '<a href="/cv/">/cv/</a> — with PDF, Markdown and JSON'],

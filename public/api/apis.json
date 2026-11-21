@@ -27,7 +27,6 @@
         "GET /api/site/journal.json",
         "GET /api/site/cv.json",
         "GET /api/site/products.json",
-        "GET /api/site/drafts.json",
         "GET /api/site/about.json",
         "GET /api/site/links.json",
         "GET /api/site/publishing.json",
@@ -39,7 +38,7 @@
       "check": {
         "checked": "2026-11-18",
         "method": "GET",
-        "result": "Read-only JSON and a read-only MCP for the journal, CV, products, drafts, about, links, and publishing."
+        "result": "Read-only JSON and a read-only MCP for the journal, CV, projects and products, about, links, and publishing."
       },
       "rail": "/api/site/",
       "base": "https://gokhanturhan.com/api/site/"

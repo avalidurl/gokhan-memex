@@ -93,11 +93,11 @@ check ishtar_privacy    "https://gokhanturhan.com/ishtar/docs/legal/privacy-poli
 check file_numetal      "https://gokhanturhan.com/numetal/file/"       200
 check file_ubu          "https://gokhanturhan.com/ubu/file/"           200
 check file_gokhan_vc    "https://gokhanturhan.com/gokhan-vc/file/"     200
-check drafts_index      "https://gokhanturhan.com/product-drafts/"     200 'name="robots" content="index, follow'
-check_absent drafts_noindex_gone "https://gokhanturhan.com/product-drafts/" 200 "noindex"
-check sitemap_drafts    "https://gokhanturhan.com/sitemap-0.xml"       200 "gokhanturhan.com/product-drafts/"
+check products_index    "https://gokhanturhan.com/products/"           200 "Projects &amp; Products"
+check drafts_redirect   "https://gokhanturhan.com/product-drafts/"     301 "/products/"
+check sitemap_products  "https://gokhanturhan.com/sitemap-0.xml"       200 "gokhanturhan.com/products/"
 check robots_txt        "https://gokhanturhan.com/robots.txt"          200 "Sitemap: https://gokhanturhan.com/sitemap-index.xml"
-check_absent robots_no_drafts_disallow "https://gokhanturhan.com/robots.txt" 200 "Disallow:"
+check_absent robots_no_disallow "https://gokhanturhan.com/robots.txt" 200 "Disallow:"
 
 echo "== product APIs =="
 check numetal_fees        "https://gokhanturhan.com/numetal/fees/data"    200 '"price"'

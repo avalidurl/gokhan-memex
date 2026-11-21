@@ -8,7 +8,7 @@ import CoinsRegister from '@/components/coins/CoinsRegister.astro'
 import CoinsLeaderboard from '@/components/coins/CoinsLeaderboard.astro'
 import CoinsFileGuide from '@/components/coins/CoinsFileGuide.astro'
 import { pageActions, widePages } from '@/data/page-actions'
-import { pageProducts, drafts, draftTags, bySlug, products, type Product, type Draft } from '@/data/estate'
+import { pageProducts, drafts, draftTags, bySlug, products, catalog, categoryOf, type Product, type Draft } from '@/data/estate'
 import { isOriginSlug } from '@/data/origins'
 import manifest from '@/archive/manifest.json'
 import draftManifest from '@/archive/drafts/manifest.json'
@@ -232,26 +232,25 @@ const children = p && isProduct ? products.filter((c) => c.slug.startsWith(`${p.
 
     {d && (
       <>
-        <PageHead crumbs={[{ label: 'Product drafts', href: '/product-drafts/' }, { label: d.status }]} title={isFile ? `${d.name} · Bureau file` : d.name} lead={DM[d.slug]?.description || d.line} tags={draftTags[d.slug] ?? []} variant="draft" />
+        <PageHead crumbs={[{ label: 'Projects & Products', href: '/products/' }, { label: categoryOf(d.slug)?.name ?? d.kind }]} title={isFile ? `${d.name} · Bureau file` : d.name} lead={DM[d.slug]?.description || d.line} tags={draftTags[d.slug] ?? []} variant="draft" />
         {isFile && (
           <p class="lead" style="margin:0 0 1rem">This is the Bureau file. <a href={`/${d.slug}/`}>Open the original {d.name} site</a>.</p>
         )}
         <div class="pstrip">
           <details class="cx fold pfile draft">
-            <summary class="cx-h"><b>File</b><span class="pf-sum">gokhanturhan.com/{d.slug}/ · {d.status} · {d.kind}</span></summary>
+            <summary class="cx-h"><b>File</b><span class="pf-sum">gokhanturhan.com/{d.slug}/ · {d.kind}</span></summary>
             <div class="pf-g">
               <section class="pf-c" aria-label="Facts">
                 <h2 class="pf-t">Facts</h2>
                 <div class="cx-r"><span>Address</span><span><a href={`/${d.slug}/`}>gokhanturhan.com/{d.slug}/</a></span></div>
                 {d.origin !== 'gokhanturhan.com' && <div class="cx-r"><span>Original</span><span class="former">{d.href.replace('https://', '')}</span></div>}
-                <div class="cx-r"><span>Status</span><span>{d.status}</span></div>
                 <div class="cx-r"><span>Kind</span><span>{d.kind}</span></div>
                 {d.chain && <div class="cx-r"><span>Chain</span><span>{d.chain}</span></div>}
               </section>
-              <section class="pf-c" aria-label="Other drafts">
-                <h2 class="pf-t">Other drafts</h2>
+              <section class="pf-c" aria-label="More in this category">
+                <h2 class="pf-t">More in {categoryOf(d.slug)?.name ?? 'Projects & Products'}</h2>
                 <nav class="sitemap">
-                  {drafts.filter((x) => x.page && x.slug !== d.slug).map((x) => <a href={`/${x.slug}/`}>{x.name}</a>)}
+                  {catalog.filter((x) => x.category === categoryOf(d.slug)?.id && x.slug !== d.slug).map((x) => <a href={x.href}>{x.name}</a>)}
                 </nav>
               </section>
             </div>

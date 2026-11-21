@@ -54,8 +54,7 @@ const nav = [
   { name: 'CV', href: '/cv/', on: path.startsWith('/cv') },
   { name: 'Index', href: '/', on: path === '/', hover: 'Home' },
   { name: 'Journal', href: '/journal/', on: path.startsWith('/journal') || path.startsWith('/archive') || path.startsWith('/writing') },
-  { name: 'Products', href: '/products/', on: path.startsWith('/products') },
-  { name: 'Drafts', href: '/product-drafts/', on: path.startsWith('/product-drafts') },
+  { name: 'Projects & Products', href: '/products/', on: path.startsWith('/products') },
   { name: 'Publishing', href: '/publishing/', on: path.startsWith('/publishing') },
   { name: 'Raises', href: '/raises/', on: path.startsWith('/raises') },
   { name: 'Agents', href: '/agents/', on: path.startsWith('/agents') },
@@ -71,7 +70,6 @@ const docMap: Record<string, string> = {
   writing: 'MX-030',
   publishing: 'MX-040',
   products: 'MX-050',
-  'product-drafts': 'MX-051',
   tools: 'MX-052',
   about: 'MX-002',
   art: 'MX-060',
@@ -301,7 +299,7 @@ const tableDeskVersion = createHash('sha256')
           </span></div>
           <div class="cx-r"><span>Site</span><span class="reg-fine">
             <a href="/about/">About</a><span class="reg-dot">/</span>
-            <a href="/product-drafts/">Drafts</a><span class="reg-dot">/</span>
+            <a href="/products/">Projects &amp; Products</a><span class="reg-dot">/</span>
             <a href="/archive/tags/">Tags</a><span class="reg-dot">/</span>
             <a href="/tools/">Tools</a><span class="reg-dot">/</span>
             <a href="/api/">APIs</a><span class="reg-dot">/</span>

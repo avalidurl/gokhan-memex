@@ -106,7 +106,6 @@ const catalog = {
     api(`${SITE}/api/site/journal.json`, `${SITE}/journal/`),
     api(`${SITE}/api/site/cv.json`, `${SITE}/cv/`),
     api(`${SITE}/api/site/products.json`, `${SITE}/products/`),
-    api(`${SITE}/api/site/drafts.json`, `${SITE}/product-drafts/`),
     api(`${SITE}/api/site/about.json`, `${SITE}/about/`),
     api(`${SITE}/api/site/links.json`, `${SITE}/links/`),
     api(`${SITE}/api/site/publishing.json`, `${SITE}/publishing/`),

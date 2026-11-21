@@ -61,7 +61,7 @@ const TOOLS = [
   },
   {
     name: "list_products",
-    description: "List public products and drafts on gokhanturhan.com.",
+    description: "List the public projects and products on gokhanturhan.com, with their category.",
     inputSchema: {
       type: "object",
       properties: {
@@ -251,22 +251,17 @@ async function callTool(env, name, args) {
   if (name === "get_cv") return pack(await load(env, "/api/site/cv.json"))
   if (name === "list_products") {
     const doc = await load(env, "/api/site/products.json")
-    const drafts = await load(env, "/api/site/drafts.json")
     const query = input.query
-    const take = (item) => !words(query).length || matches(query, item.name, item.line, item.slug, item.status)
+    const take = (item) => !words(query).length || matches(query, item.name, item.line, item.slug, item.category)
     const products = (doc.products || []).filter(take).slice(0, limitOf(input.limit)).map((item) => ({
-      slug: item.slug, name: item.name, line: item.line, status: item.status, url: item.url,
+      slug: item.slug, name: item.name, line: item.line, category: item.category, url: item.url,
     }))
-    const draftHits = (drafts.drafts || []).filter(take).map((item) => ({
-      slug: item.slug, name: item.name, line: item.line, status: item.status || "draft", url: item.url,
-    }))
-    return pack({ products, drafts: draftHits })
+    return pack({ products })
   }
   if (name === "get_product") {
     const slug = String(input.slug || "")
     const doc = await load(env, "/api/site/products.json")
-    const drafts = await load(env, "/api/site/drafts.json")
-    const product = (doc.products || []).find((item) => item.slug === slug) || (drafts.drafts || []).find((item) => item.slug === slug)
+    const product = (doc.products || []).find((item) => item.slug === slug)
     if (!product) return toolError("No product with that slug.")
     return pack(product)
   }

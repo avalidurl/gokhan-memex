@@ -280,7 +280,6 @@ function sectionOf(route) {
     writing: 'Writing',
     publishing: 'Publishing',
     products: 'Products',
-    'product-drafts': 'Drafts',
     tools: 'Tools',
     about: 'About',
     art: 'Art',

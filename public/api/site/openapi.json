@@ -3,7 +3,7 @@
   "info": {
     "title": "Gökhan Turhan site content",
     "version": "2026-11-18",
-    "description": "Read-only JSON for the public site. Journal posts, the CV, the product index, drafts, the about guides, every public link, and publishing. No payment. Contact: contact@gokhan.vc.",
+    "description": "Read-only JSON for the public site. Journal posts, the CV, the projects and products index, the about guides, every public link, and publishing. No payment. Contact: contact@gokhan.vc.",
     "contact": {
       "email": "contact@gokhan.vc",
       "url": "https://gokhanturhan.com/"
@@ -54,19 +54,7 @@
     "/api/site/products.json": {
       "get": {
         "operationId": "site_products_get",
-        "summary": "Products",
-        "responses": {
-          "200": {
-            "description": "JSON"
-          }
-        },
-        "security": []
-      }
-    },
-    "/api/site/drafts.json": {
-      "get": {
-        "operationId": "site_drafts_get",
-        "summary": "Drafts",
+        "summary": "Projects & Products",
         "responses": {
           "200": {
             "description": "JSON"

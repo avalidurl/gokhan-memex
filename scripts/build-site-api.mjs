@@ -5,7 +5,7 @@
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, cpSync, existsSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { products, drafts, journalProducts } from '../src/data/estate.ts'
+import { products, journalProducts, catalog as estateCatalog, CATEGORIES, CATEGORY_OF } from '../src/data/estate.ts'
 import { guides, QUADS } from '../src/data/guides.ts'
 import { ebooks } from '../src/data/ebooks.ts'
 import { academicPublications, experimentalWorks } from '../src/data/publishing.ts'
@@ -80,6 +80,7 @@ const productOf = (p) => ({
   line: p.line,
   status: p.status,
   family: p.family,
+  category: CATEGORIES.find((c) => c.id === CATEGORY_OF[p.slug.split('/')[0]])?.name || null,
   former: p.former || null,
   tags: p.tags,
   url: `${SITE}/${p.slug}/`,
@@ -88,23 +89,27 @@ const productOf = (p) => ({
   links: (p.links || []).map((l) => ({ label: l.label, href: abs(l.href) })).filter((l) => l.href),
 })
 
+// Projects & Products: every listed item, grouped by category in site order,
+// plus full records for the products that carry about/functions/links.
+const productSlugs = new Set(products.map((p) => p.slug))
+const categoryName = (id) => CATEGORIES.find((c) => c.id === id)?.name || null
 const productsJson = {
-  name: 'Products',
+  name: 'Projects & Products',
   url: `${SITE}/products/`,
-  products: products.filter((p) => !p.noindex).map(productOf),
+  categories: [...new Set(estateCatalog.map((e) => e.category))].map((id) => ({
+    id,
+    name: categoryName(id),
+    items: estateCatalog.filter((e) => e.category === id).map((e) => ({ slug: e.slug, name: e.name, line: e.line, url: abs(e.href), former: e.former || null, tags: e.tags })),
+  })),
+  products: [
+    ...products.filter((p) => !p.noindex).map(productOf),
+    ...estateCatalog.filter((e) => !productSlugs.has(e.slug) && !e.href.startsWith('/journal/')).map((e) => ({
+      slug: e.slug, name: e.name, line: e.line, status: 'current', family: null, category: categoryName(e.category),
+      former: e.former || null, tags: e.tags, url: abs(e.href), about: [], functions: [], links: [],
+    })),
+  ],
   journal_products: journalProducts.map((p) => ({ name: p.name, line: p.line, url: abs(p.href) })),
 }
-
-const draftsJson = drafts.map((d) => ({
-  slug: d.slug,
-  name: d.name,
-  line: d.line,
-  status: d.status,
-  kind: d.kind,
-  chain: d.chain || null,
-  url: abs(d.href),
-  page: d.page,
-}))
 
 const about = {
   name: 'About',
@@ -203,8 +208,7 @@ const resources = [
   ['index', 'Index', `${SITE}/api/site/index.json`, `${SITE}/api/`],
   ['journal', 'Journal', `${SITE}/api/site/journal.json`, `${SITE}/journal/`],
   ['cv', 'CV', `${SITE}/api/site/cv.json`, `${SITE}/cv/`],
-  ['products', 'Products', `${SITE}/api/site/products.json`, `${SITE}/products/`],
-  ['drafts', 'Drafts', `${SITE}/api/site/drafts.json`, `${SITE}/product-drafts/`],
+  ['products', 'Projects & Products', `${SITE}/api/site/products.json`, `${SITE}/products/`],
   ['about', 'About', `${SITE}/api/site/about.json`, `${SITE}/about/`],
   ['links', 'Links', `${SITE}/api/site/links.json`, `${SITE}/links/`],
   ['publishing', 'Publishing', `${SITE}/api/site/publishing.json`, `${SITE}/publishing/`],
@@ -212,7 +216,7 @@ const resources = [
 
 const index = {
   name: 'Gökhan Turhan — site content',
-  description: 'Read-only JSON for the public site: journal, CV, products, drafts, about, links, and publishing.',
+  description: 'Read-only JSON for the public site: journal, CV, projects and products, about, links, and publishing.',
   docs: `${SITE}/api/site/`,
   openapi: `${SITE}/api/site/openapi.json`,
   page: `${SITE}/`,
@@ -224,7 +228,7 @@ const openapi = {
   info: {
     title: 'Gökhan Turhan site content',
     version: '2026-11-18',
-    description: 'Read-only JSON for the public site. Journal posts, the CV, the product index, drafts, the about guides, every public link, and publishing. No payment. Contact: contact@gokhan.vc.',
+    description: 'Read-only JSON for the public site. Journal posts, the CV, the projects and products index, the about guides, every public link, and publishing. No payment. Contact: contact@gokhan.vc.',
     contact: { email: 'contact@gokhan.vc', url: `${SITE}/` },
   },
   servers: [{ url: SITE }],
@@ -251,7 +255,6 @@ const files = {
   'journal.json': { name: 'Journal', url: `${SITE}/journal/`, rss: `${SITE}/rss.xml`, count: journal.length, posts: journal },
   'cv.json': cv,
   'products.json': productsJson,
-  'drafts.json': { name: 'Drafts', url: `${SITE}/product-drafts/`, drafts: draftsJson },
   'about.json': about,
   'links.json': links,
   'publishing.json': publishing,
@@ -292,7 +295,7 @@ footer{margin-top:28px;border-top:1px solid var(--ink);padding-top:10px;font:12p
 <header class="mast"><div><h1><a href="/api/site/">Site content</a></h1><p class="role">Gökhan Turhan · read-only JSON</p></div>
 <p class="doc"><b>API-SITE</b> · 2026-11-18</p></header>
 <nav><a href="/api/">Index</a><a href="/api/site/">Site</a><a href="/api/site/openapi.json">OpenAPI</a><a href="/api/site/index.json">index.json</a><a href="/journal/">Journal</a><a href="/cv/">CV</a><a href="/links/">Links</a></nav>
-<main><p class="lead">A read-only API for the public site. The journal, the CV, the product index, drafts, the about guides, every public link, and publishing. No payment. Contact is <a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a>.</p>
+<main><p class="lead">A read-only API for the public site. The journal, the CV, the projects and products index, the about guides, every public link, and publishing. No payment. Contact is <a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a>.</p>
 <section class="cx"><div class="cx-h"><b>Resources</b><span>GET · application/json</span></div>${rows}</section>
 </main>
 <footer><p><a href="/api/">API index</a> · <a href="/sitemap-index.xml">Sitemap</a> · <a href="/robots.txt">robots.txt</a> · <a href="/llms.txt">llms.txt</a> · <a href="/api/apis.json">apis.json</a> · <a href="/api/openapi.json">openapi.json</a> · <a href="/.well-known/api-catalog">api-catalog</a></p></footer>
@@ -314,7 +317,6 @@ const catalog = {
     entry(`${SITE}/api/site/journal.json`, `${SITE}/journal/`),
     entry(`${SITE}/api/site/cv.json`, `${SITE}/cv/`),
     entry(`${SITE}/api/site/products.json`, `${SITE}/products/`),
-    entry(`${SITE}/api/site/drafts.json`, `${SITE}/product-drafts/`),
     entry(`${SITE}/api/site/about.json`, `${SITE}/about/`),
     entry(`${SITE}/api/site/links.json`, `${SITE}/links/`),
     entry(`${SITE}/api/site/publishing.json`, `${SITE}/publishing/`),
@@ -324,9 +326,9 @@ const catalog = {
     entry(`${SITE}/curb/`, `${SITE}/curb/docs/reference/api/`),
   ],
 }
-catalog.linkset[9]['service-desc'] = [{ href: `${SITE}/api/openapi.json`, type: 'application/json' }]
-catalog.linkset[10]['service-desc'] = [{ href: `${SITE}/ishtar/openapi.json`, type: 'application/json' }]
-catalog.linkset[11]['service-desc'] = [{ href: `${SITE}/curb/openapi.json`, type: 'application/json' }]
+catalog.linkset[8]['service-desc'] = [{ href: `${SITE}/api/openapi.json`, type: 'application/json' }]
+catalog.linkset[9]['service-desc'] = [{ href: `${SITE}/ishtar/openapi.json`, type: 'application/json' }]
+catalog.linkset[10]['service-desc'] = [{ href: `${SITE}/curb/openapi.json`, type: 'application/json' }]
 catalog.linkset[1].alternate = [{ href: `${SITE}/rss.xml`, type: 'application/rss+xml' }]
 catalog.linkset[0].describedby = [{ href: `${SITE}/llms.txt`, type: 'text/plain' }]
 const catalogJson = JSON.stringify(catalog, null, 2) + '\n'
@@ -338,4 +340,4 @@ if (existsSync(join(root, 'dist'))) {
 
 const linkCount = links.sections.reduce((n, s) => n + s.groups.reduce((m, g) => m + g.links.length, 0), 0)
 const walletCount = links.wallets.reduce((n, w) => n + w.items.length, 0)
-console.log(JSON.stringify({ posts: journal.length, products: productsJson.products.length, drafts: draftsJson.length, guides: guides.length, links: linkCount, wallets: walletCount, works: publishing.works.length }))
+console.log(JSON.stringify({ posts: journal.length, products: productsJson.products.length, categories: productsJson.categories.length, guides: guides.length, links: linkCount, wallets: walletCount, works: publishing.works.length }))

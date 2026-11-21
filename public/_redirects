@@ -50,6 +50,12 @@
 /projects/biases-fallacies-lab/ /biases-fallacies-lab/ 301
 /projects/* /products/ 301
 
+# Product drafts were folded into Projects & Products (one listing, by category).
+/product-drafts /products/ 301
+/product-drafts/ /products/ 301
+/product-drafts/* /products/ 301
+/api/site/drafts.json /api/site/products.json 301
+
 
 # Retired CURB footer URLs (and bookmarks) → live pages.
 # Product sitemap.xml files are written at build time by scripts/sitemap-extras.mjs.

@@ -19,7 +19,6 @@ const DISCOVERY_LINK = [
   '</api/site/journal.json>; rel="item"; type="application/json"',
   '</api/site/cv.json>; rel="item"; type="application/json"',
   '</api/site/products.json>; rel="item"; type="application/json"',
-  '</api/site/drafts.json>; rel="item"; type="application/json"',
   '</api/site/about.json>; rel="item"; type="application/json"',
   '</api/site/links.json>; rel="item"; type="application/json"',
   '</api/site/publishing.json>; rel="item"; type="application/json"',
@@ -109,6 +108,13 @@ export async function onRequest(context) {
     } catch {
       return new Response('Not found', { status: 404, headers })
     }
+  }
+
+  // Product drafts were folded into Projects & Products. A stale CDN object can
+  // still answer the old listing, so redirect here before assets are fetched.
+  if (url.pathname === '/product-drafts' || url.pathname.startsWith('/product-drafts/') || url.pathname === '/api/site/drafts.json') {
+    const to = url.pathname === '/api/site/drafts.json' ? '/api/site/products.json' : '/products/'
+    return new Response(null, { status: 301, headers: { location: to, 'cache-control': 'no-store', 'cdn-cache-control': 'no-store', 'cloudflare-cdn-cache-control': 'no-store' } })
   }
 
   // Catalog HTML stays under /api. A real API path on this host is fetched
