@@ -23,19 +23,11 @@ Numetal, Gökhan Ventures, AgentBounty and the products under them are moving to
 | HeartPrefs | [gokhanturhan.com/heartprefs/](/heartprefs/) | — |
 | CURB | [gokhanturhan.com/curb/](/curb/) | curb.numetal.xyz |
 | CURB harness | [gokhanturhan.com/curb/harness/](/curb/harness/) | harness.curb.numetal.xyz · buyer.curb.numetal.xyz · seller.curb.numetal.xyz |
-| Launch | [](/) |  |
 | UBU · CLINAMEN | [gokhanturhan.com/ubu/](/ubu/) | ubu.numetal.xyz |
 | Reclaim | [gokhanturhan.com/reclaim/](/reclaim/) | reclaim.numetal.xyz |
 | plaintext | [gokhanturhan.com/plaintext/](/plaintext/) | plaintext.numetal.xyz |
-| Accumulator | [](/) |  |
-| REBASE | [](/) |  |
-|  | [docs/](/docs/) |  |
-|  | [](/) |  |
-| BOOSTER | [](/) |  |
 | The Token Estate | [gokhanturhan.com/coins/](/coins/) | coins.numetal.xyz |
 | Personal Jesus | [gokhanturhan.com/jesus/](/jesus/) | jesus.numetal.xyz |
-|  | [](/) |  |
-|  | [](/) |  |
 | Gökhan Ventures | [gokhanturhan.com/gokhan-vc/](/gokhan-vc/) | gokhan.vc |
 | feedhub | [gokhanturhan.com/gokhan-vc/api/](/gokhan-vc/api/) | api.gokhan.vc |
 | AgentBounty | [gokhanturhan.com/agentbounty/](/agentbounty/) | agentbounty.dev |

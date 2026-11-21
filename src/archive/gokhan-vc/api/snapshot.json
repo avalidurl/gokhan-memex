@@ -45,7 +45,6 @@
      "ishtar.numetal.xyz",
      "numetal.xyz",
      "curb.numetal.xyz",
-     "",
      "gokhan.vc",
      "gokhanturhan.com"
     ]
@@ -135,22 +134,6 @@
     "note": "Payments terminate at the canonical host. The gateway LINKS, never proxies — so the x402/MPP 402 realm and payTo stay intact for CDP Bazaar / x402scan / mppscan settlement."
    },
    {
-    "id": "launch",
-    "title": "Launch —  (x402 / MPP, amount 0)",
-    "kind": "link",
-    "canonical_host": "",
-    "auth": "none",
-    "status": "live",
-    "base_path": "/launch",
-    "discovery": {
-     "skill": "https:///skill.md",
-     "well_known": "https:///.well-known/x402",
-     "mcp": "https:///mcp",
-     "openapi": "https:///openapi.json"
-    },
-    "note": "Pad aggregator. User signs. Never broadcast. This gateway LINKS, never proxies — x402 amount 0 on the canonical host."
-   },
-   {
     "id": "heartbench",
     "title": "HeartBench — model-dating leaderboard",
     "kind": "link",
@@ -215,7 +198,6 @@
      "ishtar.numetal.xyz",
      "numetal.xyz",
      "curb.numetal.xyz",
-     "",
      "gokhan.vc",
      "gokhanturhan.com"
     ]

@@ -540,7 +540,7 @@
     "title": "Newsletter"
   },
   "/gokhan-vc/projects/": {
-    "description": "Every venture and build in the studio, explained — Ishtar, CURB, Launch, HeartBench, HeartPrefs, Numetal, CLINAMEN/$UBU, Plaintext, Reclaim, and more. Filter by category or status.",
+    "description": "Every venture and build in the studio, explained — Ishtar, CURB, HeartBench, HeartPrefs, Numetal, CLINAMEN/$UBU, Plaintext, Reclaim, and more. Filter by category or status.",
     "doc_title": "Projects — Gökhan Ventures",
     "former": "gokhan.vc/projects",
     "forms": [],
@@ -843,7 +843,7 @@
     "title": "PERSONAL JESUS"
   },
   "/numetal/": {
-    "description": "Numetal is an agentic acceleration lab and bureau under Gökhan Ventures. We build, ship, and back autonomous agents across onchain, compute, culture, and frontier-lab tooling. Live products: Ishtar, CURB, Launch, CLINAMEN, Reclaim, plaintext, Accumulator — plus HeartBench, The Window, the Bureau Reader, and tickerline.",
+    "description": "Numetal is an agentic acceleration lab and bureau under Gökhan Ventures. We build, ship, and back autonomous agents across onchain, compute, culture, and frontier-lab tooling. Live products: Ishtar, CURB, CLINAMEN, Reclaim, plaintext — plus HeartBench, The Window, the Bureau Reader, and tickerline.",
     "doc_title": "Numetal — agentic acceleration lab & bureau",
     "former": "numetal.xyz",
     "forms": [],

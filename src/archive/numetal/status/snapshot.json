@@ -218,16 +218,6 @@
     "latency_ms": 620
    },
    {
-    "id": "accumulator-www",
-    "label": " site",
-    "state": "up",
-    "since": "2026-07-26T00:12:56.339Z",
-    "checked": "2026-11-09T04:42:41.165Z",
-    "uptime24": 1,
-    "uptime7": 1,
-    "latency_ms": 544
-   },
-   {
     "id": "ubu-www",
     "label": "UBU site",
     "state": "up",
