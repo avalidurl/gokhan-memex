@@ -10,14 +10,14 @@ import PageHead from '@/components/PageHead.astro'
 >
   <div class="es">
     <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: '404' }]} title="Page not found" lead="The page you're looking for doesn't exist or has been moved." />
-    <section class="cx" aria-label="Where to go">
-      <div class="cx-h"><b>Try</b><span>the main sections</span></div>
+    <details class="cx fold" aria-label="Where to go" open>
+      <summary class="cx-h"><b>Try</b><span>the main sections</span></summary>
       <div class="cx-r"><span><a href="/">Index</a></span><span>Home</span></div>
       <div class="cx-r"><span><a href="/journal/">Journal</a></span><span>Every post, filed by year</span></div>
       <div class="cx-r"><span><a href="/products/">Projects &amp; Products</a></span><span>Every project and product, by category</span></div>
       <div class="cx-r"><span><a href="/cv/">CV</a></span><span>The full record</span></div>
       <div class="cx-r"><span><a href="/archive/">Archive</a></span><span>Years, categories and tags</span></div>
       <div class="cx-r"><span><a href="/about/why-addresses-moved/">Why addresses moved</a></span><span>Old links and where they went</span></div>
-    </section>
+    </details>
   </div>
 </BaseLayout>

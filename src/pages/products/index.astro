@@ -17,10 +17,10 @@ const groups = catalogByCategory()
     <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: 'Projects & Products' }]} title="Projects & Products" count={catalog.length} lead="Every project and product has its own page here, with its site, docs and data. Tags open a shared page with the projects, posts and APIs that carry them.">
       <p class="lead">Grouped by category. Every tag is on <a href="/archive/tags/">Tags</a>.</p>
     </PageHead>
-    <section class="cx" aria-label="Jump to">
-      <div class="cx-h"><b>Jump to</b><span>categories</span></div>
+    <details class="cx fold" aria-label="Jump to" open>
+      <summary class="cx-h"><b>Jump to</b><span>categories</span></summary>
       <div class="cx-b"><span class="tags">{groups.map((g) => <a class="tg" href={`#${g.id}`}>{g.name}</a>)}</span></div>
-    </section>
+    </details>
 
     {groups.map((g) => (
       <details class="cx fold" aria-label={g.name} id={g.id} open>

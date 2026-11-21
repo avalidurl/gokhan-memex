@@ -9,28 +9,28 @@ import PageHead from '@/components/PageHead.astro'
 >
   <div class="es">
     <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: 'Privacy' }]} title="Privacy Policy" stamp="Last updated · January 2026" />
-    <section class="cx" aria-label="Summary">
-      <div class="cx-h"><b>TL;DR</b></div>
+    <details class="cx fold" aria-label="Summary" open>
+      <summary class="cx-h"><b>TL;DR</b></summary>
       <div class="cx-b"><p>This website respects your privacy. We don't track you, collect personal data, or use invasive analytics.</p></div>
-    </section>
-    <section class="cx" aria-label="What we don't collect">
-      <div class="cx-h"><b>What we don't collect</b></div>
+    </details>
+    <details class="cx fold" aria-label="What we don't collect" open>
+      <summary class="cx-h"><b>What we don't collect</b></summary>
       <div class="cx-r"><span>Personal</span><span>Personal information</span></div>
       <div class="cx-r"><span>Email</span><span>Email addresses (except through Substack)</span></div>
       <div class="cx-r"><span>Behaviour</span><span>Browsing behavior or tracking data</span></div>
       <div class="cx-r"><span>Cookies</span><span>Cookies for tracking purposes</span></div>
-    </section>
-    <section class="cx" aria-label="What we may collect">
-      <div class="cx-h"><b>What we may collect</b></div>
+    </details>
+    <details class="cx fold" aria-label="What we may collect" open>
+      <summary class="cx-h"><b>What we may collect</b></summary>
       <div class="cx-r"><span>Server logs</span><span>Standard web server logs may temporarily store IP addresses for security</span></div>
       <div class="cx-r"><span>Theme preference</span><span>Your ink/paper preference is stored locally in your browser</span></div>
-    </section>
-    <section class="cx" aria-label="Third-party services">
-      <div class="cx-h"><b>Third parties</b></div>
+    </details>
+    <details class="cx fold" aria-label="Third-party services" open>
+      <summary class="cx-h"><b>Third parties</b></summary>
       <div class="cx-r"><span>Newsletter (Substack)</span><span>Newsletter subscriptions are managed through Substack. See <a href="https://substack.com/privacy" target="_blank" rel="noopener">Substack's Privacy Policy</a>.</span></div>
       <div class="cx-r"><span>RSS feeds</span><span>RSS feed subscriptions are anonymous. We cannot track or identify RSS subscribers.</span></div>
       <div class="cx-r"><span>Hosting</span><span>This website is hosted on Cloudflare Pages. No personal data is stored in databases.</span></div>
       <div class="cx-r"><span>Contact</span><span>Questions? Email <a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a></span></div>
-    </section>
+    </details>
   </div>
 </BaseLayout>

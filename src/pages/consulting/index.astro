@@ -9,16 +9,16 @@ import PageHead from '@/components/PageHead.astro'
 >
   <div class="es">
     <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: 'Consulting' }]} title="Consulting" lead="Strategic innovation and technology advisory." />
-    <section class="cx" aria-label="Services">
-      <div class="cx-h"><b>Services</b><em>04</em></div>
+    <details class="cx fold" aria-label="Services" open>
+      <summary class="cx-h"><b>Services</b><em>04</em></summary>
       <div class="cx-r"><span>01</span><span>DevOps &amp; Infrastructure Architecture</span></div>
       <div class="cx-r"><span>02</span><span>Developer Relations Strategy</span></div>
       <div class="cx-r"><span>03</span><span>Business Development</span></div>
       <div class="cx-r"><span>04</span><span>Strategic Technology Advisory</span></div>
-    </section>
-    <section class="cx" aria-label="Contact">
-      <div class="cx-h"><b>Contact</b></div>
+    </details>
+    <details class="cx fold" aria-label="Contact" open>
+      <summary class="cx-h"><b>Contact</b></summary>
       <div class="cx-r"><span>Email</span><span><a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a></span></div>
-    </section>
+    </details>
   </div>
 </BaseLayout>

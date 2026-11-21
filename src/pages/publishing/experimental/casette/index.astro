@@ -17,24 +17,24 @@ const others = works.filter((x) => x !== w)
     <PageHead crumbs={[{ label: 'Publishing', href: '/publishing/' }, { label: 'Experimental', href: '/publishing/experimental/' }, { label: work.title }]} title={work.title} lead={`${work.creators} · ${work.year}`} tags={w.tags} />
     <div class="pgrid">
       <div class="pmain">
-        <section class="cx" aria-label="Cover">
-          <div class="cx-h"><b>Cover</b><span>{work.coverAlt}</span></div>
+        <details class="cx fold" aria-label="Cover" open>
+          <summary class="cx-h"><b>Cover</b><span>{work.coverAlt}</span></summary>
           <div class="cx-b"><img src={cdnImage(work.coverImage, 1200)} alt={work.coverAlt} class="work-cover" loading="eager" /></div>
-        </section>
+        </details>
         {work.audioHref && work.audioMimeType && (
-          <section class="cx" aria-label="Listen">
-            <div class="cx-h"><b>Listen</b><span>audio</span></div>
+          <details class="cx fold" aria-label="Listen" open>
+            <summary class="cx-h"><b>Listen</b><span>audio</span></summary>
             <div class="cx-b"><audio controls preload="none"><source src={work.audioHref} type={work.audioMimeType} /></audio></div>
-          </section>
+          </details>
         )}
-        <section class="cx" aria-label="Information text">
-          <div class="cx-h"><b>Information text</b></div>
+        <details class="cx fold" aria-label="Information text" open>
+          <summary class="cx-h"><b>Information text</b></summary>
           <div class="cx-b body">{work.accompanyingText.split('\n\n').map((p) => <p>{p}</p>)}</div>
-        </section>
+        </details>
       </div>
       <aside class="pside">
-        <section class="cx" aria-label="Facts">
-          <div class="cx-h"><b>Facts</b><span>Experimental</span></div>
+        <details class="cx fold" aria-label="Facts" open>
+          <summary class="cx-h"><b>Facts</b><span>Experimental</span></summary>
           <div class="cx-r"><span>By</span><span>{work.creators}</span></div>
           <div class="cx-r"><span>Year</span><span>{work.year}</span></div>
           {work.commissionedByName && <div class="cx-r"><span>Commission</span><span>{work.commissionedByHref ? <a href={work.commissionedByHref} target="_blank" rel="noopener noreferrer">{work.commissionedByName}</a> : work.commissionedByName}</span></div>}
@@ -42,11 +42,11 @@ const others = works.filter((x) => x !== w)
           {work.originalAudioHref && <div class="cx-r"><span>Audio</span><span><a href={work.originalAudioHref} target="_blank" rel="noopener noreferrer">{work.originalAudioLabel ?? 'Original source'}</a></span></div>}
           {work.statusNote && <div class="cx-r"><span>Note</span><span>{work.statusNote}</span></div>}
           <div class="cx-r"><span>Tags</span><span><Tags tags={w.tags} /></span></div>
-        </section>
-        <section class="cx" aria-label="More publishing">
-          <div class="cx-h"><b>Publishing</b><span>other works</span></div>
+        </details>
+        <details class="cx fold" aria-label="More publishing" open>
+          <summary class="cx-h"><b>Publishing</b><span>other works</span></summary>
           {others.map((x) => <div class="cx-r"><span>{x.kind}</span><span><a href={x.href}>{x.title}</a></span></div>)}
-        </section>
+        </details>
       </aside>
     </div>
   </div>

@@ -9,9 +9,9 @@ import PageHead from '@/components/PageHead.astro'
 >
   <div class="es">
     <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: 'Art' }]} title="Art" lead="Creative works and artistic explorations." />
-    <section class="cx" aria-label="Art">
-      <div class="cx-h"><b>Gallery</b><span>in preparation</span></div>
+    <details class="cx fold" aria-label="Art" open>
+      <summary class="cx-h"><b>Gallery</b><span>in preparation</span></summary>
       <div class="cx-b"><p>Gallery coming soon. Meanwhile: <a href="/turkish-art-blob/">Turkish Art Blob</a> · <a href="/reclaim/">Reclaim</a> · <a href="/journal/">Journal</a>.</p></div>
-    </section>
+    </details>
   </div>
 </BaseLayout>

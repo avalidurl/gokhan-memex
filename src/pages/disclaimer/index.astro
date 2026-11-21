@@ -9,17 +9,17 @@ import PageHead from '@/components/PageHead.astro'
 >
   <div class="es">
     <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: 'Disclaimer' }]} title="Disclaimer" lead="Important information regarding content on this website." stamp="Last updated · January 2026" />
-    <section class="cx" aria-label="Summary">
-      <div class="cx-h"><b>In short</b></div>
+    <details class="cx fold" aria-label="Summary" open>
+      <summary class="cx-h"><b>In short</b></summary>
       <div class="cx-b"><p><strong>None of the content on this website constitutes financial advice.</strong> All content is for research and educational purposes only.</p></div>
-    </section>
-    <section class="cx" aria-label="Terms">
-      <div class="cx-h"><b>Terms</b><em>05</em></div>
+    </details>
+    <details class="cx fold" aria-label="Terms" open>
+      <summary class="cx-h"><b>Terms</b><em>05</em></summary>
       <div class="cx-r"><span>Research purpose</span><span>This website shares research findings and insights on stablecoins, tokenization, AI, and emerging technologies. Content is intended for academic discourse, not actionable investment guidance.</span></div>
       <div class="cx-r"><span>Affiliate links</span><span>This website may contain affiliate links. When present, they are clearly disclosed. I may receive compensation from purchases through these links at no additional cost to you.</span></div>
       <div class="cx-r"><span>No warranties</span><span>While I strive for accuracy, no warranties are made regarding completeness or reliability of any content. Information may become outdated without notice.</span></div>
       <div class="cx-r"><span>Personal opinions</span><span>All content represents personal opinions and analysis. Views expressed do not necessarily reflect positions of any organizations I may be affiliated with.</span></div>
       <div class="cx-r"><span>Contact</span><span>Questions? Email <a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a></span></div>
-    </section>
+    </details>
   </div>
 </BaseLayout>

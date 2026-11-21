@@ -35,10 +35,10 @@ const years = Object.keys(postsByYear).map(Number).sort((a, b) => b - a)
       lead={`${allPosts.length} posts, filed by year. Follow by email below or by RSS.`}
     />
 
-    <section class="cx" aria-label="Subscribe">
-      <div class="cx-h"><b>Subscribe</b><span>occasional, low-frequency</span><span><a href="/rss.xml">RSS</a></span><span><a href="/archive/">archive</a></span></div>
+    <details class="cx fold" aria-label="Subscribe" open>
+      <summary class="cx-h"><b>Subscribe</b><span>occasional, low-frequency</span><span><a href="/rss.xml">RSS</a></span><span><a href="/archive/">archive</a></span></summary>
       <div class="cx-b"><JournalSubscribe where="index" /></div>
-    </section>
+    </details>
 
     <div id="journal-list">
       <div class="findrow">

@@ -9,11 +9,11 @@ import PageHead from '@/components/PageHead.astro'
 >
   <div class="es">
     <PageHead crumbs={[{ label: 'Journal', href: '/journal/' }, { label: 'Writing' }]} title="Writing" lead="Essays, research, and long-form analysis." />
-    <section class="cx" aria-label="Writing">
-      <div class="cx-h"><b>Where it lives</b></div>
+    <details class="cx fold" aria-label="Writing" open>
+      <summary class="cx-h"><b>Where it lives</b></summary>
       <div class="cx-r"><span><a href="/journal/">Journal</a></span><span>Every essay and dispatch, filed by year</span></div>
       <div class="cx-r"><span><a href="/publishing/">Publishing</a></span><span>E-books, academic and experimental work</span></div>
       <div class="cx-r"><span><a href="/archive/">Archive</a></span><span>Years, categories and tags</span></div>
-    </section>
+    </details>
   </div>
 </BaseLayout>

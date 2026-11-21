@@ -19,50 +19,50 @@ const others = works.filter((w) => w !== work)
 
     <div class="pgrid">
       <div class="pmain">
-        <section class="cx" aria-label="About">
-          <div class="cx-h"><b>About</b><span>{ebook.author} · {publishedLabel}</span></div>
+        <details class="cx fold" aria-label="About" open>
+          <summary class="cx-h"><b>About</b><span>{ebook.author} · {publishedLabel}</span></summary>
           <div class="cx-b body">
             <p>{ebook.blurb}</p>
             {summarySentences.filter((t) => t !== ebook.blurb).map((t) => <p>{t}</p>)}
           </div>
-        </section>
+        </details>
 
-        <section class="cx" aria-label="Table of contents">
-          <div class="cx-h"><b>Table of contents</b><em>{String(ebook.toc.length).padStart(2, '0')}</em></div>
+        <details class="cx fold" aria-label="Table of contents" open>
+          <summary class="cx-h"><b>Table of contents</b><em>{String(ebook.toc.length).padStart(2, '0')}</em></summary>
           {ebook.toc.map((entry) => (
             <div class="cx-r"><span>{entry.number}</span><span><a href={`${ebook.browserEditionUrl}#${entry.anchor}`}>{entry.title}</a></span></div>
           ))}
-        </section>
+        </details>
 
-        <section class="cx" aria-label="Cover">
-          <div class="cx-h"><b>Cover</b></div>
+        <details class="cx fold" aria-label="Cover" open>
+          <summary class="cx-h"><b>Cover</b></summary>
           <div class="cx-b"><img src={cdnImage(ebook.coverImage, 1200)} alt={`Cover art for ${ebook.title}`} class="work-cover" /></div>
-        </section>
+        </details>
       </div>
 
       <aside class="pside">
-        <section class="cx" aria-label="Facts">
-          <div class="cx-h"><b>Facts</b><span>E-book</span></div>
+        <details class="cx fold" aria-label="Facts" open>
+          <summary class="cx-h"><b>Facts</b><span>E-book</span></summary>
           <div class="cx-r"><span>Author</span><span>{ebook.author}</span></div>
           <div class="cx-r"><span>Published</span><span>{publishedLabel}</span></div>
           <div class="cx-r"><span>Length</span><span>{ebook.pageCount} pages · {ebook.lineCount} lines</span></div>
           {ebook.protocols?.length > 0 && <div class="cx-r"><span>Protocols</span><span>{ebook.protocols.join(' · ')}</span></div>}
           <div class="cx-r"><span>Tags</span><span><Tags tags={work.tags} /></span></div>
-        </section>
+        </details>
 
-        <section class="cx" aria-label="Read and download">
-          <div class="cx-h"><b>Read</b><span>and download</span></div>
+        <details class="cx fold" aria-label="Read and download" open>
+          <summary class="cx-h"><b>Read</b><span>and download</span></summary>
           <div class="cx-r"><span>Read</span><span><a href={ebook.browserEditionUrl}>HTML edition</a></span></div>
           <div class="cx-r"><span>EPUB</span><span><a href={ebook.epubUrl} download>Download EPUB</a></span></div>
           <div class="cx-r"><span>Raw</span><span><a href={ebook.staticHtmlUrl} target="_blank" rel="noopener">Raw HTML export</a></span></div>
           {ebook.sourceTextUrl && <div class="cx-r"><span>Source</span><span><a href={ebook.sourceTextUrl} download>Source text</a></span></div>}
           {ebook.fontUrl && <div class="cx-r"><span>Font</span><span><a href={ebook.fontUrl} download>Download font</a></span></div>}
-        </section>
+        </details>
 
-        <section class="cx" aria-label="More publishing">
-          <div class="cx-h"><b>Publishing</b><span>other works</span></div>
+        <details class="cx fold" aria-label="More publishing" open>
+          <summary class="cx-h"><b>Publishing</b><span>other works</span></summary>
           {others.map((w) => <div class="cx-r"><span>{w.kind}</span><span><a href={w.href}>{w.title}</a></span></div>)}
-        </section>
+        </details>
       </aside>
     </div>
   </div>

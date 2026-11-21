@@ -10,17 +10,17 @@ const p = bySlug(product)!
 
 <BaseLayout title={`${title} · ${p.name}`} description={`The ${p.name} ${title}.`}>
   <div class="es">
-    <PageHead crumbs={[{ label: 'Products', href: '/products/' }, { label: p.name, href: `/${p.slug}/` }, { label: 'Legal' }]} title={title} lead={`Copy retrieved ${retrieved}.`} tags={p.tags} />
-    <section class="cx" aria-label="About this copy">
-      <div class="cx-h"><b>{title}</b><span>{p.name}</span></div>
+    <PageHead crumbs={[{ label: 'Projects & Products', href: '/products/' }, { label: p.name, href: `/${p.slug}/` }, { label: 'Legal' }]} title={title} lead={`Copy retrieved ${retrieved}.`} tags={p.tags} />
+    <details class="cx fold" aria-label="About this copy" open>
+      <summary class="cx-h"><b>{title}</b><span>{p.name}</span></summary>
       <div class="cx-r"><span>Address</span><span><a href={`/${p.slug}/`}>gokhanturhan.com/{p.slug}/</a></span></div>
       <div class="cx-r"><span>Former address</span><span>{former}</span></div>
       <div class="cx-r"><span>Retrieved</span><span>{retrieved}, copied as published</span></div>
       <div class="cx-r"><span>Other documents</span><span>{others.map((o, i) => <>{i > 0 && ' · '}<a href={`/${p.slug}/legal/${o.slug}/`}>{o.title}</a></>)}</span></div>
-    </section>
-    <section class="cx" aria-label="Document">
-      <div class="cx-h"><b>Document</b><span>as in force while {p.name} ran</span></div>
+    </details>
+    <details class="cx fold" aria-label="Document" open>
+      <summary class="cx-h"><b>Document</b><span>as in force while {p.name} ran</span></summary>
       <div class="cx-b prose body"><slot /></div>
-    </section>
+    </details>
   </div>
 </BaseLayout>

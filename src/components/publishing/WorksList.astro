@@ -10,8 +10,8 @@ const list = works.filter((w) => w.kind === kind)
 const title = kind === 'E-book' ? 'E-books' : kind
 ---
 
-<section class="cx" aria-label={title}>
-  <div class="cx-h"><b>{index ? <a href={index}>{title}</a> : title}</b><span>{note}</span><em>{String(list.length).padStart(2, '0')}</em></div>
+<details class="cx fold" aria-label={title} open>
+  <summary class="cx-h"><b>{index ? <a href={index}>{title}</a> : title}</b><span>{note}</span><em>{String(list.length).padStart(2, '0')}</em></summary>
   {list.map((w) => (
     <div class={`cx-r${w.cover ? ' withthumb' : ''}`}>
       <span>{w.cover ? <a href={w.href}><img class="work-thumb" src={cdnImage(w.cover, 400)} alt={`Cover for ${w.title}`} loading="lazy" /></a> : `${w.year}`}</span>
@@ -22,4 +22,4 @@ const title = kind === 'E-book' ? 'E-books' : kind
       </span>
     </div>
   ))}
-</section>
+</details>

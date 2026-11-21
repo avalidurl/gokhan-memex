@@ -11,14 +11,14 @@ import { guides, QUADS } from '@/data/guides'
       {QUADS.map((q) => {
         const list = guides.filter((g) => g.quad === q.key)
         return (
-          <section class="cx" id={q.key} aria-label={q.title}>
-            <div class="cx-h"><b>{q.title}</b><span>{q.mode}</span><em>{String(list.length).padStart(2, '0')}</em></div>
+          <details class="cx fold" id={q.key} aria-label={q.title} open>
+            <summary class="cx-h"><b>{q.title}</b><span>{q.mode}</span><em>{String(list.length).padStart(2, '0')}</em></summary>
             {list.map((g) => (
               <div class="cx-r" style="grid-template-columns:1fr">
                 <span><a href={`/about/${g.slug}/`}>{g.title}</a><br /><i>{g.lead}</i></span>
               </div>
             ))}
-          </section>
+          </details>
         )
       })}
     </div>

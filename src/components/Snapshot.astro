@@ -23,8 +23,8 @@ const tx = (v: any) => typeof v === 'string' && /^0x[0-9a-f]{64}$/i.test(v)
 const addr = (v: any) => typeof v === 'string' && /^0x[0-9a-f]{40}$/i.test(v)
 ---
 
-<section class="cx snap" aria-label={snap.title}>
-  <div class="cx-h"><b>Snapshot</b><span>{snap.title} · {snap.source} · retrieved {snap.retrieved}</span>{list && <em>{String(list.length).padStart(2, '0')}</em>}</div>
+<details class="cx fold snap" aria-label={snap.title} open>
+  <summary class="cx-h"><b>Snapshot</b><span>{snap.title} · {snap.source} · retrieved {snap.retrieved}</span>{list && <em>{String(list.length).padStart(2, '0')}</em>}</summary>
   {scalars.map(([k, v]) => <div class="cx-r"><span>{k}</span><span>{fmt(v)}</span></div>)}
   {objects.map(([k, v]) => <div class="cx-r"><span>{k}</span><span>{Object.entries(v).slice(0, 12).map(([a, b]) => `${a}: ${fmt(b)}`).join(' · ')}</span></div>)}
   {list && (
@@ -41,4 +41,4 @@ const addr = (v: any) => typeof v === 'string' && /^0x[0-9a-f]{40}$/i.test(v)
       </table>
     </div>
   )}
-</section>
+</details>

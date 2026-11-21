@@ -68,15 +68,15 @@ const iso = (d: Date | string) => new Date(d).toISOString().slice(0, 10)
     />
 
     {monthPosts.length > 0 ? (
-      <section class="cx" aria-label={`${monthName} ${year}`}>
-        <div class="cx-h"><b>{monthName}</b><span><a href={`/journal/${year}/`}>{year}</a></span><em>{monthPosts.length}</em></div>
+      <details class="cx fold" aria-label={`${monthName} ${year}`} open>
+        <summary class="cx-h"><b>{monthName}</b><span><a href={`/journal/${year}/`}>{year}</a></span><em>{monthPosts.length}</em></summary>
         {monthPosts.map((post) => (
           <a class="file" href={`/journal/${entrySlug(post)}/`}>
             <span class="dt">{iso(post.data.publishDate)}</span>
             <PostTitle title={post.data.title} class="ttl" />
           </a>
         ))}
-      </section>
+      </details>
     ) : <p class="note">No posts found for {monthName} {year}.</p>}
 
     <a class="more" href={`/journal/${year}/`}>{year}</a>

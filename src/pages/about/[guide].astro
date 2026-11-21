@@ -19,38 +19,38 @@ const siblings = guides.filter((x) => x.quad === g.quad && x.slug !== g.slug)
     <div class="pgrid">
       <div class="pmain">
         {g.steps && (
-          <section class="cx guide" aria-label={numbered ? 'Steps' : 'Explanation'}>
-            <div class="cx-h"><b>{numbered ? 'Steps' : q.title}</b><span>{q.mode}</span><em>{String(g.steps.length).padStart(2, '0')}</em></div>
+          <details class="cx fold guide" aria-label={numbered ? 'Steps' : 'Explanation'} open>
+            <summary class="cx-h"><b>{numbered ? 'Steps' : q.title}</b><span>{q.mode}</span><em>{String(g.steps.length).padStart(2, '0')}</em></summary>
             {numbered
               ? g.steps.map((s, i) => <div class="cx-r gstep"><span>{String(i + 1).padStart(2, '0')}</span><span set:html={s} /></div>)
               : <div class="cx-b prose">{g.steps.map((s) => <p set:html={s} />)}</div>}
-          </section>
+          </details>
         )}
         {g.rows && (
-          <section class="cx guide" aria-label="Facts">
-            <div class="cx-h"><b>{g.quad === 'reference' ? 'Reference' : g.slug === 'contact' ? 'Contact' : 'Paths'}</b><em>{String(g.rows.length).padStart(2, '0')}</em></div>
+          <details class="cx fold guide" aria-label="Facts" open>
+            <summary class="cx-h"><b>{g.quad === 'reference' ? 'Reference' : g.slug === 'contact' ? 'Contact' : 'Paths'}</b><em>{String(g.rows.length).padStart(2, '0')}</em></summary>
             {g.rows.map(([k, v]) => <div class="cx-r"><span>{k}</span><span set:html={v} /></div>)}
-          </section>
+          </details>
         )}
         {g.notes && (
-          <section class="cx arch" aria-label="Notes">
-            <div class="cx-h"><b>If something goes wrong</b></div>
+          <details class="cx fold arch" aria-label="Notes" open>
+            <summary class="cx-h"><b>If something goes wrong</b></summary>
             {g.notes.map((n) => <div class="cx-r gnote"><span set:html={n} /></div>)}
-          </section>
+          </details>
         )}
       </div>
       <aside class="pside">
-        <section class="cx" aria-label="Next">
-          <div class="cx-h"><b>Next</b></div>
+        <details class="cx fold" aria-label="Next" open>
+          <summary class="cx-h"><b>Next</b></summary>
           {g.next.map((n) => <div class="cx-r" style="grid-template-columns:1fr"><span style="font-family:inherit;font-size:inherit"><a href={n.href}>{n.label} →</a></span></div>)}
-        </section>
-        <section class="cx" aria-label={q.title}>
-          <div class="cx-h"><b>{q.title}</b><span>more</span></div>
+        </details>
+        <details class="cx fold" aria-label={q.title} open>
+          <summary class="cx-h"><b>{q.title}</b><span>more</span></summary>
           {siblings.map((s) => <div class="cx-r" style="grid-template-columns:1fr"><span style="font-family:inherit;font-size:inherit"><a href={`/about/${s.slug}/`}>{s.title}</a></span></div>)}
           <div class="cx-r" style="grid-template-columns:1fr"><span style="font-family:inherit;font-size:inherit"><a href="/about/">All guides</a></span></div>
-        </section>
+        </details>
         {g.tags && g.tags.length > 0 && (
-          <section class="cx" aria-label="Tags"><div class="cx-h"><b>Tags</b></div><div class="cx-b"><Tags tags={g.tags} /></div></section>
+          <details class="cx fold" aria-label="Tags" open><summary class="cx-h"><b>Tags</b></summary><div class="cx-b"><Tags tags={g.tags} /></div></details>
         )}
       </aside>
     </div>

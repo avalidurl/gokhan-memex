@@ -188,33 +188,33 @@ const children = p && isProduct ? products.filter((c) => c.slug.startsWith(`${p.
 
         <div class="pbody">
           {html && (
-            <section class="cx" aria-label="Page">
-              <div class="cx-h"><b>{isProduct ? p.name : title}</b><span>gokhanturhan.com{path}</span></div>
+            <details class="cx fold" aria-label="Page" open>
+              <summary class="cx-h"><b>{isProduct ? p.name : title}</b><span>gokhanturhan.com{path}</span></summary>
               <div class="cx-b prose ported" set:html={html} />
-            </section>
+            </details>
           )}
 
           {sectionKids.length > 0 && (
-            <section class="cx" aria-label="Pages in this section">
-              <div class="cx-h"><b>{title}</b><span>pages in this section</span><em>{String(sectionKids.length).padStart(2, '0')}</em></div>
+            <details class="cx fold" aria-label="Pages in this section" open>
+              <summary class="cx-h"><b>{title}</b><span>pages in this section</span><em>{String(sectionKids.length).padStart(2, '0')}</em></summary>
               {sectionKids.map((k) => <div class="cx-r"><span>{k.replace(path, '')}</span><span><a href={k}>{labelFor(k)}</a>{MAN[k]?.description && <> — {MAN[k].description}</>}</span></div>)}
-            </section>
+            </details>
           )}
 
           {snap && <Snapshot snap={snap} />}
 
           {isProduct && !html && p.about && p.about.length > 0 && (
-            <section class="cx" aria-label="About">
-              <div class="cx-h"><b>About</b></div>
+            <details class="cx fold" aria-label="About" open>
+              <summary class="cx-h"><b>About</b></summary>
               <div class="cx-b body">{p.about.map((t) => <p>{t}</p>)}</div>
-            </section>
+            </details>
           )}
 
           {Content && (
-            <section class="cx" aria-label="Project file">
-              <div class="cx-h"><b>Project file</b></div>
+            <details class="cx fold" aria-label="Project file" open>
+              <summary class="cx-h"><b>Project file</b></summary>
               <div class="cx-b prose file"><Content /></div>
-            </section>
+            </details>
           )}
         </div>
       </>
@@ -248,10 +248,10 @@ const children = p && isProduct ? products.filter((c) => c.slug.startsWith(`${p.
         </div>
         <div class="pbody">
           {dHtml && (
-            <section class="cx draft" aria-label="Page">
-              <div class="cx-h"><b>{d.name}</b><span>gokhanturhan.com/{d.slug}/</span></div>
+            <details class="cx fold draft" aria-label="Page" open>
+              <summary class="cx-h"><b>{d.name}</b><span>gokhanturhan.com/{d.slug}/</span></summary>
               <div class="cx-b prose ported" set:html={dHtml} />
-            </section>
+            </details>
           )}
           {dSnap && <Snapshot snap={dSnap} />}
         </div>
