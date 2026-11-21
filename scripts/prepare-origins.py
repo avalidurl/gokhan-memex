@@ -32,7 +32,7 @@ MAILBOX = re.compile(
 SKIP_PREFIX = (
     "curb", "ishtar", "ubu", "reclaim", "plaintext", "numetal",
     "heartprefs",
-    "gokhan-vc", "coins", "jesus",
+    "gokhan-vc", "jesus",
     "foreguild-fao-plan", "hypersitition", "agentbounty",
     "turkish-art-blob", "ethereum-doomsday",
     "sp100-capex-dashboard", "market-cap-tracker",

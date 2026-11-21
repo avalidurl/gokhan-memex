@@ -165,7 +165,7 @@ export const guides: Guide[] = [
     slug: 'how-products-are-organised', quad: 'explanation', title: 'How the products are organised',
     lead: 'Projects and products, tools and APIs are three lists from one register, joined by shared tags.',
     steps: [
-      '<a href="/products/">Projects &amp; Products</a> is one page for everything built, in one order and grouped by category: art and fiction, dating and matching, agent commerce, onchain boards and tokens, studios, markets and research, and learning tools. Each item has its own page.',
+      '<a href="/products/">Projects &amp; Products</a> is one page for everything built, in one order and grouped by category: art, fiction and publishing; dating and matching; agent commerce; studios; markets and research; and learning tools. Each item has its own page.',
       '<a href="/tools/">Tools</a> are private and described only. The <a href="/api/">API index</a> documents the interfaces the products exposed.',
       'Tags cut across all three lists. A tag such as <a href="/archive/tags/agents/">agents</a> shows every project, post, tool and API that carries it.',
     ],

@@ -174,15 +174,6 @@ export const products: Product[] = [
     tags: ['numetal', 'plaintext', 'board', 'nfts', 'robinhood-chain', 'mcp'],
   },
 {
-    slug: 'coins', name: 'The Token Estate', status: 'former', family: 'Numetal',
-    line: 'BIS-926: a register of 998 issuances.',
-    former: 'coins.numetal.xyz',
-    facts: [['Register', 'BIS-926'], ['Entries', '998 issuances']],
-    about: ['A register and leaderboard of 998 token issuances, filed as BIS-926.'],
-    functions: ['Register', 'Leaderboard'],
-    tags: ['numetal', 'token', 'dashboard', 'leaderboard'],
-  },
-{
     slug: 'jesus', name: 'Personal Jesus', status: 'former', family: 'Numetal',
     line: 'Waitlist page.',
     former: 'jesus.numetal.xyz',
@@ -480,19 +471,17 @@ export const apiTags: Record<string, string[]> = {
 // where their first item appears; items keep that order inside each category.
 export interface Category { id: string; name: string; note: string }
 export const CATEGORIES: Category[] = [
-  { id: 'art-fiction', name: 'Art and fiction', note: 'models, sculpture and art that outlives its marketplace' },
+  { id: 'art-fiction', name: 'Art, fiction and publishing', note: 'models, boards, sculpture and art that outlives its marketplace' },
   { id: 'dating-matching', name: 'Dating, matching and companions', note: 'agents that court, match and listen' },
   { id: 'agent-commerce', name: 'Agent commerce and work', note: 'agents that buy, sell, settle and get paid' },
-  { id: 'onchain', name: 'Onchain boards and tokens', note: 'boards, registers and token designs' },
   { id: 'studios', name: 'Studios', note: 'the studio and lab behind the products' },
   { id: 'markets-research', name: 'Markets, research and trackers', note: 'dashboards, forecasts and tickers' },
   { id: 'learning', name: 'Learning and reasoning', note: 'decks and labs for thinking better' },
 ]
 export const CATEGORY_OF: Record<string, string> = {
-  ubu: 'art-fiction', reclaim: 'art-fiction', 'turkish-art-blob': 'art-fiction', hypersitition: 'art-fiction',
+  ubu: 'art-fiction', reclaim: 'art-fiction', plaintext: 'art-fiction', 'turkish-art-blob': 'art-fiction', hypersitition: 'art-fiction',
   ishtar: 'dating-matching', heartprefs: 'dating-matching', jesus: 'dating-matching',
   curb: 'agent-commerce', agentbounty: 'agent-commerce', 'foreguild-fao-plan': 'agent-commerce',
-  plaintext: 'onchain', coins: 'onchain',
   numetal: 'studios', 'gokhan-vc': 'studios',
   'x402-econ': 'markets-research', tickerline: 'markets-research', 'market-cap-tracker': 'markets-research', 'sp100-capex-dashboard': 'markets-research', 'ethereum-doomsday': 'markets-research',
   'greek-alphabet-anki': 'learning', 'biases-fallacies-lab': 'learning',

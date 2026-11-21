@@ -9,7 +9,7 @@ import { products, journalProducts, catalog as estateCatalog, CATEGORIES, CATEGO
 import { guides, QUADS } from '../src/data/guides.ts'
 import { ebooks } from '../src/data/ebooks.ts'
 import { academicPublications, experimentalWorks } from '../src/data/publishing.ts'
-import { parties, explorers } from '../src/data/coins-wallets.ts'
+import { parties, explorers } from '../src/data/wallets.ts'
 
 const academicSlug = (title) =>
   title.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').split('-').slice(0, 8).join('-')

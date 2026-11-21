@@ -743,7 +743,7 @@ a.file[hidden], a.reg[hidden], .cx[hidden] { display: none; }
   .es.wide { width: auto; margin-left: 0; }
 }
 
-/* ---- Coin register, leaderboard and wallet check ---- */
+/* ---- Register tables, stats and copy buttons ---- */
 .cr-stats, .wc-sum { display: flex; flex-wrap: wrap; gap: 6px 18px; padding: 10px 12px; border-bottom: 1px solid var(--ink); font: 13px/1.4 var(--mono); }
 .cr-stats i, .wc-sum i { font-style: normal; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); }
 .cr-stats b, .wc-sum b { font-weight: 600; }
@@ -827,7 +827,7 @@ a.file[hidden], a.reg[hidden], .cx[hidden] { display: none; }
 @media (max-width: 640px) {
   .es .pfile > summary { min-height: 44px; }
   .es .pf-c a, .es .cx-r a { display: inline-flex; align-items: center; min-height: 44px; }
-  .es .wcheck button, .es .coins-reg button, .es .coins-reg input, .es .wcheck input { min-height: 44px; }
+  .es .wcheck button, .es .wcheck input { min-height: 44px; }
 }
 .es .pbody .cr-parties > summary { align-items: center; }
 

@@ -4,7 +4,7 @@
   "categories": [
     {
       "id": "art-fiction",
-      "name": "Art and fiction",
+      "name": "Art, fiction and publishing",
       "items": [
         {
           "slug": "ubu",
@@ -32,6 +32,21 @@
             "nfts",
             "art",
             "tool"
+          ]
+        },
+        {
+          "slug": "plaintext",
+          "name": "plaintext",
+          "line": "Onchain plaintext bulletin board on Robinhood Chain.",
+          "url": "https://gokhanturhan.com/plaintext/",
+          "former": "plaintext.numetal.xyz",
+          "tags": [
+            "numetal",
+            "plaintext",
+            "board",
+            "nfts",
+            "robinhood-chain",
+            "mcp"
           ]
         },
         {
@@ -158,40 +173,6 @@
           "tags": [
             "plan",
             "agents"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "onchain",
-      "name": "Onchain boards and tokens",
-      "items": [
-        {
-          "slug": "plaintext",
-          "name": "plaintext",
-          "line": "Onchain plaintext bulletin board on Robinhood Chain.",
-          "url": "https://gokhanturhan.com/plaintext/",
-          "former": "plaintext.numetal.xyz",
-          "tags": [
-            "numetal",
-            "plaintext",
-            "board",
-            "nfts",
-            "robinhood-chain",
-            "mcp"
-          ]
-        },
-        {
-          "slug": "coins",
-          "name": "The Token Estate",
-          "line": "BIS-926: a register of 998 issuances.",
-          "url": "https://gokhanturhan.com/coins/",
-          "former": "coins.numetal.xyz",
-          "tags": [
-            "numetal",
-            "token",
-            "dashboard",
-            "leaderboard"
           ]
         }
       ]
@@ -604,7 +585,7 @@
       "line": "Design fiction from the Bureau of Imaginary Solutions: pataphysics, filed onchain.",
       "status": "former",
       "family": "Numetal",
-      "category": "Art and fiction",
+      "category": "Art, fiction and publishing",
       "former": "ubu.numetal.xyz",
       "tags": [
         "numetal",
@@ -652,7 +633,7 @@
       "line": "Get your art out of dead marketplaces.",
       "status": "former",
       "family": "Numetal",
-      "category": "Art and fiction",
+      "category": "Art, fiction and publishing",
       "former": "reclaim.numetal.xyz",
       "tags": [
         "numetal",
@@ -677,7 +658,7 @@
       "line": "Onchain plaintext bulletin board on Robinhood Chain.",
       "status": "former",
       "family": "Numetal",
-      "category": "Onchain boards and tokens",
+      "category": "Art, fiction and publishing",
       "former": "plaintext.numetal.xyz",
       "tags": [
         "numetal",
@@ -695,30 +676,6 @@
         "Paid onchain posting",
         "Board and feed",
         "MCP server and skill"
-      ],
-      "links": []
-    },
-    {
-      "slug": "coins",
-      "name": "The Token Estate",
-      "line": "BIS-926: a register of 998 issuances.",
-      "status": "former",
-      "family": "Numetal",
-      "category": "Onchain boards and tokens",
-      "former": "coins.numetal.xyz",
-      "tags": [
-        "numetal",
-        "token",
-        "dashboard",
-        "leaderboard"
-      ],
-      "url": "https://gokhanturhan.com/coins/",
-      "about": [
-        "A register and leaderboard of 998 token issuances, filed as BIS-926."
-      ],
-      "functions": [
-        "Register",
-        "Leaderboard"
       ],
       "links": []
     },
@@ -963,7 +920,7 @@
       "line": "Living sculpture and installation proposal.",
       "status": "current",
       "family": "Personal",
-      "category": "Art and fiction",
+      "category": "Art, fiction and publishing",
       "former": null,
       "tags": [
         "art",
@@ -1015,7 +972,7 @@
       "line": "A terminal splash page for agent swarms.",
       "status": "current",
       "family": null,
-      "category": "Art and fiction",
+      "category": "Art, fiction and publishing",
       "former": "avalidurl.github.io/hypersitition",
       "tags": [
         "concept",

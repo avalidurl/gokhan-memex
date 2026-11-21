@@ -41,7 +41,7 @@ rewrite_root = ns["rewrite_root"]
 # Extend SKIP so already-prefixed paths stay intact. ATTR_RE was compiled
 # at import from the original SKIP_PREFIX — rebuild it.
 EXTRA_SKIP = (
-    "gokhan-vc", "coins", "jesus",
+    "gokhan-vc", "jesus",
     "foreguild-fao-plan", "hypersitition",
     "turkish-art-blob", "ethereum-doomsday",
 )
@@ -198,18 +198,6 @@ def prepare_gokhan_vc():
             html = html.replace("Atelier Gökhan Turhan", "Gökhan Ventures")
             html = process_html(html, prefix=prefix, name=name, canonical=f"{SITE}{prefix}/{page}/")
             write(dest / page / "index.html", html)
-
-
-def prepare_coins():
-    # Historical capture only. /coins/ is the Astro register; this origin is
-    # not mounted. Left here in case a recapture is needed for the archive.
-    prefix, name = "/coins", "The Token Estate"
-    html = (RAW / "sub_coins.numetal.xyz.html").read_text(encoding="utf-8", errors="replace")
-    html = process_html(html, prefix=prefix, name=name, canonical=f"{SITE}/coins/")
-    write(OUT / "coins/index.html", html)
-    # favicon if any
-    for path in ("favicon.svg", "favicon.ico", "og.png"):
-        download(f"https://coins.numetal.xyz/{path}", OUT / "coins" / path)
 
 
 def prepare_jesus():
@@ -522,7 +510,6 @@ def main():
         return 1
     jobs = [
         ("gokhan-vc", prepare_gokhan_vc, "Gökhan Ventures"),
-        # coins is not mounted: the live page is the Astro register.
         ("jesus", prepare_jesus, "Personal Jesus"),
         ("numetal-subpages", prepare_numetal_subpages, None),
         ("curb-agents", prepare_curb_agents, None),

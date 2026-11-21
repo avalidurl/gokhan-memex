@@ -22,8 +22,8 @@ const slugOf = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-').
     {groups.map((g) => {
       const list = tools.filter((t) => t.group === g.id)
       return list.length > 0 && (
-        <section class="cx tools" id={g.id} aria-label={g.label}>
-          <div class="cx-h"><b>{g.label}</b><span>{g.note}</span><em>{String(list.length).padStart(2, '0')}</em></div>
+        <details class="cx fold tools" id={g.id} aria-label={g.label} open>
+          <summary class="cx-h"><b>{g.label}</b><span>{g.note}</span><em>{String(list.length).padStart(2, '0')}</em></summary>
           {list.map((t) => (
             <div class="cx-r" id={slugOf(t.name)}>
               <span>{t.name}</span>
@@ -34,7 +34,7 @@ const slugOf = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-').
               </span>
             </div>
           ))}
-        </section>
+        </details>
       )
     })}
 

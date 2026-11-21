@@ -82,7 +82,7 @@ def target(url, own):
         # Only map subdomains that still have a page on this site.
         kept = {
             'curb', 'ishtar', 'plaintext', 'jesus', 'status',
-            'reclaim', 'ubu', 'coins',
+            'reclaim', 'ubu',
         }
         if sub not in kept:
             return None

@@ -141,4 +141,4 @@ for (const base of ['public', 'dist']) {
 
 const kinds = {}
 for (const page of pages) kinds[page.kind] = (kinds[page.kind] || 0) + 1
-console.log(JSON.stringify({ pages: pages.length, art: kinds.art || 0, coins: kinds.coins || 0, publishing: kinds.publishing || 0, journal: kinds.journal || 0, 'ethereum-doomsday': kinds['ethereum-doomsday'] || 0 }))
+console.log(JSON.stringify({ pages: pages.length, art: kinds.art || 0, publishing: kinds.publishing || 0, journal: kinds.journal || 0, 'ethereum-doomsday': kinds['ethereum-doomsday'] || 0 }))

@@ -96,6 +96,7 @@ export async function onRequest(context) {
     '/llmcraft', '/llmlivesmatter', '/launch', '/accumulator', '/rebase',
     '/apex', '/booster', '/api/launch', '/api/accumulator',
     '/media/archive/gokhan-vc/launch',
+    '/coins',
   ]
   if (removed.some((p) => url.pathname === p || url.pathname.startsWith(`${p}/`))) {
     const headers = { 'cache-control': 'no-store', 'cdn-cache-control': 'no-store', 'cloudflare-cdn-cache-control': 'no-store' }

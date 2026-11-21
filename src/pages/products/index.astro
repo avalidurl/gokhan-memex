@@ -11,7 +11,7 @@ const groups = catalogByCategory()
 
 <BaseLayout
   title="Projects & Products"
-  description="Every project and product, grouped by category: art and fiction, dating and matching, agent commerce, onchain boards and tokens, studios, markets and research, and learning tools. Each has its own page, tagged."
+  description="Every project and product, grouped by category: art, fiction and publishing, dating and matching, agent commerce, studios, markets and research, and learning tools. Each has its own page, tagged."
 >
   <div class="es">
     <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: 'Projects & Products' }]} title="Projects & Products" count={catalog.length} lead="Every project and product has its own page here, with its site, docs and data. Tags open a shared page with the projects, posts and APIs that carry them.">
@@ -23,8 +23,8 @@ const groups = catalogByCategory()
     </section>
 
     {groups.map((g) => (
-      <section class="cx" aria-label={g.name} id={g.id}>
-        <div class="cx-h"><b>{g.name}</b><span>{g.note}</span><em>{String(g.items.length).padStart(2, '0')}</em></div>
+      <details class="cx fold" aria-label={g.name} id={g.id} open>
+        <summary class="cx-h"><b>{g.name}</b><span>{g.note}</span><em>{String(g.items.length).padStart(2, '0')}</em></summary>
         {g.items.map((p) => (
           <div class="cx-r">
             <span>{p.href.startsWith('/journal/') ? 'journal' : <a href={p.href}>gokhanturhan.com{p.href.replace(/\/$/, '')}/</a>}{p.former && <><br /><i>formerly {p.former}</i></>}</span>
@@ -37,7 +37,7 @@ const groups = catalogByCategory()
             </span>
           </div>
         ))}
-      </section>
+      </details>
     ))}
   </div>
 </BaseLayout>

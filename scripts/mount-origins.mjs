@@ -3,10 +3,6 @@
  * After `astro build`, put original designs at /<project>/ and keep the
  * Bureau register at /<project>/file/. Idempotent. Never overwrites
  * dist/<slug>/file/.
- *
- * /coins/ is an exception: the live page is the Astro register (not an
- * origin mount), and /coins/file/ is a short guide. Never copy origins/coins
- * over dist/coins/.
  */
 import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, statSync, copyFileSync } from 'node:fs';
 import { dirname, join, relative } from 'node:path';
@@ -35,11 +31,11 @@ if (!existsSync(DIST)) {
   process.exit(1);
 }
 const manifest = JSON.parse(readFileSync(man, 'utf8'));
-const SKIP_MOUNT = new Set(['coins']);
+const SKIP_MOUNT = new Set([]);
 for (const item of manifest) {
   const slug = item.slug;
   if (SKIP_MOUNT.has(slug)) {
-    console.log(`SKIP ${slug}: live page is the Astro register, not an origin mount`);
+    console.log(`SKIP ${slug}`);
     continue;
   }
   const src = join(ORIGINS, slug);
