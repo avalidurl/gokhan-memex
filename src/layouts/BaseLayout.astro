@@ -53,8 +53,8 @@ const nav = [
   { name: 'Links', href: '/links/', on: path.startsWith('/links') },
   { name: 'CV', href: '/cv/', on: path.startsWith('/cv') },
   { name: 'Index', href: '/', on: path === '/', hover: 'Home' },
-  { name: 'Journal', href: '/journal/', on: path.startsWith('/journal') || path.startsWith('/archive') || path.startsWith('/writing') },
-  { name: 'Projects & Products', href: '/products/', on: path.startsWith('/products') },
+  { name: 'Blog', href: '/journal/', on: path.startsWith('/journal') || path.startsWith('/archive') || path.startsWith('/writing'), hover: 'Journal' },
+  { name: 'Products', href: '/products/', on: path.startsWith('/products') },
   { name: 'Publishing', href: '/publishing/', on: path.startsWith('/publishing') },
   { name: 'Raises', href: '/raises/', on: path.startsWith('/raises') },
   { name: 'Agents', href: '/agents/', on: path.startsWith('/agents') },
@@ -106,11 +106,6 @@ const tableDeskVersion = createHash('sha256')
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Theme: the OS preference is handled entirely in CSS (prefers-color-scheme
-         in the inlined critical styles), so no JS is needed for the default.
-         This script only stamps an explicit stored choice; data-cfasync keeps
-         Rocket Loader from deferring it past first paint. -->
-    <script is:inline src="/register-boot.js"></script>
     <link rel="icon" type="image/jpeg" href="/favicon-avatar.jpg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <meta name="generator" content={Astro.generator} />
@@ -164,6 +159,26 @@ const tableDeskVersion = createHash('sha256')
     <meta name="msapplication-config" content="/browserconfig.xml" />
     <meta name="msapplication-TileColor" content="#ffffff" />
     <meta name="theme-color" content="#ffffff" />
+    <!-- Theme class before the critical sheet. Inline, so Rocket Loader cannot
+         defer it. A stored gt-theme of ink or paper wins. With no stored choice
+         the OS dark sheet stays on and .light is never added. -->
+    <script is:inline data-cfasync="false">
+      (function () {
+        var root = document.documentElement;
+        var theme = null;
+        try { theme = localStorage.getItem("gt-theme"); } catch (e) {}
+        var darkOS = false;
+        try { darkOS = matchMedia("(prefers-color-scheme: dark)").matches; } catch (e) {}
+        var ink = theme === "ink" || (theme !== "paper" && darkOS);
+        root.classList.toggle("ink", ink);
+        root.classList.toggle("dark", ink);
+        root.classList.toggle("light", theme === "paper");
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute("content", ink ? "#1a1a1a" : "#ffffff");
+        var tile = document.querySelector('meta[name="msapplication-TileColor"]');
+        if (tile) tile.setAttribute("content", ink ? "#1a1a1a" : "#ffffff");
+      })();
+    </script>
     
     <!-- Apple Touch Icons — root paths by convention (and outside the /icons/* edge cleanup rule) -->
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -247,9 +262,7 @@ const tableDeskVersion = createHash('sha256')
         personSchema,
       ],
     })} />
-    <link rel="preload" href="/fonts/source-sans-3/source-sans-3-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/eb-garamond/eb-garamond-roman-latin.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/register.css?v=20261117-quote" />
+    <link rel="stylesheet" href="/register.css?v=20261122-journal" />
   </head>
 
   <body class="register">
@@ -272,10 +285,17 @@ const tableDeskVersion = createHash('sha256')
                   : <a href={item.href} aria-current={item.on ? 'page' : 'false'}>{item.name}</a>
             ))}
           </nav>
-          <button type="button" class="reg-menu" id="reg-menu" aria-expanded="false" aria-controls="reg-nav" aria-label="Open menu">Menu</button>
-          <div class="reg-modes">
-            <button type="button" id="theme" aria-pressed="false">Ink</button>
-            <button type="button" id="face" aria-pressed="false">Sans</button>
+          <div class="reg-tools">
+            <button type="button" id="theme" class="reg-theme" aria-pressed="false" aria-label="Switch to dark mode">
+              <svg class="theme-sun" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                <circle cx="12" cy="12" r="4" fill="currentColor"></circle>
+                <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.1 5.1l1.6 1.6M17.3 17.3l1.6 1.6M18.9 5.1l-1.6 1.6M6.7 17.3l-1.6 1.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+              </svg>
+              <svg class="theme-moon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                <path fill="currentColor" d="M15.2 2.4a8.8 8.8 0 1 0 6.4 14.8A8.2 8.2 0 0 1 15.2 2.4z"></path>
+              </svg>
+            </button>
+            <button type="button" class="reg-menu" id="reg-menu" aria-expanded="false" aria-controls="reg-nav" aria-label="Open menu">Menu</button>
           </div>
         </div>
       </header>
@@ -285,8 +305,8 @@ const tableDeskVersion = createHash('sha256')
       </main>
 
       <footer class="reg-foot">
-        <section class="cx foot" aria-label="Site footer">
-          <div class="cx-h"><b>Reach</b><span>elsewhere and site files</span></div>
+        <details class="cx foot fold" open aria-label="Site footer">
+          <summary class="cx-h"><b>Reach</b><span>elsewhere and site files</span></summary>
           <div class="cx-r"><span>Channels</span><span class="reg-channels">
             <a href="https://x.com/goekhan">X</a><span class="reg-dot">/</span>
             <a href="https://t.me/goekhanturhan">Telegram</a><span class="reg-dot">/</span>
@@ -315,7 +335,7 @@ const tableDeskVersion = createHash('sha256')
             <a href="/llms-full.txt">llms-full.txt</a><span class="reg-dot">/</span>
             <a href="/rss.xml">RSS (journal)</a>
           </span></div>
-        </section>
+        </details>
       </footer>
     </div>
     
@@ -348,7 +368,7 @@ const tableDeskVersion = createHash('sha256')
       });
     </script>
     <!-- Collapsible article headings (blog/journal only; no-ops elsewhere). -->
-    <script is:inline src="/register.js?v=20261114-folds" defer></script>
+    <script is:inline src="/register.js?v=20261122-journal" defer></script>
     <script is:inline src={`/blog-collapse.js?v=${collapseVersion}`} defer></script>
     <script is:inline src={`/table-desk.js?v=${tableDeskVersion}`} defer></script>
   </body>
@@ -365,7 +385,7 @@ const tableDeskVersion = createHash('sha256')
     max-width: none;
     background: var(--paper);
     color: var(--ink);
-    font-family: var(--font-mono);
+    font-family: var(--font-text);
     font-size: 12.5px;
     letter-spacing: 0.04em;
     text-transform: uppercase;

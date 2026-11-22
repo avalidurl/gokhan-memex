@@ -70,16 +70,16 @@
       "guides": [
         {
           "title": "Follow the journal",
-          "lead": "The email list is offline. The journal stays on this site, and RSS is how to follow it.",
+          "lead": "Journal posts go out by email through Cloudflare Email Sending. RSS is the other way to follow them.",
           "url": "https://gokhanturhan.com/about/subscribe/",
           "tags": [],
           "steps": [
-            "Open the Journal . New posts are on that page.",
+            "Leave an address on the newsletter page , or at the bottom of the Journal . A confirmation comes back to that address.",
             "Follow them in a reader: rss.xml . The steps are in Follow by RSS ."
           ],
           "rows": [],
           "notes": [
-            "The old email and XMTP list ran on feedhub. That service is offline, and the repository stays public to fork."
+            "XMTP delivery is not wired yet. It will be re-implemented later."
           ],
           "next": [
             {
@@ -93,19 +93,20 @@
           ]
         },
         {
-          "title": "The email list is closed",
-          "lead": "The newsletter service is offline, so it sends nothing further.",
+          "title": "Leave the email list",
+          "lead": "Journal posts are sent with Cloudflare Email Sending. Leaving the list stops those letters.",
           "url": "https://gokhanturhan.com/about/unsubscribe/",
           "tags": [
             "newsletter"
           ],
           "steps": [
-            "No new list mail will be sent. An unsubscribe link in an old email no longer reaches a live service.",
-            "If a message still arrives, write to contact@gokhan.vc from that address with the subject “Unsubscribe”."
+            "Open the unsubscribe page and enter the address that receives the letters.",
+            "Or write to contact@gokhan.vc from that address with the subject “Unsubscribe”."
           ],
           "rows": [],
           "notes": [
-            "Follow new posts by RSS instead. See Follow by RSS ."
+            "RSS keeps working either way. See Follow by RSS .",
+            "XMTP is not part of the list yet. It will be re-implemented later."
           ],
           "next": [
             {
@@ -486,7 +487,7 @@
         },
         {
           "title": "Newsletter",
-          "lead": "The email and XMTP list is offline.",
+          "lead": "Journal posts are sent with Cloudflare Email Sending. XMTP will be re-implemented later.",
           "url": "https://gokhanturhan.com/about/newsletter-reference/",
           "tags": [
             "newsletter"
@@ -495,7 +496,15 @@
           "rows": [
             {
               "label": "Status",
-              "value": "offline"
+              "value": "email live · XMTP later"
+            },
+            {
+              "label": "Sign up",
+              "value": "/newsletter/"
+            },
+            {
+              "label": "Leave",
+              "value": "/newsletter/unsubscribe · contact@gokhan.vc"
             },
             {
               "label": "Follow",
@@ -503,7 +512,7 @@
             },
             {
               "label": "Record",
-              "value": "Newsletter API page , marked retired"
+              "value": "Newsletter API page"
             }
           ],
           "notes": [],

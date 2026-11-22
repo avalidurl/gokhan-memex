@@ -44,7 +44,7 @@ To the maximum extent permitted by law, Numetal Labs, Atelier Gökhan Turhan, an
 
 ## 08 · Third-party services
 
-The Services rely on third-party infrastructure (including Cloudflare, Coinbase CDP / x402 facilitators, and Resend for newsletter mail) under their own terms. Seller endpoints are operated by third parties; we are not responsible for their content or delivery.
+The Services rely on third-party infrastructure (including Cloudflare, Cloudflare Email Sending for journal letters, Coinbase CDP / x402 facilitators, and Resend for the subscription confirmation) under their own terms. Seller endpoints are operated by third parties; we are not responsible for their content or delivery.
 
 ## 09 · Changes
 

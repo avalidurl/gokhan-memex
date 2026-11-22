@@ -48,7 +48,7 @@ Published call prefixes. Docs for each one stay at /api/<slug>/.
 ## gokhan.vc
 
 - [Estate gateway (feedhub)](https://api.gokhanturhan.com/feedhub/): purpose reading, publishing, payments, agents. protocol x402, openapi, rss. status retired. Former base: api.gokhan.vc. Check: GET https://api.gokhan.vc/ did not resolve. No DNS. Product page: https://gokhanturhan.com/gokhan-vc/api/.
-- [Newsletter (email + XMTP)](https://api.gokhanturhan.com/newsletter/): purpose publishing, identity. protocol hmac. status retired. Former base: api.gokhan.vc/newsletter. Check: The newsletter lived on api.gokhan.vc, which has no DNS. Subscribe was not called. Product page: https://gokhanturhan.com/gokhan-vc/api/.
+- [Newsletter (email)](https://api.gokhanturhan.com/newsletter/): purpose publishing, identity. protocol hmac. status live. Former base: api.gokhan.vc/newsletter. Check: Journal posts are sent with Cloudflare Email Sending. Sign up at https://gokhanturhan.com/newsletter/. The old api.gokhan.vc host is gone. XMTP will be re-implemented later. Product page: https://gokhanturhan.com/gokhan-vc/api/.
 - [XMTP bot](https://api.gokhanturhan.com/xmtp/): purpose agents. protocol none. status retired. Former base: xmtp-bot.gokhan.vc. Check: GET https://xmtp-bot.gokhan.vc/ did not resolve. No DNS. Product page: https://gokhanturhan.com/gokhan-vc/api/.
 - [x402 live panel](https://api.gokhanturhan.com/x402-live/): purpose payments, reading. protocol x402. status retired. Former base: gokhan.vc/x402-live/. Check: HEAD https://gokhan.vc/x402-live/ returned 404. Product page: https://gokhanturhan.com/gokhan-vc/.
 

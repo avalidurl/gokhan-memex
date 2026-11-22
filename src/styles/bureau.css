@@ -1,7 +1,4 @@
-/* House register primitives — filed-document chrome shared across surfaces.
-   Type tokens (--sans, --serif, --font-text, --font-data) live in critical.css
-   and register.css; nothing is redefined here. Source Sans 3 and EB Garamond
-   are self-hosted OFL webfonts; JetBrains Mono is unchanged. */
+/* House register primitives. Type tokens live in critical.css and register.css. */
 
 .tile {
   display: inline-flex;

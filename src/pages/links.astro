@@ -314,19 +314,19 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
       count={String(linkCount + walletCount).padStart(2, '0')}
     />
 
-    <nav class="cx lk-nav" aria-label="On this page">
-      <div class="cx-h">
+    <details class="cx lk-nav fold" open>
+      <summary class="cx-h">
         <b>On this page</b>
         <span>jump to a section</span>
         <button type="button" class="lk-all" id="lk-all">Collapse all</button>
         <em>{String(nav.length).padStart(2, '0')}</em>
-      </div>
-      <div class="lk-toc">
+      </summary>
+      <nav class="lk-toc" aria-label="On this page">
         {nav.map((item) => (
           <a href={`#${item.id}`}>{item.title}</a>
         ))}
-      </div>
-    </nav>
+      </nav>
+    </details>
 
     <div id="contact" class="lk-alias" aria-hidden="true"></div>
 
@@ -481,7 +481,7 @@ const walletCount = walletNetworks.reduce((n, net) => n + net.items.length, 0)
     height: 1.05rem;
     flex: none;
     padding: 0;
-    color: var(--red);
+    color: var(--mark);
     font-family: var(--sans);
     font-weight: 400;
     font-size: 1.05rem;

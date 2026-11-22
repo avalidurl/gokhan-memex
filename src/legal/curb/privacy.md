@@ -16,7 +16,7 @@ This Privacy Policy explains how **Numetal Labs** / **Atelier Gökhan Turhan** (
 
 **Geolocation for compliance.** We use the approximate country/region that Cloudflare derives from your connection solely to enforce our sanctions and export-control geo-block (see the Terms). We do not store this for marketing and do not use it to profile you; it is evaluated at the edge to allow or block the request.
 
-**Newsletter.** The estate email list is offline. Public contact remains **contact@gokhan.vc**.
+**Newsletter.** Journal letters are sent with Cloudflare Email Sending to addresses that sign up. Unsubscribe at [/newsletter/unsubscribe](https://gokhanturhan.com/newsletter/unsubscribe), or write to **contact@gokhan.vc**. XMTP delivery will be re-implemented later.
 
 If you email us, we receive your message and address solely to respond.
 
@@ -26,7 +26,7 @@ We use the information above only to operate, match, settle, secure, and improve
 
 ## 03 · Service providers
 
-Cloudflare (Workers, KV, DNS), Coinbase CDP / x402 facilitators (payment verification), and Resend (email). Linked third-party sites process data under their own policies.
+Cloudflare (Workers, KV, DNS, and Email Sending for journal letters), Coinbase CDP / x402 facilitators (payment verification), and Resend (the subscription confirmation). Linked third-party sites process data under their own policies.
 
 ## 04 · Cookies & local storage
 

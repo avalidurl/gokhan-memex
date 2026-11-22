@@ -1,12 +1,9 @@
 /* Non-critical CSS - Critical CSS is inlined in BaseLayout.astro */
 /* This file contains the full Tailwind CSS build for non-critical styles */
 
-/* R1/R2/R3 text face — Source Sans 3 (sans) / EB Garamond (serif), self-hosted
-   OFL variable woff2, matching commanding-heights.com. The stacks live in
-   critical.css (--sans / --serif / --font-text / --font-data) and register.css
-   (--read maps to serif or sans) and must stay in step with textStack/dataStack
-   in tailwind.config.mjs. JetBrains Mono is unchanged. Restored original
-   product designs keep their own fonts and do not use these faces. */
+/* Reading face is the system sans in critical.css and register.css.
+   textStack/dataStack in tailwind.config.mjs stay on the same stacks.
+   Restored original product designs keep their own fonts. */
 @import './bureau.css';
 
 @tailwind base;
@@ -37,92 +34,36 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* R1 — display, booster's .word: black weight, tight negative track. The
-     page title is the only large type on the sheet, and a title is language,
-     so it is set in the text face. */
   h1,
-  .heading {
-    font-family: var(--font-text);
-    font-weight: 900;
-    letter-spacing: -0.02em;
-    line-height: 1.05;
-  }
-
-  /* Page title — booster's display scale, tamed just enough that a
-     sentence-length title still fits the 980px column. */
-  h1 {
-    font-size: clamp(40px, 8vw, 84px);
-    line-height: 1.05;
-    font-weight: 900;
-    overflow-wrap: break-word;
-  }
-
-  /* R2 sub-heads — booster's tile h2: 22px on the text face, sentence case.
-     The hairline rule and the flush-right §n stamp (data face, 12.5px) keep
-     the filing-office accounting. */
-  h2 {
-    position: relative;
-    font-family: var(--font-text);
-    font-size: 22px;
-    letter-spacing: 0;
-    font-weight: 700;
-    line-height: 1.25;
-    border-bottom: 1px solid var(--ink);
-    padding: 0 3.5rem 8px 0;
-  }
-
-  main {
-    counter-reset: docsec;
-  }
-
-  main h2::after {
-    counter-increment: docsec;
-    content: "§" counter(docsec);
-    position: absolute;
-    right: 0;
-    bottom: 8px;
-    font-family: var(--font-data);
-    font-size: 12.5px;
-    color: var(--dim);
-    font-weight: 400;
-    letter-spacing: 0.06em;
-  }
-
-  /* R4 — minor heads are identifiers: booster's kicker/№ metrics on the data
-     face. */
+  h2,
   h3,
   h4,
   h5,
-  h6 {
-    font-family: var(--font-data);
-    line-height: 1.4;
-    text-transform: uppercase;
+  h6,
+  .heading {
+    font-family: var(--font-text);
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 1.2;
+    text-transform: none;
   }
 
-  h3 {
-    font-size: 14px;
-    letter-spacing: 0.08em;
-    font-weight: 700;
-  }
-
-  h4,
+  h1 { font-size: 1.5em; overflow-wrap: break-word; }
+  h2 { font-size: 1.35em; }
+  h3 { font-size: 1.15em; }
+  h4 { font-size: 1.05em; }
   h5,
-  h6 {
-    font-size: 12.5px;
-    letter-spacing: 0.06em;
-    font-weight: 400;
-  }
+  h6 { font-size: 1em; }
 
   p,
   article,
   .prose {
-    line-height: 1.6;
+    line-height: 1.5;
     margin-bottom: 1rem;
   }
 
-  /* Measure — booster's lead runs 72ch on the sans face. */
   p {
-    max-width: 72ch;
+    max-width: 65ch;
   }
 
   h1,
@@ -153,13 +94,13 @@
     border: 1px solid var(--ink);
     background: var(--faint);
     font-family: var(--font-data);
-    font-size: 15px;
+    font-size: 16px;
   }
 
   pre {
     border: 1px solid var(--ink);
     background: var(--faint);
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.6;
     overflow-x: auto;
   }
@@ -178,18 +119,18 @@
      case, and borders. Reading contexts (article/prose body) re-enable them
      below, where a monochrome inline link needs the affordance. */
   a {
-    color: var(--ink);
-    text-decoration: none;
+    color: var(--link);
+    text-decoration: underline;
     text-underline-offset: 0.12em;
     text-decoration-thickness: 1px;
   }
 
   a:visited {
-    color: var(--ink);
+    color: var(--link-visited);
   }
 
-  .dark a:visited {
-    color: var(--ink);
+  a:hover {
+    text-decoration-thickness: 2px;
   }
 
   button,
@@ -219,11 +160,11 @@
   /* R4 — a column head is an identifier for the column, not a quantity. */
   th {
     background: var(--faint);
-    font-family: var(--font-data);
-    font-size: 12.5px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    font-weight: 700;
+    font-family: var(--font-text);
+    font-size: 16px;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 500;
     text-align: left;
   }
 
@@ -258,29 +199,30 @@
 }
 
 @layer components {
-  /* Article/prose body keeps underlined links — inline links in monochrome
-     running text need the affordance. Chrome (nav, cards, mastheads) does not. */
   .prose a,
   .post-body a,
   .dispatch-prose a {
+    color: var(--link);
     text-decoration: underline;
     text-underline-offset: 0.12em;
     text-decoration-thickness: 1px;
   }
 
+  .prose a:visited,
+  .post-body a:visited,
+  .dispatch-prose a:visited {
+    color: var(--link-visited);
+  }
+
   .raw-link {
-    color: var(--ink);
-    text-decoration: none;
+    color: var(--link);
+    text-decoration: underline;
     text-underline-offset: 0.12em;
     text-decoration-thickness: 1px;
   }
 
   .raw-link:visited {
-    color: var(--ink);
-  }
-
-  .dark .raw-link:visited {
-    color: var(--ink);
+    color: var(--link-visited);
   }
 
   .raw-link:hover {
@@ -288,12 +230,11 @@
     text-decoration-thickness: 2px;
   }
 
-  /* R4 — eyebrow stamp; booster's .kicker: signal red, mono 14px. */
   .raw-kicker {
-    color: var(--red);
-    font-family: var(--font-data);
-    font-size: 14px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    color: var(--dim);
+    font-family: var(--font-text);
+    font-size: 16px;
+    letter-spacing: 0;
+    text-transform: none;
   }
 }

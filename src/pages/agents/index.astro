@@ -70,8 +70,8 @@ const machine = JSON.stringify({
 >
   <div class="es">
     <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: 'Agents' }]} title="For agents" lead="Five APIs are published at api.gokhanturhan.com, above the archive of the domains they used to run on. A call under /ishtar, /curb, /plaintext, /numetal or /status is proxied to the live worker. These pages do not take a payment." />
-      <div class="cx api">
-        <div class="cx-h"><b>gokhanturhan.com</b><span>published on this host</span><em>{published.length}</em></div>
+      <details class="cx api fold" open>
+        <summary class="cx-h"><b>gokhanturhan.com</b><span>published on this host</span><em>{published.length}</em></summary>
         {published.map((a) => (
           <a class="reg" href={`/api/${a.slug}/`}>
             <span class="name">{a.name}</span>
@@ -79,10 +79,10 @@ const machine = JSON.stringify({
             <span class="where">{a.rail} · {a.status}</span>
           </a>
         ))}
-      </div>
+      </details>
       {grouped.map((g) => (
-        <div class="cx api">
-          <div class="cx-h"><b>{g.domain}</b><span>former domain</span><em>{g.apis.length}</em></div>
+        <details class="cx api fold" open>
+          <summary class="cx-h"><b>{g.domain}</b><span>former domain</span><em>{g.apis.length}</em></summary>
           {g.apis.map((a) => (
             <a class="reg" href={`/api/${a.slug}/`}>
               <span class="name">{a.name}</span>
@@ -90,16 +90,16 @@ const machine = JSON.stringify({
               <span class="where">{a.status}</span>
             </a>
           ))}
-        </div>
+        </details>
       ))}
       <a class="more" href="https://api.gokhanturhan.com/">Open the API index</a>
 
-      <div class="cx">
-        <div class="cx-h"><b>Discovery</b><span>this site</span></div>
+      <details class="cx fold" open>
+        <summary class="cx-h"><b>Discovery</b><span>this site</span></summary>
         <div class="cv-line"><span>Index</span><b><a href="https://api.gokhanturhan.com/apis.json">apis.json</a> · <a href="https://api.gokhanturhan.com/openapi.json">openapi.json</a> · <a href="https://api.gokhanturhan.com/llms.txt">llms.txt</a> · <a href="https://api.gokhanturhan.com/.well-known/agent.json">agent.json</a></b></div>
         <div class="cv-line"><span>This site</span><b><a href="https://gokhanturhan.com/llms.txt">llms.txt</a> · <a href="https://gokhanturhan.com/cv.md">cv.md</a> · <a href="/rss.xml">RSS</a></b></div>
         <div class="cv-line"><span>Projects &amp; Products</span><b><a href="/products/">every project and product, by category</a></b></div>
-      </div>
+      </details>
 
       <details class="cx fold" open>
         <summary class="cx-h"><b>Machine</b><span>agents.json — the API index, for agents</span></summary>

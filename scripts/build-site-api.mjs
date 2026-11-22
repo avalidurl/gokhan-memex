@@ -272,8 +272,8 @@ const html = `<!doctype html><html lang="en"><head><link rel="stylesheet" href="
 <title>Site content · API index · Gökhan Turhan</title>
 <meta name="description" content="Read-only JSON for the journal, CV, products, about guides, links, and publishing.">
 <meta name="robots" content="index, follow"><link rel="canonical" href="https://gokhanturhan.com/api/site/"><link rel="alternate" type="application/json" href="https://gokhanturhan.com/api/site/index.json">
-<style>:root{--ink:#141414;--paper:#ffffff;--dim:#4a4a4a;--hair:#e0e0e0;--ikb:#002fa7;--bg:#fff;--mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;--serif:"EB Garamond",Garamond,Palatino,Georgia,serif}
-*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.55 var(--serif)}
+<style>:root{--ink:#1a1a1a;--paper:#ffffff;--dim:#4a4a4a;--hair:#e0e0e0;--ikb:#002fa7;--bg:#fff;--mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;--serif:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:18px/1.5 var(--serif)}
 .sheet{max-width:980px;margin:0 auto;padding:22px 28px 48px}a{color:var(--ikb)}
 .mast{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;border-bottom:2px solid var(--ink);padding-bottom:10px}
 .mast h1{margin:0;font-size:22px}.mast h1 a{color:var(--ink);text-decoration:none}
@@ -282,6 +282,7 @@ nav{display:flex;flex-wrap:wrap;gap:14px;font:12px var(--mono);text-transform:up
 nav a{color:var(--ink);text-decoration:none}
 h2{font-size:24px;margin:8px 0 12px}.lead{font-size:19px;max-width:64ch}
 .cx{border:1px solid var(--ink);background:var(--bg);margin:0 0 16px}
+details.cx>summary{cursor:pointer;list-style:none}details.cx>summary::-webkit-details-marker{display:none}details.cx>summary::before{content:"▸";color:#C41E3A;padding:7px 0 7px 8px}details.cx[open]>summary::before{content:"▾"}details.cx:not([open])>summary{border-bottom:0}details.cx:not([open])>:not(summary){display:none!important}
 .cx-h{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--ink);font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase}
 .cx-h b{background:var(--ink);color:var(--paper);padding:7px 9px;font-weight:500}
 .cx-h span{padding:7px 9px;color:var(--dim);letter-spacing:.02em;text-transform:none}
@@ -296,10 +297,10 @@ footer{margin-top:28px;border-top:1px solid var(--ink);padding-top:10px;font:12p
 <p class="doc"><b>API-SITE</b> · 2026-11-18</p></header>
 <nav><a href="/api/">Index</a><a href="/api/site/">Site</a><a href="/api/site/openapi.json">OpenAPI</a><a href="/api/site/index.json">index.json</a><a href="/journal/">Journal</a><a href="/cv/">CV</a><a href="/links/">Links</a></nav>
 <main><p class="lead">A read-only API for the public site. The journal, the CV, the projects and products index, the about guides, every public link, and publishing. No payment. Contact is <a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a>.</p>
-<section class="cx"><div class="cx-h"><b>Resources</b><span>GET · application/json</span></div>${rows}</section>
+<details class="cx fold" open><summary class="cx-h"><b>Resources</b><span>GET · application/json</span></summary>${rows}</details>
 </main>
 <footer><p><a href="/api/">API index</a> · <a href="/sitemap-index.xml">Sitemap</a> · <a href="/robots.txt">robots.txt</a> · <a href="/llms.txt">llms.txt</a> · <a href="/api/apis.json">apis.json</a> · <a href="/api/openapi.json">openapi.json</a> · <a href="/.well-known/api-catalog">api-catalog</a></p></footer>
-</div></body></html>
+</div><script src="/fold-sections.js" defer></script></body></html>
 `
 for (const dir of outDirs) writeFileSync(join(dir, 'index.html'), html)
 

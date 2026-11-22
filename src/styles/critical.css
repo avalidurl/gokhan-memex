@@ -7,60 +7,54 @@
   /* The four tokens (light — Bureau register paper).
      Two accent stamps ride along: signal red and IKB. Accents mark kickers
      and signal labels only — running ink stays monochrome. */
-  --ink: #141414;
+  --ink: #1a1a1a;
   --paper: #ffffff;
-  --dim: #6f6f6f;
-  --faint: #e0e0e0;
-  --red: #e10600;
-  --ikb: #002FA7;
+  --dim: #555555;
+  --faint: #f5f5f5;
+  --hair: #dddddd;
+  --link: #002FA7;
+  --link-visited: #1a3a8a;
+  --mark: #C41E3A;
+  --ikb: var(--link);
+  --red: var(--mark);
+  --wash: rgba(26, 26, 26, 0.045);
+  --cx-bg: #ffffff;
+  --select: #d6e2ff;
 
   /* Legacy HSL triplets, remapped onto the four tokens */
-  --accent-blue: 0 0% 7.84%;
-  --accent-blue-strong: 0 0% 7.84%;
+  --accent-blue: 0 0% 10.2%;
+  --accent-blue-strong: 0 0% 10.2%;
   --accent-blue-soft: 60 5% 83.9%;
   --accent-blue-wash: 60 5% 83.9%;
   --accent-blue-foreground: 60 17% 97.6%;
   --backdrop: 60 17% 97.6%;
   --background: 60 17% 97.6%;
-  --foreground: 0 0% 7.84%;
+  --foreground: 0 0% 10.2%;
   --card: 60 17% 97.6%;
-  --card-foreground: 0 0% 7.84%;
-  --primary: 0 0% 7.84%;
+  --card-foreground: 0 0% 10.2%;
+  --primary: 0 0% 10.2%;
   --primary-foreground: 60 17% 97.6%;
   --secondary: 60 5% 83.9%;
-  --secondary-foreground: 0 0% 7.84%;
+  --secondary-foreground: 0 0% 10.2%;
   --muted: 60 5% 83.9%;
   --muted-foreground: 0 0% 43.53%;
   --accent: 60 5% 83.9%;
-  --accent-foreground: 0 0% 7.84%;
-  --border: 0 0% 7.84%;
-  --input: 0 0% 7.84%;
-  --ring: 0 0% 7.84%;
+  --accent-foreground: 0 0% 10.2%;
+  --border: 0 0% 10.2%;
+  --input: 0 0% 10.2%;
+  --ring: 0 0% 10.2%;
   --radius: 0;
   --popover: 60 17% 97.6%;
-  --popover-foreground: 0 0% 7.84%;
-  --destructive: 0 0% 7.84%;
+  --popover-foreground: 0 0% 10.2%;
+  --destructive: 0 0% 10.2%;
   --destructive-foreground: 60 17% 97.6%;
 
-  /* ── Two faces, five roles ──────────────────────────────────────────────
-     R1 display · R2 running prose · R3 quantities  → --font-text
-     R4 identifiers & controls · R5 machine strings → --font-data
-
-     A number that is a QUANTITY is text-face + tabular figures. A number
-     that is an IDENTIFIER (§, doc no, rev, address, hash) is the data face,
-     and takes no tabular declaration — the data face is already tabular.
-
-     2026-11-12 — text faces follow commanding-heights.com: self-hosted OFL
-     variable woff2 for Source Sans 3 (sans) and EB Garamond (serif), latin
-     + latin-ext, weights 400–600. --font-text is the sans stack; register
-     pages map --read to --serif by default (html.sans flips it). The data
-     face is unchanged: JetBrains Mono, self-hosted, falling back to
-     ui-monospace. Anything changed here must change in textStack/dataStack
-     in tailwind.config.mjs, and in --sans/--serif in register.css. */
-  --sans: "Source Sans 3", "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --serif: "EB Garamond", Garamond, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  /* Reading face is the system sans. Code and identifiers use the system mono.
+     Keep textStack/dataStack in tailwind.config.mjs on the same stacks. */
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --serif: var(--sans);
   --font-text: var(--sans);
-  --font-data: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-data: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
   /* Compatibility aliases, one release only. The old names are what got
      aliased to each other in the first place; every call site is being moved
@@ -81,32 +75,39 @@
   --astro-code-token-function: var(--ink);
   --astro-code-token-string-expression: var(--dim);
   --astro-code-token-punctuation: var(--dim);
-  --astro-code-token-link: var(--ink);
+  --astro-code-token-link: var(--link);
 
   color-scheme: light;
 }
 
 .dark {
   /* The four tokens (dark — the same Bureau palette, paper and ink swapped) */
-  --ink: #ffffff;
-  --paper: #141414;
-  --dim: #9a9a9a;
+  --ink: #f5f5f5;
+  --paper: #1a1a1a;
+  --dim: #a3a3a3;
   --faint: #2a2a2a;
-  --red: #e10600;
-  --ikb: #4d6fd0; /* IKB lifted for dark paper; light theme keeps the true #002FA7 */
+  --hair: #2e2e2e;
+  --link: #8eb0ff;
+  --link-visited: #c5d4ff;
+  --mark: #C41E3A;
+  --ikb: var(--link);
+  --red: var(--mark);
+  --wash: rgba(245, 245, 245, 0.06);
+  --cx-bg: #1a1a1a;
+  --select: #1e3a8a;
 
   --accent-blue: 60 17% 97.6%;
   --accent-blue-strong: 60 17% 97.6%;
   --accent-blue-soft: 0 0% 16.47%;
   --accent-blue-wash: 0 0% 16.47%;
-  --accent-blue-foreground: 0 0% 7.84%;
-  --backdrop: 0 0% 7.84%;
-  --background: 0 0% 7.84%;
+  --accent-blue-foreground: 0 0% 10.2%;
+  --backdrop: 0 0% 10.2%;
+  --background: 0 0% 10.2%;
   --foreground: 60 17% 97.6%;
-  --card: 0 0% 7.84%;
+  --card: 0 0% 10.2%;
   --card-foreground: 60 17% 97.6%;
   --primary: 60 17% 97.6%;
-  --primary-foreground: 0 0% 7.84%;
+  --primary-foreground: 0 0% 10.2%;
   --secondary: 0 0% 16.47%;
   --secondary-foreground: 60 17% 97.6%;
   --muted: 0 0% 16.47%;
@@ -116,10 +117,10 @@
   --border: 60 17% 97.6%;
   --input: 60 17% 97.6%;
   --ring: 60 17% 97.6%;
-  --popover: 0 0% 7.84%;
+  --popover: 0 0% 10.2%;
   --popover-foreground: 60 17% 97.6%;
   --destructive: 60 17% 97.6%;
-  --destructive-foreground: 0 0% 7.84%;
+  --destructive-foreground: 0 0% 10.2%;
 
   color-scheme: dark;
 }
@@ -130,25 +131,32 @@
    paper tokens over this media block. Token-for-token identical to .dark. */
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-    --ink: #ffffff;
-    --paper: #141414;
-    --dim: #9a9a9a;
+    --ink: #f5f5f5;
+    --paper: #1a1a1a;
+    --dim: #a3a3a3;
     --faint: #2a2a2a;
-    --red: #e10600;
-    --ikb: #4d6fd0;
+    --hair: #2e2e2e;
+    --link: #8eb0ff;
+    --link-visited: #c5d4ff;
+    --mark: #C41E3A;
+    --ikb: var(--link);
+    --red: var(--mark);
+    --wash: rgba(245, 245, 245, 0.06);
+    --cx-bg: #1a1a1a;
+    --select: #1e3a8a;
 
     --accent-blue: 60 17% 97.6%;
     --accent-blue-strong: 60 17% 97.6%;
     --accent-blue-soft: 0 0% 16.47%;
     --accent-blue-wash: 0 0% 16.47%;
-    --accent-blue-foreground: 0 0% 7.84%;
-    --backdrop: 0 0% 7.84%;
-    --background: 0 0% 7.84%;
+    --accent-blue-foreground: 0 0% 10.2%;
+    --backdrop: 0 0% 10.2%;
+    --background: 0 0% 10.2%;
     --foreground: 60 17% 97.6%;
-    --card: 0 0% 7.84%;
+    --card: 0 0% 10.2%;
     --card-foreground: 60 17% 97.6%;
     --primary: 60 17% 97.6%;
-    --primary-foreground: 0 0% 7.84%;
+    --primary-foreground: 0 0% 10.2%;
     --secondary: 0 0% 16.47%;
     --secondary-foreground: 60 17% 97.6%;
     --muted: 0 0% 16.47%;
@@ -158,10 +166,10 @@
     --border: 60 17% 97.6%;
     --input: 60 17% 97.6%;
     --ring: 60 17% 97.6%;
-    --popover: 0 0% 7.84%;
+    --popover: 0 0% 10.2%;
     --popover-foreground: 60 17% 97.6%;
     --destructive: 60 17% 97.6%;
-    --destructive-foreground: 0 0% 7.84%;
+    --destructive-foreground: 0 0% 10.2%;
 
     color-scheme: dark;
   }
@@ -185,17 +193,17 @@
   -webkit-backdrop-filter: none !important;
 }
 
-/* The filed-document reset above clears every shadow, including the red
-   current-page mark under the navbar. Put that one mark back. */
+/* The filed-document reset above clears every shadow, including the current-page
+   underline. Put that one mark back. Color is var(--mark). */
 .reg-bar nav a[aria-current="page"] {
-  box-shadow: inset 0 -2px 0 var(--red) !important;
+  box-shadow: inset 0 -3px 0 var(--mark) !important;
 }
 
 html {
   height: 100%;
   background-color: var(--paper);
   font-size: 18px;
-  line-height: 1.6;
+  line-height: 1.5;
   -webkit-text-size-adjust: 100%;
   tab-size: 4;
 }
@@ -205,10 +213,10 @@ body {
   margin: 0;
   background-color: var(--paper);
   color: var(--ink);
-  /* R2 — running prose. 18px/1.6 on --font-text (sans; register remaps --read). */
+  /* Running prose is 18px on the system sans. */
   font-family: var(--font-text);
   font-size: 18px;
-  line-height: 1.6;
+  line-height: 1.5;
   font-kerning: normal;
   font-variant-ligatures: common-ligatures;
   font-variant-numeric: lining-nums proportional-nums;
@@ -266,7 +274,7 @@ body {
   gap: 8px;
   margin: 0 0 8px;
   font-family: var(--font-data);
-  font-size: 11px;
+  font-size: 16px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -385,7 +393,7 @@ body {
   gap: 1rem;
   flex-wrap: wrap;
   font-family: var(--font-data);
-  font-size: 12.5px;
+  font-size: 16px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--dim);
@@ -466,7 +474,7 @@ body {
   width: 100%;
 }
 
-/* R4 — control labels: 2px rule, mono 15px, invert on hover. */
+/* R4 — control labels: 2px rule, mono 16px, invert on hover. */
 .foot-sub-btn {
   padding: 12px 26px;
   border: 2px solid var(--ink);
@@ -477,7 +485,7 @@ body {
   white-space: nowrap;
   text-transform: uppercase;
   font-family: var(--font-data);
-  font-size: 15px;
+  font-size: 16px;
   letter-spacing: 0.06em;
 }
 
@@ -490,7 +498,7 @@ body {
 
 .foot-sub-btn--xmtp {
   font-family: var(--font-data);
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .foot-sub-btn--xmtp:disabled {
@@ -527,7 +535,7 @@ body {
 .site-sheet header nav a {
   text-transform: uppercase;
   font-family: var(--font-data);
-  font-size: 12.5px;
+  font-size: 16px;
   letter-spacing: 0.04em;
   font-weight: 600;
 }

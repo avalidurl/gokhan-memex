@@ -298,7 +298,7 @@ VOCS_BAR_CSS = (
     "letter-spacing:.02em}"
     ".gt-bar a{color:#002fa7;text-decoration:none}"
     ".gt-bar a:hover{text-decoration:underline}.gt-bar b{font-weight:600}"
-    "@media (prefers-color-scheme:dark){.gt-bar{background:#141414;color:#f5f5f5;"
+    "@media (prefers-color-scheme:dark){.gt-bar{background:#1a1a1a;color:#f5f5f5;"
     "border-color:#f5f5f5}.gt-bar a{color:#8eb0ff}}"
 )
 

@@ -54,26 +54,27 @@ export const guides: Guide[] = [
   // ---------- How-to ----------
   {
     slug: 'subscribe', quad: 'how-to', title: 'Follow the journal',
-    lead: 'The email list is offline. The journal stays on this site, and RSS is how to follow it.',
+    lead: 'Journal posts go out by email through Cloudflare Email Sending. RSS is the other way to follow them.',
     steps: [
-      'Open the <a href="/journal/">Journal</a>. New posts are on that page.',
+      'Leave an address on the <a href="/newsletter/">newsletter page</a>, or at the bottom of the <a href="/journal/">Journal</a>. A confirmation comes back to that address.',
       'Follow them in a reader: <a href="/rss.xml">rss.xml</a>. The steps are in <a href="/about/follow-by-rss/">Follow by RSS</a>.',
     ],
     notes: [
-      'The old email and XMTP list ran on feedhub. That service is offline, and the repository stays public to fork.',
+      'XMTP delivery is not wired yet. It will be re-implemented later.',
     ],
     next: [{ label: 'Follow by RSS', href: '/about/follow-by-rss/' }, { label: 'Journal', href: '/journal/' }],
   },
   {
-    slug: 'unsubscribe', quad: 'how-to', title: 'The email list is closed',
-    lead: 'The newsletter service is offline, so it sends nothing further.',
+    slug: 'unsubscribe', quad: 'how-to', title: 'Leave the email list',
+    lead: 'Journal posts are sent with Cloudflare Email Sending. Leaving the list stops those letters.',
     tags: ['newsletter'],
     steps: [
-      'No new list mail will be sent. An unsubscribe link in an old email no longer reaches a live service.',
-      'If a message still arrives, write to <a href="mailto:contact@gokhan.vc?subject=Unsubscribe">contact@gokhan.vc</a> from that address with the subject “Unsubscribe”.',
+      'Open <a href="/newsletter/unsubscribe">the unsubscribe page</a> and enter the address that receives the letters.',
+      'Or write to <a href="mailto:contact@gokhan.vc?subject=Unsubscribe">contact@gokhan.vc</a> from that address with the subject “Unsubscribe”.',
     ],
     notes: [
-      'Follow new posts by <a href="/rss.xml">RSS</a> instead. See <a href="/about/follow-by-rss/">Follow by RSS</a>.',
+      'RSS keeps working either way. See <a href="/about/follow-by-rss/">Follow by RSS</a>.',
+      'XMTP is not part of the list yet. It will be re-implemented later.',
     ],
     next: [{ label: 'Privacy', href: '/privacy/' }, { label: 'Follow by RSS', href: '/about/follow-by-rss/' }],
   },
@@ -226,12 +227,14 @@ export const guides: Guide[] = [
   },
   {
     slug: 'newsletter-reference', quad: 'reference', title: 'Newsletter',
-    lead: 'The email and XMTP list is offline.',
+    lead: 'Journal posts are sent with Cloudflare Email Sending. XMTP will be re-implemented later.',
     tags: ['newsletter'],
     rows: [
-      ['Status', 'offline'],
+      ['Status', 'email live · XMTP later'],
+      ['Sign up', '<a href="/newsletter/">/newsletter/</a>'],
+      ['Leave', '<a href="/newsletter/unsubscribe">/newsletter/unsubscribe</a> · <a href="mailto:contact@gokhan.vc?subject=Unsubscribe">contact@gokhan.vc</a>'],
       ['Follow', '<a href="/rss.xml">RSS</a> · <a href="/about/follow-by-rss/">how to follow</a>'],
-      ['Record', '<a href="/api/newsletter/">Newsletter API page</a>, marked retired'],
+      ['Record', '<a href="/api/newsletter/">Newsletter API page</a>'],
     ],
     next: [{ label: 'Follow the journal', href: '/about/subscribe/' }, { label: 'Privacy', href: '/privacy/' }],
   },

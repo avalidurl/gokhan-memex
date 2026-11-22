@@ -399,12 +399,12 @@
     },
     {
       "slug": "newsletter",
-      "name": "Newsletter (email + XMTP)",
+      "name": "Newsletter (email)",
       "domain": "gokhan.vc",
       "former_base": "api.gokhan.vc/newsletter",
       "kind": "REST · HMAC links",
-      "status": "retired",
-      "as_of": "2026-11-14",
+      "status": "live",
+      "as_of": "2026-11-22",
       "tags": [
         "publishing",
         "identity"
@@ -431,7 +431,7 @@
       "check": {
         "checked": "2026-11-14",
         "method": "GET",
-        "result": "The newsletter lived on api.gokhan.vc, which has no DNS. Subscribe was not called."
+        "result": "Journal posts are sent with Cloudflare Email Sending. Sign up at https://gokhanturhan.com/newsletter/. The old api.gokhan.vc host is gone. XMTP will be re-implemented later."
       }
     },
     {

@@ -22,26 +22,21 @@ const monoScale = {
   950: ink,
 }
 
-// Two faces, five roles — the same contract as src/styles/critical.css.
-// R1 display · R2 running prose · R3 quantities  -> textStack  (--font-text)
-// R4 identifiers & controls · R5 machine strings -> dataStack  (--font-data)
-// 2026-11-12: Source Sans 3 text face (self-hosted OFL), JetBrains Mono-led
-// data face. Must stay in step with --font-text/--font-data / --sans in
-// critical.css. Register pages additionally offer EB Garamond via --serif.
+// Same stacks as critical.css --font-text / --font-data.
 const textStack = [
-  '"Source Sans 3"',
-  '"Source Sans Pro"',
-  '"Helvetica Neue"',
-  'Helvetica',
-  'Arial',
+  '-apple-system',
+  'BlinkMacSystemFont',
+  '"Segoe UI"',
+  'Roboto',
   'sans-serif',
 ]
 
 const dataStack = [
-  '"JetBrains Mono"',
   'ui-monospace',
+  'SFMono-Regular',
   '"SF Mono"',
   'Menlo',
+  'Consolas',
   'monospace',
 ]
 
@@ -152,7 +147,7 @@ export default {
             '--tw-prose-body': 'hsl(var(--foreground))',
             '--tw-prose-headings': 'hsl(var(--foreground))',
             '--tw-prose-lead': 'hsl(var(--muted-foreground))',
-            '--tw-prose-links': 'hsl(var(--foreground))',
+            '--tw-prose-links': 'var(--link)',
             '--tw-prose-bold': 'hsl(var(--foreground))',
             '--tw-prose-counters': 'hsl(var(--muted-foreground))',
             '--tw-prose-bullets': 'hsl(var(--muted-foreground))',
@@ -167,7 +162,7 @@ export default {
             '--tw-prose-td-borders': 'hsl(var(--foreground))',
             '--tw-prose-invert-body': 'hsl(var(--foreground))',
             '--tw-prose-invert-headings': 'hsl(var(--foreground))',
-            '--tw-prose-invert-links': 'hsl(var(--foreground))',
+            '--tw-prose-invert-links': 'var(--link)',
             '--tw-prose-invert-bold': 'hsl(var(--foreground))',
             '--tw-prose-invert-code': 'hsl(var(--foreground))',
             '--tw-prose-kbd': 'hsl(var(--foreground))',

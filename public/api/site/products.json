@@ -769,7 +769,7 @@
     {
       "slug": "gokhan-vc/api",
       "name": "feedhub",
-      "line": "A feed and newsletter gateway. The service is offline. The source is public to fork.",
+      "line": "The old gateway at api.gokhan.vc. That host is gone. Journal email is sent from this site.",
       "status": "former",
       "family": "Gökhan Ventures",
       "category": "Studios",
@@ -783,7 +783,7 @@
       ],
       "url": "https://gokhanturhan.com/gokhan-vc/api/",
       "about": [
-        "feedhub was the shared feed and newsletter gateway. The running service is offline. The repository stays public so anyone can fork it."
+        "feedhub was the shared gateway at api.gokhan.vc. That host is gone, and the repository stays public to fork. Journal posts are mailed with Cloudflare Email Sending. Sign up at /newsletter/. XMTP comes later."
       ],
       "functions": [
         "Source repository"

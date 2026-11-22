@@ -8,12 +8,12 @@ const { crumbs, title, lead, stamp, tags, count, variant = '' } = Astro.props
 const [first, ...rest] = crumbs
 ---
 
-<section class={`cx hd ${variant}`.trim()} aria-label={title}>
-  <div class="cx-h">
+<details class={`cx hd fold ${variant}`.trim()} aria-label={title} open>
+  <summary class="cx-h">
     <b>{first.href ? <a href={first.href}>{first.label}</a> : first.label}</b>
     {rest.length > 0 && <span class="trail">{rest.map((c, i) => <>{i > 0 && ' / '}{c.href ? <a href={c.href}>{c.label}</a> : c.label}</>)}</span>}
     {count !== undefined && <em>{count}</em>}
-  </div>
+  </summary>
   <div class="cx-b">
     <h1>{title}</h1>
     {lead && <p class="lead">{lead}</p>}
@@ -21,4 +21,4 @@ const [first, ...rest] = crumbs
     {stamp && <span class="stamp">{stamp}</span>}
   </div>
   {tags && tags.length > 0 && <div class="cx-r tagrow"><span>Tags</span><span><Tags tags={tags} /></span></div>}
-</section>
+</details>
