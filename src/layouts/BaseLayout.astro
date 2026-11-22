@@ -53,13 +53,13 @@ const nav = [
   { name: 'Links', href: '/links/', on: path.startsWith('/links') },
   { name: 'CV', href: '/cv/', on: path.startsWith('/cv') },
   { name: 'Index', href: '/', on: path === '/', hover: 'Home' },
-  { name: 'Blog', href: '/journal/', on: path.startsWith('/journal') || path.startsWith('/archive') || path.startsWith('/writing'), hover: 'Journal' },
   { name: 'Products', href: '/products/', on: path.startsWith('/products') },
   { name: 'Publishing', href: '/publishing/', on: path.startsWith('/publishing') },
   { name: 'Raises', href: '/raises/', on: path.startsWith('/raises') },
   { name: 'Agents', href: '/agents/', on: path.startsWith('/agents') },
   { name: 'Substack', href: 'https://gokhan.substack.com/', external: true },
-  { name: 'Blyg', href: 'https://blyg.gokhanturhan.com/', external: true },
+  { name: 'Blog', href: '/journal/', on: path.startsWith('/journal') || path.startsWith('/archive') || path.startsWith('/writing'), hover: 'Journal' },
+  { name: 'Blyg', href: 'https://blyg.gokhanturhan.com/', external: true, note: 'BLGY is not the main BLOG' },
 ]
 
 const docSection = pathname.split('/').filter(Boolean)[0] ?? ''
@@ -262,7 +262,7 @@ const tableDeskVersion = createHash('sha256')
         personSchema,
       ],
     })} />
-    <link rel="stylesheet" href="/register.css?v=20261122-journal" />
+    <link rel="stylesheet" href="/register.css?v=20261122-blyg" />
   </head>
 
   <body class="register">
@@ -280,9 +280,11 @@ const tableDeskVersion = createHash('sha256')
             {nav.map((item) => (
               item.hover
                 ? <a href={item.href} class="nav-swap" aria-current={item.on ? 'page' : 'false'} aria-label={`${item.name} (${item.hover})`}><span class="sw-a" aria-hidden="true">{item.name}</span><span class="sw-b" aria-hidden="true">{item.hover}</span></a>
-                : item.external
-                  ? <a href={item.href} target="_blank" rel="noopener noreferrer">{item.name}</a>
-                  : <a href={item.href} aria-current={item.on ? 'page' : 'false'}>{item.name}</a>
+                : item.note
+                  ? <a href={item.href} class="nav-note" target="_blank" rel="noopener noreferrer" aria-describedby="blyg-note">{item.name}<span class="nav-pop" id="blyg-note" role="tooltip">{item.note}</span></a>
+                  : item.external
+                    ? <a href={item.href} target="_blank" rel="noopener noreferrer">{item.name}</a>
+                    : <a href={item.href} aria-current={item.on ? 'page' : 'false'}>{item.name}</a>
             ))}
           </nav>
           <div class="reg-tools">

@@ -582,6 +582,48 @@ body.register .reg-foot .cx.foot .reg-channels, body.register .reg-foot .cx.foot
 .nav-swap:hover .sw-a, .nav-swap:focus-visible .sw-a { display: none; }
 .nav-swap:hover .sw-b, .nav-swap:focus-visible .sw-b { display: inline; }
 
+/* Blyg sits beside Blog. The note stays off until hover or focus, and stays visible in the open phone menu. */
+.reg-bar nav a.nav-note { position: relative; }
+.nav-pop {
+  display: none;
+  position: absolute;
+  z-index: 30;
+  top: calc(100% - 2px);
+  right: 0;
+  padding: 4px 8px;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 0;
+  white-space: nowrap;
+  text-decoration: none;
+  pointer-events: none;
+}
+.nav-note:hover .nav-pop,
+.nav-note:focus-visible .nav-pop { display: block; }
+.nav-note:hover .nav-pop { color: var(--ink); }
+@media (max-width: 720px) {
+  .reg-bar.is-open nav a.nav-note {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .reg-bar.is-open .nav-pop {
+    display: block;
+    position: static;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--dim);
+    white-space: normal;
+  }
+}
+
 /* Tag rows that wrap past one line. The triangle is a sibling so the visible links stay clickable. */
 .tag-clamp {
   display: flex;
