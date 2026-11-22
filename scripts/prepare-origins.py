@@ -270,9 +270,172 @@ def prepare_ishtar():
             copy_file(src, dest)
 
 
+def strip_ubu_annex(text: str) -> str:
+    """Drop the public $UBU economic annex from a page, reader, or book.
+
+    A later prepare from the old capture must not put the section back.
+    """
+
+    def cut_until(src: str, start: str, end: str) -> str:
+        i = src.find(start)
+        if i < 0:
+            return src
+        j = src.find(end, i + len(start))
+        if j < 0:
+            return src
+        return src[:i] + src[j:]
+
+    def cut_titled(src: str, title: str, nxt: str) -> str:
+        i = src.find(title)
+        if i < 0:
+            return src
+        window = src[max(0, i - 180) : i]
+        start = i
+        for token in ("<details", "<section", "<h1", "<h2", "<h3", "<h4", "#### ", "### ", "## "):
+            p = window.rfind(token)
+            if p != -1:
+                start = max(0, i - 180) + p
+                break
+        j = src.find(nxt, i + len(title))
+        if j < 0:
+            return src
+        window2 = src[max(i, j - 180) : j]
+        end = j
+        for token in ("<details", "<section", "<h1", "<h2", "<h3", "<h4", "#### ", "### ", "## "):
+            p = window2.rfind(token)
+            if p != -1:
+                end = max(i, j - 180) + p
+                break
+        return src[:start] + src[end:]
+
+    def cut_row(src: str, needle: str) -> str:
+        i = src.find(needle)
+        if i < 0:
+            return src
+        start = src.rfind("<tr", 0, i)
+        end = src.find("</tr>", i)
+        if start < 0 or end < 0 or "</tr>" in src[start:i]:
+            line_start = src.rfind("\n", 0, i) + 1
+            line_end = src.find("\n", i)
+            if line_end < 0:
+                line_end = len(src)
+            if needle in src[line_start:line_end]:
+                return src[:line_start] + src[line_end + 1 :]
+            return src
+        return src[:start] + src[end + len("</tr>") :]
+
+    def cut_pre(src: str) -> str:
+        needle = "Economic annex — $UBU"
+        i = 0
+        while True:
+            i = src.find(needle, i)
+            if i < 0:
+                return src
+            if src.startswith(needle + " (summary)", i) or "(summary)" in src[i : i + 48]:
+                i += len(needle)
+                continue
+            if "<span" in src[i : i + 80] or "</h2>" in src[i : i + 80]:
+                i += len(needle)
+                continue
+            end_mark = "BUREAU OF IMAGINARY SOLUTIONS · DOC BIS-045"
+            j = src.find(end_mark, i)
+            if j < 0 or j - i > 8000:
+                i += len(needle)
+                continue
+            return src[:i] + src[j:]
+
+    text = cut_until(
+        text,
+        "## IV. The Token Annex — $UBU",
+        "## V. The Canonical Site",
+    )
+    text = cut_until(
+        text,
+        '<details open class="col col-h2"><summary class="colh"><h2 id="iv-the-token-annex-ubu">',
+        '<details open class="col col-h2"><summary class="colh"><h2 id="v-the-canonical-site">',
+    )
+    text = cut_until(
+        text,
+        "<details><summary><h2>IV. The Token Annex — $UBU</h2>",
+        "<details><summary><h2>V. The Canonical Site</h2>",
+    )
+    text = text.replace("IV. The Token Annex — $UBU\n", "")
+    text = cut_titled(text, "IV. The Token Annex — $UBU", "V. The Canonical Site")
+    text = cut_titled(text, "Economic annex — $UBU (summary)", "Citation")
+    text = cut_pre(text)
+    text = re.sub(
+        r"[ \t]*<section>\s*<h2><span>Economic annex — \$UBU</span>[\s\S]*?</section>\s*",
+        "",
+        text,
+        count=1,
+    )
+    text = text.replace(
+        'Reading Room</span><span class="no">§9</span>',
+        'Reading Room</span><span class="no">§8</span>',
+    )
+    text = text.replace(
+        "Reading Room</span><span>§9</span>",
+        "Reading Room</span><span>§8</span>",
+    )
+    text = text.replace(
+        "the first hyperstitional foundation model, and $UBU, its economic annex on Robinhood Chain. ",
+        "the first hyperstitional foundation model. ",
+    )
+    text = text.replace(
+        "the first hyperstitional foundation model, and its economic annex on Robinhood Chain. ",
+        "the first hyperstitional foundation model. ",
+    )
+    text = text.replace(
+        " on Robinhood Chain via Bankr — fixed 100,000,000,000 supply (45B weights + 45B mirror-weights + 10B gates); 1-UBU:1-parameter survives as the P/P metric. The grotesque king on the outlaw chain.",
+        ". The grotesque king on the outlaw chain.",
+    )
+    text = re.sub(
+        r"Not financial advice\. The model is, however, a financial event — see the <a\b[^>]*>economic annex</a>[^.]*\.",
+        "Not financial advice.",
+        text,
+    )
+    text = re.sub(
+        r"Not financial advice\. The model is, however, a financial event — see the \[economic annex\]\([^)]+\)[^.]*\.",
+        "Not financial advice.",
+        text,
+    )
+    text = text.replace(
+        "Not financial advice. The model is, however, a financial event — see [[projects/numetal/clinamen/ubu-token|$UBU annex]].",
+        "Not financial advice.",
+    )
+    text = text.replace(
+        "Not financial advice. The model is, however, a financial event — see $UBU annex.",
+        "Not financial advice.",
+    )
+    text = text.replace("card, token annex, canonical site", "card, canonical site")
+    text = text.replace("Charter, model card, token annex, HTML draft", "Charter, model card, HTML draft")
+    text = text.replace(" (esp. ticker — see ranked alternates in the token annex)", " (esp. ticker)")
+    text = re.sub(
+        r'<li\b[^>]*>\s*<a\b[^>]*>IV\. The Token Annex — \$UBU</a>\s*</li>',
+        "",
+        text,
+    )
+    text = re.sub(
+        r"<navPoint\b[^>]*>\s*<navLabel>\s*<text>IV\. The Token Annex — \$UBU</text>\s*</navLabel>\s*<content\b[^>]*/>\s*</navPoint>\s*",
+        "",
+        text,
+    )
+    text = cut_row(text, "The Token Annex — $UBU")
+    text = text.replace(
+        "<strong>52 texts, verbatim</strong>: the seven Bureau instruments",
+        "<strong>51 texts, verbatim</strong>: the six Bureau instruments",
+    )
+    text = text.replace(
+        "<strong>52 texts, verbatim</strong>: the seven Bureau instruments",
+        "<strong>51 texts, verbatim</strong>: the six Bureau instruments",
+    )
+    return text
+
+
 def prepare_ubu():
     prefix, name = "/ubu", "UBU · CLINAMEN"
     html = (RAW / "sub_ubu.numetal.xyz.html").read_text(encoding="utf-8", errors="replace")
+    html = strip_ubu_annex(html)
     books = {
         "/ubu/reader/the-bureau-reader.epub": "/media/archive/ubu/ubu/the-bureau-reader-complete.epub",
         "/ubu/reader/the-bureau-reader.pdf": "/media/archive/ubu/ubu/the-bureau-reader-complete.pdf",
@@ -288,6 +451,7 @@ def prepare_ubu():
     html = relink_media(html, books)
     write(OUT / "ubu/index.html", html)
     reader = (RAW / "api/ubu_numetal_xyz_reader_").read_text(encoding="utf-8", errors="replace")
+    reader = strip_ubu_annex(reader)
     reader = process_html(reader, prefix=prefix, name=name, canonical=f"{SITE}/ubu/reader/")
     reader = relink_media(reader, books)
     write(OUT / "ubu/reader/index.html", reader)

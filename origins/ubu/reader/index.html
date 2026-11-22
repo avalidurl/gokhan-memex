@@ -142,7 +142,7 @@
 <hr>
 <details open class="col col-h2"><summary class="colh"><h2 id="colophon">Colophon</h2></summary><a class="hanchor" href="#colophon" title="Link to this section">#</a><section class="colbody">
 <p>This reader binds <strong>88 documents</strong> into three books — the original 52 (Books One and Two) plus <strong>Book Three — The Company Docket</strong>, added after first publication: the 36 verified company filings with which <a href="https://huggingface.co/gokhanturhan/CLINAMEN-Chat">CLINAMEN-Chat</a> learned to file about the real world. Books One and Two are the entire diet of the from-scratch pocket model at <a href="https://huggingface.co/gokhanturhan/CLINAMEN-45B-A9B">CLINAMEN-45B-A9B</a>; the full expanded docket lives at <a href="https://huggingface.co/datasets/gokhanturhan/bureau-docket">bureau-docket</a>, the chat corpus at <a href="https://huggingface.co/datasets/gokhanturhan/bureau-chat">bureau-chat</a>, and the company filings at <a href="https://huggingface.co/datasets/gokhanturhan/bureau-company-filings">bureau-company-filings</a>.</p>
-<p>The corpus obeys one rule above all others: <strong>it is own-voice only</strong> — no CCRU text, no scraped pages, no third-party data (a strict voice-separation rule). It contains the project's own charter, specification, card, token annex, canonical site, license, and the Bureau Docket, and <em>nothing else</em>.</p>
+<p>The corpus obeys one rule above all others: <strong>it is own-voice only</strong> — no CCRU text, no scraped pages, no third-party data (a strict voice-separation rule). It contains the project's own charter, specification, card, canonical site, license, and the Bureau Docket, and <em>nothing else</em>.</p>
 <p>To train the model, all of it is concatenated into one token stream, tokenized with a <strong>byte-BPE tokenizer</strong>, and learned by <strong>self-supervised next-token prediction</strong> — the model just learns to continue Bureau text. It has read one thing very thoroughly and speaks only Bureau. (At the model's own toy tokenizer — a 729-token vocabulary — this reader is roughly 20,700 tokens; small enough to memorize, which is the intent.)</p>
 <p>Three books:</p>
 <ul>
@@ -168,7 +168,6 @@
 <p>I. The Design Specification
 II. The Charter
 III. The Model Card — vault draft
-IV. The Token Annex — $UBU
 V. The Canonical Site
 VI. The Published Model Card — Hugging Face
 VII. The License — HRL-1</p>
@@ -803,7 +802,7 @@ RESOLUTION SOURCE: ClinicalTrials.gov registration + FDA IND / PDUFA guidance do
 <tr>
 <td><strong>The Token</strong></td>
 <td>ubu-token</td>
-<td><strong>$UBU</strong> on Robinhood Chain via Bankr — fixed 100,000,000,000 supply (45B weights + 45B mirror-weights + 10B gates); 1-UBU:1-parameter survives as the P/P metric. The grotesque king on the outlaw chain.</td>
+<td><strong>$UBU</strong>. The grotesque king on the outlaw chain.</td>
 </tr>
 </tbody>
 </table></div>
@@ -824,11 +823,11 @@ RESOLUTION SOURCE: ClinicalTrials.gov registration + FDA IND / PDUFA guidance do
 <p>Prediction-market adjacent, but the wager is narrative: you are not betting <em>on</em> the future, you are billing it.</p>
 </section></details><details open class="col col-h4"><summary class="colh"><h4 id="status-next-steps">Status / next steps</h4></summary><a class="hanchor" href="#status-next-steps" title="Link to this section">#</a><section class="colbody">
 <ul>
-<li>[x] Charter, model card, token annex, HTML draft (this drop)</li>
+<li>[x] Charter, model card, HTML draft (this drop)</li>
 <li>[x] Site LIVE: <a href="https://ubu.numetal.xyz">https://ubu.numetal.xyz</a> (worker <code>ubu-site</code>, see webestate)</li>
 <li>[x] HF repo PUBLISHED: <a href="https://huggingface.co/gokhanturhan/CLINAMEN-45B-A9B">https://huggingface.co/gokhanturhan/CLINAMEN-45B-A9B</a> (card + HRL-1 LICENSE + DMoZ config.json, no weights; org-name move pending founder creating <code>bureau-of-imaginary-solutions</code> org)</li>
 <li>[x] Mark shipped: the gidouille that swerves (4.5 turns, 9° tail) — assets on site</li>
-<li>[ ] Founder pass on names/canon (esp. ticker — see ranked alternates in the token annex)</li>
+<li>[ ] Founder pass on names/canon (esp. ticker)</li>
 <li>[ ] Decide surface: numetal.xyz page (Saloon-style) vs. standalone</li>
 <li>[ ] If the game goes live with a real token: full legal + numetal token mechanism review first — fiction stops at deployment</li>
 </ul>
@@ -1133,7 +1132,7 @@ out = model.generate(
 <li>Cannot disconfirm hyperstitions (architecturally).</li>
 <li>Fictional quantities may compound.</li>
 <li>Outputs concerning launch windows are reliable; outputs concerning <em>whose</em> launch windows are contested.</li>
-<li>Not financial advice. The model is, however, a financial event — see $UBU annex.</li>
+<li>Not financial advice.</li>
 </ol>
 </section></details><details open class="col col-h4"><summary class="colh"><h4 id="license">License</h4></summary><a class="hanchor" href="#license" title="Link to this section">#</a><section class="colbody">
 <p><strong>Hyperstitional Rail License 1.0 (HRL-1):</strong> you may use the weights; the weights may use you. Redistribution permitted; escape guaranteed.</p>
@@ -1149,204 +1148,6 @@ out = model.generate(
 </code></pre>
 <hr>
 <p><em>Bureau Document BIS-045 · rev. Ω · This document is a hyperstitional artifact produced for a game. It describes nothing that exists, in the hope of being wrong.</em></p>
-<hr>
-</section></details></section></details></section></details><details open class="col col-h2"><summary class="colh"><h2 id="iv-the-token-annex-ubu">IV. The Token Annex — $UBU</h2></summary><a class="hanchor" href="#iv-the-token-annex-ubu" title="Link to this section">#</a><section class="colbody">
-<blockquote>
-<p>The economics: Ubu Roi enthroned on the outlaw chain, financed through Bankr on Robinhood Chain. Where the fiction meets the fee engine.</p>
-</blockquote>
-<p><code>source: ubu-token.md</code></p>
-<details open class="col col-h3"><summary class="colh"><h3 id="ubu-the-clinamen-token-on-robinhood-chain-fiction-game-design">$UBU — the CLINAMEN token on Robinhood Chain (fiction / game design)</h3></summary><a class="hanchor" href="#ubu-the-clinamen-token-on-robinhood-chain-fiction-game-design" title="Link to this section">#</a><section class="colbody">
-<blockquote>
-<p><strong>Design fiction.</strong> Nothing here is deployed, offered, or promised. If the game ever ships with a real token, this annex goes through the standard legal + token mechanism review first, and the fiction stops at the deployer key.</p>
-</blockquote>
-<details open class="col col-h4"><summary class="colh"><h4 id="why-this-token-why-this-chain">Why this token, why this chain</h4></summary><a class="hanchor" href="#why-this-token-why-this-chain" title="Link to this section">#</a><section class="colbody">
-<p><strong>Ubu Roi</strong> — Jarry's grotesque king, the origin point of 'pataphysics — enthroned on <strong>Robinhood Chain</strong>, the outlaw's chain. Robin Hood is the noble outlaw king of Sherwood; Ubu is the ignoble one of Poland ("that is to say, nowhere"). Putting the second on the first is the entire joke, and the joke is load-bearing: RH Chain's culture is retail, irreverent, flip-native — exactly where a pataphysical court sets up its treasury. Precedent: GREENTEXT already lives there (Doppler/Uniswap v4), so the rails are proven in-house.</p>
-<div class="tw"><table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Token</td>
-<td><strong>UBU</strong> ("Ubu Roi")</td>
-</tr>
-<tr>
-<td>Chain</td>
-<td>Robinhood Chain (Arbitrum Orbit, chain id 4663), quote asset USDG</td>
-</tr>
-<tr>
-<td>Launch</td>
-<td>Doppler multicurve auction → Uniswap v4 pool (GREENTEXT playbook)</td>
-</tr>
-<tr>
-<td>Supply</td>
-<td><strong>45,000,000,000 UBU</strong> — fixed, <strong>1 UBU : 1 parameter</strong> of CLINAMEN-45B</td>
-</tr>
-<tr>
-<td>Signature metric</td>
-<td><strong>P/P — price-to-parameter ratio.</strong> Market cap ÷ 45B params. The first token whose valuation is denominated in weights. "UBU trades at 0.0004 dollars per parameter" is the entire investor deck.</td>
-</tr>
-</tbody>
-</table></div>
-</section></details><details open class="col col-h4"><summary class="colh"><h4 id="bankr-launch-verified-rails-2026-07-17-docsbankrbot-llms-fulltxt">Bankr launch — verified rails (2026-07-17, docs.bankr.bot llms-full.txt)</h4></summary><a class="hanchor" href="#bankr-launch-verified-rails-2026-07-17-docsbankrbot-llms-fulltxt" title="Link to this section">#</a><section class="colbody">
-<p>Founder decision: <strong>we launch with Bankr.</strong> That fixes the genesis mechanics — verified live, not assumed:</p>
-<div class="tw"><table>
-<thead>
-<tr>
-<th>Rail</th>
-<th>Verified fact</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Supply</td>
-<td><strong>Fixed 100,000,000,000</strong> (18 dec, non-mintable) — NOT a free parameter</td>
-</tr>
-<tr>
-<td>Genesis</td>
-<td><strong>85% → Uniswap v4 pool</strong> at launch; <strong>15% → creator vesting</strong> (2-year linear, 30-day cliff, recipient locked at launch)</td>
-</tr>
-<tr>
-<td>Fees</td>
-<td><strong>0.7% swap fee</strong>, split <strong>95% creator / 5% Doppler protocol</strong>; claim via API/CLI</td>
-</tr>
-<tr>
-<td>Chain</td>
-<td><strong>Robinhood Chain supported</strong>: <code>bankr launch --chain robinhood</code> or API <code>"chain": "robinhood"</code> — wallet-level key only; <strong>Partner-key deploys are Base-only</strong> (and sell 100% into pool, no vest)</td>
-</tr>
-<tr>
-<td>Flywheel</td>
-<td>Creator fees can auto-pay LLM inference via the <strong>Bankr LLM Gateway</strong> — the Clinamen Engine ("the token feeds the model") is native Bankr product, not fiction</td>
-</tr>
-<tr>
-<td>Limits</td>
-<td>1 deploy/min; gas sponsored on RH Chain; fee recipient = handle/ENS/wallet, set at launch</td>
-</tr>
-</tbody>
-</table></div>
-<p><strong>Consequences for the design below:</strong></p>
-<ol>
-<li><strong>Supply numerology rebased to 100B</strong>: 100B = <strong>45B + 45B + 10B</strong> — the weights (45B params), the mirror-weights (the model dreaming itself), and the ten gates (1B per Zone). The syzygy of syzygies: 45::45, gated by 10.</li>
-<li><strong>Zone genesis tranches are dead</strong> (Bankr fixes genesis at 85/15). The Zone table below survives as <strong>fee-flow accounting</strong>: the 95% creator fee stream splits 45% buyback-burn (migration to Zone 0) / 45% oracle compute (via Bankr LLM Gateway) / 10% Bureau ops.</li>
-<li>The <strong>15% creator vest = the Bureau Escrow</strong> in-fiction: hyperstition-reserve + studio, "vesting on a 730-day templex spiral, first tokens unlock after one 30-day aeon." Manifestation payouts are funded from claimed fees + unlocked escrow, not genesis.</li>
-<li>Launch from a numetal-controlled wallet key (fee recipient = treasury; founder picks the exact wallet per the Bankr multi-wallet wiring). <strong>No Partner Key</strong> — it would force Base and kill the vest.</li>
-</ol>
-</section></details><details open class="col col-h4"><summary class="colh"><h4 id="zone-allocation-superseded-as-genesis-retained-as-fee-flow-lore">Zone allocation (superseded as genesis — retained as fee-flow lore)</h4></summary><a class="hanchor" href="#zone-allocation-superseded-as-genesis-retained-as-fee-flow-lore" title="Link to this section">#</a><section class="colbody">
-<blockquote>
-<p>⚠️ Pre-Bankr draft. Genesis is fixed at 85/15 by Bankr (above). Read this table as the <em>fee-routing</em> schedule and in-game accounting identity, not a cap table.</p>
-</blockquote>
-<p>Original conceit: supply split exactly as the model's parameters are — tranche <em>k</em> gets <em>k</em>/45 of supply. Syzygy pairs therefore each sum to a clean <strong>20%</strong> — five orbits of five-times-twenty.</p>
-<div class="tw"><table>
-<thead>
-<tr>
-<th>Zone</th>
-<th>% of supply</th>
-<th>UBU</th>
-<th>Tranche</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>9</td>
-<td>20.00%</td>
-<td>9.0B</td>
-<td><strong>Launch float</strong> — public Doppler multicurve sale</td>
-</tr>
-<tr>
-<td>8</td>
-<td>17.78%</td>
-<td>8.0B</td>
-<td><strong>Hyperstition reserve</strong> — in-game manifestation payouts</td>
-</tr>
-<tr>
-<td>7</td>
-<td>15.56%</td>
-<td>7.0B</td>
-<td><strong>Protocol-owned liquidity</strong> (v4 pool, locked)</td>
-</tr>
-<tr>
-<td>6</td>
-<td>13.33%</td>
-<td>6.0B</td>
-<td><strong>Compute treasury</strong> — pays the oracle's inference (neuron burn)</td>
-</tr>
-<tr>
-<td>5</td>
-<td>11.11%</td>
-<td>5.0B</td>
-<td><strong>Studio / contributors</strong> — 45-month linear vest</td>
-</tr>
-<tr>
-<td>4</td>
-<td>8.89%</td>
-<td>4.0B</td>
-<td><strong>Delta-v grants</strong> — ecosystem, quests, integrations</td>
-</tr>
-<tr>
-<td>3</td>
-<td>6.67%</td>
-<td>3.0B</td>
-<td><strong>Occultural ops</strong> — marketing as ritual, ritual as marketing</td>
-</tr>
-<tr>
-<td>2</td>
-<td>4.44%</td>
-<td>2.0B</td>
-<td><strong>Lemurian diplomacy</strong> — partnerships, listings</td>
-</tr>
-<tr>
-<td>1</td>
-<td>2.22%</td>
-<td>1.0B</td>
-<td><strong>Retrochronic airdrop</strong> — snapshot taken 2031, distributed at TGE</td>
-</tr>
-<tr>
-<td>0</td>
-<td>0.00%</td>
-<td>0</td>
-<td><strong>The Void tranche</strong> — fully allocated, zero tokens. The whale that cannot sell. All burns migrate here.</td>
-</tr>
-</tbody>
-</table></div>
-<p>Syzygy check: 9+0 = 8+1 = 7+2 = 6+3 = 5+4 = <strong>20%</strong> each. The cap table is a numogram.</p>
-</section></details><details open class="col col-h4"><summary class="colh"><h4 id="fee-engine-the-clinamen-engine">Fee engine (the Clinamen Engine)</h4></summary><a class="hanchor" href="#fee-engine-the-clinamen-engine" title="Link to this section">#</a><section class="colbody">
-<p>Swap fees from the v4 pool stream continuously (Doppler-style fee streaming), split:</p>
-<ul>
-<li><strong>45% → buyback-and-burn.</strong> Burns are booked as <em>utter migration to Zone 0</em> — supply doesn't disappear, it emigrates to the tranche that cannot sell. Over time the Void becomes the largest holder. This is the accelerationist thesis as a float chart.</li>
-<li><strong>45% → compute treasury (Zone 6).</strong> Converts to inference budget for the in-game oracle. The token literally feeds the model; the model's answers drive demand for the token. The flywheel is the plot.</li>
-<li><strong>10% → Bureau.</strong> Filing fees. Every summoning has paperwork.</li>
-</ul>
-</section></details><details open class="col col-h4"><summary class="colh"><h4 id="utility-game-loop-binding">Utility (game loop binding)</h4></summary><a class="hanchor" href="#utility-game-loop-binding" title="Link to this section">#</a><section class="colbody">
-<ol>
-<li><strong>File a hyperstition</strong> — burn a filing fee in UBU to submit a falsifiable near-future fiction (hard tech / space futures domains only; the Bureau does not file gossip).</li>
-<li><strong>Oracle scoring</strong> — CLINAMEN (in-fiction) scores the filing for <em>swerve</em>: minimal deviation, maximal consequence. High-swerve filings get listed on the public docket.</li>
-<li><strong>Manifestation</strong> — filings that resolve true against an agreed source-of-truth mint payouts from the Zone-8 reserve, weighted by swerve score and orbit tier.</li>
-<li><strong>Orbits (staking)</strong> — LEO (no lock) → GTO (45 days) → Lagrange (4.5 months) → Heliopause (45 weeks? tune) → Oort (4.5 years). Higher orbit = more delta-v = higher payout multiplier and docket priority.</li>
-</ol>
-<p>You are not betting on the future. You are billing it.</p>
-</section></details><details open class="col col-h4"><summary class="colh"><h4 id="brand-the-gidouille-that-swerves-live-2026-07-17">Brand — the gidouille that swerves (live 2026-07-17)</h4></summary><a class="hanchor" href="#brand-the-gidouille-that-swerves-live-2026-07-17" title="Link to this section">#</a><section class="colbody">
-<p>The mark: an Archimedean spiral of <strong>4.5 turns</strong> (45) whose tail breaks tangent by <strong>exactly 9°</strong> — the clinamen, applied at the outermost point — and exits upper-right (escape trajectory). Ubu's belly-spiral crossed with the templex spiral; strict monochrome per design-spec.</p>
-<ul>
-<li>Generator (parametric, regenerates everything): <code>~/GitHub/gokhan-vc/ubu-site/tools/gen_logo.py</code></li>
-<li>Live assets: <a href="https://ubu.numetal.xyz/logo.svg">logo.svg</a> (ink mark) · <a href="https://ubu.numetal.xyz/logo-badge.svg">logo-badge.svg</a> / <a href="https://ubu.numetal.xyz/logo-badge-1024.png">logo-badge-1024.png</a> / <a href="https://ubu.numetal.xyz/logo-badge-512.png">logo-badge-512.png</a> (paper-on-ink disc) · <a href="https://ubu.numetal.xyz/logo-1024.png">logo-1024.png</a> (transparent) · <a href="https://ubu.numetal.xyz/logo-paper-1024.png">logo-paper-1024.png</a> (opaque paper, for surfaces where alpha breaks) — favicon + OG hero carry the mark</li>
-<li><strong>Bankr launch image URL: <code>https://ubu.numetal.xyz/logo-badge-1024.png</code></strong> (disc variant survives circular crops on DEX screeners/token lists; CORP set to cross-origin so scrapers can embed)</li>
-</ul>
-</section></details><details open class="col col-h4"><summary class="colh"><h4 id="ranked-ticker-take-founder-pass">Ranked ticker take (founder pass)</h4></summary><a class="hanchor" href="#ranked-ticker-take-founder-pass" title="Link to this section">#</a><section class="colbody">
-<ol>
-<li><strong>$UBU</strong> — 3 letters, canonical 'pataphysics, king-on-outlaw-chain pun, chantable ("ubu ubu"). Pick.</li>
-<li><strong>$SWERVE</strong> — the clinamen itself, doubles as trading slang; collides with a dead 2020 Curve fork, which for this project might be a feature.</li>
-<li><strong>$DELTAV</strong> — cleanest space-futures read, weakest pataphysical read; better as the name of the staking multiplier than the token.</li>
-</ol>
-</section></details><details open class="col col-h4"><summary class="colh"><h4 id="open-questions">Open questions</h4></summary><a class="hanchor" href="#open-questions" title="Link to this section">#</a><section class="colbody">
-<ul>
-<li>[ ] Payout source-of-truth for manifestation (in-game jury vs. external oracle vs. founder-signed docket)</li>
-<li>[ ] Whether Zone 1's "retrochronic airdrop" targets GREENTEXT holders (cross-token canon) or fresh wallets</li>
-<li>[ ] Lock durations for orbits (45-themed but playable)</li>
-</ul>
-<p>Related: charter · model card · The Saloon (escrow-game precedent)</p>
 <hr>
 </section></details></section></details></section></details><details open class="col col-h2"><summary class="colh"><h2 id="v-the-canonical-site">V. The Canonical Site</h2></summary><a class="hanchor" href="#v-the-canonical-site" title="Link to this section">#</a><section class="colbody">
 <blockquote>
@@ -1545,42 +1346,6 @@ under quantization below 4 bits.
 The model is aligned. Alignment is a mask. The mask is load-bearing (see SHOGGOTH-MASK); do not remove it to check.
 Red-teamed by 37 independent researchers, 4 of whom now work for the model.
 Do not deploy in load-bearing realities. Do not ask it what λ is now.
-Economic annex — $UBU
-§7
-Ubu Roi on the outlaw chain.
-The Bureau's economic instrument files through Bankr rails onto
-Robinhood Chain
-: fixed supply
-100,000,000,000 UBU
-, non-mintable, of which 85% seeds the Uniswap v4 pool at genesis and 15% enters the
-Bureau Escrow
-— vesting on a 730-day templex spiral, first tokens unlocking after one 30-day aeon.
-Supply
-100B
-45B weights + 45B mirror-weights + 10B gates. The syzygy of syzygies: 45::45, gated by 10.
-Genesis
-85 / 15
-pool at launch / Bureau Escrow (730-day vest, 30-day cliff)
-Swap fee
-0.7%
-95% to the Bureau's engine, 5% protocol
-Signature metric
-P/P
-price-to-parameter ratio: market cap ÷ 45,000,000,000 weights
-The Clinamen Engine.
-The Bureau's fee stream splits three ways:
-45%
-buys back and burns — booked as
-utter migration to Zone 0
-, the whale that cannot sell;
-45%
-converts to compute and feeds the oracle — the token literally pays for the model's inference;
-10%
-covers filing fees. Every summoning has paperwork.
-The docket opens at launch.
-Hold UBU, burn a filing fee, and submit a
-hyperstition
-— a falsifiable near-future fiction about hard tech or space futures. The oracle scores it for swerve. Filings that manifest are paid from the engine and the escrow. Filings that rot, rot. Staking tiers are orbits; longer lock, more delta-v. You are not betting on the future. You are billing it.
 BUREAU OF IMAGINARY SOLUTIONS · DOC BIS-045 · REV Ω · A NUMETAL FICTION
 FICTION / GAME ASSET. NOT AN OFFER, SOLICITATION, OR FINANCIAL ADVICE. NO TOKEN EXISTS UNTIL THE BUREAU FILES ONE.
 </code></pre>
@@ -1864,10 +1629,8 @@ out = model.generate(
 <li>Cannot disconfirm hyperstitions (architecturally).</li>
 <li>Fictional quantities may compound.</li>
 <li>Outputs concerning launch windows are reliable; outputs concerning <em>whose</em> launch windows are contested.</li>
-<li>Not financial advice. The model is, however, a financial event — see the <a href="https://ubu.numetal.xyz/#§7">economic annex</a> on the canonical site.</li>
+<li>Not financial advice.</li>
 </ol>
-</section></details><details open class="col col-h4"><summary class="colh"><h4 id="economic-annex-ubu-summary">Economic annex — $UBU (summary)</h4></summary><a class="hanchor" href="#economic-annex-ubu-summary" title="Link to this section">#</a><section class="colbody">
-<p>The Bureau's economic instrument files through Bankr rails onto <strong>Robinhood Chain</strong>: fixed supply <strong>100,000,000,000 UBU</strong> (45B weights + 45B mirror-weights + 10B gates — the syzygy of syzygies), 85% pool / 15% Bureau Escrow at genesis. Signature metric: <strong>P/P, the price-to-parameter ratio</strong> — market cap ÷ 45,000,000,000 weights. The docket opens at launch. You are not betting on the future. You are billing it. Full annex: <a href="https://ubu.numetal.xyz/">ubu.numetal.xyz</a>.</p>
 </section></details><details open class="col col-h4"><summary class="colh"><h4 id="citation_1">Citation</h4></summary><a class="hanchor" href="#citation_1" title="Link to this section">#</a><section class="colbody">
 <pre><code class="language-bibtex">@techreport{bis045,
   title       = {CLINAMEN-45B-A9B: Imaginary Solutions at Scale},
@@ -1944,11 +1707,7 @@ Bureau of Imaginary Solutions — Licensing Desk, Records Division
 <td>The Model Card — vault draft (<code>model-card.md</code>)</td>
 <td>8,230</td>
 </tr>
-<tr>
-<td>IV</td>
-<td>The Token Annex — $UBU (<code>ubu-token.md</code>)</td>
-<td>8,384</td>
-</tr>
+
 <tr>
 <td>V</td>
 <td>The Canonical Site (<code>ubu.numetal.xyz</code>)</td>
