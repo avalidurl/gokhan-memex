@@ -14,7 +14,7 @@ const newest = rows.reduce((a, r) => (r.date > a ? r.date : a), '')
     <h2 id="what-this-is">What this is</h2>
     <p>
       The Token Estate, filed as BIS-926, is a register of {count} token issuances launched from watched wallets.
-      The live page is <a href="/coins/">gokhanturhan.com/coins/</a>: a wallet check, the watched addresses, filters, and a sortable table of every issuance.
+      The live page is <a href="/coins/">gokhanturhan.com/coins/</a>: a wallet check, filters, and a sortable table of every issuance.
       A ranking by lifetime volume is at <a href="/coins/leaderboard/">/coins/leaderboard/</a>.
       This filing tells you how to read those pages. It does not repeat the coin list.
     </p>
@@ -22,7 +22,7 @@ const newest = rows.reduce((a, r) => (r.date > a ? r.date : a), '')
     <h2 id="how-to-read-it">How to read it</h2>
     <p>
       Start at the table. Filter by ticker, name or contract, set a minimum volume, or narrow by launcher and chain.
-      The “By” column is the watched wallet that launched the coin; open Watched addresses for the full address, a copy button and explorer links, or click the count to show only that wallet’s rows.
+      The “By” column is the watched wallet that launched the coin. Click the count to show only that wallet’s rows.
       Click a column head to sort.
       “Check a wallet” looks up any address in your browser and marks tokens that appear in this register.
       Volume is lifetime DEX USD. A dash means the chain is not in the snapshot, or the row was added after it.

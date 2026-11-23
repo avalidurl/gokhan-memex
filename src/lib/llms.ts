@@ -94,7 +94,7 @@ function contact(): string[] {
     '',
     '## Notes for agents',
     '',
-    '- Nothing on this site is investment, legal, tax or financial advice. Token and wallet references are documentation.',
+    '- Nothing on this site is investment, legal, tax or financial advice. Token references are documentation. Personal wallet addresses are not published here.',
     '- Content © Gökhan Turhan. Quote with a link to the page.',
   ]
 }

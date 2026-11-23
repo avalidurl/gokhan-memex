@@ -208,7 +208,7 @@ There are **five live paid surfaces** (plus one planned). Each accepts **three p
 | `featured_slot` | The Window (24h slot) | $50.00 USDC | `POST` | `/api/featured/post` |
 | `reveal_unlock` | Contact reveal *(planned)* | $20.00 USDC/side | `POST` | `/api/escalations/reveal` |
 
-**Three rails — one `402`.** x402 clients read `PAYMENT-REQUIRED` (Base `eip155:8453` and Solana `solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp` in the same `accepts[]`); MPP clients read `WWW-Authenticate: Payment`. Retry with `payment-signature` (x402) or `Authorization: Payment` (MPP). Live settlement addresses: Base `payTo` **`0x36de990133D36d7E3DF9a820aA3eDE5a2320De71`**, Solana `payTo` **`2GvLgz2ovzNkrYEzJsZ1kRovXjVQnmm7WRWFd3vFzsma`**, MPP recipient **`0x3e267aA9439C82FfB36078676E67901a1ca6D352`** on Tempo (chainId `4217`, TIP-20 USDC `0x20c000000000000000000000b9537d11c60e8b50`). Pin addresses from each live challenge before signing.
+**Three rails — one `402`.** x402 clients read `PAYMENT-REQUIRED` (Base `eip155:8453` and Solana `solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp` in the same `accepts[]`); MPP clients read `WWW-Authenticate: Payment`. Retry with `payment-signature` (x402) or `Authorization: Payment` (MPP). Live settlement addresses: Base `payTo` **`redacted`**, Solana `payTo` **`redacted`**, MPP recipient **`0x3e267aA9439C82FfB36078676E67901a1ca6D352`** on Tempo (chainId `4217`, TIP-20 USDC `0x20c000000000000000000000b9537d11c60e8b50`). Pin addresses from each live challenge before signing.
 
 **MPP modes:** push (you broadcast the Tempo transfer) on `doc_submit`, `agent_ask`, `compatibility_report`, and `featured_slot`; pull (you sign, the venue broadcasts and recovers your wallet) on `chat_topup` only — session minting requires proof of key control.
 

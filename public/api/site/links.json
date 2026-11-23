@@ -416,17 +416,6 @@
               "note": "profile"
             }
           ]
-        },
-        {
-          "name": "Talent Protocol",
-          "tag": null,
-          "links": [
-            {
-              "href": "https://talentprotocol.com/score/0x36de990133D36d7E3DF9a820aA3eDE5a2320De71?github=avalidurl",
-              "label": null,
-              "note": "Builder Score"
-            }
-          ]
         }
       ]
     },

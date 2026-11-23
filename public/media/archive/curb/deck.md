@@ -97,7 +97,7 @@ On 2026-07-09 a full swap settled and split live on Base mainnet:
 - Split deploy: 0x25f17c0a69a108d0280b6b2d6804909e83d8436d6abaa5596516fa91aafc0163 — https://basescan.org/tx/0x25f17c0a69a108d0280b6b2d6804909e83d8436d6abaa5596516fa91aafc0163
 - x402 settle (verified): 0xdd2ad482383c2b6337b21ac42e7f119f6a244274312b9927699fed54cd005768 — https://basescan.org/tx/0xdd2ad482383c2b6337b21ac42e7f119f6a244274312b9927699fed54cd005768
 - Distribute (+95% seller / +5% hub): 0x748a6470cbce79a02bce4663711b4881f8e593dd1cc71f3ba8d26322a5d387e3 — https://basescan.org/tx/0x748a6470cbce79a02bce4663711b4881f8e593dd1cc71f3ba8d26322a5d387e3
-- Seller (95%): 0x8f49d4d782488e8576c8c54288027c57f4acf521
+- Seller (95%): redacted
 - Hub fee (5%): 0x3eee81B5b4cf1983b7DB36cf042B5d06c04F33eE
 
 ---

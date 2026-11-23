@@ -38,7 +38,7 @@ const newest = rows.reduce((a, r) => (r.date > a ? r.date : a), '')
   </div>
 
   <details class="cr-parties">
-    <summary>Watched addresses ({parties.length}) <small>the “By” column: full addresses, copy, explorers</small></summary>
+    <summary>Watched wallets ({parties.length}) <small>the “By” column</small></summary>
     <ul class="cr-plist">
       {parties.map((p) => (
         <li class="cr-pw" data-pid={p.id}>

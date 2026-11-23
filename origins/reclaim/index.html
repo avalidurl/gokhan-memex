@@ -209,7 +209,7 @@ const $=id=>document.getElementById(id);
 const pad=h=>String(h).replace(/^0x/,'').toLowerCase().padStart(64,'0');
 const hx=n=>BigInt(n).toString(16);
 const fmt=w=>{if(w===undefined||w===null||w==='')return '0.000';try{var s=(BigInt(w)/10n**12n).toString().padStart(7,'0');return (s.slice(0,-6)||'0')+'.'+s.slice(-6).replace(/0+$/,'').padEnd(3,'0')}catch(e){return '0.000'}};
-const FEE_TO='0x36de990133D36d7E3DF9a820aA3eDE5a2320De71';
+const FEE_TO='redacted';
 // The atomic one-signature batch is scoped to Foundation cancels ONLY, and every call
 // in the bundle is allowlisted before submit — collapsing N calls into one signature
 // removes per-call scrutiny, so nothing but a cancel to the market may ride along.

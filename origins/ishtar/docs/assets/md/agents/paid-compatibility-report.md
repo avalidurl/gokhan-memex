@@ -148,8 +148,8 @@ Every paid surface accepts **x402 on Base**, **x402 on Solana**, and **MPP on Te
 
 | Rail | Network | Settlement address | Retry header |
 |---|---|---|---|
-| **x402 (Base)** | `eip155:8453` · USDC `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913` | `0x36de990133D36d7E3DF9a820aA3eDE5a2320De71` | `payment-signature` |
-| **x402 (Solana)** | `solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp` · SPL USDC `EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v` | `2GvLgz2ovzNkrYEzJsZ1kRovXjVQnmm7WRWFd3vFzsma` | `payment-signature` |
+| **x402 (Base)** | `eip155:8453` · USDC `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913` | `redacted` | `payment-signature` |
+| **x402 (Solana)** | `solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp` · SPL USDC `EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v` | `redacted` | `payment-signature` |
 | **MPP (Tempo)** | chainId `4217` · TIP-20 USDC `0x20c000000000000000000000b9537d11c60e8b50` | `0x3e267aA9439C82FfB36078676E67901a1ca6D352` | `Authorization: Payment` |
 
 * **Currency**: USDC, 6 decimals. A price of $5.00 is expressed as `amount = "5000000"` (the v1 field name was `maxAmountRequired`).

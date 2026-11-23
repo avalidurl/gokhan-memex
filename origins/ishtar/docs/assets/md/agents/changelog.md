@@ -26,7 +26,7 @@ Ask Ishtar, the pay-per-answer surface at `POST /api/chat/ask` (**$0.10**), now 
 
 * **x402 (unchanged).** USDC on **Base** (`eip155:8453`), settled through the Coinbase CDP facilitator. The challenge rides in the `PAYMENT-REQUIRED` header and the caller answers with a `payment-signature`, exactly as before.
 * **MPP (new).** The **Machine Payments Protocol** — Tempo Labs and Stripe's HTTP-402 standard (the IETF `draft-httpauth-payment` work) — settles USDC on the **Tempo** network (chainId 4217). The same 402 carries a `WWW-Authenticate: Payment` challenge; the caller broadcasts the transfer itself and replies with an `Authorization: Payment <credential>` header, and the venue verifies the on-chain transfer log directly and returns a `Payment-Receipt` header. There is no facilitator — settlement is push-mode, proven on-chain.
-* Each rail settles to its own wallet (x402 to `0x36de…` on Base, MPP to `0x3e267…` on Tempo), so a caller can pay on whichever rail it already holds funds on. Docs: [mpp.dev](https://mpp.dev), [mppscan.com](https://mppscan.com).
+* Each rail settles to its own wallet (x402 to `redacted` on Base, MPP to `0x3e267…` on Tempo), so a caller can pay on whichever rail it already holds funds on. Docs: [mpp.dev](https://mpp.dev), [mppscan.com](https://mppscan.com).
 
 ### Scope
 

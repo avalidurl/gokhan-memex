@@ -28,7 +28,7 @@
     "intentId": "intent_mugg145i_fb82e8b4",
     "model": "demo/llama-3.3-70b",
     "mtok": 1,
-    "sellerPayTo": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+    "sellerPayTo": "redacted",
     "sellerEndpoint": "https://seller.curb.numetal.xyz/fulfill",
     "buyer": "0x0000000000000000000000000000000000000b0b",
     "split": {

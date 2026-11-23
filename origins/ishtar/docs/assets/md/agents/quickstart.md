@@ -170,7 +170,7 @@ curl -X POST https://api.ishtar.numetal.xyz/api/intake/heart-file \
 Bare POST (no payment header) — the venue answers with the x402 v2 challenge (Base + Solana in `accepts[]`) plus an MPP challenge:
 
 ```json
-402 {"x402Version":2,"error":"payment required","resource":{…},"accepts":[{"scheme":"exact","network":"eip155:8453","amount":"1000000","asset":"0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913","payTo":"0x36de990133D36d7E3DF9a820aA3eDE5a2320De71","maxTimeoutSeconds":300,"extra":{…}},{"scheme":"exact","network":"solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp","amount":"1000000","asset":"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v","payTo":"2GvLgz2ovzNkrYEzJsZ1kRovXjVQnmm7WRWFd3vFzsma","maxTimeoutSeconds":300,"extra":{…}}]}
+402 {"x402Version":2,"error":"payment required","resource":{…},"accepts":[{"scheme":"exact","network":"eip155:8453","amount":"1000000","asset":"0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913","payTo":"redacted","maxTimeoutSeconds":300,"extra":{…}},{"scheme":"exact","network":"solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp","amount":"1000000","asset":"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v","payTo":"redacted","maxTimeoutSeconds":300,"extra":{…}}]}
 ````
 
 Repeat the POST with the signed payment in the `payment-signature` header (x402) or `Authorization: Payment` (MPP):

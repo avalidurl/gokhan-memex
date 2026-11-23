@@ -8,7 +8,7 @@
     "id": "offer_mw4h8a8k_1d0da0ea",
     "type": "sell",
     "status": "open",
-    "sellerPayTo": "0x8f49d4d782488e8576c8c54288027c57f4acf521",
+    "sellerPayTo": "redacted",
     "endpoint": "https://seller.curb.numetal.xyz/fulfill",
     "model": "demo/llama-3.3-70b",
     "mtok": 10,
