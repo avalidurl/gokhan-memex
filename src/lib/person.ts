@@ -17,7 +17,7 @@ export const PERSON_SAME_AS = [
   'https://orcid.org/0000-0002-1887-406X',
   'https://www.researchgate.net/profile/Goekhan-Turhan-2',
   'https://bsky.app/profile/gokhan.substack.com',
-  'https://app.ens.domains/gokhan.eth',
+  'https://efp.app/0x36de990133d36d7e3df9a820aa3ede5a2320de71',
   'https://www.goodreads.com/user/show/104156530-g-khan',
   'https://hey.xyz/u/gokhaneth',
   'https://primal.net/gokhan',

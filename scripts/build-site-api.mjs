@@ -9,8 +9,6 @@ import { products, journalProducts, catalog as estateCatalog, CATEGORIES, CATEGO
 import { guides, QUADS } from '../src/data/guides.ts'
 import { ebooks } from '../src/data/ebooks.ts'
 import { academicPublications, experimentalWorks } from '../src/data/publishing.ts'
-import { parties, explorers } from '../src/data/coins-wallets.ts'
-
 const academicSlug = (title) =>
   title.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').split('-').slice(0, 8).join('-')
 
@@ -134,43 +132,15 @@ const about = {
 
 const linksSrc = readFileSync(join(root, 'src/pages/links.astro'), 'utf8')
 const secStart = linksSrc.indexOf('const sections: Section[] = ')
-const secEnd = linksSrc.indexOf('\nconst known')
+const secEnd = linksSrc.indexOf('\nconst nav')
 const sections = Function(`"use strict"; const sections = ${linksSrc.slice(secStart + 'const sections: Section[] = '.length, secEnd).trim().replace(/;$/, '')}; return sections`)()
 
-const profileEvm = [
-  { id: 'ZORA-LINKED', label: 'Zora linked wallet', address: '0x4DF89a7437786eB8Af595979a638a4a9382c33D6', note: 'linked on zora.co/@gokhan' },
-  { id: 'LENS-ACCOUNT', label: 'Lens account', address: '0xE8b26757Bc7429d1fD16233437121dE904dac806', note: 'hey.xyz/u/gokhaneth' },
-]
-const known = new Set(parties.map((p) => p.address && p.address.toLowerCase()).filter(Boolean))
-const wallets = [
-  { id: 'wallets-ens', title: 'ENS', items: [{ id: 'ENS', label: 'ENS', address: 'gokhan.eth', href: 'https://app.ens.domains/gokhan.eth', links: [] }] },
-  {
-    id: 'wallets-evm',
-    title: 'Ethereum, Base & Robinhood Chain',
-    items: [
-      ...parties.filter((p) => p.address && p.chain !== 'solana' && p.chain !== 'canton'),
-      ...profileEvm.filter((p) => !known.has(p.address.toLowerCase())),
-    ].map((p) => ({ id: p.id, label: p.label || null, address: p.address, note: p.note || null, links: explorers(p) })),
-  },
-  { id: 'wallets-solana', title: 'Solana', items: parties.filter((p) => p.address && p.chain === 'solana').map((p) => ({ id: p.id, label: p.label || null, address: p.address, note: p.note || null, links: explorers(p) })) },
-  { id: 'wallets-canton', title: 'Canton', items: parties.filter((p) => p.address && p.chain === 'canton').map((p) => ({ id: p.id, label: p.label || null, address: p.address, note: p.note || null, links: explorers(p) })) },
-  {
-    id: 'wallets-zcash',
-    title: 'Zcash',
-    items: [{
-      id: 'ZEC-UA',
-      label: 'Unified',
-      address: 'u172a6j85et6eglhc7wasffsl3l4n5jrwkx4tmtw4nmwzjgksrydevqzeqp83y8my33fnqp73tgaac57xtcel94qajn35eemv9jwd87jza69ey70weqwmspld3rm7q7dnnt5fgpq07p8fw48g7ew7hjecaud7nf0dwcfxu688a7yvajmnq',
-      note: 'profile address on zcash.me/gokhan',
-      links: [{ label: 'zcash.me/gokhan', href: 'https://zcash.me/gokhan' }],
-    }],
-  },
-]
+const wallets = []
 
 const links = {
   name: 'Links',
   url: `${SITE}/links/`,
-  description: 'Where to find Gökhan Turhan: profiles, writing, communities, and the wallet addresses published on this site.',
+  description: 'Where to find Gökhan Turhan: profiles, writing, and communities.',
   sections: sections.map((s) => ({
     id: s.id,
     title: s.title,

@@ -1,7 +1,7 @@
 {
   "name": "Links",
   "url": "https://gokhanturhan.com/links/",
-  "description": "Where to find Gökhan Turhan: profiles, writing, communities, and the wallet addresses published on this site.",
+  "description": "Where to find Gökhan Turhan: profiles, writing, and communities.",
   "sections": [
     {
       "id": "code",
@@ -130,17 +130,6 @@
           ]
         },
         {
-          "name": "ENS",
-          "tag": null,
-          "links": [
-            {
-              "href": "https://app.ens.domains/gokhan.eth",
-              "label": "gokhan.eth",
-              "note": null
-            }
-          ]
-        },
-        {
           "name": "EFP",
           "tag": null,
           "links": [
@@ -148,17 +137,6 @@
               "href": "https://efp.app/0x36de990133d36d7e3df9a820aa3ede5a2320de71",
               "label": null,
               "note": "Ethereum Follow Protocol — gokhan.eth"
-            }
-          ]
-        },
-        {
-          "name": "zcash.me",
-          "tag": null,
-          "links": [
-            {
-              "href": "https://zcash.me/gokhan",
-              "label": null,
-              "note": "profile"
             }
           ]
         },
@@ -185,17 +163,6 @@
           ]
         },
         {
-          "name": "TikTok",
-          "tag": null,
-          "links": [
-            {
-              "href": "https://www.tiktok.com/@gokhan.eth",
-              "label": null,
-              "note": "personal"
-            }
-          ]
-        },
-        {
           "name": "Truth Social",
           "tag": null,
           "links": [
@@ -212,6 +179,17 @@
           "links": [
             {
               "href": "https://bsky.app/profile/gokhan.substack.com",
+              "label": null,
+              "note": "personal"
+            }
+          ]
+        },
+        {
+          "name": "Cuties",
+          "tag": null,
+          "links": [
+            {
+              "href": "https://cuties.app/user/gokhan",
               "label": null,
               "note": "personal"
             }
@@ -378,6 +356,17 @@
           ]
         },
         {
+          "name": "HackMD",
+          "tag": null,
+          "links": [
+            {
+              "href": "https://hackmd.io/@gokhan",
+              "label": null,
+              "note": "notes"
+            }
+          ]
+        },
+        {
           "name": "Journal",
           "tag": null,
           "links": [
@@ -447,6 +436,17 @@
       "hint": "citations and research profiles",
       "groups": [
         {
+          "name": "alphaXiv",
+          "tag": null,
+          "links": [
+            {
+              "href": "https://www.alphaxiv.org/@gokhan-turhan",
+              "label": null,
+              "note": "researcher profile"
+            }
+          ]
+        },
+        {
           "name": "Google Scholar",
           "tag": null,
           "links": [
@@ -454,6 +454,17 @@
               "href": "https://scholar.google.com/citations?user=EgZE838AAAAJ",
               "label": null,
               "note": "citations"
+            }
+          ]
+        },
+        {
+          "name": "Academia",
+          "tag": null,
+          "links": [
+            {
+              "href": "https://independentresearcher.academia.edu/gokhanturhan",
+              "label": null,
+              "note": "profile"
             }
           ]
         },
@@ -557,7 +568,7 @@
     {
       "id": "link-aggregators",
       "title": "Link Aggregators",
-      "hint": "about.me and Linktree",
+      "hint": "about.me, Linktree, and zcash.me",
       "groups": [
         {
           "name": "about.me",
@@ -580,466 +591,20 @@
               "note": "profile"
             }
           ]
-        }
-      ]
-    }
-  ],
-  "wallets": [
-    {
-      "id": "wallets-ens",
-      "title": "ENS",
-      "items": [
-        {
-          "id": "ENS",
-          "label": "ENS",
-          "address": "gokhan.eth",
-          "href": "https://app.ens.domains/gokhan.eth",
-          "links": []
-        }
-      ]
-    },
-    {
-      "id": "wallets-evm",
-      "title": "Ethereum, Base & Robinhood Chain",
-      "items": [
-        {
-          "id": "W1",
-          "label": "gokhan.eth",
-          "address": "0x36de990133D36d7E3DF9a820aA3eDE5a2320De71",
-          "note": "main deployer",
-          "links": [
-            {
-              "label": "Basescan",
-              "short": "BASE",
-              "href": "https://basescan.org/address/0x36de990133D36d7E3DF9a820aA3eDE5a2320De71"
-            },
-            {
-              "label": "Robinhood Chain explorer",
-              "short": "RH",
-              "href": "https://robinhoodchain.blockscout.com/address/0x36de990133D36d7E3DF9a820aA3eDE5a2320De71"
-            },
-            {
-              "label": "Etherscan",
-              "short": "ETH",
-              "href": "https://etherscan.io/address/0x36de990133D36d7E3DF9a820aA3eDE5a2320De71"
-            }
-          ]
         },
         {
-          "id": "W2",
-          "label": null,
-          "address": "0xC32F2122A76CE07bDdc785e44978859B713DA6ef",
-          "note": null,
+          "name": "zcash.me",
+          "tag": null,
           "links": [
             {
-              "label": "Basescan",
-              "short": "BASE",
-              "href": "https://basescan.org/address/0xC32F2122A76CE07bDdc785e44978859B713DA6ef"
-            },
-            {
-              "label": "Robinhood Chain explorer",
-              "short": "RH",
-              "href": "https://robinhoodchain.blockscout.com/address/0xC32F2122A76CE07bDdc785e44978859B713DA6ef"
-            },
-            {
-              "label": "Etherscan",
-              "short": "ETH",
-              "href": "https://etherscan.io/address/0xC32F2122A76CE07bDdc785e44978859B713DA6ef"
-            }
-          ]
-        },
-        {
-          "id": "W3",
-          "label": "agentbountydev.eth",
-          "address": "0x15813fBeac0Ac58FA087C459639F8DC64a9B93c3",
-          "note": null,
-          "links": [
-            {
-              "label": "Basescan",
-              "short": "BASE",
-              "href": "https://basescan.org/address/0x15813fBeac0Ac58FA087C459639F8DC64a9B93c3"
-            },
-            {
-              "label": "Robinhood Chain explorer",
-              "short": "RH",
-              "href": "https://robinhoodchain.blockscout.com/address/0x15813fBeac0Ac58FA087C459639F8DC64a9B93c3"
-            },
-            {
-              "label": "Etherscan",
-              "short": "ETH",
-              "href": "https://etherscan.io/address/0x15813fBeac0Ac58FA087C459639F8DC64a9B93c3"
-            }
-          ]
-        },
-        {
-          "id": "W4",
-          "label": "0xgokhan.eth",
-          "address": "0x30a00361a389cdc41053A6A010118D173cce1f70",
-          "note": null,
-          "links": [
-            {
-              "label": "Basescan",
-              "short": "BASE",
-              "href": "https://basescan.org/address/0x30a00361a389cdc41053A6A010118D173cce1f70"
-            },
-            {
-              "label": "Robinhood Chain explorer",
-              "short": "RH",
-              "href": "https://robinhoodchain.blockscout.com/address/0x30a00361a389cdc41053A6A010118D173cce1f70"
-            },
-            {
-              "label": "Etherscan",
-              "short": "ETH",
-              "href": "https://etherscan.io/address/0x30a00361a389cdc41053A6A010118D173cce1f70"
-            }
-          ]
-        },
-        {
-          "id": "W5",
-          "label": null,
-          "address": "0x746692cd719132fF43f274AB343B4C85363d94A9",
-          "note": null,
-          "links": [
-            {
-              "label": "Basescan",
-              "short": "BASE",
-              "href": "https://basescan.org/address/0x746692cd719132fF43f274AB343B4C85363d94A9"
-            },
-            {
-              "label": "Robinhood Chain explorer",
-              "short": "RH",
-              "href": "https://robinhoodchain.blockscout.com/address/0x746692cd719132fF43f274AB343B4C85363d94A9"
-            },
-            {
-              "label": "Etherscan",
-              "short": "ETH",
-              "href": "https://etherscan.io/address/0x746692cd719132fF43f274AB343B4C85363d94A9"
-            }
-          ]
-        },
-        {
-          "id": "W6",
-          "label": null,
-          "address": "0xE85aC08dbd873441708c737D9b2f86D8b7ca85Aa",
-          "note": null,
-          "links": [
-            {
-              "label": "Basescan",
-              "short": "BASE",
-              "href": "https://basescan.org/address/0xE85aC08dbd873441708c737D9b2f86D8b7ca85Aa"
-            },
-            {
-              "label": "Robinhood Chain explorer",
-              "short": "RH",
-              "href": "https://robinhoodchain.blockscout.com/address/0xE85aC08dbd873441708c737D9b2f86D8b7ca85Aa"
-            },
-            {
-              "label": "Etherscan",
-              "short": "ETH",
-              "href": "https://etherscan.io/address/0xE85aC08dbd873441708c737D9b2f86D8b7ca85Aa"
-            }
-          ]
-        },
-        {
-          "id": "W7",
-          "label": "personal (Bankr)",
-          "address": "0x8f49d4d782488e8576c8c54288027c57f4Acf521",
-          "note": null,
-          "links": [
-            {
-              "label": "Basescan",
-              "short": "BASE",
-              "href": "https://basescan.org/address/0x8f49d4d782488e8576c8c54288027c57f4Acf521"
-            },
-            {
-              "label": "Robinhood Chain explorer",
-              "short": "RH",
-              "href": "https://robinhoodchain.blockscout.com/address/0x8f49d4d782488e8576c8c54288027c57f4Acf521"
-            },
-            {
-              "label": "Etherscan",
-              "short": "ETH",
-              "href": "https://etherscan.io/address/0x8f49d4d782488e8576c8c54288027c57f4Acf521"
-            }
-          ]
-        },
-        {
-          "id": "W8",
-          "label": "agentbounty (Bankr)",
-          "address": "0x2F56e49B9ddB148D1BeF469f14bBD91F39E105A7",
-          "note": null,
-          "links": [
-            {
-              "label": "Basescan",
-              "short": "BASE",
-              "href": "https://basescan.org/address/0x2F56e49B9ddB148D1BeF469f14bBD91F39E105A7"
-            },
-            {
-              "label": "Robinhood Chain explorer",
-              "short": "RH",
-              "href": "https://robinhoodchain.blockscout.com/address/0x2F56e49B9ddB148D1BeF469f14bBD91F39E105A7"
-            },
-            {
-              "label": "Etherscan",
-              "short": "ETH",
-              "href": "https://etherscan.io/address/0x2F56e49B9ddB148D1BeF469f14bBD91F39E105A7"
-            }
-          ]
-        },
-        {
-          "id": "W9",
-          "label": "goekhanvc (Bankr)",
-          "address": "0xDD2A6bd2506d2f50B06905E12BeA27Df15415f8E",
-          "note": null,
-          "links": [
-            {
-              "label": "Basescan",
-              "short": "BASE",
-              "href": "https://basescan.org/address/0xDD2A6bd2506d2f50B06905E12BeA27Df15415f8E"
-            },
-            {
-              "label": "Robinhood Chain explorer",
-              "short": "RH",
-              "href": "https://robinhoodchain.blockscout.com/address/0xDD2A6bd2506d2f50B06905E12BeA27Df15415f8E"
-            },
-            {
-              "label": "Etherscan",
-              "short": "ETH",
-              "href": "https://etherscan.io/address/0xDD2A6bd2506d2f50B06905E12BeA27Df15415f8E"
-            }
-          ]
-        },
-        {
-          "id": "W10",
-          "label": "gigabvgatti (Bankr)",
-          "address": "0x93A55E1aD85f686b836a66C31917E7429e49945d",
-          "note": null,
-          "links": [
-            {
-              "label": "Basescan",
-              "short": "BASE",
-              "href": "https://basescan.org/address/0x93A55E1aD85f686b836a66C31917E7429e49945d"
-            },
-            {
-              "label": "Robinhood Chain explorer",
-              "short": "RH",
-              "href": "https://robinhoodchain.blockscout.com/address/0x93A55E1aD85f686b836a66C31917E7429e49945d"
-            },
-            {
-              "label": "Etherscan",
-              "short": "ETH",
-              "href": "https://etherscan.io/address/0x93A55E1aD85f686b836a66C31917E7429e49945d"
-            }
-          ]
-        },
-        {
-          "id": "W11",
-          "label": "Kernel 7702",
-          "address": "0x82E435998E47Ba95CCf6E9dC58fd00c2505397e8",
-          "note": null,
-          "links": [
-            {
-              "label": "Basescan",
-              "short": "BASE",
-              "href": "https://basescan.org/address/0x82E435998E47Ba95CCf6E9dC58fd00c2505397e8"
-            },
-            {
-              "label": "Robinhood Chain explorer",
-              "short": "RH",
-              "href": "https://robinhoodchain.blockscout.com/address/0x82E435998E47Ba95CCf6E9dC58fd00c2505397e8"
-            },
-            {
-              "label": "Etherscan",
-              "short": "ETH",
-              "href": "https://etherscan.io/address/0x82E435998E47Ba95CCf6E9dC58fd00c2505397e8"
-            }
-          ]
-        },
-        {
-          "id": "W12",
-          "label": null,
-          "address": "0xaBDD21cCEcA2B1DB61A32bdacA3c5621B7da128e",
-          "note": null,
-          "links": [
-            {
-              "label": "Basescan",
-              "short": "BASE",
-              "href": "https://basescan.org/address/0xaBDD21cCEcA2B1DB61A32bdacA3c5621B7da128e"
-            },
-            {
-              "label": "Robinhood Chain explorer",
-              "short": "RH",
-              "href": "https://robinhoodchain.blockscout.com/address/0xaBDD21cCEcA2B1DB61A32bdacA3c5621B7da128e"
-            },
-            {
-              "label": "Etherscan",
-              "short": "ETH",
-              "href": "https://etherscan.io/address/0xaBDD21cCEcA2B1DB61A32bdacA3c5621B7da128e"
-            }
-          ]
-        },
-        {
-          "id": "W13",
-          "label": "Kernel 7702",
-          "address": "0xcd3Ef09Df10d2B18BF836E93d3F228f6A4C3ab9B",
-          "note": "was KERNEL",
-          "links": [
-            {
-              "label": "Basescan",
-              "short": "BASE",
-              "href": "https://basescan.org/address/0xcd3Ef09Df10d2B18BF836E93d3F228f6A4C3ab9B"
-            },
-            {
-              "label": "Robinhood Chain explorer",
-              "short": "RH",
-              "href": "https://robinhoodchain.blockscout.com/address/0xcd3Ef09Df10d2B18BF836E93d3F228f6A4C3ab9B"
-            },
-            {
-              "label": "Etherscan",
-              "short": "ETH",
-              "href": "https://etherscan.io/address/0xcd3Ef09Df10d2B18BF836E93d3F228f6A4C3ab9B"
-            }
-          ]
-        },
-        {
-          "id": "ZORA",
-          "label": "Zora / Base App wallet",
-          "address": "0xD071B9c281F789F85232Aa2264d54648Ac97c1d8",
-          "note": "payout of all Zora coins",
-          "links": [
-            {
-              "label": "Basescan",
-              "short": "BASE",
-              "href": "https://basescan.org/address/0xD071B9c281F789F85232Aa2264d54648Ac97c1d8"
-            },
-            {
-              "label": "Robinhood Chain explorer",
-              "short": "RH",
-              "href": "https://robinhoodchain.blockscout.com/address/0xD071B9c281F789F85232Aa2264d54648Ac97c1d8"
-            },
-            {
-              "label": "Etherscan",
-              "short": "ETH",
-              "href": "https://etherscan.io/address/0xD071B9c281F789F85232Aa2264d54648Ac97c1d8"
-            }
-          ]
-        },
-        {
-          "id": "ZORA-LINKED",
-          "label": "Zora linked wallet",
-          "address": "0x4DF89a7437786eB8Af595979a638a4a9382c33D6",
-          "note": "linked on zora.co/@gokhan",
-          "links": [
-            {
-              "label": "Basescan",
-              "short": "BASE",
-              "href": "https://basescan.org/address/0x4DF89a7437786eB8Af595979a638a4a9382c33D6"
-            },
-            {
-              "label": "Robinhood Chain explorer",
-              "short": "RH",
-              "href": "https://robinhoodchain.blockscout.com/address/0x4DF89a7437786eB8Af595979a638a4a9382c33D6"
-            },
-            {
-              "label": "Etherscan",
-              "short": "ETH",
-              "href": "https://etherscan.io/address/0x4DF89a7437786eB8Af595979a638a4a9382c33D6"
-            }
-          ]
-        },
-        {
-          "id": "LENS-ACCOUNT",
-          "label": "Lens account",
-          "address": "0xE8b26757Bc7429d1fD16233437121dE904dac806",
-          "note": "hey.xyz/u/gokhaneth",
-          "links": [
-            {
-              "label": "Basescan",
-              "short": "BASE",
-              "href": "https://basescan.org/address/0xE8b26757Bc7429d1fD16233437121dE904dac806"
-            },
-            {
-              "label": "Robinhood Chain explorer",
-              "short": "RH",
-              "href": "https://robinhoodchain.blockscout.com/address/0xE8b26757Bc7429d1fD16233437121dE904dac806"
-            },
-            {
-              "label": "Etherscan",
-              "short": "ETH",
-              "href": "https://etherscan.io/address/0xE8b26757Bc7429d1fD16233437121dE904dac806"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "wallets-solana",
-      "title": "Solana",
-      "items": [
-        {
-          "id": "SOL-MAIN",
-          "label": "Solana",
-          "address": "J1ALikLy5TZ9tqZq5zxSem5P9G4Wo6fXXWSGGjEvd9Pg",
-          "note": "main Solana address",
-          "links": [
-            {
-              "label": "Solscan",
-              "short": "SOL",
-              "href": "https://solscan.io/account/J1ALikLy5TZ9tqZq5zxSem5P9G4Wo6fXXWSGGjEvd9Pg"
-            }
-          ]
-        },
-        {
-          "id": "SOL",
-          "label": "Solana signer",
-          "address": "2GvLgz2ovzNkrYEzJsZ1kRovXjVQnmm7WRWFd3vFzsma",
-          "note": "signs his StonkFun launches",
-          "links": [
-            {
-              "label": "Solscan",
-              "short": "SOL",
-              "href": "https://solscan.io/account/2GvLgz2ovzNkrYEzJsZ1kRovXjVQnmm7WRWFd3vFzsma"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "wallets-canton",
-      "title": "Canton",
-      "items": [
-        {
-          "id": "W14",
-          "label": "Canton (Supanova)",
-          "address": "supa1::1220fee177fe9fb494a1b8b4ff0fb6d8882b80f4d0e55df1d90a2faf821fbff6ac61",
-          "note": null,
-          "links": [
-            {
-              "label": "CCView (Canton explorer)",
-              "short": "CCV",
-              "href": "https://ccview.io/party/supa1::1220fee177fe9fb494a1b8b4ff0fb6d8882b80f4d0e55df1d90a2faf821fbff6ac61"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "wallets-zcash",
-      "title": "Zcash",
-      "items": [
-        {
-          "id": "ZEC-UA",
-          "label": "Unified",
-          "address": "u172a6j85et6eglhc7wasffsl3l4n5jrwkx4tmtw4nmwzjgksrydevqzeqp83y8my33fnqp73tgaac57xtcel94qajn35eemv9jwd87jza69ey70weqwmspld3rm7q7dnnt5fgpq07p8fw48g7ew7hjecaud7nf0dwcfxu688a7yvajmnq",
-          "note": "profile address on zcash.me/gokhan",
-          "links": [
-            {
-              "label": "zcash.me/gokhan",
-              "href": "https://zcash.me/gokhan"
+              "href": "https://zcash.me/gokhan",
+              "label": null,
+              "note": "profile"
             }
           ]
         }
       ]
     }
-  ]
+  ],
+  "wallets": []
 }
