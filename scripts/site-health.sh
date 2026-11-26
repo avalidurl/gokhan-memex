@@ -92,6 +92,13 @@ check ishtar_sitemap    "https://gokhanturhan.com/ishtar/sitemap.xml"  200 "gokh
 check ishtar_privacy    "https://gokhanturhan.com/ishtar/docs/legal/privacy-policy/" 200
 check file_numetal      "https://gokhanturhan.com/numetal/file/"       200
 check file_ubu          "https://gokhanturhan.com/ubu/file/"           200
+check ubu_home          "https://gokhanturhan.com/ubu/"                200 "Bureau of Imaginary Solutions"
+check ubu_reader        "https://gokhanturhan.com/ubu/reader/"         200 "Bureau Reader"
+check ubu_ledger        "https://gokhanturhan.com/ubu/ledger/"         200 "Training Ledger"
+check ubu_reader_pdf    "https://gokhanturhan.com/media/archive/ubu/ubu/the-bureau-reader-complete.pdf" 200 "application/pdf"
+check ubu_og            "https://gokhanturhan.com/media/archive/ubu/ubu/og.png" 200 "image/png"
+check ubu_old_ledger    "https://ubu.numetal.xyz/ledger/"              301 "gokhanturhan.com/ubu/ledger/"
+check ubu_old_pdf       "https://ubu.numetal.xyz/reader/the-bureau-reader.pdf" 301 "the-bureau-reader-complete.pdf"
 check file_gokhan_vc    "https://gokhanturhan.com/gokhan-vc/file/"     200
 check products_index    "https://gokhanturhan.com/products/"           200 "Projects &amp; Products"
 check drafts_redirect   "https://gokhanturhan.com/product-drafts/"     301 "/products/"
