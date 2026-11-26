@@ -9,24 +9,39 @@ const { url } = Astro.props
 const normalizedUrl = url.replace('x.com', 'twitter.com').split('?')[0]
 ---
 
-<div class="my-6 not-prose twitter-embed-container">
-  <blockquote class="twitter-tweet" data-dnt="true">
-    <a href={normalizedUrl}></a>
-  </blockquote>
+<!-- Click-to-load: nothing is requested from X until the reader clicks. -->
+<div class="my-6 not-prose twitter-embed-container" data-tweet-url={normalizedUrl}>
+  <div class="embed-gate">
+    <p>This post is embedded from X. Loading it connects your browser to X, which may set cookies.</p>
+    <p>
+      <button type="button" class="embed-gate-load">Load the post from X</button>
+      <a href={normalizedUrl} rel="noopener">Open on X</a>
+    </p>
+  </div>
 </div>
 
 <script is:inline>
-  // Load Twitter widget script if not already loaded
   (function() {
-    if (window.twttr) {
-      window.twttr.widgets.load();
-      return;
-    }
-    
-    const script = document.createElement('script');
-    script.src = 'https://platform.twitter.com/widgets.js';
-    script.async = true;
-    document.head.appendChild(script);
+    if (window.__tweetGateInit) return;
+    window.__tweetGateInit = true;
+    document.addEventListener('click', function(e) {
+      var btn = e.target.closest && e.target.closest('.twitter-embed-container .embed-gate-load');
+      if (!btn) return;
+      var box = btn.closest('.twitter-embed-container');
+      var bq = document.createElement('blockquote');
+      bq.className = 'twitter-tweet';
+      bq.setAttribute('data-dnt', 'true');
+      var a = document.createElement('a');
+      a.href = box.getAttribute('data-tweet-url');
+      bq.appendChild(a);
+      box.innerHTML = '';
+      box.appendChild(bq);
+      if (window.twttr && window.twttr.widgets) { window.twttr.widgets.load(box); return; }
+      var s = document.createElement('script');
+      s.src = 'https://platform.twitter.com/widgets.js';
+      s.async = true;
+      document.head.appendChild(s);
+    });
   })();
 </script>
 
@@ -35,8 +50,29 @@ const normalizedUrl = url.replace('x.com', 'twitter.com').split('?')[0]
     display: flex;
     justify-content: center;
   }
-  
-  .twitter-tweet {
+
+  .twitter-embed-container :global(.twitter-tweet) {
     margin: 0 auto !important;
+  }
+
+  .embed-gate {
+    border: 1px solid currentColor;
+    padding: 0.75rem 1rem;
+    max-width: 32rem;
+    font-size: 0.9rem;
+  }
+
+  .embed-gate p {
+    margin: 0 0 0.5rem;
+  }
+
+  .embed-gate-load {
+    border: 1px solid currentColor;
+    background: transparent;
+    color: inherit;
+    padding: 0.2rem 0.6rem;
+    margin-right: 0.75rem;
+    cursor: pointer;
+    font: inherit;
   }
 </style>

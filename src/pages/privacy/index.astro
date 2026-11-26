@@ -8,28 +8,37 @@ import PageHead from '@/components/PageHead.astro'
   description="How we handle your data and protect your privacy."
 >
   <div class="es">
-    <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: 'Privacy' }]} title="Privacy Policy" stamp="Last updated · January 2026" />
+    <PageHead crumbs={[{ label: 'Index', href: '/' }, { label: 'Privacy' }]} title="Privacy Policy" stamp="Last updated · November 2026" />
     <details class="cx fold" aria-label="Summary" open>
       <summary class="cx-h"><b>TL;DR</b></summary>
-      <div class="cx-b"><p>This website respects your privacy. We don't track you, collect personal data, or use invasive analytics.</p></div>
+      <div class="cx-b"><p>No Google Analytics, no advertising pixels, no fingerprinting and no consent banner, because nothing here needs consent. Visits are counted with Cloudflare Web Analytics, which is cookieless. We do not sell or share personal data, and Global Privacy Control is honoured.</p></div>
     </details>
-    <details class="cx fold" aria-label="What we don't collect" open>
-      <summary class="cx-h"><b>What we don't collect</b></summary>
-      <div class="cx-r"><span>Personal</span><span>Personal information</span></div>
-      <div class="cx-r"><span>Email</span><span>Email addresses (except through Substack)</span></div>
-      <div class="cx-r"><span>Behaviour</span><span>Browsing behavior or tracking data</span></div>
-      <div class="cx-r"><span>Cookies</span><span>Cookies for tracking purposes</span></div>
+    <details class="cx fold" aria-label="What we don't use" open>
+      <summary class="cx-h"><b>What we don't use</b></summary>
+      <div class="cx-r"><span>Analytics</span><span>No Google Analytics, no Hotjar, no session recording and no other third-party analytics</span></div>
+      <div class="cx-r"><span>Advertising</span><span>No advertising or retargeting pixels (Meta, TikTok, Google Ads, Reddit, Snap, X and similar)</span></div>
+      <div class="cx-r"><span>Fingerprinting</span><span>No fingerprinting or cross-site tracking scripts of our own</span></div>
+      <div class="cx-r"><span>Personal data</span><span>No accounts and no collection of personal information, apart from what you send us yourself, for example by email</span></div>
     </details>
-    <details class="cx fold" aria-label="What we may collect" open>
-      <summary class="cx-h"><b>What we may collect</b></summary>
+    <details class="cx fold" aria-label="What runs on this site" open>
+      <summary class="cx-h"><b>What runs on this site</b></summary>
+      <div class="cx-r"><span>Cloudflare Web Analytics</span><span>Counts page views and performance. It is cookieless and stores nothing on your device. It does not follow you across sites or build a profile.</span></div>
+      <div class="cx-r"><span>Cloudflare security</span><span>Cloudflare's bot-detection scripts set the cookies <code>__cf_ob</code> and <code>cf_clearance</code> and use browser storage (<code>__cfPre_t</code>, <code>_cfPre_tabId</code>). They are strictly necessary for security and are exempt from consent under ePrivacy art. 5(3).</span></div>
       <div class="cx-r"><span>Server logs</span><span>Standard web server logs may temporarily store IP addresses for security</span></div>
       <div class="cx-r"><span>Theme preference</span><span>Your ink/paper preference is stored locally in your browser</span></div>
     </details>
-    <details class="cx fold" aria-label="Third-party services" open>
-      <summary class="cx-h"><b>Third parties</b></summary>
+    <details class="cx fold" aria-label="Embeds and third parties" open>
+      <summary class="cx-h"><b>Embeds and third parties</b></summary>
+      <div class="cx-r"><span>X posts, Vimeo</span><span>Some journal posts embed an X post or a Vimeo video. They load only after you click "Load", and then your browser connects to X or Vimeo, which may set cookies under their own policies. Until you click, nothing is requested from them.</span></div>
+      <div class="cx-r"><span>Other pages</span><span>Some product pages (for example the market and dashboard tools) read public data from third-party APIs such as Polymarket, CoinGecko or Supabase, so your browser connects to those hosts.</span></div>
       <div class="cx-r"><span>Newsletter (Substack)</span><span>Newsletter subscriptions are managed through Substack. See <a href="https://substack.com/privacy" target="_blank" rel="noopener">Substack's Privacy Policy</a>.</span></div>
       <div class="cx-r"><span>RSS feeds</span><span>RSS feed subscriptions are anonymous. We cannot track or identify RSS subscribers.</span></div>
       <div class="cx-r"><span>Hosting</span><span>This website is hosted on Cloudflare Pages. No personal data is stored in databases.</span></div>
+    </details>
+    <details class="cx fold" aria-label="Selling, sharing and Global Privacy Control" open>
+      <summary class="cx-h"><b>Selling, sharing and Global Privacy Control</b></summary>
+      <div class="cx-r"><span>Sale or sharing</span><span>We do not sell or share personal data, including for cross-context behavioural advertising (CCPA/CPRA). There is nothing to opt out of, so there is no "Do Not Sell or Share" link.</span></div>
+      <div class="cx-r"><span>GPC</span><span>Global Privacy Control signals are honoured. Nothing here depends on them, because no tracking runs. See <a href="/.well-known/gpc.json">/.well-known/gpc.json</a>.</span></div>
       <div class="cx-r"><span>Contact</span><span>Questions? Email <a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a></span></div>
     </details>
   </div>

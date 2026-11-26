@@ -144,7 +144,7 @@ export const guides: Guide[] = [
     slug: 'read-the-legal-pages', quad: 'how-to', title: 'Read the legal pages',
     lead: 'Site-wide terms sit in the footer. Each product kept its own legal copies, as they were published.',
     steps: [
-      'For this site: <a href="/privacy/">Privacy</a> (including analytics and opt-out) and <a href="/disclaimer/">Disclaimer</a>.',
+      'For this site: <a href="/privacy/">Privacy</a> (what loads, and what does not) and <a href="/disclaimer/">Disclaimer</a>.',
       'For a product, open its legal index: <a href="/ishtar/legal/terms-of-service/">Ishtar terms</a>, <a href="/numetal/legal/terms/">Numetal terms</a>, <a href="/gokhan-vc/legal/terms/">Gökhan Ventures terms</a> or <a href="/agentbounty/legal/">AgentBounty legal</a>.',
       'Each product legal page is an archived copy. Its box shows the address and the former address it was published at.',
     ],
@@ -245,7 +245,7 @@ export const guides: Guide[] = [
       ['Framework', 'Astro, static output'],
       ['Hosting', 'Cloudflare Pages'],
       ['Source', '<a href="https://github.com/avalidurl/gokhan-memex">github.com/avalidurl/gokhan-memex</a>'],
-      ['Analytics', 'Google Analytics, with an opt-out on every page; see <a href="/privacy/">Privacy</a>'],
+      ['Analytics', 'Cloudflare Web Analytics, cookieless; no Google Analytics; see <a href="/privacy/">Privacy</a>'],
       ['Offline', 'a service worker keeps recently read posts available offline'],
     ],
     next: [{ label: 'Design notes', href: '/about/design-notes/' }],

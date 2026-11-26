@@ -1,0 +1,64 @@
+---
+interface Props {
+  id: string
+  title: string
+}
+
+const { id, title } = Astro.props
+const src = `https://player.vimeo.com/video/${id}?badge=0&autopause=0&player_id=0&autoplay=1`
+---
+
+<!-- Click-to-load: nothing is requested from Vimeo until the reader clicks. -->
+<div class="vimeo-gate not-prose" data-src={src} data-title={title}>
+  <p>This video is embedded from Vimeo. Loading it connects your browser to Vimeo, which may set cookies.</p>
+  <p>
+    <button type="button" class="embed-gate-load">Load the video from Vimeo</button>
+    <a href={`https://vimeo.com/${id}`} rel="noopener">Open on Vimeo</a>
+  </p>
+</div>
+
+<script is:inline>
+  (function() {
+    if (window.__vimeoGateInit) return;
+    window.__vimeoGateInit = true;
+    document.addEventListener('click', function(e) {
+      var btn = e.target.closest && e.target.closest('.vimeo-gate .embed-gate-load');
+      if (!btn) return;
+      var box = btn.closest('.vimeo-gate');
+      var wrap = document.createElement('div');
+      wrap.style.cssText = 'padding:56.25% 0 0 0;position:relative;';
+      var f = document.createElement('iframe');
+      f.src = box.getAttribute('data-src');
+      f.setAttribute('frameborder', '0');
+      f.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture; clipboard-write');
+      f.title = box.getAttribute('data-title');
+      f.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;';
+      wrap.appendChild(f);
+      box.replaceWith(wrap);
+    });
+  })();
+</script>
+
+<style>
+  .vimeo-gate {
+    border: 1px solid currentColor;
+    padding: 0.75rem 1rem;
+    max-width: 32rem;
+    font-size: 0.9rem;
+    margin: 1.5rem 0;
+  }
+
+  .vimeo-gate p {
+    margin: 0 0 0.5rem;
+  }
+
+  .embed-gate-load {
+    border: 1px solid currentColor;
+    background: transparent;
+    color: inherit;
+    padding: 0.2rem 0.6rem;
+    margin-right: 0.75rem;
+    cursor: pointer;
+    font: inherit;
+  }
+</style>

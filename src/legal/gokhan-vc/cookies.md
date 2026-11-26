@@ -4,9 +4,9 @@ former: "gokhan.vc/cookies"
 retrieved: "2026-11-09"
 ---
 
-Last updated: 22 June 2026
+Last updated: 26 November 2026
 
-gokhan.vc uses **no advertising, analytics, profiling, or cross-site tracking cookies**, embeds no third-party marketing pixels, and loads no consent-management platform. The only
+gokhan.vc uses **no advertising, profiling, or cross-site tracking cookies**, no Google Analytics or other third-party analytics, no third-party marketing pixels, no fingerprinting, and no consent-management platform. Visits are counted with Cloudflare Web Analytics, which is cookieless and stores nothing on your device. The only
 cookies that may be set are **strictly necessary security cookies** placed by our infrastructure
 provider, Cloudflare, to protect the site against bots and abuse and to deliver content.
 
@@ -25,6 +25,8 @@ banner would itself introduce unnecessary storage, so we deliberately do not.
 | --- | --- | --- | --- | --- |
 | `__cf_bm` | Cloudflare | Bot management — distinguishes humans from automated traffic to protect the site. Not used for advertising or cross-site tracking. | ~30 min (rolling) | Strictly necessary — exempt from consent (ePrivacy Art 5(3)); security processing under GDPR Art 6(1)(f) |
 | `cf_clearance` | Cloudflare | Stores the result of a security challenge so a verified visitor is not re-challenged on every request. | ~30 min | Strictly necessary — exempt from consent; GDPR Art 6(1)(f) |
+| `__cf_ob` | Cloudflare | Set by Cloudflare's bot-detection and security scripts, which run in your browser to tell people from automated traffic. Not used for advertising or cross-site tracking. | Short-lived | Strictly necessary — exempt from consent; GDPR Art 6(1)(f) |
+| `__cfPre_t` / `_cfPre_tabId` (browser storage) | Cloudflare | Local and session storage used by the same security scripts. | Local / session | Strictly necessary — exempt from consent; GDPR Art 6(1)(f) |
 | `__cflb` / `cf_use_ob` | Cloudflare | Session routing for load balancing (may not appear on this site). | Session / short-lived | Strictly necessary — exempt from consent |
 
 ## What we do not do
@@ -32,6 +34,10 @@ banner would itself introduce unnecessary storage, so we deliberately do not.
 We set **no first-party cookies**. We do not sell or share any data derived from
 these cookies, and we do not use them for advertising, profiling, or targeted advertising
 (CCPA/CPRA).
+
+## Global Privacy Control
+
+We do not sell or share personal data, so there is nothing to opt out of. We honour Global Privacy Control signals regardless (see [/.well-known/gpc.json](/.well-known/gpc.json)).
 
 ## Managing cookies
 

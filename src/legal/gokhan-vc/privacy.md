@@ -34,7 +34,7 @@ your data under its own policies.
 
 ## Cookies & tracking
 
-gokhan.vc does not use advertising or analytics tracking cookies. Cloudflare may set strictly
+gokhan.vc does not use advertising or analytics tracking cookies, Google Analytics, third-party pixels or fingerprinting. Visits are counted with Cloudflare Web Analytics, which is cookieless. We do not sell or share personal data, and we honour Global Privacy Control signals. Cloudflare may set strictly
 necessary cookies for security and to operate the site. See our
 [Cookie Policy](/gokhan-vc/legal/cookies/) for details.
 

@@ -113,3 +113,8 @@
   X-Content-Type-Options: nosniff
   Cache-Control: public, max-age=300
 
+
+/.well-known/gpc.json
+  Content-Type: application/json
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600

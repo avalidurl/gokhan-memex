@@ -265,7 +265,7 @@
           "url": "https://gokhanturhan.com/about/read-the-legal-pages/",
           "tags": [],
           "steps": [
-            "For this site: Privacy (including analytics and opt-out) and Disclaimer .",
+            "For this site: Privacy (what loads, and what does not) and Disclaimer .",
             "For a product, open its legal index: Ishtar terms , Numetal terms , Gökhan Ventures terms or AgentBounty legal .",
             "Each product legal page is an archived copy. Its box shows the address and the former address it was published at."
           ],
@@ -548,7 +548,7 @@
             },
             {
               "label": "Analytics",
-              "value": "Google Analytics, with an opt-out on every page; see Privacy"
+              "value": "Cloudflare Web Analytics, cookieless; no Google Analytics; see Privacy"
             },
             {
               "label": "Offline",

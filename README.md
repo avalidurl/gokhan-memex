@@ -230,7 +230,7 @@ None of these are required to render the static site. Names only; values stay in
    | Person JSON-LD and the `sameAs` list | `src/lib/person.ts` |
    | CV | `src/data/cv.ts` and `src/lib/cv-md.ts` |
    | Homepage | `src/pages/index.astro` |
-   | Register chrome: name, role, footer, analytics | `src/layouts/BaseLayout.astro` (includes a Google Analytics id; replace or remove it) |
+   | Register chrome: name, role, footer, analytics | `src/layouts/BaseLayout.astro` (no analytics script; Cloudflare Web Analytics is injected at the edge) |
    | Favicon and face | `public/favicon.svg`, `public/favicon-avatar.jpg`, `public/favicon-32.png`, `public/avatar-icon-192.png`, `public/avatar-icon-512.png`, `public/apple-touch-icon.png`, `public/apple-touch-icon-152x152.png`, `public/manifest.json` |
    | OG copy (name, kicker, description baked into the home card) | `scripts/gen-og.mjs`; fonts and colours in `scripts/og-render.mjs` and `functions/lib/quote-card.js` |
    | Journal posts | `src/content/blog/` (and `draft-posts/` if you keep the draft workflow) |

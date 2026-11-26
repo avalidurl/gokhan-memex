@@ -2,7 +2,6 @@
 import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
-import PrivacyNotice from '@/components/PrivacyNotice.astro'
 import { personSchema } from '@/lib/person'
 import { pageRevLabel } from '@/lib/post-dates'
 import OfflineStatus from '@/components/OfflineStatus.astro'
@@ -192,60 +191,6 @@ const tableDeskVersion = createHash('sha256')
     <!-- Critical CSS - Inlined for First Contentful Paint Optimization -->
     <style is:inline set:html={criticalStyles}></style>
     
-    <!-- Google Analytics - Load by Default -->
-    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-TSMR6G8LLL"></script>
-    <script is:inline>
-      // Initialize dataLayer and gtag function
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      
-      // Initialize GA with timestamp
-      gtag('js', new Date());
-      
-      // Check if user has opted out
-      const privacyChoice = localStorage.getItem('privacy-choice');
-      
-      if (privacyChoice === 'declined') {
-        // User has opted out - disable tracking
-        gtag('config', 'G-TSMR6G8LLL', {
-          'anonymize_ip': true,
-          'allow_google_signals': false,
-          'allow_ad_personalization_signals': false,
-          'send_page_view': false
-        });
-      } else {
-        // Default behavior - track all users
-        gtag('config', 'G-TSMR6G8LLL', {
-          'anonymize_ip': true,
-          'allow_google_signals': false,
-          'allow_ad_personalization_signals': false
-        });
-      }
-      
-      // Expose functions globally for privacy notice component
-      window.enableGoogleAnalytics = function() {
-        gtag('config', 'G-TSMR6G8LLL', {
-          'anonymize_ip': true,
-          'allow_google_signals': false,
-          'allow_ad_personalization_signals': false
-        });
-        // Send current page view if it was disabled
-        gtag('event', 'page_view', {
-          page_title: document.title,
-          page_location: window.location.href
-        });
-      };
-      
-      window.disableGoogleAnalytics = function() {
-        gtag('config', 'G-TSMR6G8LLL', {
-          'anonymize_ip': true,
-          'allow_google_signals': false,
-          'allow_ad_personalization_signals': false,
-          'send_page_view': false
-        });
-      };
-    </script>
-    
     <!-- Per-page head content passed via slot="head" (Article JSON-LD, custom schemas, seoKeywords meta). -->
     <slot name="head" />
     <script is:inline type="application/ld+json" set:html={JSON.stringify({
@@ -340,9 +285,6 @@ const tableDeskVersion = createHash('sha256')
         </details>
       </footer>
     </div>
-    
-    <!-- Privacy Notice -->
-    <PrivacyNotice />
     
     <!-- Offline Status Indicator -->
     <OfflineStatus />

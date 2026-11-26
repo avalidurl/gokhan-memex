@@ -24,7 +24,7 @@ We rely on third-party infrastructure to run the Services: **Cloudflare** (hosti
 
 ## 04 · Cookies & tracking
 
-numetal.xyz does not use advertising or analytics tracking cookies. Cloudflare may set strictly necessary cookies for security and to operate the site.
+numetal.xyz does not use advertising or analytics tracking cookies, Google Analytics, third-party pixels or fingerprinting. Visits are counted with Cloudflare Web Analytics, which is cookieless. We do not sell or share personal data, and we honour Global Privacy Control signals. Cloudflare may set strictly necessary cookies for security and to operate the site.
 
 ## 05 · Data retention
 
