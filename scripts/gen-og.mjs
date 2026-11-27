@@ -72,6 +72,35 @@ async function collectCardFiles(root) {
 }
 
 /**
+ * Strip a /cdn-cgi/image/<options> prefix so hashed-card detection still
+ * sees the original /og/... path when HTML already went through a transform.
+ */
+const ORIGIN_TRANSFORM = '/cdn-cgi/image/format=auto,width=1200,fit=scale-down'
+function originImagePath(src) {
+  const abs = new URL(src, 'https://gokhanturhan.com')
+  let path = decodeURIComponent(abs.pathname)
+  const m = path.match(/^\/cdn-cgi\/image\/[^/]+(\/.*)$/)
+  if (m) path = m[1]
+  return path
+}
+function withOriginTransform(src) {
+  const path = originImagePath(src)
+  if (path.startsWith('/cdn-cgi/image/')) return src
+  const wrapped = `${ORIGIN_TRANSFORM}${path}`
+  if (/^https?:\/\//i.test(src)) {
+    try {
+      const parsed = new URL(src)
+      const host = parsed.hostname.replace(/^www\./, '')
+      const origin = host === 'gokhanturhan.com' ? 'https://gokhanturhan.com' : parsed.origin
+      return `${origin}${wrapped}`
+    } catch {
+      return wrapped
+    }
+  }
+  return wrapped
+}
+
+/**
  * walkHtml skips origin-mounted product trees, so filing, legal, and docs
  * pages under those prefixes never got a card. Journal slugs with punctuation
  * can also disagree with the filename. Fill any missing /og/*.png that HTML
@@ -97,8 +126,7 @@ async function generateMissingCards(root) {
     if (!image) continue
     let imagePath
     try {
-      const abs = new URL(image, 'https://gokhanturhan.com')
-      imagePath = decodeURIComponent(abs.pathname)
+      imagePath = originImagePath(image)
     } catch {
       continue
     }
@@ -163,22 +191,28 @@ async function stampAndRewrite(root) {
   }
 
   const replaceUrl = (full) => {
-    let parsed
+    let path
     try {
-      parsed = new URL(full, 'https://gokhanturhan.com')
+      path = originImagePath(full)
     } catch {
       return full
     }
-    const path = decodeURIComponent(parsed.pathname)
-    if (isQuotePath(path) || path.startsWith('/og/v/')) return full
+    if (isQuotePath(path)) return full
+    if (path.startsWith('/og/v/')) return withOriginTransform(full)
     const versioned = manifest.get(path)
     if (!versioned) return full
     if (/^https?:\/\//i.test(full)) {
+      let parsed
+      try {
+        parsed = new URL(full)
+      } catch {
+        return withOriginTransform(versioned)
+      }
       const host = parsed.hostname.replace(/^www\./, '')
       const origin = host === 'gokhanturhan.com' ? 'https://gokhanturhan.com' : parsed.origin
-      return `${origin}${versioned}`
+      return withOriginTransform(`${origin}${versioned}`)
     }
-    return versioned
+    return withOriginTransform(versioned)
   }
 
   // Absolute or root-relative URLs of unhashed generated cards. Negative

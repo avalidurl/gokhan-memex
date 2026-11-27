@@ -66,10 +66,13 @@ export function socialImage(src: string, site?: string | URL): string {
     return src
   }
   const path = pathFromSrc(src)!
-  const generatedOg = path === '/og-default.png' || path.startsWith('/og/')
-  const next = generatedOg
-    ? `${ORIGIN_TRANSFORM}${path}`
-    : cdnImage(path, 1200)
+  // Build-hashed /og/v/* cards are wrapped by scripts/gen-og.mjs after the
+  // hash is known. Wrapping here would hide the original path from that script.
+  if (path === '/og-default.png' || path.startsWith('/og/')) {
+    if (site) return new URL(path, site).toString()
+    return path
+  }
+  const next = cdnImage(path, 1200)
   if (site) return new URL(next, site).toString()
   return next
 }
