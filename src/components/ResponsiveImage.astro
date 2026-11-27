@@ -1,5 +1,5 @@
 ---
-import { IMAGE_CDN as CDN } from '@/lib/cdn-image'
+import { cdnImage, cdnSrcset, isCdnManaged } from '@/lib/cdn-image'
 /**
  * Responsive image served from Cloudflare Images with flexible variants.
  * The image id mirrors its site path (e.g. `/blog/images/foo.webp` was uploaded
@@ -32,18 +32,9 @@ const {
   class: className = '',
 } = Astro.props;
 
-const isExternal = /^https?:\/\//i.test(src);
-const isSvg = /\.svg$/i.test(src);
-const useCdn = !isExternal && !isSvg;
-
-const id = src.replace(/^\//, '');
-const cdnBase = `${CDN}/${id}`;
-
-const srcset = useCdn
-  ? [400, 800, 1200].map((w) => `${cdnBase}/w=${w},format=auto ${w}w`).join(', ')
-  : undefined;
-
-const imgSrc = useCdn ? `${cdnBase}/w=1200,format=auto` : src;
+const useCdn = isCdnManaged(src);
+const srcset = useCdn ? cdnSrcset(src) : undefined;
+const imgSrc = useCdn ? cdnImage(src, 1200) : src;
 ---
 
 <img

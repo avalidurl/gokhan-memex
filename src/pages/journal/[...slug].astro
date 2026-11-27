@@ -9,6 +9,7 @@ import JournalSubscribe from '@/components/JournalSubscribe.astro'
 import { formatDate, humanizeKebab, plainPostTitle } from '@/lib/utils'
 import { personRef } from '@/lib/person'
 import { datesDiffer, journalFilePath, modifiedDate } from '@/lib/post-dates'
+import { socialImage } from '@/lib/cdn-image'
 
 
 export async function getStaticPaths() {
@@ -47,7 +48,7 @@ const docCategory = (post.data.category || 'JOURNAL').toUpperCase()
 const docDate = post.data.publishDate.toISOString().slice(0, 10)
 
 // Default Article schema - always present for SEO
-const ogImage = `https://gokhanturhan.com/og/${slug}.png`
+const ogImage = socialImage(`/og/${slug}.png`, 'https://gokhanturhan.com')
 const defaultArticleSchema = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",

@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { personSchema } from '@/lib/person'
 import { pageRevLabel } from '@/lib/post-dates'
+import { socialImage } from '@/lib/cdn-image'
 import OfflineStatus from '@/components/OfflineStatus.astro'
 import criticalStyles from '@/styles/critical.css?inline'
 import '@/styles/globals.css'
@@ -44,6 +45,7 @@ const {
 
 const siteName = 'Gökhan Turhan'
 const fullTitle = title === siteName ? title : `${title} | ${siteName}`
+const ogUrl = socialImage(image, Astro.site)
 
 const pathname = Astro.url.pathname
 const path = pathname.endsWith('/') ? pathname : `${pathname}/`
@@ -125,13 +127,12 @@ const tableDeskVersion = createHash('sha256')
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta property="og:image" content={ogUrl} />
     <meta property="og:site_name" content={siteName} />
     <meta name="author" content={siteName} />
     <meta property="og:image:alt" content={fullTitle} />
-    {(/\.(png|jpe?g|webp)(\?|$)/i.test(image) || image.includes('/og/')) && (
+    {(/\.(png|jpe?g|webp)(\?|$)/i.test(image) || /\/og\//.test(image) || image.includes('/cdn-cgi/image/') || image.includes('imagedelivery.net')) && (
       <>
-        <meta property="og:image:type" content={image.endsWith('.webp') ? 'image/webp' : image.endsWith('.jpg') || image.endsWith('.jpeg') ? 'image/jpeg' : 'image/png'} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
       </>
@@ -144,7 +145,7 @@ const tableDeskVersion = createHash('sha256')
     <meta name="twitter:creator" content="@goekhan" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL(image, Astro.site)} />
+    <meta name="twitter:image" content={ogUrl} />
     <meta name="twitter:image:alt" content={fullTitle} />
     
     <!-- RSS -->
