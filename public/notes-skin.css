@@ -453,6 +453,28 @@ body.register .reg-id h1 { font-size: 1.35rem; }
 body.home .reg-id h1, body.register.is-home .reg-id h1 { font-size: 1.7rem; }
 @media (max-width: 680px) { .mast { margin-bottom: 1rem; } .reg-doc { font-size: 0.85rem; } }
 /* Journal heading folds (blog-collapse.js) */
-body.register .prose :where(h2.hcoll-h, h3.hcoll-h) { border-bottom: 1px solid var(--line) !important; }
-body.register .prose :where(h2, h3, hr) { border-color: var(--line) !important; }
+body.register .prose :where(hr) { border-color: var(--line) !important; }
 body.register .prose :where(th, td) { border-color: var(--line) !important; }
+
+/* ---- Post headings: no rules, a plain H1 / H2 / H3 scale (notes-api) ---- */
+body.register .prose :where(h1, h2, h3, h4, h5, h6),
+body.register .dispatch-prose h1, body.register .dispatch-prose h2,
+body.register .dispatch-prose h3, body.register .dispatch-prose h4 {
+  border: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  font-family: var(--read) !important;
+  color: var(--ink) !important;
+}
+body.register .prose :where(h1) { font-size: 1.7rem !important; font-weight: 600 !important; line-height: 1.2 !important; margin: 1.6rem 0 0.6rem !important; }
+body.register .prose :where(h2), body.register .dispatch-prose h2 { font-size: 1.4rem !important; font-weight: 600 !important; line-height: 1.25 !important; margin: 2.4rem 0 0.5rem !important; }
+body.register .prose :where(h3), body.register .dispatch-prose h3 { font-size: 1.15rem !important; font-weight: 600 !important; line-height: 1.3 !important; margin: 1.6rem 0 0.35rem !important; }
+body.register .prose :where(h4), body.register .dispatch-prose h4 { font-size: 1.02rem !important; font-weight: 600 !important; line-height: 1.35 !important; margin: 1.3rem 0 0.3rem !important; }
+body.register .prose :where(h1, h2, h3, h4):first-child { margin-top: 0.6rem !important; }
+/* Heading text stays inline so the fold caret sits on the title's first line when it wraps. */
+body.register .prose :where(h1, h2, h3, h4, h5, h6) a.anchor-link { display: inline !important; color: inherit !important; text-decoration: none !important; }
+body.register .prose .hcoll { vertical-align: 0.05em; margin-right: 0.3em; color: var(--link) !important; }
+body.register .prose .hcoll::before { color: var(--link) !important; }
+body.register .prose :where(h2.hcoll-h, h3.hcoll-h) { border: 0 !important; }
