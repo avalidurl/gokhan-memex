@@ -502,3 +502,4 @@ body.register .sheet-copy p, body.register .prose :where(p, li) { font-size: 18p
 html { font-size: 16px; }
 .es h2.sec, body.register main h2.sec { border: 0 !important; padding-bottom: 0; text-transform: none !important; letter-spacing: 0 !important; font-size: 1.25rem !important; font-weight: 600 !important; }
 body.register main h2.pf-t { font-size: 1.25rem !important; font-weight: 600 !important; text-transform: none !important; letter-spacing: 0 !important; border: 0 !important; }
+:is(h1,h2,h3,h4,h5,h6) a.anchor-link { font-weight: inherit !important; font-family: inherit !important; font-size: inherit !important; }
