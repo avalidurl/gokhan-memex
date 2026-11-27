@@ -1192,10 +1192,6 @@
                   "site": {
                     "type": "string",
                     "description": "Origin site label for analytics."
-                  },
-                  "cf-turnstile-response": {
-                    "type": "string",
-                    "description": "Turnstile token when captcha is enabled."
                   }
                 }
               }
