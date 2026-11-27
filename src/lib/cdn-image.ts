@@ -1,4 +1,7 @@
 /** Cloudflare Images. An image id is the site path without the leading slash. */
+import { existsSync, readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
+
 export const IMAGE_CDN = 'https://imagedelivery.net/6y1i3FNnwnl61Xv3wGE82g'
 
 /** Zone Image Transformations, used for build-hashed /og/v/* cards. */
@@ -23,12 +26,30 @@ function pathFromSrc(src: string): string | null {
   return path
 }
 
+let readyIds: Set<string> | null = null
+
+function loadReadyIds(): Set<string> {
+  if (readyIds) return readyIds
+  readyIds = new Set()
+  try {
+    const file = resolve(process.cwd(), 'cf-images-manifest.json')
+    if (!existsSync(file)) return readyIds
+    const data = JSON.parse(readFileSync(file, 'utf8')) as { images?: Record<string, unknown> }
+    for (const id of Object.keys(data.images || {})) readyIds.add(id)
+  } catch {
+    readyIds = new Set()
+  }
+  return readyIds
+}
+
 export function isCdnManaged(src: string): boolean {
   if (!src || ICON_OR_VECTOR.test(src)) return false
   if (/^https?:\/\//i.test(src) && !SITE_HOST.test(src)) return false
   if (src.includes('imagedelivery.net') || src.includes('/cdn-cgi/image/')) return false
   const path = pathFromSrc(src)
-  return Boolean(path && RASTER.test(path))
+  if (!path || !RASTER.test(path)) return false
+  if (path === '/og-default.png' || path.startsWith('/og/')) return false
+  return loadReadyIds().has(path.slice(1))
 }
 
 /**

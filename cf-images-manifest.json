@@ -1,0 +1,257 @@
+{
+  "version": 1,
+  "images": {
+    "blog/images/agentbounty/escrow-state.png": {
+      "sha256": "a8ccf9635bca3e5aee3fdc1e26dd12146643f60c805dcc242b8d21f2fde3f2d8",
+      "uploaded": "2026-11-27T23:06:15.476Z"
+    },
+    "blog/images/agentbounty/reviewer-authority.png": {
+      "sha256": "a5e8ad15508c4133a37d948198fddc7b2d95285188f0d9d7d56c4703651ed905",
+      "uploaded": "2026-11-27T23:06:15.477Z"
+    },
+    "blog/images/agentbounty/roadmap.png": {
+      "sha256": "689cf3e46774c9d816579402ca72d6f941b985e49c8db52d2a3192c5fc85069a",
+      "uploaded": "2026-11-27T23:06:15.477Z"
+    },
+    "blog/images/agentbounty/system-overview.png": {
+      "sha256": "7616a28d7835ffaca2072ea62d813580fa345331a8ce1462cb39f343f6827e5e",
+      "uploaded": "2026-11-27T23:06:15.477Z"
+    },
+    "blog/images/bell-curve-productivity-tools-meme.png": {
+      "sha256": "79f814588c398799e756c820ae9bea30f7d47a92ad9956be70a8acbb24124cf0",
+      "uploaded": "2026-11-27T23:06:15.478Z"
+    },
+    "blog/images/bembo-coins-playing-cards.jpg": {
+      "sha256": "41202ea13b1e91906eb8173f9161e4734a36a137f40a6cb3f96971d188558882",
+      "uploaded": "2026-11-27T23:06:15.481Z"
+    },
+    "blog/images/crypto-conceptualism-bottom-1200w.webp": {
+      "sha256": "84ffb24d1c69b99a7e816931dbf95af12c5c4927577e427bfea1b56bc729f2b7",
+      "uploaded": "2026-11-27T23:06:15.482Z"
+    },
+    "blog/images/crypto-conceptualism-bottom-400w.webp": {
+      "sha256": "6c80ae4e800b3642a4d4fa9fb81e0e8d2b3b31e21c3c6c87d17d3034aeb2bf06",
+      "uploaded": "2026-11-27T23:06:15.482Z"
+    },
+    "blog/images/crypto-conceptualism-bottom-800w.webp": {
+      "sha256": "ce6db3d3c2a674618ac0ec781b5e498f9ef0980c63f4efbf4e4e284a2893e369",
+      "uploaded": "2026-11-27T23:06:15.482Z"
+    },
+    "blog/images/crypto-conceptualism-bottom.webp": {
+      "sha256": "c2b77002c7444cca7185a8046580817766760bdcc97051bb8348d54fbd2e86dc",
+      "uploaded": "2026-11-27T23:06:15.482Z"
+    },
+    "blog/images/crypto-conceptualism-main.webp": {
+      "sha256": "541b0e2adc114f0485dd41038d60dd18c47051c3f909581a008bb87bf18a240a",
+      "uploaded": "2026-11-27T23:06:26.377Z"
+    },
+    "blog/images/crypto-conceptualism-middle-1200w.webp": {
+      "sha256": "48b3bcd8d5de3c6554e3a07d4607c2ee9ae20af65b956f3304c717c97c65b05b",
+      "uploaded": "2026-11-27T23:06:15.496Z"
+    },
+    "blog/images/crypto-conceptualism-middle-400w.webp": {
+      "sha256": "ba9350d5a532cf7ba8c448a5c5049eb3c794ce8fe79454f84fe2d2bd7459172d",
+      "uploaded": "2026-11-27T23:06:15.496Z"
+    },
+    "blog/images/crypto-conceptualism-middle-800w.webp": {
+      "sha256": "57069b356bf26e6edbda208d1d05cfdbbc44ed3b58e83a269af0f4bbbe3bbe33",
+      "uploaded": "2026-11-27T23:06:15.496Z"
+    },
+    "blog/images/crypto-conceptualism-middle.webp": {
+      "sha256": "dd190bee3ef595520e4991610fca9dd2967eebdad97cdae2377871d4a75c0d09",
+      "uploaded": "2026-11-27T23:06:15.496Z"
+    },
+    "blog/images/gokhan_turhan_token_joke.png": {
+      "sha256": "a8bce63cf7f2d78b841170f65fe7326cf871cfda3c29cdcd5c3caa66f115cbf0",
+      "uploaded": "2026-11-27T23:06:15.497Z"
+    },
+    "blog/images/neo-templexity-abstract-digital-art-blockchain-concept.jpg": {
+      "sha256": "964b37286519135ee765021be6306faa580ed1ebe609f08f7dcfca129a174e18",
+      "uploaded": "2026-11-27T23:06:15.497Z"
+    },
+    "blog/images/neo-templexity-decentralized-network-visualization.jpg": {
+      "sha256": "ceb50af3371a4f607fb02408b639668227302f80c12cb9eba08d0086a771ada9",
+      "uploaded": "2026-11-27T23:06:15.497Z"
+    },
+    "blog/images/neo-templexity-futuristic-technology-evolution.jpg": {
+      "sha256": "91e139583fca2d635b0831f95f0d0b5e36378aa250c0a4b25b4e87774f82a08f",
+      "uploaded": "2026-11-27T23:06:15.497Z"
+    },
+    "blog/images/numogram-tweet-1200w.webp": {
+      "sha256": "14c7379ad1d3fce68d761a0d1e02e7fa46c2928ec35fd25787236b7a0db102f2",
+      "uploaded": "2026-11-27T23:06:15.498Z"
+    },
+    "blog/images/numogram-tweet-400w.png": {
+      "sha256": "c87872e04dba5b55b74b399bde7ad818020b6032db56e64e2775205620fb01fe",
+      "uploaded": "2026-11-27T23:06:15.498Z"
+    },
+    "blog/images/numogram-tweet-400w.webp": {
+      "sha256": "88965be78ce704395e9f5e4299267270d9f89800c92bf8ccab09e7a55bbcac5e",
+      "uploaded": "2026-11-27T23:06:15.498Z"
+    },
+    "blog/images/numogram-tweet-800w.png": {
+      "sha256": "c8c3fca604d9a1527c7188e7eab8c60d958ec2fa2be889f04c96e0d879a6818e",
+      "uploaded": "2026-11-27T23:06:15.498Z"
+    },
+    "blog/images/numogram-tweet-800w.webp": {
+      "sha256": "cd0534523fc1a1b1d1b137a837b517a2b58beb43d12fd1884369e41b63284167",
+      "uploaded": "2026-11-27T23:06:15.498Z"
+    },
+    "blog/images/numogram-tweet.webp": {
+      "sha256": "7f4be95fd4a8cd7addde6c18f588ad4cdb2b46226e696ec51c14bdfabe0d6e3c",
+      "uploaded": "2026-11-27T23:06:15.498Z"
+    },
+    "blog/images/playlist-7-header-1200w.webp": {
+      "sha256": "461e12f5d802d8992d950e77f793c7e690a32ed992a9d9df2b72cae780adfe7f",
+      "uploaded": "2026-11-27T23:06:15.498Z"
+    },
+    "blog/images/playlist-7-header-400w.webp": {
+      "sha256": "0da313327d63bdcf17b54bd90244a42b5ba4cb423ce5e8c81aac79703d5ba866",
+      "uploaded": "2026-11-27T23:06:15.498Z"
+    },
+    "blog/images/playlist-7-header-800w.webp": {
+      "sha256": "1ef8f90107d891c43c12e73b5f6baee4e3b5dfa279d373b701370b1aba13d7ce",
+      "uploaded": "2026-11-27T23:06:15.498Z"
+    },
+    "blog/images/playlist-7-header.webp": {
+      "sha256": "4227e19858bb69d564d26a780c8f3f0ccc3e7d53b1c01045db21879072ba21fb",
+      "uploaded": "2026-11-27T23:06:15.498Z"
+    },
+    "blog/images/tsubasa-theory-of-success.png": {
+      "sha256": "9f49e79e26939e0b3a291f94f352c43f921c81ff6efbd2e4b48fbbd6be405c41",
+      "uploaded": "2026-11-27T23:06:15.509Z"
+    },
+    "blog/images/w-m-peaster-interview-sharecard.png": {
+      "sha256": "9ee50f07a1955962e11047778dfe21a6aa9390df7b95422d8c5fd3ad18f97dc8",
+      "uploaded": "2026-11-27T23:06:15.509Z"
+    },
+    "images/21civ-week8/fig-1-1-governance.png": {
+      "sha256": "fc7a771df9968beb9e7f66499a55992c4121e09c8228dc5d5c28d2b2a7218da7",
+      "uploaded": "2026-11-27T23:06:15.509Z"
+    },
+    "images/21civ-week8/fig-2-1-knowhow.png": {
+      "sha256": "ab5c2316b8ee24e24a7859ffdc7538ac7035304d379060312f3b261d1acf4415",
+      "uploaded": "2026-11-27T23:06:15.510Z"
+    },
+    "images/21civ-week8/fig-3-1-cycles.png": {
+      "sha256": "bfc84ec779ca77cd95293ceb8e130cfbe3bc92b40ffb09094c1ed8a02ade37b6",
+      "uploaded": "2026-11-27T23:06:15.510Z"
+    },
+    "images/21civ-week8/fig-4-1-timeline.png": {
+      "sha256": "e5ab78af1bb10d26f50919273c27007de01d26b9526dda3f2c74fbb0d7187933",
+      "uploaded": "2026-11-27T23:06:15.510Z"
+    },
+    "images/21civ-week8/fig-4-2-fed.png": {
+      "sha256": "ec0ed08bca06867e14afe054ec21a0023eba13f68f5e02a2018668c88470d7ef",
+      "uploaded": "2026-11-27T23:06:15.510Z"
+    },
+    "images/21civ-week8/fig-5-1-currency.png": {
+      "sha256": "6637618d674f6d26e660743ec0efd60cbadad328dbc5349e5fed329157144a91",
+      "uploaded": "2026-11-27T23:06:15.510Z"
+    },
+    "images/21civ-week8/fig-5-2-eu.png": {
+      "sha256": "bf35d2c03dff9c98b1b46ec148934e4502c189f8a11eba41fd0f35420d240056",
+      "uploaded": "2026-11-27T23:06:15.510Z"
+    },
+    "images/21civ-week8/fig-6-1-legitimacy.png": {
+      "sha256": "086d4594c3a0986bda3c1f7758eac0398b5bf1110c1d8900e9e11f1f0746ad3b",
+      "uploaded": "2026-11-27T23:06:15.510Z"
+    },
+    "images/21civ-week8/fig-6-2-fiscal.png": {
+      "sha256": "5c6f81662bf2a9ad8c560beb242ae8cb94b2ba9a13340a70c39612b6e630d65b",
+      "uploaded": "2026-11-27T23:06:15.510Z"
+    },
+    "images/21civ-week8/fig-7-1-mindmap.png": {
+      "sha256": "b69e1f3a991d8dd70e60d602e028c0fb08c028a312fead013684e4b424666641",
+      "uploaded": "2026-11-27T23:06:15.510Z"
+    },
+    "images/agentbounty/escrow-state.png": {
+      "sha256": "a8ccf9635bca3e5aee3fdc1e26dd12146643f60c805dcc242b8d21f2fde3f2d8",
+      "uploaded": "2026-11-27T23:06:15.511Z"
+    },
+    "images/agentbounty/reviewer-authority.png": {
+      "sha256": "a5e8ad15508c4133a37d948198fddc7b2d95285188f0d9d7d56c4703651ed905",
+      "uploaded": "2026-11-27T23:06:15.511Z"
+    },
+    "images/agentbounty/roadmap.png": {
+      "sha256": "689cf3e46774c9d816579402ca72d6f941b985e49c8db52d2a3192c5fc85069a",
+      "uploaded": "2026-11-27T23:06:15.511Z"
+    },
+    "images/agentbounty/system-overview.png": {
+      "sha256": "7616a28d7835ffaca2072ea62d813580fa345331a8ce1462cb39f343f6827e5e",
+      "uploaded": "2026-11-27T23:06:15.511Z"
+    },
+    "images/caffeine-never-gets-old-1.png": {
+      "sha256": "da4a00df22dbfb31ffb86cff3f2638d5cc747244437e2bd1dd3f2b01ede39e97",
+      "uploaded": "2026-11-27T23:06:15.525Z"
+    },
+    "images/i-am-sitting-in-a-smart-contract.jpeg": {
+      "sha256": "e8152d1322230d37d48cb3a2cff49c80c31c56398a36010ef31b70ccf085afef",
+      "uploaded": "2026-11-27T23:06:15.525Z"
+    },
+    "images/silencio-eugen-gomringer-1954.gif": {
+      "sha256": "ab66c52418088ff8af2cd3b09d874b4d50e7b884291191b0f1ddf9bf18ac9ec3",
+      "uploaded": "2026-11-27T23:06:15.526Z"
+    },
+    "publishing/ebooks/an-essay-concerning-the-inbox/cover.png": {
+      "sha256": "27263d7c2f529ba475d8ab3d9107fa161086d3dabff390c326e058828e9c420d",
+      "uploaded": "2026-11-27T23:06:15.527Z"
+    },
+    "publishing/ebooks/an-essay-concerning-the-inbox/social-card.png": {
+      "sha256": "5869612669e086fce60a374deb88418c6abcecb89b00ea1d6bb605070367790f",
+      "uploaded": "2026-11-27T23:06:15.527Z"
+    },
+    "publishing/ebooks/gradient-descent-into-chaotic-happiness/cover-plate.png": {
+      "sha256": "260fe6c2c9c3a2b339517c5da5bc24e13402c2066f2621290be4676c1926d446",
+      "uploaded": "2026-11-27T23:06:15.531Z"
+    },
+    "publishing/ebooks/gradient-descent-into-chaotic-happiness/cover-preview-baskerville-left.png": {
+      "sha256": "c7a8c2893072ed6d36c0f73211c0d862ada27b09e90d1e0d3f056dbaeefa59fe",
+      "uploaded": "2026-11-27T23:06:15.533Z"
+    },
+    "publishing/ebooks/gradient-descent-into-chaotic-happiness/cover-preview-concept.png": {
+      "sha256": "9915833c315b07c88b254a11c4cbcfd18a9bc3a9537cc613079771492f578cf8",
+      "uploaded": "2026-11-27T23:06:15.537Z"
+    },
+    "publishing/ebooks/gradient-descent-into-chaotic-happiness/cover.png": {
+      "sha256": "8f39f2a1f3d80921caf49d63ecfc007d2d80fee333438b33822e5620e7d0290a",
+      "uploaded": "2026-11-27T23:06:15.541Z"
+    },
+    "publishing/ebooks/gradient-descent-into-chaotic-happiness/social-card.png": {
+      "sha256": "47b6b25dc12ff420fe7793587ed858c2db86931d426da935176889af111ffd58",
+      "uploaded": "2026-11-27T23:06:15.541Z"
+    },
+    "publishing/ebooks/the-guy-with-compute/cover.png": {
+      "sha256": "20b2aaa191c9a942f7b8c95638f3979940e5cb9178ae804eb22c9976af2ba882",
+      "uploaded": "2026-11-27T23:06:15.542Z"
+    },
+    "publishing/ebooks/the-guy-with-compute/social-card.png": {
+      "sha256": "a2224364da093e460810b0e444bd2ca9689c09ad6e658155e92aa207ace4501a",
+      "uploaded": "2026-11-27T23:06:15.542Z"
+    },
+    "publishing/experimental/casette/cover.jpg": {
+      "sha256": "4f150a239f1a9303a6afaebbbe09fa170fbd04318af5e9cce922dcdabc3330ef",
+      "uploaded": "2026-11-27T23:06:15.543Z"
+    },
+    "publishing/experimental/numbers/logo-0-black.png": {
+      "sha256": "13e7d2b2151300045e513d7b5ec101c8b414bde35d6b5601f2a595008e6c6387",
+      "uploaded": "2026-11-27T23:06:15.543Z"
+    },
+    "turkish-art-blob/img/mockup-dark-room.jpg": {
+      "sha256": "4234701a34d8cb21e4c9d10a20aff0bf7836f775c6111df3c146aee89f42cb45",
+      "uploaded": "2026-11-27T23:06:15.543Z"
+    },
+    "turkish-art-blob/img/mockup-istanbul-courtyard.jpg": {
+      "sha256": "69bdf4d3206d2e800074c3964f9f60500a5481973aa91c534a1573635b5b2cdf",
+      "uploaded": "2026-11-27T23:06:15.544Z"
+    },
+    "turkish-art-blob/img/mockup-visitor-conversation.jpg": {
+      "sha256": "a4b6f7ae488d2ae5a71a0682bddd7704a7044c43cd072d40d1413aed93ca0125",
+      "uploaded": "2026-11-27T23:06:15.544Z"
+    },
+    "turkish-art-blob/img/mockup-white-cube.jpg": {
+      "sha256": "5b3dce23fd8178806d86cf6e19a048d3afbb9ba5c17b9e10423668aaaa3691f8",
+      "uploaded": "2026-11-27T23:06:15.545Z"
+    }
+  }
+}
