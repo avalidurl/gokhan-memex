@@ -94,6 +94,10 @@ const collapseVersion = createHash('sha256')
   .update(readFileSync(resolve(process.cwd(), 'public/blog-collapse.js')))
   .digest('hex')
   .slice(0, 8)
+const skinVersion = createHash('sha256')
+  .update(readFileSync(resolve(process.cwd(), 'public/notes-skin.css')))
+  .digest('hex')
+  .slice(0, 8)
 const tableDeskVersion = createHash('sha256')
   .update(readFileSync(resolve(process.cwd(), 'public/table-desk.js')))
   .digest('hex')
@@ -173,9 +177,9 @@ const tableDeskVersion = createHash('sha256')
         root.classList.toggle("dark", ink);
         root.classList.toggle("light", theme === "paper");
         var meta = document.querySelector('meta[name="theme-color"]');
-        if (meta) meta.setAttribute("content", ink ? "#1a1a1a" : "#ffffff");
+        if (meta) meta.setAttribute("content", ink ? "#111214" : "#ffffff");
         var tile = document.querySelector('meta[name="msapplication-TileColor"]');
-        if (tile) tile.setAttribute("content", ink ? "#1a1a1a" : "#ffffff");
+        if (tile) tile.setAttribute("content", ink ? "#111214" : "#ffffff");
       })();
     </script>
     
@@ -208,9 +212,39 @@ const tableDeskVersion = createHash('sha256')
       ],
     })} />
     <link rel="stylesheet" href="/register.css?v=20261122-blyg" />
+    <link rel="stylesheet" href={`/notes-skin.css?v=${skinVersion}`} />
   </head>
 
   <body class="register">
+    <a class="skip" href="#main">Skip to the content</a>
+    <div class="nav-wrap">
+      <div class="reg-bar" id="reg-bar">
+        <a class="home" href="/">Gökhan Turhan</a>
+        <nav id="reg-nav" aria-label="Sections">
+          {nav.map((item) => (
+            item.hover
+              ? <a href={item.href} class="nav-swap" aria-current={item.on ? 'page' : 'false'} aria-label={`${item.name} (${item.hover})`}><span class="sw-a" aria-hidden="true">{item.name}</span><span class="sw-b" aria-hidden="true">{item.hover}</span></a>
+              : item.note
+                ? <a href={item.href} class="nav-note" target="_blank" rel="noopener noreferrer" aria-describedby="blyg-note">{item.name}<span class="nav-pop" id="blyg-note" role="tooltip">{item.note}</span></a>
+                : item.external
+                  ? <a href={item.href} target="_blank" rel="noopener noreferrer">{item.name}</a>
+                  : <a href={item.href} aria-current={item.on ? 'page' : 'false'}>{item.name}</a>
+          ))}
+        </nav>
+        <div class="reg-tools">
+          <button type="button" id="theme" class="reg-theme" aria-pressed="false" aria-label="Switch to dark mode">
+            <svg class="theme-sun" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <circle cx="12" cy="12" r="4" fill="currentColor"></circle>
+              <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.1 5.1l1.6 1.6M17.3 17.3l1.6 1.6M18.9 5.1l-1.6 1.6M6.7 17.3l-1.6 1.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+            </svg>
+            <svg class="theme-moon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <path fill="currentColor" d="M15.2 2.4a8.8 8.8 0 1 0 6.4 14.8A8.2 8.2 0 0 1 15.2 2.4z"></path>
+            </svg>
+          </button>
+          <button type="button" class="reg-menu" id="reg-menu" aria-expanded="false" aria-controls="reg-nav" aria-label="Open menu">Menu</button>
+        </div>
+      </div>
+    </div>
     <div class="reg-sheet">
       <header class="mast">
         <div class="reg-id">
@@ -220,34 +254,9 @@ const tableDeskVersion = createHash('sha256')
           </div>
           <p class="reg-doc"><b>{docNo}</b><span> · {docRev}</span></p>
         </div>
-        <div class="reg-bar" id="reg-bar">
-          <nav id="reg-nav" aria-label="Sections">
-            {nav.map((item) => (
-              item.hover
-                ? <a href={item.href} class="nav-swap" aria-current={item.on ? 'page' : 'false'} aria-label={`${item.name} (${item.hover})`}><span class="sw-a" aria-hidden="true">{item.name}</span><span class="sw-b" aria-hidden="true">{item.hover}</span></a>
-                : item.note
-                  ? <a href={item.href} class="nav-note" target="_blank" rel="noopener noreferrer" aria-describedby="blyg-note">{item.name}<span class="nav-pop" id="blyg-note" role="tooltip">{item.note}</span></a>
-                  : item.external
-                    ? <a href={item.href} target="_blank" rel="noopener noreferrer">{item.name}</a>
-                    : <a href={item.href} aria-current={item.on ? 'page' : 'false'}>{item.name}</a>
-            ))}
-          </nav>
-          <div class="reg-tools">
-            <button type="button" id="theme" class="reg-theme" aria-pressed="false" aria-label="Switch to dark mode">
-              <svg class="theme-sun" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-                <circle cx="12" cy="12" r="4" fill="currentColor"></circle>
-                <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.1 5.1l1.6 1.6M17.3 17.3l1.6 1.6M18.9 5.1l-1.6 1.6M6.7 17.3l-1.6 1.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
-              </svg>
-              <svg class="theme-moon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-                <path fill="currentColor" d="M15.2 2.4a8.8 8.8 0 1 0 6.4 14.8A8.2 8.2 0 0 1 15.2 2.4z"></path>
-              </svg>
-            </button>
-            <button type="button" class="reg-menu" id="reg-menu" aria-expanded="false" aria-controls="reg-nav" aria-label="Open menu">Menu</button>
-          </div>
-        </div>
       </header>
 
-      <main>
+      <main id="main">
         <slot />
       </main>
 
@@ -312,7 +321,7 @@ const tableDeskVersion = createHash('sha256')
       });
     </script>
     <!-- Collapsible article headings (blog/journal only; no-ops elsewhere). -->
-    <script is:inline src="/register.js?v=20261122-journal" defer></script>
+    <script is:inline src="/register.js?v=20261128-skin" defer></script>
     <script is:inline src={`/blog-collapse.js?v=${collapseVersion}`} defer></script>
     <script is:inline src={`/table-desk.js?v=${tableDeskVersion}`} defer></script>
   </body>

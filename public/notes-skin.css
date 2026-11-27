@@ -1,0 +1,458 @@
+/* notes-skin: the notes-api reading design (gokhanturhan.com/notes-api) applied to
+   every Astro page of the site. Loaded after register.css. Black, white and blue only.
+   Origin-mounted product apps, /turkish-art-blob/ and /ethereum-doomsday/ never load it. */
+:root {
+  --ink: #111111;
+  --paper: #ffffff;
+  --card: #ffffff;
+  --line: #d9dde3;
+  --dim: #555b65;
+  --muted-ink: #555b65;
+  --faint: #f3f5f8;
+  --hair: #d9dde3;
+  --link: #002fa7;
+  --link-visited: #002fa7;
+  --mark: #002fa7;
+  --ikb: #002fa7;
+  --red: #002fa7;
+  --wash: #f0f4fc;
+  --cx-bg: #ffffff;
+  --select: #d6e2ff;
+  --serif-read: "Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif;
+  --read: var(--serif-read);
+  --sans: var(--serif-read);
+  --serif: var(--serif-read);
+  --font-text: var(--serif-read);
+  --font-sans: var(--serif-read);
+  --radius-s: 6px;
+  --radius-m: 8px;
+}
+html.ink {
+  --ink: #f2f3f5;
+  --paper: #111214;
+  --card: #17191c;
+  --line: #30343b;
+  --dim: #a7adb7;
+  --muted-ink: #a7adb7;
+  --faint: #1c1f23;
+  --hair: #30343b;
+  --link: #8fb0ff;
+  --link-visited: #8fb0ff;
+  --mark: #8fb0ff;
+  --ikb: #8fb0ff;
+  --red: #8fb0ff;
+  --wash: #1a2233;
+  --cx-bg: #17191c;
+  --select: #1e3a8a;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --ink: #f2f3f5;
+    --paper: #111214;
+    --card: #17191c;
+    --line: #30343b;
+    --dim: #a7adb7;
+    --muted-ink: #a7adb7;
+    --faint: #1c1f23;
+    --hair: #30343b;
+    --link: #8fb0ff;
+    --link-visited: #8fb0ff;
+    --mark: #8fb0ff;
+    --ikb: #8fb0ff;
+    --red: #8fb0ff;
+    --wash: #1a2233;
+    --cx-bg: #17191c;
+    --select: #1e3a8a;
+  }
+}
+
+/* ---- Page ---- */
+html { overflow-x: clip; }
+body.register {
+  border-top: 0;
+  font: 18px/1.45 var(--read);
+  background: var(--paper);
+  color: var(--ink);
+}
+.reg-sheet {
+  width: auto;
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 0 1.15rem 6rem;
+  box-sizing: content-box;
+}
+body.register a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
+body.register a:hover { text-decoration-thickness: 2px; }
+body.register :focus-visible { outline: 3px solid var(--link); outline-offset: 2px; }
+.skip { position: absolute; left: -999px; top: 0; background: var(--link); color: var(--paper) !important; padding: 0.4rem 0.8rem; z-index: 100; border-radius: var(--radius-s); }
+.skip:focus { left: 0.5rem; top: 0.5rem; }
+
+/* ---- Sticky centred navbar (notes-api .nav-wrap / .site-nav) ---- */
+.nav-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  margin: 0 0 1.4rem;
+  padding: 0 1.15rem;
+}
+.nav-wrap .reg-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem 0.5rem;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0.5rem 0;
+  border: 0;
+  flex-wrap: nowrap;
+}
+.nav-wrap .home {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--ink) !important;
+  text-decoration: none !important;
+  margin-right: 0.8rem;
+  white-space: nowrap;
+}
+.nav-wrap .reg-bar nav {
+  display: flex;
+  flex-wrap: nowrap;
+  flex: 0 1 auto;
+  gap: 0.15rem;
+  align-items: center;
+}
+.nav-wrap .reg-bar nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 0;
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--radius-s);
+  font-size: 0.95rem;
+  letter-spacing: 0;
+  color: var(--link);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.nav-wrap .reg-bar nav a:last-of-type { padding-right: 0.6rem; }
+.nav-wrap .reg-bar nav a:hover,
+.nav-wrap .reg-bar nav a[aria-current="page"] {
+  background: var(--link);
+  color: var(--paper) !important;
+  box-shadow: none !important;
+}
+.nav-wrap .reg-tools { margin: 0 0 0 0.6rem; gap: 0.4rem; }
+body.register .reg-theme,
+body.register .reg-menu {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  width: auto;
+  height: auto;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  padding: 0.3rem 0.7rem;
+  background: transparent;
+  color: var(--link);
+  border: 1px solid var(--link);
+  border-radius: var(--radius-m);
+  font: inherit;
+  font-size: 0.95rem;
+  letter-spacing: 0;
+  text-transform: none;
+  cursor: pointer;
+}
+body.register .reg-theme svg { width: 20px; height: 20px; }
+body.register .reg-theme:hover,
+body.register .reg-menu:hover { background: var(--link); color: var(--paper); }
+body.register .reg-menu { display: none; }
+.nav-pop { border: 1px solid var(--line); border-radius: var(--radius-s); background: var(--card); color: var(--ink); font-family: var(--read); font-size: 0.85rem; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12); top: calc(100% + 4px); }
+
+@media (max-width: 1023px) {
+  .nav-wrap .reg-bar { justify-content: space-between; padding: 0.35rem 0; flex-wrap: wrap; }
+  .nav-wrap .home { margin: 0; font-size: 1.05rem; }
+  .nav-wrap .reg-tools { order: 1; margin-left: auto; }
+  body.register .reg-menu { display: inline-flex; min-height: 2.75rem; min-width: 2.75rem; padding: 0.4rem 0.9rem; }
+  body.register .reg-theme { min-height: 2.75rem; min-width: 2.75rem; }
+  .nav-wrap .reg-bar nav { display: none; }
+  .nav-wrap .reg-bar.is-open nav {
+    display: grid;
+    order: 3;
+    flex: 1 1 100%;
+    width: 100%;
+    grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+    gap: 0.35rem;
+    padding: 0.6rem 0 0.8rem;
+    border-top: 1px solid var(--line);
+  }
+  .nav-wrap .reg-bar.is-open nav a {
+    display: flex;
+    min-height: 2.75rem;
+    padding: 0.55rem 0.8rem;
+    border: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    border-radius: var(--radius-m);
+    background: var(--card);
+    color: var(--link);
+    font-size: 1rem;
+  }
+  .nav-wrap .reg-bar.is-open nav a:hover { border-color: var(--link); background: var(--card); color: var(--link) !important; }
+  .nav-wrap .reg-bar.is-open nav a[aria-current="page"] { background: var(--link); border-color: var(--link); color: var(--paper) !important; box-shadow: none !important; }
+  .nav-wrap .reg-bar.is-open nav a.nav-note { flex-direction: column; align-items: flex-start; }
+  .nav-wrap .reg-bar.is-open .nav-pop { position: static; display: block; padding: 0; margin: 0.1rem 0 0; border: 0; box-shadow: none; background: transparent; color: var(--dim); font-size: 0.8rem; white-space: normal; }
+}
+
+/* ---- Masthead under the bar (notes-api .top h1 + .lead) ---- */
+.mast { margin: 0 0 1.25rem; }
+.reg-id { align-items: baseline; gap: 1rem; }
+.reg-id h1 { font-family: var(--read); font-size: 1.7rem; font-weight: 600; letter-spacing: 0; line-height: 1.2; }
+.reg-id h1 a:hover { color: var(--link); }
+.reg-role, .reg-doc { font-family: var(--read); font-size: 0.95rem; color: var(--dim); }
+.reg-role { margin-top: 0.2rem; }
+.reg-doc b { font-weight: 600; }
+@media (max-width: 680px) {
+  .reg-sheet { padding: 0 1.15rem 5rem; width: auto; }
+  .reg-id { flex-direction: column; gap: 0.2rem; }
+}
+
+/* ---- Type scale ---- */
+body.register main { font-family: var(--read); }
+body.register main h1,
+body.register .dispatch-title,
+body.register .prose :where(h1) {
+  font-family: var(--read) !important;
+  font-weight: 600 !important;
+  font-size: 1.7rem !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0 !important;
+  margin: 1.1rem 0 0.5rem !important;
+}
+body.register main h2,
+body.register .prose :where(h2) {
+  font-family: var(--read) !important;
+  font-weight: 600 !important;
+  font-size: 1.25rem !important;
+  line-height: 1.25 !important;
+  letter-spacing: 0 !important;
+  margin: 2rem 0 0.5rem !important;
+}
+body.register main h3,
+body.register .prose :where(h3) {
+  font-family: var(--read) !important;
+  font-weight: 600 !important;
+  font-size: 1.05rem !important;
+  line-height: 1.3 !important;
+  margin: 1.2rem 0 0.3rem !important;
+}
+body.register .prose,
+body.register .prose :where(p, li) { font-size: 18px; line-height: 1.5; }
+body.register .prose :where(p) { margin: 0.8em 0; }
+body.register .prose :where(ul, ol) { padding-left: 1.3rem; }
+body.register .prose :where(li) { margin: 0.35rem 0; }
+body.register .text-xs { font-size: 0.85rem !important; }
+body.register .prose :where(code) {
+  font: 0.85em/1.4 var(--mono) !important;
+  background: var(--card) !important;
+  border: 1px solid var(--line);
+  border-radius: 4px !important;
+  padding: 0 0.25rem;
+}
+body.register .prose :where(pre),
+body.register pre:not(.machine) {
+  background: var(--card) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: var(--radius-m) !important;
+  padding: 0.8rem 1rem !important;
+  font: 0.85rem/1.4 var(--mono) !important;
+  overflow: auto;
+}
+body.register .prose :where(pre code) { border: 0; padding: 0; background: transparent !important; }
+body.register .prose :where(blockquote) {
+  border-left: 4px solid var(--link) !important;
+  background: var(--card);
+  border-top: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  padding: 0.6rem 1rem !important;
+  margin: 1rem 0;
+}
+body.register .prose :where(blockquote > p:first-child) { margin-top: 0; }
+body.register .prose :where(blockquote > p:last-child) { margin-bottom: 0; }
+body.register .prose :where(img),
+body.register article img { border-radius: var(--radius-m) !important; }
+body.register .docstrip,
+body.register .eyebrow,
+body.register .dispatch-tags,
+body.register .contents-label,
+body.register .kicker { font-size: 0.85rem !important; letter-spacing: 0.04em; }
+body.register .contents-box { border: 1px solid var(--line) !important; border-radius: var(--radius-m); background: var(--card) !important; padding: 0.6rem 1rem !important; }
+
+/* ---- Cards (notes-api .note / .voice-panel): every boxed section ---- */
+.cx {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  background: var(--card);
+  margin: 0 0 1rem;
+  overflow: hidden;
+}
+.cx-h {
+  border-bottom: 1px solid var(--line);
+  font: 600 1rem/1.3 var(--read);
+  letter-spacing: 0;
+  text-transform: none;
+  align-items: center;
+}
+.cx-h b,
+.cx.new .cx-h b,
+.cx.api .cx-h b,
+.cx.arch .cx-h b,
+.cx.draft .cx-h b {
+  background: transparent;
+  color: var(--ink);
+  border-right: 0;
+  padding: 0.6rem 0 0.6rem 1rem;
+  font-weight: 700;
+}
+.es .cx.hd .cx-h b a, .es .cx.hd .cx-h b a:visited { color: var(--ink); }
+.cx-h span { padding: 0.6rem 0.6rem; color: var(--dim); font-weight: 400; font-size: 0.92rem; }
+.cx-h em { border-left: 0; padding: 0.6rem 1rem; color: var(--dim); font-weight: 400; font-size: 0.92rem; }
+.cx-b { padding: 0.85rem 1rem; }
+.cx-r { padding: 0.55rem 1rem; font-size: 0.95rem; line-height: 1.45; }
+.cx-r + .cx-r { border-top: 1px solid var(--line); }
+.cx-r > :first-child { font-size: 0.95rem; letter-spacing: 0; }
+.cx-r i { font: normal 0.95rem var(--read); }
+.cx.draft { border-style: dashed; border-color: var(--dim); }
+.cx img { border-radius: var(--radius-s); border-color: var(--line); }
+.quad { gap: 1rem; }
+details.cx.fold > summary.cx-h { min-height: 2.75rem; }
+details.cx.fold > summary.cx-h:hover { background: var(--wash); }
+
+/* Register rows: journal files, product registers, CV lines */
+body.register a.file, body.register a.reg, a.file, a.reg { padding: 0.6rem 1rem; border-top: 1px solid var(--line); }
+a.file:hover, a.reg:hover { background: var(--wash); }
+a.file .ttl, a.reg .name { font-size: 1rem; }
+a.file .dt, a.reg .where, .yr { font-size: 0.85rem; color: var(--dim); }
+.cv-line { padding-left: 1rem; padding-right: 1rem; border-top-color: var(--line); }
+body.register main a.group,
+body.register main li > a.flex { border-top: 1px solid var(--line); padding: 0.55rem 0.4rem !important; border-radius: 0; }
+
+/* ---- Tags and chips (notes-api .tag / button.chip) ---- */
+.tg,
+body.register main a.tg, a.tg {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.05rem 0.6rem;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--dim);
+  background: var(--card);
+}
+body.register main a.tg, a.tg { color: var(--link); }
+body.register main a.tg:hover, a.tg:hover,
+body.register main a.tg[aria-current="true"], a.tg[aria-current="true"] { background: var(--link); border-color: var(--link); color: var(--paper); }
+.es .stamp { border-radius: 999px; border-color: var(--line); font-size: 0.8rem; padding: 0.2rem 0.6rem; }
+.es .stamp.cur { background: var(--link); border-color: var(--link); color: var(--paper); }
+
+/* ---- Forms (notes-api input / button) ---- */
+body.register input[type="text"],
+body.register input[type="email"],
+body.register input[type="search"],
+body.register input[type="url"],
+body.register input:not([type]),
+body.register textarea,
+body.register select {
+  font: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-s);
+  padding: 0.5rem 0.7rem;
+}
+body.register input:focus,
+body.register textarea:focus,
+body.register select:focus { border-color: var(--link); outline: 2px solid var(--link); outline-offset: 0; }
+body.register .findrow input[type="search"] { padding: 0.4rem 0.6rem; }
+body.register .findrow input[type="search"]:focus { border-color: var(--link); }
+body.register button[type="submit"],
+body.register .btn-primary {
+  font: inherit;
+  font-size: 1rem;
+  border: 1px solid var(--link);
+  background: var(--link);
+  color: var(--paper);
+  border-radius: var(--radius-s);
+  padding: 0.5rem 0.85rem;
+  cursor: pointer;
+}
+body.register button[type="submit"]:hover { filter: brightness(1.15); }
+body.register button:disabled { opacity: 0.55; }
+
+/* ---- Tables (notes-api .docs table) ---- */
+body.register main table { font-size: 0.92rem; }
+body.register th, body.register td { border-top: 0; border-bottom: 1px solid var(--line); padding: 0.5rem 0.6rem; }
+body.register th { font-size: 0.8rem; letter-spacing: 0.06em; color: var(--dim); font-weight: 600; }
+
+/* ---- Footer (notes-api .site-foot) ---- */
+body.register .reg-foot { margin-top: 2.5rem; padding-top: 0.8rem; border-top: 1px solid var(--line); }
+body.register .reg-foot .cx.foot { border: 0; background: transparent; border-radius: 0; }
+body.register .reg-foot .cx.foot > summary.cx-h { border-bottom: 0; }
+body.register .reg-foot .cx.foot .cx-h b { padding-left: 0; }
+body.register .reg-foot .cx-r { padding-left: 0; padding-right: 0; font-size: 0.95rem; color: var(--dim); }
+body.register .reg-foot .cx.foot .cx-r > :last-child { font-size: 0.95rem; letter-spacing: 0; }
+body.register .reg-channels a, body.register .reg-fine a { color: var(--link); }
+
+/* ---- Raise notice strip ---- */
+.nrbar { border-top: 0 !important; border-bottom: 1px solid var(--line) !important; font-family: var(--read) !important; text-transform: none !important; letter-spacing: 0 !important; font-size: 0.85rem !important; justify-content: center; }
+
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+@media print {
+  .nav-wrap, .reg-tools { display: none !important; }
+}
+
+/* ---- Fixes after first render ---- */
+body.register .reg-id h1 a, body.register .reg-id h1 a:visited { color: var(--ink); text-decoration: none; }
+body.register .reg-id h1 a:hover { color: var(--link); }
+.es { padding: 0 0 2rem; }
+.es .lead { font-size: 1.05rem; line-height: 1.5; color: var(--dim); }
+body.register #reg-menu::before { content: "\2630"; color: currentColor; width: auto; margin-right: 0.15rem; }
+body.register #reg-menu[aria-expanded="true"]::before { content: "\2715"; color: currentColor; }
+/* Page-action buttons (coins and product files) */
+.es .pacts a.btn, body.register main .es .pacts a.btn { border: 1px solid var(--link); background: var(--link); color: var(--paper); border-radius: var(--radius-s); font: 1rem/1 var(--read); letter-spacing: 0; min-height: 2.75rem; }
+.es .pacts a.btn:hover { background: transparent; color: var(--link); }
+.cr-q input, .wc-form input, .cr-v select { border: 1px solid var(--line); border-radius: var(--radius-s); background: var(--card); font: 1rem var(--read); }
+.cr-reset, .wc-form button, .wc-filter { border-radius: var(--radius-s); border-color: var(--link); color: var(--link); font: 1rem/1 var(--read); letter-spacing: 0; }
+.wc-form button[type="submit"] { background: var(--link); color: var(--paper); }
+.cr-tags .tag { border-radius: 999px; border-color: var(--line); font: 0.85rem/1 var(--read); min-height: 2rem; }
+.cr-tags .tag[aria-pressed="true"] { background: var(--link); border-color: var(--link); color: var(--paper); }
+/* Hairlines: the register's ink rules become the notes-api line colour */
+body.register a.file, body.register a.reg, a.file, a.reg, .cv-line { border-top: 1px solid var(--line) !important; }
+.cx > .cx-h + a.file, .cx > .cx-h + a.reg, .cx [data-list] > a:first-child, .cx > .cx-h + .cv-line { border-top: 0 !important; }
+.es .pf-g { column-rule-color: var(--line); }
+.es .pf-c { border-bottom: 1px solid var(--line); }
+.cr-stats, .wc-sum, .cr-parties, .cr-t th { border-bottom-color: var(--line) !important; }
+.cr-tools, .cr-tags { border-bottom: 1px solid var(--line); }
+.wc-out, .cr-plist { border-top: 1px solid var(--line); }
+body.register main .table-wrap, body.register main .snap-t > .table-desk.is-wide { border: 1px solid var(--line); border-radius: var(--radius-m); overflow: hidden; }
+body.register main .table-desk-bar { border-bottom-color: var(--line); font-family: var(--read); letter-spacing: 0.02em; }
+body.register main .table-desk.is-small .table-desk-btn { border-color: var(--line); }
+.es h2.sec { border-bottom: 1px solid var(--line); font-size: 0.85rem; letter-spacing: 0.06em; }
+.es .grid { border: 0; gap: 0.6rem; }
+.es .cell { border: 1px solid var(--line); border-radius: var(--radius-m); background: var(--card); }
+.es .cell:hover { border-color: var(--link); background: var(--card); }
+.es .ported section { border-top: 1px solid var(--line); }
+.es .ported .ported-note { border-left: 4px solid var(--link); border-radius: var(--radius-s); }
+.es .work-cover, .es .work-thumb { border-color: var(--line); border-radius: var(--radius-s); }
+.es .dither { border-top-color: var(--line); }
+.es .sitemap a { border-top-color: var(--line); border-top-style: solid; }
+.es .sitemap a[aria-current="page"] { background: var(--link); color: var(--paper); }
+body.register .reg-id h1 { font-size: 1.35rem; }
+body.home .reg-id h1, body.register.is-home .reg-id h1 { font-size: 1.7rem; }
+@media (max-width: 680px) { .mast { margin-bottom: 1rem; } .reg-doc { font-size: 0.85rem; } }
+/* Journal heading folds (blog-collapse.js) */
+body.register .prose :where(h2.hcoll-h, h3.hcoll-h) { border-bottom: 1px solid var(--line) !important; }
+body.register .prose :where(h2, h3, hr) { border-color: var(--line) !important; }
+body.register .prose :where(th, td) { border-color: var(--line) !important; }

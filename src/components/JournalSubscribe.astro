@@ -41,33 +41,33 @@ const { where = 'post' } = Astro.props
   .subscribe input[type="email"] {
     flex: 1;
     min-width: 190px;
-    padding: 5px 12px;
+    padding: 0.5rem 0.7rem;
     font: inherit;
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 1rem;
+    line-height: 1.4;
     color: var(--ink, currentColor);
-    background: transparent;
-    border: 1px solid var(--ink, currentColor);
-    border-radius: 0;
+    background: var(--card, transparent);
+    border: 1px solid var(--line, currentColor);
+    border-radius: 6px;
   }
   .subscribe input[type="email"]::placeholder {
     color: var(--dim, gray);
   }
   .subscribe button {
-    padding: 5px 16px;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 20px;
+    padding: 0.5rem 0.85rem;
+    font: inherit;
+    font-size: 1rem;
+    line-height: 1.4;
     color: var(--paper, #fff);
-    background: var(--ink, #111);
-    border: 1px solid var(--ink, #111);
-    border-radius: 0;
+    background: var(--link, #002fa7);
+    border: 1px solid var(--link, #002fa7);
+    border-radius: 6px;
     cursor: pointer;
   }
   .subscribe button:hover,
   .subscribe button:focus-visible {
     background: transparent;
-    color: var(--ink, #111);
+    color: var(--link, #002fa7);
   }
   .hp {
     position: absolute;

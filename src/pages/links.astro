@@ -290,26 +290,28 @@ const linkCount = sections.reduce((n, s) => n + s.groups.reduce((m, g) => m + g.
 </BaseLayout>
 
 <style>
-  .lk-nav { position: sticky; top: 0; z-index: 6; }
+  .lk-nav { position: sticky; top: 3.4rem; z-index: 6; }
   .lk-toc { display: flex; flex-wrap: wrap; }
+  .lk-toc { gap: 0.4rem; padding: 0.6rem 1rem; }
   .lk-toc a {
-    font: 12.5px/1.35 var(--mono);
-    padding: 7px 10px;
-    color: var(--ink);
+    font: 0.85rem/1.3 var(--read);
+    padding: 0.35rem 0.7rem;
+    color: var(--ikb);
     text-decoration: none;
-    border-right: 1px dotted var(--hair);
-    border-bottom: 1px dotted var(--hair);
+    border: 1px solid var(--line, var(--hair));
+    border-radius: 999px;
+    background: var(--card, var(--paper));
   }
-  .lk-toc a:hover { color: var(--ikb); }
+  .lk-toc a:hover { border-color: var(--ikb); }
   .lk-sec { scroll-margin-top: 5.5rem; }
   .lk-net { scroll-margin-top: 5.5rem; }
-  .lk-net + .lk-net { border-top: 1px solid var(--ink); }
-  .lk-sub { border-top: 0; border-bottom: 1px solid var(--ink); }
+  .lk-net + .lk-net { border-top: 1px solid var(--line, var(--hair)); }
+  .lk-sub { border-top: 0; border-bottom: 1px solid var(--line, var(--hair)); }
   .lk-head { color: inherit; text-decoration: none; }
   .lk-tag {
-    font: 10px/1.2 var(--mono);
+    font: 0.78rem/1.2 var(--read);
     font-style: normal;
-    letter-spacing: .06em;
+    letter-spacing: .04em;
     color: var(--ikb);
     margin-left: 0.5em;
     white-space: nowrap;
@@ -320,9 +322,10 @@ const linkCount = sections.reduce((n, s) => n + s.groups.reduce((m, g) => m + g.
   details.lk-sec.fold,
   details.lk-net.fold {
     position: relative;
-    border: 1px solid var(--ink);
-    background: var(--cx-bg);
-    margin: 0 0 16px;
+    border: 1px solid var(--line, var(--hair));
+    border-radius: 8px;
+    background: var(--card, var(--cx-bg));
+    margin: 0 0 1rem;
   }
   details.lk-net.fold { margin: 10px 10px 12px; }
   details.lk-sec.fold > summary.lk-sum,
@@ -335,9 +338,9 @@ const linkCount = sections.reduce((n, s) => n + s.groups.reduce((m, g) => m + g.
     list-style: none;
     user-select: none;
     border: 0;
-    border-bottom: 1px solid var(--ink);
+    border-bottom: 1px solid var(--line, var(--hair));
     background: transparent;
-    padding: 0.7rem 10px;
+    padding: 0.7rem 1rem;
     font: inherit;
     letter-spacing: 0;
     text-transform: none;
@@ -394,12 +397,12 @@ const linkCount = sections.reduce((n, s) => n + s.groups.reduce((m, g) => m + g.
     margin-left: auto;
     padding: 0;
     border: 0;
-    font-family: var(--mono);
-    font-size: 0.8rem;
+    font-family: var(--read);
+    font-size: 0.9rem;
     line-height: 1;
     font-style: normal;
-    font-weight: 500;
-    color: var(--ikb);
+    font-weight: 400;
+    color: var(--dim);
     letter-spacing: 0;
     text-transform: none;
   }
@@ -413,9 +416,9 @@ const linkCount = sections.reduce((n, s) => n + s.groups.reduce((m, g) => m + g.
     border: 0;
     background: transparent;
     color: var(--ikb);
-    font: 500 11px/1 var(--mono);
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+    font: 0.9rem/1 var(--read);
+    letter-spacing: 0;
+    text-transform: none;
     cursor: pointer;
     min-height: 32px;
   }
@@ -464,10 +467,10 @@ const linkCount = sections.reduce((n, s) => n + s.groups.reduce((m, g) => m + g.
   .lk { display: flex; flex-direction: column; gap: 2px; }
   .lk-i { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 6px; }
   .lk-i i { margin-left: 0; }
-  .lk-w > :first-child i { font: normal 11px var(--mono); color: var(--dim); }
+  .lk-w > :first-child i { font: normal 0.85rem var(--read); color: var(--dim); }
   .lk-addr { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; min-width: 0; }
   .lk-code { font: 12.5px/1.45 var(--mono); overflow-wrap: anywhere; user-select: all; background: none; }
-  .lk-ex { display: inline-flex; flex-wrap: wrap; gap: 8px; font: 11px/1 var(--mono); letter-spacing: .04em; }
+  .lk-ex { display: inline-flex; flex-wrap: wrap; gap: 8px; font: 0.85rem/1 var(--read); letter-spacing: 0; }
   .cx-r.lk-name { align-items: baseline; }
   .cx-r.lk-name .lk { white-space: nowrap; }
 

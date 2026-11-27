@@ -8,7 +8,7 @@
     themeBtn.setAttribute("aria-pressed", String(ink));
     themeBtn.setAttribute("aria-label", ink ? "Switch to light mode" : "Switch to dark mode");
     var meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute("content", ink ? "#1a1a1a" : "#ffffff");
+    if (meta) meta.setAttribute("content", ink ? "#111214" : "#ffffff");
   }
 
   function setInk(ink) {
@@ -51,7 +51,7 @@
     if (!bar.contains(e.target)) setOpen(false);
   });
   window.addEventListener("resize", function () {
-    if (window.matchMedia("(min-width: 721px)").matches) setOpen(false);
+    if (window.matchMedia("(min-width: 1024px)").matches) setOpen(false);
   });
 })();
 

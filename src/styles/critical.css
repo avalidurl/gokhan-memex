@@ -14,7 +14,7 @@
   --hair: #dddddd;
   --link: #002FA7;
   --link-visited: #1a3a8a;
-  --mark: #C41E3A;
+  --mark: #002FA7;
   --ikb: var(--link);
   --red: var(--mark);
   --wash: rgba(26, 26, 26, 0.045);
@@ -51,7 +51,8 @@
 
   /* Reading face is the system sans. Code and identifiers use the system mono.
      Keep textStack/dataStack in tailwind.config.mjs on the same stacks. */
-  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  /* Reading face follows notes-api: the system old-style serif. */
+  --sans: "Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif;
   --serif: var(--sans);
   --font-text: var(--sans);
   --font-data: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
@@ -89,7 +90,7 @@
   --hair: #2e2e2e;
   --link: #8eb0ff;
   --link-visited: #c5d4ff;
-  --mark: #C41E3A;
+  --mark: #8fb0ff;
   --ikb: var(--link);
   --red: var(--mark);
   --wash: rgba(245, 245, 245, 0.06);
@@ -138,7 +139,7 @@
     --hair: #2e2e2e;
     --link: #8eb0ff;
     --link-visited: #c5d4ff;
-    --mark: #C41E3A;
+    --mark: #8fb0ff;
     --ikb: var(--link);
     --red: var(--mark);
     --wash: rgba(245, 245, 245, 0.06);
@@ -183,9 +184,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-feature-settings: "kern" 1;
   font-feature-settings: "kern" 1;
-  /* Filed documents do not move, cast shadows, or round their corners. */
-  border-radius: 0 !important;
-  box-shadow: none !important;
+  /* Nothing moves. Corners and shadows follow the notes-api skin (notes-skin.css). */
   text-shadow: none !important;
   transition: none !important;
   animation: none !important;
