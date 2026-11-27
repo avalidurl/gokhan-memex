@@ -23,6 +23,7 @@ export const PERSON_SAME_AS = [
   'https://primal.net/gokhan',
   'https://zora.co/@gokhan',
   'https://delve.town/profile/gokhan.delve.town',
+  'https://admonymous.co/gokhan',
 ] as const
 
 export const personSchema = {

@@ -89,6 +89,7 @@ function contact(): string[] {
     '- LinkedIn: https://www.linkedin.com/in/goekhanturhan/',
     '- X: https://x.com/goekhan',
     '- Telegram: https://t.me/goekhanturhan',
+    '- Admonymous (anonymous messages): https://admonymous.co/gokhan',
     '- GitHub: https://github.com/avalidurl',
     '- DMs are open.',
     '',

@@ -2,7 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PageHead from '@/components/PageHead.astro'
 
-type Handle = { href: string; note?: string; label?: string; me?: boolean }
+type Handle = { href: string; note?: string; label?: string; me?: boolean; blank?: boolean }
 type Group = { name: string; tag?: string; handles: Handle[] }
 type Section = { id: string; title: string; hint: string; groups: Group[] }
 
@@ -75,6 +75,9 @@ const sections: Section[] = [
       ] },
       { name: 'Cuties', handles: [
         { href: 'https://cuties.app/user/gokhan', note: 'personal' },
+      ] },
+      { name: 'Admonymous', handles: [
+        { href: 'https://admonymous.co/gokhan', note: 'send me an anonymous message', blank: true },
       ] },
     ],
   },
@@ -274,10 +277,7 @@ const linkCount = sections.reduce((n, s) => n + s.groups.reduce((m, g) => m + g.
             <span class="lk">
               {g.handles.map((h) => (
                 <span class="lk-i">
-                  {isIdentity(h)
-                    ? <a href={h.href} rel="me noopener">{h.label || display(h.href)}</a>
-                    : <a href={h.href} rel="noopener">{h.label || display(h.href)}</a>
-                  }
+                  <a href={h.href} rel={isIdentity(h) ? "me noopener" : "noopener"} target={h.blank ? "_blank" : undefined}>{h.label || display(h.href)}</a>
                   {h.note ? <i>{h.note}</i> : null}
                 </span>
               ))}
