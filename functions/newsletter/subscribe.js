@@ -23,6 +23,34 @@ async function sendConfirm(env, email, link) {
   if (!res.ok) throw new Error(`resend ${res.status}`)
 }
 
+
+// Rate limits stand in for a captcha: per address (below, one pending confirmation a day), per visitor and overall.
+// Counts live in the list's own D1 database. Visitor addresses are stored only as a salted hash.
+const LIMITS = [
+  { scope: 'ip', per: 60 * 60 * 1000, max: 3 },
+  { scope: 'ip', per: 24 * 60 * 60 * 1000, max: 6 },
+  { scope: 'all', per: 60 * 60 * 1000, max: 30 },
+  { scope: 'all', per: 24 * 60 * 60 * 1000, max: 150 },
+]
+
+async function allowed(env, request) {
+  const db = env.FEEDHUB
+  const now = Date.now()
+  const ip = request.headers.get('cf-connecting-ip') || 'unknown'
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`${env.UNSUB_SECRET}:rl:${ip}`))
+  const who = Array.from(new Uint8Array(digest)).slice(0, 12).map((b) => b.toString(16).padStart(2, '0')).join('')
+  await db.prepare('CREATE TABLE IF NOT EXISTS signup_hits (who TEXT NOT NULL, at INTEGER NOT NULL)').run()
+  await db.prepare('DELETE FROM signup_hits WHERE at < ?1').bind(now - 24 * 60 * 60 * 1000).run()
+  for (const l of LIMITS) {
+    const row = l.scope === 'ip'
+      ? await db.prepare('SELECT COUNT(*) AS n FROM signup_hits WHERE who = ?1 AND at > ?2').bind(who, now - l.per).first()
+      : await db.prepare('SELECT COUNT(*) AS n FROM signup_hits WHERE at > ?1').bind(now - l.per).first()
+    if ((row?.n || 0) >= l.max) return false
+  }
+  await db.prepare('INSERT INTO signup_hits (who, at) VALUES (?1, ?2)').bind(who, now).run()
+  return true
+}
+
 export async function onRequestPost(context) {
   const { request, env } = context
   if (!env.FEEDHUB || !env.RESEND_API_KEY || !env.UNSUB_SECRET) {
@@ -35,6 +63,9 @@ export async function onRequestPost(context) {
     return new Response('A real email address is required.', { status: 400, headers: { 'content-type': 'text/plain; charset=utf-8' } })
   }
   const db = env.FEEDHUB
+  if (!(await allowed(env, request).catch(() => true))) {
+    return new Response('Too many sign-ups from here. Try again later.', { status: 429, headers: { 'content-type': 'text/plain; charset=utf-8', 'retry-after': '3600' } })
+  }
   const existing = await db.prepare('SELECT id, email_status, unsub_token, created_at FROM subscribers WHERE email=?1').bind(email).first()
   if (existing?.email_status === 'active') {
     return page('You are on the list', '<p>That address already gets the journal letters.</p>')
