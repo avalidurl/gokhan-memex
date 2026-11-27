@@ -18,7 +18,7 @@
   --wash: #f0f4fc;
   --cx-bg: #ffffff;
   --select: #d6e2ff;
-  --serif-read: "Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif;
+  --serif-read: "Iowan Old Style", Palatino, Georgia, serif;
   --read: var(--serif-read);
   --sans: var(--serif-read);
   --serif: var(--serif-read);
@@ -478,3 +478,27 @@ body.register .prose :where(h1, h2, h3, h4, h5, h6) a.anchor-link { display: inl
 body.register .prose .hcoll { vertical-align: 0.05em; margin-right: 0.3em; color: var(--link) !important; }
 body.register .prose .hcoll::before { color: var(--link) !important; }
 body.register .prose :where(h2.hcoll-h, h3.hcoll-h) { border: 0 !important; }
+
+/* ---- Font rendering exactly as notes-api: system Iowan Old Style, browser-default
+   smoothing, kerning and figures; 18px / 1.45 everywhere text runs. ---- */
+html, body.register {
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+  text-rendering: auto;
+  font-feature-settings: normal;
+  font-variant-ligatures: normal;
+  font-variant-numeric: normal;
+  font-kerning: auto;
+}
+body.register main :where(p, li, dd, dt, blockquote),
+body.register .prose :where(p, li, blockquote, figcaption),
+body.register .dispatch-prose p, body.register .dispatch-prose li,
+body.register .sheet-copy, body.register .sheet-copy p,
+body.register .es .prose:not(.ported), body.register .es .prose:not(.ported) :where(p, li) {
+  line-height: 1.45 !important;
+}
+body.register .dispatch-prose p, body.register .dispatch-prose li,
+body.register .sheet-copy p, body.register .prose :where(p, li) { font-size: 18px; }
+html { font-size: 16px; }
+.es h2.sec, body.register main h2.sec { border: 0 !important; padding-bottom: 0; text-transform: none !important; letter-spacing: 0 !important; font-size: 1.25rem !important; font-weight: 600 !important; }
+body.register main h2.pf-t { font-size: 1.25rem !important; font-weight: 600 !important; text-transform: none !important; letter-spacing: 0 !important; border: 0 !important; }

@@ -52,7 +52,7 @@
   /* Reading face is the system sans. Code and identifiers use the system mono.
      Keep textStack/dataStack in tailwind.config.mjs on the same stacks. */
   /* Reading face follows notes-api: the system old-style serif. */
-  --sans: "Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif;
+  --sans: "Iowan Old Style", Palatino, Georgia, serif;
   --serif: var(--sans);
   --font-text: var(--sans);
   --font-data: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
@@ -181,10 +181,7 @@
 *::after {
   box-sizing: border-box;
   border-color: var(--ink);
-  text-rendering: optimizeLegibility;
-  -webkit-font-feature-settings: "kern" 1;
-  font-feature-settings: "kern" 1;
-  /* Nothing moves. Corners and shadows follow the notes-api skin (notes-skin.css). */
+  /* Text rendering is left to the browser, as on notes-api. Nothing moves. Corners and shadows follow the notes-api skin (notes-skin.css). */
   text-shadow: none !important;
   transition: none !important;
   animation: none !important;
@@ -201,8 +198,9 @@
 html {
   height: 100%;
   background-color: var(--paper);
-  font-size: 18px;
-  line-height: 1.5;
+  /* 16px root, 18px body: rem sizes match notes-api exactly. */
+  font-size: 16px;
+  line-height: 1.45;
   -webkit-text-size-adjust: 100%;
   tab-size: 4;
 }
@@ -212,16 +210,10 @@ body {
   margin: 0;
   background-color: var(--paper);
   color: var(--ink);
-  /* Running prose is 18px on the system sans. */
+  /* Running prose: 18px / 1.45 on the notes-api serif. */
   font-family: var(--font-text);
   font-size: 18px;
-  line-height: 1.5;
-  font-kerning: normal;
-  font-variant-ligatures: common-ligatures;
-  font-variant-numeric: lining-nums proportional-nums;
-  font-feature-settings: "kern" 1, "liga" 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.45;
   text-align: left;
 }
 

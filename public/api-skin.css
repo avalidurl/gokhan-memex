@@ -1,0 +1,35 @@
+/* notes-api reading design for the static API catalog pages under /api/.
+   Loaded after each page's own <style>. Black, white and blue only. */
+:root{--ink:#111111;--paper:#ffffff;--bg:#ffffff;--dim:#555b65;--hair:#d9dde3;--line:#d9dde3;--ikb:#002fa7;--red:#002fa7;--wash:#f0f4fc;
+ --serif:"Iowan Old Style", Palatino, Georgia, serif}
+@media (prefers-color-scheme:dark){:root{--ink:#f2f3f5;--paper:#111214;--bg:#17191c;--dim:#a7adb7;--hair:#30343b;--line:#30343b;--ikb:#8fb0ff;--red:#8fb0ff;--wash:#1a2233}}
+html,body{-webkit-font-smoothing:auto;-moz-osx-font-smoothing:auto;text-rendering:auto;font-feature-settings:normal}
+body{font:18px/1.45 var(--serif)}
+.sheet{max-width:60rem;padding:1.4rem 1.15rem 6rem}
+.mast{border-bottom:1px solid var(--line);padding-bottom:.8rem}
+.mast h1{font-size:1.7rem;font-weight:600;line-height:1.2}
+.role,.doc{font:.95rem var(--serif);letter-spacing:0;text-transform:none}
+.doc b{font-weight:600}
+nav{gap:.2rem;font:.95rem var(--serif);text-transform:none;letter-spacing:0;padding:.5rem 0;border-bottom:1px solid var(--line);margin-bottom:1.2rem}
+nav a{color:var(--ikb);padding:.3rem .65rem;border-radius:6px}
+nav a:hover,nav a[aria-current="page"]{background:var(--ikb);color:var(--paper)}
+h2{font-size:1.4rem;font-weight:600;line-height:1.25;border:0}
+h3{font-size:1.15rem;font-weight:600;line-height:1.3;border:0;text-transform:none;letter-spacing:0;font-family:var(--serif)}
+.lead{font-size:1.05rem;color:var(--dim)}
+.crumb{font:.85rem var(--serif);text-transform:none;letter-spacing:0}
+.cx{border:1px solid var(--line);border-radius:8px;background:var(--bg);overflow:hidden;margin:0 0 1rem}
+details.cx>summary::before{color:var(--ikb)}
+.cx-h{border-bottom:1px solid var(--line);font:600 1rem/1.3 var(--serif);letter-spacing:0;text-transform:none;align-items:center}
+.cx-h b,.cx.api .cx-h b,.cx.arch .cx-h b{background:transparent;color:var(--ink);border-right:0;padding:.6rem 0 .6rem .6rem;font-weight:700}
+.cx-h span{font-weight:400;font-size:.92rem;padding:.6rem}
+.cx-h em{border-left:0;color:var(--dim);font-weight:400;font-size:.92rem;padding:.6rem 1rem}
+.cx-r{padding:.55rem 1rem;font-size:.95rem;line-height:1.45}
+.cx-r+.cx-r{border-top:1px solid var(--line)}
+.cx-r>:first-child{font:.85rem var(--mono)}
+.cx pre,pre{background:var(--wash);border-radius:8px;font:.85rem/1.4 var(--mono)}
+.tg{font:.78rem/1.6 var(--serif);border:1px solid var(--line);border-radius:999px;padding:0 .55rem;color:var(--dim)}
+.tg.live{background:var(--ikb);border-color:var(--ikb);color:var(--paper)}
+.note{font:.85rem/1.4 var(--serif)}
+table{border-collapse:collapse}th,td{border-color:var(--line)!important}
+footer{border-top:1px solid var(--line);font:.95rem var(--serif);color:var(--dim)}
+footer .fl b{background:var(--ikb);color:var(--paper);border-radius:4px}

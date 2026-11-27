@@ -63,13 +63,7 @@ body.register {
   color: var(--ink);
   font-family: var(--read);
   font-size: 18px;
-  line-height: 1.5;
-  text-rendering: optimizeLegibility;
-  font-kerning: normal;
-  font-variant-ligatures: common-ligatures;
-  font-variant-numeric: lining-nums proportional-nums;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.45;
   border-top: 1px solid var(--ink);
 }
 body.register .text-xs { font-size: 16px !important; line-height: 1.45; }
