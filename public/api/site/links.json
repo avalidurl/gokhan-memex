@@ -49,6 +49,35 @@
       ]
     },
     {
+      "id": "forecasting",
+      "title": "Forecasting",
+      "hint": "Manifold and Metaculus",
+      "groups": [
+        {
+          "name": "Manifold",
+          "tag": null,
+          "links": [
+            {
+              "href": "https://manifold.markets/gokhan",
+              "label": null,
+              "note": null
+            }
+          ]
+        },
+        {
+          "name": "Metaculus",
+          "tag": null,
+          "links": [
+            {
+              "href": "https://www.metaculus.com/accounts/profile/156381/",
+              "label": null,
+              "note": null
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "social-and-decentralized-social",
       "title": "Social & Decentralized Social",
       "hint": "X first; decentralized profiles are marked",
@@ -192,6 +221,17 @@
               "href": "https://cuties.app/user/gokhan",
               "label": null,
               "note": "personal"
+            }
+          ]
+        },
+        {
+          "name": "Admonymous",
+          "tag": null,
+          "links": [
+            {
+              "href": "https://admonymous.co/gokhan",
+              "label": null,
+              "note": "send me an anonymous message"
             }
           ]
         }
